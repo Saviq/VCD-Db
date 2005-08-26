@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<schema version="0.2">
+	<sql>
+		<descr>Insert basic data to get things started.</descr>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_SERVER','undefined','Default SMTP Server that the application uses',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SITE_HOME','undefined','Base url of VCD web',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SITE_NAME','undefined','The name of your website',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_FROM','undefined','Emails address the application uses to send from',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_USER','undefined','Set the user name if the server requires authentication',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_PASS','undefined','Set the authentication password',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_REALM','undefined','Set to the authentication realm, usually the authentication user e-mail domain',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_DEBUG','0','Set to 1 to output the communication with the SMTP server',1,'bool')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SITE_ADULT','undefined','Show/Allow adult content on the site or not',1,'bool')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SITE_ROOT','undefined','Path within the wwwroot (set to / for root)',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('DB_COVERS','undefined','Store Cover images in  DB',1,'bool')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SESSION_LIFETIME','undefined','For how many hours should the session stay alive',4,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('PAGE_COUNT','undefined','Number of Records to display in the category view',1,'')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('ALLOW_REGISTRATION','undefined','Allow new users to register or not',1,'bool')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_SITE','1','Allow RSS feeds from this VCD database',1,'bool')</query>
+		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_USERS','1','Allow RSS feeds from individual users from this VCD Database',1,'bool')</query>
+
+		<descr>User Roles</descr>
+		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Administrator','Site administration')</query>
+		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('User','Normal Site User')</query>
+		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Viewer','Browsing privileges')</query>
+		
+		<descr>User Properties</descr>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('SHOW_ADULT','Show adult content on the site ?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NOTIFY','Send me an email when new movie is added?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('RSS','Allow RSS feed from my movielist?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('WISHLIST','Allow others to see my wishlist ?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('USE_INDEX','Use index number fields for custom media IDs')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('SEEN_LIST','Keep track of movies that I have seen')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('PLAYOPTION','Use client playback options')</query>
+				
+		<descr>CD Cover Types</descr>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('VCD Front Cover','Front cover for VCD and SVCD movies')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('VCD Back Cover','Back cover for VCD and SVCD movies')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('DVD Cover','Complete DVD cover')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('Inside','Inside cover')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('CD cover','Scanned CD image')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('Inlay','DVD Inlay cover')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('VHS cover','Cover for video cassettes')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('Thumbnail','Thumbnail poster')</query>
+		<query>INSERT INTO vcd_CoverTypes (cover_type_name,cover_type_description) VALUES ('DVD CD cover','Cover image for DVD and DVD-R')</query>
+
+		<descr>Media Types</descr>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('DVD',null,'Standard DVD')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('VCD',null,'Video Compact Disc')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('VHS',null,'Video Cassette')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('SVCD',null,'Super VideoCD')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('DivX',null,'Divx coded')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Xvid',5,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Screener',2,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Telesync',2,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Cam',2,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('DVD-R',null,'Recorded DVD')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Screener',10,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Screener',4,'SVCD Screener')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('TV-Rip',null,'Media recorded from TV')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('SVCD',13,'Ripped with digital boxes')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Telecine',2,'')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Telesync',4,'SVCD telesync')</query>
+	
+		<descr>Covers allowed on Media Types</descr>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 5)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (2, 5)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (1, 5)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (9, 1)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (3, 1)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 1)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (3, 10)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (9, 10)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 10)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (2, 4)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (1, 4)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 4)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (5, 4)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (2, 13)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (1, 13)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 13)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (5, 13)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (2, 2)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (1, 2)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 2)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (5, 2)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (7, 3)</query>
+		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 3)</query>
+	
+		<descr>Movie Categories</descr>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Action')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Comedy')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Horror')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Drama')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Adventure')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Animation')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Documentary')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Family')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Musical')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Sci-Fi')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('War')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Western')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Short')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Adult')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('X-Rated')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('James Bond')</query> 
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Tv Shows')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Crime')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Fantasy')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Film-Noir')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Mystery')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Romance')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Thriller')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Music Video')</query>
+		<query>INSERT INTO vcd_MovieCategories (category_name) VALUES ('Anime / Manga')</query>
+		
+		<descr>Source Sites</descr>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Internet Movie Database','imdb','http://www.imdb.com',null,1)</query>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Adult DVD Empire','DVDempire','http://www.adultdvdempire.com',null,1)</query>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Internet Adult Film Database','iafd','http://www.iafd.com/',null,0)</query>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Jaded Video','jaded','http://jadedvideo.com',null,0)</query>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0)</query>
+		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0)</query>
+		 
+
+		<descr>XML Frontpage feeds</descr>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Compilation', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27003.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27004.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27005.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Gonzo', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27006.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Interactive ', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27007.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers R-Rated', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_33384.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks All Sex', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25941.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Compilation', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25723.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25720.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25944.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Interactive', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25725.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Pornstars New Stars', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_pornstars_new.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Pornstars Popular Stars', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_pornstars_pop.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases All Sex', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8925.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Compilation ', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8927.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8924.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8923.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Gonzo', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8926.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Interactive', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8928.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases R-Rated', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8930.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'futuremovies.co.uk - Latest articles', 'http://www.futuremovies.co.uk/rss/film.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'futuremovies.co.uk - Latest reviews', 'http://www.futuremovies.co.uk/rss/reviews.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movie-gazette.com - DVD releases', 'http://www.movie-gazette.com/rss/rssdvd.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movie-gazette.com - Screen releases', 'http://www.movie-gazette.com/rss/rsscinema.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - DVD News', 'http://www.movieweb.com/out/dvd_news.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Latest DVD Easter Eggs', 'http://www.movieweb.com/out/dvd_eggs.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Latest Film Trailers', 'http://www.movieweb.com/out/trailers.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Movie News', 'http://www.movieweb.com/out/movie_news.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - This Weeks DVD Releases', 'http://www.movieweb.com/out/releases_dvd.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - This Weeks Theatrical Releases', 'http://www.movieweb.com/out/releases_theater.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Todays Box Office Take', 'http://www.movieweb.com/out/box_office_daily.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - Anime', 'http://nforce.nl/rss/rss_16.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - DivX', 'http://nforce.nl/rss/rss_12.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - DVD-R', 'http://nforce.nl/rss/rss_18.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - SVCD', 'http://nforce.nl/rss/rss_15.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - TV-Rips', 'http://nforce.nl/rss/rss_19.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - VCD', 'http://nforce.nl/rss/rss_14.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - XviD', 'http://nforce.nl/rss/rss_13.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - XXX', 'http://nforce.nl/rss/rss_17.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Box Office Movies', 'http://images.rottentomatoes.com/files/rss/box_office.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Movies Opening This Week', 'http://images.rottentomatoes.com/files/rss/opening.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - New DVD Releases', 'http://images.rottentomatoes.com/files/rss/new_releases.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Top DVD Rentals', 'http://images.rottentomatoes.com/files/rss/top_rentals.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Upcoming Movies', 'http://images.rottentomatoes.com/files/rss/upcoming.xml')</query>
+	</sql>
+</schema>
+

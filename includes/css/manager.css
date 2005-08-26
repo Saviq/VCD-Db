@@ -1,0 +1,119 @@
+body {
+	background-color: #F0F1F2;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	scrollbar-face-color:#BEC5CB;
+ 	scrollbar-shadow-color:#37393B;
+	scrollbar-highlight-color:#D8E0E7;
+	scrollbar-3dlight-color:#ffffff;
+	scrollbar-darkshadow-color:#D8E0E7;
+	scrollbar-track-color:#D8E0E7;
+	scrollbar-arrow-color:#37393B;
+}
+
+P {
+	padding-left: 5px;
+	padding-right: 2px;
+}
+
+form {
+	padding: 0;
+	margin: 0;
+}
+
+td {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000000;
+}
+
+.content {
+	position: relative;
+   top: 22px;
+   font-family: Trebuchet MS, Arial, sans-serif;
+   padding: 4px 0px 0px 0px;
+   border: 1px solid #666;
+   width: 100%;
+	height: 249px;
+   border-top: 1px solid #999;
+   border-left: 1px solid #666;
+   z-index: 500;
+	background-color: #f3f6f9;
+}
+ 
+#submitters {
+	position: absolute;
+	top: 280px;
+	left:30%;
+   z-index: 5000000;
+}
+
+.tab	{	
+	border-top:solid thin #E0E0E0;
+	border-right:solid thin gray;
+	border-left:solid thin #E0E0E0;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	text-align:center;
+	font-weight:normal;
+	background-color: White;
+	background-color:#E0E5EC;
+}
+
+div.tabs {
+	font-size: 14px;
+   line-height: 15px;
+   position: absolute;
+	width:100%
+   font-family: Verdana, Arial, sans-serif;
+   cursor: default !important;
+   font-weight: 700 !important;
+   z-index: 10000;
+ 	white-space: nowrap;
+}
+ 
+.tabHover {
+   color:#445770;
+   z-index: 1200;
+   border-bottom-width: 0;
+}
+     
+	 
+.tabActive { 
+	font-weight:bold;
+	text-align:center;
+	background-color: White;
+	font-size:11px;
+	color: #060610 ;
+   background-color: #f3f6f9;
+   z-index: 10000;
+	border-left:solid thin #E0E7EC;
+	border-top:solid thin #E0E7EC;
+	border-right:solid thin black;
+}
+      
+.flow { 
+	width: 100%; 
+	height: 249px; 
+	overflow: auto;
+}
+
+div.tabsClone .tabActive{top:-2px;}
+
+a.removeTab{
+	font-size: smaller;
+   text-decoration: none;
+}
+
+
+.tblon {
+	background-color: #D8DEE7;	
+}
+
+.tblb {
+	font-weight:bold;
+}
+
+.tbl {
+	font-size: 10px;
+}

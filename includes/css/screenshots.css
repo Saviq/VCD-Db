@@ -1,0 +1,39 @@
+BODY {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 8px;
+	background-color: #E0E5EC;
+}
+
+a { 
+	color : #000000;
+	text-decoration: none; 
+	font-size: 10px;
+}
+
+a:hover {
+	color : #ff9900;
+	text-decoration: none;	
+}
+
+a:visited {
+	font-size: 10px;	
+}
+
+.td, tr, table {
+	font-size: 10px;
+}
+
+
+.tblb {
+	font-weight:bold;
+}
+
+.tbl {
+	font-size: 10px;
+}
+
+.imgx	{
+	border-color: white;
+	border-style: inset;
+	border-width: thin;
+}

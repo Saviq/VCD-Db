@@ -1,0 +1,296 @@
+BODY {
+	height: 100%;
+	background-color: #C2CCDA;
+	margin: 0;
+	padding: 0;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	scrollbar-face-color:#BEC5CB;
+	scrollbar-shadow-color:#37393B;
+ 	scrollbar-highlight-color:#D8E0E7;
+	scrollbar-3dlight-color:#ffffff;
+	scrollbar-darkshadow-color:#D8E0E7;
+	scrollbar-track-color:#D8E0E7;
+	scrollbar-arrow-color:#37393B;
+}
+
+a
+{ 
+	color : #000000;
+	text-decoration: none; 
+}
+
+a:hover
+{
+	color : #ff9900;
+	text-decoration: none;
+}
+
+.imgx	{
+	border-color: white;
+	border-style: inset;
+	border-width: thin;
+}
+
+H1 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #F1F1F6;
+	border: 1px solid #646697;
+	background-color: #646697;
+	margin: 0px 0px 4px 0px;
+	text-align: center;
+	width: 92%;
+}
+
+H2 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #224877;
+	border: 1px solid #646697;
+	background-color: #F1F1F6;
+	padding: 3px 0px 3px 0px;
+	margin: 0px 0px 4px 0px;
+	text-align: left;
+	text-indent: 8px;
+}
+
+
+H2 A:Hover {
+	display: block;
+}
+
+H2 A  {
+	display: block;
+	color: #224877;
+}
+
+
+
+form {
+	padding: 0px;
+	margin: 0px;
+}
+
+li {
+	list-style-type: square;
+}
+
+
+
+ul {
+	margin: 10px 0px 10px 30px;
+}
+
+.input {
+	background-color : #FFFFFF;
+	font-size : 8pt;
+	color: #000000;
+	border: 2px solid #2E6291;
+	border-width : 1px;
+}
+
+.inp {
+	background-color : #FFFFFF;
+	font-size : 8pt;
+	color: #000000;
+	border: 2px solid #2E6291;
+	border-width : 1px;
+	margin-left: 5px;
+	width: 80px;
+}
+
+.buttontext {
+	font-size:8pt;
+}
+
+#main {
+	height: 100%;
+	width: 800px;
+	background-color: #E0E5EC;
+	border-right: 1px dashed #646697;
+	
+}
+
+#screenshots {
+	background-color: #E0E5EC;
+	height: 470px;
+	width: 100%;
+}
+
+#preheader {
+	background-color: #C2CCDA;
+	height: 22px;	
+}
+
+#header {
+	background-image: url(../img/bg_header.gif);
+	height: 68px;
+}
+
+#login {
+	position: absolute;
+	top: 58px;
+	left: 145px;
+	color: White;
+}
+
+
+#content {
+	width: 440px;
+	margin: 5px 0px 10px 10px;
+	float: left;
+}
+
+#bigcontent {
+	margin: 5px 0px 10px 10px;
+	padding-right: 5px;
+	float:left;
+}
+
+#dispuser {
+	margin-top:33px;
+	background-image: url(../img/header_curve.gif);
+	height: 26px;
+	width: 244px;
+	text-indent: 35px;
+	float: right;
+}
+
+.usertxt {
+	margin-left: 30px;
+}
+
+.ds
+{
+	width:100%; 
+	color:#FFFFFF; 
+	filter:dropshadow(color=#000000,offx=1, offy=1, positive=1), glow(color=#000000, strength=0);
+}
+
+#rightbar {
+	width: 185px;
+	height: 60%;
+	float: right;	
+
+}
+
+#rightmain {
+	background-image: url(../img/bg_right.gif);
+	height: 80%;
+}
+
+#cusrightmain {
+	background-image: url(../img/bg_right_my.gif);
+	height: 80%;
+}
+
+
+#rigtbottom {
+	vertical-align: bottom;
+	background-image: url(../img/bottom_right.gif);
+	z-index: 2;
+	display: block;
+}
+
+
+
+
+
+
+#nav-box	{
+	padding: 0px 0px 0px 0px;
+	display: block;
+	clear: none;
+	float: left;
+	width: 140px;
+	border-right: 1px solid #4D637F;
+}
+	
+	
+.navx {
+	background-color: #F1F1F6;
+	text-align: left;
+	text-indent: 8px;
+	color: #224877;
+	list-style-type: none;
+	display: block;
+	clear: none;
+}
+
+		
+.nav {
+	background-color: #ECEFF3;
+	text-align: left;
+	text-indent: 8px;
+	color: #224877;
+	list-style-type: none;
+	padding: 0px;
+	margin: 0px 0px 0px 0px;
+	display: block;
+	clear: none;
+	border-bottom: 1px solid #ccc;
+	font-size: 11px;
+	line-height: 14px;
+}
+
+
+
+.nav A {
+	background-color: #ECEFF3;
+	text-decoration: none;
+	color: #224877;
+	padding: 0px 0px 0px 0px;
+	}
+
+.nav A:hover {
+	background-color: #5B7496;
+	text-decoration: none;
+	color: #D8DEE7;
+	padding: 0px 0px 0px 0px;
+	display: block;	
+
+}
+
+#navdelim {
+	background-image: url(../img/bg_nav.gif);
+	height: 9px;
+	background-repeat: repeat-x;
+}
+
+.rightconheader {
+	background-image: url(../img/rconheader.gif);
+	background-repeat: no-repeat;
+	margin-left: 9px;
+	
+}
+
+.rightcontext {
+	margin: 5px 8px 5px 8px;
+	padding-left: 5px;
+}
+
+.tblheader {
+	font-weight: bold;
+	background-color: #D8DEE7;
+}
+
+.tblon {
+	background-color: #D8DEE7;	
+}
+
+.tblb {
+	font-weight:bold;
+}
+
+.tbl {
+	font-size: 10px;
+}
+
+/* PML Fetch*/
+.row2 {
+	background-color: #D8DEE7;	
+}
+
+
+

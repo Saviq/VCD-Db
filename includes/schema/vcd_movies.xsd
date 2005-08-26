@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xs:schema id="vcdmovies" targetNamespace="http://tempuri.org/movie_export.xsd" xmlns:mstns="http://tempuri.org/movie_export.xsd" xmlns="http://tempuri.org/movie_export.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:element name="vcdmovies" msdata:IsDataSet="true" msdata:Locale="is-IS" msdata:EnforceConstraints="False">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="movie">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id" type="xs:string" minOccurs="0" />
+              <xs:element name="title" type="xs:string" minOccurs="0" />
+              <xs:element name="category" type="xs:string" minOccurs="0" />
+              <xs:element name="category_id" type="xs:string" minOccurs="0" />
+              <xs:element name="year" type="xs:string" minOccurs="0" />
+              <xs:element name="cds" type="xs:string" minOccurs="0" />
+              <xs:element name="mediatype" type="xs:string" minOccurs="0" />
+              <xs:element name="mediatype_id" type="xs:string" minOccurs="0" />
+              <xs:element name="dateadded" type="xs:string" minOccurs="0" />
+              <xs:element name="sourcesite_id" type="xs:string" minOccurs="0" />
+              <xs:element name="external_id" type="xs:string" minOccurs="0" />
+              <xs:element name="imdb" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="imdb_id" type="xs:string" minOccurs="0" />
+                    <xs:element name="title" type="xs:string" minOccurs="0" />
+                    <xs:element name="alt_title" type="xs:string" minOccurs="0" />
+                    <xs:element name="image" type="xs:string" minOccurs="0" />
+                    <xs:element name="year" type="xs:string" minOccurs="0" />
+                    <xs:element name="plot" type="xs:string" minOccurs="0" />
+                    <xs:element name="director" type="xs:string" minOccurs="0" />
+                    <xs:element name="cast" type="xs:string" minOccurs="0" />
+                    <xs:element name="rating" type="xs:string" minOccurs="0" />
+                    <xs:element name="runtime" type="xs:string" minOccurs="0" />
+                    <xs:element name="country" type="xs:string" minOccurs="0" />
+                    <xs:element name="genre" type="xs:string" minOccurs="0" />
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

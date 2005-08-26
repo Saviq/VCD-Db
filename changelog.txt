@@ -1,0 +1,118 @@
+0.973
+Added   - SQLite is now supported.
+Fixed   - DVDEmpire fetch fixed.
+Added   - User properties under user settings finally translated.
+Fixed   - Media types and cd-count can be updated from the manager window.
+Fixed   - User property selection has finally be translated, and some others that were forgotten.
+Added   - German language file is now included with VCD-db (Big thanks to Stefan Schackmann)
+Added   - Finnish language file is now included with VCD-db (Big thanks to Lari Majamäki)
+Added   - Bulgarian language file is now included with VCD-db (Big thanks to Cuci)
+Added   - Statistics page for user to see how his collection is distibuted.
+Fixed   - Delete borrower from "user settings" was not working in Mozilla.
+Fixed   - Allowed image extensions updated to work with Mozilla.
+Added   - Adult studios and categories can now be added and deleted from "Control Panel".
+Fixed   - When VCD-db was installed on domain root, image uploads through the manager were not working.
+Fixed   - When uploaded images are stored in database, images were not deleted in cache folder.
+Fixed   - When using magic_quotes, movie data with single quotes got ugly.
+Added   - User can now add specified users to ignore list so their movies will be filtered out and not be
+		  displayed in the movie category view.
+
+0.972
+Changed - Upgraded to Adodb 4.6 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
+Updated - Missing language contants updated.
+Fixed   - Play button for movies did not show.
+Fixed   - All pages should now be 100% Valid XHTML 1.0 Transitional!
+Added   - Option to browse for selected file for the playoptions.
+Added   - List of similar movies is now displayed for each movie if any similiar movies are found.
+		  Handy for quick jumping between tv shows or sequal films.
+Added   - Proxy server selection is now included in the setup process.
+Added   - VCD-db Rss feeds are now cached, cache time is controlled in the VCDConstants.php for those who
+		  want to change the cache time defaults.
+Added   - Borrowers can now be deleted from "My Settings".
+Added   - IMDB max search results can now be defined in the VCDConstants file.
+Added   - New layout theme added.  (Made by Gunni - http://exprm.com)
+Updated - Most of the code is now commented and documented for those who wanna expand/modify VCD-db.
+          PHPDoc has been generated and is available here -> http://vcddb.konni.com/api/
+
+
+0.971
+Added   - Admin can manage external XML feeds for user to display on his startpage.
+Added   - User can customize his personal frontpage.
+Changed - Added a little CSS hack so the pages look exactly the same in IE, Firefox, NS using the
+          default template.  In the process the footer float problem is now solved.
+Fixed   - Selected language is now remembered after user logs out.
+Fixed   - HTML garbage was in the XML file exported from the "Control Panel" when exporting users movies.
+Added   - Dutch language file is now included with VCD-db. (Big thanks to ikerstges for the translation.)
+Added   - French language file is now included with VCD-db. (Big thanks to Cédric FOURNIER for the translation.)
+Fixed   - Fixed problem with updating movies that had been added manually to the system.          
+Fixed   - Fixed javascript problems with Firefox/Mozilla containg &amp; in urls.
+Added   - VCD-db client is now included with VCD-db.
+Added   - Movie files can now be played straight from the web after user has set his player preferences
+		  (available only at the moment with IE on Windows)
+Added   - Movie category listing can now be filtered to only view-ing logged in user's movies.		  
+
+
+0.97
+Added   - Administrator now can export any user's movie list as XML.
+Changed - Upgraded to Adodb 4.55 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
+Changed - The Viewer User Group cannot add movies anymore and the role is pure "Viewer" role.
+Fixed   - Adding comments when adding from IMDB has now been fixed, comment gets inserted to DB.
+Added   - Custom metadata can now be added to movies, which can store for example Custom media Index or
+	      media storage container.
+Added   - VCD-db now supports fetching behind a proxy.
+Added   - Mass insertion of Custom Media ID's is now available.  Search also looks for custom ID's
+Added   - Seen list is now available where used can keep track of seen movies.
+Added   - Random movie can now suggested by VCD-db for the lazy ones :) and seen movies can be filtered out
+          for convenience and better suggestions.
+Fixed   - Empty comment no longer submitted when added movie manually.
+Added   - Wishlists can now be shared with other users and user can see if he owns the movies on 
+		  others users wishlists.
+Fixed   - Email messages are now included in the translation files instead of hardcoded.
+Added   - Registration form is now better checked for valid input.
+Fixed   - Selected users properties upon registration is now saved to database.
+Fixed   - Postgres sequences for certain tables were invalid, so some data from the "Control Panel" were
+          not getting inserted when adding new data.
+Added   - Search now also checks for Custom Media ID's.
+		  
+0.961
+Fixed   - The IMDB search class was updated, imdb.com changed the way they display their search results
+          and in the process the imdb search within vcd-db did not return any result.  Now fixed.
+Fixed   - When register_globals was set to ON in PHP.ini the selected language did not load when changing
+		  language preferences.
+Fixed   - Some language constants in the advanced search page were not included.
+Fixed   - When change-ing password and/or roles in Control Panel with register_globals ON the userObj was destroyed.
+Fixed   - Empty comment was added when adding new movie from DVDEmpire.com
+Fixed   - Delete comment button always appeared, now only appears when user is logged in and if he has
+		  posted the comment.
+Fixed   - When uploading new covers, two or more covers with same coverTypeID and same CDID could exist,
+		  now fixed and in the process the movie listing does not display duplicate entries.		  
+Fixed   - Duplicate entries for a movie can no longer be inserted, in other words .. user can only insert 
+	      one entry per exactly same movie and media type.
+Added   - Nifty little Favicon.
+Fixed   - Table header in categories sometimes got unwrapped and ugly.	      
+Fixed   - Loan list now only displays movies that are not currently in loaned to a friend.
+Fixed   - When IMDB entry already exists but using different title (for example on inserting TV shows)
+          the entry was not added, now fixed.
+Added   - User cannot delete himself anymore from the "Control Panel"		  
+Added   - When deleting user from the "Control Panel" it is optional to disable user or completly delete
+		  user and all records regarding that user.
+
+0.96
+
+Fixed   - Front statistic table got a cosmetic makeup.
+Fixed   - If DB connection fails, user is routed straight to the error page.
+Added   - Better PHP version check before installing.
+Fixed   - When adding movie from IMDB empty commment was submitted.
+Fixed   - advancedSearch() Changed query to use table constants.
+Changed - Database settings are now stored in VCDConstants instead as class members
+Fixed   - Empty search result notification fixed
+Fixed   - Fixed wrong language constant when adding new movie that are already listed
+Fixed   - Manager now correctly changed the movie category when changed by user
+Fixed   - Alt title now gets inserted when adding from IMDB
+Fixed   - When IMDB categories for a movie was parsed in display page, last char was cut off, now fixed
+Added   - Covers can now be deleted from the vcd manager window
+Fixed   - Broken image no longer inserted when no image is found on imdb.com
+Added   - SOAP Webservice interface to common functions for the VCDdb GUI Application
+
+
+0.95a - Initial release

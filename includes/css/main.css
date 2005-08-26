@@ -1,0 +1,398 @@
+body {
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	font-family: verdana, arial, helvetica, sans-serif;
+	color: #000000;
+	background-image: url(../../images/mainbg3.gif);
+	}
+
+form {
+	padding: 0px;
+	margin: 0px;
+}
+	
+a {
+	text-decoration: none;
+	color:  #333333;
+	outline: none;
+	}
+a:visited {
+	color:  #333333;
+	}
+a:hover {
+	color: #333333;
+	text-decoration: underline;
+	}
+
+strong, b {
+	font-weight: bold;
+	}
+
+p {
+	
+}
+
+/* weird ie5win bug: all line-height to font-size ratios must agree or box gets pushed around. UPDATE: this has turned out to be very rare. my current recommendation is IGNORE this warning. at the moment i'm leaving it in only in case the issue turns up again. possibly the original bug in march 2001 was caused by an unusual combination of factors, although this solved it at the time.*/
+
+h1 {
+	border: 1px black solid;
+	font-size: 12px;
+	padding: 2px;
+	margin-top: 0px;	
+	margin-bottom: 10px;	
+}
+
+H2 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: Black;
+	border: 1px solid #BDB8D6;
+	background-color: #EFEEF5;
+	padding: 3px 0px 3px 0px;
+	margin: 0px 0px 4px 0px;
+	text-align: left;
+	text-indent: 8px;
+}
+
+.info {
+	font-size: 10px;
+	color: red;
+}
+
+
+H2 A:Hover {
+	display: block;
+}
+
+H2 A  {
+	display: block;
+	color: Black;
+}
+
+
+img {
+	border: 0;
+	}
+.nowrap {
+	white-space: nowrap;
+	font-size: 10px;
+	font-weight: bold;
+	margin-top: 0;
+	margin-bottom: 0;
+/* must be combined with nobr in html for ie5win */
+	}
+.tiny {
+	font-size: 9px;
+	line-height: 16px;
+	margin-top: 15px;
+	margin-bottom: 5px; 
+	}
+	
+#mainframe {
+	position: absolute;
+	width: 830px; 	
+}
+
+html>body #mainframe {
+	width: 830px; /* ie5win fudge ends */
+	}
+	
+#top {
+	margin: 0px 0px 0px 0px;
+/*	padding-bottom: 10px;*/
+	padding-top: 10px;
+	border: 0px;
+	background: #fff;
+	height: 90px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	height: 70px;
+	}
+html>body #top {
+	height: 70px; /* ie5win fudge ends */
+	}
+#left {
+	position: absolute;
+	background-image: url(../../images/sidebarbg.gif);
+	background-repeat: repeat-y;
+	top: 80px; 
+	left: 0px;
+	margin: 0px;
+	padding: 10px 10px 10px 0px;
+	border: 0px;
+	width: 179px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 159px;
+	}
+html>body #left {
+	width: 150px; /* ie5win fudge ends */
+	}
+#middle {
+
+	padding: 10px;
+	border: 0px;
+	background: white;
+	margin: 0px 150px 0px 165px;
+	border: 1px #000000 solid;
+
+	}
+#right {
+	position: absolute;
+	top: 80px;
+	right: 0px; /* Opera5.02 will show a space at right when there is no scroll bar */
+	margin: 0px;
+	padding : 0px 10px 10px 10px;
+
+	border: 0px;
+	background: white;
+	width: 150px; /* ie5win fudge begins */
+	voice-family: "\"}\"";
+	voice-family:inherit;
+	width: 130px;
+	}
+
+html>body #right {
+	width: 130px; /* ie5win fudge ends */
+	}
+
+pre {
+	font-size: 12px;
+	line-height: 22px;
+	margin-top: 20px;
+	margin-bottom: 10px; 
+	}
+	
+#topmain {
+	height: 40px;
+	text-align: right;
+	padding-right:10px;
+}
+
+#topmenubar {
+	height: 30px;
+	background-image: url(../../images/topbarbg.gif);
+	vertical-align: text-bottom;
+	border-top: #4A4952 1px solid;
+	text-align: right;
+	padding-right: 100px;
+	color: #848284;
+}
+
+#topmenubar a {
+	font-size: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	color:  #000000;
+	outline: none;
+	}
+#topmenubar a:visited {
+	color:  #000000;
+	}
+
+#topmenubar a:hover {
+	color: #000000;
+	text-decoration: underline;
+	}
+	
+
+
+#leftcorner {
+	width: 120px;
+	height: 20px;
+	position: absolute;
+	top: 62px;
+	left: 0px;
+	z-index: 2;
+	
+}
+
+.inp {
+	background-color : #FFFFFF;
+	font-size : 8pt;
+	color: #000000;
+	border: 2px solid White;
+	border-width : 1px;
+	width: 80px;
+}
+
+#lang {
+	position: absolute;
+	top: 53px;
+	left: 740px;
+	color: White;
+}
+
+#loginbox {
+	background-color: #E5DDF4;
+	font-size: 10px;
+	padding-left: 8px;
+}
+
+.boxheader {
+	background-image: url(../../images/divbg.gif);
+	background-repeat: repeat-x;
+	color: #fff;
+	font-weight: bold;
+	font-size: 10px;
+	line-height: 22px;
+	padding-left: 18px;
+}
+
+.boxheader li {
+	margin: 0px;
+}
+
+input {
+	font-size: 12px;
+	color: #011C39;
+}
+
+.inpsmall {
+	width: 80px;
+}
+
+#search {
+	font-size: 11px;
+	padding-left: 6px;
+}
+
+#search .inp {
+	margin-left: 6px;
+}
+
+div#categories ul {
+  margin:0; 
+  padding:0;
+  list-style:none;
+  background-color: #BAB8D6;
+  }
+div#categories ul li { margin:0;  padding:0}  
+div#categories ul li a {
+  display:block; 
+  text-decoration: none; 
+
+  border-bottom: 1px solid #ccc;
+  font-size: 11px;
+  line-height: 14px;
+  background-color: #E5DDF4;
+  text-align: left;
+  padding-left: 8px;
+  }    
+* html div#categories ul li a {
+/*  width:134px;
+  w\idth:126px;*/
+  }  
+div#categories ul li a:link     { color:black; font-size: 10px;}  
+div#categories ul li a:visited  { color:black; font-size: 10px;}
+div#categories ul li a:hover    { background-color:#BAB8D6; color:black ;}
+
+
+
+/* List Table ...  */
+.list {
+	/*border: 1px #BABABA solid;*/
+	border: 1px black solid;
+	font-size: 10px;
+}
+
+.list .header, .list .subheader, .list .btn {
+	background-image: url(../../images/listbgvcd.gif);
+	color: #777877;
+	text-indent: 5px; 
+	font-weight: bold;
+	line-height: 18px;
+	border-bottom: 0px;
+}
+
+
+.list .footer , .list .footer a, .list .end {
+	background-color: #EDEDED;
+	color: #333333;
+	line-height: 20px;
+	text-decoration: none;
+}
+
+
+.list td {
+	border-bottom: 1px #F4F4F4 solid;
+	border-right: 1px #F4F4F4 solid;
+	text-indent: 6px;
+	line-height: 18px;
+	color: #3D3D3D;
+}
+
+.list a {
+	text-decoration: none;
+	color: #495244;
+}
+
+.list input, .list textarea, .list select 
+{
+	font-size: 11px;
+}
+
+.list .vcdheader {
+	background-image: url(../../images/listbgvcd.gif);
+	color: Black;
+	text-indent: 10px;
+	font-weight: bold;
+	line-height: 18px;
+	border-bottom: 1px black solid;
+}
+
+
+#cast .item {
+	display: block;
+	border-bottom: 1px #c0c0c0 solid;
+	padding-left: 4px;
+	text-indent: 0;
+}
+
+#cast .item a:hover {
+	background-color: Green;
+}
+
+#copies {
+	background-color: #EFEEF5;
+	padding-left: 6px;
+	border-top: 1px black solid;
+	border-bottom: 1px black solid;
+}
+
+#imdbplot{
+	background-color: #EFEEF5;
+	border-top: 1px black solid;
+	border-bottom: 1px black solid;
+	padding-left: 6px;
+}
+
+#covers {
+	padding-left:6px;
+}
+
+.imgx	{
+	margin-top: 3px;
+	border-color: white;
+	border-style: inset;
+	border-width: thin;
+}
+
+#actorimages {
+	width: 100%;
+	padding-left: 4px;
+	margin: 0px;
+	text-indent: 0px;
+}
+
+#actorimages .imgx { 
+	margin: 4px;
+}
+
+.plain {
+	font-size: 10px;
+}
+
+.row2 {
+	background-color: #F4F4F4;	
+}
