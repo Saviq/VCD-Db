@@ -101,7 +101,7 @@
 			
 		
 		/**
-		 * Enter description here...
+		 * Get the number of media types available for this movie
 		 *
 		 * @return int
 		 */
@@ -110,7 +110,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the category ID
 		 *
 		 * @return int
 		 */
@@ -119,7 +119,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get all cover objects associated with this movie
 		 *
 		 * @return array
 		 */
@@ -128,7 +128,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the number of covers associated with this movie
 		 *
 		 * @return int
 		 */
@@ -141,7 +141,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get a specific cover that is associated with this movie
 		 *
 		 * @param string $covername
 		 * @return cdcoverObj
@@ -164,7 +164,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the IMDBObj associated with this movie
 		 *
 		 * @return imdbObj
 		 */
@@ -173,7 +173,7 @@
 		}
 				
 		/**
-		 * Enter description here...
+		 * Get the movieCategoryObj belonging to this movie
 		 *
 		 * @return movieCategoryObj
 		 */
@@ -186,7 +186,7 @@
 		
 		
 		/**
-		 * Enter description here...
+		 * Get the number of copies owned by users of the system
 		 *
 		 * @return int
 		 */
@@ -195,7 +195,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the number of CD's this movie is on
 		 *
 		 * @return int
 		 */
@@ -208,7 +208,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the source site obj associated with this movie
 		 *
 		 * @param int $source_id
 		 * @param string $external_id
@@ -219,7 +219,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the ID of the sourceSiteObj associated with this movie
 		 *
 		 * @return int
 		 */
@@ -228,7 +228,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the external ID of this movie, for example the IMDB ID or the DVDEmpire ID
 		 *
 		 * @return string
 		 */
@@ -237,7 +237,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the movieCategoryObj associated with this movie
 		 *
 		 * @param movieCategoryObj $obj
 		 */
@@ -246,7 +246,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the IMDBObj associated with this movie
 		 *
 		 * @param imdbObj $obj
 		 */
@@ -255,9 +255,11 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the pornstars associated with this movie.
+		   param $pornstars can either be a pornstarObj or and
+		   array containing pornstars objects.
 		 *
-		 * @param array $pornstars
+		 * @param mixed $pornstars
 		 */
 		public function addPornstars($pornstars) {
 			if ($pornstars instanceof pornstarObj) {
@@ -268,7 +270,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get an array of all pornstars associated with this movie.
 		 *
 		 * @return array
 		 */
@@ -277,7 +279,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the porncategoryObj associated with this movie
 		 *
 		 * @param porncategoryObj $obj
 		 */
@@ -286,7 +288,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get all adultcategories associated with this movie
 		 *
 		 * @return array
 		 */
@@ -295,7 +297,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Add cdcover objects to this movie.
 		 *
 		 * @param array $coverArr
 		 */
@@ -309,7 +311,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the mediaTypeObj associated with this movie
 		 *
 		 * @return array
 		 */
@@ -322,7 +324,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Add mediaTypeObj to this movie
 		 *
 		 * @param mediaTypeObj $obj
 		 */
@@ -331,7 +333,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Check if movie is an adult feature or not.
 		 *
 		 * @return bool
 		 */
@@ -343,7 +345,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the adult studio ID of the movie
 		 *
 		 * @param int $sid
 		 */
@@ -352,7 +354,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the adult studio ID of the movie
 		 *
 		 * @return int
 		 */
@@ -362,7 +364,7 @@
 		
 		
 		/**
-		 * Enter description here...
+		 * Flag that this movie has screenshots available.
 		 *
 		 */
 		public function setScreenshots() {
@@ -370,7 +372,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Check if this movie has screenshots.
 		 *
 		 * @return bool
 		 */
@@ -379,7 +381,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the number of discs to the current movie instance.
 		 *
 		 * @param int $disccount
 		 */
@@ -388,7 +390,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Set the date of the movie submission to the database.
 		 *
 		 * @param datetime $date
 		 */
@@ -397,7 +399,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get a string containing all available mediatypes for this movie.
 		 *
 		 * @return string
 		 */
@@ -418,7 +420,7 @@
 		}
 
 		/**
-		 * Enter description here...
+		 * Print out in a table all user copies of this movie.
 		 *
 		 */
 		public function displayCopies() {
@@ -444,7 +446,7 @@
 		
 				
 		/**
-		 * Enter description here...
+		 * Get the RSS data for this movie.
 		 *
 		 * @return string
 		 */
@@ -537,7 +539,7 @@
 		
 		/* One time only needed function for insertion of a new vcdObj */
 		/**
-		 * Enter description here...
+		 * Get the userid of the owner of this movie's instance
 		 *
 		 * @return int
 		 */
@@ -551,7 +553,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the mediatypeID for this intance.
 		 *
 		 * @return int
 		 */
@@ -565,7 +567,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get the disccount for this instance.
 		 *
 		 * @return int
 		 */
