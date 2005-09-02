@@ -24,9 +24,9 @@ define("COVER_PATH","upload/covers/");				// Covers path
 define("PORNSTARIMAGE_PATH","upload/pornstars/");	// Pornstar images
 
 // Proxy settings | if using proxy server, define it here below
-define("USE_PROXY",  0);				// Change to "1" if using proxy server
-define("PROXY_URL",  "");			// Url of your proxy server
-define("PROXY_PORT", 8080);			// Proxy port
+define("USE_PROXY",  "SETUP_PROXY");				// Change to "1" if using proxy server
+define("PROXY_URL",  "SETUP_PROXYNAME");			// Url of your proxy server
+define("PROXY_PORT", "SETUP_PROXYPORT");			// Proxy port
 
 
 // RSS Settings
@@ -36,10 +36,10 @@ define("RSS_CACHE_TIME",7200);						// 2 hours
 define("IMDB_MAXRESULT",50);						// Maximum count of results to display from the imdb search
 
 // Database settings
-define("DB_TYPE",	"sqlite");
-define("DB_USER",	"n/a");
-define("DB_PASS",	"n/a");
-define("DB_HOST",	"localhost");
-define("DB_CATALOG","vcddb.sqlite");
+define("DB_TYPE",	"SETUP_TYPE");
+define("DB_USER",	"SETUP_USER");
+define("DB_PASS",	"SETUP_PASSWORD");
+define("DB_HOST",	"SETUP_HOST");
+define("DB_CATALOG","SETUP_CATALOG");
 
 ?>
