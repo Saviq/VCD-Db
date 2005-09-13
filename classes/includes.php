@@ -14,59 +14,60 @@
  */
 ?>
 <?
-	require_once("VCDConstants.php");
+	require_once(dirname(__FILE__) . '/VCDConstants.php');
+	
 	checkEnvironment();
-	require_once("Connection.php");
-	require_once("XMLable.php");
-	require_once("VCDClassFactory.php");
+	require_once(dirname(__FILE__) . '/Connection.php');
+	require_once(dirname(__FILE__) . '/XMLable.php');
+	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 
 	/* Language Files */
-	require_once("languages/languages.php");
+	require_once(dirname(__FILE__) . '/languages/languages.php');
 
 	/* External Libraries */
-	require_once('external/cookie/SiteCookieClass.php');
-	require_once("external/mail/smtp.php");
-	require_once("external/excel/ExcelGen.php");
-	require_once('external/uploader.php');
-	require_once("external/lastRSS.php");
+	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
+	require_once(dirname(__FILE__) . '/external/mail/smtp.php');
+	require_once(dirname(__FILE__) . '/external/excel/ExcelGen.php');
+	require_once(dirname(__FILE__) . '/external/uploader.php');
+	require_once(dirname(__FILE__) . '/external/lastRSS.php');
 
 	/* Settings */
-	require_once("settings/settingsFacade.php");
+	require_once(dirname(__FILE__) . '/settings/settingsFacade.php');
 
 	/* User */
-	require_once("user/userFacade.php");
+	require_once(dirname(__FILE__) . '/user/userFacade.php');
 
 	/* Pornstars */
-	require_once("pornstar/pornstarFacade.php");
+	require_once(dirname(__FILE__) . '/pornstar/pornstarFacade.php');
 
 	/* CDCovers && Image inserts*/
-	require_once("cdcover/cdcoverFacade.php");
+	require_once(dirname(__FILE__) . '/cdcover/cdcoverFacade.php');
 
 	/* VCD movies */
-	require_once("vcd/vcdFacade.php");
+	require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
 
-	require_once("VCDUtils.php");
-	require_once("VCDException.php");
-	require_once("VCDAuthentication.php");
-	require_once("VCDOnload.php");
-	require_once("VCDImage.php");
-	require_once("VCDScreenshot.php");
+	require_once(dirname(__FILE__) . '/VCDUtils.php');
+	require_once(dirname(__FILE__) . '/VCDException.php');
+	require_once(dirname(__FILE__) . '/VCDAuthentication.php');
+	require_once(dirname(__FILE__) . '/VCDOnload.php');
+	require_once(dirname(__FILE__) . '/VCDImage.php');
+	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
 
 
 	/* Common Functions*/
-	require_once(dirname(__FILE__).'/../functions/WebFunctions.php');
-	require_once(dirname(__FILE__).'/../functions/BackendFunctions.php');
-	require_once(dirname(__FILE__).'/../functions/XMLFunctions.php');
+	require_once(dirname(__FILE__) . '/../functions/WebFunctions.php');
+	require_once(dirname(__FILE__) . '/../functions/BackendFunctions.php');
+	require_once(dirname(__FILE__) . '/../functions/XMLFunctions.php');
 	
 	/* RSS */
-	require_once("VCDRss.php");
+	require_once(dirname(__FILE__) . '/VCDRss.php');
 
 
 	/* File system functions */
 	if (strcmp(strtolower(VCDUtils::getOS()), "winnt") == 0) {
-		require_once('external/fs_win32.php');
+		require_once(dirname(__FILE__) . '/external/fs_win32.php');
 	} else {
-		require_once('external/fs_unix.php');
+		require_once(dirname(__FILE__) . '/external/fs_unix.php');
 	}
 	
 	function checkEnvironment() {
