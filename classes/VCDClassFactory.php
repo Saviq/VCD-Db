@@ -19,14 +19,14 @@
 	classes needed on demand within the application.
 */
 
-class VCDClassFactory {
+final class VCDClassFactory {
 
 	/**
 	 * Internal cache of loaded classes.
 	 *
 	 * @var array
 	 */
-	private $classArray = array();
+	private static $classArray = array();
 	
 
 	/**
@@ -40,7 +40,7 @@ class VCDClassFactory {
 	 *
 	 */
 	public function __destruct() {
-		foreach ($this->classArray as $obj) {
+		foreach (VCDClassFactory::$classArray as $obj) {
 			unset($obj);
 		}
 	}
@@ -57,17 +57,17 @@ class VCDClassFactory {
 	 * @param string $instance_name
 	 * @return mixed
 	 */
-	public function getInstance($instance_name) {
+	public static function getInstance($instance_name) {
 		try {
 			if (class_exists($instance_name)) {
 				
 				// Check if class is cached in the factory
-				if (array_key_exists($instance_name, $this->classArray)) {
-					return $this->classArray[$instance_name];
+				if (array_key_exists($instance_name, VCDClassFactory::$classArray)) {
+					return VCDClassFactory::$classArray[$instance_name];
 				}
 				
 				$obj = new $instance_name;
-				$this->classArray[$instance_name] = $obj;
+				VCDClassFactory::$classArray[$instance_name] = $obj;
 				return $obj;
 				
 			} else {
@@ -88,7 +88,7 @@ class VCDClassFactory {
 	 * @return int
 	 */
 	public function getCacheSize() {
-		return sizeof($this->classArray);
+		return sizeof(VCDClassFactory::$classArray);
 	}
 	
 	/**
@@ -96,8 +96,8 @@ class VCDClassFactory {
 	 *
 	 */
 	public function flushCache() {
-		$this->classArray = null;
-		$this->classArray = array();
+		VCDClassFactory::$classArray = null;
+		VCDClassFactory::$classArray = array();
 	}
 	
 }
