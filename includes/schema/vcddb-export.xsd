@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:element name="adult_category">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="category" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="alt_title" type="xs:string"/>
+	<xs:element name="biography" type="xs:string"/>
+	<xs:element name="cast" type="xs:string"/>
+	<xs:element name="category">
+		<xs:complexType mixed="true">
+			<xs:choice minOccurs="0" maxOccurs="unbounded">
+				<xs:element ref="id"/>
+				<xs:element ref="name"/>
+			</xs:choice>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="category_id" type="xs:byte"/>
+	<xs:element name="cds" type="xs:byte"/>
+	<xs:element name="country" type="xs:string"/>
+	<xs:element name="dateadded" type="xs:string"/>
+	<xs:element name="director" type="xs:string"/>
+	<xs:element name="external_id" type="xs:string"/>
+	<xs:element name="genre" type="xs:string"/>
+	<xs:element name="homepage" type="xs:string"/>
+	<xs:element name="id" type="xs:short"/>
+	<xs:element name="image" type="xs:string"/>
+	<xs:element name="imdb">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="imdb_id"/>
+				<xs:element ref="title"/>
+				<xs:element ref="alt_title" minOccurs="0"/>
+				<xs:element ref="image"/>
+				<xs:element ref="year"/>
+				<xs:element ref="plot"/>
+				<xs:element ref="director"/>
+				<xs:element ref="cast"/>
+				<xs:element ref="rating" minOccurs="0"/>
+				<xs:element ref="runtime"/>
+				<xs:element ref="country"/>
+				<xs:element ref="genre"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="imdb_id" type="xs:string"/>
+	<xs:element name="mediatype">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="DVD"/>
+				<xs:enumeration value="DVD-R"/>
+				<xs:enumeration value="DVD-R Screener"/>
+				<xs:enumeration value="DivX"/>
+				<xs:enumeration value="SVCD"/>
+				<xs:enumeration value="TV-Rip"/>
+				<xs:enumeration value="TV-Rip SVCD"/>
+				<xs:enumeration value="VCD Screener"/>
+				<xs:enumeration value="VCD Telesync"/>
+				<xs:enumeration value="VHS"/>
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="mediatype_id" type="xs:byte"/>
+	<xs:element name="movie">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="title"/>
+				<xs:element ref="category"/>
+				<xs:element ref="category_id"/>
+				<xs:element ref="year"/>
+				<xs:element ref="cds"/>
+				<xs:element ref="mediatype"/>
+				<xs:element ref="mediatype_id"/>
+				<xs:element ref="dateadded"/>
+				<xs:element ref="sourcesite_id"/>
+				<xs:element ref="external_id"/>
+				<xs:element ref="imdb" minOccurs="0"/>
+				<xs:element ref="studio" minOccurs="0"/>
+				<xs:element ref="adult_category" minOccurs="0"/>
+				<xs:element ref="pornstars" minOccurs="0"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="name" type="xs:string"/>
+	<xs:element name="plot" type="xs:string"/>
+	<xs:element name="pornstar">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="name"/>
+				<xs:element ref="homepage"/>
+				<xs:element ref="image"/>
+				<xs:element ref="biography"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="pornstars">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="pornstar" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="rating" type="xs:string" nillable="true"/>
+	<xs:element name="runtime" type="xs:string"/>
+	<xs:element name="sourcesite_id" type="xs:string"/>
+	<xs:element name="studio">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="id"/>
+				<xs:element ref="name"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="title" type="xs:string"/>
+	<xs:element name="vcdmovies">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="movie" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="year" type="xs:string"/>
+</xs:schema>
