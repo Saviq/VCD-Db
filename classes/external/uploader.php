@@ -30,7 +30,7 @@ class uploader
    * @var     string
    * @access  private
   **/
-  var $name;
+  public $name;
   
   /**
    * Receives the type of the uploaded file.
@@ -38,7 +38,7 @@ class uploader
    * @var     string
    * @access  private
   **/    
-  var $type;
+  public $type;
   
   /**
    * Receives the temporary path and name of the uploaded file.
@@ -46,7 +46,7 @@ class uploader
    * @var     string
    * @access  private
   **/        
-  var $tmp_name;
+  public $tmp_name;
 
   /**
    * Receives the error of the uploaded file.
@@ -54,7 +54,7 @@ class uploader
    * @var     string
    * @access  private
   **/            
-  var $error;
+  public $error;
   
   /**
    * Store the size of the uploaded file.
@@ -62,7 +62,7 @@ class uploader
    * @var     string
    * @access  private
   **/            
-  var $size;
+  public $size;
 
   /**
    * Keep track of the files successfully uploaded.
@@ -71,7 +71,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/
-  var $succeed_files_track;
+  public $succeed_files_track;
   
   /**
    * Keep track of the files which fail the upload.
@@ -80,7 +80,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/
-  var $fail_files_track;
+  public $fail_files_track;
 
   /**
    * Keep the index of the succeed_files_track array.
@@ -89,7 +89,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
    **/
-  var $succeed_track_index;
+  public $succeed_track_index;
 
   /**
    * Keep the index of the fail_files_track array.
@@ -98,7 +98,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
    **/
-  var $fail_track_index;
+  public $fail_track_index;
   
   /**
    * Receives an array with the supported file extensions and types.
@@ -107,7 +107,7 @@ class uploader
    * @access  private
    * @see     checkUploadConditions()
    **/    
-  var $supported_extensions;
+  public $supported_extensions;
 
   /**
    * Receives the destination directory for uploaded files.
@@ -116,7 +116,7 @@ class uploader
    * @access  private
    * @see     checkUploadConditions(),createDiretoryStructure(),moveFileToDestination()
   **/    
-  var $dst_dir;
+  public $dst_dir;
 
   /**
    * Store the permission for the uploaded file. 
@@ -126,7 +126,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/    
-  var $file_perm;
+  public $file_perm;
 
   /**
    * Store the field name of the uploaded file.
@@ -135,7 +135,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/    
-  var $fld_name;
+  public $fld_name;
 
   /**
    * Store the file maximum size allowed in bytes.
@@ -145,7 +145,7 @@ class uploader
    * @access  private
    * @see     checkUploadConditions()
   **/        
-  var $max_file_size; //bytes.
+  public $max_file_size; //bytes.
 
   /**
    * Store messages of upload status.
@@ -154,7 +154,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/            
-  var $msg;
+  public $msg;
 
   /**
    * Store the error code of upload.
@@ -163,7 +163,7 @@ class uploader
    * @var     int
    * @access  private
   **/            
-  var $error_type; // error code.
+  public $error_type; // error code.
 
   /**
    * If TRUE generate a random name to the file else maintain the original name.
@@ -173,7 +173,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/            
-  var $randon_name;  
+  public $randon_name;  
 
   /**
    * If TRUE replace a existent file, else mantain the original file.
@@ -183,7 +183,7 @@ class uploader
    * @access  private
    * @see     moveFileToDestination()
   **/            
-  var $replace;  
+  public $replace;  
 
 ///////////////////////////////////////////////////////////////////
   /**
