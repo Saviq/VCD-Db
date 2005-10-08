@@ -8,33 +8,33 @@
 
 class smtp_class
 {
-	var $user="";
-	var $realm="";
-	var $password="";
-	var $host_name="";
-	var $host_port=25;
-	var $localhost="";
-	var $timeout=0;
-	var $data_timeout=0;
-	var $direct_delivery=0;
-	var $error="";
-	var $debug=0;
-	var $html_debug=0;
-	var $esmtp=1;
-	var $esmtp_host="";
-	var $esmtp_extensions=array();
-	var $maximum_piped_recipients=100;
-	var $exclude_address="";
-	var $getmxrr="GetMXRR";
+	public $user="";
+	public $realm="";
+	public $password="";
+	public $host_name="";
+	public $host_port=25;
+	public $localhost="";
+	public $timeout=0;
+	public $data_timeout=0;
+	public $direct_delivery=0;
+	public $error="";
+	public $debug=0;
+	public $html_debug=0;
+	public $esmtp=1;
+	public $esmtp_host="";
+	public $esmtp_extensions=array();
+	public $maximum_piped_recipients=100;
+	public $exclude_address="";
+	public $getmxrr="GetMXRR";
 
 	/* private variables - DO NOT ACCESS */
 
-	var $state="Disconnected";
-	var $connection=0;
-	var $pending_recipients=0;
-	var $next_token="";
-	var $direct_sender="";
-	var $connected_domain="";
+	private $state="Disconnected";
+	private $connection=0;
+	private $pending_recipients=0;
+	private $next_token="";
+	private $direct_sender="";
+	private $connected_domain="";
 
 	/* Private methods - DO NOT CALL */
 

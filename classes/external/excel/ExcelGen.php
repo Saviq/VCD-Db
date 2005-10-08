@@ -12,8 +12,8 @@
 	 */
 
 	class ExcelGen {
-	      var  $excel_data;      	// a buffer for store excel stream data
-	      var  $excel_filename;     // excel filename
+	      public  $excel_data;      	// a buffer for store excel stream data
+	      public  $excel_filename;     // excel filename
       
 
 	     // Default constructor

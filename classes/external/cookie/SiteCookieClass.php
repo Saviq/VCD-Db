@@ -76,11 +76,11 @@
 
 class SiteCookie
 {
-    var $_name="";
-    var $_val=array();
-    var $_expires;
-    var $_dir='/';    // all dirs
-    var $_site='';
+    public $_name="";
+    public $_val=array();
+    public $_expires;
+    public $_dir='/';    // all dirs
+    public $_site='';
 
     function SiteCookie($cname, $cexpires="", $cdir="/", $csite="")
     {
