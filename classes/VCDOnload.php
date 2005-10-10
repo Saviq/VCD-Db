@@ -24,19 +24,19 @@ session_start();
 $start_time = VCDUtils::getmicrotime(true);
 
 
-/* Instanceiate the Application CLASS Factory */
-$ClassFactory = new VCDClassFactory();
-
 // Logout user | But we have to keep the users selected language in session
 if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
 	$sel_lang = "";
 	if (isset($_SESSION['vcdlang'])) {
 		$sel_lang = $_SESSION['vcdlang'];
 	}
-	session_destroy();
+	
+	
 	$cookie = new SiteCookie("vcd_cookie", time()-86400);
 	$cookie->clear();
 	$cookie->set();
+	
+	session_destroy();
 	
 	// Restore selected language if needed
 	if (strcmp($sel_lang, "") != 0) {
@@ -47,6 +47,7 @@ if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
 	
 	
 	header("Location: ".$_SERVER['HTTP_REFERER'].""); /* Redirect browser */ 
+	exit();
 }
 
 
