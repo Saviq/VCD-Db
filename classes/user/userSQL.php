@@ -29,6 +29,7 @@
 		private $TABLE_wishlist  = "vcd_UserWishList";
 		private $TABLE_rss 		 = "vcd_RssFeeds";
 		private $TABLE_borrowers = "vcd_Borrowers";
+		private $TABLE_metadata  = "vcd_MetaData";
 		
 		private $db;
 	 	private $conn;		
@@ -215,6 +216,9 @@
 			$this->db->Execute($query);
 			
 			$query = "DELETE FROM $this->TABLE_wishlist WHERE user_id = " . $user_id;
+			$this->db->Execute($query);
+			
+			$query = "DELETE FROM $this->TABLE_metadata WHERE user_id = " . $user_id;
 			$this->db->Execute($query);
 			
 			$query = "DELETE FROM $this->TABLE_users WHERE user_id = " . $user_id;
