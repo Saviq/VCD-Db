@@ -87,7 +87,7 @@ final class VCDClassFactory {
 	 *
 	 * @return int
 	 */
-	public function getCacheSize() {
+	public static function getCacheSize() {
 		return sizeof(VCDClassFactory::$classArray);
 	}
 	
@@ -95,7 +95,7 @@ final class VCDClassFactory {
 	 * Flush the internal class cache.
 	 *
 	 */
-	public function flushCache() {
+	public static function flushCache() {
 		VCDClassFactory::$classArray = null;
 		VCDClassFactory::$classArray = array();
 	}
