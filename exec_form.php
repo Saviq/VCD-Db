@@ -30,8 +30,8 @@ if (isset($_GET['action']) && sizeof($_POST) > 0) {
 $reload_and_close = true;
 
 
-$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
-$VCDClass = $ClassFactory->getInstance("vcd_movie");
+$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+$VCDClass = VCDClassFactory::getInstance("vcd_movie");
 
 switch ($form) {
 
@@ -174,7 +174,13 @@ switch ($form) {
 	case 'addfromxml':
 		// call to XMLFunctions
 		$movie_titles = array();
-		$file_name = checkMovieImport($movie_titles);
+		
+		try {
+			$file_name = checkMovieImport($movie_titles);
+		} catch (Exception $ex) {
+			VCDException::display($ex, true);
+		}
+		
 		
 		if ($file_name) {
 			$_SESSION['xmldata'] = $movie_titles;
@@ -201,7 +207,12 @@ switch ($form) {
 				}
 				
 				// Process the file	
-				processXMLMovies($fullpath, $use_covers);
+				try {
+					processXMLMovies($fullpath, $use_covers);
+				} catch (Exception $ex) {
+					VCDException::display($ex);
+				}
+				
 			}
 		}
 		break;
@@ -285,7 +296,7 @@ switch ($form) {
 			  	$cover = new cdcoverObj();
 			
 				// Get a Thumbnail CoverTypeObj
-				$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 				$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
 				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());	
 				$cover->setCoverTypeName("thumbnail");
@@ -358,7 +369,7 @@ switch ($form) {
 			$cover = new cdcoverObj();
 			
 			// Get a Thumbnail CoverTypeObj
-			$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+			$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 			$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
 			$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());	
 			$cover->setCoverTypeName("thumbnail");
@@ -416,7 +427,7 @@ switch ($form) {
 				$cover = new cdcoverObj();
 				
 				// Get a Thumbnail CoverTypeObj
-				$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 				$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
 				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());	
 				$cover->setCoverTypeName("thumbnail");
@@ -508,7 +519,7 @@ switch ($form) {
 						$image_name = VCDUtils::grabImage($path);
 						
 						$cover = new cdcoverObj();
-						$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+						$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 						$coverTypeObj = $COVERClass->getCoverTypeByName($image_type);
 						$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());	
 						$cover->setCoverTypeName($image_type);
@@ -577,7 +588,7 @@ switch ($form) {
 			$pornstar_url = $_POST['www'];
 			
 		
-			$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+			$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 			$pornstar = $PORNClass->getPornstarByID($pornstar_id);
 			$pornstar->setName($pornstar_name);
 			$pornstar->setHomePage($pornstar_url);
@@ -669,7 +680,7 @@ switch ($form) {
 	     
 	     
 	     // Fetch the current data from DB
-	     $VCDClass = $ClassFactory->getInstance('vcd_movie');
+	     $VCDClass = VCDClassFactory::getInstance('vcd_movie');
 	     $vcd = $VCDClass->getVcdByID($cd_id);
 	     
 	     
@@ -695,7 +706,7 @@ switch ($form) {
 	     	// Blue movie data
 	     	if (isset($_POST['id_list'])) {
 	     		$subCatArr = split('#',$_POST['id_list']);
-	     		$PORNClass = $ClassFactory->getInstance('vcd_pornstar');
+	     		$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 	     		foreach ($subCatArr as $adult_catid) {
 	     			$adultCatObj = $PORNClass->getSubCategoryByID($adult_catid);
 	     			if ($adultCatObj instanceof porncategoryObj ) {
@@ -814,7 +825,7 @@ switch ($form) {
 		      		      
 		      
 		      // Check which covertypes were uploaded and update them
-		      $COVERClass = $ClassFactory->getInstance('vcd_cdcover');
+		      $COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 		      foreach ($upload->succeed_files_track as $cfile) {
 		      		$cover_typeid = $cfile['field_name'];
 		      		$coverType = $COVERClass->getCoverTypeById($cover_typeid);

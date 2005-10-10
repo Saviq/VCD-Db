@@ -162,8 +162,7 @@ class vcd_user implements User {
    				}
    				
    				// Create users default frontpage with default options
-   				global $ClassFactory;
-   				$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+   				$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
    				$statsObj = new metadataObj(array('',0, $user_id, 'frontstats', 1));
 				$barObj   = new metadataObj(array('',0, $user_id, 'frontbar', 1));			
 				$SETTINGSClass->addMetadata(array($barObj, $statsObj));
@@ -209,9 +208,16 @@ class vcd_user implements User {
    */
    public function isValidSession($session_id, $session_time, $user_id) {
    		try {
-   		
+   		   			  			
+   			
+   			if (!is_numeric($user_id)) {
+   				return false;
+   			} else {
+   				$user_id = intval($user_id);
+   			}
+   			
    			// Expire time in hours
-   			$SETTINGSclass = new vcd_settings();
+   			$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
    			$session_lifetime = (int)$SETTINGSclass->getSettingsByKey("SESSION_LIFETIME");
    			$session_expires = 24*24*24*$session_lifetime;
   			unset($SETTINGSclass);
@@ -304,8 +310,7 @@ class vcd_user implements User {
    					   					  					
    					
    					// Find all user movies
-   					global $ClassFactory;
-   					$VCDClass = $ClassFactory->getInstance('vcd_movie');
+   					$VCDClass = VCDClassFactory::getInstance('vcd_movie');
    					$vcdArr = $VCDClass->getAllVcdByUserId($user_id, true);
    					
    					
@@ -714,6 +719,7 @@ class vcd_user implements User {
 	 */
 	private function getDefaultRole() {
 		try {
+			
 			foreach ($this->getAllUserRoles() as $role) {
 				if (strcmp(strtolower($role->getRoleName()), strtolower("user")) == 0) {
 					return $role;

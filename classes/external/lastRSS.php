@@ -35,21 +35,21 @@ class lastRSS {
 	// -------------------------------------------------------------------
 	// Public properties
 	// -------------------------------------------------------------------
-	var $default_cp = 'UTF-8';
+	public $default_cp = 'UTF-8';
 	//var $CDATA = 'nochange';
-	var $CDATA = 'content';
-	var $cp = '';
-	var $items_limit = 0;
-	var $stripHTML = False;
-	var $date_format = '';
+	public $CDATA = 'content';
+	public $cp = '';
+	public $items_limit = 0;
+	public $stripHTML = False;
+	public $date_format = '';
 
 	// -------------------------------------------------------------------
 	// Private variables
 	// -------------------------------------------------------------------
-	var $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs');
-	var $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
-	var $imagetags = array('title', 'url', 'link', 'width', 'height');
-	var $textinputtags = array('title', 'description', 'name', 'link');
+	private $channeltags = array ('title', 'link', 'description', 'language', 'copyright', 'managingEditor', 'webMaster', 'lastBuildDate', 'rating', 'docs');
+	private $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
+	private $imagetags = array('title', 'url', 'link', 'width', 'height');
+	private $textinputtags = array('title', 'description', 'name', 'link');
 
 	// -------------------------------------------------------------------
 	// Parse RSS file and returns associative array.

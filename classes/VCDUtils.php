@@ -83,6 +83,12 @@ class VCDUtils {
  	
 	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $float
+	 * @return unknown
+	 */
 	static function getmicrotime($float = false) { 
 		   list($usec, $sec) = explode(" ", microtime()); 
 		   if ($float)
@@ -92,6 +98,11 @@ class VCDUtils {
 		   
 	} 
  	
+	/**
+	 * Enter description here...
+	 *
+	 * @return unknown
+	 */
 	static function getPageLoadTime() {
 		global $start_time;
 		$end = VCDUtils::getmicrotime(true);
@@ -99,11 +110,21 @@ class VCDUtils {
 		return substr($run, 0, 5);
 	}
  	
+	/**
+	 * Enter description here...
+	 *
+	 * @return unknown
+	 */
 	static function getOS() {
 		return PHP_OS;
 	}
  	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @return unknown
+	 */
 	static function isLoggedIn() {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj) {
 			return true;
@@ -112,11 +133,29 @@ class VCDUtils {
 		}
 	}
 	
+	/**
+	 * Get the current users ID, if user is not logged in null is returned.
+	 *
+	 * @return int
+	 */
+	static function getUserID() {
+		if (VCDUtils::isLoggedIn()) {
+			return $_SESSION['user']->getUserID();
+		} else {
+			return null;
+		}
+	}
 	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $user_id
+	 * @return unknown
+	 */
 	static function isUsingFilter($user_id) {
-		global $ClassFactory;
-		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+		
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
 		if (is_array($metaArr) && sizeof($metaArr) > 0) {
 			
@@ -131,6 +170,13 @@ class VCDUtils {
 		}
 	}
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $text
+	 * @param unknown $length
+	 * @return unknown
+	 */
 	static function shortenText($text, $length) {
 		if (strlen($text) > $length) {
 				$text = substr($text, 0, $length);
@@ -140,6 +186,13 @@ class VCDUtils {
 	}
 	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $date1
+	 * @param unknown $date2
+	 * @return unknown
+	 */
 	static function getDaydiff($date1, $date2 = null) {
 		if (is_null($date2)) {
 			$date2 = mktime();
@@ -174,10 +227,20 @@ class VCDUtils {
 	
  	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $strMessage
+	 */
 	static function setMessage($strMessage) {
 		$_SESSION['message'] = $strMessage;
 	}
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @return unknown
+	 */
 	static function getMessage() {
 		$message = "";
 		if (isset($_SESSION['message'])) {
@@ -188,6 +251,14 @@ class VCDUtils {
 	}
 	
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $image_url
+	 * @param unknown $uniqueID
+	 * @param unknown $destination
+	 * @return unknown
+	 */
 	static function grabImage($image_url, $uniqueID = true, $destination = TEMP_FOLDER) {
      
       $source = urldecode($image_url);
@@ -241,11 +312,23 @@ class VCDUtils {
 	}
 	
 	
+ /**
+  * Enter description here...
+  *
+  * @return unknown
+  */
  static function generateUniqueId(){
     return md5(uniqid(mt_rand(),TRUE));
   }
 
 	
+  /**
+   * Enter description here...
+   *
+   * @param unknown $arrItems
+   * @param unknown $sepator
+   * @return unknown
+   */
   static function split($arrItems, $sepator) {
   	if (is_array($arrItems)) {
   		$string = implode($sepator, $arrItems);
@@ -261,6 +344,12 @@ class VCDUtils {
 		If title contains The at the end .. move it forward.
 		Very annoying notation.
   */
+   /**
+    * Enter description here...
+    *
+    * @param unknown $strTitle
+    * @return unknown
+    */
    static function titleFormat($strTitle) {
   		$strTitle = trim($strTitle);
   		
@@ -280,6 +369,12 @@ class VCDUtils {
   
 
   
+	 /**
+	  * Enter description here...
+	  *
+	  * @param unknown $strFilename
+	  * @return unknown
+	  */
 	 static function getFileExtension($strFilename) {
 	  	  ereg( ".*\.(.*)$", $strFilename, $regs );
 	      return $regs[1];
@@ -287,6 +382,13 @@ class VCDUtils {
   
   
   
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $filename
+	 * @param unknown $content
+	 * @return unknown
+	 */
 	static function write($filename, $content){
 			if(!empty($filename) && !empty($content)){
 				$fp = fopen($filename,"w");
@@ -304,6 +406,12 @@ class VCDUtils {
 			}
 		}
 
+	/**
+	 * Enter description here...
+	 *
+	 * @param vcdObj $obj
+	 * @return unknown
+	 */
 	static function isOwner(vcdObj $obj) {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
 			$user = $_SESSION['user'];
@@ -319,6 +427,12 @@ class VCDUtils {
 	}
 		
 	// Check if user has access to the "change movie" console
+	/**
+	 * Enter description here...
+	 *
+	 * @param vcdObj $obj
+	 * @return unknown
+	 */
 	static function hasPermissionToChange(vcdObj $obj) {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
 			$user = $_SESSION['user'];
@@ -339,6 +453,12 @@ class VCDUtils {
 	}
   
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown $proxy_url
+	 * @return unknown
+	 */
 	static function proxy_url($proxy_url) {
 	   if (!defined('PROXY_URL') || !defined('PROXY_PORT') || PROXY_URL == '' || PROXY_PORT == '' ) {
 	   		VCDException::display('You must define Proxy server and port in VCDConstants.php', true);

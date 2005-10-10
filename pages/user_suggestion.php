@@ -18,8 +18,8 @@
 
 
 <?
-	global $ClassFactory;
-	$CLASSVcd = $ClassFactory->getInstance('vcd_movie');
+	
+	$CLASSVcd = VCDClassFactory::getInstance('vcd_movie');
 	$language = new language(true);
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);

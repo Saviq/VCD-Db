@@ -1,7 +1,7 @@
 <?
-	global $ClassFactory;
+	
 	global $language;
-	$PORNClass = $ClassFactory->getInstance('vcd_pornstar');
+	$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 	$pid = $_GET['pornstar_id'];
 	$pornstarObj = $PORNClass->getPornstarByID($pid);
 ?>
@@ -25,7 +25,7 @@ var messages = new Array();
 
 <? 
 	$i = 0;
-	$CLASSCovers = $ClassFactory->getInstance('vcd_cdcover');
+	$CLASSCovers = VCDClassFactory::getInstance('vcd_cdcover');
 	foreach ($pornstarObj->getMovies() as $id => $title) {
 		$arrCovers = $CLASSCovers->getAllCoversForVcd($id);
 		foreach ($arrCovers as $obj) {

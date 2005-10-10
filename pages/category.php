@@ -2,8 +2,8 @@
 /* Display the movies in selected category */
 
 
-$VCDClass = $ClassFactory->getInstance("vcd_movie");
-$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
+$VCDClass = VCDClassFactory::getInstance("vcd_movie");
+$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
 
 $cat_id = $_GET['category_id'];
 $batch  = 0;

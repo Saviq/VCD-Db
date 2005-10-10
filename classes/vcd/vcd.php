@@ -41,8 +41,7 @@ class vcd_movie implements Vcd  {
 	 * @return vcdObj
 	 */
 	public function getVcdByID($vcd_id) {
-		global $ClassFactory;
-		
+	
 		try {
 			if (is_numeric($vcd_id)) {
 			
@@ -51,8 +50,8 @@ class vcd_movie implements Vcd  {
 				if ($obj instanceof vcdObj) {
 				
 					// Get the covers for the CD
-					$CLASScovers = $ClassFactory->getInstance("vcd_cdcover");
-					$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+					$CLASScovers = VCDClassFactory::getInstance("vcd_cdcover");
+					$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 					
 					$coverArr = $CLASScovers->getAllCoversForVcd($vcd_id);
 					
@@ -68,7 +67,7 @@ class vcd_movie implements Vcd  {
 										
 					if ($obj->getCategoryID() == $SETTINGSClass->getCategoryIDByName("adult")) {
 						// Blue Movie
-						$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+						$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 						$arrPornstars = $PORNClass->getPornstarsByMovieID($vcd_id);
 						$obj->addPornstars($arrPornstars);
 						$sObj = $PORNClass->getStudioByMovieID($vcd_id);
@@ -119,7 +118,9 @@ class vcd_movie implements Vcd  {
 	 * @return array
 	 */
 	public function getAllVcdByUserId($user_id, $simple = true) {
-		global $ClassFactory;
+		
+		
+		
 		try {
 			if (is_numeric($user_id)) {
 				
@@ -129,15 +130,17 @@ class vcd_movie implements Vcd  {
 					$arr = $this->SQL->getAllVcdByUserId($user_id);	
 				}
 				
-				
-				
-				$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
-				$PSClass = $ClassFactory->getInstance("vcd_pornstar");
+							
+				$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+				$PSClass = VCDClassFactory::getInstance("vcd_pornstar");
 				
 				$returnArr = array();
+								
 				foreach ($arr as $obj) {
+					
 					// Set the movie categoryObj
 					$obj->setMovieCategory($SETTINGSClass->getMovieCategoryByID($obj->getCategoryID()));	
+					
 					
 					
 					if (!$simple) {
@@ -209,7 +212,6 @@ class vcd_movie implements Vcd  {
 	 */
 	public function getLatestVcdsByUserID($user_id, $count, $simple = true) {
 		
-		global $ClassFactory;
 		
 		try {
 			
@@ -223,8 +225,8 @@ class vcd_movie implements Vcd  {
 				
 				
 				
-				$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
-				$PSClass = $ClassFactory->getInstance("vcd_pornstar");
+				$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+				$PSClass = VCDClassFactory::getInstance("vcd_pornstar");
 				
 				$returnArr = array();
 				foreach ($arr as $obj) {
@@ -279,8 +281,7 @@ class vcd_movie implements Vcd  {
 	 * @return int
 	 */
 	public function addVcd(vcdObj $vcdObj) {
-		global $ClassFactory;
-		$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 		
 		try {
 
@@ -387,7 +388,7 @@ class vcd_movie implements Vcd  {
 
 					
 					// Finally add the CDCover Obj to the DB
-					$vcdCover = $ClassFactory->getInstance("vcd_cdcover");
+					$vcdCover = VCDClassFactory::getInstance("vcd_cdcover");
 					$vcdCover->addCover($thumbnail);
 					
 					
@@ -483,8 +484,7 @@ class vcd_movie implements Vcd  {
 
 		try {
 		
-			global $ClassFactory;
-			$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+			$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 			
 			// Link the pornstars to the movie
 			if ($vcdObj->getID() > 0) {
@@ -509,8 +509,8 @@ class vcd_movie implements Vcd  {
 			$cd_id = $vcdObj->getID();
 			
 			// Add all extra covers to the movie
-			$vcdCover = $ClassFactory->getInstance("vcd_cdcover");
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$vcdCover = VCDClassFactory::getInstance("vcd_cdcover");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			foreach ($vcdObj->getCovers() as $cdcoverObj) {
 				if ($cdcoverObj instanceof cdcoverObj && !$cdcoverObj->isThumbnail()) {
 					
@@ -579,17 +579,16 @@ class vcd_movie implements Vcd  {
 	 * @param vcdObj $vcdObj
 	 */
 	public function updateVcd(vcdObj $vcdObj) {
-		global $ClassFactory;
 		
 		try {
 			
 			// Update the basics ..
 			$this->SQL->updateBasicVcdInfo($vcdObj);
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			if ((bool)$vcdObj->isAdult()) {
 				// Blue movie
-				$PORNClass = $ClassFactory->getInstance('vcd_pornstar');
+				$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 				
 				// update the adult categories
 				$PORNClass->deleteMovieFromCategories($vcdObj->getID());
@@ -639,7 +638,7 @@ class vcd_movie implements Vcd  {
 			
 			
 			// Check where covers should be stored ..
-			$COVERClass    = $ClassFactory->getInstance("vcd_cdcover");
+			$COVERClass    = VCDClassFactory::getInstance("vcd_cdcover");
 			$coversInDB    = (bool)$SETTINGSClass->getSettingsByKey('DB_COVERS');
 			
 			// Finally process new cdcovers ..
@@ -882,12 +881,11 @@ class vcd_movie implements Vcd  {
 	public function getCategoryCountFiltered($category_id, $user_id) {
 		try {
 		// Get the ignore list.
-				global $ClassFactory;
-				$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
-				$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
-				$ignorelist = split("#", $metaArr[0]->getMetadataValue());
-		
-				return $this->SQL->getCategoryCountFiltered($category_id, $user_id, $ignorelist);
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+			$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
+			$ignorelist = split("#", $metaArr[0]->getMetadataValue());
+	
+			return $this->SQL->getCategoryCountFiltered($category_id, $user_id, $ignorelist);
 		
 		} catch (Exception $e) {
 			VCDException::display($e);
@@ -918,8 +916,7 @@ class vcd_movie implements Vcd  {
 			} else {
 				
 				// Get the id of the thumbnail coverObj in DB
-				global $ClassFactory;
-				$COVERSClass = $ClassFactory->getInstance('vcd_cdcover');
+				$COVERSClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$coverTypeObj = $COVERSClass->getCoverTypeByName('thumbnail');
 				
 				return $this->SQL->getVcdByCategory($category_id, $start, $end, $coverTypeObj->getCoverTypeID(), $user_id);
@@ -948,9 +945,8 @@ class vcd_movie implements Vcd  {
 			if (is_numeric($category_id) && is_numeric($user_id)) {
 			
 				// Get the ignore list.
-				global $ClassFactory;
-				$COVERSClass = $ClassFactory->getInstance('vcd_cdcover');
-				$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+				$COVERSClass = VCDClassFactory::getInstance('vcd_cdcover');
+				$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 				$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
 				$ignorelist = split("#", $metaArr[0]->getMetadataValue());
 				$coverTypeObj = $COVERSClass->getCoverTypeByName('thumbnail');
@@ -984,8 +980,7 @@ class vcd_movie implements Vcd  {
 			if (is_numeric($category_id)) {
 				
 				// Get the id of the thumbnail coverObj in DB
-				global $ClassFactory;
-				$COVERSClass = $ClassFactory->getInstance('vcd_cdcover');
+				$COVERSClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$coverTypeObj = $COVERSClass->getCoverTypeByName('thumbnail');
 				return $this->SQL->getVcdByAdultCategory($category_id, $coverTypeObj->getCoverTypeID());
 				
@@ -1012,8 +1007,7 @@ class vcd_movie implements Vcd  {
 			if (is_numeric($studio_id)) {
 				
 				// Get the id of the thumbnail coverObj in DB
-				global $ClassFactory;
-				$COVERSClass = $ClassFactory->getInstance('vcd_cdcover');
+				$COVERSClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$coverTypeObj = $COVERSClass->getCoverTypeByName('thumbnail');
 				
 				return $this->SQL->getVcdByAdultStudio($studio_id, $coverTypeObj->getCoverTypeID());
@@ -1115,8 +1109,7 @@ class vcd_movie implements Vcd  {
 			// TODO - implement the use_seenlist stuff ..
 			if ($use_seenlist) {
 				// Get the seenlist
-				global $ClassFactory;
-				$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+				$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 				$ArrSeen = $SETTINGSClass->getRecordIDsByMetadata($user_id, 'seenlist');
 				if (is_array($ArrSeen) && sizeof($ArrSeen) > 0) {
 					// we got data . lets compare and filter out the unwanted ones ..
@@ -1238,8 +1231,7 @@ class vcd_movie implements Vcd  {
 			}
 			
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			
 			foreach ($results as &$item) {
 				$catObj = $SETTINGSClass->getMovieCategoryByID($item['cat_id']);
@@ -1300,15 +1292,13 @@ class vcd_movie implements Vcd  {
 			if (!is_numeric($user_id)) {
 				throw new Exception('User ID missing');
 			}
-
-			global $ClassFactory;
 			
-			$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			$cat_tv = $SETTINGSClass->getCategoryIDByName('Tv Shows');
 			$cat_adult = $SETTINGSClass->getCategoryIDByName('Adult');
 			
 			// Get the id of the thumbnail coverObj in DB
-			$COVERSClass = $ClassFactory->getInstance('vcd_cdcover');
+			$COVERSClass = VCDClassFactory::getInstance('vcd_cdcover');
 			$coverTypeObj = $COVERSClass->getCoverTypeByName('thumbnail');
 			$thumbnail_id = $coverTypeObj->getCoverTypeID();
 			

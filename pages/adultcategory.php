@@ -1,9 +1,9 @@
 <? 
 	$cat_id = $_GET['category_id'];
-	global $ClassFactory;
-	$VCDClass = $ClassFactory->getInstance('vcd_movie');
-	$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
-	$PORNClass= $ClassFactory->getInstance("vcd_pornstar");
+	
+	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
+	$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
+	$PORNClass= VCDClassFactory::getInstance("vcd_pornstar");
 	
 	$arrAdultCats = $PORNClass->getSubCategoriesInUse();
 	$movies = $VCDClass->getVcdByAdultCategory($cat_id);

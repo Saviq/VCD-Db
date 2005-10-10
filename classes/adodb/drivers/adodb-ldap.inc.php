@@ -70,10 +70,10 @@ class ADODB_ldap extends ADOConnection {
 		}
 		
 		if ($username) {
-		    $bind = ldap_bind( $this->_connectionID, $username, $password );
+		    $bind = @ldap_bind( $this->_connectionID, $username, $password );
 		} else {
 			$username = 'anonymous';
-		    $bind = ldap_bind( $this->_connectionID );		
+		    $bind = @ldap_bind( $this->_connectionID );		
 		}
 		
 		if (!$bind) {

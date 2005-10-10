@@ -23,7 +23,7 @@
 	}
 		
 	$username = str_replace("'", "", $_POST['username']);
-	$password = md5(str_replace("'", "", $_POST['password']));
+	$password = str_replace("'", "", $_POST['password']);
 	
 	$remember = false;
 	if (isset($_POST['remember'])) {

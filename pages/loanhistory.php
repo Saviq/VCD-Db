@@ -1,6 +1,6 @@
 <? 
-global $ClassFactory;
-$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+
+$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 $borrowerObj = $SETTINGSClass->getBorrowerByID($_GET['history']);
 if (!$borrowerObj instanceof borrowerObj ) {
 	VCDException::display("Aborting query", true);

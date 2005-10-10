@@ -1,6 +1,6 @@
 <? 
 $cd_id = $_GET['vcd_id'];
-global $ClassFactory;
+
 ?>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
@@ -145,7 +145,7 @@ global $ClassFactory;
 	<h2><?=$language->show('M_ACTORS')?></h2>
 	<div id="actorimages" style="padding-left:10px;">
 	<?
-		$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 		$arr = $PORNClass->getPornstarsByMovieID($movie->getID());
 		
 		foreach ($arr as $pornstar) {

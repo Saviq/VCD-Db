@@ -1,8 +1,7 @@
 <div id="r-col">
 <? 
-	global $ClassFactory;
-	$VCDClass = $ClassFactory->getInstance("vcd_movie");
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	$maxTitlelen = 17;
 

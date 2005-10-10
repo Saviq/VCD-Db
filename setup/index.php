@@ -12,6 +12,7 @@
  // $Id:
 ?>
 <?
+//error_reporting(E_STRICT);
 require_once('installer.php');
 require_once('../functions/WebFunctions.php');
 require_once('../classes/VCDUtils.php');

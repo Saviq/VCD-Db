@@ -7,8 +7,8 @@
 	print "<h1>" . $language->show('MENU_WISHLISTPUBLIC') . "</h1>";
 	
 	// Get all available wishlists except for my own.
-	$SETTINGSClass = new vcd_settings();
-	$USERClass = $ClassFactory->getInstance('vcd_user');
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+	$USERClass = VCDClassFactory::getInstance('vcd_user');
 	$propObj = $USERClass->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
 	if ($propObj instanceof userPropertiesObj ) {
 		$usersArr = $USERClass->getAllUsersWithProperty($propObj->getpropertyID());

@@ -1,7 +1,6 @@
 <? 
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
-	$PORNClass = $ClassFactory->getInstance('vcd_pornstar');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+	$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 ?>
 
 <h2><?=$language->show('EM_INFO')?></h2>

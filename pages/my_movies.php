@@ -102,7 +102,7 @@ print "</table>";
 	
 	if (isset($_GET['show']) && $_GET['show'] == 'results') {
 		print "<h2>".$language->show('X_RESULTS')."</h2>";
-		$VCDClass = $ClassFactory->getInstance('vcd_movie');
+		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 		$results = $VCDClass->crossJoin($s_owner, $s_mediatype, $s_category, $s_meth);	
 		
 		if (sizeof($results) == 0) {

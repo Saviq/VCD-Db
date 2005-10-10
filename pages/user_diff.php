@@ -44,7 +44,7 @@ if ($dbCompatible) {
 <tr>
 	<td>1) <?= $language->show('MY_JOINSUSER') ?></td>
 	<td><? 
-		$USERClass = $ClassFactory->getInstance('vcd_user');
+		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
 		print "<option value=\"null\">".$language->show('X_SELECT')."</option>";
 		foreach ($USERClass->getActiveUsers() as $userObj) {

@@ -147,7 +147,12 @@
 	 * @return int
 	 */
 	public function getYear() {
-		return $this->year;
+		if (is_numeric($this->year)) {
+			return $this->year;
+		} else {
+			return 0;
+		}
+		
 	}
 	
 	/**

@@ -9,9 +9,9 @@ if (!VCDAuthentication::isAdmin()) {
 	print "<script>self.close();</script>";
 	exit();
 }
-global $ClassFactory;
-$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
-$USERclass = $ClassFactory->getInstance("vcd_user");
+
+$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
+$USERclass = VCDClassFactory::getInstance("vcd_user");
 
 $allSettings = $SETTINGSclass->getAllSettings();
 $allPropeties = $USERclass->getAllProperties();

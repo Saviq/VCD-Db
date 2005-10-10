@@ -11,8 +11,8 @@
 		$email = $_POST['email'];
 	}
 	
-	global $ClassFactory;
-	$USERClass = $ClassFactory->getInstance('vcd_user');
+	
+	$USERClass = VCDClassFactory::getInstance('vcd_user');
 	$obj = $USERClass->getUserByUsername($username);
 	if ($obj instanceof userObj ) {
 		if (strcmp($obj->getEmail(),$email) == 0) {

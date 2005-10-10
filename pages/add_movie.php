@@ -64,7 +64,7 @@
 </ul>
 
 <? 
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$showAdult = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
 	$curruser = &$_SESSION['user'];
 	

@@ -4,9 +4,9 @@
 	$batch = 1;
 	$start = 0;
 	
-	global $ClassFactory;
-	$VCDClass = $ClassFactory->getInstance('vcd_movie');
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	
+	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	$user_id = $_SESSION['user']->getUserID();
 	if (isset($_POST['save'])) {

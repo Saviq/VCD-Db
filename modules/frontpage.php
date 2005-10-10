@@ -1,6 +1,5 @@
 <? 
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$SHOW_STATS = true;
 	$SHOW_RIGHT = true;
 	$SHOW_FEEDS = false;

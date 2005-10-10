@@ -5,9 +5,9 @@ if (!VCDAuthentication::isAdmin()) {
 		print "<script>self.close();</script>";
 		exit();
 	}
-global $ClassFactory;
+
 $upload =& new uploader();
-$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
+$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
 $path = $SETTINGSclass->getSettingsByKey('SITE_ROOT');
 
 if($_FILES){

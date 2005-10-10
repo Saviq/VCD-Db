@@ -3,8 +3,8 @@
 		redirect();
 	}
 	
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$listArr = $SETTINGSClass->getWishList($_SESSION['user']->getUserID());
 ?>
 

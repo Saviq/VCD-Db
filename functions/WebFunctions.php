@@ -39,9 +39,9 @@ function display_topmenu() {
 
 function display_userlinks() {
 	global $language;
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
-	$CLASSVcd = new vcd_movie();
+	
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	$rssLink = "";
 	if (sizeof($SETTINGSClass->getRssFeedsByUserId($_SESSION['user']->getUserID()))>0) {
 		$rssLink = "<span class=\"nav\"><a href=\"./?page=private&o=rss\" class=\"navx\">".$language->show('MENU_RSS')."</a></span>";
@@ -69,8 +69,7 @@ function display_userlinks() {
 
 function display_adultmenu() {
 	global $language;
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	$show_adult = false;
 	if (VCDUtils::isLoggedIn()) {
@@ -117,9 +116,8 @@ function display_toggle() {
 }
 
 function display_topusers() {
-	global $ClassFactory;
 	global $language;
-	$USERClass = $ClassFactory->getInstance('vcd_user');
+	$USERClass = VCDClassFactory::getInstance('vcd_user');
 	$list = $USERClass->getUserTopList();
 	if (sizeof($list) > 0) {
 		$i = 0;
@@ -137,13 +135,12 @@ function display_topusers() {
 }
 
 function display_moviecategories() {
-	global $ClassFactory;
 	global $language;
 	
 	?>	<div class="topic"><?=$language->show('MENU_CATEGORIES')?></div> 	<?
 	
 	
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$categories = $SETTINGSClass->getMovieCategoriesInUse();
 	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');	
 	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT');
@@ -238,9 +235,8 @@ function display_moviecategories() {
 function pager($totalRecords, $current_pos, $url) {
 	
 	global $CURRENT_PAGE;
-	global $ClassFactory;
 	
-	$SetttingsClass = $ClassFactory->getInstance("vcd_settings");
+	$SetttingsClass = VCDClassFactory::getInstance("vcd_settings");
 	$recordCount = $SetttingsClass->getSettingsByKey("PAGE_COUNT");
 	$totalPages = floor($totalRecords / $recordCount);
 		
@@ -420,10 +416,9 @@ function getCategoryMapping() {
 
 function parseCategoryList($strList) {
 
-	global $ClassFactory;
 	global $language;
 	
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$categories = $SETTINGSClass->getAllMovieCategories();
 	$mapping = getCategoryMapping();
 	$inArr = explode(",", $strList);
@@ -506,8 +501,8 @@ function rightbar() {
 	if ($CURRENT_PAGE == '') {
 		// Check if user is logged in and wished to disable sidebar
 		if (VCDUtils::isLoggedIn()) {
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+			
+			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			$arr = $SETTINGSClass->getMetadata(0, $_SESSION['user']->getUserID(), 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
 				return false;
@@ -612,9 +607,9 @@ function filterLoanList($arrMovies, $arrLoans) {
 
 function ShowOneRSS($url, $showdescription = false) { 
     
-	global $ClassFactory;
+	
 	$maxtitlelen = 44;
-	$rss = $ClassFactory->getInstance('lastRSS');
+	$rss = VCDClassFactory::getInstance('lastRSS');
 	$rss->cache_dir = CACHE_FOLDER;
 	$rss->cache_time = RSS_CACHE_TIME;
 	
@@ -655,8 +650,8 @@ function unhtmlentities ($string)
 
 
 function printStatistics($show_logo = true, $width = "230", $style = "statsTable") {
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$statObj = $SETTINGSClass->getStatsObj();
 	
 	if (strcmp($style, "statsTable") == 0) {
@@ -752,8 +747,8 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
  */
 function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 	if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($vcdObj) && $_SESSION['user']->getPropertyByKey('PLAYOPTION')) {
-		global $ClassFactory;
-		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+		
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		
 		$player = "";
 		$playerparams = "";
@@ -791,8 +786,8 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 }
 
 function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
-		global $ClassFactory;
-		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+		
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		
 		$player = "";
 		$playerparams = "";
@@ -832,8 +827,8 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
 
 function getLocalizedCategories($categoryObjArr = null) {
 	global $language;
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	
 	if ($categoryObjArr == null) {

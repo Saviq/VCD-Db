@@ -133,9 +133,9 @@ function showFeed($name, $url) {
 
 function checkMovieImport(&$out_movietitles) {
 
-	global $ClassFactory;
-	$upload =& new uploader();
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	
+	$upload = new uploader();
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
 	
 	if($_FILES){
@@ -162,12 +162,26 @@ function checkMovieImport(&$out_movietitles) {
 	       /* 
 	       		Process the XML file
 	       */
-	     	
 		   if (fs_file_exists($upfile)) {
-	    		$xml = simplexml_load_file($upfile);
+	    		
+		   		// First of all Validate the XML document so we can begin with avoiding
+		   		// errors when processing the file later with the VCDdb objects
+		   		
+		   		
+		   		$xml = simplexml_load_file($upfile);
+		   		
+		   		$dom = new domdocument();
+		   		$dom->load($upfile);
+		   		
+		   		$schema = 'includes/schema/vcddb-export.xsd';
+		   		
+		   		if (!@$dom->schemaValidate($schema)) {
+		   			throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
+		   		}
+		   		
+		   		
 		   } else {
-	    		VCDException::display('Failed to open the uploaded file');
-	    		return false;
+	    		throw new Exception("Failed to open the uploaded file.<break>Check file permissions on the upload folder.");
 		   }
 		
 		   		
@@ -178,8 +192,7 @@ function checkMovieImport(&$out_movietitles) {
 		   $adult_cat = $SETTINGSClass->getCategoryIDByName('adult');
 		   
 		   if (sizeof($movies) == 0) {
-		   		print "No movies found in the XML file.<br/>Make sure that you are uploading
-		   		       VCD-db generated XML file.";
+		   		throw new Exception("No movies found in the XML file.<br/>Make sure that you are uploading VCD-db generated XML file.");
 		   } else {
 		   		foreach ($movies as $item) {
 		   			if (strcmp($item->title, "") != 0) {
@@ -194,8 +207,7 @@ function checkMovieImport(&$out_movietitles) {
 	
 	      
 	} else {
-		VCDException::display('Error uploading file');
-		return false;
+		throw new Exception($upload->fail_files_track[0]['msg']);
 	}
 	
 	return $file_arr[0]['new_file_name'];
@@ -205,8 +217,16 @@ function checkMovieImport(&$out_movietitles) {
 
 function processXMLMovies($upfile, $use_covers) {
 	
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	
+		// Since imported 1000 + movies can take alot time and memory
+		// lets increase the function timeout to 5 minutes
+		
+		set_time_limit(300);
+	
+		
+		 try {
+	
+		 $SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	       if (fs_file_exists($upfile)) {
 	    		$xml = simplexml_load_file($upfile);
@@ -220,7 +240,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   if ($use_covers) {
 		   		// Begin thumbnail upload
 
-				$upload =& new uploader();
+				$upload = new uploader();
 				$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
 				
 				if($_FILES){
@@ -269,7 +289,7 @@ function processXMLMovies($upfile, $use_covers) {
 					   	
 					   	
 					   		// Get a Thumbnail CoverTypeObj
-							$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+							$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 					   	
 					   		foreach ($thumbnails as $item) {
 						    					   			
@@ -298,6 +318,7 @@ function processXMLMovies($upfile, $use_covers) {
 				}
 		   		
 		   		   	
+			
 		   		
 		   
 		   		// End thumbnail upload
@@ -305,15 +326,13 @@ function processXMLMovies($upfile, $use_covers) {
 		   
 		   
 		   
-		   
-		   
-		   		
-			
 		   // GenerateObjects from the XML file ...
 		   $movies = $xml->movie;
-		   $imported_movies = array();
+		   $imported_movies = array(); 
 		   $adult_cat = $SETTINGSClass->getCategoryIDByName('adult');
-		   $PORNClass = new vcd_pornstar();
+		   $PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
+		   
+		   		   
 		   
 		   if (sizeof($movies) == 0) {
 		   		print "No movies found in the XML file.<br/>Make sure that you are uploading
@@ -322,16 +341,33 @@ function processXMLMovies($upfile, $use_covers) {
 		   		foreach ($movies as $item) {
 			    	
 		   			
+		   			
 		   			// Create the basic CD obj
 					$basic = array('', (string)$item->title, (string)$item->category_id, (string)$item->year);
 					$vcd = new vcdObj($basic);
 					
 					// Add 1 instance
 					$mediaTypeObj = $SETTINGSClass->getMediaTypeByID((string)$item->mediatype_id);
+					if (is_null($mediaTypeObj)) {
+						
+						// Non existing media type .. at least not found by ID
+						// try a lookup by name
+						
+						$mediaTypeObj = $SETTINGSClass->getMediaTypeByName((string)$item->mediatype);
+						if (is_null($mediaTypeObj)) {
+							// Still no luck .. then lets create mediatype
+							$newMediaTypeObj = new mediaTypeObj(array('',(string)$item->mediatype,'','Created by XML importer.'));
+							$SETTINGSClass->addMediaType($newMediaTypeObj);
+						}
+					}
 					
 					$vcd->addInstance($_SESSION['user'], $mediaTypeObj, (string)$item->cds, (string)$item->dateadded);
-					$vcd->setMovieCategory($SETTINGSClass->getMovieCategoryByID((string)$item->category_id));
-		   			
+					
+					
+					$movieCatObj = $SETTINGSClass->getMovieCategoryByID((string)$item->category_id);
+					if ($movieCatObj instanceof movieCategoryObj ) {
+						$vcd->setMovieCategory($movieCatObj);
+					} 		   			
 		   			
 		   			
 		   			$source_id = '';
@@ -457,6 +493,7 @@ function processXMLMovies($upfile, $use_covers) {
 				
 		   }
 		   
+		   
 		   // Create the results display array
 		   $results_array = array();
 		   
@@ -483,6 +520,13 @@ function processXMLMovies($upfile, $use_covers) {
 		   
 		   $_SESSION['xmlresults'] = $results_array;
 		   redirect('?page=private&o=add&source=xmlresults');
+		   
+		   
+		   
+		   } catch (Exception $e) {
+		   		throw $e;
+		   }
+		   
 
 }
 

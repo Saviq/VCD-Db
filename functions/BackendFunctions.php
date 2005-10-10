@@ -24,11 +24,10 @@
  */
 function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 	
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	
-	$smtp = $ClassFactory->getInstance("smtp_class");
+	$smtp = VCDClassFactory::getInstance("smtp_class");
 	
 	$content_type = "text/plain; charset=iso-8859-1";
 
@@ -172,9 +171,8 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
 function createNotifyEmailBody(vcdObj $obj) {
 	
-	global $ClassFactory;
 	global $language;
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$home = $SETTINGSClass->getSettingsByKey('SITE_HOME');
 	
 	$msg = '';
@@ -186,11 +184,11 @@ function createNotifyEmailBody(vcdObj $obj) {
 
 
 function generateExcel() {
-	global $ClassFactory;
+
 	$user_id = $_SESSION['user']->getUserID();
-	$vcd = $ClassFactory->getInstance("vcd_movie");
+	$vcd = VCDClassFactory::getInstance("vcd_movie");
 	$arrMovies = $vcd->getAllVcdByUserId($user_id);
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	//initiate a instance of "excelgen" class
 	$excel = new ExcelGen("My_Movies");
@@ -254,9 +252,9 @@ function generateExcel() {
 */
 
 function checkExcelImport(&$out_movietitles) {
-	global $ClassFactory;
-	$upload =& new uploader();
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	
+	$upload = new uploader();
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
 	
 	if($_FILES){
@@ -316,9 +314,9 @@ function checkExcelImport(&$out_movietitles) {
 }
 
 function processExcelMovies($upfile) {
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
-	$VCDClass = new vcd_movie();
+	
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
 
 	if (fs_file_exists($upfile)) {
 		require_once('classes/external/excel/reader.php');

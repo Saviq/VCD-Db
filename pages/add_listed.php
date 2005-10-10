@@ -4,9 +4,8 @@
 		exit();
 	}
 
-	global $ClassFactory;
 	global $language;
-	$VCDClass = $ClassFactory->getInstance('vcd_movie');
+	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 	$movies = $VCDClass->getAllVcdForList($_SESSION['user']->getUserID());
 ?>
 

@@ -1,7 +1,7 @@
 <? 
-	global $ClassFactory;
-	$CLASSvcd = $ClassFactory->getInstance("vcd_movie");
-	$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
+	
+	$CLASSvcd = VCDClassFactory::getInstance("vcd_movie");
+	$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
 	$arrVcd = $CLASSvcd->getAllVcdByUserId($_SESSION['user']->getUserID());
 	$arrBorrowers = $SETTINGSclass->getBorrowersByUserID($_SESSION['user']->getUserID());
 	$arrLoans = $SETTINGSclass->getLoans($_SESSION['user']->getUserID(), false);

@@ -1,8 +1,7 @@
 <? 
-	global $ClassFactory;
 	global $language;
-	$USERClass = $ClassFactory->getInstance("vcd_user");
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$USERClass = VCDClassFactory::getInstance("vcd_user");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$user = $_SESSION['user'];
 	$status = "";
 	
@@ -280,7 +279,7 @@
 		We only display the ignore list if more than 1 actice users 
 		is using VCD-db.
 	*/
-	$CLASSUsers = $ClassFactory->getInstance('vcd_user');
+	$CLASSUsers = VCDClassFactory::getInstance('vcd_user');
 	if (sizeof($CLASSUsers->getActiveUsers()) > 1) {
 ?>
 

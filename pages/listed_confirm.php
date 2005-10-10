@@ -11,8 +11,7 @@
 	}
 
 	
-	global $ClassFactory;
-	$VCDClass = $ClassFactory->getInstance('vcd_movie');
+	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 	$movies = $VCDClass->getVcdForListByIds($id_list);
 	
 	

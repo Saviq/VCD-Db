@@ -11,7 +11,6 @@
 		$onload = ";window.opener.location.reload();";
 	}
 	
-	global $ClassFactory;
 	$language = new language(true);
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
@@ -20,9 +19,9 @@
 	
 
 	$user = $_SESSION['user'];
-	$VCDClass = $ClassFactory->getInstance("vcd_movie");
-	$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
+	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	
 	$action = "";
@@ -374,7 +373,7 @@
 </tr>
 <tr>
 	<td class="tblb" valign="top"><?=$language->show('M_PLOT')?>:</td>
-	<td><textarea cols="40" rows="6" name="plot" class="input"><? if ($bIMDB) echo $imdb->getPlot() ?></textarea></td>
+	<td><textarea cols="40" rows="5" name="plot" class="input"><? if ($bIMDB) echo $imdb->getPlot() ?></textarea></td>
 </tr>
 </table>
 <? } ?>
@@ -424,7 +423,7 @@
 <div id="content4" class="content">
 <? 
 	// first get all cover types that are allowed on this media type
-	$COVERClass = $ClassFactory->getInstance("vcd_cdcover");
+	$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 	$arrCoverTypes = $COVERClass->getAllowedCoversForVcd($vcd->getMediaType());
 ?>
 <table cellspacing="1" cellpadding="1" border="0">

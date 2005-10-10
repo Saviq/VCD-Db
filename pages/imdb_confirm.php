@@ -1,5 +1,4 @@
 <? 
-	global $ClassFactory;
 	global $language;
 	$SETTINGSClass = new vcd_settings();
 ?>

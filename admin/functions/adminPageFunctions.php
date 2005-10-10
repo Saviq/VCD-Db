@@ -306,12 +306,9 @@ function checkVersion() {
 }
 
 function exportUserXML($user_id) {
-	global $ClassFactory;
 	
-	
-
-	$CLASSVcd = $ClassFactory->getInstance("vcd_movie");
-	$CLASSUSer = $ClassFactory->getInstance('vcd_user');
+	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
+	$CLASSUSer = VCDClassFactory::getInstance('vcd_user');
 	$usr = $CLASSUSer->getUserByID($user_id);
 	if (!$usr instanceof userObj ) {
 		VCDException::display('Invalid user selection', true);

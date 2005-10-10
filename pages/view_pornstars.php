@@ -1,8 +1,7 @@
 <h2>Pornstars</h2>
 <? 
 	global $language;
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	$show_adult = false;
 	if (VCDUtils::isLoggedIn()) {

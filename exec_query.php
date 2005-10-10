@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
 }
 
 $reload_and_close = true;
-$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 
 switch ($form) {
 
@@ -76,7 +76,7 @@ switch ($form) {
 			
 			if (isset($_GET['filter']) && $_GET['filter'] == 'thumbs') {
 			
-				$COVERClass = $ClassFactory->getInstance('vcd_cdcover');
+				$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport($_SESSION['user']->getUserID());
 				
 				header('Content-type: application/xml');
@@ -99,7 +99,7 @@ switch ($form) {
 				header('Content-Disposition: attachment; filename="movie_export.xml"');
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdmovies>";
-				$CLASSVcd = $ClassFactory->getInstance("vcd_movie");
+				$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 				$arrMovies = $CLASSVcd->getAllVcdByUserId($_SESSION['user']->getUserID(), false);
 				foreach ($arrMovies as $vcdObj) {
 					$xml .= $vcdObj->toXML();
@@ -153,7 +153,7 @@ switch ($form) {
 		
 		if (fs_rename(TEMP_FOLDER.$image_name, PORNSTARIMAGE_PATH.$image_name)) {
 			// Success ...
-			$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+			$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 			$pornstar = $PORNClass->getPornstarByID($pornstar_id);
 			$pornstar->setImageName($image_name);
 			$PORNClass->updatePornstar($pornstar);
@@ -172,7 +172,7 @@ switch ($form) {
 		$media_id = $_GET['media_id'];
 		$cd_id = $_GET['cd_id'];
 		$mode = $_GET['mode'];
-		$VCDClass = $ClassFactory->getInstance('vcd_movie');
+		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 		$VCDClass->deleteVcdFromUser($cd_id, $media_id, $mode);
 	
 		break;
@@ -181,7 +181,7 @@ switch ($form) {
 	case 'deletecover':
 		$cid = $_GET['cover_id'];
 		$vcd_id = $_GET['vcd_id'];
-		$COVERClass = $ClassFactory->getInstance('vcd_cdcover');
+		$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 		if (is_numeric($cid)) {
 			$COVERClass->deleteCover($cid);
 		} 
@@ -207,7 +207,7 @@ switch ($form) {
 	case 'delimage':
 		$pornstar_id = $_GET['star_id'];
 		
-		$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 		$pornstar = $PORNClass->getPornstarByID($pornstar_id);
 		
 		fs_unlink(PORNSTARIMAGE_PATH.$pornstar->getImageName());
@@ -227,7 +227,7 @@ switch ($form) {
 	case 'delactor':
 		$actor_id = $_GET['actor_id'];
 		$movie_id = $_GET['movie_id'];
-		$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
+		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 		$PORNClass->deletePornstarFromMovie($actor_id, $movie_id);
 		redirect("pages/manager.php?cd_id=".$movie_id."");
 		

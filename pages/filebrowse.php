@@ -9,7 +9,6 @@
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
-	global $ClassFactory;
 	
 	$jsaction = "return getFileName(this.form)";
 	if (isset($_GET['from']) && strcmp($_GET['from'], "player") == 0) {

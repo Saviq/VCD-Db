@@ -1,3 +1,14 @@
+0.974
+Fixed   - User can now successfully logout after having selected "Remember me".
+Changed - Upgraded to Adodb 4.66 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
+Updated - All VCD-db code can now run with E_STRICT, 100% pure PHP5 compatability.
+Added   - LDAP Directory authentication is now available, good for single sign-on environments.		
+
+		  Behind the hood updates:
+		  - VCDClassfactory is now a static class.
+	
+
+
 0.973
 Added   - SQLite is now supported.
 Fixed   - DVDEmpire fetch fixed.

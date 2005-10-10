@@ -1022,8 +1022,7 @@ class vcd_settings implements Settings {
 		try {
 	
 			// First, find all the users that want to be notified
-			global $ClassFactory;
-			$USERClass = $ClassFactory->getInstance("vcd_user");
+			$USERClass = VCDClassFactory::getInstance("vcd_user");
 			
 			$notifyPropObj = $USERClass->getPropertyByKey('NOTIFY');
 			if (!$notifyPropObj instanceof userPropertiesObj) {
@@ -1267,8 +1266,8 @@ class vcd_settings implements Settings {
 	public function isPublicWishLists($user_id) {
 		try {
 			if (is_numeric($user_id)) {
-				global $ClassFactory;
-				$USERClass = $ClassFactory->getInstance('vcd_user');
+				
+				$USERClass = VCDClassFactory::getInstance('vcd_user');
 				$propObj = $USERClass->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
 				if ($propObj instanceof userPropertiesObj ) {
 					$propCount = (int)sizeof($USERClass->getAllUsersWithProperty($propObj->getpropertyID()));

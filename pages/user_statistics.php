@@ -1,8 +1,8 @@
 <? 
 
-	global $ClassFactory;
-	$CLASSSettings = $ClassFactory->getInstance("vcd_settings");
-	$CLASSVcd = $ClassFactory->getInstance("vcd_movie");
+	
+	$CLASSSettings = VCDClassFactory::getInstance("vcd_settings");
+	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	
 	$user_id = $_SESSION['user']->getUserID();
 	$statsArr = $CLASSSettings->getUserStatistics($user_id);

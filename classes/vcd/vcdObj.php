@@ -242,7 +242,12 @@
 		 * @param movieCategoryObj $obj
 		 */
 		public function setMovieCategory(movieCategoryObj $obj) {
-			$this->moviecategoryobj = $obj;
+			try {
+				$this->moviecategoryobj = $obj;
+			} catch (Exception $ex) {
+				throw $ex;
+			}
+			
 		}
 		
 		/**
@@ -457,8 +462,7 @@
 			$date = "";
 			
 			if (isset($this->external_id)) {
-				global $ClassFactory;
-				$SettingsClass = $ClassFactory->getInstance('vcd_settings');
+				$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
 				$sObj = $SettingsClass->getSourceSiteByID($this->source_id);
 				if ($sObj->getsiteID() == 1) {
 					// Add "tt" for IMDB id's
@@ -505,8 +509,7 @@
 			}
 			
 			if ($this->isAdult() && is_numeric($this->studio_id)) {
-				global $ClassFactory;
-				$PORNClass = $ClassFactory->getInstance('vcd_pornstar');
+				$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 				$studioObj = $PORNClass->getStudioByID($this->studio_id);
 				if ($studioObj instanceof studioObj ) {
 					$xmlstr .= $studioObj->toXML();

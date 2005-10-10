@@ -1,7 +1,7 @@
 <?php
 	require_once("../classes/includes_admin.php");
 	require_once("functions/adminPageFunctions.php");
-	
+		
 	if (!VCDAuthentication::isAdmin()) {
 		VCDException::display("Only administrators have access here");
 		print "<script>self.close();</script>";
@@ -25,7 +25,6 @@
 		exportUserXML($_GET['recordID']);
 	}
 	
-	global $ClassFactory;
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">		 
@@ -77,7 +76,7 @@
 		<li><hr style="height:1px;"/><a href="./?page=versioncheck">Check for new version</a></li>
 		
 		<? 
-			$SETTINGSclass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
 			$showAdult = $SETTINGSclass->getSettingsByKey('SITE_ADULT');
 			if ($showAdult) { ?>
 			<li><hr style="height:1px;"/><a href="./?page=pornstars">Pornstars</a></li>
@@ -283,7 +282,7 @@
 				else 
 					$protected = 1;
 					
-				$data = array("",$_POST['key'],$_POST['value'],$_POST['description'],$protected);
+				$data = array("",$_POST['key'],$_POST['value'],$_POST['description'],$protected, "");
 				$obj = new settingsObj($data);
 				$SETTINGSclass->addSettings($obj);
 			}

@@ -6,14 +6,13 @@
 		exit();
 	}
 
-	global $ClassFactory;
 	$language = new language(true);
 	$language->load($_SESSION['vcdlang']);
 
 	$user = $_SESSION['user'];
-	$VCDClass = $ClassFactory->getInstance("vcd_movie");
-	$PORNClass = $ClassFactory->getInstance("vcd_pornstar");
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
+	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	$jsaction = "";
 		

@@ -63,8 +63,7 @@ class mediaTypeObj implements XMLable {
 		if (!isset($this->parent_id)) {
 			return $this->getName();
 		} else {
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			$parent_name = $SETTINGSClass->getMediaTypeByID($this->parent_id)->getName();
 			return $parent_name . " " . $this->getName();
 		}

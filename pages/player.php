@@ -12,10 +12,10 @@
 		$language->load($_SESSION['vcdlang']);
 	}
 	
-	global $ClassFactory;
+	
 	
 	$user = $_SESSION['user'];
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	$player = "";
 	$path = "";

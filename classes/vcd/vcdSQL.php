@@ -60,8 +60,6 @@
 		public function getVcdByID($vcd_id) {
 			try {
 				
-			global $ClassFactory;
-			
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, s.site_id, s.external_id
 					  FROM $this->TABLE_vcd AS v
 					  LEFT OUTER join $this->TABLE_vcdtosources AS s ON v.vcd_id = s.vcd_id
@@ -87,8 +85,8 @@
 				$rs2 = $this->db->Execute($query);
 				if ($rs2) {
 					
-					$USERClass = $ClassFactory->getInstance("vcd_user");
-					$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+					$USERClass = VCDClassFactory::getInstance("vcd_user");
+					$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 					
 					foreach ($rs2 as $row) {
 						$user_id  = $row[0];
@@ -126,8 +124,7 @@
 			$rs = $this->db->Execute($query);
 			$arrVcdObj = array();
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			foreach ($rs as $row) {
 			
@@ -158,8 +155,8 @@
 			// Get all CD's in this category
 			$rs = $this->db->Execute($query);
 			$arrVcdObj = array();
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 					
 			foreach ($rs as $row) {
 			
@@ -316,8 +313,8 @@
 			
 			$arrVcdObj = array();
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			foreach ($rs as $row) {
 					$obj = new vcdObj($row);
@@ -371,8 +368,7 @@
 			
 			$arrVcdObj = array();
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			foreach ($rs as $row) {
 					$obj = new vcdObj($row);
@@ -416,8 +412,7 @@
 			$rs = $this->db->Execute($query);
 			$arrVcdObj = array();
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			$i = 0;
 			foreach ($rs as $row) {
@@ -494,8 +489,7 @@
 			$rs = $this->db->Execute($query);
 			$arrVcdObj = array();
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			
 			$i = 0;
 			foreach ($rs as $row) {
@@ -1153,8 +1147,7 @@
 		public function search($keyword, $method, $showadult = false) {
 			try {
 			
-			global $ClassFactory;
-			$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			$adult_cat = $SETTINGSClass->getCategoryIDByName('Adult');
 			$keyword = "%".$keyword."%";
 			

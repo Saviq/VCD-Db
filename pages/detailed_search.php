@@ -100,7 +100,7 @@
 	<td><?=$language->show('M_OWNER')?>:</td>
 	<td>
 	<? 
-		$USERClass = $ClassFactory->getInstance('vcd_user');
+		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
 		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
 		foreach ($USERClass->getActiveUsers() as $userObj) {
@@ -156,7 +156,7 @@
 				$s_title = str_replace("'","''", $s_title);
 			}
 			
-			$VCDClass = $ClassFactory->getInstance('vcd_movie');
+			$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 			$resultArr = $VCDClass->advancedSearch($s_title, $s_category, $s_year, $s_mediatype, $s_owner, $s_grade);
 			
 			if (sizeof($resultArr) == 0) {

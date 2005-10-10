@@ -28,8 +28,7 @@
 	
 	
 	// First ... find the settings key for the smtp_debug ..
-	global $ClassFactory;
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$arrsettings = $SETTINGSClass->getAllSettings();
 	$sObj = null;
 	foreach ($arrsettings as $settingsObj) {

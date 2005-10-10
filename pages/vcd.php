@@ -1,9 +1,8 @@
 <? 
 $cd_id = $_GET['vcd_id'];
 
-global $ClassFactory;
 global $language;
-$VCDClass = $ClassFactory->getInstance("vcd_movie");
+$VCDClass = VCDClassFactory::getInstance("vcd_movie");
 $movie = $VCDClass->getVcdByID($cd_id);
 if (!$movie instanceof vcdObj ) {
 	redirect();
@@ -61,8 +60,9 @@ if ($movie->isAdult()) {
 				<td><?= $movie->getNumCopies() ?></td>
 			</tr>
 		<?
-		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
-		$arr = $SETTINGSClass->getMetadata($movie->getID(), $_SESSION['user']->getUserID(), 'mediaindex');
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+		$arr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'mediaindex');
+		
 		if (is_array($arr) && sizeof($arr) == 1) {
 		?>
 			<tr>

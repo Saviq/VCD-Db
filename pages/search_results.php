@@ -1,5 +1,5 @@
 <?
-$VCDClass = $ClassFactory->getInstance("vcd_movie");
+$VCDClass = VCDClassFactory::getInstance("vcd_movie");
 $movies = $VCDClass->search($search_string, $search_method);
 
 

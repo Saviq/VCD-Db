@@ -102,7 +102,7 @@ class SiteCookie
         $this->extract();
     }
 
-    function extract($cname="")
+    static function extract($cname="")
     {
         // handle older PHP versions
         if(!isset($_COOKIE)){

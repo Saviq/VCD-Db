@@ -5,8 +5,7 @@
 	global $CURRENT_PAGE parameter.
 */
 
-global $ClassFactory;
-$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 
 switch ($CURRENT_PAGE) {
 

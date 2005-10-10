@@ -1,8 +1,8 @@
 <? 
-	global $ClassFactory;
+	
 	global $language;
-	$USERClass = $ClassFactory->getInstance("vcd_user");
-	$SETTINGSClass = $ClassFactory->getInstance("vcd_settings");
+	$USERClass = VCDClassFactory::getInstance("vcd_user");
+	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$allow_registration = $SETTINGSClass->getSettingsByKey("ALLOW_REGISTRATION");
 
 	/* Process the registration form */
