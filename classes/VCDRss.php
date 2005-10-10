@@ -37,13 +37,12 @@ class VCDRss {
 	 *
 	 */
 	public function __construct() { 
-		global $ClassFactory;
 		$this->cache_folder = "../" . $this->cache_folder;
-		$this->VCDSettings = $ClassFactory->getInstance('vcd_settings');
+		$this->VCDSettings = VCDClassFactory::getInstance('vcd_settings');
 		$this->site_rss = $this->VCDSettings->getSettingsByKey('RSS_SITE');
 		$this->user_rss = $this->VCDSettings->getSettingsByKey('RSS_USERS');
 		$this->baseurl = $this->VCDSettings->getSettingsByKey('SITE_HOME');
-		$CLASSUser = $ClassFactory->getInstance('vcd_user');
+		$CLASSUser = VCDClassFactory::getInstance('vcd_user');
 		$pObj = $CLASSUser->getPropertyByKey('RSS');
 		$this->rssUsers = $CLASSUser->getAllUsersWithProperty($pObj->getpropertyID());
 	}
@@ -101,12 +100,10 @@ class VCDRss {
 			}
 			
 			
-			
-			global $ClassFactory;
     		
-    		$VCDClass = $ClassFactory->getInstance('vcd_movie');
-	   		$USERClass = $ClassFactory->getInstance('vcd_user');
-	   		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+    		$VCDClass      = VCDClassFactory::getInstance('vcd_movie');
+	   		$USERClass     = VCDClassFactory::getInstance('vcd_user');
+	   		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			
 			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
@@ -140,7 +137,7 @@ class VCDRss {
 			// Check if we need to write the results to cache because the existing one was to old.
 			if ($usecache) {
 				$serialized = serialize($xml);
-				if ($f = fopen($cache_file, 'w')) {
+				if ($f = @fopen($cache_file, 'w')) {
 					fwrite ($f, $serialized, strlen($serialized));
 					fclose($f);
 				} 
@@ -184,9 +181,8 @@ class VCDRss {
 			
 			
 			
-			global $ClassFactory;
-    		$VCDClass = $ClassFactory->getInstance('vcd_movie');
-    		$SETTINGSClass = $ClassFactory->getInstance('vcd_settings');
+    		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
+    		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			
 			
 			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
