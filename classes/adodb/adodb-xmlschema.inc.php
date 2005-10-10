@@ -94,12 +94,12 @@ class dbObject {
 	/**
 	* var object Parent
 	*/
-	var $parent;
+	public $parent;
 	
 	/**
 	* var string current element
 	*/
-	var $currentElement;
+	public $currentElement;
 	
 	/**
 	* NOP
@@ -135,7 +135,7 @@ class dbObject {
 		
 	}
 	
-	function create() {
+	function create(&$xmls) {
 		return array();
 	}
 	
@@ -194,39 +194,39 @@ class dbTable extends dbObject {
 	/**
 	* @var string Table name
 	*/
-	var $name;
+	public $name;
 	
 	/**
 	* @var array Field specifier: Meta-information about each field
 	*/
-	var $fields = array();
+	public $fields = array();
 	
 	/**
 	* @var array List of table indexes.
 	*/
-	var $indexes = array();
+	public $indexes = array();
 	
 	/**
 	* @var array Table options: Table-level options
 	*/
-	var $opts = array();
+	public $opts = array();
 	
 	/**
 	* @var string Field index: Keeps track of which field is currently being processed
 	*/
-	var $current_field;
+	public $current_field;
 	
 	/**
 	* @var boolean Mark table for destruction
 	* @access private
 	*/
-	var $drop_table;
+	public $drop_table;
 	
 	/**
 	* @var boolean Mark field for destruction (not yet implemented)
 	* @access private
 	*/
-	var $drop_field = array();
+	public $drop_field = array();
 	
 	/**
 	* Iniitializes a new table object.
@@ -350,7 +350,7 @@ class dbTable extends dbObject {
 	*/
 	function &addIndex( $attributes ) {
 		$name = strtoupper( $attributes['NAME'] );
-		$this->indexes[$name] =& new dbIndex( $this, $attributes );
+		$this->indexes[$name] = new dbIndex( $this, $attributes );
 		return $this->indexes[$name];
 	}
 	
@@ -362,7 +362,7 @@ class dbTable extends dbObject {
 	*/
 	function &addData( $attributes ) {
 		if( !isset( $this->data ) ) {
-			$this->data =& new dbData( $this, $attributes );
+			$this->data = new dbData( $this, $attributes );
 		}
 		return $this->data;
 	}
@@ -600,23 +600,23 @@ class dbIndex extends dbObject {
 	/**
 	* @var string	Index name
 	*/
-	var $name;
+	public $name;
 	
 	/**
 	* @var array	Index options: Index-level options
 	*/
-	var $opts = array();
+	public $opts = array();
 	
 	/**
 	* @var array	Indexed fields: Table columns included in this index
 	*/
-	var $columns = array();
+	public $columns = array();
 	
 	/**
 	* @var boolean Mark index for destruction
 	* @access private
 	*/
-	var $drop = FALSE;
+	public $drop = FALSE;
 	
 	/**
 	* Initializes the new dbIndex object.
@@ -758,9 +758,9 @@ class dbIndex extends dbObject {
 */
 class dbData extends dbObject {
 	
-	var $data = array();
+	public $data = array();
 	
-	var $row;
+	public $row;
 	
 	/**
 	* Initializes the new dbIndex object.
@@ -945,22 +945,22 @@ class dbQuerySet extends dbObject {
 	/**
 	* @var array	List of SQL queries
 	*/
-	var $queries = array();
+	public $queries = array();
 	
 	/**
 	* @var string	String used to build of a query line by line
 	*/
-	var $query;
+	public $query;
 	
 	/**
 	* @var string	Query prefix key
 	*/
-	var $prefixKey = '';
+	public $prefixKey = '';
 	
 	/**
 	* @var boolean	Auto prefix enable (TRUE)
 	*/
-	var $prefixMethod = 'AUTO';
+	public $prefixMethod = 'AUTO';
 	
 	/**
 	* Initializes the query set.
@@ -1204,76 +1204,76 @@ class adoSchema {
 	* @var array	Array containing SQL queries to generate all objects
 	* @access private
 	*/
-	var $sqlArray;
+	public $sqlArray;
 	
 	/**
 	* @var object	ADOdb connection object
 	* @access private
 	*/
-	var $db;
+	public $db;
 	
 	/**
 	* @var object	ADOdb Data Dictionary
 	* @access private
 	*/
-	var $dict;
+	public $dict;
 	
 	/**
 	* @var string Current XML element
 	* @access private
 	*/
-	var $currentElement = '';
+	public $currentElement = '';
 	
 	/**
 	* @var string If set (to 'ALTER' or 'REPLACE'), upgrade an existing database
 	* @access private
 	*/
-	var $upgrade = '';
+	public $upgrade = '';
 	
 	/**
 	* @var string Optional object prefix
 	* @access private
 	*/
-	var $objectPrefix = '';
+	public $objectPrefix = '';
 	
 	/**
 	* @var long	Original Magic Quotes Runtime value
 	* @access private
 	*/
-	var $mgq;
+	public $mgq;
 	
 	/**
 	* @var long	System debug
 	* @access private
 	*/
-	var $debug;
+	public $debug;
 	
 	/**
 	* @var string Regular expression to find schema version
 	* @access private
 	*/
-	var $versionRegex = '/<schema.*?( version="([^"]*)")?.*?>/';
+	public $versionRegex = '/<schema.*?( version="([^"]*)")?.*?>/';
 	
 	/**
 	* @var string Current schema version
 	* @access private
 	*/
-	var $schemaVersion;
+	public $schemaVersion;
 	
 	/**
 	* @var int	Success of last Schema execution
 	*/
-	var $success;
+	public $success;
 	
 	/**
 	* @var bool	Execute SQL inline as it is generated
 	*/
-	var $executeInline;
+	public $executeInline;
 	
 	/**
 	* @var bool	Continue SQL execution if errors occur
 	*/
-	var $continueOnError;
+	public $continueOnError;
 	
 	/**
 	* Creates an adoSchema object
