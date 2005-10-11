@@ -29,6 +29,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'FI',
 'LANG_NAME' 			=> 'Suomi',
+'LANG_CHARSET'		 	=> 'iso-8859-1',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Oma valikko',

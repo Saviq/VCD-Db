@@ -19,14 +19,13 @@
 		Bulgarian language file
 	
 	*/
-
-
 	
 $_ = array(
 
 /* Language Identifier */
 'LANG_TYPE' 			=> 'BG',
 'LANG_NAME' 			=> 'Bulgarian',
+'LANG_CHARSET'			=> 'windows-1251',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Μενώ',

@@ -25,8 +25,9 @@
 $_ = array( 
 
 /* Language Identifier */ 
-'LANG_TYPE'          => 'NL', 
-'LANG_NAME'          => 'Nederlands', 
+'LANG_TYPE'         	=> 'NL', 
+'LANG_NAME'         	=> 'Nederlands', 
+'LANG_CHARSET'			=> 'iso-8859-1',
 
 /* Menu system */ 
 'MENU_MINE'         	=> 'Mijn menu', 

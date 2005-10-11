@@ -27,6 +27,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'IS',
 'LANG_NAME' 			=> 'Íslenska',
+'LANG_CHARSET'			=> 'iso-8859-1',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Mín valmynd',

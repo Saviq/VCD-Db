@@ -27,6 +27,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'ENG',
 'LANG_NAME' 			=> 'English',
+'LANG_CHARSET'		 	=> 'iso-8859-1',
 
 /* Menu system */
 'MENU_MINE' 			=> 'My menu',

@@ -28,6 +28,7 @@ $_ = array(
 /* Language Identifier */ 
 'LANG_TYPE' 			=> 'DK',
 'LANG_NAME'				=> 'Danish',
+'LANG_CHARSET'			=> 'iso-8859-1',
 
 /* Menu system */ 
 'MENU_MINE' 			=> 'Min menu',
