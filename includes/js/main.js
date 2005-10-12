@@ -987,6 +987,9 @@ function getPlayerFileName(form) {
 function playFile(command) {
 	try {
 		
+		
+		
+		
 		if (!document.all) {
 		 	alert ("Sorry but this feature is only\navailable with Internet Explorer.");
   			return;
@@ -994,7 +997,8 @@ function playFile(command) {
 				
 		var ws = new ActiveXObject("WScript.Shell");
 		if (OS == 'Windows') {
-			command = replace(command, "#", "\\\\");
+			command = replace(command, "#", "\\");
+			command = replace(command, "|", "\"");
 		} 
  		ws.Exec(command);
  		
