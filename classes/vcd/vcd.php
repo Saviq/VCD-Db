@@ -716,7 +716,7 @@ class vcd_movie implements Vcd  {
 				if (is_numeric($vcd_id) && is_numeric($new_mediaid) && is_numeric($old_mediaid) && 
 				    is_numeric($new_numcds) && is_numeric($oldnumcds)) {
 
-				    	$user_id = $_SESSION['user']->getUserID();
+				    	$user_id = VCDUtils::getUserID();
 				    	$this->SQL->updateVcdInstance($user_id, $vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
 				
 				} else {
@@ -758,7 +758,7 @@ class vcd_movie implements Vcd  {
 			
 			
 			if ($user_id == -1) {
-				$user_id = $_SESSION['user']->getUserID();
+				$user_id = VCDUtils::getUserID();
 			} 
 			
 			
@@ -1099,7 +1099,7 @@ class vcd_movie implements Vcd  {
 		try {
 			
 			// Get the current user's ID
-			$user_id = $_SESSION['user']->getUserID();
+			$user_id = VCDUtils::getUserID();
 			if ($category == 0) {
 				$movies = $this->getAllVcdByUserId($user_id);
 			} else {
@@ -1267,7 +1267,7 @@ class vcd_movie implements Vcd  {
 				return null;
 			}
 			
-			$request_userid = $_SESSION['user']->getUserID();
+			$request_userid = VCDUtils::getUserID();
 			return $this->SQL->crossJoin($request_userid, $user_id, $media_id, $category_id, $method);
 			
 		} catch (Exception $e) {

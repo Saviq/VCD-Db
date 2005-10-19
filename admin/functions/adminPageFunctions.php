@@ -1,7 +1,7 @@
 <?php
 
-function printTableOpen($width = "100%") {
-	print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" class=\"datatable\" width=\"".$width."%\">";
+function printTableOpen($width = "100%", $cellpadding = 1, $cellspacing = 1) {
+	print "<table cellspacing=\"{$cellspacing}\" cellpadding=\"{$cellpadding}\" border=\"0\" class=\"datatable\" width=\"".$width."%\">";
 }
 
 
@@ -150,7 +150,7 @@ function deleteRecord($recordID, $recordType) {
 		case 'deleteUser';
 			
 			// Check if user is trying to delete himself
-			if ($recordID == $_SESSION['user']->getUserID()) {
+			if ($recordID == VCDUtils::getUserID()) {
 				VCDException::display('You cannot delete your own account!', true);
 				return;
 			}

@@ -15,35 +15,43 @@
 ?>
 <? 
 
+/**
+ * Enter description here...
+ *
+ */
 function display_topmenu() {
 	
 	global $language;
 	
 	if (VCDUtils::isLoggedIn()) {
 		$user = $_SESSION['user'];
-		echo "<a href=\"./?page=private&o=settings\">".$user->getFullname()."</a>";
+		echo "<a href=\"./?page=private&o=settings\">".$user->getFullname()."</a> ";
 		
 		if ($user->isAdmin()) {
 			?>| <a href="#" onclick="openAdminConsole()"><?=$language->show('MENU_CONTROLPANEL')?></a><?
 		}
 		
-		?> | <a href="./?do=logout"><?=$language->show('MENU_LOGOUT')?></a><?
+		?> | <a href="./?do=logout"><?=$language->show('MENU_LOGOUT')?></a> <?
 				
 	} else {
-		?><a href="./?page=register"><?=$language->show('MENU_REGISTER')?></a><?
+		?><a href="./?page=register"><?=$language->show('MENU_REGISTER')?></a> <?
 	}
 	
 	?>| <a href="./?page=detailed_search"><?=$language->show('SEARCH_EXTENDED')?></a> |<?
 	
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function display_userlinks() {
 	global $language;
 	
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	$rssLink = "";
-	if (sizeof($SETTINGSClass->getRssFeedsByUserId($_SESSION['user']->getUserID()))>0) {
+	if (sizeof($SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
 		$rssLink = "<span class=\"nav\"><a href=\"./?page=private&o=rss\" class=\"navx\">".$language->show('MENU_RSS')."</a></span>";
 	}
 	?>
@@ -55,18 +63,22 @@ function display_userlinks() {
 	<span class="nav"><a href="./?page=private&amp;o=loans" class="navx"><?=$language->show('MENU_LOANSYSTEM')?></a></span>
 	<? } 
 	// Check for shared wishlists and if so .. display the "others wishlist link"
-		if ($SETTINGSClass->isPublicWishLists($_SESSION['user']->getUserID())) {
+		if ($SETTINGSClass->isPublicWishLists(VCDUtils::getUserID())) {
 		?><span class="nav"><a href="./?page=private&amp;o=publicwishlist" class="navx"><?=$language->show('MENU_WISHLISTPUBLIC')?></a></span><?
 	}
 	?>
 	<span class="nav"><a href="./?page=private&amp;o=wishlist" class="navx"><?=$language->show('MENU_WISHLIST')?></a></span>
-	<? if ($CLASSVcd->getMovieCount($_SESSION['user']->getUserID()) > 0)  {?>
+	<? if ($CLASSVcd->getMovieCount(VCDUtils::getUserID()) > 0)  {?>
 	<span class="nav"><a href="./?page=private&amp;o=stats" class="navx"><?=$language->show('MENU_STATISTICS')?></a></span>
 	<? } ?>
 	<?=$rssLink?>
 	<?
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function display_adultmenu() {
 	global $language;
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
@@ -88,6 +100,11 @@ function display_adultmenu() {
 
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $imdb_id
+ */
 function display_imdbLinks($imdb_id) {
 	global $language;
 	
@@ -101,6 +118,10 @@ function display_imdbLinks($imdb_id) {
 }
 
 
+/**
+ * Enter description here...
+ *
+ */
 function display_toggle() {
 	global $CURRENT_PAGE;
 	if ($CURRENT_PAGE == "") {
@@ -115,6 +136,10 @@ function display_toggle() {
 	<? }
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function display_topusers() {
 	global $language;
 	$USERClass = VCDClassFactory::getInstance('vcd_user');
@@ -134,6 +159,10 @@ function display_topusers() {
 	}
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function display_moviecategories() {
 	global $language;
 	
@@ -232,6 +261,13 @@ function display_moviecategories() {
 }
 
 /*  display pager for scrolling through recordsets on page */
+/**
+ * Enter description here...
+ *
+ * @param unknown $totalRecords
+ * @param unknown $current_pos
+ * @param unknown $url
+ */
 function pager($totalRecords, $current_pos, $url) {
 	
 	global $CURRENT_PAGE;
@@ -280,10 +316,19 @@ function pager($totalRecords, $current_pos, $url) {
 	
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $layername
+ */
 function hidelayer($layername) {
 	print "<script>hide('".$layername."')</script>";
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function display_search() {
 	
 	global $language;
@@ -307,12 +352,24 @@ function display_search() {
 <?
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function reloadandclose() {
 	print "onload=\"window.opener.location.reload();window.close()\"";
 }
 
 
 /* Uses the getList from the Object to dynamicly create dropdown  */
+/**
+ * Enter description here...
+ *
+ * @param unknown $arrObjects
+ * @param unknown $selected_index
+ * @param unknown $showtitle
+ * @param unknown $title
+ */
 function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $title = "") {
 	
 	// Check for preliminaries ..
@@ -357,6 +414,13 @@ function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $tit
 
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $pornstar_id
+ * @param unknown $pornstar_name
+ * @param unknown $movie_id
+ */
 function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 		global $language;
 		?>
@@ -382,6 +446,11 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 	
 }
 
+/**
+ * Enter description here...
+ *
+ * @return unknown
+ */
 function getCategoryMapping() {
 	$mapping = array(
 		'Action' 		=> 'CAT_ACTION',
@@ -414,6 +483,12 @@ function getCategoryMapping() {
 }
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $strList
+ * @return unknown
+ */
 function parseCategoryList($strList) {
 
 	global $language;
@@ -454,6 +529,11 @@ function parseCategoryList($strList) {
 }
 
 
+/**
+ * Enter description here...
+ *
+ * @return unknown
+ */
 function server_url()
 {  
    $proto = "http" .
@@ -465,6 +545,11 @@ function server_url()
    
 
 // Default redirection to home
+/**
+ * Enter description here...
+ *
+ * @param unknown $relative_url
+ */
 function redirect($relative_url = '.?')
 {
    $url = server_url() . dirname($_SERVER['PHP_SELF']) . "/" . $relative_url;
@@ -479,6 +564,10 @@ function redirect($relative_url = '.?')
    }
 }
 
+/**
+ * Enter description here...
+ *
+ */
 function inc_tooltipjs() {
 	
 	global $CURRENT_PAGE;
@@ -491,6 +580,11 @@ function inc_tooltipjs() {
 	}
 }
 
+/**
+ * Enter description here...
+ *
+ * @return unknown
+ */
 function rightbar() {
 	global $CURRENT_PAGE;
 	$subaction = "";
@@ -503,7 +597,7 @@ function rightbar() {
 		if (VCDUtils::isLoggedIn()) {
 			
 			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-			$arr = $SETTINGSClass->getMetadata(0, $_SESSION['user']->getUserID(), 'frontbar');
+			$arr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
 				return false;
 			}
@@ -516,6 +610,14 @@ function rightbar() {
 }
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $arr
+ * @param unknown $start
+ * @param unknown $pageCount
+ * @return unknown
+ */
 function createObjFilter(&$arr, $start, $pageCount) {
 	$newarr = array();
 	for ($i = 0; $i < sizeof($arr); $i++) {
@@ -531,6 +633,13 @@ function createObjFilter(&$arr, $start, $pageCount) {
 	return $newarr;
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $multiArray
+ * @param unknown $secondIndex
+ * @return unknown
+ */
 function aSortBySecondIndex($multiArray, $secondIndex) { 
 		   while (list($firstIndex, ) = each($multiArray)) 
 		       $indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex]; 
@@ -542,6 +651,11 @@ function aSortBySecondIndex($multiArray, $secondIndex) {
 		   return $sortedArray; 
 } 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $strPlot
+ */
 function showPlot($strPlot) {
 	
 	global $language;
@@ -563,6 +677,12 @@ function showPlot($strPlot) {
 		
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $str
+ * @return unknown
+ */
 function fixFormat($str) {
 	$len = 10;
 	$cats = explode(",",$str);
@@ -579,11 +699,23 @@ function fixFormat($str) {
 }
 
 
+/**
+ * Enter description here...
+ *
+ * @return unknown
+ */
 function checkInstall() {
 	return (is_dir('setup'));
 }
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $arrMovies
+ * @param unknown $arrLoans
+ * @return unknown
+ */
 function filterLoanList($arrMovies, $arrLoans) {
 
 	// create array with movie id's that are in loan ..
@@ -605,6 +737,12 @@ function filterLoanList($arrMovies, $arrLoans) {
 	
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $url
+ * @param unknown $showdescription
+ */
 function ShowOneRSS($url, $showdescription = false) { 
     
 	
@@ -640,6 +778,12 @@ function ShowOneRSS($url, $showdescription = false) {
 } 
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $string
+ * @return unknown
+ */
 function unhtmlentities ($string)
 {
 	$trans_tbl = get_html_translation_table (HTML_ENTITIES);
@@ -649,6 +793,13 @@ function unhtmlentities ($string)
 
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $show_logo
+ * @param unknown $width
+ * @param unknown $style
+ */
 function printStatistics($show_logo = true, $width = "230", $style = "statsTable") {
 	
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
@@ -772,7 +923,7 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 		} 
 		
 		if (strcmp($player, "") !=0 && strcmp($filename, "") != 0) {
-			$playcommand = $player . " " . $filename . " " . $playerparams;
+			$playcommand = "|".$player . "| |" . $filename . "| " . $playerparams;
 			$playcommand = str_replace('\\','#', $playcommand);
 			return true;
 		} else {
@@ -785,6 +936,14 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 	return false;
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $vcdObj
+ * @param unknown $user_id
+ * @param unknown $playcommand
+ * @return unknown
+ */
 function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
 		
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
@@ -825,6 +984,12 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
 
 
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $categoryObjArr
+ * @return unknown
+ */
 function getLocalizedCategories($categoryObjArr = null) {
 	global $language;
 	
@@ -864,6 +1029,10 @@ function getLocalizedCategories($categoryObjArr = null) {
 
 
 // Check if mod_rewrite is enabled and call for page parsing on contents if it is.
+/**
+ * Enter description here...
+ *
+ */
 function start_mrw() {
 	if (defined("MOD_REWRITE") && (strcmp(MOD_REWRITE, "1") == 0)) {
 		ob_start("doRewrite");
@@ -871,12 +1040,22 @@ function start_mrw() {
 }
 
 // Flush buffer if mod_rewrite is enabled
+/**
+ * Enter description here...
+ *
+ */
 function end_mrw() {
 	if (defined("MOD_REWRITE") && (strcmp(MOD_REWRITE, "1") == 0)) {
 		ob_end_flush();
 	}
 }
 
+/**
+ * Enter description here...
+ *
+ * @param unknown $buffer
+ * @return unknown
+ */
 function doRewrite($buffer) {
 	
   $root = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));   

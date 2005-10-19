@@ -92,7 +92,7 @@
 						$user_id  = $row[0];
 						$media_id = $row[1];
 						$discs    = $row[2];
-						$date     = $this->db->UnixDate($row[3]);
+						$date     = $this->db->UnixTimeStamp($row[3]);
 						
 						$obj->addInstance($USERClass->getUserByID($user_id), $SETTINGSClass->getMediaTypeByID($media_id), $discs, $date);
 						
@@ -321,7 +321,7 @@
 					// Get the mediaType
 					$obj->addMediaType($SETTINGSClass->getMediaTypeByID($row[4]));
 					$obj->setDiscCount($row[5]);
-					$obj->setDateAdded($this->db->UnixDate($row[6]));
+					$obj->setDateAdded($this->db->UnixTimeStamp($row[6]));
 					
 					$obj->setSourceSite($row[7], $row[8]);
 					
@@ -711,7 +711,7 @@
 					  ".$obj->getInsertValueUserID().",
 					  ".$obj->getInsertValueMediaTypeID().",
 					  ".$obj->getInsertValueDiscCount().",
-					  ".$this->db->DBDate(time()).")";
+					  ".$this->db->DBTimeStamp(time()).")";
 			
 			return $this->db->Execute($query);		
 			
@@ -725,7 +725,7 @@
 			try {
 				
 			$query = "INSERT INTO $this->TABLE_vcdtouser (vcd_id, user_id, media_type_id, disc_count, date_added)
-					  VALUES (".$vcd_id.", ".$user_id.", ".$mediatype.", ".$cds.",  ".$this->db->DBDate(time()).")";
+					  VALUES (".$vcd_id.", ".$user_id.", ".$mediatype.", ".$cds.",  ".$this->db->DBTimeStamp(time()).")";
 			return $this->db->Execute($query);		
 			
 			} catch (Exception $e) {

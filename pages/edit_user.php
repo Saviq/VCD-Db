@@ -195,7 +195,7 @@
 <h2><?=$language->show('SE_CUSTOM')?></h2>
 <? 
 	// Check for current values
-	$uid = $_SESSION['user']->getUserID();
+	$uid = VCDUtils::getUserID();
 	$metaObjA = $SETTINGSClass->getMetadata(0, $uid, 'frontstats');
 	$metaObjB = $SETTINGSClass->getMetadata(0, $uid, 'frontbar');
 	$metaObjC = $SETTINGSClass->getMetadata(0, $uid, 'frontrss');
@@ -289,7 +289,7 @@
 <? 
 	// Get current ignore list
 	$ignorelist = array();
-	$metaArr = $SETTINGSClass->getMetadata(0, $_SESSION['user']->getUserID(), 'ignorelist');
+	$metaArr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), 'ignorelist');
 	if (sizeof($metaArr) > 0) {
 		$ignorelist = split("#", $metaArr[0]->getMetadataValue());
 	}
@@ -305,7 +305,7 @@
 		$arrUsers = $CLASSUsers->getActiveUsers();
 		foreach ($arrUsers as $userObj) {
 			if (!in_array($userObj->getUserID(), $ignorelist)) {
-				if ($userObj->getUserID() != $_SESSION['user']->getUserID()) {
+				if ($userObj->getUserID() != VCDUtils::getUserID()) {
 					print "<option value=\"".$userObj->getUserID()."\">".$userObj->getUserName()."</option>";
 				}
 			}

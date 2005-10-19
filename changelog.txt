@@ -3,6 +3,12 @@ Fixed   - User can now successfully logout after having selected "Remember me".
 Changed - Upgraded to Adodb 4.66 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
 Updated - All VCD-db code can now run with E_STRICT, 100% pure PHP5 compatability.
 Added   - LDAP Directory authentication is now available, good for single sign-on environments.		
+Added   - Language files can now be edited/updated in the "Control Panel".
+Added   - Admin can now specify what languages will be available for his site.
+Fixed   - Launching media player from VCD-db function with player and/or filepaths containing spaces was not working.
+Updated - When adding new movies, insertion date/time uses timestamp instead of datestamp.
+Fixed   - The VCD-db RSS feed is now correctly validated with W3CDTF date.
+Added   - Movie export and thumbnail export can now optionally be zipped or gunzipped before downloading.
 
 		  Behind the hood updates:
 		  - VCDClassfactory is now a static class.
@@ -18,7 +24,7 @@ Fixed   - User property selection has finally be translated, and some others tha
 Added   - German language file is now included with VCD-db (Big thanks to Stefan Schackmann)
 Added   - Finnish language file is now included with VCD-db (Big thanks to Lari Majamäki)
 Added   - Bulgarian language file is now included with VCD-db (Big thanks to Cuci)
-Added   - Statistics page for user to see how his collection is distibuted.
+Added   - Statistics page for user to see how his collection is distributed.
 Fixed   - Delete borrower from "user settings" was not working in Mozilla.
 Fixed   - Allowed image extensions updated to work with Mozilla.
 Added   - Adult studios and categories can now be added and deleted from "Control Panel".

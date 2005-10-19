@@ -5,7 +5,7 @@ $borrowerObj = $SETTINGSClass->getBorrowerByID($_GET['history']);
 if (!$borrowerObj instanceof borrowerObj ) {
 	VCDException::display("Aborting query", true);
 }
-$loansArr = $SETTINGSClass->getLoansByBorrowerID($_SESSION['user']->getUserID(), $borrowerObj->getID(), true);
+$loansArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrowerObj->getID(), true);
 
 
 
@@ -16,7 +16,7 @@ $loansArr = $SETTINGSClass->getLoansByBorrowerID($_SESSION['user']->getUserID(),
 <? 
 
 	$bid = $_GET['history'];
-	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID($_SESSION['user']->getUserID());
+	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID(VCDUtils::getUserID());
 	print "<form>&nbsp;<span class=\"bold\">".$language->show('LOAN_SELECT')." </span><select name=\"borrowers\" size=1\" onchange=\"Valmynd(this, false)\">";
 			foreach ($arrBorrowers as $obj) {
 				$arr = $obj->getList();

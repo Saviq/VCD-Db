@@ -6,7 +6,7 @@
 
 	global $language;
 	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$movies = $VCDClass->getAllVcdForList($_SESSION['user']->getUserID());
+	$movies = $VCDClass->getAllVcdForList(VCDUtils::getUserID());
 ?>
 
 <h1><?=$language->show('ADD_LISTED')?></h1>

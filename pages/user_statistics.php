@@ -4,7 +4,7 @@
 	$CLASSSettings = VCDClassFactory::getInstance("vcd_settings");
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	
-	$user_id = $_SESSION['user']->getUserID();
+	$user_id = VCDUtils::getUserID();
 	$statsArr = $CLASSSettings->getUserStatistics($user_id);
 	$moviecount = $CLASSVcd->getMovieCount($user_id);
 

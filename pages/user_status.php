@@ -21,14 +21,14 @@
 
 	
 		$s = new vcd_settings();
-		$userCategories = $s->getCategoriesInUseByUserID($_SESSION['user']->getUserID());
+		$userCategories = $s->getCategoriesInUseByUserID(VCDUtils::getUserID());
 		if (sizeof($userCategories) == 0) {
 			VCDException::display('You have not added any movies yet<break>Try again after you have inserted some movies');
 			print "<script>window.close()</script>";
 			exit();
 		}
 		
-		$arr = $s->getMediaTypesInUseByUserID($_SESSION['user']->getUserID());
+		$arr = $s->getMediaTypesInUseByUserID(VCDUtils::getUserID());
 		
 		$arrMediaTypes = array();
 	
@@ -60,7 +60,7 @@
 			print "<tr>";
 			print "<td nowrap=\"nowrap\" class=\"".$css_class."\">".$categoryObj->getName()."</td>";
 		
-			$arr2 = $s->getMediaCountByCategoryAndUserID($_SESSION['user']->getUserID(),$categoryObj->getID());
+			$arr2 = $s->getMediaCountByCategoryAndUserID(VCDUtils::getUserID(),$categoryObj->getID());
 			$resultArr = getCategoryResults($arrMediaTypes,  $arr2);
 			
 			$category_sum = 0;

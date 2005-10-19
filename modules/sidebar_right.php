@@ -59,7 +59,7 @@
 	
 	// Check for custom frontpage settings
 	if (VCDUtils::isLoggedIn()) {
-		$user_id = $_SESSION['user']->getUserID();
+		$user_id = VCDUtils::getUserID();
 		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'frontstats');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$SHOW_STATS = $arr[0]->getMetadataValue();

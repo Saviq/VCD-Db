@@ -185,7 +185,7 @@ function createNotifyEmailBody(vcdObj $obj) {
 
 function generateExcel() {
 
-	$user_id = $_SESSION['user']->getUserID();
+	$user_id = VCDUtils::getUserID();
 	$vcd = VCDClassFactory::getInstance("vcd_movie");
 	$arrMovies = $vcd->getAllVcdByUserId($user_id);
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
@@ -352,7 +352,7 @@ function processExcelMovies($upfile) {
 					$mediaindex = $data->sheets[0]['cells'][$i][5];
 					
 					if ($mediaindex) {
-						$SETTINGSClass->addMetadata(new metadataObj(array('', $new_vcdid, $_SESSION['user']->getUserId(), 'mediaindex', $mediaindex)));
+						$SETTINGSClass->addMetadata(new metadataObj(array('', $new_vcdid, VCDUtils::getUserID(), 'mediaindex', $mediaindex)));
 					} else {
 						$mediaindex = 0;
 					}

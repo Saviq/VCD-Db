@@ -187,7 +187,7 @@
 
 <? 
 	// Get my copies ..
-	$arrCopies = $vcd->getInstancesByUserID($_SESSION['user']->getUserID());
+	$arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
 	if (sizeof($arrCopies) > 0) {
 		$arrMediaTypes = $arrCopies['mediaTypes'];
 		$arrNumcds = $arrCopies['discs'];

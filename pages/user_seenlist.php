@@ -8,7 +8,7 @@
 	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
-	$user_id = $_SESSION['user']->getUserID();
+	$user_id = VCDUtils::getUserID();
 	if (isset($_POST['save'])) {
 		// Loop through the posted values
 		foreach ($_POST['seenlist'] as $key => $value) {

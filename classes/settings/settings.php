@@ -750,7 +750,7 @@ class vcd_settings implements Settings {
 			
 			if (is_null($this->borrowersArray)) {
 				// should not need this, just a precaution
-				$this->getBorrowersByUserID($_SESSION['user']->getUserID());
+				$this->getBorrowersByUserID(VCDUtils::getUserID());
 			}
 			
 			foreach ($this->borrowersArray as $obj) {
@@ -836,7 +836,7 @@ class vcd_settings implements Settings {
 			if ($borrowerObj instanceof borrowerObj) {
 				
 				// Check if user is allowd to delete this borrowerObj
-				$user_id = $_SESSION['user']->getUserID();
+				$user_id = VCDUtils::getUserID();
 				if ($borrowerObj->getOwnerID() != $user_id) {
 					throw new Exception("You have no permission to delete borrower " . $borrowerObj->getName());
 				}
@@ -878,7 +878,7 @@ class vcd_settings implements Settings {
 				return false;
 			} else {
 				foreach ($arrMovieIDs as $cd_id) {
-					$this->SQL->loanCDs($_SESSION['user']->getUserID(), $borrower_id, $cd_id);
+					$this->SQL->loanCDs(VCDUtils::getUserID(), $borrower_id, $cd_id);
 				}
 				return true;
 			}
@@ -1184,9 +1184,9 @@ class vcd_settings implements Settings {
 		try {
 			if (is_numeric($user_id))	 {
 				$wishlistArr = $this->SQL->getWishList($user_id);
-				if (isset($_SESSION['user']) && $_SESSION['user']->getUserID() != $user_id) {
+				if (isset($_SESSION['user']) && VCDUtils::getUserID() != $user_id) {
 					// User is view-ing others wishlist, lets check if user owns movies from this wishlist
-					$ArrVCDids = $this->SQL->getVCDIDsByUser($_SESSION['user']->getUserID());
+					$ArrVCDids = $this->SQL->getVCDIDsByUser(VCDUtils::getUserID());
 					if (is_array($ArrVCDids) && sizeof($ArrVCDids) > 0) {
 						// Loop through the list
 						$comparedArr = array();
@@ -1230,7 +1230,7 @@ class vcd_settings implements Settings {
 				throw new Exception("ID for wishlist must be numeric");
 			}
 			
-			$user_id = $_SESSION['user']->getUserID();
+			$user_id = VCDUtils::getUserID();
 			return $this->SQL->isOnWishList($vcd_id, $user_id);
 			
 		} catch (Exception $e) {

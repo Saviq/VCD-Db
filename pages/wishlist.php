@@ -5,7 +5,7 @@
 	
 	
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$listArr = $SETTINGSClass->getWishList($_SESSION['user']->getUserID());
+	$listArr = $SETTINGSClass->getWishList(VCDUtils::getUserID());
 ?>
 
 <h1><?= $language->show('MENU_WISHLIST')?></h1>
@@ -18,11 +18,11 @@
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" class="displist">
 <tr>
-	<td class="bold"><?= $language->show('M_TITLE')?></td><td>&nbsp;</td>
+	<td class="bold" width="95%"><?= $language->show('M_TITLE')?></td><td>&nbsp;</td>
 </tr>
 <? 
 	foreach ($listArr as $item) {
-		print "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$item[0]."\">".$item[1]."</a></td><td><a href=\"#\"><img src=\"images/admin/icon_del.gif\" onclick=\"deleteFromWishlist(".$item[0].")\" border=\"0\"/></a></td></tr>";
+		print "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$item[0]."\">".$item[1]."</a></td><td align=\"center\"><a href=\"#\"><img src=\"images/icon_del.gif\" onclick=\"deleteFromWishlist(".$item[0].")\" border=\"0\"/></a></td></tr>";
 	}
 	
 	unset($listArr);

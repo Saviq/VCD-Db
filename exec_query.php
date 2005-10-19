@@ -14,7 +14,7 @@
 <? 
 include_once('classes/includes.php');
 include_once('classes/external/Image_Toolbox.class.php');
-include_once('classes/external/zip.lib.php');
+
 
 if (!VCDUtils::isLoggedIn()) {
 	die("Unauthorized Access");
@@ -47,7 +47,7 @@ switch ($form) {
 		$obj = $SETTINGSClass->getBorrowerByID($borrower_id);
 		
 		if ($obj instanceof borrowerObj ) {
-			$loanArr = $SETTINGSClass->getLoansByBorrowerID($_SESSION['user']->getUserID(), $borrower_id);
+			$loanArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
 			if (VCDUtils::sendMail($obj->getEmail(), 'Áminning um skil', createReminderEmailBody($obj->getName(), $loanArr), false)) {
 				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
 			} else {
@@ -77,21 +77,48 @@ switch ($form) {
 			if (isset($_GET['filter']) && $_GET['filter'] == 'thumbs') {
 			
 				$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
-				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport($_SESSION['user']->getUserID());
+				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport(VCDUtils::getUserID());
 				
-				header('Content-type: application/xml');
-				header('Content-Disposition: attachment; filename="thumbnails_export.xml"');
+				
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdthumbnails>";
-				
 				foreach ($arrCovers as $cdcover) {
 					$xml .= $cdcover->toXML();
 				}
-				
 				$xml .= "</vcdthumbnails>";
 				
-				print $xml;
+								
+				$xmlFilename = 'upload/cache/thumbnails_export.xml';
+				
+				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
+					require_once('classes/external/compression/tar.php');
+	
+					VCDUtils::write($xmlFilename, $xml);
+					$zipfile = new tar();
+					$zipfile->addFile($xmlFilename);
+					fs_unlink($xmlFilename);
+					header( 'Content-type: application/zip' );
+					header( 'Content-Disposition: attachment; filename="thumbnails_export.tgz"' );
+					print $zipfile->toTarOutput("xmlthumbnails", true);
+				
+				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
+					require_once('classes/external/compression/zip.php');
+					
+					$zipfile = new zipfile();
+					$zipfile->addFile($xml, "thumbnails_export.xml");
+					header( 'Content-type: application/zip' );
+					header( 'Content-Disposition: attachment; filename="thumbnails_export.zip"' );
+					print $zipfile->file();
+				
+				} else {
+					header('Content-type: application/xml');
+					header('Content-Disposition: attachment; filename="thumbnails_export.xml"');
+					print $xml;
+					
+				}
+				
 				exit();
+				
 				
 			} else {
 			
@@ -100,7 +127,7 @@ switch ($form) {
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdmovies>";
 				$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
-				$arrMovies = $CLASSVcd->getAllVcdByUserId($_SESSION['user']->getUserID(), false);
+				$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);
 				foreach ($arrMovies as $vcdObj) {
 					$xml .= $vcdObj->toXML();
 				}
@@ -193,7 +220,7 @@ switch ($form) {
 		
 		$comment_id = $_GET['cid'];
 		$commObj = $SETTINGSClass->getCommentByID($comment_id);
-		if ($commObj instanceof commentObj && $commObj->getOwnerID() == $_SESSION['user']->getUserID()) {
+		if ($commObj instanceof commentObj && $commObj->getOwnerID() == VCDUtils::getUserID()) {
 			$vcd_id = $commObj->getVcdID();
 			$SETTINGSClass->deleteComment($comment_id);	
 			redirect("?page=cd&vcd_id=".$vcd_id."");
@@ -240,7 +267,7 @@ switch ($form) {
 		if (is_numeric($movie_id) && is_numeric($mark) && VCDUtils::isLoggedIn()) {
 			
 			// Check for existing data
-			$arr = $SETTINGSClass->getMetadata($movie_id, $_SESSION['user']->getUserID(), 'seenlist');
+			$arr = $SETTINGSClass->getMetadata($movie_id, VCDUtils::getUserID(), 'seenlist');
 			if (is_array($arr) && sizeof($arr) == 1) {
 				// update the Obj
 				$obj = $arr[0];
@@ -248,7 +275,7 @@ switch ($form) {
 				$SETTINGSClass->updateMetadata($obj);
 			} else {
 				// create new Obj
-				$obj = new metadataObj(array('',$movie_id, $_SESSION['user']->getUserID(), 'seenlist', $mark));
+				$obj = new metadataObj(array('',$movie_id, VCDUtils::getUserID(), 'seenlist', $mark));
 				$SETTINGSClass->addMetadata($obj);
 			}
 			
@@ -261,13 +288,13 @@ switch ($form) {
 		
 	case 'addtowishlist':
 		$id = $_GET['vcd_id'];		
-		$SETTINGSClass->addToWishList($id, $_SESSION['user']->getUserID());
+		$SETTINGSClass->addToWishList($id, VCDUtils::getUserID());
 		redirect("./?page=cd&vcd_id=".$id);
 		break;
 		
 	case 'deletefromwishlist':
 		$id = $_GET['vcd_id'];		
-		$SETTINGSClass->removeFromWishList($id, $_SESSION['user']->getUserID());
+		$SETTINGSClass->removeFromWishList($id, VCDUtils::getUserID());
 		redirect("?page=private&o=wishlist");
 		break;
 		

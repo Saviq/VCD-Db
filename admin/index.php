@@ -223,35 +223,118 @@
 				$language->load($_SESSION['vcdlang']);
 			}
 			
+			$updateMode = false;
+			$langSelectionUpdate = false;
+			
+			// Check if file is being updated
+			if (isset($_POST['Update'])) {
+				$updateMode = true;
+				if (isset($_POST['langfile'])) {
+					// Edit in raw mode
+					$contents = $_POST['langfile'];
+					print_r($contents);
+					exit();
+				} else {
+					// Safe mode edit ..
+					$valueArr = $_POST['values'];
+					try {
+						$langCLASS->updateLangueArray($_GET['recordID'], $valueArr);
+					} catch (Exception $ex) {
+						VCDException::display($ex);
+					}
+				}
+			}
+			
+			
+			
+			$SETTINGSClass = new vcd_settings();
+			
+			if (isset($_POST['langupdate'])) {
+				$newLangArr = $_POST['languages'];
+				$strLangs = implode("#", $newLangArr);
+				
+				if (!is_array($newLangArr) || sizeof($newLangArr) == 0) {
+					VCDException::display('At least one language must be selected.');
+					print "<script>location.href='./?page=languages'</script>";
+					exit();
+				}
+				
+				// Update the language metadataObj in DB
+				$arr = $SETTINGSClass->getMetadata(0, 0, 'languages');
+				$metaObj = $arr[0];
+				if ($metaObj instanceof metadataObj ) {
+					$metaObj->setMetadataValue($strLangs);
+					$SETTINGSClass->updateMetadata($metaObj);
+					$langSelectionUpdate = true;
+				} 
+			}
+			
+			
 			require("forms/edit_language.php");	
 	   		echo "<div class=\"content\">";	
 			
 			$arrLanginfo = $langCLASS->getAvailableLanguages();
-	   		
+			
 			$languages = $arrLanginfo['languages'];
 	   		$tags = $arrLanginfo['tags'];
 	   		$files = $arrLanginfo['files'];
 	   		$i = 0;	
 			
-			$header = array("Language name","Tag","Filename","");
-			printTableOpen();
+	   		
+	   		// Check for language metadata
+	   		$metaObj = null;
+	   		$metaArr = $SETTINGSClass->getMetadata(0, 0, 'languages');
+	   		if (is_array($metaArr) && sizeof($metaArr) == 1) { $metaObj = $metaArr[0]; }
+	   		
+	   		if (!$metaObj instanceof metadataObj ) {
+	   			// Create the object for the first time ...
+	   			$metaObj = new metadataObj(array('', 0, 0, 'languages', implode("#", $tags)));
+	   			$SETTINGSClass->addMetadata($metaObj);
+	   		} 
+	   		
+	   		$ArrAllowedLangs = explode("#", $metaObj->getMetadataValue());
+	   		
+	   		
+	   		
+	   		if (!$updateMode) {
+	   			print "<form method=\"post\" name=\"available\">";	
+	   		}
+	   		
+			$header = array("Language name","Tag","Filename","Available", "");
+			printTableOpen('100%', 0, 0);
 			printRowHeader($header);
 			
-			foreach ($arrLanginfo as $lang) {
-				if (isset($languages[$i])) {
-					printTr();
-					printRow($languages[$i]);
-					printRow($tags[$i]);
-					printRow($files[$i]);
-					printRow("");
-					
-					printEditRow($i, $CURRENT_PAGE);
-					
-					printTr(false);
-					$i++;
+			for ($i = 0; $i < sizeof($languages); $i++) {
+				printTr();
+				printRow($languages[$i]);
+				printRow($tags[$i]);
+				printRow($files[$i]);
+				
+				if (in_array($tags[$i], $ArrAllowedLangs)) {
+					printRow("<input type=\"checkbox\" name=\"languages[]\" value=\"{$tags[$i]}\" checked=\"checked\">");
+				} else {
+					printRow("<input type=\"checkbox\" name=\"languages[]\" value=\"{$tags[$i]}\">");
 				}
+				
+				
+				printRow("");
+				
+				printEditRow($i, $CURRENT_PAGE);
+				printTr(false);
 			}
+			
 			printTableClose();
+			
+			if (!$updateMode) {
+				
+				$updateMessage = "";
+				if ($langSelectionUpdate) {
+					$updateMessage = "<span id=\"langmessage\" style=\"color:red\">(Selection updated)&nbsp;&nbsp;</span>";
+					print "<script>setTimeout(\"toggle('langmessage')\",3000);</script>";
+				}
+				
+				print "<div align=\"right\">{$updateMessage}<input type=\"submit\" value=\"Update\" name=\"langupdate\" class=\"button\"></div></form>";
+			}
 			
 			
 			echo "</div>";

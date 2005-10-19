@@ -28,6 +28,12 @@ function showLayer() {
 	toggle('newObj');
 }
 
+
+function SaveModeEdit(file_id) {
+	uri = "./?page=languages&mode=edit&recordID="+file_id+"&type=safe";
+	location.href = uri;
+}
+
 function setBorder(obj) {
 	
 	id = obj.name;

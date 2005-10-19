@@ -77,12 +77,13 @@ H1 input, #newObj .save{
 	font-size: 10px;
 }
 
-.save{ 
+.save, .button{ 
 	background-color: White;
 	color: Black;
 	border: 1px solid;
 	font-style: normal;
 	margin-top: 2px;
+	font-size:10px;
  }  
  
  .inp{ 

@@ -226,6 +226,11 @@ class VCDUtils {
 	}
 	
  	
+	static public function getCharSet() {
+		global $language;
+		return $language->show('LANG_CHARSET');
+	}
+	
 	
 	/**
 	 * Enter description here...

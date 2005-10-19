@@ -15,7 +15,7 @@
 		if (sizeof($usersArr) > 0) {
 			// Loop through the users wishlists
 			foreach ($usersArr as $userObj) {
-				if ($userObj->getUserID() != $_SESSION['user']->getUserID()) {
+				if ($userObj->getUserID() != VCDUtils::getUserID()) {
 					$currList = $SETTINGSClass->getWishList($userObj->getUserID());
 					
 					if (sizeof($currList) > 0) {

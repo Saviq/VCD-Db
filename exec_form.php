@@ -36,7 +36,7 @@ $VCDClass = VCDClassFactory::getInstance("vcd_movie");
 switch ($form) {
 
 	case 'borrower':
-		$obj = new borrowerObj(array("",$_SESSION['user']->getUserID(),$_POST['borrower_name'], $_POST['borrower_email']));
+		$obj = new borrowerObj(array("",VCDUtils::getUserID(),$_POST['borrower_name'], $_POST['borrower_email']));
 		$SETTINGSClass->addBorrower($obj);
 		VCDUtils::setMessage("(Added ".$_POST['borrower_name']." to your list)");
 		break;
@@ -64,7 +64,7 @@ switch ($form) {
 		$feeds = $_POST['feeds'];
 		foreach ($feeds as $feed) {
 			$currFeed = explode("|",$feed);
-			$SETTINGSClass->addRssfeed($_SESSION['user']->getUserID(), $currFeed[0], $currFeed[1]);
+			$SETTINGSClass->addRssfeed(VCDUtils::getUserID(), $currFeed[0], $currFeed[1]);
 		}
 		
 		break;
@@ -77,7 +77,7 @@ switch ($form) {
 			if (isset($_POST['private'])) {
 				$is_private = 1;				
 			}
-			$commObj = new commentObj(array('', $_POST['vcd_id'], $_SESSION['user']->getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $_POST['vcd_id'], VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
 			
 			if (strlen($_POST['comment']) > 0) {
 				$SETTINGSClass->addComment($commObj);
@@ -104,9 +104,9 @@ switch ($form) {
 	
 	/* Update media player settings */
 	case 'player':
-		$obj = new metadataObj(array('',0,$_SESSION['user']->getUserID(), 'player', $_POST['player']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'player', $_POST['player']));
 		$SETTINGSClass->addMetadata($obj);	
-		$obj = new metadataObj(array('',0,$_SESSION['user']->getUserID(), 'playerpath', $_POST['params']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'playerpath', $_POST['params']));
 		$SETTINGSClass->addMetadata($obj);	
 		redirect('pages/player.php');
 		break;
@@ -125,7 +125,7 @@ switch ($form) {
 				$valkey = $_POST[$key];
 				$valcds = $_POST[$cds];
 				$arr = split("\\|",$valkey);
-				$VCDClass->addVcdToUser($_SESSION['user']->getUserID(), $arr[0], $arr[1], $valcds);
+				$VCDClass->addVcdToUser(VCDUtils::getUserID(), $arr[0], $arr[1], $valcds);
 			}
 		}
 		redirect();
@@ -135,22 +135,22 @@ switch ($form) {
 		
 		if (isset($_POST['stats']) && strcmp($_POST['stats'], "yes") == 0) {
 			// User wants to see statistics
-			$frontstatsObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontstats', 1));
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 1));
 		} else {
-			$frontstatsObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontstats', 0));
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 0));
 		}
 		
 		if (isset($_POST['sidebar']) && strcmp($_POST['sidebar'], "yes") == 0) {
 			// User wants to see sidebar
-			$frontbarObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontbar', 1));
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 1));
 		} else {
-			$frontbarObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontbar', 0));
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 0));
 		}
 	
 		if (isset($_POST['id_list']) && strlen($_POST['id_list']) > 1) {
-			$frontRssObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontrss', $_POST['id_list']));
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list']));
 		} else {
-			$frontRssObj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'frontrss', $_POST['id_list']));
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list']));
 		}
 		
 		$SETTINGSClass->addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
@@ -164,7 +164,7 @@ switch ($form) {
 	case 'update_ignorelist':
 		if (isset($_POST['id_list'])) { 
 			// Save the ignore list to database
-			$obj = new metadataObj(array('',0, $_SESSION['user']->getUserID(), 'ignorelist', $_POST['id_list']));
+			$obj = new metadataObj(array('',0, VCDUtils::getUserID(), 'ignorelist', $_POST['id_list']));
 			$SETTINGSClass->addMetadata($obj);
 		}
 	
@@ -323,7 +323,7 @@ switch ($form) {
 				$is_private = 1;				
 			}
 			
-			$commObj = new commentObj(array('', $new_id, $_SESSION['user']->getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
 			$SETTINGSClass->addComment($commObj);
 		}
 				
@@ -397,7 +397,7 @@ switch ($form) {
 				$is_private = 1;				
 			}
 			
-			$commObj = new commentObj(array('', $new_id, $_SESSION['user']->getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
 			$SETTINGSClass->addComment($commObj);
 		}
 		
@@ -567,7 +567,7 @@ switch ($form) {
 					$is_private = 1;				
 				}
 				
-				$commObj = new commentObj(array('', $new_id, $_SESSION['user']->getUserID(), '', $_POST['comment'], $is_private));
+				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
 				$SETTINGSClass->addComment($commObj);
 			}
 
@@ -757,7 +757,7 @@ switch ($form) {
 	     }
 	     
 	     // Check if user has updated his cd item
-	     $arrCopies = $vcd->getInstancesByUserID($_SESSION['user']->getUserID());
+	     $arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
 	     if (sizeof($arrCopies) > 0) {
 			$arrMediaTypes = $arrCopies['mediaTypes'];
 			$arrNumcds = $arrCopies['discs'];
@@ -779,19 +779,19 @@ switch ($form) {
 	    // Update metadata
 	    if (isset($_POST['custom_index']) && strlen($_POST['custom_index']) > 0) {
 	    	// add or update ?
-	    	$metaArr = $SETTINGSClass->getMetadata($vcd->getID(), $_SESSION['user']->getUserID(), 'mediaindex');
+	    	$metaArr = $SETTINGSClass->getMetadata($vcd->getID(), VCDUtils::getUserID(), 'mediaindex');
 	    	if (sizeof($metaArr) == 1) {
 	    		$obj = $metaArr[0];
 	    		$obj->setMetadataValue($_POST['custom_index']);
 	    		$SETTINGSClass->updateMetadata($obj);
 	    	} else {
-	    		$obj = new metadataObj(array('',$cd_id, $_SESSION['user']->getUserID(), 'mediaindex', $_POST['custom_index']));
+	    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'mediaindex', $_POST['custom_index']));
 	    		$SETTINGSClass->addMetadata($obj);
 	    	}
 	    }
 	     
 	    if (isset($_POST['filepath']) && strlen($_POST['filepath']) > 0) {
-	    	$obj = new metadataObj(array('',$cd_id, $_SESSION['user']->getUserID(), 'filelocation', $_POST['filepath']));
+	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'filelocation', $_POST['filepath']));
 	    	$SETTINGSClass->addMetadata($obj);
 	    }
 	     
@@ -831,7 +831,7 @@ switch ($form) {
 		      		$coverType = $COVERClass->getCoverTypeById($cover_typeid);
 		      		
 		      		$imginfo = array('', $cd_id, $cfile['new_file_name'], $cfile['file_size'], 
-		      							 $_SESSION['user']->getUserID(), date(time()), $cover_typeid,
+		      							 VCDUtils::getUserID(), date(time()), $cover_typeid,
 		      							 $coverType->getCoverTypeName(), '');
 		      		$cdcover = new cdcoverObj($imginfo);
 		      		$vcd->addCovers(array($cdcover));

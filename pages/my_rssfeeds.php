@@ -9,7 +9,7 @@
 	// Get all the users feeds
 	
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$arrFeeds = $SETTINGSClass->getRssFeedsByUserId($_SESSION['user']->getUserID());
+	$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID());
 
 	print "<h1>".$language->show('MENU_RSS')."</h1>";
 	

@@ -33,11 +33,31 @@ class language
 	private $avail_language_content = array();
 	private $admin_mode = false;
 		
+	private $restrict = false;
+	private $arrRestrictions = array();
 	
 	public function __construct($admin_mode = false) {
 		$this->admin_mode = $admin_mode;
 		$lang = DEFAULT_LANG;
 		$this->init();
+		$this->checkForRestrictions();
+	}
+	
+	
+	private function checkForRestrictions() {
+		// First check for language file restrictions ..
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+		$metaArr = $SETTINGSClass->getMetadata(0, 0, 'languages');
+		$restrict = false;
+		if (is_array($metaArr) && sizeof($metaArr) == 1) {
+			$this->restrict = true;
+			$this->arrRestrictions = explode("#", $metaArr[0]->getMetadataValue());
+		}
+		
+		if (sizeof($this->arrRestrictions) == 1) {
+			// Only 1 language allowed, set it as default language.
+			$this->language_tag = $this->arrRestrictions[0];
+		}
 	}
 	
 		
@@ -96,6 +116,90 @@ class language
 		if ($this->admin_mode) {
 			$tag = $this->avail_language_tags[$index];
 			return $this->avail_language_content[$tag];
+		}
+	}
+	
+	
+	public function getRawFileContents($index) {
+		if ($this->admin_mode) {
+			$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
+			if (fs_file_exists($filename)) {
+				return file_get_contents($filename);
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	public function isWriteable($index) {
+		if (is_numeric($index) && $this->admin_mode) {
+			$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
+			if (fs_file_exists($filename)) {
+				return is_writable($filename);
+			} else {
+				return false;
+			}
+		} 
+		
+		return false;
+	}
+	
+	
+	
+	public function updateLangueArray($fileIndex, $arrItems) {
+		if ($this->admin_mode) {
+			if (is_numeric($fileIndex) && is_array($arrItems)) {
+				$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$fileIndex];
+				if (fs_file_exists($filename) && is_writable($filename)) {
+					
+					$currContents = file_get_contents($filename);
+					$iStartPos = strpos($currContents, '$_ = array');
+					$iEndPos   = strpos($currContents, ');');
+					
+					if (is_numeric($iStartPos) && is_numeric($iEndPos)) {
+
+						$newFile = substr($currContents, 0, $iStartPos+11);
+						$newFile .= "\n\n";
+						$i = 1;
+						foreach ($arrItems as $key => $value) {
+							if ($i == sizeof($arrItems)) {
+								$newFile .= "'{$key}'\t\t=> '{$value}'\n";
+							} else {
+								$newFile .= "'{$key}'\t\t=> '{$value}',\n";
+							}
+							$i++;
+						}
+						
+						$newFile .= "\n\n);\n\n?>";
+						
+						// File ready, write it ..
+						VCDUtils::write($filename, $newFile);
+						
+										
+					} else {
+						throw new Exception('Cound not fund update position.');
+					}
+					
+				} else {
+					throw new Exception('File not found or is not writeable.');
+				}
+				
+			} else {
+				throw new Exception('Invalid parameters.');
+			}
+			
+		} else {
+			throw new Exception('Admin access required to update language file.');
+		}		
+	}
+	
+	public function updateLanguageFile($contents) {
+	
+	}
+	
+	public function getFileName($index) {
+		if (is_numeric($index)) {
+			return LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
 		}
 	}
 	
@@ -159,16 +263,30 @@ class language
 	* @desc Prints out the HTML dropdown box for language selection on the site.
  */
 	public function printDropdownBox() {
+		
+		
+		
+		
 		$i = 0;
 		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./?\"> ";
 		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
 		foreach ($this->avail_languages as $lang) { 
-			$strSelected = "";
-			if (strcmp($lang, $this->language_name) == 0) {
-				$strSelected = "selected=\"selected\"";
+			
+			if ($this->restrict && !in_array($this->avail_language_tags[$i], $this->arrRestrictions)) {
+				
+				
+			} else {
+
+				$strSelected = "";
+				if (strcmp($lang, $this->language_name) == 0) {
+					$strSelected = "selected=\"selected\"";
+				}
+
+				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>$lang</option>";
 			}
 			
-			$html .= "<option value=\"".$this->avail_language_tags[$i++]."\" $strSelected>$lang</option>";
+			$i++;
+			
 		}
 		$html .= "</select>";
 		$html .= "</form></div>";

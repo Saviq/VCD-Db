@@ -125,7 +125,7 @@ class VCDRss {
 				    $xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
 				    $xml .= "<description>".htmlspecialchars($arr['description'],ENT_QUOTES)."</description>\n";
 				    $xml .= "<dc:creator>".htmlspecialchars($arr['creator'],ENT_QUOTES)."</dc:creator>\n";
-				    $xml .= "<dc:date>".htmlspecialchars($arr['date'],ENT_QUOTES)."</dc:date>\n";
+				    $xml .= "<dc:date>".htmlspecialchars(date('Y-m-d', $arr['date']),ENT_QUOTES)."</dc:date>\n";
 				    $xml .= "</item>\n";
     			}
     		}
@@ -203,7 +203,7 @@ class VCDRss {
 				    $xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
 				    $xml .= "<description>".htmlspecialchars($arr['description'],ENT_QUOTES)."</description>\n";
 				    $xml .= "<dc:creator>".htmlspecialchars($arr['creator'],ENT_QUOTES)."</dc:creator>\n";
-				    $xml .= "<dc:date>".htmlspecialchars($arr['date'],ENT_QUOTES)."</dc:date>\n";
+				    $xml .= "<dc:date>".htmlspecialchars(date('Y-m-d', $arr['date']),ENT_QUOTES)."</dc:date>\n";
 				    $xml .= "</item>\n";
     			}
     		}

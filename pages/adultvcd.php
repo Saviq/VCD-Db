@@ -76,7 +76,7 @@ $cd_id = $_GET['vcd_id'];
 				}
 				// Display seen box if activated
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie) && $_SESSION['user']->getPropertyByKey('SEEN_LIST')) {
-   					$arrList = $SETTINGSClass->getMetadata($movie->getID(), $_SESSION['user']->getUserID(), 'seenlist');
+   					$arrList = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
    					print "<tr><td>&nbsp;</td><td>";
    					if (sizeof($arrList) == 1 && ($arrList[0]->getMetadataValue() == 1)) {
 				   		print "<a href=\"#\"><img src=\"images/mark_seen.gif\" alt=\"".$language->show('S_NOTSEENITCLICK')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 0)\"/></a>";
@@ -93,7 +93,7 @@ $cd_id = $_GET['vcd_id'];
 				// Display Play button
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
 					$command = "";
-					if (getPlayCommand($movie, $_SESSION['user']->getUserID(), $command)) {
+					if (getPlayCommand($movie, VCDUtils::getUserID(), $command)) {
 						print "<tr><td>&nbsp;</td><td>";
 					    print "<a href=\"javascript:void(0)\"><img src=\"images/play.gif\" border=\"0\" onclick=\"playFile('".$command."')\"/></a>";
 				    	print "</td></tr>";	
@@ -282,7 +282,7 @@ $cd_id = $_GET['vcd_id'];
 			foreach ($commArr as $commObj) {
 				
 				if ($commObj->isPrivate()) {
-					if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == $_SESSION['user']->getUserID())	{
+					if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == VCDUtils::getUserID())	{
 						print "<li>".$commObj->getOwnerName()." (<i>Private</i>) <a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>
 					   <br/><i style=\"display:block\">".$commObj->getComment(true)."</i></li>";
 					}
