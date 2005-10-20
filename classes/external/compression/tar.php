@@ -68,12 +68,6 @@ Version History:
 				- Changed "private" functions to have
 				  special function names beginning with
 				  two underscores
-=======================================================================
-XOOPS changes onokazu <webmaster@xoops.org>
-
-	12/25/2002 - Added flag to addFile() function for binary files
-
-=======================================================================
 */
 
 /**
