@@ -15,6 +15,11 @@
 ?>
 <?
 
+/**
+ * Fetch RSS streams from another VCD-db sites and display them for selection.
+ *
+ * @param string $url
+ */
 function showAvailableFeeds($url) {
 
 	global $language;
@@ -79,6 +84,12 @@ function showAvailableFeeds($url) {
 
 }
 
+/**
+ * Display a VCD-db RSS feed from anither VCD-db site.
+ *
+ * @param string $name
+ * @param string $url
+ */
 function showFeed($name, $url) {
 	
 	// Flush errors ..
@@ -126,10 +137,15 @@ function showFeed($name, $url) {
 }
 
 
-/** 
-	Process user uploaded XML file containing exported movies from
-	another vcd-db
-*/
+/**
+ * Process user uploaded XML file containing exported movies from another vcd-db.
+ * Validates the uploaded data, if XML file is in a TGZ file, the file is unzipped and
+ * examined.  The uploaded XML file is then validated using the VCD-db XSD schema document.
+ * If XML document does not validate and error is thrown.
+ *
+ * @param array $out_movietitles
+ * @return string Returns the uploaded file name.
+ */
 
 function checkMovieImport(&$out_movietitles) {
 
@@ -147,7 +163,7 @@ function checkMovieImport(&$out_movietitles) {
 	    $upload->set("size",$file["size"]); // Uploaded file size.
 	    $upload->set("fld_name",$key); // Uploaded file field name.
 		$upload->set("max_file_size",10192000); // Max size allowed for uploaded file in bytes =  ~10 MB.
-	    $upload->set("supported_extensions",array("xml" => "text/xml")); // Allowed extensions and types for uploaded file.
+	    $upload->set("supported_extensions",array("xml" => "text/xml", "tgz" => "application/zip")); // Allowed extensions and types for uploaded file.
 	    $upload->set("randon_name",true); // Generate a unique name for uploaded file? bool(true/false).
 		$upload->set("replace",true); // Replace existent files or not? bool(true/false).
 		$upload->set("dst_dir",$_SERVER["DOCUMENT_ROOT"]."".$path."upload/"); // Destination directory for uploaded files.
@@ -164,12 +180,44 @@ function checkMovieImport(&$out_movietitles) {
 	       */
 		   if (fs_file_exists($upfile)) {
 	    		
+		   			   	
+		   	
+		   		// Check if this is a compressed file ..
+		   		$filename = $file_arr[0]['file_name'];
+		   		if (strpos($filename, ".tgz")) {
+		   			// The file is a tar archive .. lets untar it ...
+		   			require_once('classes/external/compression/tar.php');
+		   			$zipfile = new tar();
+		   			if ($zipfile->openTAR($upfile)) {
+		   				if ($zipfile->numFiles != 1) {
+		   					throw new Exception('Only one XML file is allowed per Tar archive');
+		   				}
+		   				
+		   				
+		   				//$tar_xmlfilename = $zipfile->files[0]['name'];
+		   				$tar_xmlfile = $zipfile->files[0]['file'];
+		   				$tar_xmlfilename = "movie_import.xml";
+		   				
+		   				
+		   				
+		   				// Write the contents to cache
+		   				VCDUtils::write(CACHE_FOLDER.$tar_xmlfilename, $tar_xmlfile);
+		   				$upfile = CACHE_FOLDER.$tar_xmlfilename;
+		   				
+		   				
+		   				
+		   			} else {
+		   				throw new Exception('The uploaded TAR file could not be opened.');
+		   			}
+		   		}
+		   		
+		   		
+		   				   	
+		   	
 		   		// First of all Validate the XML document so we can begin with avoiding
 		   		// errors when processing the file later with the VCDdb objects
 		   		
-		   		
 		   		$xml = simplexml_load_file($upfile);
-		   		
 		   		$dom = new domdocument();
 		   		$dom->load($upfile);
 		   		
@@ -215,6 +263,16 @@ function checkMovieImport(&$out_movietitles) {
 }
 
 
+
+/**
+ * Here all the actual work is performed after a XML file has been validated with checkMovieImport()
+ * Movie enties are added from the XML file to the database, if user has selected uploading covers
+ * the covers are also processed and linked to the correct imported movie.
+ *
+ * @param string $upfile
+ * @param bool $use_covers
+ * @return unknown
+ */
 function processXMLMovies($upfile, $use_covers) {
 	
 	
@@ -231,7 +289,7 @@ function processXMLMovies($upfile, $use_covers) {
 	       if (fs_file_exists($upfile)) {
 	    		$xml = simplexml_load_file($upfile);
 		   } else {
-	    		VCDException::display('Failed to open the uploaded file<break> for the movies');
+		   		throw new Exception('Failed to open the uploaded file for the movies.');
 		   }
 		
 		   
@@ -271,8 +329,7 @@ function processXMLMovies($upfile, $use_covers) {
 					   if (fs_file_exists($upthumbfile)) {
 				    		$xmlthumbnails = simplexml_load_file($upthumbfile);
 					   } else {
-				    		VCDException::display('Failed to open the thumbnails file');
-				    		return false;
+					   		throw new Exception('Failed to open the thumbnails file.');
 					   }
 					
 					   		
@@ -283,8 +340,9 @@ function processXMLMovies($upfile, $use_covers) {
 					   
 					   
 					   if (sizeof($thumbnails) == 0) {
-					   		print "No thumbnails found in the XML file.<br/>Make sure that you are uploading
+					   		$strErr =  "No thumbnails found in the XML file.<break>Make sure that you are uploading
 					   		       VCD-db generated XML file.";
+					   		throw new Exception($strErr);
 					   } else {
 					   	
 					   	
@@ -313,8 +371,7 @@ function processXMLMovies($upfile, $use_covers) {
 				
 				      
 				} else {
-					VCDException::display('Error uploading thumbnails file');
-					return false;
+					throw new Exception('Error uploading thumbnails file.');
 				}
 		   		
 		   		   	
@@ -335,8 +392,10 @@ function processXMLMovies($upfile, $use_covers) {
 		   		   
 		   
 		   if (sizeof($movies) == 0) {
-		   		print "No movies found in the XML file.<br/>Make sure that you are uploading
+		   		$strErr = "No movies found in the XML file.<br/>Make sure that you are uploading
 		   		       VCD-db generated XML file.";
+		   		throw new Exception($strErr);
+		   		
 		   } else {
 		   		foreach ($movies as $item) {
 			    	
@@ -476,7 +535,6 @@ function processXMLMovies($upfile, $use_covers) {
 		   							$vcd->addCovers(array($coverObj));
 		   						} else {
 		   							VCDException::display('Obj is not a CDcover!');
-		   							return false;
 		   						}
 		   						
 		   						
@@ -524,7 +582,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   
 		   
 		   } catch (Exception $e) {
-		   		throw $e;
+		   		VCDException::display($e);
 		   }
 		   
 
