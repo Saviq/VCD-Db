@@ -210,9 +210,11 @@ switch ($form) {
 				try {
 					processXMLMovies($fullpath, $use_covers);
 				} catch (Exception $ex) {
-					VCDException::display($ex);
+					VCDException::display($ex, true);
 				}
 				
+			} else {
+				VCDException::display('Could not open file ' . $fullpath, true);
 			}
 		}
 		break;

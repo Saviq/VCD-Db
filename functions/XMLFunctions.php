@@ -174,6 +174,7 @@ function checkMovieImport(&$out_movietitles) {
 	if($upload->succeed_files_track){
 	      $file_arr = $upload->succeed_files_track; 
 	      $upfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
+	      $returnFilename = $file_arr[0]['new_file_name'];
 			      
 	       /* 
 	       		Process the XML file
@@ -197,12 +198,12 @@ function checkMovieImport(&$out_movietitles) {
 		   				//$tar_xmlfilename = $zipfile->files[0]['name'];
 		   				$tar_xmlfile = $zipfile->files[0]['file'];
 		   				$tar_xmlfilename = "movie_import.xml";
-		   				
+		   				$returnFilename = $tar_xmlfilename;
 		   				
 		   				
 		   				// Write the contents to cache
-		   				VCDUtils::write(CACHE_FOLDER.$tar_xmlfilename, $tar_xmlfile);
-		   				$upfile = CACHE_FOLDER.$tar_xmlfilename;
+		   				VCDUtils::write(TEMP_FOLDER.$tar_xmlfilename, $tar_xmlfile);
+		   				$upfile = TEMP_FOLDER.$tar_xmlfilename;
 		   				
 		   				
 		   				
@@ -258,7 +259,7 @@ function checkMovieImport(&$out_movietitles) {
 		throw new Exception($upload->fail_files_track[0]['msg']);
 	}
 	
-	return $file_arr[0]['new_file_name'];
+	return $returnFilename;
 
 }
 
@@ -340,8 +341,7 @@ function processXMLMovies($upfile, $use_covers) {
 					   
 					   
 					   if (sizeof($thumbnails) == 0) {
-					   		$strErr =  "No thumbnails found in the XML file.<break>Make sure that you are uploading
-					   		       VCD-db generated XML file.";
+					   		$strErr =  "No thumbnails found in the XML file.<break>Make sure that you are uploading VCD-db generated XML file.";
 					   		throw new Exception($strErr);
 					   } else {
 					   	
@@ -371,7 +371,8 @@ function processXMLMovies($upfile, $use_covers) {
 				
 				      
 				} else {
-					throw new Exception('Error uploading thumbnails file.');
+					$errMsg = $upload->fail_files_track[0]['msg'];
+					throw new Exception('Error uploading thumbnails file.<break>'.$errMsg);
 				}
 		   		
 		   		   	
@@ -392,8 +393,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   		   
 		   
 		   if (sizeof($movies) == 0) {
-		   		$strErr = "No movies found in the XML file.<br/>Make sure that you are uploading
-		   		       VCD-db generated XML file.";
+		   		$strErr = "No movies found in the XML file.<break>Make sure that you are uploading VCD-db generated XML file.";
 		   		throw new Exception($strErr);
 		   		
 		   } else {
@@ -546,9 +546,6 @@ function processXMLMovies($upfile, $use_covers) {
 		   			
 		   			array_push($imported_movies, $vcd);
 				}
-				
-				
-				
 		   }
 		   
 		   
@@ -556,7 +553,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   $results_array = array();
 		   
 		   
-		   $VCDClass = new vcd_movie();
+		   $VCDClass = VCDClassFactory::getInstance('vcd_movie');
 		   foreach ($imported_movies as $cdobj) {
 		   		
 		   		$new_vcdid = $VCDClass->addVcd($cdobj);
@@ -581,8 +578,8 @@ function processXMLMovies($upfile, $use_covers) {
 		   
 		   
 		   
-		   } catch (Exception $e) {
-		   		VCDException::display($e);
+		   } catch (Exception $ex) {
+		   		throw $ex;
 		   }
 		   
 
