@@ -103,10 +103,10 @@ class tar
 	/**#@+
 	 * Processed Archive Information
 	 */
-	private $files;
-	private $directories;
-	private $numFiles;
-	private $numDirectories;
+	public $files;
+	public $directories;
+	public $numFiles;
+	public $numDirectories;
     /**#@-*/
 
 
