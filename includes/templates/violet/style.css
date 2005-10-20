@@ -1,0 +1,246 @@
+BODY {
+	FONT-SIZE: 11px; BACKGROUND-IMAGE: url(images/background3.gif); MARGIN: 0px; COLOR: #000000; FONT-FAMILY: "Verdana", verdana, monospace; BACKGROUND-COLOR: white
+}
+BODY.nobg {
+	BACKGROUND-IMAGE: none
+}
+A {
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+A:visited {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+#outer {
+	MARGIN: 0px; WIDTH: 830px; TEXT-ALIGN: left
+}
+#hdr {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(images/vcd_headersmall.jpg) #eeeeee; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #000000; PADDING-TOP: 0px; HEIGHT: 70px
+}
+#toplogo {
+	LEFT: 15px; BACKGROUND-IMAGE: url(images/top_logo.gif); WIDTH: 192px; CURSOR: hand; POSITION: absolute; TOP: 5px; HEIGHT: 77px
+}
+#bar {
+	BORDER-RIGHT: #000000 0px solid; PADDING-RIGHT: 110px; BORDER-TOP: #000000 1px solid; BACKGROUND: url(images/linethrough_bg.gif) #c0c0c0; BORDER-LEFT: #000000 0px solid; COLOR: white; LINE-HEIGHT: 25px; BORDER-BOTTOM: #000000 1px solid; HEIGHT: 25px; TEXT-ALIGN: right
+}
+#bar A {
+	COLOR: white
+}
+#bar A:link {
+	COLOR: white
+}
+#bar A:visited {
+	COLOR: white
+}
+#bar A:hover {
+	COLOR: white; BORDER-BOTTOM: white 1px dashed; TEXT-DECORATION: none
+}
+#bodyblock {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(images/sidebar_bg.gif); PADDING-BOTTOM: 0px; WIDTH: 830px; COLOR: #000000; PADDING-TOP: 0px; POSITION: relative; BACKGROUND-COLOR: white
+}
+#l-col {
+	BACKGROUND: white; FLOAT: left; WIDTH: 147px; COLOR: #000000; TEXT-ALIGN: left
+}
+UNKNOWN {
+	BORDER-RIGHT: #000000 1px solid
+}
+#r-col {
+	BORDER-RIGHT: black 0px dashed; BORDER-TOP: black 0px dashed; FLOAT: right; BORDER-LEFT: black 1px dashed; WIDTH: 175px; COLOR: black; BORDER-BOTTOM: black 1px dashed; POSITION: relative
+}
+#cont {
+	BORDER-RIGHT: #c0c0c0 0px solid; BORDER-TOP: #c0c0c0 0px solid; BACKGROUND: #ffffff; BORDER-LEFT: #c0c0c0 0px solid; WIDTH: 680px; COLOR: #000000; BORDER-BOTTOM: #c0c0c0 0px solid; TEXT-ALIGN: left
+}
+#ftr {
+	CLEAR: both; BORDER-RIGHT: black 0px solid; BORDER-TOP: black 1px solid; BACKGROUND: #c0c0c0; MARGIN: 0px; BORDER-LEFT: black 0px solid; COLOR: #000000; BORDER-BOTTOM: black 0px solid; HEIGHT: 25px
+}
+H1 {
+	BORDER-RIGHT: #bdb8d6 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #bdb8d6 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 11px; BACKGROUND-IMAGE: url(images/topic_bg.gif); PADDING-BOTTOM: 2px; MARGIN: 0px 0px 4px; BORDER-LEFT: #bdb8d6 1px solid; COLOR: black; TEXT-INDENT: 8px; PADDING-TOP: 2px; BORDER-BOTTOM: #bdb8d6 1px solid; TEXT-ALIGN: left
+}
+H1 EM {
+	FONT-SIZE: 12px; FONT-FAMILY: arial
+}
+H1 EM A:visited {
+	FONT-SIZE: 12px; FONT-FAMILY: arial
+}
+H1 EM A {
+	FONT-SIZE: 12px; FONT-FAMILY: arial
+}
+H2 {
+	BORDER-RIGHT: #bdb8d6 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #bdb8d6 1px solid; PADDING-LEFT: 0px; FONT-SIZE: 11px; PADDING-BOTTOM: 3px; MARGIN: 0px 0px 4px; BORDER-LEFT: #bdb8d6 1px solid; COLOR: black; TEXT-INDENT: 8px; PADDING-TOP: 3px; BORDER-BOTTOM: #bdb8d6 1px solid; BACKGROUND-COLOR: #dcdcdc; TEXT-ALIGN: center
+}
+H5 {
+	BORDER-RIGHT: #bdb8d6 1px solid; BORDER-TOP: #bdb8d6 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #bdb8d6 1px solid; WIDTH: 73%; COLOR: black; BORDER-BOTTOM: #bdb8d6 1px solid; BACKGROUND-COLOR: #dcdcdc
+}
+H3 {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; MARGIN: 0px; PADDING-TOP: 15px
+}
+P {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; PADDING-BOTTOM: 15px; MARGIN: 0px; PADDING-TOP: 15px
+}
+H4 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; MARGIN: 0px; PADDING-TOP: 5px
+}
+FORM {
+	MARGIN: 0px
+}
+.nof {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.forms {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; PADDING-TOP: 2px
+}
+INPUT {
+	BORDER-RIGHT: #dcdcdc 1px ridge; BORDER-TOP: #dcdcdc 1px ridge; FONT-SIZE: 11px; BORDER-LEFT: #dcdcdc 1px ridge; COLOR: black; BORDER-BOTTOM: #dcdcdc 1px ridge
+}
+SELECT {
+	BORDER-RIGHT: #dcdcdc 1px ridge; BORDER-TOP: #dcdcdc 1px ridge; FONT-SIZE: 11px; BORDER-LEFT: #dcdcdc 1px ridge; COLOR: black; BORDER-BOTTOM: #dcdcdc 1px ridge
+}
+TEXTAREA {
+	BORDER-RIGHT: #dcdcdc 1px ridge; BORDER-TOP: #dcdcdc 1px ridge; FONT-SIZE: 11px; BORDER-LEFT: #dcdcdc 1px ridge; COLOR: black; BORDER-BOTTOM: #dcdcdc 1px ridge
+}
+.dashed {
+	BORDER-RIGHT: #dcdcdc 1px ridge; BORDER-TOP: #dcdcdc 1px ridge; FONT-SIZE: 10px; BACKGROUND-IMAGE: url(images/dash.gif); BORDER-LEFT: #dcdcdc 1px ridge; COLOR: black; BORDER-BOTTOM: #dcdcdc 1px ridge
+}
+#lang {
+	LEFT: 740px; COLOR: white; POSITION: absolute; TOP: 74px
+}
+#pager {
+	FONT-WEIGHT: bold; LEFT: 45%; POSITION: absolute; TOP: 4px
+}
+.info {
+	FONT-SIZE: 10px; COLOR: red
+}
+.header {
+	BORDER-RIGHT: #c0c0c0 0px dashed; PADDING-RIGHT: 2px; BORDER-TOP: #c0c0c0 1px dashed; PADDING-LEFT: 2px; BACKGROUND-IMAGE: url(images/topic_bg.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #c0c0c0 0px dashed; PADDING-TOP: 2px; BORDER-BOTTOM: #c0c0c0 1px dashed; BACKGROUND-COLOR: #dcdcdc; TEXT-ALIGN: center
+}
+.list {
+	COLOR: #000000; TEXT-INDENT: 6px
+}
+.list TD {
+	BACKGROUND-COLOR: white
+}
+.list A {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list A:link {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list A:visited {
+	COLOR: #ff0000; TEXT-DECORATION: none
+}
+.list A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.list .header {
+	FONT-WEIGHT: bold; COLOR: black
+}
+.list .statheader {
+	BORDER-RIGHT: #c0c0c0 0px dashed; PADDING-RIGHT: 2px; BORDER-TOP: #c0c0c0 1px dashed; PADDING-LEFT: 2px; FONT-WEIGHT: bold; BACKGROUND-IMAGE: url(images/topic_bg.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #c0c0c0 0px dashed; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: #c0c0c0 0px dashed; TEXT-ALIGN: left
+}
+.displist TD {
+	BORDER-RIGHT: #f4f4f4 1px solid; COLOR: #000000; TEXT-INDENT: 4px; LINE-HEIGHT: 17px; BORDER-BOTTOM: #f4f4f4 1px solid
+}
+.displist .header {
+	FONT-WEIGHT: bold; TEXT-ALIGN: left
+}
+.normal TD {
+	PADDING-LEFT: 2px
+}
+#cast .item {
+	DISPLAY: block; PADDING-LEFT: 4px; TEXT-INDENT: 0px; BORDER-BOTTOM: #c0c0c0 1px solid
+}
+#cast .item A:hover {
+	BACKGROUND-COLOR: #c0c0c0; TEXT-DECORATION: none
+}
+.imgx {
+	BORDER-RIGHT: #dcdcdc thin ridge; BORDER-TOP: #dcdcdc thin ridge; MARGIN-TOP: 3px; BORDER-LEFT: #dcdcdc thin ridge; BORDER-BOTTOM: #dcdcdc thin ridge
+}
+#actorimages {
+	MARGIN: 0px; WIDTH: 100%; TEXT-INDENT: 0px
+}
+#actorimages .imgx {
+	MARGIN: 4px
+}
+#similar {
+	TEXT-ALIGN: center
+}
+.bold {
+	FONT-WEIGHT: bolder
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; LIST-STYLE-TYPE: none
+}
+.green {
+	BACKGROUND-POSITION: 0px 3px; PADDING-LEFT: 15px; BACKGROUND-IMAGE: url(images/arrow_green.png); LINE-HEIGHT: 15px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+.red {
+	BACKGROUND-POSITION: 0px 3px; PADDING-LEFT: 15px; BACKGROUND-IMAGE: url(images/arrow_red.png); LINE-HEIGHT: 15px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+LI {
+	BACKGROUND-POSITION: 0px 3px; PADDING-LEFT: 15px; BACKGROUND-IMAGE: url(images/arrow.png); LINE-HEIGHT: 15px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat
+}
+#actorlist {
+	
+}
+.topic {
+	FONT-WEIGHT: bolder; BACKGROUND-IMAGE: url(images/topic_bg.gif); LINE-HEIGHT: 21px; BACKGROUND-REPEAT: repeat-x; TEXT-ALIGN: center
+}
+.poster {
+	MARGIN-TOP: 40px; WIDTH: 100px; FONT-STYLE: italic; TEXT-ALIGN: center
+}
+.navx {
+	DISPLAY: block
+}
+.nav {
+	CLEAR: none; DISPLAY: block; COLOR: white; TEXT-INDENT: 8px; LINE-HEIGHT: 18px; BORDER-BOTTOM: white 1px dotted; BACKGROUND-COLOR: #a957d8; TEXT-ALIGN: left
+}
+.nav A {
+	FONT-WEIGHT: bolder; COLOR: white; BACKGROUND-COLOR: #a957d8; TEXT-DECORATION: none
+}
+.nav A:visited {
+	FONT-WEIGHT: bolder; COLOR: white; BACKGROUND-COLOR: #a957d8; TEXT-DECORATION: none
+}
+.nav A:hover {
+	DISPLAY: block; COLOR: #ffffff; BACKGROUND-COLOR: #000000; TEXT-DECORATION: none
+}
+.navon {
+	CLEAR: none; DISPLAY: block; COLOR: #a957d8; TEXT-INDENT: 8px; LINE-HEIGHT: 18px; BORDER-BOTTOM: white 1px dotted; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+.navon A {
+	FONT-WEIGHT: bolder; COLOR: #a957d8; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.navon A:visited {
+	FONT-WEIGHT: bolder; COLOR: #ffffff; BACKGROUND-COLOR: #d00b8d; TEXT-DECORATION: none
+}
+.navon A:hover {
+	DISPLAY: block; COLOR: #a957d8; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.stata {
+	BACKGROUND-COLOR: #dcdcdc
+}
+.statsTable .stata {
+	BACKGROUND-COLOR: #dcdcdc
+}
+.statb {
+	BACKGROUND-COLOR: white
+}
+.statsTable {
+	COLOR: #000000; BACKGROUND-COLOR: #dcdcdc
+}
+.statsTable TD {
+	TEXT-INDENT: 2px; BACKGROUND-COLOR: white
+}
+.statsTable TD A {
+	COLOR: #000000
+}
+.tblsmall {
+	BORDER-RIGHT: #c0c0c0 1px solid; FONT-SIZE: 10px; FONT-FAMILY: verdana, Geneva, Arial, Helvetica, sans-serif
+}
+.tblsmall TD {
+	BORDER-BOTTOM: #c0c0c0 1px solid
+}
