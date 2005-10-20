@@ -88,7 +88,7 @@ switch ($form) {
 				$xml .= "</vcdthumbnails>";
 				
 								
-				$xmlFilename = 'upload/cache/thumbnails_export.xml';
+				$xmlFilename = CACHE_FOLDER.'thumbnails_export.xml';
 				
 				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
 					require_once('classes/external/compression/tar.php');
@@ -122,8 +122,8 @@ switch ($form) {
 				
 			} else {
 			
-				header('Content-type: application/xml');
-				header('Content-Disposition: attachment; filename="movie_export.xml"');
+				
+				
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdmovies>";
 				$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
@@ -131,9 +131,43 @@ switch ($form) {
 				foreach ($arrMovies as $vcdObj) {
 					$xml .= $vcdObj->toXML();
 				}
-				
 				$xml .= "</vcdmovies>";
 				unset($arrMovies);
+				
+				
+				
+				$xmlFilename = 'upload/cache/movie_export.xml';
+				
+				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
+					require_once('classes/external/compression/tar.php');
+	
+					VCDUtils::write($xmlFilename, $xml);
+					$zipfile = new tar();
+					$zipfile->addFile($xmlFilename);
+					fs_unlink($xmlFilename);
+					header( 'Content-type: application/zip' );
+					header( 'Content-Disposition: attachment; filename="movie_export.tgz"' );
+					print $zipfile->toTarOutput("movie_export", true);
+				
+				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
+					require_once('classes/external/compression/zip.php');
+					
+					$zipfile = new zipfile();
+					$zipfile->addFile($xml, "movie_export.xml");
+					header( 'Content-type: application/zip' );
+					header( 'Content-Disposition: attachment; filename="movie_export.zip"' );
+					print $zipfile->file();
+				
+				} else {
+					header('Content-type: application/xml');
+					header('Content-Disposition: attachment; filename="movie_export.xml"');
+					print $xml;
+					
+				}
+				
+				
+				
+				
 				print $xml;
 				exit();	
 			
