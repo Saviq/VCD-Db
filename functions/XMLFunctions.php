@@ -334,6 +334,16 @@ function processXMLMovies($upfile, $use_covers) {
 					   }
 					
 					   		
+					 // Validate the document before processing it ..
+					 $dom = new domdocument();
+		   			 $dom->load($upthumbfile);
+		   			 $schema = 'includes/schema/vcddb-thumbnails.xsd';
+		   			 if (!@$dom->schemaValidate($schema)) {
+		   				throw new Exception("XML Document does not validate to the VCD-db Thumbnails XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-thumbnails.xsd'");
+		   			 }
+		   			 unset($dom);
+					   
+					   
 						
 					   // GenerateObjects from the XML file ...
 					   $thumbnails = $xmlthumbnails->cdcover;
@@ -436,11 +446,13 @@ function processXMLMovies($upfile, $use_covers) {
 		   				
 		   				// Check if any pornstars are associated in the movie
 		   				$pornstars = $item->pornstars->pornstar;
+		   				
+		   					   				
 		   				if (isset($pornstars)) {
-		   					
-		   					
 		   					foreach ($pornstars as $pornstar) {
-		   						$starObj = $PORNClass->getPornstarByName($pornstar);
+		   						$starObj = null;
+		   						$starObj = $PORNClass->getPornstarByName((string)$pornstar->name);
+		   						
 		   						if ($starObj instanceof pornstarObj ) {
 		   							$vcd->addPornstars($starObj);
 		   						} else {
@@ -450,6 +462,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   						}
 		   					}
 		   				}
+		   				
 		   				
 		   				
 		   				// Set the studio if any
@@ -471,7 +484,7 @@ function processXMLMovies($upfile, $use_covers) {
 						
 						// Add the adult categories if any
 						$adult_categories = $item->adult_category->category;
-						if (sizeof($adult_categories > 0)) {
+						if (!is_null($adult_categories) && sizeof($adult_categories > 0)) {
 							foreach ($adult_categories as $xmlcat) {
 								$catObj = new porncategoryObj(array((string)$xmlcat->id, (string)$xmlcat->name));
 								$vcd->addAdultCategory($catObj);
@@ -552,7 +565,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   // Create the results display array
 		   $results_array = array();
 		   
-		   
+		   		   
 		   $VCDClass = VCDClassFactory::getInstance('vcd_movie');
 		   foreach ($imported_movies as $cdobj) {
 		   		
