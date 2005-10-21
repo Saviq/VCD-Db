@@ -136,7 +136,7 @@ switch ($form) {
 				
 				
 				
-				$xmlFilename = 'upload/cache/movie_export.xml';
+				$xmlFilename = CACHE_FOLDER.'movie_export.xml';
 				
 				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
 					require_once('classes/external/compression/tar.php');
@@ -165,10 +165,6 @@ switch ($form) {
 					
 				}
 				
-				
-				
-				
-				print $xml;
 				exit();	
 			
 			}
