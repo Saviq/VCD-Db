@@ -195,7 +195,6 @@ function checkMovieImport(&$out_movietitles) {
 		   				}
 		   				
 		   				
-		   				//$tar_xmlfilename = $zipfile->files[0]['name'];
 		   				$tar_xmlfile = $zipfile->files[0]['file'];
 		   				$tar_xmlfilename = "movie_import.xml";
 		   				$returnFilename = $tar_xmlfilename;
@@ -310,8 +309,8 @@ function processXMLMovies($upfile, $use_covers) {
 				    $upload->set("error",$file["error"]); // Uploaded file error.
 				    $upload->set("size",$file["size"]); // Uploaded file size.
 				    $upload->set("fld_name",$key); // Uploaded file field name.
-					$upload->set("max_file_size",10192000); // Max size allowed for uploaded file in bytes =  ~10 MB.
-				    $upload->set("supported_extensions",array("xml" => "text/xml")); // Allowed extensions and types for uploaded file.
+					$upload->set("max_file_size",20192000); // Max size allowed for uploaded file in bytes =  ~20 MB.
+				    $upload->set("supported_extensions",array("xml" => "text/xml", "tgz" => "application/zip")); // Allowed extensions and types for uploaded file.
 				    $upload->set("randon_name",true); // Generate a unique name for uploaded file? bool(true/false).
 					$upload->set("replace",true); // Replace existent files or not? bool(true/false).
 					$upload->set("dst_dir",$_SERVER["DOCUMENT_ROOT"]."".$path."upload/"); // Destination directory for uploaded files.
@@ -322,6 +321,43 @@ function processXMLMovies($upfile, $use_covers) {
 				if($upload->succeed_files_track){
 				      $file_arr = $upload->succeed_files_track; 
 				      $upthumbfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
+				      
+				      
+				      
+				      
+				      
+						 // Check if this is a compressed file ..
+				   		$filename = $file_arr[0]['file_name'];
+				   		if (strpos($filename, ".tgz")) {
+				   			// The file is a tar archive .. lets untar it ...
+				   			require_once('classes/external/compression/tar.php');
+				   			$zipfile = new tar();
+				   			if ($zipfile->openTAR($upthumbfile)) {
+				   				if ($zipfile->numFiles != 1) {
+				   					throw new Exception('Only one XML file is allowed per Tar archive');
+				   				}
+				   				
+				   				
+				   				$tar_xmlfile = $zipfile->files[0]['file'];
+				   				$tar_xmlfilename = "movie_import.xml";
+				   				$returnFilename = $tar_xmlfilename;
+				   				
+				   				
+				   				// Write the contents to cache
+				   				VCDUtils::write(TEMP_FOLDER.$tar_xmlfilename, $tar_xmlfile);
+				   				$upthumbfile = TEMP_FOLDER.$tar_xmlfilename;
+				   				
+				   				
+				   				
+				   			} else {
+				   				throw new Exception('The uploaded TAR file could not be opened.');
+				   			}
+				   		}
+				      
+				      
+				      
+				      
+				      
 						      
 				       /* 
 				       		Process the XML Thumbnail file
@@ -472,7 +508,15 @@ function processXMLMovies($upfile, $use_covers) {
 		   					if ($studioObj instanceof studioObj ) {
 		   						$vcd->setStudioID($studioObj->getID());
 		   					} else {
-		   						// Maybe later create the new studio entry ...
+		   						$studioObj = new studioObj(array('', (string)$studio->name));
+		   						$PORNClass->addStudio($studioObj);
+		   						
+		   						// Find the just added studioObj
+		   						$studioObj = $PORNClass->getStudioByName((string)$studio->name);
+		   						// And add it to the movie
+		   						if ($studioObj instanceof studioObj ) {
+		   							$vcd->setStudioID($studioObj->getID());
+		   						}
 		   						
 		   					}
 		   				}
@@ -508,7 +552,7 @@ function processXMLMovies($upfile, $use_covers) {
 							$obj->setDirector((string)$imdb->director);
 							$obj->setGenre((string)$imdb->genre);
 							$obj->setRating((string)$imdb->rating);
-							$obj->setCast(ereg_replace("\|",13,(string)$imdb->cast));
+							$obj->setCast(utf8_decode(ereg_replace("\|",13,(string)$imdb->cast)));
 							$obj->setPlot((string)$imdb->plot);
 							$obj->setRuntime((string)$imdb->runtime);
 							$obj->setCountry((string)$imdb->country);
