@@ -392,14 +392,13 @@ class vcd_movie implements Vcd  {
 					$vcdCover->addCover($thumbnail);
 					
 					
-					/* If we this is an Adult film, call for special treatment */
-					if ($vcdObj->isAdult()) {
-						$this->handleAdultVcd($vcdObj);
-					}
-					
-					
-					
-					
+				}
+				
+				
+				
+				/* If we this is an Adult film, call for special treatment */
+				if ($vcdObj->isAdult()) {
+					$this->handleAdultVcd($vcdObj);
 				}
 				
 							
