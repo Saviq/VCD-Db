@@ -23,7 +23,7 @@ A:hover {
 	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: url(images/vcd_headersmall.jpg) #eeeeee; PADDING-BOTTOM: 0px; MARGIN: 0px; COLOR: #000000; PADDING-TOP: 0px; HEIGHT: 70px
 }
 #toplogo {
-	LEFT: 15px; BACKGROUND-IMAGE: url(images/top_logo.gif); WIDTH: 192px; CURSOR: hand; POSITION: absolute; TOP: 5px; HEIGHT: 77px
+	LEFT: 15px; BACKGROUND-IMAGE: url(images/top_logo.gif); WIDTH: 186px; CURSOR: hand; POSITION: absolute; TOP: 5px; HEIGHT: 77px
 }
 #bar {
 	BORDER-RIGHT: #000000 0px solid; PADDING-RIGHT: 110px; BORDER-TOP: #000000 1px solid; BACKGROUND: url(images/linethrough_bg.gif) #c0c0c0; BORDER-LEFT: #000000 0px solid; COLOR: white; LINE-HEIGHT: 25px; BORDER-BOTTOM: #000000 1px solid; HEIGHT: 25px; TEXT-ALIGN: right
