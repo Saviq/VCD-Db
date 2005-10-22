@@ -464,14 +464,6 @@ CREATE TABLE [vcd_MetaData] (
 	[metadata_value] [varchar] (150) NOT NULL
 ) ON [PRIMARY]
 
-ALTER TABLE [dbo].[vcd_MetaData] ADD 
-	CONSTRAINT [FK_vcd_MetaData_vcd_Users] FOREIGN KEY 
-	(
-		[user_id]
-	) REFERENCES [dbo].[vcd_Users] (
-		[user_id]
-	)
-
 ALTER TABLE [dbo].[vcd_RssFeeds] WITH NOCHECK ADD
 		CONSTRAINT [PK_vcd_RssFeeds] PRIMARY KEY  CLUSTERED 
 			(
