@@ -91,7 +91,7 @@ function deleteUser(recordID, action) {
 }
 
 function editRecord(recordID, action) {
-	url = "./?page="+action+"&mode=edit&recordID="+recordID;	
+	url = "./?page="+action+"&mode=edit&recordID="+recordID;
 	location.href=url;
 }
 
@@ -111,6 +111,11 @@ function exportUser(recordID, action) {
 		url = "./?page=exportUserXML&recordID="+recordID;	
 		location.href = url;
 	}
+}
+
+function setDefaultRole(recordID, action) {
+	url = "./?page="+action+"&recordID="+recordID;
+	location.href=url;
 }
 
 function checkPasses(pass1, pass2) {
