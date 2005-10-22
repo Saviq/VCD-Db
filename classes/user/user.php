@@ -717,9 +717,27 @@ class vcd_user implements User {
 	 *
 	 * @return userRoleObj
 	 */
-	private function getDefaultRole() {
+	public function getDefaultRole() {
 		try {
 			
+			
+			// Check if default role has been defined as a metadata
+			$CLASSSettings = new vcd_settings();
+			$arrMeta = $CLASSSettings->getMetadata(0,0,'default_role');
+			if (is_array($arrMeta) && sizeof($arrMeta) == 1) {
+				$metaObj = $arrMeta[0];
+				if ($metaObj instanceof metadataObj ) {
+					$defaultRoleID = (int)$metaObj->getMetadataValue();
+					foreach ($this->getAllUserRoles() as $role) {
+						if ($role->getRoleID() == $defaultRoleID) {
+							return $role;
+						}
+					}
+				}
+			}
+			
+			
+			// Else set the "user" a default role and return that roleObj.
 			foreach ($this->getAllUserRoles() as $role) {
 				if (strcmp(strtolower($role->getRoleName()), strtolower("user")) == 0) {
 					return $role;
@@ -732,6 +750,31 @@ class vcd_user implements User {
 			VCDException::display($e);
 		}
 
+	}
+	
+	/**
+	 * Set default role for new users who sign up.
+	 *
+	 * @param int $role_id
+	 */
+	public function setDefaultRole($role_id) {
+		try {
+		
+			foreach ($this->getAllUserRoles() as $role) {
+				if ((strcmp(strtolower($role->getRoleName()), strtolower("administrator")) == 0) && ($role->getRoleID() == $role_id)) {
+					VCDException::display('For security reasons<break>administrator cannot be set as a default role.', true);
+					return;
+				}
+			}
+			
+			$CLASSSettings = new vcd_settings();
+			$metadata = new metadataObj(array('', 0, 0, 'default_role', $role_id));
+			$CLASSSettings->addMetadata($metadata);
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex, true);
+		}
 	}
 
 
