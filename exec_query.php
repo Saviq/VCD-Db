@@ -79,6 +79,8 @@ switch ($form) {
 				$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport(VCDUtils::getUserID());
 				
+				// This can take alot of time for many entries .. Give it 300 secs
+				set_time_limit(300);
 				
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdthumbnails>";
@@ -87,7 +89,7 @@ switch ($form) {
 				}
 				$xml .= "</vcdthumbnails>";
 				
-								
+												
 				$xmlFilename = CACHE_FOLDER.'thumbnails_export.xml';
 				
 				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
@@ -348,6 +350,24 @@ switch ($form) {
 		
 		
 		
+		break;
+		
+		
+		
+	/* Handle the selected viewMode from the movie category display pages */
+	case 'viewmode':
+		$cat_id = $_GET['category_id'];
+		$batch = $_GET['batch'];
+		$viewmode = $_GET['mode'];
+		
+		if (strcmp($viewmode, "image") == 0) {
+			$url = "?page=category&category_id={$cat_id}&viewmode=img&batch={$batch}";
+			$_SESSION['viewmode'] = "image";
+		} else {
+			$url = "?page=category&category_id={$cat_id}&batch={$batch}";
+			$_SESSION['viewmode'] = "text";
+		}
+		redirect($url);
 		break;
 		
 	default:

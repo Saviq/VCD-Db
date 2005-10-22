@@ -1,7 +1,6 @@
 <?php 
 /* Display the movies in selected category */
 
-
 $VCDClass = VCDClassFactory::getInstance("vcd_movie");
 $SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
 
@@ -11,14 +10,17 @@ $batch  = 0;
 if (isset($_GET['batch']))
 	$batch = $_GET['batch'];
 
-$imagemode = false;
-	if (isset($_GET['viewmode'])) {
-		$imagemode = true;
-		$viewbar = "(<a href=\"./?page=".$CURRENT_PAGE."&amp;category_id=".$cat_id."&amp;batch=".$batch."\">".$language->show('M_TEXTVIEW')."</a> / ".$language->show('M_IMAGEVIEW').")";		
-	} else {
-		$viewbar = "(".$language->show('M_TEXTVIEW')." / <a href=\"./?page=".$CURRENT_PAGE."&amp;category_id=".$cat_id."&amp;viewmode=img&amp;batch=".$batch."\">".$language->show('M_IMAGEVIEW')."</a>)";
-	}
 	
+	$imagemode = false;
+		
+	if (isset($_GET['viewmode']) || (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'], 'image') == 0)) {
+		$imagemode = true;
+		$js = "viewMode({$cat_id}, 'text', {$batch})";
+		$viewbar = "(<a href=\"#\" onclick=\"{$js}\">".$language->show('M_TEXTVIEW')."</a> / ".$language->show('M_IMAGEVIEW').")";		
+	} else {
+		$js = "viewMode({$cat_id}, 'image', {$batch})";
+		$viewbar = "(".$language->show('M_TEXTVIEW')." / <a href=\"#\" onclick=\"{$js}\">".$language->show('M_IMAGEVIEW')."</a>)";
+	}
 	
 $showmine = false;
 $checked = "";
@@ -37,9 +39,9 @@ $offset = $batch*$Recordcount;
 
 
 if ($showmine && VCDUtils::isLoggedIn()) {
-	$movies = $VCDClass->getVcdByCategory($cat_id, $Recordcount, $offset, $_SESSION['user']->getUserID());
-} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter($_SESSION['user']->getUserID())) {
-	$movies = $VCDClass->getVcdByCategoryFiltered($cat_id, $Recordcount, $offset, $_SESSION['user']->getUserID());
+	$movies = $VCDClass->getVcdByCategory($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
+} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter(VCDUtils::getUserID())) {
+	$movies = $VCDClass->getVcdByCategoryFiltered($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
 } else {
 	$movies = $VCDClass->getVcdByCategory($cat_id, $Recordcount, $offset);
 }
@@ -60,9 +62,9 @@ if (sizeof($movies) > 0 || $showmine) {
 	}
 
 	if ($showmine && VCDUtils::isLoggedIn()) { 
-		$categoryCount = $VCDClass->getCategoryCount($cat_id, false, $_SESSION['user']->getUserID());
-	} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter($_SESSION['user']->getUserID())) {
-		$categoryCount = $VCDClass->getCategoryCountFiltered($cat_id, $_SESSION['user']->getUserID());
+		$categoryCount = $VCDClass->getCategoryCount($cat_id, false, VCDUtils::getUserID());
+	} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter(VCDUtils::getUserID())) {
+		$categoryCount = $VCDClass->getCategoryCountFiltered($cat_id, VCDUtils::getUserID());
 	} else {
 		$categoryCount = $VCDClass->getCategoryCount($cat_id);
 	}
@@ -106,7 +108,7 @@ if (sizeof($movies) > 0 || $showmine) {
 	
 } else {
 	// Movie array has 0 entries, either because of filter or that user has no movies in this category.
-	
+	redirect();
 }
 
 
