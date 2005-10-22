@@ -330,7 +330,7 @@
 				
 				// Try to find user in any of the following field, CN, SN, GivenName, UID 
 				// and sAMAccountName which is specially for Active Directory
-				$filter="(|(CN=$username*)(sn=$username*)(givenname=$username*)(uid=$username*)(sAMAccountName=$username*))";
+				$filter="(|(CN=$username)(sn=$username)(givenname=$username)(uid=$username)(sAMAccountName=$username))";
 
 							
 				try {
