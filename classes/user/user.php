@@ -722,7 +722,7 @@ class vcd_user implements User {
 			
 			
 			// Check if default role has been defined as a metadata
-			$CLASSSettings = new vcd_settings();
+			$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
 			$arrMeta = $CLASSSettings->getMetadata(0,0,'default_role');
 			if (is_array($arrMeta) && sizeof($arrMeta) == 1) {
 				$metaObj = $arrMeta[0];
@@ -767,7 +767,7 @@ class vcd_user implements User {
 				}
 			}
 			
-			$CLASSSettings = new vcd_settings();
+			$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
 			$metadata = new metadataObj(array('', 0, 0, 'default_role', $role_id));
 			$CLASSSettings->addMetadata($metadata);
 			

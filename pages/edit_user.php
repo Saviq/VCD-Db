@@ -276,7 +276,7 @@
 <br/>
 <? 
 	/* 
-		We only display the ignore list if more than 1 actice users 
+		We only display the ignore list if more than 1 active users 
 		is using VCD-db.
 	*/
 	$CLASSUsers = VCDClassFactory::getInstance('vcd_user');

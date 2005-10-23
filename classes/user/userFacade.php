@@ -41,6 +41,8 @@
 		public function getAllUsersInRole($role_id);
 		public function addUserRole($userRoleObj);
 		public function deleteUserRole($role_id);
+		public function getDefaultRole();
+		public function setDefaultRole($role_id);
 
 		/* User Properties */
 		public function getAllProperties();

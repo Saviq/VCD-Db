@@ -7,8 +7,12 @@ Added   - Language files can now be edited/updated in the "Control Panel".
 Added   - Admin can now specify what languages will be available for his site.
 Fixed   - Launching media player from VCD-db function with player and/or filepaths containing spaces was not working.
 Updated - When adding new movies, insertion date/time uses timestamp instead of datestamp.
-Fixed   - The VCD-db RSS feed is now correctly validated with W3CDTF date.
+Fixed   - The VCD-db RSS feed is now correctly validated as W3CDTF datestamp.
 Added   - Movie export and thumbnail export can now optionally be zipped or gunzipped before downloading.
+Added   - Movie import from XML, now supports Gunzipped XML files.
+Added   - The default user role can now be adjusted in the "Control Panel".
+Added   - New nifty layout theme added, the theme is called "Violet".
+Added   - Selected viewmode (text or thumbnail view) is now remembered when browsing movie categories.
 
 		  Behind the hood updates:
 		  - VCDClassfactory is now a static class.

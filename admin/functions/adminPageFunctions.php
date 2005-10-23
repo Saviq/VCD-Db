@@ -1,14 +1,31 @@
 <?php
 
+/**
+ * Print HTML code for table start tags
+ *
+ * @param string $width
+ * @param int $cellpadding
+ * @param int $cellspacing
+ */
 function printTableOpen($width = "100%", $cellpadding = 1, $cellspacing = 1) {
 	print "<table cellspacing=\"{$cellspacing}\" cellpadding=\"{$cellpadding}\" border=\"0\" class=\"datatable\" width=\"".$width."%\">";
 }
 
 
+/**
+ * Print HTML code for closing table
+ *
+ */
 function printTableClose() {
 	print "</table>";
 }
 
+/**
+ * Print HTML code for table tr tag
+ *
+ * @param bool $open open or close the tr
+ * @param bool $hover
+ */
 function printTr($open = true, $hover = true) {
 	if ($open) {
 		$js = "onMouseOver=\"trOn(this)\" onMouseOut=\"trOff(this)\"";
@@ -22,6 +39,11 @@ function printTr($open = true, $hover = true) {
 	}
 }
 
+/**
+ * Create a HTML table row header
+ *
+ * @param array $arrHeader
+ */
 function printRowHeader($arrHeader) {
 	if (is_array($arrHeader)) {
 		printTr(true, false);
@@ -32,6 +54,12 @@ function printRowHeader($arrHeader) {
 	}
 }
 
+/**
+ * Print HTML table row
+ *
+ * @param string $rowdata
+ * @param string $cssClass
+ */
 function printRow($rowdata = "", $cssClass = "") {
 	
 	if (is_bool($rowdata)) {
@@ -48,18 +76,49 @@ function printRow($rowdata = "", $cssClass = "") {
 }
 
 
+/**
+ * Print HTML delete row
+ *
+ * @param int $recordID
+ * @param string $recordType
+ * @param string $warningCaption
+ */
 function printDeleteRow($recordID, $recordType, $warningCaption ) {
 	print "<td width=5><img src=\"../images/admin/icon_del.gif\" border=0 title=\"Delete record\" onClick=\"deleteRecord($recordID,'$recordType','$warningCaption')\"></td>";
 }
 
+/**
+ * Print HTML edit row
+ *
+ * @param int $recordID
+ * @param string $recordType
+ */
 function printEditRow($recordID, $recordType) {
 	print "<td width=5><img src=\"../images/admin/icon_edit.gif\" border=0 hspace=3 title=\"Edit record\" onClick=\"editRecord($recordID,'$recordType')\"></td>";
 }
 
+/**
+ * Print a custom table cell.
+ *
+ * @param int $recordID
+ * @param string $recordType
+ * @param string $image
+ * @param string $alt_text
+ * @param string $jsfunction
+ */
 function printCustomRow($recordID, $recordType, $image, $alt_text, $jsfunction) {
 	print "<td><img src=\"../images/admin/".$image.".gif\" border=0 hspace=3 title=\"".$alt_text."\" onClick=\"".$jsfunction."($recordID,'$jsfunction')\"></td>";	
 }
 
+/**
+ * Create a HTML drop down control
+ *
+ * @param array $objArr
+ * @param string $selectName
+ * @param string $firstIndex
+ * @param string $cssClass
+ * @param string $selectedIndex
+ */
 function createDropDown($objArr, $selectName, $firstIndex = "", $cssClass = "",$selectedIndex = "") {
 	if (is_array($objArr)) {
 		
@@ -89,10 +148,22 @@ function createDropDown($objArr, $selectName, $firstIndex = "", $cssClass = "",$
 }
 
 
+/**
+ * Add slashes to the current string
+ *
+ * @param string $item
+ */
 function cleanItem(&$item) {
 	$item = addslashes($item);
 }
 
+/**
+ * Delete record.
+ * The action depends on the recordType
+ *
+ * @param int $recordID
+ * @param string $recordType
+ */
 function deleteRecord($recordID, $recordType) {
 	if (!is_numeric($recordID))
 		return;
@@ -228,6 +299,10 @@ function deleteRecord($recordID, $recordType) {
 		
 }
 
+/**
+ * Refresh the parent webpage and close the child window.
+ *
+ */
 function refreshAndClose() {
 	print "<script language=\"JavaScript\">";
 	print "window.opener.location.reload();";
@@ -235,11 +310,25 @@ function refreshAndClose() {
 	print "</script>";
 }
 
+/**
+ * Format datestamp
+ *
+ * @param date $datestamp
+ * @param string $format
+ * @return date
+ */
 function getADODBdate($datestamp, $format="d-m-Y") {
 	return date ($format, mktime (0,0,0, getADODBdatePart($datestamp, "month"),getADODBdatePart($datestamp, "day"),getADODBdatePart($datestamp, "year")));
 
 }
 
+/**
+ * Format datepart of an datestamp
+ *
+ * @param date $datestamp
+ * @param string $format
+ * @return string
+ */
 function getADODBdatePart($datestamp, $format) {
 	$datestring = "";
 	if (strcmp($format, "day") == 0) {
@@ -255,6 +344,12 @@ function getADODBdatePart($datestamp, $format) {
 	return $datestring;
 }
 
+/**
+ * Check if the "Add Record" button should be shown
+ *
+ * @param string $do
+ * @return bool
+ */
 function showAddRecord($do) {
 
 	if ($do == "versioncheck" || $do == "statistics" || $do == "backup" || $do == "import" || $do == "" || 
@@ -266,6 +361,11 @@ function showAddRecord($do) {
 	
 }
 
+/**
+ * Check for new version of VCD-db.
+ * Connects to the master server (vcddb.konni.com) and reads the current latest version.
+ *
+ */
 function checkVersion() {
 	print "<b>Checking for new version .....</b>";
 	
@@ -305,6 +405,11 @@ function checkVersion() {
 	error_reporting(ini_get('error_reporting'));
 }
 
+/**
+ * Export users movie list as a XML file.
+ *
+ * @param int $user_id
+ */
 function exportUserXML($user_id) {
 	
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
@@ -342,5 +447,16 @@ function exportUserXML($user_id) {
 	
 }
 
+
+/**
+ * Set a new default role
+ *
+ * @param int $recordID
+ */
+function setDefaultRole($recordID) {
+	$CLASSUser = VCDClassFactory::getInstance('vcd_user');
+	$CLASSUser->setDefaultRole($recordID);
+	redirect('?page=roles');
+}
 
 ?>

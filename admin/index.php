@@ -25,6 +25,10 @@
 		exportUserXML($_GET['recordID']);
 	}
 	
+	if (strcmp($CURRENT_PAGE, "setDefaultRole") == 0) {
+		setDefaultRole($_GET['recordID']);
+	}
+	
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">		 
@@ -405,10 +409,15 @@
 				printTr();
 				
 				printRow($settingsObj->getKey());
-				printRow($settingsObj->getValue());
+				
+				if (strcmp($settingsObj->getType(), 'bool') ==0) {
+					printRow((bool)$settingsObj->getValue());
+				} else {
+					printRow($settingsObj->getValue());
+				}
+				
 				printRow($settingsObj->getDescription());
 				printRow((bool)$settingsObj->isProtected());
-				
 				printEditRow($settingsObj->getID(), $CURRENT_PAGE);
 				printDeleteRow($settingsObj->getID(), $CURRENT_PAGE, "Delete settings ?");
 				
@@ -444,23 +453,31 @@
 				
 			}
 			/*****************/
-				
+							
 				
 			echo "<div class=\"content\">";	
 						
 			$roles = $USERclass->getAllUserRoles();
+			$defaultRoleObj = $USERclass->getDefaultRole();
+			
 						
-			$header = array("Role name","Description","");
+			$header = array("Role name","Description","&nbsp;","&nbsp;");
 			printTableOpen();
 			printRowHeader($header);
 			foreach ($roles as $userRolesObj) {
-				printTr();
 				
+				printTr();
 				printRow($userRolesObj->getRoleName());			
 				printRow($userRolesObj->getRoleDescription());			
 				
-				printDeleteRow($userRolesObj->getRoleID(), $CURRENT_PAGE, "Delete role ?");
+				if ($userRolesObj === $defaultRoleObj) { 
+					printCustomRow($userRolesObj->getRoleID(), $CURRENT_PAGE, "../rssuser", "This is the default role", "void");
+				} else {
+					printCustomRow($userRolesObj->getRoleID(), $CURRENT_PAGE, "icon_user_purple", "Set as default role", "setDefaultRole");
+				}
 				
+			
+				printDeleteRow($userRolesObj->getRoleID(), $CURRENT_PAGE, "Delete role ?");
 				printTr(false);
 			}
 			printTableClose();

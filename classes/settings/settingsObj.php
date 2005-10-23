@@ -117,7 +117,7 @@
 		/**
 		 * Get the objects type.
 		 *
-		 * Type can for example be bool or just emtpy.
+		 * Type can for example be bool or just empty.
 		 *
 		 * @return string
 		 */

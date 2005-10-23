@@ -159,7 +159,7 @@ if ($movie->isAdult()) {
 		<td><?=$imdb->getCountry() ?></td>
 	</tr>
 	<tr>
-		<td valign="top">IMDB <?= $language->show('M_CATEGORY')?>:</td>
+		<td valign="top" nowrap="nowrap">IMDB <?= $language->show('M_CATEGORY')?>:</td>
 		<td><?=parseCategoryList($imdb->getGenre()) ?></td>
 	</tr>
 	<tr>
