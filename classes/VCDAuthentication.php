@@ -389,6 +389,7 @@
 					
 					
 					$userObj = new userObj(array('', $username, md5($password), $user_fullname, $user_email, '', '', false, ''));
+					$userObj->setDirectoryUser(true);
 					
 										
 				} else {
@@ -404,6 +405,7 @@
 				
 				$CLASSUser = VCDClassFactory::getInstance('vcd_user');
 				$dbUserObj = $CLASSUser->getUserByUsername($username);
+				$dbUserObj->setDirectoryUser(true);
 				
 				if ($dbUserObj instanceof userObj ) {
 					// User found, we will check if information needs updating.
