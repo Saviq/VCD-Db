@@ -10,6 +10,11 @@
 		$user->setName($_POST['name']);
 		$user->setEmail($_POST['email']);
 		if (isset($_POST['password']) && strlen($_POST['password']) > 4) {
+			if ($user->isDirectoryUser()) {
+				VCDException::display('Password cannot be changed for Directory authenticated users.', true);
+				exit();
+				
+			}
 			$user->setPassword(md5($_POST['password']));
 		}
 
