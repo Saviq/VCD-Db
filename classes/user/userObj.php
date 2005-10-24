@@ -28,6 +28,7 @@
 		private $isDeleted;
 		private $dateCreated;
 		private $userPropertiesArr = array();
+		private $isDirectoryUser = false;
 		
 	
 	/**
@@ -197,6 +198,25 @@
 			}
 		}
 		return false;
+	}
+	
+	
+	/**
+	 * Mark the current user object as a LDAP Directory authenticated user.
+	 *
+	 * @param bool $value
+	 */
+	public function setDirectoryUser($value) {
+		$this->isDirectoryUser = $value;
+	}
+	
+	/**
+	 * Check if user was authenticated via LDAP Directory or not.
+	 *
+	 * @return bool
+	 */
+	public function isDirectoryUser() {
+		return $this->isDirectoryUser;
 	}
 	
 	/**
