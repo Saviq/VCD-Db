@@ -37,16 +37,16 @@
    		 * @param mixed $exception
    		 * @param bool $goback
    		 */
-   		public function display($exception, $goback = false) { 
+   		public static function display($exception, $goback = false) { 
    		   $err = "Exception occurred.";
    		
    		   if ($exception instanceof Exception) {
    		   		
-   		   		$file = str_replace('\\',"#",$exception->getFile());
+   		   		$file = str_replace('\\',"#",VCDException::getFile());
    		   		$file = split("#",$file);
    		   		$error_file = $file[sizeof($file)-1];
    		   		
-   		   		$exmsg = str_replace(Chr(13),"",$exception->getMessage());
+   		   		$exmsg = str_replace(Chr(13),"",VCDException::getMessage());
    		   		$exmsg = str_replace(Chr(12),"",$exmsg);
    		   		$exmsg = str_replace(Chr(11),"",$exmsg);
    		   		$exmsg = str_replace(Chr(9),"",$exmsg);
@@ -55,7 +55,7 @@
    		   		
    		   		$message = $err ."<break>";
    		   		$message .= "File: " .$error_file ."<break>";
-   		   		$message .= "Line: ".$exception->getLine()."<break>";
+   		   		$message .= "Line: ".VCDException::getLine()."<break>";
    		   		$message .= $msg."<break>";
    		   		
    		   		
