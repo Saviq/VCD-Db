@@ -110,11 +110,11 @@
 
 	class	DNSRecord
 	{
-		var	$type;
-		var	$name;
-		var	$dclass;
-		var	$ttl;
-		var $specific_fields;
+		public $type;
+		public $name;
+		public $dclass;
+		public $ttl;
+		public $specific_fields;
 
 		function DNSRecord(
 		  $name,
@@ -137,9 +137,9 @@
 	}
 	class	DNSResolver
 	{
-		var $port;
-		var $nameserver;
-		var $timeout;
+		public $port;
+		public $nameserver;
+		public $timeout;
 		function DNSResolver( $nameserver, $port = 53, $timeout = 1000000 ) {
 			$this->port = $port;
 			$this->nameserver = $nameserver;
@@ -182,10 +182,10 @@
 
 	class	DNSQuery 
 	{
-		var $id; // 1 - 65535
-		var $header_opcode;
-		var $query_record;
-		var $flags;
+		public $id; // 1 - 65535
+		public $header_opcode;
+		public $query_record;
+		public $flags;
 
 		function DNSQuery( &$dnsrecord, $flags = DNS_HEADERSPEC_RECURSION_DESIRED )
 		{
@@ -206,10 +206,10 @@
 
 	class	DNSMessageParser
 	{
-		var $stream;
-		var $nbytes_read;
-		var $octets;
-		var $limit;
+		public $stream;
+		public $nbytes_read;
+		public $octets;
+		public $limit;
 
 		function DNSMessageParser( $stream, $limit ) {
 			$this->stream = $stream;
@@ -409,13 +409,13 @@
 
 	class	DNSAnswer
 	{
-		var $id;
-		var $result_code;
-		var $flags;
-		var $rec_query;
-		var $rec_answer;
-		var $rec_authority;
-		var $rec_additional;
+		public $id;
+		public $result_code;
+		public $flags;
+		public $rec_query;
+		public $rec_answer;
+		public $rec_authority;
+		public $rec_additional;
 
 		function DNSAnswer( &$stream, $limit ) {
 			$msgparser = new DNSMessageParser( $stream, $limit );
@@ -452,7 +452,7 @@
 	}
 	class	DNSName
 	{
-		var	$labels;
+		public $labels;
 
 		function DNSName( $labels ) {
 			$this->labels = & $labels;
