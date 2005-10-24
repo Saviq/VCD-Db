@@ -81,8 +81,9 @@
    		 * Navigate browser back.
    		 *
    		 */
-   		private function goBack() {
+   		private static function goBack() {
    			print "<script>history.back(-1)</script>";
+   			exit();
    		}
    		
    		
