@@ -388,7 +388,7 @@
 					}
 					
 					
-					$userObj = new userObj(array('', $username, $password, $user_fullname, $user_email, '', '', false, ''));
+					$userObj = new userObj(array('', $username, md5($password), $user_fullname, $user_email, '', '', false, ''));
 					
 										
 				} else {
