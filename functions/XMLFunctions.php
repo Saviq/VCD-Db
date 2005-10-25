@@ -244,7 +244,7 @@ function checkMovieImport(&$out_movietitles) {
 		   } else {
 		   		foreach ($movies as $item) {
 		   			if (strcmp($item->title, "") != 0) {
-		   				$title = (string)$item->title;
+		   				$title = utf8_decode((string)$item->title);
 			    		array_push($out_movietitles, $title);
 		   			}
 				}
@@ -448,7 +448,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   			
 		   			
 		   			// Create the basic CD obj
-					$basic = array('', (string)$item->title, (string)$item->category_id, (string)$item->year);
+					$basic = array('', utf8_decode((string)$item->title), (string)$item->category_id, (string)$item->year);
 					$vcd = new vcdObj($basic);
 					
 					// Add 1 instance
@@ -547,7 +547,7 @@ function processXMLMovies($upfile, $use_covers) {
 			   				// Create the IMDB obj
 							$obj = new imdbObj();
 							$obj->setIMDB((string)$imdb->imdb_id);
-							$obj->setTitle((string)$imdb->title);
+							$obj->setTitle(utf8_decode((string)$imdb->title));
 							$obj->setYear((string)$imdb->year);
 							$obj->setDirector((string)$imdb->director);
 							$obj->setGenre((string)$imdb->genre);
