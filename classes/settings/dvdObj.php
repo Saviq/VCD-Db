@@ -49,9 +49,9 @@ final class dvdObj {
 		'DD2'  => 'Dolby Digital 2.0',
 		'DD5'  => 'Dolby Digital 5.1',
 		'DDEX' => 'Dolby Digital Surround EX',
-		'MONO' => 'Mono',
+		'MONO' => 'Dolby Mono 1.0',
 		'SACD' => 'Super Audio CD',
-		'COMM' => 'Commentary Voice'
+		'COMM' => 'Director Commentary'
 	);
 	
 	
@@ -220,6 +220,16 @@ final class dvdObj {
 	);
 	
 	
+	/**
+	 * Default languages that are populated when selecting
+	 * subtitles for a new DVD.  Modify at will for your locale.
+	 *
+	 * @var array
+	 */
+	private $defaultSubs = array(
+		'EN', 'DA', 'NO', 'CZ', 'PL', 'IS', 'ES', 
+		'PT', 'HU', 'NL', 'SV', 'DE', 'FR', 'IT', 'FI'
+	);
 	
 	
 	
@@ -282,7 +292,7 @@ final class dvdObj {
 	/**
 	 * Get Audio by audio code.
 	 *
-	 * @params tring $code
+	 * @param string $code
 	 * @return string
 	 */
 	public function getAudio($code) {
@@ -290,6 +300,25 @@ final class dvdObj {
 			return $this->audio[$code];
 		} 
 		return false;
+	}
+	
+	/**
+	 * Get list of default subtitles to display when entering DVD
+	 * subtitles to a movie.  Returns sorted array of specified languages.
+	 *
+	 * @return array
+	 */
+	public function getDefaultSubtitles() {
+		$arrSubtitles = array();
+		foreach ($this->defaultSubs as $sub) {
+			$lang = $this->getLanguage($sub);
+			if ($lang) {
+				$arrSubtitles[$sub] = $lang;
+			}
+		}
+		
+		ksort($arrSubtitles, SORT_LOCALE_STRING);
+		return $arrSubtitles;
 	}
 	
 }
