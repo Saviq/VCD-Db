@@ -52,6 +52,7 @@
 	require_once(dirname(__FILE__) . '/VCDOnload.php');
 	require_once(dirname(__FILE__) . '/VCDImage.php');
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
+	require_once(dirname(__FILE__) . '/VCDLog.php');
 
 
 	/* Common Functions*/
