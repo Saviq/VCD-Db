@@ -8,7 +8,7 @@ $userObj = null;
 
 if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
 	
-	$userObj = VCDAuthentication::authenticate($_SERVER['PHP_AUTH_USER'], md5($_SERVER['PHP_AUTH_PW']));
+	$userObj = VCDAuthentication::authenticate($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
 	
 	if ($userObj instanceof userObj) {
 		$valid = true;
