@@ -22,8 +22,8 @@
 		 *
 		 * @param Exception $exception
 		 */
-		function __construct(Exception $exception) { 
-       		$this->exception = $exception; 
+		function __construct() { 
+			parent::__construct();
    		} 
 
    		
@@ -42,11 +42,11 @@
    		
    		   if ($exception instanceof Exception) {
    		   		
-   		   		$file = str_replace('\\',"#",VCDException::getFile());
+   		   		$file = str_replace('\\',"#",$exception->getFile());
    		   		$file = split("#",$file);
    		   		$error_file = $file[sizeof($file)-1];
    		   		
-   		   		$exmsg = str_replace(Chr(13),"",VCDException::getMessage());
+   		   		$exmsg = str_replace(Chr(13),"",$exception->getMessage());
    		   		$exmsg = str_replace(Chr(12),"",$exmsg);
    		   		$exmsg = str_replace(Chr(11),"",$exmsg);
    		   		$exmsg = str_replace(Chr(9),"",$exmsg);
@@ -55,7 +55,7 @@
    		   		
    		   		$message = $err ."<break>";
    		   		$message .= "File: " .$error_file ."<break>";
-   		   		$message .= "Line: ".VCDException::getLine()."<break>";
+   		   		$message .= "Line: ".$exception->getLine()."<break>";
    		   		$message .= $msg."<break>";
    		   		
    		   		
@@ -67,10 +67,10 @@
    		      		   
    		      		   
 	       print "<script>";
-	       print "alert('".VCDException::fixMessageForJS($message)."');";	       
+	       print "alert('".self::fixMessageForJS($message)."');";	       
 	       print "</script>";
 	       if ($goback) {
-	       	  VCDException::goBack();
+	       	  self::goBack();
 	       }
    		} 
    		
