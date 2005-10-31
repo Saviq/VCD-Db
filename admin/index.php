@@ -52,6 +52,7 @@
         <ul>
           <li><a href="javascript:self.close()">Close</a></li>
           <li><a href="./?page=statistics">Statistics</a></li>
+          <li><a href="./?page=log">Log</a></li>
           <li><a href="./?page=backup">Backup</a></li>
           <li><a href="./?page=import">Import</a></li>
           <li><a href="javascript:mailtest()">Test Mail settings</a></li>
@@ -850,6 +851,29 @@
 							
 				printTableClose();
 			}
+			
+			
+			
+			
+			
+			/*
+				Case Log
+			*/
+			if ($CURRENT_PAGE == "log") { 
+				
+				if (isset($_POST['update'])) {
+					$logTypes = "";
+					if (isset($_POST['logoptions'])) {
+						$logTypes = implode("#", $_POST['logoptions']);
+					}
+
+					$metaObj = new metadataObj(array('',0,0,'logtypes', $logTypes));
+					$SETTINGSclass->addMetadata($metaObj);
+				}
+				
+				require_once('forms/log.php');				
+			}
+			
 			
 			
 			/*
