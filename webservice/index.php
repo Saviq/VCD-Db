@@ -19,17 +19,26 @@ if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
 }
 
 if (!$valid) {
+	
+	// Check if we are supposed to log this event ..
+	if (VCDLog::isInLogList(VCDLog::EVENT_SOAPCALL  )) {
+		VCDLog::addEntry(VCDLog::EVENT_SOAPCALL , "Invalid authentication");
+	}
+	
     header('HTTP/1.0 401 Unauthorized');
     header('WWW-Authenticate: Basic realm="VCD-db Webservice"');
     echo "Authenticaion failed. Hit F5 to refresh and try again.";
-    
-    
+        
     exit();
 } 
 
+// Check if we are supposed to log this event ..
+if (VCDLog::isInLogList(VCDLog::EVENT_SOAPCALL  )) {
+	VCDLog::addEntry(VCDLog::EVENT_SOAPCALL , "Successful Authentication");
+}
+
 
 $server = new nusoap_server;
-
 $server->configureWSDL('VCDdbService','http://vcddb.konni.com');
 $server->wsdl->schemaTargetNamespace = 'http://vcddb.konni.com';
 
