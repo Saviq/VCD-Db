@@ -112,6 +112,65 @@ class VCDLog {
 	}
 	
 	
+	/**
+	 * Get Count of Log entries.
+	 *
+	 * @return int
+	 */
+	public static function getLogCount()
+	{
+		try {
+			
+			return VCDClassFactory::getInstance('logSQL')->getLogCount();
+		
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	
+	/**
+	 * Get the common description of the current log constant.
+	 *
+	 * @param int $EVENT_TYPE | EVENT_TYPE defined in VCDLog::EVENTS_
+	 * @return string
+	 */
+	public static function getLogTypeDescription($EVENT_TYPE) {
+		try {
+		
+			if (!is_numeric($EVENT_TYPE))
+				throw new Exception("EVENT_TYPE needs to be numeric");
+				
+				
+			switch ($EVENT_TYPE) {
+				case VCDLog::EVENT_ERROR:
+					return "Error";	
+					break;
+			
+				case VCDLog::EVENT_LOGIN:
+					return "Authentication";
+					break;
+					
+				case VCDLog::EVENT_RSSCALL:
+					return "RSS Call";
+					break;
+					
+				case VCDLog::EVENT_SOAPCALL:
+					return "SOAP Call";
+					break;
+					
+				default:
+					return "Unknown";
+					break;
+			}
+
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	
 
 }
 

@@ -71,5 +71,16 @@ class logSQL {
 			
 		}
 		
+		public function getLogCount() {
+			try {
+			
+				$query = "SELECT COUNT(*) FROM $this->TABLE_log";
+				return $this->db->getOne($query);
+			
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+		
 		
 }
