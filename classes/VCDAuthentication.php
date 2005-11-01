@@ -53,15 +53,26 @@
 					// Lets add his session to the DB if user want's to be remembered
 					if ($save_session)
 						$USERclass->addSession(session_id(),$userObj->getUserID());
-					
+											
 					// return the user 
 					return $userObj;
 					
 				}
 				
 			} else {
+				
+				// Check if we are supposed to log this event ..
+				if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
+					VCDLog::addEntry(VCDLog::EVENT_LOGIN, "Non existing account: " . $username);
+				}
+				
 				return null;
 			}
+			
+				// Check if we are supposed to log this event ..
+				if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
+					VCDLog::addEntry(VCDLog::EVENT_LOGIN, "Invalid password for user: " . $username);
+				}
 					
 			return null;
 			

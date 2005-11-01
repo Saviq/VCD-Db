@@ -45,6 +45,7 @@
 	
 	require_once("VCDUtils.php");
 	require_once("VCDException.php");
+	require_once("VCDLog.php");
 	require_once("VCDAuthentication.php");
 	require_once("VCDOnload.php");
 		

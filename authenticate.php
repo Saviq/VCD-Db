@@ -41,7 +41,7 @@
 			redirect('./?page=badlogin&account=disabled'); /* Redirect browser */ 
 			exit();
 		}
-		
+				
 		// Store info in users cookie if want's to be remembered
 		if (isset($_POST['remember']) && (bool)$_POST['remember']) {
 			$Cookie = new SiteCookie("vcd_cookie");
@@ -55,6 +55,12 @@
 			
 		// Add userObj to session
 		$_SESSION['user'] = $user;
+		
+		
+		// Check if we are supposed to log this event ..
+		if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
+			VCDLog::addEntry(VCDLog::EVENT_LOGIN, "User login");
+		}
 		
 		// Redirect to referee page - N.B. HTTP_REFERER cannot always be trusted
 		header("Location: ".$_SERVER['HTTP_REFERER'].""); /* Redirect browser */ 
