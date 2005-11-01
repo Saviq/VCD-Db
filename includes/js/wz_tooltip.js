@@ -45,19 +45,19 @@ var ttFontColor   = "#000066";
 var ttFontFace    = "arial,helvetica,sans-serif";
 var ttFontSize    = "11px";
 var ttFontWeight  = "normal";     // alternative: "bold";
-var ttLeft        = false;        // tooltip on the left of the mouse? Alternative: true
+var ttLeft        = true;        // tooltip on the left of the mouse? Alternative: true
 var ttOffsetX     = 12;           // horizontal offset of left-top corner from mousepointer
 var ttOffsetY     = 15;           // vertical offset                   "
 var ttOpacity     = 100;          // opacity of tooltip in percent (must be integer between 0 and 100)
-var ttPadding     = 3;            // spacing between border and content
+var ttPadding     = 1;            // spacing between border and content
 var ttShadowColor = "";
 var ttShadowWidth = 0;
 var ttStatic      = false;        // tooltip NOT move with the mouse? Alternative: true
 var ttSticky      = false;        // do NOT hide tooltip on mouseout? Alternative: true
 var ttTemp        = 0;            // time span after which the tooltip disappears; 0 (zero) means "infinite timespan"
-var ttTextAlign   = "left";
+var ttTextAlign   = "center";
 var ttTitleColor  = "#ffffff";    // color of caption text
-var ttWidth       = 300;
+var ttWidth       = 150;
 ////////////////////  END OF TOOLTIP CONFIG  ////////////////////////
 
 
