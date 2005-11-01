@@ -876,6 +876,48 @@
 			
 			
 			
+			
+			/*
+				Case View Log
+			*/
+			if ($CURRENT_PAGE == "viewlog") { 
+				
+				$arrLog = VCDLog::getLogEntries();
+				$CLASSUser = new vcd_user();
+				
+				$arrAllUsers = $CLASSUser->getAllUsers();
+				
+				$header = array("Event", "Message", "User", "Date", "Remote IP");
+				printTableOpen();
+				printRowHeader($header);
+				foreach ($arrLog as $obj) {
+					
+					$strUserName = "anonymous";
+					foreach ($arrAllUsers as $userObj) {
+						if ($userObj->getUserID() == $obj->getUserID()) {
+							$strUserName = $userObj->getUsername();
+							break;
+						}
+					}
+					
+					printTr();
+			
+					printRow(VCDLog::getLogTypeDescription($obj->getType())) ;
+					printRow($obj->getMessage());
+					printRow($strUserName);	
+					printRow($obj->getDate());
+					printRow($obj->getIP());
+				
+					printTr(false);
+				}
+				printTableClose();
+				
+				unset($arrLog);
+				unset($arrAllUsers);
+				
+			}
+			
+			
 			/*
 				Case Import
 			*/

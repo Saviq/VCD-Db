@@ -24,10 +24,24 @@
 	<td>XML Rss calls</td>
 	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_RSSCALL ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_RSSCALL )) print "checked=\"checked\"" ?>></td>
 </tr>
-
 </table>
 
-<p align="right">
-<input type="submit" value="Update" name="update" class="button">
-</p>
+<p align="right"><input type="submit" value="Update" name="update" class="button"></p>
 </form>
+
+<h1>Current Log info</h1>
+<p>
+Log entries in database: <?= VCDLog::getLogCount() ?>
+</p>
+<? 
+if (VCDLog::getLogCount() > 0) {
+?>
+<p>
+<input type="button" value="View Log" class="button" onclick="location.href='./?page=viewlog'"/> &nbsp; <input type="button" value="Empty Log" class="button"/>
+</p>
+<?
+}
+?>
+
+
+

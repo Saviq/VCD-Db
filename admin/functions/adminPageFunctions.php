@@ -353,7 +353,7 @@ function getADODBdatePart($datestamp, $format) {
 function showAddRecord($do) {
 
 	if ($do == "versioncheck" || $do == "statistics" || $do == "backup" || $do == "import" || $do == "" || 
-		$do == "statistics" || $do == "roles" )  {
+		$do == "statistics" || $do == "roles" || $do == "log" || $do == "viewlog")  {
 		return false;
 	} 
 	
