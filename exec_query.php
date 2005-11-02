@@ -354,21 +354,7 @@ switch ($form) {
 		
 		
 		
-	/* Handle the selected viewMode from the movie category display pages */
-	case 'viewmode':
-		$cat_id = $_GET['category_id'];
-		$batch = $_GET['batch'];
-		$viewmode = $_GET['mode'];
-		
-		if (strcmp($viewmode, "image") == 0) {
-			$url = "?page=category&category_id={$cat_id}&viewmode=img&batch={$batch}";
-			$_SESSION['viewmode'] = "image";
-		} else {
-			$url = "?page=category&category_id={$cat_id}&batch={$batch}";
-			$_SESSION['viewmode'] = "text";
-		}
-		redirect($url);
-		break;
+	
 		
 	default:
 		die("Unspecified form handler!");

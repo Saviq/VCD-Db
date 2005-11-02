@@ -1026,6 +1026,6 @@ function replace(s, t, u) {
 
 
 function viewMode(category_id, viewmode, batch) {
-	url = "exec_query.php?action=viewmode&category_id="+category_id+"&batch="+batch+"&mode="+viewmode;
+	url = "./?action=viewmode&category_id="+category_id+"&batch="+batch+"&mode="+viewmode;
 	location.href = url;
 }
