@@ -861,6 +861,8 @@
 			*/
 			if ($CURRENT_PAGE == "log") { 
 				
+				$updated = false;				
+				
 				if (isset($_POST['update'])) {
 					$logTypes = "";
 					if (isset($_POST['logoptions'])) {
@@ -869,6 +871,7 @@
 
 					$metaObj = new metadataObj(array('',0,0,'logtypes', $logTypes));
 					$SETTINGSclass->addMetadata($metaObj);
+					$updated = true;
 				}
 				
 				require_once('forms/log.php');				
@@ -905,7 +908,8 @@
 					printRow(VCDLog::getLogTypeDescription($obj->getType())) ;
 					printRow($obj->getMessage());
 					printRow($strUserName);	
-					printRow($obj->getDate());
+					printRow(date("d/m/Y h:i:s", strtotime($obj->getDate())));
+										
 					print "<td onmouseover=\"return escape('<iframe src=iptodns.php?ip={$obj->getIP()} width=150 height=22></iframe>')\">{$obj->getIP()}</td>";
 				
 					printTr(false);

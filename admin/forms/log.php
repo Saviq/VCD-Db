@@ -26,7 +26,17 @@
 </tr>
 </table>
 
-<p align="right"><input type="submit" value="Update" name="update" class="button"></p>
+<p align="right">
+<? 
+$updateMessage = "";
+if ($updated) {
+	$updateMessage = "<span id=\"langmessage\" style=\"color:red\">(Selection updated)&nbsp;&nbsp;</span>";
+	print "<script>setTimeout(\"toggle('langmessage')\",3000);</script>";
+}
+echo $updateMessage;
+?>
+<input type="submit" value="Update" name="update" class="button">
+</p>
 </form>
 
 <h1>Current Log info</h1>
