@@ -275,6 +275,12 @@ function deleteRecord($recordID, $recordType) {
 		break;
 		
 		
+		case 'log':
+			VCDLog::clearLog();
+			header("Location: ./?page=".$recordType.""); /* Redirect browser */
+			break;
+		
+		
 		case 'porncategories':
 			$PORNClass = new vcd_pornstar();
 			if ($PORNClass->deleteAdultCategory($recordID)) 

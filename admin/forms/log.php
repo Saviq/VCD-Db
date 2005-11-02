@@ -37,7 +37,7 @@ Log entries in database: <?= VCDLog::getLogCount() ?>
 if (VCDLog::getLogCount() > 0) {
 ?>
 <p>
-<input type="button" value="View Log" class="button" onclick="location.href='./?page=viewlog'"/> &nbsp; <input type="button" value="Empty Log" class="button"/>
+<input type="button" value="View Log" class="button" onclick="location.href='./?page=viewlog'"/> &nbsp; <input type="button" onclick="deleteRecord(0, 'log', 'Clear all log entries?')" value="Empty Log" class="button"/>
 </p>
 <?
 }

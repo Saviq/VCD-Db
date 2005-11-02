@@ -128,6 +128,19 @@ class VCDLog {
 		}
 	}
 	
+	/**
+	 * Clear all log entries from database
+	 *
+	 */
+	public static function clearLog() 
+	{
+		try {
+			VCDClassFactory::getInstance('logSQL')->clearLog();
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
 	
 	/**
 	 * Get the common description of the current log constant.

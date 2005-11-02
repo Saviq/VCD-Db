@@ -71,6 +71,17 @@ class logSQL {
 			
 		}
 		
+		public function clearLog() {
+			try {
+			
+				$query = "DELETE FROM $this->TABLE_log";
+				$this->db->Execute($query);
+				
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+		
 		public function getLogCount() {
 			try {
 			
