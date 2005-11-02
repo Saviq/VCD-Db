@@ -434,6 +434,24 @@
 		</field>
 	</table>
 	
+	<table name="vcd_Log">
+		<field name="event_id" type="I" size="4">
+			<NOTNULL/>
+		</field>
+		<field name="message" type="C" size="200">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I" size="10">
+		</field>
+		<field name="event_date" type="T" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="ip" type="C" size="15">
+			<NOTNULL/>
+		</field>
+	</table>
+	
+		
 	<sql>
 		<descr>Insert basic data to get things started.</descr>
 		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_SERVER','undefined','Default SMTP Server that the application uses',1,'')</query>
