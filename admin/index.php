@@ -906,7 +906,7 @@
 					printRow($obj->getMessage());
 					printRow($strUserName);	
 					printRow($obj->getDate());
-					printRow($obj->getIP());
+					print "<td onmouseover=\"return escape('<iframe src=iptodns.php?ip={$obj->getIP()} width=150 height=22></iframe>')\">{$obj->getIP()}</td>";
 				
 					printTr(false);
 				}
@@ -1193,6 +1193,13 @@
 <?php if (strcmp($WORKING_MODE, "edit") == 0) {
 	print "<script>showLayer();</script>";
 }
+
+if ($CURRENT_PAGE == "viewlog") {
+?>
+<script language="JavaScript" type="text/javascript" src="../includes/js/wz_tooltip.js"></script> 
+<?
+}
+
 ?>
 </body>
 </html>
