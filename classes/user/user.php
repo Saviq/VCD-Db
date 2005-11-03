@@ -67,6 +67,11 @@ class vcd_user implements User {
 	public function getUserByID($user_id) {
    		try {
    			$obj = $this->SQL->getUserByID($user_id);
+   			
+   			if (!$obj instanceof userObj ) {
+   				return null;
+   			} 
+   			
    			/* Since we found our user, lets get his extended properties */
    				$propIDarr = $this->SQL->getPropertyIDsOnUser($obj->getUserID());
    				if (!is_null($propIDarr)) {

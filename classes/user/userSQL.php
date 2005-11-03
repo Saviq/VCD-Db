@@ -104,12 +104,17 @@
 			$query = "SELECT U.user_id, U.user_name, U.user_password, U.user_fullname, U.user_email,
 					  U.role_id, R.role_name, U.is_deleted, U.date_created
 					  FROM $this->TABLE_users U, $this->TABLE_roles R
-					  WHERE U.user_id = ".$user_id." AND R.role_id = U.role_id ORDER BY U.user_fullname";
+					  WHERE U.user_id = ".$user_id." AND R.role_id = U.role_id 
+					  AND U.is_deleted = 0";
+			
 			$rs = $this->db->Execute($query);
-			if ($rs) {
+			if ($rs && $rs->RecordCount() > 0) {
 				return new userObj($rs->FetchRow());
-			}			
-			$rs->Close();
+			} else {
+				$rs->Close();
+				return null;
+			}
+			
 			
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
