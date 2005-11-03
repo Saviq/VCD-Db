@@ -1,4 +1,4 @@
-Id: README.txt,v 1.2 2005/11/01 08:42:27 konni Exp $
+$Id$
 
 VCD-db README ($Date$)
 
