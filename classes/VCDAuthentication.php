@@ -84,6 +84,10 @@
 		 *
 		 */
 		static final function checkCookie() {
+			
+			
+			try {
+			
 			SiteCookie::extract('vcd_cookie');
 
 			// Check if we find the desired values in the cookie
@@ -111,7 +115,27 @@
 					
 					// And finally log the user in and add userObj to session
 					$user = $USERClass->getUserByID($user_id);
-					$_SESSION['user'] = $user;
+					
+					// Check if user has been deleted from last visit .
+					if ($user instanceof userObj ) {
+						$_SESSION['user'] = $user;
+					} else {
+						// Invalidate the cookie ...
+						$Cookie->clear();
+						$Cookie->put("language", $sess_lang);
+						$Cookie->set();
+						
+						// Throw new Exception to notify user of the deleted account.
+						VCDException::display("User account has been disabled.");
+						redirect();
+					}
+					
+					
+					
+					// Check if we are supposed to log this event ..
+					if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
+						VCDLog::addEntry(VCDLog::EVENT_LOGIN, "User authenticated from cookie");
+					}
 										
 					
 				}
@@ -120,7 +144,9 @@
 				
 			}
 			
-			
+			} catch (Exception $ex) {
+				VCDException::display($ex->getMessage());
+			}
 			
 			
 		}
