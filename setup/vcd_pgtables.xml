@@ -413,7 +413,7 @@
 			<NOTNULL/>
 		</field>
 	</table>
-		<table name="vcd_MetaData">
+	<table name="vcd_MetaData">
 		<field name="metadata_id" type="I" size="10">
 			<KEY/>
 			<AUTOINCREMENT/>
@@ -430,6 +430,22 @@
 			<NOTNULL/>
 		</field>
 		<field name="metadata_value" type="C" size="150">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Log">
+		<field name="event_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="message" type="C" size="200">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+		</field>
+		<field name="event_date" type="T">
+			<NOTNULL/>
+		</field>
+		<field name="ip" type="C" size="15">
 			<NOTNULL/>
 		</field>
 	</table>

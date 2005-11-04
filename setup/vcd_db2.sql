@@ -259,3 +259,13 @@ CREATE TABLE vcd_VcdToUsers (
         disc_count INTEGER NOT NULL ,
         date_added DATE NOT NULL
 )
+GO
+
+CREATE TABLE vcd_Log (
+		event_id SMALLINT NOT NULL ,
+		message varchar (200) NOT NULL ,
+		user_id INTEGER NULL ,
+		event_date DATE NOT NULL ,
+		ip CHAR (15) NOT NULL 
+)
+
