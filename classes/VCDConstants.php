@@ -15,8 +15,8 @@
 ?>
 <? 
 // All constants used by VCD-db will be placed here
-define("VCDDB_VERSION","0.974");						// VCD-db version
-define("STYLE","includes/templates/violet/");			// Path to current template
+define("VCDDB_VERSION","0.974-cvs");					// VCD-db version
+define("STYLE","includes/templates/default/");			// Path to current template
 define("TEMP_FOLDER","upload/");						// Temp folder used by VCD-db
 define("CACHE_FOLDER","upload/cache/");					// Fetch cache folder
 define("THUMBNAIL_PATH","upload/thumbnails/");			// Thumbnail path
@@ -35,17 +35,17 @@ define("RSS_CACHE_TIME",7200);							// 2 hours
 define("IMDB_MAXRESULT",50);							// Maximum count of results to display from the imdb search
 
 // Database settings
-define("DB_TYPE",	"mysql");
-define("DB_USER",	"root");
-define("DB_PASS",	"master");
-define("DB_HOST",	"localhost");
-define("DB_CATALOG","dev-vcddb");
+define("DB_TYPE",	"SETUP_TYPE");
+define("DB_USER",	"SETUP_USER");
+define("DB_PASS",	"SETUP_PASSWORD");
+define("DB_HOST",	"SETUP_HOST");
+define("DB_CATALOG","SETUP_CATALOG");
 
 // Authentication Method
 define("LDAP_AUTH", 0);									// Are you using LDAP for authentication ?
-define("LDAP_HOST", "nthugvit.hugvit.domain");								// LDAP host name (and port if not using default)
-define("LDAP_BASEDN", "OU=Hugvit,OU=Notendur,DC=hugvit,DC=domain");								// LDAP Base DN for Binding to LDAP server
-define("LDAP_AD", 1);									// Is this LDAP server an Active Directory Server ?
-define("AD_DOMAIN", "hugvitdomain");								// If server is an AD server, domain name must be specified.
+define("LDAP_HOST", "");								// LDAP host name (and port if not using default)
+define("LDAP_BASEDN", "");								// LDAP Base DN for Binding to LDAP server
+define("LDAP_AD", 0);									// Is this LDAP server an Active Directory Server ?
+define("AD_DOMAIN", "");								// If server is an AD server, domain name must be specified.
 
 ?>
