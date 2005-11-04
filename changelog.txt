@@ -13,6 +13,10 @@ Added   - Movie import from XML, now supports Gunzipped XML files.
 Added   - The default user role can now be adjusted in the "Control Panel".
 Added   - New nifty layout theme added, the theme is called "Violet".
 Added   - Selected viewmode (text or thumbnail view) is now remembered when browsing movie categories.
+Added   - VCD-db now contains a simple log mechanism, actions like logins, RSS request, SOAP request and errors
+		  can be logged to database.
+Fixed   - Users that had been deleted by admin since last visit and had selected cookie for automatic login
+		  were getting error output.
 
 		  Behind the hood updates:
 		  - VCDClassfactory is now a static class.
