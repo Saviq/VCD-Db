@@ -433,7 +433,6 @@
 			<NOTNULL/>
 		</field>
 	</table>
-	
 	<table name="vcd_Log">
 		<field name="event_id" type="I" size="10">
 			<NOTNULL/>
@@ -443,7 +442,7 @@
 		</field>
 		<field name="user_id" type="I" size="10">
 		</field>
-		<field name="event_date" type="T" size="50">
+		<field name="event_date" type="T">
 			<NOTNULL/>
 		</field>
 		<field name="ip" type="C" size="15">
