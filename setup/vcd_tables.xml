@@ -435,7 +435,7 @@
 	</table>
 	
 	<table name="vcd_Log">
-		<field name="event_id" type="I" size="4">
+		<field name="event_id" type="I" size="10">
 			<NOTNULL/>
 		</field>
 		<field name="message" type="C" size="200">
