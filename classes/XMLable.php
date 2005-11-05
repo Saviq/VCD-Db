@@ -16,7 +16,7 @@
 <? 
 	interface XMLable {
 		
-		abstract public function toXML(); 
+		public function toXML(); 
 		
 	}
 
