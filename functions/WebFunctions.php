@@ -578,6 +578,18 @@ function inc_tooltipjs() {
 		<script src="includes/js/dw_tooltip.js" type="text/javascript"></script>
 		<?
 	}
+	
+	if ($CURRENT_PAGE == '') {
+	// Frontpage .. 
+		?>
+		<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script> 
+		<?
+		
+	}
+		
+
+	
+	
 }
 
 /**
@@ -766,12 +778,14 @@ function ShowOneRSS($url, $showdescription = false) {
             echo "<ul>\n"; 
             foreach ($rs['items'] as $item) { 
             	
-            	  $alt = $item['title'];
+            	  $onmouseover= "";
             	  if (isset($item['description'])) {
-            	  	$alt = $item['description'];
+            	  	$hovertext = str_replace("&#039;", "", $item['description']);
+            	  	$hovertext = str_replace("'", "", $hovertext);
+            	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=5;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
             	  }
             	
-	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" title=\"".$alt."\">".unhtmlentities(str_replace("&apos;", "'", $item['title']))."</a></li>\n"; 
+	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" {$onmouseover}>".unhtmlentities(str_replace("&apos;", "'", $item['title']))."</a></li>\n"; 
             } 
             echo "</ul>\n"; 
     } 
