@@ -282,7 +282,7 @@ class language
 					$strSelected = "selected=\"selected\"";
 				}
 
-				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>$lang</option>";
+				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>".htmlentities($lang)."</option>";
 			}
 			
 			$i++;
