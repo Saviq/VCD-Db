@@ -104,7 +104,8 @@ class installer {
 		'WRITE_TO_CONFIG' => '0',
 		'WRITE_TO_UPLOAD' => '0',
 		'FILE_UPLOADS' => '0',
-		'SIMPLE_XML' => '0'
+		'SIMPLE_XML' => '0',
+		'SESSIONS' => '0'
 	);
 	
 	
@@ -423,7 +424,8 @@ class installer {
     private function checkSystem() {
     	$this->env['GD_OK'] = function_exists('gd_info');
     	$this->env['FILE_UPLOADS'] = ini_get('file_uploads');
-    	
+    	$this->env['SESSIONS'] = function_exists('session_id');
+    	    	
     	$arrFolders = array('../upload/', '../upload/cache/', '../upload/covers/',
     						'../upload/pornstars/', '../upload/thumbnails/');
     	$bUpload = true;
@@ -437,9 +439,7 @@ class installer {
     	if ($bUpload)
     		$this->env['WRITE_TO_UPLOAD'] = $bUpload;
     	
-    	$bWriteConf = true;
-    	$bWriteConf = installer::write("../classes/db.conf.php", "DB Config");
-    	fs_unlink("../classes/db.conf.php");
+    	$bWriteConf = is_writable('../classes/VCDConstants.php');
     	if ($bWriteConf)    	
     		$this->env['WRITE_TO_CONFIG']  = $bWriteConf;
     	
@@ -456,16 +456,18 @@ class installer {
     	}
     	
     	if ($this->env['GD_OK'] == true) {
-    		print $strOk . "GD Library available <br/><br/>";
+    		$gdinfo = gd_info();
+    		$gdversion = $gdinfo['GD Version'];
+    		print $strOk . "GD Library available => {$gdversion}<br/><br/>";
     	} else {
     		print $strFail . "GD Library NOT available <br/><br/>";
     		$this->continue = false;
     	}
     	
     	if ($this->env['WRITE_TO_CONFIG'] == true) {
-    		print $strOk . "I can write to the config file<br/><br/>";
+    		print $strOk . "Config file is writeable<br/><br/>";
     	} else {
-    		print $strFail . "I can't write to config<br/><br/>";
+    		print $strFail . "VCDConstants.php in not writeable<br/><br/>";
     		$this->continue = false;
     	}
     	
@@ -500,6 +502,13 @@ class installer {
     		$this->continue = false;
     	}
     	
+    	
+    	if ($this->env['SESSIONS'] == true) {
+    		print $strOk . "Session support enabled<br/><br/>";
+    	} else {
+    		print $strFail . "No session support available<br>";
+    		$this->continue = false;
+    	}
     	   	
     	
     
