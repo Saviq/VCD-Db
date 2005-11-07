@@ -342,7 +342,7 @@ class language
 				if (file_exists(LANGUAGE_FILE_ROOT.$language_file)) {
 	
 					if (is_readable(LANGUAGE_FILE_ROOT.$language_file)) {
-						require_once(LANGUAGE_FILE_ROOT.$language_file);
+						require_once('./'.LANGUAGE_FILE_ROOT.$language_file);
 						$currLang = &$_;
 					
 						// Add the Language name and tag to our class
@@ -355,10 +355,10 @@ class language
 		} else {
 			foreach ($this->avail_language_files as $language_file) {
 			
-				if (file_exists("../".LANGUAGE_FILE_ROOT.$language_file)) {
+				if (file_exists("./../".LANGUAGE_FILE_ROOT.$language_file)) {
 			
-					if (is_readable("../".LANGUAGE_FILE_ROOT.$language_file)) {
-						require_once("../".LANGUAGE_FILE_ROOT.$language_file);
+					if (is_readable("./../".LANGUAGE_FILE_ROOT.$language_file)) {
+						require_once("./../".LANGUAGE_FILE_ROOT.$language_file);
 						$currLang = &$_;
 					
 						// Add the Language name and tag to our class
