@@ -492,6 +492,31 @@ class VCDUtils {
 	   return $proxy_cont;
 	} 
 	
+	
+	/**
+	 * Get list of available CSS templates for VCD-db.
+	 * Returns array of strings, containing the unique template names.
+	 *
+	 * @return array
+	 */
+	static function getStyleTemplates() {
+		
+		$templateDirectory = 'includes/templates';
+		$it = new DirectoryIterator( $templateDirectory );
+		
+		$styles = array();
+		
+		while($it->valid()) {
+			$directory = $it->current();
+			if ($directory->isDir() && !$directory->isDot()) {
+				array_push($styles, $directory->getFilename()); 
+			}
+			$it->next();
+		}
+		
+		return $styles;
+	}
+	
   
 }
 
