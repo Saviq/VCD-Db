@@ -220,7 +220,7 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="name" type="X" size="150">
+		<field name="name" type="C" size="100">
 			<NOTNULL/>
 		</field>
 		<field name="homepage" type="C" size="100"/>
@@ -269,7 +269,7 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="studio_name" type="X" size="150">
+		<field name="studio_name" type="C" size="100">
 			<NOTNULL/>
 		</field>
 	</table>
