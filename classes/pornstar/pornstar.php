@@ -511,6 +511,15 @@ class vcd_pornstar implements Pornstar {
 	public function getPornstarsByLetter($letter, $active_only) {
 		try {
 			
+			if (strlen($letter) != 1) {
+				throw new Exception('Letter should only contain 1 letter.');
+			}
+			
+			if(!eregi("^[a-zA-Z ]+$", $letter))  {
+				throw new Exception('Only alphabetical characters will do.');
+			}
+			
+			
 			return $this->SQL->getPornstarsByLetter($letter, $active_only);
 			
 		} catch (Exception $e) {
