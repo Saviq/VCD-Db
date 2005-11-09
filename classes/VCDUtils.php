@@ -517,6 +517,21 @@ class VCDUtils {
 		return $styles;
 	}
 	
+	
+	static function getStyle() {
+		$defaultStyle = STYLE;
+		$stylepath = "includes/templates/";
+		
+		// Check if style is set in Cookie
+		SiteCookie::extract('vcd_cookie');
+		if (isset($_COOKIE['template'])) {
+			return $stylepath.$_COOKIE['template']."/style.css";
+		} else {
+			return $defaultStyle."style.css";
+		}
+		
+		
+	}
   
 }
 
