@@ -63,6 +63,16 @@
 	<td><input type="password" name="password"/></td>
 </tr>
 <tr>
+	<td>Default template:</td>
+	<td><select name="template" onchange="switchTemplate(this.options[this.selectedIndex].value)"><? 
+		foreach (VCDUtils::getStyleTemplates() as $templateItem) {
+			print "<option value=\"{$templateItem}\">{$templateItem}</option>";
+		}
+	?>
+	</select>
+	</td>
+</tr>
+<tr>
 	<td colspan="2">(<?=$language->show('LOGIN_INFO')?>)<br/><br/></td>
 </tr>
 <? /* 
