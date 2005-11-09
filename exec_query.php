@@ -293,6 +293,40 @@ switch ($form) {
 		break;
 		
 		
+		
+	case 'templates':
+		$template_name = $_GET['name'];
+		
+		// Set the new template in cookie
+		// but we must keep existing data in the cookie
+		SiteCookie::extract('vcd_cookie');
+		$Cookie = new SiteCookie("vcd_cookie");
+		$Cookie->clear();
+		
+		if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) { 
+			$session_id    = $_COOKIE['session_id'];			
+			$user_id 	   = $_COOKIE['session_uid'];
+			$session_time  = $_COOKIE['session_time'];	
+			
+			$Cookie->put("session_id", $session_id);	
+			$Cookie->put("session_time", $session_time);
+			$Cookie->put("session_uid", $user_id);
+		}
+		
+		if (isset($_COOKIE['language'])) {
+			$language = $_COOKIE['language'];
+			$Cookie->put("language",$language);
+		}
+				
+		$Cookie->put("template",$template_name);	
+		$Cookie->set();
+		
+		
+	
+		redirect('?page=private&o=settings');
+		break;
+		
+		
 	case 'seenlist':
 		$movie_id = $_GET['vcd_id'];	
 		$mark = $_GET['flag'];
