@@ -1029,3 +1029,8 @@ function viewMode(category_id, viewmode, batch) {
 	url = "./?action=viewmode&category_id="+category_id+"&batch="+batch+"&mode="+viewmode;
 	location.href = url;
 }
+
+function switchTemplate(template) {
+	url = 'exec_query.php?action=templates&name='+template;
+	location.href = url;
+}
