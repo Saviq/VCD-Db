@@ -21,7 +21,7 @@ require_once("classes/includes.php");
 <title>VCD-db</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= VCDUtils::getCharSet()?>"/>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> 
-	<link rel="stylesheet" type="text/css" href="<?=STYLE?>style.css" media="screen, projection"/>
+	<link rel="stylesheet" type="text/css" href="<?= VCDUtils::getStyle()?>" media="screen, projection"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
 <body>
