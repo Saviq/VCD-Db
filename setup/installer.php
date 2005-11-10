@@ -777,7 +777,7 @@ class installer {
     		
     	} elseif ($this->dbsettings['db_type'] == 'sqlite') {
 			
-    		$fn = $this->SQLFILES['sqlite'];
+    		$fn = dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->SQLFILES['sqlite'];
 			$fd = fopen($fn,'rb');
 			$sql = fread($fd, filesize($fn));
 			fclose($fd);
