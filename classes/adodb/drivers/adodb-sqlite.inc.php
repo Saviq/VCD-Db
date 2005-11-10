@@ -77,41 +77,6 @@ class ADODB_sqlite extends ADOConnection {
 		return !empty($ret);
 	}
 	
-	// mark newnham
-	function &MetaColumns($tab)
-	{
-	  global $ADODB_FETCH_MODE;
-	  $false = false;
-	  $save = $ADODB_FETCH_MODE;
-	  $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
-	  if ($this->fetchMode !== false) $savem = $this->SetFetchMode(false);
-	  $rs = $this->Execute("PRAGMA table_info('$tab')");
-	  if (isset($savem)) $this->SetFetchMode($savem);
-	  if (!$rs) {
-	    $ADODB_FETCH_MODE = $save; 
-	    return $false;
-	  }
-	  $arr = array();
-	  while ($r = $rs->FetchRow()) {
-	    $type = explode('(',$r['type']);
-	    $size = '';
-	    if (sizeof($type)==2)
-	    $size = trim($type[1],')');
-	    $fn = strtoupper($r['name']);
-	    $fld = new ADOFieldObject;
-	    $fld->name = $r['name'];
-	    $fld->type = $type[0];
-	    $fld->max_length = $size;
-	    $fld->not_null = $r['notnull'];
-	    $fld->default_value = $r['dflt_value'];
-	    $fld->scale = 0;
-	    if ($save == ADODB_FETCH_NUM) $arr[] = $fld;	
-	    else $arr[strtoupper($fld->name)] = $fld;
-	  }
-	  $rs->Close();
-	  $ADODB_FETCH_MODE = $save;
-	  return $arr;
-	}
 	
 	function _init($parentDriver)
 	{
