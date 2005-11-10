@@ -25,7 +25,7 @@ class Connection {
 	private $db_password 	= DB_PASS;
 	private $db_host 		= DB_HOST;
 	private $db_catalog 	= DB_CATALOG;
-	private $sqlitedb 		= "vcddb.sqlite";
+	private $sqlitedb 		= "vcddb.db";
 	
 	private $debug = false;
 	/**
@@ -175,12 +175,18 @@ class Connection {
 	 * @return string
 	 */
 	private function getSQLitePath() {
-		if (file_exists($this->sqlitedb)) {
-			return $this->sqlitedb;
-		} else {
-			return "../".$this->sqlitedb;
+		try {
+			if (file_exists(dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->sqlitedb)) {
+				return CACHE_FOLDER.$this->sqlitedb;
+			} else {
+				throw new Exception('Could not find path to SQLite DB');
+			}
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
+		
 	}
+	
 	
 }
 
