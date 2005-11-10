@@ -40,6 +40,8 @@
 			
 			showAvailableFeeds($url);
 			
+		} else {
+			print "<script>history.back(-1);</script>";
 		}
 	} else {
 	?>

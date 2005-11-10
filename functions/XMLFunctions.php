@@ -47,7 +47,7 @@ function showAvailableFeeds($url) {
 	}
 	if (!$xml) {
 		print "No feeds found at location " . $user_url;
-		print "<br/><a href=\"./addrssfeed.php\">".$language->show('X_TRYAGAIN')."</a>";
+		print "<br/><a href=\"javascript:history.back(-1)\">".$language->show('X_TRYAGAIN')."</a>";
 		return;
 	} 
 	
