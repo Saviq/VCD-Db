@@ -148,7 +148,7 @@ function checkSQLite(form) {
 			form.db_host.value = 'localhost';
 			form.db_username.value = 'n/a';
 			form.db_password.value = 'n/a';
-			form.db_name.value = 'vcddb.sqlite';
+			form.db_name.value = 'vcddb.db';
 			form.conntester.disabled = true;
 		} else {
 			form.conntester.disabled = false;
