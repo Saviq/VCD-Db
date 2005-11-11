@@ -777,13 +777,11 @@ class installer {
     		
     	} elseif ($this->dbsettings['db_type'] == 'sqlite') {
 			
-    		$fn = dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->SQLFILES['sqlite'];
-			$fd = fopen($fn,'rb');
-			$sql = fread($fd, filesize($fn));
-			fclose($fd);
-			$arr = split(chr(13), $sql);
-			foreach ($arr as $query) {
-				$db->Execute($query);
+    		$fn = $this->SQLFILES['sqlite'];
+			$tables = file($fn);
+			
+			foreach ($tables as $query_num => $query) {
+			  $db->Execute($query);
 			}
     		
     		
