@@ -11,7 +11,7 @@ CREATE TABLE vcd_MetaData ( metadata_id INTEGER NOT NULL, record_id INTEGER NOT 
 CREATE TABLE vcd_MovieCategories ( category_id INTEGER NOT NULL, category_name VARCHAR(100) NOT NULL, PRIMARY KEY (category_id) )
 CREATE TABLE vcd_PornCategories ( category_id INTEGER NOT NULL, category_name VARCHAR(50) NOT NULL, PRIMARY KEY (category_id) )
 CREATE TABLE vcd_PornStudios ( studio_id INTEGER NOT NULL, studio_name VARCHAR(250), PRIMARY KEY (studio_id) )
-CREATE TABLE vcd_Pornstars ( pornstar_id INTEGER NOT NULL, name VARCHAR(250), homepage VARCHAR(100), image_name VARCHAR(100), biography VARCHAR(250), PRIMARY KEY (pornstar_id) )
+CREATE TABLE vcd_Pornstars ( pornstar_id INTEGER NOT NULL, name VARCHAR(100), homepage VARCHAR(100), image_name VARCHAR(100), biography VARCHAR(250), PRIMARY KEY (pornstar_id) )
 CREATE TABLE vcd_PropertiesToUser ( user_id INTEGER NOT NULL, property_id INTEGER NOT NULL )
 CREATE TABLE vcd_RssFeeds ( feed_id INTEGER NOT NULL, user_id INTEGER NOT NULL, feed_name VARCHAR(60) NOT NULL, feed_url VARCHAR(150) NOT NULL, PRIMARY KEY (feed_id) )
 CREATE TABLE vcd_Screenshots ( vcd_id INTEGER NOT NULL, PRIMARY KEY (vcd_id) )
@@ -28,3 +28,4 @@ CREATE TABLE vcd_VcdToPornStudios ( vcd_id INTEGER NOT NULL, studio_id INTEGER N
 CREATE TABLE vcd_VcdToPornstars ( vcd_id INTEGER NOT NULL, pornstar_id INTEGER NOT NULL )
 CREATE TABLE vcd_VcdToSources ( vcd_id INTEGER NOT NULL, site_id INTEGER NOT NULL, external_id VARCHAR(32) NOT NULL )
 CREATE TABLE vcd_VcdToUsers ( vcd_id INTEGER NOT NULL, user_id INTEGER NOT NULL, media_type_id INTEGER NOT NULL, disc_count INTEGER NOT NULL, date_added DATE NOT NULL )
+CREATE TABLE vcd_Log ( event_id INTEGER NOT NULL, message VARCHAR(200) NOT NULL, user_id INTEGER, event_date DATE NOT NULL, ip CHAR(15) NOT NULL )
