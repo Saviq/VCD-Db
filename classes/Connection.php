@@ -177,7 +177,7 @@ class Connection {
 	private function getSQLitePath() {
 		try {
 			if (file_exists(dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->sqlitedb)) {
-				return CACHE_FOLDER.$this->sqlitedb;
+				return dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->sqlitedb;
 			} else {
 				throw new Exception('Could not find path to SQLite DB');
 			}
