@@ -352,7 +352,7 @@ function processExcelMovies($upfile) {
 					$mediaindex = $data->sheets[0]['cells'][$i][5];
 					
 					if ($mediaindex) {
-						$SETTINGSClass->addMetadata(new metadataObj(array('', $new_vcdid, VCDUtils::getUserID(), 'mediaindex', $mediaindex)));
+						$SETTINGSClass->addMetadata(new metadataObj(array('', $new_vcdid, VCDUtils::getUserID(), 'mediaindex', $mediaindex, 10, 'mediaindex', 'system')));
 					} else {
 						$mediaindex = 0;
 					}

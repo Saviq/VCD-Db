@@ -22,7 +22,7 @@
 					$SETTINGSClass->updateMetadata($obj);
 				} else {
 					// create new Obj
-					$obj = new metadataObj(array('',$value, $user_id, 'seenlist', '1'));
+					$obj = new metadataObj(array('',$value, $user_id, 'seenlist', '1', 12, 'seenlist', 'system'));
 					$SETTINGSClass->addMetadata($obj);
 				}
 			}

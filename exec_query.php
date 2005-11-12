@@ -341,7 +341,7 @@ switch ($form) {
 				$SETTINGSClass->updateMetadata($obj);
 			} else {
 				// create new Obj
-				$obj = new metadataObj(array('',$movie_id, VCDUtils::getUserID(), 'seenlist', $mark));
+				$obj = new metadataObj(array('',$movie_id, VCDUtils::getUserID(), 'seenlist', $mark, 12, 'seenlist', 'system'));
 				$SETTINGSClass->addMetadata($obj);
 			}
 			

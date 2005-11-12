@@ -23,7 +23,7 @@
 					$SETTINGSClass->updateMetadata($obj);
 				} else {
 					// create new Obj
-					$obj = new metadataObj(array('',$key, $user_id, 'mediaindex', $value));
+					$obj = new metadataObj(array('',$key, $user_id, 'mediaindex', $value, 10, 'mediaindex', 'system'));
 					$SETTINGSClass->addMetadata($obj);
 				}
 			} elseif (strcmp($value, "") == 0) {

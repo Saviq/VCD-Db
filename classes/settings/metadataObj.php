@@ -23,6 +23,9 @@ class metadataObj {
 	private $user_id;
 	private $metadata_name;
 	private $metadata_value;
+	private $metadata_type_id;
+	private $metadata_type_name;
+	private $metadata_type_level;
 	
 	/**
 	 * Object constructor
@@ -30,11 +33,14 @@ class metadataObj {
 	 * @param array $dataArr
 	 */
 	public function __construct($dataArr) {
-		$this->metadata_id	  = $dataArr[0];
-		$this->record_id	  = $dataArr[1];
-		$this->user_id 		  = $dataArr[2];
-		$this->metadata_name  = $dataArr[3];
-		$this->metadata_value = $dataArr[4];
+		$this->metadata_id	       = $dataArr[0];
+		$this->record_id	       = $dataArr[1];
+		$this->user_id 		       = $dataArr[2];
+		$this->metadata_name       = $dataArr[3];
+		$this->metadata_value      = $dataArr[4];
+		$this->metadata_type_id    = $dataArr[5];
+		$this->metadata_type_name  = $dataArr[6];
+		$this->metadata_type_level = $dataArr[7];
 	}
 
 
@@ -101,9 +107,32 @@ class metadataObj {
 		$this->metadata_value = $strValue;
 	}
 
+	/**
+	 * Get the Type ID associated with this metadata object
+	 *
+	 * @return string
+	 */
+	public function getMetadataTypeID() {
+		return $this->metadata_type_id;
+	}
 
+	/**
+	 * Get the Type Name associated with this metadata object
+	 *
+	 * @return string
+	 */
+	public function getMetadataTypeName() {
+		return $this->metadata_type_name;
+	}
 
-
+	/**
+	 * Get the Type Level associated with this metadata object
+	 *
+	 * @return string
+	 */
+	public function getMetadataTypeLevel() {
+		return $this->metadata_type_level;
+	}
 }
 
 

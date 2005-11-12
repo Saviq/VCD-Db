@@ -18,20 +18,21 @@
 
 	class settingsSQL {
 		
-		private $TABLE_settings   = "vcd_Settings";
-		private $TABLE_sites      = "vcd_SourceSites";
-		private $TABLE_mediatypes = "vcd_MediaTypes";
-		private $TABLE_categories = "vcd_MovieCategories";
-		private $TABLE_vcd		  = "vcd";
-		private $TABLE_vcdtousers = "vcd_VcdToUsers";
-		private $TABLE_borrowers  = "vcd_Borrowers";
-		private $TABLE_loans 	  = "vcd_UserLoans";
-		private $TABLE_rss		  = "vcd_RssFeeds";
-		private $TABLE_wishlist	  = "vcd_UserWishList";
-		private $TABLE_comments	  = "vcd_Comments";
-		private $TABLE_users	  = "vcd_Users";
-		private $TABLE_covers 	  = "vcd_Covers";
-		private $TABLE_metadata   = "vcd_MetaData";
+		private $TABLE_settings      = "vcd_Settings";
+		private $TABLE_sites         = "vcd_SourceSites";
+		private $TABLE_mediatypes    = "vcd_MediaTypes";
+		private $TABLE_categories    = "vcd_MovieCategories";
+		private $TABLE_vcd		     = "vcd";
+		private $TABLE_vcdtousers    = "vcd_VcdToUsers";
+		private $TABLE_borrowers     = "vcd_Borrowers";
+		private $TABLE_loans 	     = "vcd_UserLoans";
+		private $TABLE_rss		     = "vcd_RssFeeds";
+		private $TABLE_wishlist	     = "vcd_UserWishList";
+		private $TABLE_comments	     = "vcd_Comments";
+		private $TABLE_users	     = "vcd_Users";
+		private $TABLE_covers 	     = "vcd_Covers";
+		private $TABLE_metadata      = "vcd_MetaData";
+		private $TABLE_metadatatypes = "vcd_MetaDataTypes";
 		/**
 		 *
 		 * @var ADOConnection
@@ -950,12 +951,16 @@
 				
 			$metaArr = array();
 			if (strlen($metadata_name) == 0) {
-				$query = "SELECT metadata_id, record_id, user_id, metadata_name, metadata_value FROM 
-						  $this->TABLE_metadata WHERE record_id = ".$record_id." AND user_id = " . $user_id ." 
+				$query = "SELECT md.metadata_id, md.metadata_type_id, md.record_id, md.user_id, md.metadata_name, md.metadata_value, 
+						  mdt.metadata_type_name, mdt.metadata_type_level FROM 
+						  $this->TABLE_metadata md LEFT JOIN $this->TABLE_metadatatypes mdt ON md.metadata_type_id = mdt.metadata_type_id 
+						  WHERE record_id = ".$record_id." AND user_id = " . $user_id ." 
 						  ORDER BY metadata_name";
 			} else {
-				$query = "SELECT metadata_id, record_id, user_id, metadata_name, metadata_value FROM 
-						  $this->TABLE_metadata WHERE record_id = ".$record_id." AND user_id = " . $user_id . " 
+				$query = "SELECT md.metadata_id, md.metadata_type_id, md.record_id, md.user_id, md.metadata_name, md.metadata_value, 
+						  mdt.metadata_type_name, mdt.metadata_type_level FROM 
+						  $this->TABLE_metadata md LEFT JOIN $this->TABLE_metadatatypes mdt ON md.metadata_type_id = mdt.metadata_type_id 
+						  WHERE record_id = ".$record_id." AND user_id = " . $user_id . " 
 				 		  AND metadata_name = " . $this->db->qstr($metadata_name) . " ORDER BY metadata_name";
 			}
 			

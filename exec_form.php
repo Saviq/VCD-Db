@@ -104,9 +104,9 @@ switch ($form) {
 	
 	/* Update media player settings */
 	case 'player':
-		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'player', $_POST['player']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'player', $_POST['player'], 6, 'player', 'system'));
 		$SETTINGSClass->addMetadata($obj);	
-		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'playerpath', $_POST['params']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), 'playerpath', $_POST['params'], 7, 'playerpath', 'system'));
 		$SETTINGSClass->addMetadata($obj);	
 		redirect('pages/player.php');
 		break;
@@ -135,22 +135,22 @@ switch ($form) {
 		
 		if (isset($_POST['stats']) && strcmp($_POST['stats'], "yes") == 0) {
 			// User wants to see statistics
-			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 1));
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 1, 3, 'frontstats', 'system'));
 		} else {
-			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 0));
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontstats', 0, 3, 'frontstats', 'system'));
 		}
 		
 		if (isset($_POST['sidebar']) && strcmp($_POST['sidebar'], "yes") == 0) {
 			// User wants to see sidebar
-			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 1));
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 1, 4, 'frontbar', 'system'));
 		} else {
-			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 0));
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontbar', 0, 4, 'frontbar', 'system'));
 		}
 	
 		if (isset($_POST['id_list']) && strlen($_POST['id_list']) > 1) {
-			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list']));
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list'], 8, 'frontrss', 'system'));
 		} else {
-			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list']));
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), 'frontrss', $_POST['id_list'], 8, 'frontrss', 'system'));
 		}
 		
 		$SETTINGSClass->addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
@@ -164,7 +164,7 @@ switch ($form) {
 	case 'update_ignorelist':
 		if (isset($_POST['id_list'])) { 
 			// Save the ignore list to database
-			$obj = new metadataObj(array('',0, VCDUtils::getUserID(), 'ignorelist', $_POST['id_list']));
+			$obj = new metadataObj(array('',0, VCDUtils::getUserID(), 'ignorelist', $_POST['id_list'], 9, 'ignorelist', 'system'));
 			$SETTINGSClass->addMetadata($obj);
 		}
 	
@@ -787,13 +787,13 @@ switch ($form) {
 	    		$obj->setMetadataValue($_POST['custom_index']);
 	    		$SETTINGSClass->updateMetadata($obj);
 	    	} else {
-	    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'mediaindex', $_POST['custom_index']));
+	    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'mediaindex', $_POST['custom_index'], 10, 'mediaindex', 'system'));
 	    		$SETTINGSClass->addMetadata($obj);
 	    	}
 	    }
 	     
 	    if (isset($_POST['filepath']) && strlen($_POST['filepath']) > 0) {
-	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'filelocation', $_POST['filepath']));
+	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), 'filelocation', $_POST['filepath'], 11, 'filelocation', 'system'));
 	    	$SETTINGSClass->addMetadata($obj);
 	    }
 	     
