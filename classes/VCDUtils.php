@@ -533,6 +533,19 @@ class VCDUtils {
 		
 	}
   
+	static function getAlternateLink() {
+		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+		$showRSS = $SETTINGSClass->getSettingsByKey('RSS_SITE');
+		if ($showRSS) {
+			$uri = $SETTINGSClass->getSettingsByKey('SITE_HOME');
+			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=\"".$uri."rss\" />";
+		}
+			
+	}
+	
+	
+	
+	
 }
 
 
