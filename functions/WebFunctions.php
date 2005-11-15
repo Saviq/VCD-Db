@@ -1106,4 +1106,11 @@ function doRewrite($buffer) {
 }
 
 
+function human_file_size($size)
+{
+   $filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+   return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];
+}
+
+
 ?>
