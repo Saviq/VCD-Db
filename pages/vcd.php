@@ -142,10 +142,14 @@ if ($movie->isAdult()) {
 		<td><?= $language->show('M_TITLE')?></td>
 		<td><?=$imdb->getTitle() ?></td>
 	</tr>
+	<? 
+		if (strcmp($imdb->getAltTitle(), "") != 0) {
+	?> 
 	<tr>
 		<td valign="top"><?= $language->show('M_ALTTITLE')?></td>
 		<td><?=$imdb->getAltTitle() ?></td>
 	</tr>
+	<? } ?>
 	<tr>
 		<td>IMDB <?= $language->show('M_GRADE')?>:</td>
 		<td><?=$imdb->getRating() ?></td>
@@ -190,7 +194,7 @@ if ($movie->isAdult()) {
 			foreach ($covers as $cdcoverObj) {
 				if (!$cdcoverObj->isThumbnail()) {
 					$bNoCovers = false;
-					print "<li><a href=\"#\" onclick=\"showcover('".$cdcoverObj->getFilename()."',".(int)$cdcoverObj->isInDB().",".$cdcoverObj->getImageID().")\">".$cdcoverObj->getCoverTypeName() . "</a></li>";
+					print "<li><a href=\"#\" onclick=\"showcover('".$cdcoverObj->getFilename()."',".(int)$cdcoverObj->isInDB().",".$cdcoverObj->getImageID().")\">".$cdcoverObj->getCoverTypeName() . "</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
 				}
 			}
 			print "</ul>";
