@@ -16,16 +16,12 @@
 ?>
 <?php
 
-class metadataObj {
+class metadataObj extends metadataTypeObj  {
 
 	private $metadata_id;
 	private $record_id;
 	private $user_id;
-	private $metadata_name;
 	private $metadata_value;
-	private $metadata_type_id;
-	private $metadata_type_name;
-	private $metadata_type_level;
 	
 	/**
 	 * Object constructor
@@ -33,14 +29,22 @@ class metadataObj {
 	 * @param array $dataArr
 	 */
 	public function __construct($dataArr) {
-		$this->metadata_id	       = $dataArr[0];
-		$this->record_id	       = $dataArr[1];
-		$this->user_id 		       = $dataArr[2];
-		$this->metadata_name       = $dataArr[3];
-		$this->metadata_value      = $dataArr[4];
-		$this->metadata_type_id    = $dataArr[5];
-		$this->metadata_type_name  = $dataArr[6];
-		$this->metadata_type_level = $dataArr[7];
+		$this->metadata_id	     = $dataArr[0];
+		$this->record_id	     = $dataArr[1];
+		$this->user_id 		     = $dataArr[2];
+		$this->setMetadataTypeName($dataArr[3]);
+		$this->metadata_value    = $dataArr[4];
+		
+		if (isset($dataArr[5]))	{
+			$this->metatype_id   = $dataArr[5];	
+		}
+		
+		if (isset($dataArr[6])) {
+			$this->metatype_level = $dataArr[6];
+		}
+		
+		
+		//print_r($this);
 	}
 
 
@@ -86,7 +90,7 @@ class metadataObj {
 	 * @return string
 	 */
 	public function getMetadataName() {
-		return $this->metadata_name;
+		return $this->getMetadataTypeName();
 	}
 	
 	/**
@@ -107,13 +111,47 @@ class metadataObj {
 		$this->metadata_value = $strValue;
 	}
 
-	/**
+}
+
+
+class metadataTypeObj {
+	
+	CONST LEVEL_SYSTEM = 0;
+	CONST LEVEL_USER   = 1;
+
+	CONST SYS_LANGUAGES    = 1;
+	CONST SYS_LOGTYPES     = 2;
+	CONST SYS_FRONTSTATS   = 3;
+	CONST SYS_FRONTBAR     = 4;
+	CONST SYS_DEFAULTROLE  = 5;
+	CONST SYS_PLAYER	   = 6;
+	CONST SYS_PLAYERPATH   = 7;
+	CONST SYS_FRONTRSS 	   = 8;
+	CONST SYS_IGNORELIST   = 9;
+	CONST SYS_MEDIAINDEX   = 10;
+	CONST SYS_FILELOCATION = 11;
+	CONST SYS_SEENLIST 	   = 12;
+	
+	
+	protected $metatype_id;
+	protected $metatype_name;
+	protected $metatype_level = metadataTypeObj::LEVEL_SYSTEM;
+	
+	public function __construct($id, $name, $level = self::LEVEL_SYSTEM) {
+		$this->metatype_id = $id;
+		$this->metatype_name = $name;
+		$this->metatype_level = $level;
+	}
+
+	
+	
+		/**
 	 * Get the Type ID associated with this metadata object
 	 *
 	 * @return string
 	 */
 	public function getMetadataTypeID() {
-		return $this->metadata_type_id;
+		return $this->metatype_id;
 	}
 
 	/**
@@ -122,7 +160,30 @@ class metadataObj {
 	 * @return string
 	 */
 	public function getMetadataTypeName() {
-		return $this->metadata_type_name;
+		return $this->metatype_name;
+	}
+	
+	
+	/**
+	 * Sets the metadatatype name of the object.
+	 * If any of the SYS_constants is being used as $typename parameter
+	 * the typename and id will be automatically set and $level set to SYSTEM.
+	 *
+	 * @param mixed $typename | Either use any of the SYS_constants or string for USER level data.
+	 */
+	public function setMetadataTypeName($typename) {
+		if (is_numeric($typename)) {
+			$this->metatype_name = $this->getSystemTypeMapping($typename);
+			$this->metatype_id = $typename;
+			$this->metatype_level = self::LEVEL_SYSTEM;
+		} else {
+			$this->metatype_name = $typename;
+			$this->metatype_level = self::LEVEL_USER;
+			if (!isset($this->metatype_id) || !is_numeric($this->metatype_id)) {
+				$this->metatype_id = -1;
+			}
+		}
+	
 	}
 
 	/**
@@ -131,9 +192,43 @@ class metadataObj {
 	 * @return string
 	 */
 	public function getMetadataTypeLevel() {
-		return $this->metadata_type_level;
+		return $this->metatype_level;
 	}
-}
+	
+	public function isSystemObj() {
+		return ($this->metatype_level == self::LEVEL_SYSTEM);
+	}
+	
+	
+	/**
+	 * Get the string mapping for the current SYSTEM constant.
+	 * If the $SYS_CONST does not match with any of the SYS_ constants defined
+	 * in metadataTypeObj, function returns false.
+	 *
+	 * @param int $SYS_CONST | any of the SYS_ constants defined in metadataTypeObj
+	 * @return string
+	 */
+	public static function getSystemTypeMapping($SYS_CONST) {
+		switch ($SYS_CONST) {
+			case self::SYS_LANGUAGES: 	 return 'languages'; 	 break;
+			case self::SYS_LOGTYPES: 	 return 'logtypes';  	 break;
+			case self::SYS_FRONTSTATS:   return 'frontstats';  	 break;
+			case self::SYS_FRONTBAR: 	 return 'frontbar';  	 break;
+			case self::SYS_DEFAULTROLE:  return 'default_role';  break;
+			case self::SYS_PLAYER: 		 return 'player';  		 break;
+			case self::SYS_PLAYERPATH: 	 return 'playerpath';  	 break;
+			case self::SYS_FRONTRSS: 	 return 'frontrss';  	 break;
+			case self::SYS_IGNORELIST: 	 return 'ignorelist';  	 break;
+			case self::SYS_MEDIAINDEX: 	 return 'mediaindex';  	 break;
+			case self::SYS_FILELOCATION: return 'filelocation';  break;
+			case self::SYS_SEENLIST: 	 return 'seenlist';  	 break;
+			default: 					 return false; 			 break;
+			
+		
+		}
+	}
+			
 
+}
 
 ?>
