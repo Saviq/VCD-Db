@@ -15,7 +15,7 @@
 		foreach ($_POST as $key => $value) {
 			if (is_numeric($key) && (strcmp($value, "") != 0)) {
 				// check for existing data
-				$arr = $SETTINGSClass->getMetadata($key, $user_id, 'mediaindex');
+				$arr = $SETTINGSClass->getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];
@@ -23,12 +23,12 @@
 					$SETTINGSClass->updateMetadata($obj);
 				} else {
 					// create new Obj
-					$obj = new metadataObj(array('',$key, $user_id, 'mediaindex', $value, 10, 'mediaindex', 'system'));
+					$obj = new metadataObj(array('',$key, $user_id, metadataTypeObj::SYS_MEDIAINDEX , $value));
 					$SETTINGSClass->addMetadata($obj);
 				}
 			} elseif (strcmp($value, "") == 0) {
 				// Check if a existing value has been set to empty
-				$arr = $SETTINGSClass->getMetadata($key, $user_id, 'mediaindex');
+				$arr = $SETTINGSClass->getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];

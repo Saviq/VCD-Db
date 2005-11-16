@@ -14,7 +14,7 @@
 		foreach ($_POST['seenlist'] as $key => $value) {
 			if (is_numeric($key) && (strcmp($value, "") != 0)) {
 				// check for existing data
-				$arr = $SETTINGSClass->getMetadata($value, $user_id, 'seenlist');
+				$arr = $SETTINGSClass->getMetadata($value, $user_id, metadataTypeObj::SYS_SEENLIST );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];
@@ -22,7 +22,7 @@
 					$SETTINGSClass->updateMetadata($obj);
 				} else {
 					// create new Obj
-					$obj = new metadataObj(array('',$value, $user_id, 'seenlist', '1', 12, 'seenlist', 'system'));
+					$obj = new metadataObj(array('',$value, $user_id, metadataTypeObj::SYS_SEENLIST , '1'));
 					$SETTINGSClass->addMetadata($obj);
 				}
 			}
