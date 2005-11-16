@@ -104,9 +104,9 @@ switch ($form) {
 	
 	/* Update media player settings */
 	case 'player':
-		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYERPATH, $_POST['player']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYER, $_POST['player']));
 		$SETTINGSClass->addMetadata($obj);	
-		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYER, $_POST['params']));
+		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYERPATH, $_POST['params']));
 		$SETTINGSClass->addMetadata($obj);	
 		redirect('pages/player.php');
 		break;
