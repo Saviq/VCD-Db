@@ -25,6 +25,7 @@ require_once("loanObj.php");
 require_once("commentObj.php");
 require_once("statisticsObj.php");
 require_once("metadataObj.php");
+require_once("dvdObj.php");
 
 class vcd_settings implements Settings {
 	
@@ -1565,7 +1566,22 @@ class vcd_settings implements Settings {
 	public function getMetadata($record_id, $user_id, $metadata_name) {
 		try {
 	 		if (is_numeric($record_id) && is_numeric($user_id)) {
-	 			return $this->SQL->getMetadata($record_id, $user_id, $metadata_name);
+	 			
+	 			// reverse metadataObj SYS constant to correct string
+	 			if (is_numeric($metadata_name)) {
+	 				$mappingName = metadataTypeObj::getSystemTypeMapping($metadata_name);
+	 				if ($mappingName) {
+	 					return $this->SQL->getMetadata($record_id, $user_id, $mappingName);
+	 				} else {
+	 					throw new Exception('System mapping for metadataType not found.');
+	 				}
+	 				
+	 			} else {
+	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name);
+	 			}
+	 			
+	 			
+	 			
 	 		} else {
 	 			return null;
 	 		}
@@ -1586,7 +1602,19 @@ class vcd_settings implements Settings {
 		try {
 
 			if (is_numeric($user_id) && strcmp($metadata_name, "") != 0) {
-				return $this->SQL->getRecordIDsByMetadata($user_id, $metadata_name);
+				
+				if (is_numeric($metadata_name)) {
+					$sysName = metadataTypeObj::getSystemTypeMapping($metadata_name);
+					if ($sysName) {
+						return $this->SQL->getRecordIDsByMetadata($user_id, $sysName);
+					} else {
+						return null;
+					}
+				} else {
+					return $this->SQL->getRecordIDsByMetadata($user_id, $metadata_name);
+				}
+				
+				
 			}
 			return null;
 			
