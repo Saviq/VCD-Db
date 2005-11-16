@@ -1109,7 +1109,7 @@ class vcd_movie implements Vcd  {
 			if ($use_seenlist) {
 				// Get the seenlist
 				$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-				$ArrSeen = $SETTINGSClass->getRecordIDsByMetadata($user_id, 'seenlist');
+				$ArrSeen = $SETTINGSClass->getRecordIDsByMetadata($user_id, metadataTypeObj::SYS_SEENLIST );
 				if (is_array($ArrSeen) && sizeof($ArrSeen) > 0) {
 					// we got data . lets compare and filter out the unwanted ones ..
 					$arrNewlist = array();
