@@ -1244,7 +1244,7 @@
 					  INNER JOIN $this->TABLE_metadata  AS m ON u.vcd_id = m.record_id
 					  LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON s.vcd_id = v.vcd_id
  					  LEFT OUTER JOIN $this->TABLE_imdb AS i ON i.imdb = s.external_id 	  
-					  WHERE m.user_id = ".$user_id." AND m.metadata_name = 'mediaindex' AND
+					  WHERE m.user_id = ".$user_id." AND m.type_id = ".metadataTypeObj::SYS_MEDIAINDEX ." AND
 					  m.metadata_value = " . $this->db->qstr($metadataKey);
 			
 			$results = array();
