@@ -32,7 +32,7 @@ final class dvdObj {
 		'2'  => 'Japan, Europe, South Africa, and Middle East.',
 		'3'  => 'Southeast Asia, Hong Kong, Macau, South Korea and Taiwan.',
 		'4'  => 'Central America, Oceania, South America, Mexico',
-		'5'  => 'The rest of Africa, Former Soviet Union, the Indian subcontinent, Mongolia, North Korea.',
+		'5'  => 'Africa, Russia, India, Mongolia, North Korea.',
 		'6'  => 'Mainland China.',
 		'7'  => 'Reserved for future use.',
 		'8'  => 'Special international routes (airplanes, cruise ships, etc.)'
@@ -45,7 +45,7 @@ final class dvdObj {
 	 * @var array
 	 */
 	private $audio = array(
-		'DTS'  => 'Digital Theater Systems Digital Sound',
+		'DTS'  => 'Digital Theater Systems (DTS)',
 		'DD2'  => 'Dolby Digital 2.0',
 		'DD5'  => 'Dolby Digital 5.1',
 		'DDEX' => 'Dolby Digital Surround EX',
@@ -260,10 +260,16 @@ final class dvdObj {
 	/**
 	 * Get the entire DVD Languague list.
 	 *
+	 * @param bool $include_default
 	 * @return array
 	 */
-	public function getLanguageList() {
-		return $this->languages;
+	public function getLanguageList($include_default = true) {
+		if ($include_default) {
+			return $this->languages;
+		} else {
+			return array_diff($this->getLanguageList(true), $this->getDefaultSubtitles());
+		}
+		
 	}
 	
 	/**
@@ -301,6 +307,27 @@ final class dvdObj {
 		} 
 		return false;
 	}
+	
+	/**
+	 * Get list of known video formats.  
+	 * NTSC or PAL
+	 *
+	 * @return array
+	 */
+	public function getVideoFormats() {
+		return $this->video;
+	}
+	
+	/**
+	 * Return list of all known DVD aspect ratios.
+	 *
+	 * @return array
+	 */
+	public function getAspectRatios() {
+		return $this->aspect;		
+	}
+	
+	
 	
 	/**
 	 * Get list of default subtitles to display when entering DVD
