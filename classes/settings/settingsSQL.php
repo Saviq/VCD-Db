@@ -18,21 +18,22 @@
 
 	class settingsSQL {
 		
-		private $TABLE_settings      = "vcd_Settings";
-		private $TABLE_sites         = "vcd_SourceSites";
-		private $TABLE_mediatypes    = "vcd_MediaTypes";
-		private $TABLE_categories    = "vcd_MovieCategories";
-		private $TABLE_vcd		     = "vcd";
-		private $TABLE_vcdtousers    = "vcd_VcdToUsers";
-		private $TABLE_borrowers     = "vcd_Borrowers";
-		private $TABLE_loans 	     = "vcd_UserLoans";
-		private $TABLE_rss		     = "vcd_RssFeeds";
-		private $TABLE_wishlist	     = "vcd_UserWishList";
-		private $TABLE_comments	     = "vcd_Comments";
-		private $TABLE_users	     = "vcd_Users";
-		private $TABLE_covers 	     = "vcd_Covers";
-		private $TABLE_metadata      = "vcd_MetaData";
-		private $TABLE_metadatatypes = "vcd_MetaDataTypes";
+		private $TABLE_settings   = "vcd_Settings";
+		private $TABLE_sites      = "vcd_SourceSites";
+		private $TABLE_mediatypes = "vcd_MediaTypes";
+		private $TABLE_categories = "vcd_MovieCategories";
+		private $TABLE_vcd		  = "vcd";
+		private $TABLE_vcdtousers = "vcd_VcdToUsers";
+		private $TABLE_borrowers  = "vcd_Borrowers";
+		private $TABLE_loans 	  = "vcd_UserLoans";
+		private $TABLE_rss		  = "vcd_RssFeeds";
+		private $TABLE_wishlist	  = "vcd_UserWishList";
+		private $TABLE_comments	  = "vcd_Comments";
+		private $TABLE_users	  = "vcd_Users";
+		private $TABLE_covers 	  = "vcd_Covers";
+		private $TABLE_metadata   = "vcd_MetaData";
+		private $TABLE_metatypes  = "vcd_MetaDataTypes";
+		
 		/**
 		 *
 		 * @var ADOConnection
@@ -913,9 +914,11 @@
 		
 		public function addMetadata(metadataObj $obj) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_metadata (record_id, user_id, metadata_name, metadata_value) VALUES (".$obj->getRecordID().", ".$obj->getUserID().", 
-					  ".$this->db->qstr($obj->getMetadataName()).", ".$this->db->qstr($obj->getMetadataValue()).")";
+			
+			$query = "INSERT INTO $this->TABLE_metadata (record_id, user_id, type_id, metadata_value) VALUES 
+					 (".$obj->getRecordID().", ".$obj->getUserID().", ".$obj->getMetadataTypeID().", 
+					 ".$this->db->qstr($obj->getMetadataValue()).")";
+			
 			$this->db->Execute($query);
 			
 			} catch (Exception $e) {
@@ -951,17 +954,17 @@
 				
 			$metaArr = array();
 			if (strlen($metadata_name) == 0) {
-				$query = "SELECT md.metadata_id, md.metadata_type_id, md.record_id, md.user_id, md.metadata_name, md.metadata_value, 
-						  mdt.metadata_type_name, mdt.metadata_type_level FROM 
-						  $this->TABLE_metadata md LEFT JOIN $this->TABLE_metadatatypes mdt ON md.metadata_type_id = mdt.metadata_type_id 
-						  WHERE record_id = ".$record_id." AND user_id = " . $user_id ." 
-						  ORDER BY metadata_name";
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.metadata_type_name, m.metadata_value, 
+						  n.metadata_type_id, n.metadata_type_level FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.metadata_type_id
+						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ." 
+						  ORDER BY n.metadata_type_name";
 			} else {
-				$query = "SELECT md.metadata_id, md.metadata_type_id, md.record_id, md.user_id, md.metadata_name, md.metadata_value, 
-						  mdt.metadata_type_name, mdt.metadata_type_level FROM 
-						  $this->TABLE_metadata md LEFT JOIN $this->TABLE_metadatatypes mdt ON md.metadata_type_id = mdt.metadata_type_id 
-						  WHERE record_id = ".$record_id." AND user_id = " . $user_id . " 
-				 		  AND metadata_name = " . $this->db->qstr($metadata_name) . " ORDER BY metadata_name";
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.metadata_type_name, m.metadata_value, 
+						  n.metadata_type_id, n.metadata_type_level FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.metadata_type_id
+						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id . " 
+				 		  AND n.metadata_type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.metadata_type_name";
 			}
 			
 						
@@ -982,10 +985,18 @@
 		
 		public function getRecordIDsByMetadata($user_id, $metadata_name) {
 			try {
-				
+			
+				/*	
 			$query = "SELECT record_id FROM $this->TABLE_metadata WHERE user_id = ".$user_id." 
 					  AND metadata_name = " . $this->db->qstr($metadata_name) ." AND 
 					  (metadata_value <> '0' AND metadata_value <> '')";
+			*/
+			
+			$query = "SELECT m.record_id FROM $this->TABLE_metadata m LEFT OUTER JOIN
+					  $this->TABLE_metatypes t on t.metadata_type_id = m.type_id WHERE
+					  m.user_id = {$user_id} AND t.metadata_type_name = ".$this->db->qstr($metadata_name)." 
+					  AND (m.metadata_value <> '0' AND m.metadata_value <> '')";
+						
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
 				$arr = array();
