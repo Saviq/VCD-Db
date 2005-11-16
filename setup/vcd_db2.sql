@@ -246,9 +246,17 @@ CREATE TABLE vcd_MetaData (
         metadata_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1, NO CACHE), 
         record_id INTEGER NOT NULL ,
         user_id INTEGER NOT NULL ,
-        metadata_name varchar (50) NOT NULL ,
+        type_id INTEGER NOT NULL ,
         metadata_value varchar (150) NOT NULL,
         PRIMARY KEY(metadata_id)
+) 
+GO
+
+CREATE TABLE vcd_MetaDataTypes (
+        metadata_type_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1, NO CACHE), 
+        metadata_type_name varchar (50) NOT NULL ,
+        metadata_type_level SMALLINT NOT NULL ,
+        PRIMARY KEY(metadata_type_id)
 ) 
 GO
 
