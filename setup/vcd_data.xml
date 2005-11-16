@@ -122,6 +122,19 @@
 		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0)</query>
 		<query>INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0)</query>
 		 
+		<descr>System Metadata Types</descr>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('languages', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('logtypes', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('frontstats', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('frontbar', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('default_role', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('player', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('playerpath', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('frontrss', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('ignorelist', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('mediaindex', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('filelocation', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_name,metadata_type_level) VALUES ('seenlist', 0)</query>
 
 		<descr>XML Frontpage feeds</descr>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml')</query>
