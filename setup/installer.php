@@ -428,12 +428,15 @@ class installer {
     	    	
     	$arrFolders = array('../upload/', '../upload/cache/', '../upload/covers/',
     						'../upload/pornstars/', '../upload/thumbnails/');
+    	
+    	$arrBadFolders = array();
     	$bUpload = true;
     	foreach ($arrFolders as $folder) {
-    		$bUpload = $bUpload && fs_is_dir($folder); 
-    		$bUpload = $bUpload && installer::write("".$folder."/_test.txt","Installer test");
-    		// Delete the test file
-    		fs_unlink($folder."/_test.txt");
+    		$currStatus =  is_dir($folder) && is_writable($folder);
+    		$bUpload = $bUpload && $currStatus;
+    		if (!$currStatus) {
+    			array_push($arrBadFolders, $folder);
+    		}
     	}
     	    	
     	if ($bUpload)
@@ -481,15 +484,14 @@ class installer {
     	if ($this->env['WRITE_TO_UPLOAD'] == true) {
     		print $strOk . "Upload folder is writeble <br/><br/>";
     	} else {
-    		print $strFail . "No files can be written in the upload folder<br/>
-    					     Check permissions on these folders .. <br/>";
+    		print $strFail . "No files can be written in the upload folder<br/><blockquote style=padding-left:58px>Check permissions on these folders .. <br/>";
     		$j = 1;
     		print "<ul>";
-    		foreach ($arrFolders as $folder) {
+    		foreach ($arrBadFolders as $folder) {
     			print "<li>". $j . " " . $folder . "</li>";
     			$j++;	
     		}
-    		print "</ul><br/><br/>";
+    		print "</ul></blockquote><br/><br/>";
     		$this->continue = false;
     		
     	}
@@ -761,19 +763,6 @@ class installer {
 			}
 			
 			
-			/* Insert DATA */
-			/*
-			$sql = $schema->ParseSchema( $this->SQLFILES['other_data'] );
-			$result = $schema->ExecuteSchema(null, false); 
-						
-			if ($result == 0) {
-				$this->error_msg = "ADOSchema failed while executing Postgres 7 Data";
-				return false;
-			} elseif ($result == 1) {
-				$this->error_msg = "ADOSchema encountered errors while executing Postgres 7 Data";
-				return false;
-			}
-			*/
     		
     	} elseif ($this->dbsettings['db_type'] == 'sqlite') {
 			
@@ -918,7 +907,7 @@ class installer {
 	    	
 	    	} elseif ($this->dbsettings['db_type'] == 'sqlite')	{
 				
-	    		$db->Connect("../vcddb.sqlite");
+	    		$db->Connect("../upload/cache/vcddb.db");
 	    		
 	    	} else {
 	    		$db->Connect($this->dbsettings['db_host'],
