@@ -403,13 +403,14 @@
 						
 			$settings = $SETTINGSclass->getAllSettings();
 						
-			$header = array("Key","Value","Description","Locked","","");
+			$header = array("Description","Value","Locked","","");
 			printTableOpen();
 			printRowHeader($header);
 			foreach ($settings as $settingsObj) {
 				printTr();
 				
-				printRow($settingsObj->getKey());
+				//printRow($settingsObj->getKey());
+				printRow($settingsObj->getDescription());
 				
 				if (strcmp($settingsObj->getType(), 'bool') ==0) {
 					printRow((bool)$settingsObj->getValue());
@@ -417,7 +418,6 @@
 					printRow($settingsObj->getValue());
 				}
 				
-				printRow($settingsObj->getDescription());
 				printRow((bool)$settingsObj->isProtected());
 				printEditRow($settingsObj->getID(), $CURRENT_PAGE);
 				printDeleteRow($settingsObj->getID(), $CURRENT_PAGE, "Delete settings ?");
