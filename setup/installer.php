@@ -40,7 +40,7 @@ class installer {
 	private $SQLFILES = array(
 		'mssql' => 'vcd_mssql.sql',
 		'db2' => 'vcd_db2.sql',
-		'postgres7' => 'vcd_pgtables.xml',
+		'postgres' => 'vcd_pgtables.xml',
 		'other' => 'vcd_tables.xml',
 		'other_data' => 'vcd_data.xml',
 		'sqlite' => 'vcd_sqlite.sql',
@@ -49,7 +49,7 @@ class installer {
 	private $dbtypes = array(
 		'MS SQL' => 'mssql',
 		'MySQL' => 'mysql',
-		'PostgreSQL' => 'postgres7',
+		'PostgreSQL' => 'postgres',
 		'Oracle' => 'oci8',
 		'IBM DB2' => 'db2',
 		'SQLite' => 'sqlite',
@@ -746,19 +746,31 @@ class installer {
     	} 
     	
     	
-    	elseif ($this->dbsettings['db_type'] == 'postgres7') {
+    	elseif ($this->dbsettings['db_type'] == 'postgres') {
     	
     		$dbxml = $this->getConnection();
     								 
     		$schema = new adoSchema( $dbxml );
-			$sql = $schema->ParseSchema( $this->SQLFILES['postgres7'] );
+			$sql = $schema->ParseSchema( $this->SQLFILES['postgres'] );
 			$result = $schema->ExecuteSchema(null, false); 
 						
+			
+			/* 
+					Execute the data Schema				
+				*/
+				
+			$dbxml = $this->getConnection();
+						 
+    		$schema = new adoSchema( $dbxml );
+			$sql = $schema->ParseSchema( $this->SQLFILES['other_data'] );
+			$result = $schema->ExecuteSchema(null, false); 
+			
+			
 			if ($result == 0) {
-				$this->error_msg = "ADOSchema failed while executing Postgres 7 schema";
+				$this->error_msg = "ADOSchema failed while executing Postgres schema";
 				return false;
 			} elseif ($result == 1) {
-				$this->error_msg = "ADOSchema encountered errors while executing Postgres 7 schema";
+				$this->error_msg = "ADOSchema encountered errors while executing Postgres schema";
 				return false;
 			}
 			
