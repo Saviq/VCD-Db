@@ -39,10 +39,11 @@
 		 * @var ADOConnection
 		 */
 		private $db;
+		private $conn;
 	 			
 		public function __construct() {
-			$conn = new Connection();
-	 		$this->db = &$conn->getConnection();
+			$this->conn = new Connection();
+	 		$this->db = &$this->conn->getConnection();
 		}
 		
 		
@@ -1014,6 +1015,82 @@
 			}
 		}
 		
+		
+		public function addMetaDataType(metadataTypeObj $obj) { 
+			try {
+				
+				// First we check if metadataObj with same name exist, if so
+				// We simply return that metadataTypeObj since we don't allow duplicate names
+				$inObj = $this->getMetadataType($obj->getMetadataTypeName());
+				if ($inObj instanceof metadataTypeObj ) {
+					return $inObj; 
+				} else {
+					// Check for legal typename
+					if (strcmp($obj->getMetadataTypeName(), "") == 0) {
+						throw new Exception("MetadataTypeName cannot be empty");
+					}
+					
+					// Object not found .. lets create it ..
+					$query = "INSERT INTO $this->TABLE_metatypes (metadata_type_name, metadata_type_level) VALUES 
+							  (".$this->db->qstr($obj->getMetadataTypeName()).", ".$obj->getMetadataTypeLevel().")";
+					$this->db->Execute($query);
+					
+					
+					/* 	Returns the last autonumbering ID inserted. Returns false if function not supported. 
+						Only supported by databases that support auto-increment or object id's,
+						such as PostgreSQL, MySQL and MS SQL Server currently. PostgreSQL returns the OID, 
+						which can change on a database reload.	
+					*/
+				
+					$inserted_id = -1;
+					$inserted_id = $this->db->Insert_ID();
+							
+					if ($this->conn->getSQLType() == 'postgres7') {
+						$inserted_id = $this->conn->oToID($this->TABLE_metatypes, 'metadata_type_id');
+					} elseif (!is_numeric($inserted_id) || $inserted_id < 0 ) {
+						// InsertedID not supported, we have to dig the latest entry out manually
+						$query = "SELECT metadata_type_id FROM $this->TABLE_metatypes ORDER BY metadata_type_id DESC";
+						$rs = $this->db->SelectLimit($query, 1);
+						// Should only be 1 recordset
+						foreach ($rs as $row) {
+							$inserted_id = $row[0];
+						}
+					}
+					
+					$obj->setMetaDataTypeID($inserted_id);
+					return $obj;			
+				
+				}
+			
+				
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+		
+		
+		public function getMetadataType($name) {
+			try {
+			
+				$query = "SELECT metadata_type_id, metadata_type_name, metadata_type_level FROM
+						  $this->TABLE_metatypes WHERE metadata_type_name = " . $this->db->qstr($name);	
+				$rs = $this->db->Execute($query);
+				
+				if ($rs && $rs->RecordCount() > 0) {
+					foreach ($rs as $row) { 
+						$obj = new metadataTypeObj($row[0], $row[1], $row[2]);
+						return $obj;
+					}
+					
+				} else {
+					return null;
+				}
+				
+							
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
 		
 		
 		public function getStatsObj() {

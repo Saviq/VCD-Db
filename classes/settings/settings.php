@@ -1486,6 +1486,15 @@ class vcd_settings implements Settings {
 	 				$arrObj->setMetadataID($oldObj[0]->getMetadataID());
 	 				$this->updateMetadata($arrObj);
 	 			} else {
+	 				
+	 				// do we have a valid metadataTypeObj parent ?
+	 				if ($arrObj->getMetadataTypeID() == -1) {
+	 					// not a valid parent, lets construct it
+	 					$metaTypeObj = $arrObj->getMetaDataTypeInstance();
+	 					$metaTypeObj = $this->addMetaDataType($metaTypeObj);
+	 					$arrObj->setMetaDataTypeID($metaTypeObj->getMetadataTypeID());
+	 				}
+	 				
 	 				$this->SQL->addMetadata($arrObj);
 	 			}
 	 			
@@ -1504,6 +1513,13 @@ class vcd_settings implements Settings {
 			 				$metaObj->setMetadataID($oldObj->getMetadataID());
 			 				$this->updateMetadata($metaObj);
 			 			} else {
+			 				// do we have a valid metadataTypeObj parent ?
+				 			if ($arrObj->getMetadataTypeID() == -1) {
+				 				// not a valid parent, lets construct it
+				 				$metaTypeObj = $arrObj->getMetaDataTypeInstance();
+				 				$metaTypeObj = $this->addMetaDataType($metaTypeObj);
+				 				$arrObj->setMetaDataTypeID($metaTypeObj->getMetadataTypeID());
+				 			}
 			 				$this->SQL->addMetadata($metaObj);
 			 			}
 	 				}
@@ -1624,6 +1640,23 @@ class vcd_settings implements Settings {
 	}
 	
 	
+	
+	/**
+	 * Add a new metadataTypeObj to the database.
+	 * The updated metadataTypeObj is then returned.
+	 *
+	 * @param metadataTypeObj $obj
+	 * @return metadataTypeObj
+	 */
+	public function addMetaDataType(metadataTypeObj $obj) {
+		try {
+			
+			return $this->SQL->addMetaDataType($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
 	
 	
 	
