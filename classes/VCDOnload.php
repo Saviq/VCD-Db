@@ -97,6 +97,12 @@ if (isset($_POST)) {
 			$user_id 	   = $_COOKIE['session_uid'];
 			$session_time  = $_COOKIE['session_time'];	
 			
+			// Has the user set a preferred template ?
+			$template = "";
+			if (isset($_COOKIE['template'])) {
+				$template = $_COOKIE['template'];
+			}
+			
 			
 			$Cookie = new SiteCookie("vcd_cookie");
 			$Cookie->clear();
@@ -104,13 +110,26 @@ if (isset($_POST)) {
 			$Cookie->put("session_time", $session_time);
 			$Cookie->put("session_uid", $user_id);
 			$Cookie->put("language",$_POST['lang']);	
+			if (strcmp($template, "") != 0) {
+				$Cookie->put("template", $template);
+			}
 			$Cookie->set();
 			
 		} else {
 		
 			/* Add selected value in cookie for future visits*/
 	   		$Cookie = new SiteCookie("vcd_cookie");
-			$Cookie->put("language",$_POST['lang']);	
+			$Cookie->put("language",$_POST['lang']);
+			
+			// Has the user set a preferred template ?
+			$template = "";
+			if (isset($_COOKIE['template'])) {
+				$template = $_COOKIE['template'];
+			}
+			if (strcmp($template, "") != 0) {
+				$Cookie->put("template", $template);
+			}
+			
 			$Cookie->set();
 			
 		}
