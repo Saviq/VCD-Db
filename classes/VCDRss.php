@@ -70,6 +70,10 @@ class VCDRss {
 			$xml .= "</rssusers>";
 			$xml .= "</sitedata>";
 			return $xml;
+		} else {
+			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml .= "<sitedata><error>No users sharing RSS feeds</error></sitedata>";	
+			return $xml;
 		}
 	}
 	
@@ -104,6 +108,7 @@ class VCDRss {
     		$VCDClass      = VCDClassFactory::getInstance('vcd_movie');
 	   		$USERClass     = VCDClassFactory::getInstance('vcd_user');
 	   		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
+	   		$builddate = date("r", time());
 			
 			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
@@ -112,6 +117,10 @@ class VCDRss {
     		$xml .= "<link>".$this->baseurl."</link>\n";
     		$xml .= "<description>VCD Database movie list</description>\n";
     		$xml .= "<language>en-us</language>\n";
+    		$xml .= "<lastBuildDate>{$builddate}</lastBuildDate>\n";
+    		$xml .= "<generator>VCD-db ".VCDDB_VERSION."</generator>\n";
+    		$xml .= "<image>\n<url>".$this->baseurl."images/logo.gif</url>\n<title>VCD-db</title>\n<link>{$this->baseurl}</link>\n</image>\n";
+    		
     		
     		$uobj = $USERClass->getUserByUsername($user_name);
     		$movies = $VCDClass->getLatestVcdsByUserID($uobj->getUserID(),10, true);
@@ -183,8 +192,9 @@ class VCDRss {
 			
     		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
     		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-			
-			
+    		
+			$builddate = date("r", time());
+						
 			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
   			$xml .= "<channel>\n";
@@ -192,6 +202,9 @@ class VCDRss {
     		$xml .= "<link>".$this->baseurl."</link>\n";
     		$xml .= "<description>VCD Database movie list</description>\n";
     		$xml .= "<language>en-us</language>\n";
+    		$xml .= "<lastBuildDate>{$builddate}</lastBuildDate>\n";
+    		$xml .= "<generator>VCD-db ".VCDDB_VERSION."</generator>\n";
+    		$xml .= "<image>\n<url>".$this->baseurl."images/logo.gif</url>\n<title>VCD-db</title>\n<link>{$this->baseurl}</link>\n</image>\n";
     		
     		$movies = $VCDClass->getTopTenList();
     		if (sizeof($movies) > 0) {
@@ -203,7 +216,8 @@ class VCDRss {
 				    $xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
 				    $xml .= "<description>".htmlspecialchars($arr['description'],ENT_QUOTES)."</description>\n";
 				    $xml .= "<dc:creator>".htmlspecialchars($arr['creator'],ENT_QUOTES)."</dc:creator>\n";
-				    $xml .= "<dc:date>".htmlspecialchars(date('Y-m-d', $arr['date']),ENT_QUOTES)."</dc:date>\n";
+				    //$xml .= "<dc:date>".htmlspecialchars(date('Y-m-d', $arr['date']),ENT_QUOTES)."</dc:date>\n";
+				    $xml .= "<dc:date>".htmlspecialchars(date('c', $arr['date']),ENT_QUOTES)."</dc:date>\n";
 				    $xml .= "</item>\n";
     			}
     		}
