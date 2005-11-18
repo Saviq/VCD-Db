@@ -114,6 +114,10 @@ class metadataObj extends metadataTypeObj  {
 }
 
 
+/**
+ * The metadataTypeObj is a master container for all metadata.
+ *
+ */
 class metadataTypeObj {
 	
 	CONST LEVEL_SYSTEM = 0;
@@ -137,12 +141,28 @@ class metadataTypeObj {
 	protected $metatype_name;
 	protected $metatype_level = metadataTypeObj::LEVEL_SYSTEM;
 	
-	public function __construct($id, $name, $level = self::LEVEL_SYSTEM) {
+	/**
+	 * Object constructor
+	 *
+	 * @param int $id | The id of the metadataTypeObj
+	 * @param string $name | The name of the metadataTypeObj
+	 * @param int $level | the access level of the Obj (0 or 1)
+	 */
+	public function __construct($id = -1, $name, $level = self::LEVEL_SYSTEM) {
 		$this->metatype_id = $id;
 		$this->metatype_name = $name;
 		$this->metatype_level = $level;
 	}
 
+	
+	/**
+	 * Get the Object instance.
+	 *
+	 * @return metadataTypeObj
+	 */
+	public function getMetaDataTypeInstance() {
+		return $this;
+	}
 	
 	
 		/**
@@ -161,6 +181,16 @@ class metadataTypeObj {
 	 */
 	public function getMetadataTypeName() {
 		return $this->metatype_name;
+	}
+	
+	
+	/**
+	 * Set the metadataType ID
+	 *
+	 * @param int $id
+	 */
+	public function setMetaDataTypeID($id) {
+		$this->metatype_id = $id;
 	}
 	
 	
