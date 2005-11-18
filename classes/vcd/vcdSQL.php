@@ -50,7 +50,7 @@
 	 	private $magic_quotes;
 		
 		public function __construct() {
-			$conn = new Connection();
+			$conn = VCDClassFactory::getInstance('Connection');
 	 		$this->db = &$conn->getConnection();
 	 		$this->conn = &$conn;
 	 		$this->magic_quotes = magic_quotes_runtime();

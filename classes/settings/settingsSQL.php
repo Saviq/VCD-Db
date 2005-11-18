@@ -42,7 +42,7 @@
 		private $conn;
 	 			
 		public function __construct() {
-			$this->conn = new Connection();
+			$this->conn = VCDClassFactory::getInstance('Connection');
 	 		$this->db = &$this->conn->getConnection();
 		}
 		
