@@ -79,8 +79,8 @@ switch ($form) {
 				$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport(VCDUtils::getUserID());
 				
-				// This can take alot of time for many entries .. Give it 300 secs
-				set_time_limit(300);
+				// This can take alot of time for many entries .. Give it 1000 secs
+				set_time_limit(1000);
 				
 				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
 				$xml .= "<vcdthumbnails>";
@@ -91,6 +91,8 @@ switch ($form) {
 				
 												
 				$xmlFilename = CACHE_FOLDER.'thumbnails_export.xml';
+				$tarFilename = CACHE_FOLDER.'thumbnails_export.tgz';
+				$zipFilename = CACHE_FOLDER.'thumbnails_export.zip';
 				
 				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
 					require_once('classes/external/compression/tar.php');
@@ -99,18 +101,52 @@ switch ($form) {
 					$zipfile = new tar();
 					$zipfile->addFile($xmlFilename);
 					fs_unlink($xmlFilename);
-					header( 'Content-type: application/zip' );
-					header( 'Content-Disposition: attachment; filename="thumbnails_export.tgz"' );
-					print $zipfile->toTarOutput("xmlthumbnails", true);
+					
+					// Write the TAR file to disk
+					VCDUtils::write($tarFilename, $zipfile->toTarOutput("xmlthumbnails", true));
+					$fsize = filesize($tarFilename);
+					$fd = fopen ($tarFilename, "rb");
+					
+					if ($fd) {
+					
+						// Create the http response header
+						header( "Content-type: application/zip" );
+						header( 'Content-Disposition: attachment; filename="thumbnails_export.tgz"' );
+						header( "Content-length: {$fsize}");
+
+						// Stream the contents to browser
+						fpassthru($fd);
+						// Close the file descriptor and clean up
+						fclose($fd);
+						fs_unlink($tarFilename);
+					}
+					
+					exit();
 				
 				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
 					require_once('classes/external/compression/zip.php');
 					
 					$zipfile = new zipfile();
 					$zipfile->addFile($xml, "thumbnails_export.xml");
-					header( 'Content-type: application/zip' );
-					header( 'Content-Disposition: attachment; filename="thumbnails_export.zip"' );
-					print $zipfile->file();
+					// Write the zip file to cache folder
+					VCDUtils::write($zipFilename, $zipfile->file());
+					$fsize = filesize($zipFilename);
+					$fd = fopen ($zipFilename, "rb");
+					if ($fd) {
+										
+						header( 'Content-type: application/zip' );
+						header( 'Content-Disposition: attachment; filename="thumbnails_export.zip"' );
+						header( "Content-length: {$fsize}");
+						
+						// Stream the contents to browser
+						fpassthru($fd);
+						// Close the file descriptor and clean up
+						fclose($fd);
+						fs_unlink($zipFilename);
+					}
+					
+					exit();
+						
 				
 				} else {
 					header('Content-type: application/xml');
