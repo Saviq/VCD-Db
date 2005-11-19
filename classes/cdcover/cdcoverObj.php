@@ -146,7 +146,7 @@
 			if (is_numeric($this->filesize)) {
 				return $this->filesize;
 			} else {
-				return 0;
+				return -1;
 			}
 		}
 		
@@ -363,12 +363,16 @@
 			$xmlstr .= "<cover_id>".$this->cover_id."</cover_id>\n";
 			$xmlstr .= "<vcd_id>".$this->vcd_id."</vcd_id>\n";
 			$xmlstr .= "<filename>".$this->filename."</filename>\n";
-			$xmlstr .= "<filesize>".$this->getFilesize()."</filesize>\n";
+			if ($this->getFilesize() != -1) {
+				$xmlstr .= "<filesize>".$this->filesize."</filesize>\n";
+			}
 			$xmlstr .= "<owner_id>".$this->owner_id."</owner_id>\n";
 			$xmlstr .= "<date_added>".$this->date_added."</date_added>\n";
 			$xmlstr .= "<type_id>".$this->covertype_id."</type_id>\n";
 			$xmlstr .= "<type_name>".$this->covertypeName."</type_name>\n";
-			$xmlstr .= "<image_id>".$this->image_id."</image_id>\n";
+			if ($this->getImageID() != -1) {
+				$xmlstr .= "<image_id>".$this->image_id."</image_id>\n";
+			}
 			$cover_contents = $this->getCoverAsBinary();
 			if ($cover_contents != false) {
 				$xmlstr .= "<data><![CDATA[".$cover_contents."]]></data>\n";
