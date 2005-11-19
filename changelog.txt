@@ -1,7 +1,7 @@
 0.974
 Fixed   - User can now successfully logout after having selected "Remember me".
 Changed - Upgraded to Adodb 4.66 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
-Updated - All VCD-db code can now run with E_STRICT, 100% pure PHP5 compatability.
+Updated - All VCD-db code can now run with E_STRICT, 100% pure PHP5 compatibility.
 Added   - LDAP Directory authentication is now available, good for single sign-on environments.		
 Added   - Language files can now be edited/updated in the "Control Panel".
 Added   - Admin can now specify what languages will be available for his site.
@@ -10,6 +10,8 @@ Updated - When adding new movies, insertion date/time uses timestamp instead of 
 Fixed   - The VCD-db RSS feed is now correctly validated as W3CDTF datestamp.
 Added   - Movie export and thumbnail export can now optionally be zipped or gunzipped before downloading.
 Added   - Movie import from XML, now supports Gunzipped XML files.
+Added   - The XML import files are now all validated to a XSD schema, both the movie XML listing and the thumbnails listings.
+		  That will guarantee correct data import.  The schemas can be found under /includes/schema.
 Added   - The default user role can now be adjusted in the "Control Panel".
 Added   - New nifty layout theme added, the theme is called "Violet".
 Added   - Selected viewmode (text or thumbnail view) is now remembered when browsing movie categories.
@@ -17,9 +19,11 @@ Added   - VCD-db now contains a simple log mechanism, actions like logins, RSS r
 		  can be logged to database.
 Fixed   - Users that had been deleted by admin since last visit and had selected cookie for automatic login
 		  were getting error output.
-
-		  Behind the hood updates:
-		  - VCDClassfactory is now a static class.
+Updated - Some fixes here and there for PHP 5.1 compatibility.
+Fixed   - SQLite works now as espected on Linux.
+Added	- Verified and tested compatibility with MySQL 5.0 and Postgre SQL 8.0 and 8.1
+Changed - The VCDClassfactory is now a static class and the SQL classes all share 1 connection from the ClassFactory
+		  instead of each SQL class opening it's own connection like before. 
 	
 
 
