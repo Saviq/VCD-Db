@@ -374,6 +374,10 @@
 				$xmlstr .= "<image_id>".$this->image_id."</image_id>\n";
 			}
 			$cover_contents = $this->getCoverAsBinary();
+			if (!$cover_contents) {
+				return "";
+			}
+			
 			if ($cover_contents != false) {
 				$xmlstr .= "<data><![CDATA[".$cover_contents."]]></data>\n";
 			}
