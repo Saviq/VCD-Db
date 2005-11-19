@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by bg (bg) -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
 	<xs:element name="cdcover">
 		<xs:complexType>
@@ -6,12 +7,12 @@
 				<xs:element ref="cover_id"/>
 				<xs:element ref="vcd_id"/>
 				<xs:element ref="filename"/>
-				<xs:element ref="filesize"/>
+				<xs:element ref="filesize" minOccurs="0"/>
 				<xs:element ref="owner_id"/>
 				<xs:element ref="date_added"/>
 				<xs:element ref="type_id"/>
 				<xs:element ref="type_name"/>
-				<xs:element ref="image_id"/>
+				<xs:element ref="image_id" minOccurs="0"/>
 				<xs:element ref="data"/>
 			</xs:sequence>
 		</xs:complexType>
@@ -20,7 +21,7 @@
 	<xs:element name="data" type="xs:string"/>
 	<xs:element name="date_added" type="xs:string"/>
 	<xs:element name="filename" type="xs:string"/>
-	<xs:element name="filesize" type="xs:short"/>
+	<xs:element name="filesize" type="xs:double"/>
 	<xs:element name="image_id" type="xs:int"/>
 	<xs:element name="owner_id" type="xs:int"/>
 	<xs:element name="type_id" type="xs:byte"/>
