@@ -162,13 +162,9 @@
 				which can change on a database reload.	*/
 				
 			$inserted_id = -1;
-			$inserted_id = $this->db->Insert_ID();
+			$inserted_id = $this->db->Insert_ID($this->TABLE_users, 'user_id');
 					
-			if ($this->conn->getSQLType() == 'postgres7') {
-				
-				return $this->conn->oToID($this->TABLE_users, 'user_id');
-				
-			} elseif (is_numeric($inserted_id) && $inserted_id > 0) {
+			if (is_numeric($inserted_id) && $inserted_id > 0) {
 
 				return $inserted_id;
 				

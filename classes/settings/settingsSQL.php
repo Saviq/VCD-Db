@@ -1043,11 +1043,9 @@
 					*/
 				
 					$inserted_id = -1;
-					$inserted_id = $this->db->Insert_ID();
+					$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'metadata_type_id');
 							
-					if ($this->conn->getSQLType() == 'postgres7') {
-						$inserted_id = $this->conn->oToID($this->TABLE_metatypes, 'metadata_type_id');
-					} elseif (!is_numeric($inserted_id) || $inserted_id < 0 ) {
+					if (!is_numeric($inserted_id) || $inserted_id < 0 ) {
 						// InsertedID not supported, we have to dig the latest entry out manually
 						$query = "SELECT metadata_type_id FROM $this->TABLE_metatypes ORDER BY metadata_type_id DESC";
 						$rs = $this->db->SelectLimit($query, 1);

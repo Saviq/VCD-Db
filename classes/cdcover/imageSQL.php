@@ -79,12 +79,13 @@
 				$this->db->Execute($query);
 				
 				// Get the last inserted ID
-				$new_imageid = $this->db->Insert_Id();
+				$new_imageid = $this->db->Insert_Id($this->TABLE_images, 'image_id');
 				
+				/*
 				if ($this->conn->getSQLType() == 'postgres7') {
 					$new_imageid =  $this->conn->oToID($this->TABLE_images, 'image_id');
 				}
-				
+				*/
 				
 				// is the new imageID ok ?
 				if (!is_numeric($new_imageid)) {
