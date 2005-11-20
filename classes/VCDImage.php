@@ -46,11 +46,15 @@ class VCDImage {
 	 */
 	private $SQL;
 
+	
 	/**
-	 * Object constuctor
+	 * Object constructor.
+	 * If $image_id is supplied the current Obj is populated, except for the binary data iteself.
+	 * getImageStream() must be called for that.
 	 *
+	 * @param int $image_id
 	 */
-	public function __construct() { 
+	public function __construct($image_id = null) { 
     	// Try to change php.ini file values ..
    		ini_set('mssql.textlimit',2147483647);
    		ini_set('mssql.textsize' ,2147483647);
@@ -61,17 +65,29 @@ class VCDImage {
    		// Initilize imageSQL 
    		$this->SQL = new imageSQL();
    		
+   		
+   		if (!is_null($image_id) && is_numeric($image_id)) {
+   			$imagedata = $this->SQL->getImageDetails($image_id);
+   			if (is_array($imagedata)) {
+   				
+   				if (isset($imagedata['NAME'])) {
+   					$this->name = $imagedata['NAME'];
+   				}
+   				if (isset($imagedata['IMAGE_TYPE'])) {
+   					$this->content_type = $imagedata['IMAGE_TYPE'];
+   				}
+   				if (isset($imagedata['IMAGE_SIZE'])) {
+   					$this->image_size = $imagedata['IMAGE_SIZE'];
+   				}
+   				unset($imagedata);
+   				
+   			}
+   			
+   		}
+   		
 	} 
 	
-	
-	/**
-	 * Enter description here...
-	 *
-	 */
-	public function addImageFromStream() {
-			
-	}
-	
+		
 	/**
 	 * Save image from given path on hard drive
 	 *
@@ -165,8 +181,10 @@ class VCDImage {
 			if (!is_numeric($image_id)) {
 				VCDException::display("Parameter image_id missing");
 			} else {
-				
-				return $this->SQL->getImageStream($image_id);
+				if (is_null($this->image)) {
+					$this->image = $this->SQL->getImageStream($image_id);
+				}
+				return $this->image;
 			}
 			
 			
@@ -182,7 +200,31 @@ class VCDImage {
 	 * @return int
 	 */
 	public function getFilesize() {
-		return $this->image_size;
+		if (is_numeric($this->image_size)) {
+			return $this->image_size;
+		} else if (!is_null($this->image)) {
+			return strlen($this->image);
+		} else {
+			return 0;
+		}
+	}
+	
+	/**
+	 * Get the name of current image.
+	 *
+	 * @return string
+	 */
+	public function getImageName() {
+		return $this->name;
+	}
+	
+	/**
+	 * Get the mime type of the imageObj.  For example for jpg image "image/pjpeg" would be returned.
+	 *
+	 * @return string
+	 */
+	public function getImageType() {
+		return $this->content_type;
 	}
 	
 	
