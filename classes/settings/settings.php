@@ -1514,7 +1514,7 @@ class vcd_settings implements Settings {
 			 				$this->updateMetadata($metaObj);
 			 			} else {
 			 				// do we have a valid metadataTypeObj parent ?
-				 			if ($arrObj->getMetadataTypeID() == -1) {
+				 			if ($metaObj->getMetadataTypeID() == -1) {
 				 				// not a valid parent, lets construct it
 				 				$metaTypeObj = $arrObj->getMetaDataTypeInstance();
 				 				$metaTypeObj = $this->addMetaDataType($metaTypeObj);
