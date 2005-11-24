@@ -156,18 +156,11 @@ function checkMovieImport(&$out_movietitles) {
 	
 	if($_FILES){
 	  foreach($_FILES as $key => $file){
-	    $upload->set("name",$file["name"]); // Uploaded file name.
-	    $upload->set("type",$file["type"]); // Uploaded file type.
-	   	$upload->set("tmp_name",$file["tmp_name"]); // Uploaded tmp file name.
-	    $upload->set("error",$file["error"]); // Uploaded file error.
-	    $upload->set("size",$file["size"]); // Uploaded file size.
-	    $upload->set("fld_name",$key); // Uploaded file field name.
-		$upload->set("max_file_size",10192000); // Max size allowed for uploaded file in bytes =  ~10 MB.
-	    $upload->set("supported_extensions",array("xml" => "text/xml", "tgz" => "application/zip")); // Allowed extensions and types for uploaded file.
-	    $upload->set("randon_name",true); // Generate a unique name for uploaded file? bool(true/false).
-		$upload->set("replace",true); // Replace existent files or not? bool(true/false).
-		$upload->set("dst_dir",$_SERVER["DOCUMENT_ROOT"]."".$path."upload/"); // Destination directory for uploaded files.
-		$result = $upload->moveFileToDestination(); // $result = bool (true/false). Succeed or not.
+	  	
+	  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
+		$arrFileExt = array("xml" => "text/xml", "tgz" => "application/zip");
+		prepareUploader($upload, $file, $key, VSIZE_XML, $arrFileExt, $savePath);
+		$result = $upload->moveFileToDestination(); 
 	  }
 	}
 	
@@ -303,18 +296,12 @@ function processXMLMovies($upfile, $use_covers) {
 				
 				if($_FILES){
 				  foreach($_FILES as $key => $file){
-				    $upload->set("name",$file["name"]); // Uploaded file name.
-				    $upload->set("type",$file["type"]); // Uploaded file type.
-				   	$upload->set("tmp_name",$file["tmp_name"]); // Uploaded tmp file name.
-				    $upload->set("error",$file["error"]); // Uploaded file error.
-				    $upload->set("size",$file["size"]); // Uploaded file size.
-				    $upload->set("fld_name",$key); // Uploaded file field name.
-					$upload->set("max_file_size",20192000); // Max size allowed for uploaded file in bytes =  ~20 MB.
-				    $upload->set("supported_extensions",array("xml" => "text/xml", "tgz" => "application/zip")); // Allowed extensions and types for uploaded file.
-				    $upload->set("randon_name",true); // Generate a unique name for uploaded file? bool(true/false).
-					$upload->set("replace",true); // Replace existent files or not? bool(true/false).
-					$upload->set("dst_dir",$_SERVER["DOCUMENT_ROOT"]."".$path."upload/"); // Destination directory for uploaded files.
+				  	
+				  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
+		  			$arrFileExt = array("xml" => "text/xml", "tgz" => "application/zip");
+		  			prepareUploader($upload, $file, $key, VSIZE_XMLTHUMBS, $arrFileExt, $savePath);
 					$result = $upload->moveFileToDestination(); // $result = bool (true/false). Succeed or not.
+					
 				  }
 				}
 				
