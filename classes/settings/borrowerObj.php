@@ -24,7 +24,7 @@
 
 
 		/**
-		 * Object contructor
+		 * Object constructor
 		 *
 		 * @param array $dataArr
 		 */
@@ -79,6 +79,17 @@
 		public function setEmail($strEmail) {
 			$this->email = $strEmail;
 		}
+		
+		/**
+		 * Set the borrowers fullname
+		 *
+		 * @param string $strName | The borrowers name
+		 */
+		public function setName($strName)
+		{
+			$this->name = $strName;
+		}
+		
 		
 		/**
 		 * Get the object id and name as an array for dropdown lists
