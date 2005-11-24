@@ -78,6 +78,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Mutasd a statisztikákat',
 'SE_SHOWSIDE' 			=> 'Mutassa az új filmeket a sidebar-ban',
 'SE_SELECTRSS' 			=> 'Select RSS feeds',
+'SE_PAGELOOK' 			=> 'Web layout',
+'SE_PAGEMODE' 			=> 'Select default template:',
 
 
 /* Search */
@@ -346,6 +348,7 @@ $_ = array(
 'S_NOTSEENITCLICK'		=> 'Még nemláttam-ra állításhoz klikk',
 
 /* Mail messages */
+'MAIL_RETURNTOPIC'		=> 'Loan reminder',
 'MAIL_RETURNMOVIES1'	=> '%s, csak emlékeztetni szeretnélek hogy vissza kell hoznod a filmem.\n
 							You still have the following movies :\n\n',
 'MAIL_RETURNMOVIES2'    => 'Kérlek hozd vissza amilyen gyorsan csak tudod a lemezeim \n Üdvözlettel %s \n\n

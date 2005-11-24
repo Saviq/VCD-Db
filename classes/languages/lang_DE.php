@@ -79,6 +79,8 @@ $_ = array(
 'SE_SHOWSTAT'           => 'Statistiken anzeigen', 
 'SE_SHOWSIDE'           => 'Neue Filme seitlich anzeigen', 
 'SE_SELECTRSS'          => 'RSS feeds ausw&auml;hlen', 
+'SE_PAGELOOK' 			=> 'Web layout',
+'SE_PAGEMODE' 			=> 'Select default template:',
 
 /* Search */ 
 'SEARCH'          		=> 'Suche', 
@@ -340,6 +342,7 @@ $_ = array(
 'S_NOTSEENITCLICK'      => 'Als ungesehen markierren', 
 
 /* Mail messages */ 
+'MAIL_RETURNTOPIC'		=> 'Loan reminder',
 'MAIL_RETURNMOVIES1'    => 'Hallo %s, wollte dich nur mal erinnern, mir meine Filme zur&uuml;ckzugeben.\n 
                      	Das ist die Liste:\n\n', 
 'MAIL_RETURNMOVIES2'    => 'Hey %s, Jetzt sieh mal zu dass die Filme an Land kommen\n\n ps.: automatische Mail mit vordefiniertem Text', 

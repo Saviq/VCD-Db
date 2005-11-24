@@ -78,6 +78,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Sına tölfræği',
 'SE_SHOWSIDE' 			=> 'Sına nıjar myndir í hægri valmynd',
 'SE_SELECTRSS' 			=> 'Veldu RSS strauma',
+'SE_PAGELOOK' 			=> 'Útlit vefs',
+'SE_PAGEMODE' 			=> 'Veldu sjálfgefiğ sniğmát:',
 
 /* Search */
 'SEARCH' 				=> 'Leita',
@@ -343,6 +345,7 @@ $_ = array(
 'S_NOTSEENITCLICK'		=> 'Smelltu til ağ merkja mynd óséğa',
 
 /* Mail messages */
+'MAIL_RETURNTOPIC'		=> 'Áminning um skil',
 'MAIL_RETURNMOVIES1'	=> '%s, vill minna şig á ağ skila myndunum mínum.\n
 							Şú ert meğ eftirtalda diska í láni :\n\n',
 'MAIL_RETURNMOVIES2'    => 'Vinsamlegast skiliğ diskunum sem fyrst\n Kveğjur %s \n\n

@@ -78,6 +78,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Show statistics',
 'SE_SHOWSIDE' 			=> 'Show new movies in sidebar',
 'SE_SELECTRSS' 			=> 'Select RSS feeds',
+'SE_PAGELOOK' 			=> 'Web layout',
+'SE_PAGEMODE' 			=> 'Select default template:',
 
 /* Search */
 'SEARCH' 				 =>  'Rechercher',
@@ -342,6 +344,7 @@ $_ = array(
 'S_NOTSEENITCLICK' 		 =>  'Cliquer pour marquer comme pas vu',
 
 
+'MAIL_RETURNTOPIC'	     => 'Loan reminder',
 'MAIL_RETURNMOVIES1' 	 =>  '%s, je souhaite simplement te rappeler de me rendre un jour mes films.\n Tu a encore en ta possession les films suivants :\n \n',
 'MAIL_RETURNMOVIES2' 	 =>  '%s\nEst-il possible de me rendre au plus vite mes DVDs\n MERCI\n\n nb. Ceci est un courriel automatique envoyé par le système de base de données (http://childweb.free.fr/videos/index.php5)',
 'MAIL_NOTIFY' 			 =>  'De nouveau films on été ajoutésici pour en savoir plus .. 

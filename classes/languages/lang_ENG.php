@@ -77,6 +77,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Show statistics',
 'SE_SHOWSIDE' 			=> 'Show new movies in sidebar',
 'SE_SELECTRSS' 			=> 'Select RSS feeds',
+'SE_PAGELOOK' 			=> 'Web layout',
+'SE_PAGEMODE' 			=> 'Select default template:',
 
 
 /* Search */
@@ -363,6 +365,7 @@ $_ = array(
 'S_NOTSEENITCLICK'		=> 'Click to mark unseen',
 
 /* Mail messages */
+'MAIL_RETURNTOPIC'		=> 'Loan reminder',
 'MAIL_RETURNMOVIES1'	=> '%s, just wanted to remind you to return my movies.\n
 							You still have the following movies :\n\n',
 'MAIL_RETURNMOVIES2'    => 'Please return the discs as soon as possible\n Cheers %s \n\n

@@ -77,6 +77,8 @@ $_ = array(
 'SE_SHOWSTAT'           => 'Statistieken', 
 'SE_SHOWSIDE'           => 'Laat nieuwe film in zijmenu zien', 
 'SE_SELECTRSS'          => 'Selecteer RSS feeds', 
+'SE_PAGELOOK' 			=> 'Web layout',
+'SE_PAGEMODE' 			=> 'Select default template:',
 
 /* Search */ 
 'SEARCH'          		=> 'Zoek', 
@@ -343,6 +345,7 @@ $_ = array(
 'S_NOTSEENITCLICK'       => 'klik markeren niet gezien', 
 
 /* Mail messages */ 
+'MAIL_RETURNTOPIC'		=> 'Loan reminder',
 'MAIL_RETURNMOVIES1'     => '%s, Ik wil je eraan herinneren mijn films terug te bezorgen.\n 
                      Je hebt volgende films nog steeds:\n\n', 
 'MAIL_RETURNMOVIES2'     => 'Bezorg de disks alsjeblieft zo snel mogelijk terug\n Groetjes %s \n\n 
