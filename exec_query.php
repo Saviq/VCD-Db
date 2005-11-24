@@ -32,6 +32,7 @@ if (isset($_GET['action'])) {
 
 $reload_and_close = true;
 $SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+global $language;
 
 switch ($form) {
 
@@ -48,7 +49,7 @@ switch ($form) {
 		
 		if ($obj instanceof borrowerObj ) {
 			$loanArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
-			if (VCDUtils::sendMail($obj->getEmail(), 'Áminning um skil', createReminderEmailBody($obj->getName(), $loanArr), false)) {
+			if (VCDUtils::sendMail($obj->getEmail(), $language->show('MAIL_RETURNTOPIC'), createReminderEmailBody($obj->getName(), $loanArr), false)) {
 				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
 			} else {
 				VCDUtils::setMessage("(Failed to send mail)");
