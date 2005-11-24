@@ -945,11 +945,32 @@
 			}
 		}
 		
-		public function getCompleteTopTenList() {
+		public function getCompleteTopTenList($arrFilter = null) {
 			try {
 				
-			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
-					  ORDER by v.vcd_id DESC";
+				
+			if (!is_null($arrFilter) && is_array($arrFilter)) {
+				$strWhere = "WHERE v.category_id <> ";
+				$i = 0;
+				foreach ($arrFilter as $index => $category_id) {
+					if ($i == 0) {
+						$strWhere .= $category_id;
+					} else {
+						$strWhere .= " AND v.category_id <> " . $category_id;
+					}
+					$i++;
+				}
+				
+				$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
+						  {$strWhere} ORDER by v.vcd_id DESC";
+								
+				
+			} else {
+				$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
+					  	  ORDER by v.vcd_id DESC";
+			}
+				
+			
 			$rs =  $this->db->SelectLimit($query, 10);
 			
 			$arrVcdObj = array();

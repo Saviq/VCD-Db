@@ -1065,15 +1065,16 @@ class vcd_movie implements Vcd  {
 	 * Returns array of vcd objects
 	 *
 	 * @param int $category_id
+	 * @param array $arrFilter | array of category id's to exclude
 	 * @return array
 	 */
-	public function getTopTenList($category_id = 0) {
+	public function getTopTenList($category_id = 0, $arrFilter = null) {
 		if (!is_numeric($category_id)) {
 			throw new Exception("Category ID must be numeric");
 		} else {
 			try {
 				if ($category_id == 0) {
-					return $this->SQL->getCompleteTopTenList();
+					return $this->SQL->getCompleteTopTenList($arrFilter);
 				} else {
 					return $this->SQL->getTopTenList($category_id);
 				}
