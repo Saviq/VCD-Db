@@ -63,18 +63,10 @@
 	<td><input type="password" name="password"/></td>
 </tr>
 <tr>
-	<td>Default template:</td>
-	<td><select name="template" onchange="switchTemplate(this.options[this.selectedIndex].value)"><? 
-		foreach (VCDUtils::getStyleTemplates() as $templateItem) {
-			print "<option value=\"{$templateItem}\">{$templateItem}</option>";
-		}
-	?>
-	</select>
-	</td>
-</tr>
-<tr>
 	<td colspan="2">(<?=$language->show('LOGIN_INFO')?>)<br/><br/></td>
 </tr>
+
+
 <? /* 
 	Get all the custom user properties
    */
@@ -109,7 +101,7 @@
 			
 			
 			print "<tr>
-						<td nowrap>".$description."</td>
+						<td nowrap=\"nowrap\">".$description."</td>
 						<td><input type=\"checkbox\" name=\"property[]\" class=\"nof\" value=\"".$propertyObj->getpropertyID()."\" $checked/>".$viewfeed."</td>
 			       </tr>";
 		}
@@ -117,13 +109,22 @@
    
 ?>
 <tr>
-	<td><? print "<div class=\"info\">".VCDUtils::getMessage()."</div>"; ?></td>
-	<td><input type="submit" value="Submit"/></td>
+	<td><? print "<div class=\"info\">".VCDUtils::getMessage()."</div>"; ?>&nbsp;</td>
+	<td><input type="submit" value="<?=$language->show('X_UPDATE')?>"/></td>
 </tr>
 </table>
 </form>
 
-<br/>
+<h2><?= $language->show('SE_PAGELOOK'); ?></h2>
+<p style="padding:0px 0px 2px 2px">
+&nbsp;<?= $language->show('SE_PAGEMODE')?>
+<select name="template" onchange="switchTemplate(this.options[this.selectedIndex].value)"><? 
+	foreach (VCDUtils::getStyleTemplates() as $templateItem) {
+		print "<option value=\"{$templateItem}\">{$templateItem}</option>";
+	}
+	?>
+</select>
+</p>
 <? 
 	
 	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID($user->getUserID());
@@ -169,7 +170,7 @@
 		print "<td>";
 		
 		print "<form name=\"update_borrower\" action=\"exec_form.php?action=edit_borrower\" method=\"post\"><table cellpadding=0 cellspading=0 border=0 class=list>";
-		print "<tr><td>".$language->show('LOAN_NAME').":</td><td><input type=\"text\" name=\"borrower_name\" value=\"".$currObj->getName()."\" readonly/></td>";
+		print "<tr><td>".$language->show('LOAN_NAME').":</td><td><input type=\"text\" name=\"borrower_name\" value=\"".$currObj->getName()."\"/></td>";
 		print "<td>".$language->show('REGISTER_EMAIL').":</td><td><input type=\"text\" name=\"borrower_email\" value=\"".$currObj->getEmail()."\"/></td>";
 		print "<td>&nbsp;</td><td><input type=\"submit\" value=\"".$language->show('X_UPDATE')."\" id=\"vista\" onclick=\"return val_borrower(this.form)\"/></td></tr>";
 		print "</table><input type=\"hidden\" name=\"borrower_id\" value=\"".$currObj->getID()."\"/></form>";
