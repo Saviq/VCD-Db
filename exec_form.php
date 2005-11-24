@@ -44,6 +44,9 @@ switch ($form) {
 	case 'edit_borrower':
 		$borrowerObj = $SETTINGSClass->getBorrowerByID($_POST['borrower_id']);
 		$borrowerObj->setEmail($_POST['borrower_email']);
+		if (isset($_POST['borrower_name']) && strlen($_POST['borrower_name']) > 0) {
+			$borrowerObj->setName($_POST['borrower_name']);
+		}
 		$SETTINGSClass->updateBorrower($borrowerObj);
 		VCDUtils::setMessage("(".$borrowerObj->getName()." has been updated)");
 		redirect('?page=private&o=settings');
