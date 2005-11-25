@@ -2,43 +2,43 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Functions
  * @version $Id$
  */
 ?>
-<? 
+<?
 
 /**
  * Enter description here...
  *
  */
 function display_topmenu() {
-	
+
 	global $language;
-	
+
 	if (VCDUtils::isLoggedIn()) {
 		$user = $_SESSION['user'];
 		echo "<a href=\"./?page=private&o=settings\">".$user->getFullname()."</a> ";
-		
+
 		if ($user->isAdmin()) {
 			?>| <a href="#" onclick="openAdminConsole()"><?=$language->show('MENU_CONTROLPANEL')?></a><?
 		}
-		
+
 		?> | <a href="./?do=logout"><?=$language->show('MENU_LOGOUT')?></a> <?
-				
+
 	} else {
 		?><a href="./?page=register"><?=$language->show('MENU_REGISTER')?></a> <?
 	}
-	
+
 	?>| <a href="./?page=detailed_search"><?=$language->show('SEARCH_EXTENDED')?></a> |<?
-	
+
 }
 
 /**
@@ -47,7 +47,7 @@ function display_topmenu() {
  */
 function display_userlinks() {
 	global $language;
-	
+
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	$rssLink = "";
@@ -61,7 +61,7 @@ function display_userlinks() {
 	<span class="nav"><a href="./?page=private&amp;o=movies" class="navx"><?=$language->show('MENU_MOVIES')?></a></span>
 	<span class="nav"><a href="./?page=private&amp;o=new" class="navx"><?=$language->show('MENU_ADDMOVIE')?></a></span>
 	<span class="nav"><a href="./?page=private&amp;o=loans" class="navx"><?=$language->show('MENU_LOANSYSTEM')?></a></span>
-	<? } 
+	<? }
 	// Check for shared wishlists and if so .. display the "others wishlist link"
 		if ($SETTINGSClass->isPublicWishLists(VCDUtils::getUserID())) {
 		?><span class="nav"><a href="./?page=private&amp;o=publicwishlist" class="navx"><?=$language->show('MENU_WISHLISTPUBLIC')?></a></span><?
@@ -82,19 +82,19 @@ function display_userlinks() {
 function display_adultmenu() {
 	global $language;
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	
+
 	$show_adult = false;
 	if (VCDUtils::isLoggedIn()) {
-		$show_adult =& $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
+		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
 	}
 	if (VCDUtils::isLoggedIn() && $SETTINGSClass->getSettingsByKey('SITE_ADULT') && $show_adult) {
-		?> 
+		?>
 		<div class="topic">Pornstars</div>
 		<ul>
 		<li><a href="./?page=pornstars&amp;view=all">View all</a></li>
 		<li><a href="./?page=pornstars&amp;view=active">View active</a></li>
 		</ul>
-		
+
 		<?
 	}
 
@@ -107,7 +107,7 @@ function display_adultmenu() {
  */
 function display_imdbLinks($imdb_id) {
 	global $language;
-	
+
 	print "<h2>".$language->show('I_LINKS')."</h2>";
 	print "<ul>";
 	print "<li><a href=\"http://www.imdb.com/Title?".$imdb_id."\" target=\"new\">".$language->show('I_DETAILS')."</a></li>";
@@ -125,14 +125,14 @@ function display_imdbLinks($imdb_id) {
 function display_toggle() {
 	global $CURRENT_PAGE;
 	if ($CURRENT_PAGE == "") {
-	?> 
-	
+	?>
+
 	<div class="topic">Toggle preview</div>
 	<div class="forms" align="center">
 	<a href="javascript:show('r-col')">[on]</a>-<a href="javascript:hide('r-col')">[off]</a>
 	</div>
-	
-	
+
+
 	<? }
 }
 
@@ -165,54 +165,54 @@ function display_topusers() {
  */
 function display_moviecategories() {
 	global $language;
-	
+
 	?>	<div class="topic"><?=$language->show('MENU_CATEGORIES')?></div> 	<?
-	
-	
+
+
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$categories = $SETTINGSClass->getMovieCategoriesInUse();
-	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');	
+	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
 	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT');
 	if (VCDUtils::isLoggedIn()) {
-		$show_adult =& $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
+		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
 	}
-		
-	
+
+
 	$curr_catid = -1;
 	if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
 		$curr_catid = $_GET['category_id'];
 	}
-	
+
 	if (sizeof($categories) > 0) {
-				
+
 		if ($language->isUsingDefault()) {
-		
+
 			foreach ($categories as $category) {
-				
+
 				$cssclass = "nav";
 				if ($category->getID() == $curr_catid) {
 					$cssclass = "navon";
 				}
-				
+
 				if ($category->getID() == $adult_id) {
 					if ($show_adult) {
-						print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";			
-					}				
+						print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
+					}
 				} else {
-					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";			
+					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
 				}
 			}
-		
+
 		} else {
-			$mapping = getCategoryMapping();			
-			
+			$mapping = getCategoryMapping();
+
 			$arrList = array();
 			$arrTranslatedList = array();
-			
+
 			foreach ($categories as $category) {
 				array_push($arrList, $category->getList());
 			}
-			
+
 			foreach ($arrList as $catObj => $item) {
 				if (isset($mapping[$item['name']])) {
 					$translated = $mapping[$item['name']];
@@ -220,9 +220,9 @@ function display_moviecategories() {
 				} else {
 					$newKey = $item['name'];
 				}
-				
-				
-				
+
+
+
 				if ($item['id'] == $adult_id) {
 					if ($show_adult) {
 						$arrTranslatedList[$item['id']] = $newKey;
@@ -230,15 +230,15 @@ function display_moviecategories() {
 				} else {
 					$arrTranslatedList[$item['id']] = $newKey;
 				}
-								
+
 			}
-			
-			unset($arrList);			
+
+			unset($arrList);
 			unset($mapping);
 			unset($categories);
-			
+
 			asort($arrTranslatedList);
-			
+
 			foreach ($arrTranslatedList as $id => $name) {
 				$cssclass = "nav";
 				if ($id == $curr_catid) {
@@ -247,16 +247,16 @@ function display_moviecategories() {
 				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$id."\" class=\"navx\">" .$name. "</a></span>";
 			}
 			unset($arrTranslatedList);
-		
+
 		}
-		
-		
-		
+
+
+
 	} else {
 		print "<ul><li>".$language->show('X_NOCATS')."</li></ul>";
 	}
-	
-	
+
+
 	unset($categories);
 }
 
@@ -269,51 +269,51 @@ function display_moviecategories() {
  * @param unknown $url
  */
 function pager($totalRecords, $current_pos, $url) {
-	
+
 	global $CURRENT_PAGE;
-	
+
 	$SetttingsClass = VCDClassFactory::getInstance("vcd_settings");
 	$recordCount = $SetttingsClass->getSettingsByKey("PAGE_COUNT");
 	$totalPages = floor($totalRecords / $recordCount);
-		
-		
+
+
 	if ($totalRecords < $recordCount) {
 		return;
 	}
-	
-			
+
+
 	$nextpos = $current_pos + 1;
 	$backpos = $current_pos - 1;
-	
+
 	if ($current_pos > 0) {
 		$first = "<a href=\"./?page=".$CURRENT_PAGE."&amp;".$url."&amp;batch=0\">&lt;</a>";
 	} else {
 		$first = "&lt;";
 	}
-	
+
 	if ($current_pos >= $totalPages) {
 		$last  = "&gt;";
 	} else {
 		$last  = "<a href=\"./?page=".$CURRENT_PAGE."&amp;".$url."&amp;batch=$totalPages\">&gt;</a>";
 	}
-	
+
 	if ($current_pos > 0) {
 		$back  = "<a href=\"./?page=".$CURRENT_PAGE."&amp;".$url."&amp;batch=$backpos\">&lt;</a>";
 	} else {
 		$back  = "&lt;";
 	}
-	
-	
+
+
 	if ($current_pos >= $totalPages) {
 		$next  = "&gt;";
 	} else {
 		$next  = "<a href=\"./?page=".$CURRENT_PAGE."&amp;".$url."&amp;batch=$nextpos\">&gt;</a>";
 	}
-	
+
 	$page = ($current_pos+1) . " of " . ($totalPages+1);
-	
+
 	print "<div id=\"pager\">" . $first . $back ." [$page] " . $next . $last . "</div>";
-	
+
 }
 
 /**
@@ -330,18 +330,18 @@ function hidelayer($layername) {
  *
  */
 function display_search() {
-	
+
 	global $language;
-	
+
 	// Check for last search method
 	$lastkey = "";
 	if (isset($_SESSION['searchkey'])) {
 		$lastkey = $_SESSION['searchkey'];
 	}
-	
+
 	?>
 	<div class="topic"><?=$language->show('SEARCH')?></div>
-	<div class="forms"> 
+	<div class="forms">
 	<form action="search.php" method="get">
 	<input type="text" name="searchstring" class="dashed" style="width:78px;"/>&nbsp;<input type="submit" value="<?=$language->show('SEARCH')?>" class="buttontext"/><br/>
 	<input type="radio" name="by" value="title" <? if ($lastkey == '' || $lastkey == 'title') {print "checked=\"checked\"";} ?> class="nof"/><?=$language->show('SEARCH_TITLE')?><br/>
@@ -371,15 +371,15 @@ function reloadandclose() {
  * @param unknown $title
  */
 function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $title = "") {
-	
+
 	// Check for preliminaries ..
 	if (sizeof($arrObjects) == 0) {
 		return;
 	}
-	
+
 	// Check if class exists and if he implements the getList function
 	$objType = $arrObjects[0];
-		
+
 	if (class_exists(get_class($objType))) {
 		if (!method_exists($objType, 'getList')) {
 			VCDException::display(get_class($objType) . " must implement getList<break>before using function evalDropdown");
@@ -389,7 +389,7 @@ function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $tit
 		VCDException::display("Class " . get_class($objType) . " does not exist");
 		return;
 	}
-	
+
 	// ok we are all set to display the dropdown
 	if ($showtitle) {
 		if ($title == "") {
@@ -397,12 +397,12 @@ function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $tit
 		} else {
 			print "<option value=\"null\">".$title."</option>";
 		}
-		
+
 	}
-		
-		
+
+
 	foreach ($arrObjects as $obj) {
-		$data = $obj->getList();		
+		$data = $obj->getList();
 		if ($selected_index == $data['id']) {
 				print "<option value=\"".$data['id']."\" selected>".$data['name']."</option>";
 			} else {
@@ -443,7 +443,7 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 			&nbsp;&nbsp;<a href="#" onClick="del_actor(<?=$pornstar_id ?>,<?=$movie_id?>)">[<?=$language->show('X_DELETE')?>]</a>
 		</td>
 		<?
-	
+
 }
 
 /**
@@ -492,7 +492,7 @@ function getCategoryMapping() {
 function parseCategoryList($strList) {
 
 	global $language;
-	
+
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$categories = $SETTINGSClass->getAllMovieCategories();
 	$mapping = getCategoryMapping();
@@ -500,32 +500,32 @@ function parseCategoryList($strList) {
 
 	$strResult = "";
 	foreach ($inArr as $cat) {
-		
+
 		$cat_id = $SETTINGSClass->getCategoryIDByName($cat);
 		$cat_name = $cat;
-		
+
 		if (is_numeric($cat_id) && $cat_id != 0) {
 			$catObj = $SETTINGSClass->getMovieCategoryByID($cat_id);
-			
+
 			if (!$language->isUsingDefault() && isset($mapping[$catObj->getName()])) {
 				$translated =  $mapping[$catObj->getName()];
 				$cat_name = $language->show($translated);
 			} else {
 				$cat_name = $catObj->getName();
 			}
-		} 
-		
+		}
+
 		if ($cat_id != 0) {
 			$strResult .= " <a href=\"./?page=category&amp;category_id=".$cat_id."\">".$cat_name."</a>,";
-		} else { 
+		} else {
 			$strResult .= " ". $cat_name . ",";
 		}
-				
+
 	}
-	
+
 	return substr($strResult, 0, (strlen($strResult)-1));
-	
-	
+
+
 }
 
 
@@ -535,14 +535,14 @@ function parseCategoryList($strList) {
  * @return unknown
  */
 function server_url()
-{  
+{
    $proto = "http" .
        ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
    $server = isset($_SERVER['HTTP_HOST']) ?
        $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
    return $proto . $server;
 }
-   
+
 
 // Default redirection to home
 /**
@@ -569,7 +569,7 @@ function redirect($relative_url = '.?')
  *
  */
 function inc_tooltipjs() {
-	
+
 	global $CURRENT_PAGE;
 	if ($CURRENT_PAGE == 'pornstar' ) {
 		?>
@@ -578,18 +578,18 @@ function inc_tooltipjs() {
 		<script src="includes/js/dw_tooltip.js" type="text/javascript"></script>
 		<?
 	}
-	
-	if ($CURRENT_PAGE == '') {
-	// Frontpage .. 
-		?>
-		<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script> 
-		<?
-		
-	}
-		
 
-	
-	
+	if ($CURRENT_PAGE == '') {
+	// Frontpage ..
+		?>
+		<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
+		<?
+
+	}
+
+
+
+
 }
 
 /**
@@ -603,11 +603,11 @@ function rightbar() {
 	if (isset($_GET['o'])) {
 		$subaction = $_GET['o'];
 	}
-	
+
 	if ($CURRENT_PAGE == '') {
 		// Check if user is logged in and wished to disable sidebar
 		if (VCDUtils::isLoggedIn()) {
-			
+
 			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 			$arr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
@@ -615,7 +615,7 @@ function rightbar() {
 			}
 		}
 		return true;
-		
+
 	} else {
 		return false;
 	}
@@ -634,14 +634,14 @@ function createObjFilter(&$arr, $start, $pageCount) {
 	$newarr = array();
 	for ($i = 0; $i < sizeof($arr); $i++) {
 		if ($i >= $start && $i < ($start+$pageCount)) {
-			array_push($newarr, $arr[$i]);	
+			array_push($newarr, $arr[$i]);
 		}
-		
+
 		if ($i > ($start+$pageCount)) {
 			break;
 		}
-	}	
-	
+	}
+
 	return $newarr;
 }
 
@@ -652,16 +652,16 @@ function createObjFilter(&$arr, $start, $pageCount) {
  * @param unknown $secondIndex
  * @return unknown
  */
-function aSortBySecondIndex($multiArray, $secondIndex) { 
-		   while (list($firstIndex, ) = each($multiArray)) 
-		       $indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex]; 
-		   asort($indexMap); 
-		   while (list($firstIndex, ) = each($indexMap)) 
-		       if (is_numeric($firstIndex)) 
-		           $sortedArray[] = $multiArray[$firstIndex]; 
-		       else $sortedArray[$firstIndex] = $multiArray[$firstIndex]; 
-		   return $sortedArray; 
-} 
+function aSortBySecondIndex($multiArray, $secondIndex) {
+		   while (list($firstIndex, ) = each($multiArray))
+		       $indexMap[$firstIndex] = $multiArray[$firstIndex][$secondIndex];
+		   asort($indexMap);
+		   while (list($firstIndex, ) = each($indexMap))
+		       if (is_numeric($firstIndex))
+		           $sortedArray[] = $multiArray[$firstIndex];
+		       else $sortedArray[$firstIndex] = $multiArray[$firstIndex];
+		   return $sortedArray;
+}
 
 /**
  * Enter description here...
@@ -669,14 +669,14 @@ function aSortBySecondIndex($multiArray, $secondIndex) {
  * @param unknown $strPlot
  */
 function showPlot($strPlot) {
-	
+
 	global $language;
-	
+
 	$showLen = 280;
-	$plot = ereg_replace(13,"<br/>",$strPlot); 
+	$plot = ereg_replace(13,"<br/>",$strPlot);
 	$len = strlen($plot);
 	if ($len > $showLen) {
-		$first = substr($plot, 0, $showLen); 
+		$first = substr($plot, 0, $showLen);
 		print "<div style=\"padding-right:20px\" id=\"first\">".$first." ...<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('first');show('rest')\">".$language->show('X_SHOWMORE')." &gt;&gt;</a></div>";
 		print "<div id=\"rest\" style=\"visibility:hidden;display:none;\">".$plot."
 				<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('rest');show('first')\">&lt;&lt; ".$language->show('X_SHOWLESS')."</a>";
@@ -684,9 +684,9 @@ function showPlot($strPlot) {
 	} else {
 		print $plot;
 	}
-	
-	
-		
+
+
+
 }
 
 /**
@@ -735,18 +735,18 @@ function filterLoanList($arrMovies, $arrLoans) {
 	foreach ($arrLoans as $loanObj) {
 		array_push($loanIds, $loanObj->getCDID());
 	}
-	
+
 	$arrAvailable = array();
 	foreach ($arrMovies as $vcdObj) {
 		if (!in_array($vcdObj->getId(), $loanIds)) {
 			array_push($arrAvailable, $vcdObj);
 		}
 	}
-	
+
 	unset($loanIds);
 	return $arrAvailable;
-	
-	
+
+
 }
 
 /**
@@ -755,41 +755,41 @@ function filterLoanList($arrMovies, $arrLoans) {
  * @param unknown $url
  * @param unknown $showdescription
  */
-function ShowOneRSS($url, $showdescription = false) { 
-    
-	
+function ShowOneRSS($url, $showdescription = false) {
+
+
 	$maxtitlelen = 44;
 	$rss = VCDClassFactory::getInstance('lastRSS');
 	$rss->cache_dir = CACHE_FOLDER;
 	$rss->cache_time = RSS_CACHE_TIME;
-	
-    if ($rs = $rss->get($url)) { 
-    	
+
+    if ($rs = $rss->get($url)) {
+
     	$title = $rs['title'];
     	if (strlen($title) > $maxtitlelen) {
     		$title = VCDUtils::shortenText($title, $maxtitlelen);
     	}
-    	
-    	
-        echo "<h1><em><a href=\" ".$rs['link']."\" title=\"".$rs['title']."\">".$title."</a></em></h1>\n"; 
-        if ($showdescription)
-        	echo $rs['description']."<br/>\n"; 
 
-            echo "<ul>\n"; 
-            foreach ($rs['items'] as $item) { 
-            	
+
+        echo "<h1><em><a href=\" ".$rs['link']."\" title=\"".$rs['title']."\">".$title."</a></em></h1>\n";
+        if ($showdescription)
+        	echo $rs['description']."<br/>\n";
+
+            echo "<ul>\n";
+            foreach ($rs['items'] as $item) {
+
             	  $onmouseover= "";
             	  if (isset($item['description'])) {
             	  	$hovertext = str_replace("&#039;", "", $item['description']);
             	  	$hovertext = str_replace("'", "", $hovertext);
             	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=5;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
             	  }
-            	
-	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" {$onmouseover}>".unhtmlentities(str_replace("&apos;", "'", $item['title']))."</a></li>\n"; 
-            } 
-            echo "</ul>\n"; 
-    } 
-} 
+
+	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" {$onmouseover}>".unhtmlentities(str_replace("&apos;", "'", $item['title']))."</a></li>\n";
+            }
+            echo "</ul>\n";
+    }
+}
 
 
 /**
@@ -815,10 +815,10 @@ function unhtmlentities ($string)
  * @param unknown $style
  */
 function printStatistics($show_logo = true, $width = "230", $style = "statsTable") {
-	
+
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$statObj = $SETTINGSClass->getStatsObj();
-	
+
 	if (strcmp($style, "statsTable") == 0) {
 		$header = "stata";
 	?>
@@ -851,11 +851,11 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 		<td align="left">Added this month</td>
 		<td align="right"><?=$statObj->getMovieMonthlyCount()?></td>
 	</tr>
-	
+
 	<tr>
 		<td class="<?=$header?>" colspan="2">Top categories</td>
 	</tr>
-	<? 
+	<?
 		foreach ($statObj->getBiggestCats() as $catObj) {
 			print "<tr>";
 				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName()."</a></td>";
@@ -863,11 +863,11 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 			print "</tr>";
 		}
 	?>
-	
+
 	<tr>
 		<td class="<?=$header?>" colspan="2">Most active categories</td>
 	</tr>
-	<? 
+	<?
 		foreach ($statObj->getBiggestMonhtlyCats() as $catObj) {
 			print "<tr>";
 				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName()."</a></td>";
@@ -875,7 +875,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 			print "</tr>";
 		}
 	?>
-	
+
 	<tr>
 		<td colspan="2" class="<?=$header?>">Covers in database</td>
 	</tr>
@@ -893,7 +893,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	</tr>
 	</table>
 	</div>
-	
+
 	<?
 
 }
@@ -912,30 +912,30 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
  */
 function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 	if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($vcdObj) && $_SESSION['user']->getPropertyByKey('PLAYOPTION')) {
-		
+
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		
+
 		$player = "";
 		$playerparams = "";
 		$filename = "";
-		
+
 		// check for filename
 		$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, 'filelocation');
 		if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
 			$filename = $fileArr[0]->getMetaDataValue();
-		} 
-		
-		
-		// check for player settings 
+		}
+
+
+		// check for player settings
 		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'player');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$player = $arr[0]->getMetaDataValue();
-		} 
+		}
 		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'playerpath');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$playerparams = $arr[0]->getMetaDataValue();
-		} 
-		
+		}
+
 		if (strcmp($player, "") !=0 && strcmp($filename, "") != 0) {
 			$playcommand = "|".$player . "| |" . $filename . "| " . $playerparams;
 			$playcommand = str_replace('\\','#', $playcommand);
@@ -943,10 +943,10 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 		} else {
 			return false;
 		}
-		
-		
+
+
 	}
-	
+
 	return false;
 }
 
@@ -959,30 +959,30 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
  * @return unknown
  */
 function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
-		
+
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		
+
 		$player = "";
 		$playerparams = "";
 		$filename = "";
-		
+
 		// check for filename
 		$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, 'filelocation');
 		if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
 			$filename = $fileArr[0]->getMetaDataValue();
-		} 
-		
-		
-		// check for player settings 
+		}
+
+
+		// check for player settings
 		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'player');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$player = $arr[0]->getMetaDataValue();
-		} 
+		}
 		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'playerpath');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$playerparams = $arr[0]->getMetaDataValue();
-		} 
-		
+		}
+
 		if (strcmp($player, "") !=0 && strcmp($filename, "") != 0) {
 			$playcommand = $player . " " . $filename . " " . $playerparams;
 			$playcommand = str_replace('\\','#', $playcommand);
@@ -990,8 +990,8 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
 		} else {
 			return false;
 		}
-		
-	
+
+
 	return false;
 }
 
@@ -1006,17 +1006,17 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
  */
 function getLocalizedCategories($categoryObjArr = null) {
 	global $language;
-	
+
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	
-	
+
+
 	if ($categoryObjArr == null) {
 		$categoryObjArr = $SETTINGSClass->getAllMovieCategories();
-	} 
-	
-	
+	}
+
+
 	// Translate category names
-	$mapping = getCategoryMapping();			
+	$mapping = getCategoryMapping();
 	$altLang = $language->isUsingDefault();
 	// Create translated category array
 	$arrCategories = array();
@@ -1024,7 +1024,7 @@ function getLocalizedCategories($categoryObjArr = null) {
 		foreach ($categoryObjArr as $categoryObj) {
 			array_push($arrCategories, $categoryObj->getList());
 		}
-		
+
 	} else {
 		foreach ($categoryObjArr as $categoryObj) {
 			$category_name = $categoryObj->getName();
@@ -1036,9 +1036,9 @@ function getLocalizedCategories($categoryObjArr = null) {
 		}
 		$arrCategories = aSortBySecondIndex($arrCategories, 'name');
 	}
-	
+
 	return $arrCategories;
-	
+
 }
 
 
@@ -1071,9 +1071,9 @@ function end_mrw() {
  * @return unknown
  */
 function doRewrite($buffer) {
-	
-  $root = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));   
-	
+
+  $root = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
+
   $arrDefault = array(
   		//STYLE."style.css",
     	"./?page=category&amp;category_id=",
@@ -1085,10 +1085,10 @@ function doRewrite($buffer) {
     	"upload",
     	"includes",
     	"./?"
-    	
-      	
+
+
   );
-	
+
   $arrRewrite = array(
   		//$root.STYLE."style.css",
   		$root."cat/",
@@ -1101,7 +1101,7 @@ function doRewrite($buffer) {
   		$root."includes",
   		$root."?",
   );
-	      
+
   return str_replace($arrDefault, $arrRewrite, $buffer);
 }
 
