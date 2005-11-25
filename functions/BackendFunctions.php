@@ -519,4 +519,12 @@ function prepareUploader(&$uploadObj, $fileObj, $fieldname, $maxFileSize, $arrEx
 
 }
 
+/**
+ * Increment the query counter in the Connection class.
+ *
+ */
+function addQueryCount() {
+	Connection::addQueryCount();
+}
+
 ?>
