@@ -2,12 +2,12 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Core
  * @version $Id$
@@ -28,9 +28,9 @@ class VCDUtils {
    		if (!$location or !is_dir($location) or !$fileregex) {
        		return false;
    		}
- 
+
 		$matchedfiles = array();
-	 
+
 	   	$all = opendir($location);
 	   	while ($file = readdir($all)) {
 	       	if (is_dir($location.'/'.$file) and $file <> ".." and $file <> ".") {
@@ -43,17 +43,17 @@ class VCDUtils {
 	             	array_push($matchedfiles,$location.'/'.$file);
 	         	}
 		       }
-	   		}	
+	   		}
 	   	   closedir($all);
 		   unset($all);
 	       return $matchedfiles;
  	}
- 	
- 	
- 	
- 	
- 	
- 	
+
+
+
+
+
+
  	/**
 	* @return Boolean
 	* @param $recipent Mixed
@@ -64,7 +64,7 @@ class VCDUtils {
  */
 	static function sendMail($recipent, $subject, $body, $use_html=false) {
 		if (is_array($recipent)) {
-			
+
 			$b_ok = true;
 			foreach ($recipent as $email) {
 				$b_ok = sendMail($email, $subject, $body, $use_html);
@@ -73,57 +73,57 @@ class VCDUtils {
 					return false;
 				}
 			}
-			
+
 			return true;
-			
+
 		} else {
 			return sendMail($recipent, $subject, $body, $use_html);
 		}
 	}
- 	
-	
-	
+
+
+
 	/**
-	 * Enter description here...
+	 * Get the current time in microseconds
 	 *
-	 * @param unknown $float
-	 * @return unknown
+	 * @param bool $float | Use float precision or not
+	 * @return float
 	 */
-	static function getmicrotime($float = false) { 
-		   list($usec, $sec) = explode(" ", microtime()); 
+	static function getmicrotime($float = false) {
+		   list($usec, $sec) = explode(" ", microtime());
 		   if ($float)
-		   		return ((float)$usec + (float)$sec); 
-		   else 
-		   		return ((int)(float)$usec + (float)$sec); 
-		   
-	} 
- 	
+		   		return ((float)$usec + (float)$sec);
+		   else
+		   		return ((int)(float)$usec + (float)$sec);
+
+	}
+
 	/**
-	 * Enter description here...
+	 * Get the total time of the page load in microseconds
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	static function getPageLoadTime() {
 		global $start_time;
 		$end = VCDUtils::getmicrotime(true);
-		$run = $end - $start_time; 
+		$run = $end - $start_time;
 		return substr($run, 0, 5);
 	}
- 	
+
 	/**
-	 * Enter description here...
+	 * Get the PHP Version
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	static function getOS() {
 		return PHP_OS;
 	}
- 	
-	
+
+
 	/**
-	 * Enter description here...
+	 * Check if the current user browsing VCD-db is logged in or not.
 	 *
-	 * @return unknown
+	 * @return bool
 	 */
 	static function isLoggedIn() {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj) {
@@ -132,7 +132,7 @@ class VCDUtils {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * Get the current users ID, if user is not logged in null is returned.
 	 *
@@ -145,106 +145,112 @@ class VCDUtils {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
-	 * Enter description here...
+	 * Check if the user is using a filter to filter out movies by specific user.
 	 *
-	 * @param unknown $user_id
-	 * @return unknown
+	 * @param int $user_id
+	 * @return bool
 	 */
 	static function isUsingFilter($user_id) {
-		
+
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
 		if (is_array($metaArr) && sizeof($metaArr) > 0) {
-			
+
 			if ($metaArr[0] instanceof metadataObj && strcmp(trim($metaArr[0]->getMetaDataValue()), "") != 0) {
 				return true;
 			}
-			
+
 			return false;
-			
+
 		} else {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Enter description here...
+	 * Shorten text string to specific length.
+	 * Cuts of the end of string and appends "..."
 	 *
-	 * @param unknown $text
-	 * @param unknown $length
-	 * @return unknown
+	 * @param string $text
+	 * @param int $length
+	 * @return string
 	 */
 	static function shortenText($text, $length) {
 		if (strlen($text) > $length) {
 				$text = substr($text, 0, $length);
-				$text = $text."..."; 
+				$text = $text."...";
 			}
 		return $text;
 	}
-	
-	
+
+
 	/**
-	 * Enter description here...
+	 * Get the difference between 2 dates
 	 *
-	 * @param unknown $date1
-	 * @param unknown $date2
-	 * @return unknown
+	 * @param date $date1
+	 * @param date $date2
+	 * @return string
 	 */
 	static function getDaydiff($date1, $date2 = null) {
 		if (is_null($date2)) {
-			$date2 = mktime();
+			$date2 = time();
 			$datediff = $date2 - $date1;
-			
+
 		} else {
 			$datediff = $date2 - $date1;
 		}
-		
-			
+
+
 		global $language;
-		
-			
+
+
 		if (floor($datediff/60/60/24) > 0) {
 			if (floor($datediff/60/60/24) == 1) {
-				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAY'); 
+				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAY');
 			} else {
-				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAYS'); 
+				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAYS');
 			}
-			
+
 		} elseif (floor($datediff/60/60) > 0) {
-			return $language->show('LOAN_TODAY'); 
-			
+			return $language->show('LOAN_TODAY');
+
 		} else {
-			//return floor($datediff/60) . " mín.";
 			return "1 " . $language->show('LOAN_DAY');
-			
+
 		}
-		
-				
+
+
 	}
-	
- 	
+
+
+	/**
+	 * Get the character set for the current selected language.
+	 * The character set is then used in the HTML charset directive.
+	 *
+	 * @return string
+	 */
 	static public function getCharSet() {
 		global $language;
 		return $language->show('LANG_CHARSET');
 	}
-	
-	
+
+
 	/**
-	 * Enter description here...
+	 * Set a message to the Session
 	 *
-	 * @param unknown $strMessage
+	 * @param string $strMessage
 	 */
 	static function setMessage($strMessage) {
 		$_SESSION['message'] = $strMessage;
 	}
-	
+
 	/**
-	 * Enter description here...
+	 * Get the current message from Session and delete it.
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	static function getMessage() {
 		$message = "";
@@ -254,26 +260,30 @@ class VCDUtils {
 		}
 		return $message;
 	}
-	
-	
+
+
 	/**
-	 * Enter description here...
+	 * Download image resource from a specified url.
+	 * Returns the new image file name.
 	 *
-	 * @param unknown $image_url
-	 * @param unknown $uniqueID
-	 * @param unknown $destination
-	 * @return unknown
+	 * @param string $image_url | The http url to grab the image from
+	 * @param bool $uniqueID | Generate uniqueID or not
+	 * @param string $destination | The folder to save the image to
+	 * @return string
 	 */
 	static function grabImage($image_url, $uniqueID = true, $destination = TEMP_FOLDER) {
-     
+
+	  // Cut some slack for slow connections, 15 secs per file.
+	  set_time_limit(15);
+
       $source = urldecode($image_url);
-	  
+
       if (defined('USE_PROXY') && USE_PROXY == 1) {
-	
-      	$contents = VCDUtils::proxy_url($source);     	
-      	
+
+      	$contents = VCDUtils::proxy_url($source);
+
       } else {
-      	
+
       	$fd = fopen($source, "rb");
       	if (!$fd )	{
       		VCDException::display("Cant open file at: ".$image_url."");
@@ -284,11 +294,11 @@ class VCDUtils {
 		  	$contents .= fgets ($fd, 1024);
 	  	}
 		fclose($fd);
-      	
-      	
+
+
       }
-      
-      
+
+
 
       // get the extension of this image
       ereg( ".*\.(.*)$", $source, $regs );
@@ -300,69 +310,64 @@ class VCDUtils {
       	ereg( ".*\/(.*)$", $source, $regs );
       	$filename = $regs[1];
       }
-      
+
       $dFolder = $destination;
-      
+
       $dest = $destination . $filename;
       $fd = fopen($dest, "wb");
-      
+
       if ( !$fd ) {
 	  	VCDException::display("Cant write file, check permissions for folder " . $destination);
 	  	return false;
 	  }
-      
+
 	  fwrite($fd, $contents);
       fclose($fd);
 	  return $filename;
 	}
-	
-	
+
+
  /**
-  * Enter description here...
+  * Generate Unique ID
   *
-  * @return unknown
+  * @return string
   */
  static function generateUniqueId(){
     return md5(uniqid(mt_rand(),TRUE));
   }
 
-	
+
   /**
-   * Enter description here...
+   * Split array to string by given seperator token
    *
-   * @param unknown $arrItems
-   * @param unknown $sepator
-   * @return unknown
+   * @param array $arrItems | The array to split
+   * @param char $sepator | The seperator token
+   * @return string
    */
   static function split($arrItems, $sepator) {
   	if (is_array($arrItems)) {
   		$string = implode($sepator, $arrItems);
-  		
   		return $string;
-  		
   	} else {
   		return "";
   	}
   }
-  
-  /*
-		If title contains The at the end .. move it forward.
-		Very annoying notation.
-  */
+
+
    /**
-    * Enter description here...
+    * If title contains The at the end .. move it forward.
     *
-    * @param unknown $strTitle
-    * @return unknown
+    * @param string $strTitle
+    * @return string
     */
    static function titleFormat($strTitle) {
   		$strTitle = trim($strTitle);
-  		
+
   		$rest = substr($strTitle, -5);
   		if (!$rest) {
   			return $strTitle;
   		}
-  		
+
   		// Title ends with ', The'
   		if (strcmp($rest, ", The") == 0) {
   			$strTitle = "The " . substr($strTitle, 0 , (strlen($strTitle)-5));
@@ -371,28 +376,29 @@ class VCDUtils {
   			return $strTitle;
   		}
   }
-  
 
-  
+
+
 	 /**
-	  * Enter description here...
+	  * Get a file extension from specified filename
 	  *
-	  * @param unknown $strFilename
-	  * @return unknown
+	  * @param string $strFilename
+	  * @return string
 	  */
 	 static function getFileExtension($strFilename) {
 	  	  ereg( ".*\.(.*)$", $strFilename, $regs );
 	      return $regs[1];
 	  }
-  
-  
-  
+
+
+
 	/**
-	 * Enter description here...
+	 * Write contents of a stream to disk.
+	 * Returns true if operation succeded otherwise false.
 	 *
-	 * @param unknown $filename
-	 * @param unknown $content
-	 * @return unknown
+	 * @param string $filename | The filename to create
+	 * @param string $content | The stream to write to disk
+	 * @return bool
 	 */
 	static function write($filename, $content){
 			if(!empty($filename) && !empty($content)){
@@ -412,31 +418,32 @@ class VCDUtils {
 		}
 
 	/**
-	 * Enter description here...
+	 * Check if the current logged in user is the owner of this vcdObject.
+	 * Returns true if user has got a copy of this vcdObj
 	 *
 	 * @param vcdObj $obj
-	 * @return unknown
+	 * @return bool
 	 */
 	static function isOwner(vcdObj $obj) {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
 			$user = $_SESSION['user'];
-			if ($obj->getInstancesByUserID($user->getUserID()) != null && 
+			if ($obj->getInstancesByUserID($user->getUserID()) != null &&
 				is_array($obj->getInstancesByUserID($user->getUserID()))) {
 				return true;
 			}
 			return false;
-			
+
 		} else {
 			return false;
 		}
 	}
-		
-	// Check if user has access to the "change movie" console
+
+
 	/**
-	 * Enter description here...
+	 * Check if user has access to the "change movie" console
 	 *
 	 * @param vcdObj $obj
-	 * @return unknown
+	 * @return bool
 	 */
 	static function hasPermissionToChange(vcdObj $obj) {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
@@ -444,55 +451,56 @@ class VCDUtils {
 			if ($user->isAdmin()) {
 				return true;
 			}
-			
-			if ($obj->getInstancesByUserID($user->getUserID()) != null && 
+
+			if ($obj->getInstancesByUserID($user->getUserID()) != null &&
 				is_array($obj->getInstancesByUserID($user->getUserID()))) {
 				return true;
 			}
-			
+
 			return false;
-			
+
 		} else {
 			return false;
 		}
 	}
-  
-	
+
+
 	/**
-	 * Enter description here...
+	 * Get file contents through proxy server.
+	 * Returns the contents of the downloaded file.
 	 *
-	 * @param unknown $proxy_url
-	 * @return unknown
+	 * @param string $proxy_url | The url to the file to download
+	 * @return string
 	 */
 	static function proxy_url($proxy_url) {
 	   if (!defined('PROXY_URL') || !defined('PROXY_PORT') || PROXY_URL == '' || PROXY_PORT == '' ) {
 	   		VCDException::display('You must define Proxy server and port in VCDConstants.php', true);
 	   		return false;
 	   }
-				
+
 	   $proxy_name = PROXY_URL;
 	   $proxy_port = PROXY_PORT;
 	   $proxy_cont = '';
-		
+
 	   $proxy_fp = fsockopen($proxy_name, $proxy_port);
 	   if (!$proxy_fp)  {
 	   		VCDException::display('No response from proxy server', true);
 	   		return false;
 	   }
-	   
+
 	   $urlArr = parse_url($proxy_url);
 	   $domain = $urlArr['host'];
-   
+
 	   //fputs($proxy_fp, "GET $proxy_url HTTP/1.0\r\nHost: $proxy_name\r\n\r\n");
 	   fputs($proxy_fp, "GET $proxy_url HTTP/1.0\r\nHost: $domain\r\n\r\n");
-	   
+
 	   while(!feof($proxy_fp)) {$proxy_cont .= fread($proxy_fp,4096);}
 	   fclose($proxy_fp);
 	   $proxy_cont = substr($proxy_cont, strpos($proxy_cont,"\r\n\r\n")+4);
 	   return $proxy_cont;
-	} 
-	
-	
+	}
+
+
 	/**
 	 * Get list of available CSS templates for VCD-db.
 	 * Returns array of strings, containing the unique template names.
@@ -500,28 +508,33 @@ class VCDUtils {
 	 * @return array
 	 */
 	static function getStyleTemplates() {
-		
+
 		$templateDirectory = 'includes/templates';
 		$it = new DirectoryIterator( $templateDirectory );
-		
+
 		$styles = array();
-		
+
 		while($it->valid()) {
 			$directory = $it->current();
 			if ($directory->isDir() && !$directory->isDot()) {
-				array_push($styles, $directory->getFilename()); 
+				array_push($styles, $directory->getFilename());
 			}
 			$it->next();
 		}
-		
+
 		return $styles;
 	}
-	
-	
+
+
+	/**
+	 * Get the path to the selected stylesheet
+	 *
+	 * @return string
+	 */
 	static function getStyle() {
 		$defaultStyle = STYLE;
 		$stylepath = "includes/templates/";
-		
+
 		// Check if style is set in Cookie
 		SiteCookie::extract('vcd_cookie');
 		if (isset($_COOKIE['template'])) {
@@ -529,10 +542,15 @@ class VCDUtils {
 		} else {
 			return $defaultStyle."style.css";
 		}
-		
-		
+
+
 	}
-  
+
+	/**
+	 * Write out the url to the XML feed of VCD-db if XML feeds from VCD-db are allowed.
+	 *
+	 * @return string
+	 */
 	static function getAlternateLink() {
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		$showRSS = $SETTINGSClass->getSettingsByKey('RSS_SITE');
@@ -540,12 +558,12 @@ class VCDUtils {
 			$uri = $SETTINGSClass->getSettingsByKey('SITE_HOME');
 			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=\"".$uri."rss\" />";
 		}
-			
+
 	}
-	
-	
-	
-	
+
+
+
+
 }
 
 
