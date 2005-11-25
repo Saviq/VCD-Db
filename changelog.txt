@@ -2,7 +2,7 @@
 Fixed   - User can now successfully logout after having selected "Remember me".
 Changed - Upgraded to Adodb 4.66 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
 Updated - All VCD-db code can now run with E_STRICT, 100% pure PHP5 compatibility.
-Added   - LDAP Directory authentication is now available, good for single sign-on environments.		
+Added   - LDAP Directory authentication is now available, good for single sign-on environments.
 Added   - Language files can now be edited/updated in the "Control Panel".
 Added   - Admin can now specify what languages will be available for his site.
 Fixed   - Launching media player from VCD-db function with player and/or filepaths containing spaces was not working.
@@ -23,11 +23,13 @@ Updated - Some fixes here and there for PHP 5.1 compatibility.
 Fixed   - SQLite works now as espected on Linux.
 Added	- Verified and tested compatibility with MySQL 5.0 and Postgre SQL 8.0 and 8.1
 Changed - The VCDClassFactory is now a static class and the SQL classes all share 1 connection from the ClassFactory
-		  instead of each SQL class opening it's own connection like before. 
+		  instead of each SQL class opening it's own connection like before.
 Fixed   - Fixed the vcd_image.php binary ouput for images that are stored in db.  Image size, name and type is now provided
-		  and IE now saves the image correctly instead of forced Bitmap image like before.	
+		  and IE now saves the image correctly instead of forced Bitmap image like before.
 Fixed   - Importing to Postgre via XML mixed up inserted id's with OID's.  Now fixed.
 Changed - The Top 10 list in the right sidebar no longer displays adult films or tv shows.
+Fixed   - The installer now correctly checks for folder permissions.
+Fixed   - The installer now correctly creates the database when using PostgreSQL
 
 0.973
 Added   - SQLite is now supported.
@@ -75,12 +77,12 @@ Fixed   - Selected language is now remembered after user logs out.
 Fixed   - HTML garbage was in the XML file exported from the "Control Panel" when exporting users movies.
 Added   - Dutch language file is now included with VCD-db. (Big thanks to ikerstges for the translation.)
 Added   - French language file is now included with VCD-db. (Big thanks to Cédric FOURNIER for the translation.)
-Fixed   - Fixed problem with updating movies that had been added manually to the system.          
+Fixed   - Fixed problem with updating movies that had been added manually to the system.
 Fixed   - Fixed javascript problems with Firefox/Mozilla containg &amp; in urls.
 Added   - VCD-db client is now included with VCD-db.
 Added   - Movie files can now be played straight from the web after user has set his player preferences
 		  (available only at the moment with IE on Windows)
-Added   - Movie category listing can now be filtered to only view-ing logged in user's movies.		  
+Added   - Movie category listing can now be filtered to only view-ing logged in user's movies.
 
 
 0.97
@@ -96,7 +98,7 @@ Added   - Seen list is now available where used can keep track of seen movies.
 Added   - Random movie can now suggested by VCD-db for the lazy ones :) and seen movies can be filtered out
           for convenience and better suggestions.
 Fixed   - Empty comment no longer submitted when added movie manually.
-Added   - Wishlists can now be shared with other users and user can see if he owns the movies on 
+Added   - Wishlists can now be shared with other users and user can see if he owns the movies on
 		  others users wishlists.
 Fixed   - Email messages are now included in the translation files instead of hardcoded.
 Added   - Registration form is now better checked for valid input.
@@ -104,7 +106,7 @@ Fixed   - Selected users properties upon registration is now saved to database.
 Fixed   - Postgres sequences for certain tables were invalid, so some data from the "Control Panel" were
           not getting inserted when adding new data.
 Added   - Search now also checks for Custom Media ID's.
-		  
+
 0.961
 Fixed   - The IMDB search class was updated, imdb.com changed the way they display their search results
           and in the process the imdb search within vcd-db did not return any result.  Now fixed.
@@ -116,15 +118,15 @@ Fixed   - Empty comment was added when adding new movie from DVDEmpire.com
 Fixed   - Delete comment button always appeared, now only appears when user is logged in and if he has
 		  posted the comment.
 Fixed   - When uploading new covers, two or more covers with same coverTypeID and same CDID could exist,
-		  now fixed and in the process the movie listing does not display duplicate entries.		  
-Fixed   - Duplicate entries for a movie can no longer be inserted, in other words .. user can only insert 
+		  now fixed and in the process the movie listing does not display duplicate entries.
+Fixed   - Duplicate entries for a movie can no longer be inserted, in other words .. user can only insert
 	      one entry per exactly same movie and media type.
 Added   - Nifty little Favicon.
-Fixed   - Table header in categories sometimes got unwrapped and ugly.	      
+Fixed   - Table header in categories sometimes got unwrapped and ugly.
 Fixed   - Loan list now only displays movies that are not currently in loaned to a friend.
 Fixed   - When IMDB entry already exists but using different title (for example on inserting TV shows)
           the entry was not added, now fixed.
-Added   - User cannot delete himself anymore from the "Control Panel"		  
+Added   - User cannot delete himself anymore from the "Control Panel"
 Added   - When deleting user from the "Control Panel" it is optional to disable user or completly delete
 		  user and all records regarding that user.
 
