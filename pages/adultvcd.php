@@ -1,4 +1,4 @@
-<? 
+<?
 $cd_id = $_GET['vcd_id'];
 
 ?>
@@ -14,7 +14,7 @@ $cd_id = $_GET['vcd_id'];
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td valign="top" width="10%">
-		<? 
+		<?
 		$coverObj = $movie->getCover("thumbnail");
 		if (!is_null($coverObj))
 			$coverObj->showImage();
@@ -27,7 +27,7 @@ $cd_id = $_GET['vcd_id'];
 			</tr>
 			<tr>
 				<td width="30%"><?=$language->show('M_CATEGORY')?>:</td>
-				<td><? 
+				<td><?
 				$mObj = $movie->getCategory();
 				if (!is_null($mObj)) {
 					print "<a href=\"./?page=category&amp;category_id=".$mObj->getID()."\">".$mObj->getName()."</a>";
@@ -45,11 +45,11 @@ $cd_id = $_GET['vcd_id'];
 			<tr>
 				<td><?=$language->show('M_SCREENSHOTS')?></td>
 				<td>
-				<? 
+				<?
 					if (isset($_GET['screens'])) {
 						print "<a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\">".$language->show('M_HIDE')."</a>";
 					}
-				
+
 					elseif ($VCDClass->getScreenshots($movie->getID())) {
 						print "<a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."&amp;screens=on\">".$language->show('M_SHOW')."</a>";
 					} else {
@@ -58,17 +58,17 @@ $cd_id = $_GET['vcd_id'];
 				?>
 				</td>
 			</tr>
-			<? 
+			<?
 				if (VCDUtils::isLoggedIn()) {
 					if ($SETTINGSClass->isOnWishList($movie->getID())) {
 						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= $language->show('W_ONLIST')?>)</a></td></tr><?
 					} else {
-						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= $language->show('W_ADD')?></a></td></tr><?					
+						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= $language->show('W_ADD')?></a></td></tr><?
 					}
-					
+
 				}
 			?>
-			<? 
+			<?
 				if (VCDUtils::hasPermissionToChange($movie)) {
 					?>
 						<tr><td>&nbsp;</td><td><a href="#" onclick="loadManager(<?=$movie->getID()?>)"><?=$language->show('M_CHANGE')?></a></td></tr>
@@ -87,31 +87,31 @@ $cd_id = $_GET['vcd_id'];
 				    }
 				    print "</td></tr>";
 				}
-				
-				
-				
+
+
+
 				// Display Play button
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
 					$command = "";
 					if (getPlayCommand($movie, VCDUtils::getUserID(), $command)) {
 						print "<tr><td>&nbsp;</td><td>";
 					    print "<a href=\"javascript:void(0)\"><img src=\"images/play.gif\" border=\"0\" onclick=\"playFile('".$command."')\"/></a>";
-				    	print "</td></tr>";	
+				    	print "</td></tr>";
 					}
-					
+
 				}
-				
-				
+
+
 			?>
 			<tr>
 				<td colspan="2">
-				<? 
-					if (isset($imdb)) { 
+				<?
+					if (isset($imdb)) {
 						$imdb->printImageLink();
 						print "<br/>";
 						$imdb->drawRating();
 					}
-					
+
 					// Check for adultdvdempire link
 					if (strcmp($movie->getExternalID(), "" != 0) && is_numeric($movie->getSourceSiteID())) {
 						$sObj = $SETTINGSClass->getSourceSiteByID($movie->getSourceSiteID());
@@ -120,59 +120,63 @@ $cd_id = $_GET['vcd_id'];
 							print "<a href=\"".$url."\" target=\"_new\"><img src=\"images/dvdempire.gif\" class=\"imgx\" alt=\"Adult DVD Empire\" border=\"0\"/></a>";
 						}
 					}
-					
+
 				?>
 				</td>
 			</tr>
 			</table>
-		
-		
+
+
 		</td>
 	</tr>
 	</table>
-	
+
 	<? if (isset($_GET['screens']) && $VCDClass->getScreenshots($movie->getID())) {
-		?> 
+		?>
 		<h2>Screenshots</h2>
-		<iframe id="screenshots" width="100%" height="470" src="screens.php?s_id=<?=$movie->getID()?>" 
-					frameborder="0" scrolling="no"></iframe>	
+		<iframe id="screenshots" width="100%" height="470" src="screens.php?s_id=<?=$movie->getID()?>"
+					frameborder="0" scrolling="no"></iframe>
 		<?
 	}
 	?>
-	
-	
-	
+
+
+
 	<h2><?=$language->show('M_ACTORS')?></h2>
 	<div id="actorimages" style="padding-left:10px;">
 	<?
 		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 		$arr = $PORNClass->getPornstarsByMovieID($movie->getID());
-		
+
 		foreach ($arr as $pornstar) {
 			$pornstar->showImage() ;
 		}
 	?></div>
 	<p></p>
-	
-	
+
+
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
 	<? $movie->displayCopies() ?>
 	</div>
-	
+
 	<p></p>
-	
+
 	<h2><?=$language->show('M_COVERS')?></h2>
-	<? 
+	<?
 		foreach ($movie->getCovers() as $cover) {
 			if (!$cover->isThumbnail()) {
-				$cover->showImage();
+
+				// Only show the front and back covers
+				 if ((strpos($cover->getCoverTypeName(), 'Front') > 0) || (strpos($cover->getCoverTypeName(), 'Back') > 0)) {
+				 	$cover->showImage();
+				 }
 			}
-		} 
+		}
 	?>
-	
-	
-	
+
+
+
 	</td>
 	<td valign="top" style="background-color:white">
 	<h2>Studio</h2>
@@ -183,50 +187,55 @@ $cd_id = $_GET['vcd_id'];
 			} else {
 				$studio = $PORNClass->getStudioByMovieID($movie->getID());
 			}
-			
-			
+
+
 			if ($studio instanceof studioObj) {
 				print "<li><a href=\"./?page=adultcategory&amp;studio_id=".$studio->getID()."\">".htmlspecialchars($studio->getName())."</a></li>";
 			} else {
 				print "<li>No Studio information</li>";
 			}
-			
+
 		?>
 	</ul>
 	<br/><br/>
-	
+
 	<h2><?=$language->show('EM_SUBCAT')?></h2>
 	<ul>
-	<? 
+	<?
 		$subcats = $PORNClass->getSubCategoriesByMovieID($movie->getID());
 		foreach ($subcats as $categoryObj) {
 			print "<li><a href=\"./?page=adultcategory&amp;category_id=".$categoryObj->getId()."\">".$categoryObj->getName() . "</a></li>";
 		}
-		
+
 	?>
 	</ul>
 	<br/><br/>
-	
+
 	<h2><?=$language->show('M_COVERS')?></h2>
-	<? 
-		print "<ul>";	
+	<?
+		print "<ul>";
 		foreach ($movie->getCovers() as $cover) {
-				
+
 			if (!$cover->isThumbnail()) {
-				print "<li><a href=\"#".$cover->getCoverTypeName()."\">" . $cover->getCoverTypeName() . "</a></li>";
+				 if ((strpos($cover->getCoverTypeName(), 'Front') > 0) || (strpos($cover->getCoverTypeName(), 'Back') > 0)) {
+				 	print "<li><a title=\"".human_file_size($cover->getFilesize())."\" href=\"#".$cover->getCoverTypeName()."\">" . $cover->getCoverTypeName() . "</a></li>";
+				 } else {
+					print "<li><a href=\"#\" title=\"".human_file_size($cover->getFilesize())."\" onclick=\"showcover('".$cover->getFilename()."',".(int)$cover->isInDB().",".$cover->getImageID().")\">".$cover->getCoverTypeName() . "</a></li>";
+				 }
+
 			}
 		}
 		print "</ul>";
 	?>
-	
-	
+
+
 	<br/><br/>
 	<h2><?=$language->show('M_ACTORS')?></h2>
 	<div id="actorlist"><ul>
 	<?
-		
+
 		foreach ($arr as $pornstar) {
-			
+
 			print "<li><a href=\"./?page=pornstar&amp;pornstar_id=".$pornstar->getID()."\">".$pornstar->getName() . "</a></li>";
 		}
 		unset($arr)
@@ -234,16 +243,16 @@ $cd_id = $_GET['vcd_id'];
 	</ul></div>
 	<br/>
 	<div id="similar">
-	<? 
+	<?
 		$simArr = $VCDClass->getSimilarMovies($movie->getID());
 		if (is_array($simArr) && sizeof($simArr) > 0) {
-			
+
 			print "<h2>".$language->show('M_SIMILAR')."</h2>";
 			print "<form name=\"sim\" action=\"get\"><select name=\"similar\" size=\"1\" onchange=\"goSimilar(this.form)\">";
 			evalDropdown($simArr, 0, true, $language->show('X_SELECT'));
 			print "</form><br/>";
 		}
-		
+
 	?>
 	</div>
 	<div id="comments">
@@ -253,7 +262,7 @@ $cd_id = $_GET['vcd_id'];
 		<?  if(!VCDUtils::isLoggedIn()) {
 				print "<span class=\"bold\">". $language->show('C_ERROR')."</span>";
 			} else { ?>
-	
+
 		<form name="newcomment" method="POST" action="exec_form.php?action=addcomment">
 		<input type="hidden" name="vcd_id" value="<?=$movie->getID()?>"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
@@ -272,7 +281,7 @@ $cd_id = $_GET['vcd_id'];
 		<? } ?>
 		<br/>
 	</div>
-	
+
 	<?
 		$commArr = $SETTINGSClass->getAllCommentsByVCD($movie->getID());
 		if (empty($commArr)) {
@@ -280,7 +289,7 @@ $cd_id = $_GET['vcd_id'];
 		} else {
 			print "<ul>";
 			foreach ($commArr as $commObj) {
-				
+
 				if ($commObj->isPrivate()) {
 					if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == VCDUtils::getUserID())	{
 						print "<li>".$commObj->getOwnerName()." (<i>Private</i>) <a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>
@@ -290,14 +299,14 @@ $cd_id = $_GET['vcd_id'];
 					print "<li>".$commObj->getOwnerName()."  <a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>
 					   <br/><i style=\"display:block\">".$commObj->getComment(true)."</i></li>";
 				}
-				
-				
+
+
 			}
 			print "</ul>";
 		}
-		
+
 	?>
-	
+
 	</td>
 </tr>
 </table>
