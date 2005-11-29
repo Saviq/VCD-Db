@@ -157,6 +157,7 @@ $_ = array(
 'M_IMAGEVIEW'			=> 'Myndasýn',
 'M_MINEONLY'			=> 'Sýna bara mínar myndir',
 'M_SIMILAR'				=> 'Svipaðir titlar',
+'M_MEDIAINDEX'			=> 'Auðkenni',
 
 /* IMDB */
 'I_DETAILS'				=> 'IMDB Lýsing',

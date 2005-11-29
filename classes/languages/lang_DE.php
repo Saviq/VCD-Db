@@ -159,6 +159,7 @@ $_ = array(
 'M_IMAGEVIEW'         	=> 'Bild Liste', 
 'M_MINEONLY'			=> 'Nur meine Filme anzeigen',
 'M_SIMILAR'				=> '&Auml;hnliche Filme',
+'M_MEDIAINDEX'			=> 'Medien ID',
 
 /* IMDB */ 
 'I_DETAILS'         	=> 'IMDB Details', 

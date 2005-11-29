@@ -159,6 +159,7 @@ $_ = array(
 'M_IMAGEVIEW'			=> 'Kuvanäkymä',
 'M_MINEONLY'			=> 'Näytä vain omat elokuvat',
 'M_SIMILAR'				=> 'Samankaltaiset elokuvat',
+'M_MEDIAINDEX'			=> 'Media Index',
 
 /* IMDB */
 'I_DETAILS'				=> 'IMDB lisätiedot',

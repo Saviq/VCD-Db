@@ -158,6 +158,7 @@ $_ = array(
 'M_IMAGEVIEW'			=> 'Képes nézet',
 'M_MINEONLY'			=> 'Csak az én filmjeimet mutasd',
 'M_SIMILAR'				=> 'Similar filmek',
+'M_MEDIAINDEX'			=> 'Médiák index',
 
 /* IMDB */
 'I_DETAILS'				=> 'IMDB részletek',

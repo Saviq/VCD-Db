@@ -62,9 +62,13 @@ $_ = array(
 'REGISTER_OK' 			=> 'Oprettelsen er gennemført, du kan nu logge ind i databasen.',
 
 /* User Properties */ 
-'PROPERTY_EMAIL' 		=> 'Send mig en emial når en ny film bliver tilføjet.',
-'PROPERTY_ADULT' 		=> 'Vis pornofilm i oversigten',
-'PROPERTY_RSS' 			=> 'Tillad RSS tilføjelser fra min filmliste?',
+'PRO_NOTIFY' 			=> 'Send mig en emial når en ny film bliver tilføjet.',
+'PRO_SHOW_ADULT' 		=> 'Vis pornofilm i oversigten',
+'PRO_RSS' 				=> 'Tillad RSS tilføjelser fra min filmliste?',
+'PRO_WISHLIST' 			=> 'Allow others to see my wishlist ?',
+'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s',
+'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen',
+'PRO_PLAYOPTION' 		=> 'Use client playback options',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Bruger Indstillinger',
@@ -152,6 +156,7 @@ $_ = array(
 'M_IMAGEVIEW' 			=> 'Vis billeder',
 'M_MINEONLY' 			=> 'Vis kun mine film',
 'M_SIMILAR' 			=> 'Lignende film',
+'M_MEDIAINDEX'			=> 'Media Index',
 
 /* IMDB */ 
 'I_DETAILS' 			=> 'IMDBs oversigt',

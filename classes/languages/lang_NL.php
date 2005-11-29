@@ -156,6 +156,7 @@ $_ = array(
 'M_IMAGEVIEW'         	=> 'Afbeeldingen beeld', 
 'M_MINEONLY'			=> 'Toon alleen mijn films',
 'M_SIMILAR'				=> 'Similar movies',
+'M_MEDIAINDEX'			=> 'Index nummer ',
 
 /* IMDB */ 
 'I_DETAILS'         	=> 'IMDB Details', 

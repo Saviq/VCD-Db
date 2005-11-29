@@ -155,6 +155,7 @@ $_ = array(
 'M_IMAGEVIEW'			=> 'Фотогалерия',
 'M_MINEONLY'			=> 'Покажи само моите филми',
 'M_SIMILAR'				=> 'Подобни',
+'M_MEDIAINDEX'			=> 'Media Index',
 
 /* IMDB */
 'I_DETAILS'				=> 'IMDB Детайли',
