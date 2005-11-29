@@ -2,22 +2,22 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Settings
  * @version $Id$
  */
- 
+
 ?>
 <?PHP
 
 	class settingsSQL {
-		
+
 		private $TABLE_settings   = "vcd_Settings";
 		private $TABLE_sites      = "vcd_SourceSites";
 		private $TABLE_mediatypes = "vcd_MediaTypes";
@@ -33,167 +33,167 @@
 		private $TABLE_covers 	  = "vcd_Covers";
 		private $TABLE_metadata   = "vcd_MetaData";
 		private $TABLE_metatypes  = "vcd_MetaDataTypes";
-		
+
 		/**
 		 *
 		 * @var ADOConnection
 		 */
 		private $db;
 		private $conn;
-	 			
+
 		public function __construct() {
 			$this->conn = VCDClassFactory::getInstance('Connection');
 	 		$this->db = &$this->conn->getConnection();
 		}
-		
-		
+
+
 		public function getAllSettings() {
 			try {
-			
+
 			$query = "SELECT settings_id, settings_key, settings_value, settings_description, isProtected, settings_type FROM
 					  $this->TABLE_settings ORDER BY settings_key";
-			
+
 			$rs = $this->db->Execute($query);
-						
+
 			$arrSettingsObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new settingsObj($row);
 	    		array_push($arrSettingsObj, $obj);
 			}
-			
+
 			$rs->Close();
 			return $arrSettingsObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
-		
+
+
 		public function updateSettings($settingsObj) {
 			try {
-				
-			$query = "UPDATE $this->TABLE_settings SET 
+
+			$query = "UPDATE $this->TABLE_settings SET
 					  settings_key = '".$settingsObj->getKey()."',
 					  settings_value = ".$this->db->qstr($settingsObj->getValue()).",
 					  settings_description = ".$this->db->qstr($settingsObj->getDescription()).",
 					  isProtected = ".$settingsObj->isProtected()."
 					  WHERE settings_id = ".$settingsObj->getID()."";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function saveSettings($settingsObj) {
 			try {
-				
+
 			if (is_array($settingsObj)) {
-				
+
 				foreach ($settingsObj as $obj) {
-					$query = "INSERT INTO $this->TABLE_settings 
-							  (settings_key, settings_value, settings_description, isProtected) 
+					$query = "INSERT INTO $this->TABLE_settings
+							  (settings_key, settings_value, settings_description, isProtected)
 							   VALUES ('".$settingsObj->getKey()."','".$settingsObj->getValue()."','".$settingsObj->getDescription()."', ".$settingsObj->isProtected().")";
 					$this->db->Execute($query);
 				}
-				
+
 			} else {
-				$query = "INSERT INTO $this->TABLE_settings 
-						 (settings_key, settings_value, settings_description, isProtected) 
+				$query = "INSERT INTO $this->TABLE_settings
+						 (settings_key, settings_value, settings_description, isProtected)
 						  VALUES ('".$settingsObj->getKey()."',".$this->db->qstr($settingsObj->getValue()).",
 						  ".$this->db->qstr($settingsObj->getDescription()).", ".$settingsObj->isProtected().")";
 				$this->db->Execute($query);
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
-		
+
+
 		public function deleteSettings($settings_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_settings WHERE settings_id = " .$settings_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getSettingsByID($settings_id) {
 			try {
-				
+
 			$query = "SELECT settings_id, settings_key, settings_value, settings_description, isProtected, settings_type FROM
 					  $this->TABLE_settings WHERE settings_id = ". $settings_id;
 			$rs = $this->db->Execute($query);
 			if ($rs) {
 				return new settingsObj($rs->FetchRow());
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
-		
-		
-		/* 
+
+
+
+		/*
 			SOURCE SITE FUNCTIONS
-		
+
 		*/
-		
+
 		public function getSourceSites() {
 			try {
-				
+
 			$query = "SELECT site_id, site_name, site_alias, site_homepage, site_getCommand, site_isFetchable
 					  FROM $this->TABLE_sites ORDER BY site_name";
-			
+
 			$rs = $this->db->Execute($query);
-						
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new sourceSiteObj($row);
 	    		array_push($arrObj, $obj);
 			}
-			
+
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function addSourceSite(sourceSiteObj $obj) {
 			try {
-				
+
 			$query = "INSERT INTO $this->TABLE_sites
-					  (site_name, site_alias, site_homepage, site_getCommand, site_isFetchable) VALUES 
+					  (site_name, site_alias, site_homepage, site_getCommand, site_isFetchable) VALUES
 					  (".$this->db->qstr($obj->getName()).",
 					   ".$this->db->qstr($obj->getAlias()).",
 					   ".$this->db->qstr($obj->getHomepage()).",
 					   ".$this->db->qstr($obj->getCommand()).",".(int)$obj->isFetchable().")";
-			
+
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function updateSourceSite(sourceSiteObj $obj) {
 			try {
-				
-			$query = "UPDATE $this->TABLE_sites SET 
+
+			$query = "UPDATE $this->TABLE_sites SET
 					  site_name = '".$obj->getName()."',
 					  site_alias = '".$obj->getAlias()."',
 					  site_homepage = '".$obj->getHomepage()."',
@@ -201,102 +201,102 @@
 					  site_isFetchable = ".(int)$obj->isFetchable()."
 					  WHERE site_id = " . $obj->getsiteID();
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function deleteSourceSite($source_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_sites WHERE site_id = " . $source_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		/*
-			MEDIA TYPE Functions			
-		
+			MEDIA TYPE Functions
+
 		*/
-		
+
 		public function getAllMediaTypes() {
 			try {
-				
+
 			$query = "SELECT media_type_id, media_type_name, parent_id, media_type_description
-				      FROM $this->TABLE_mediatypes 
+				      FROM $this->TABLE_mediatypes
 					  ORDER BY parent_id, media_type_name";
-			
+
 			$rs = $this->db->Execute($query);
-						
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new mediaTypeObj($row);
 	    		array_push($arrObj, $obj);
 			}
-			
+
 			$rs->Close();
-			
-			
+
+
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function addMediaType(mediaTypeObj $mediaTypeObj) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_mediatypes 
-					  (media_type_name, parent_id, media_type_description) 
+
+			$query = "INSERT INTO $this->TABLE_mediatypes
+					  (media_type_name, parent_id, media_type_description)
 					  VALUES ('".$mediaTypeObj->getName()."',
 					  ".$mediaTypeObj->getParentID().",'".$mediaTypeObj->getDescription()."')";
-		
+
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function deleteMediaType($mediatype_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_mediatypes WHERE media_type_id = " . $mediatype_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function updateMediaType(mediaTypeObj $mediaTypeObj) {
 			try {
-				
+
 			$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = '".$mediaTypeObj->getName()."',
 					  parent_id = ".$mediaTypeObj->getParentID().",
 					  media_type_description = '".$mediaTypeObj->getDescription()."'
 					  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";
 			$this->db->Execute($query);
-		
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getMediaTypesOnCD($vcd_id) {
 			try {
-				
+
 			$query = "SELECT DISTINCT media_type_id FROM $this->TABLE_vcdtousers WHERE vcd_id = ".$vcd_id."";
 			$resultArr = array();
 			$rs = $this->db->Execute($query);
@@ -305,218 +305,218 @@
 			}
 			$rs->Close();
 			return $resultArr;
-			
-		
+
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getMediaTypesInUseByUserID($user_id) {
 			try {
-				
+
 			$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
 					  FROM $this->TABLE_mediatypes AS m
-					  INNER JOIN $this->TABLE_vcdtousers AS u ON m.media_type_id = u.media_type_id 
+					  INNER JOIN $this->TABLE_vcdtousers AS u ON m.media_type_id = u.media_type_id
 						AND u.user_id = ".$user_id."
 					  GROUP BY m.media_type_id, m.media_type_name
 					  ORDER BY m.media_type_id";
-			
+
 			$rs = $this->db->Execute($query);
 			$arr = $rs->GetRows();
 			$rs->Close( );
 			return $arr;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 			try {
-				
-			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count 
+
+			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count
 					  FROM $this->TABLE_vcd AS v
-					  INNER JOIN $this->TABLE_vcdtousers as u ON v.vcd_id = u.vcd_id 
+					  INNER JOIN $this->TABLE_vcdtousers as u ON v.vcd_id = u.vcd_id
 						AND u.user_id = ".$user_id."
 					  LEFT OUTER JOIN $this->TABLE_mediatypes AS m ON u.media_type_id = m.media_type_id
 					  WHERE v.category_id = ".$category_id."
 					  GROUP BY u.media_type_id";
-			
-			return $this->db->Execute($query)->getArray();	
-			
+
+			return $this->db->Execute($query)->getArray();
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getCountByMediaType($mediatype_id) {
 			try {
-				
+
 			$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcdtousers WHERE media_type_id = " . $mediatype_id;
 			return $this->db->getOne($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getMediaTypeByName($media_name) {
 			try {
-				
+
 			$query = "SELECT * FROM $this->TABLE_mediatypes WHERE media_type_name = " . $media_name;
 			$this->db->Execute($query);
-			
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new mediaTypeObj($row);
 			}
-			
+
 			$rs->Close();
 			return $obj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		/* 
+
+		/*
 			Movie Categories functions
 		*/
-		
+
 		public function getAllMovieCategories() {
 			try {
-				
+
 			$query = "SELECT category_id, category_name
 					  FROM $this->TABLE_categories ORDER BY category_name";
-			
+
 			$rs = $this->db->Execute($query);
-						
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new movieCategoryObj($row);
 	    		array_push($arrObj, $obj);
 			}
-			
+
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getMovieCategoriesInUse() {
 			try {
-				
+
 			$query = "SELECT DISTINCT c.category_id, c.category_name FROM $this->TABLE_categories c, $this->TABLE_vcd v
 					  WHERE c.category_id = v.category_id
 					  ORDER BY c.category_name";
 			$rs = $this->db->Execute($query);
-						
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new movieCategoryObj($row);
 	    		array_push($arrObj, $obj);
 			}
-			
+
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getCategoriesInUseByUserID($user_id) {
 			try {
-				
-			$query = "SELECT v.category_id, m.category_name FROM $this->TABLE_vcd v, 
+
+			$query = "SELECT v.category_id, m.category_name FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u, $this->TABLE_categories m
 					  WHERE v.vcd_id = u.vcd_id AND
 					  u.user_id = ".$user_id." AND
 					  v.category_id = m.category_id
 					  GROUP BY v.category_id, m.category_name
 					  ORDER BY m.category_name";
-			
+
 			$rs = $this->db->Execute($query);
-						
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new movieCategoryObj($row);
 	    		array_push($arrObj, $obj);
 			}
-			
+
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function addMovieCategory(movieCategoryObj $movieCategoryObj) {
 			try {
-				
+
 			$query = "INSERT INTO $this->TABLE_categories (category_name) VALUES ('".$movieCategoryObj->getName()."')";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function deleteMovieCategory($category_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_categories WHERE category_id = " . $category_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function updateMovieCategory(movieCategoryObj $movieCategoryObj) {
 			try {
-				
+
 			$query = "UPDATE $this->TABLE_categories SET category_name = '".$movieCategoryObj->getName()."'";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getMovieCategoriesByName($category_name) {
 			try {
-				
+
 			$query = "SELECT * FROM $this->TABLE_categories WHERE category_name = " . $category_name;
 			$this->db->Execute($query);
-			
+
 			$arrObj = array();
 			foreach ($rs as $row) {
 	    		$obj = new movieCategoryObj($row);
 			}
-			
+
 			$rs->Close();
 			return $obj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-			
-		
-		/* 
+
+
+		/*
 			Borrowers functions
 		*/
 		public function getBorrowerByID($borrower_id) {
 			try {
-				
+
 			$query = "SELECT borrower_id, owner_id, name, email FROM $this->TABLE_borrowers
 					  WHERE borrower_id = " . $borrower_id;
 			$rs = $this->db->Execute($query);
@@ -527,16 +527,16 @@
 			}
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function getBorrowersByUserID($user_id) {
 			try {
-				
+
 			$query = "SELECT borrower_id, owner_id, name, email FROM $this->TABLE_borrowers
 					  WHERE owner_id = ".$user_id." ORDER BY name";
 			$rs = $this->db->Execute($query);
@@ -547,81 +547,81 @@
 			}
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function addBorrower(borrowerObj $borrowerObj) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_borrowers (owner_id, name, email) 
-					  VALUES (".$borrowerObj->getOwnerID().", ".$this->db->qstr($borrowerObj->getName()).", 
-					  ".$this->db->qstr($borrowerObj->getEmail()).")";			
+
+			$query = "INSERT INTO $this->TABLE_borrowers (owner_id, name, email)
+					  VALUES (".$borrowerObj->getOwnerID().", ".$this->db->qstr($borrowerObj->getName()).",
+					  ".$this->db->qstr($borrowerObj->getEmail()).")";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function updateBorrower(borrowerObj $borrowerObj) {
 			try {
-				
-			$query = "UPDATE $this->TABLE_borrowers SET 
+
+			$query = "UPDATE $this->TABLE_borrowers SET
 					  name = ".$this->db->qstr($borrowerObj->getName()).",
 					  email = ".$this->db->qstr($borrowerObj->getEmail())."
 					  WHERE borrower_id = ".$borrowerObj->getID()."";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function deleteBorrower($borrower_id) {
 			try {
-			
+
 				$query = "DELETE FROM $this->TABLE_borrowers WHERE borrower_id = " . $borrower_id;
 				$this->db->Execute($query);
-				
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		/* 
+
+		/*
 			Loan system functions
 		*/
-		
+
 		public function loanCDs($user_id, $borrower_id, $cd_id) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_loans (vcd_id, owner_id, borrower_id, date_out) 
+
+			$query = "INSERT INTO $this->TABLE_loans (vcd_id, owner_id, borrower_id, date_out)
 					  VALUES (".$cd_id.", ".$user_id.", ".$borrower_id.", ".$this->db->DBDate(time()).")";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
-		public function loanReturn($loan_id) { 
+
+
+		public function loanReturn($loan_id) {
 			try {
-				
+
 			$query = "UPDATE $this->TABLE_loans SET date_in = ".$this->db->DBDate(time())." WHERE loan_id = " . $loan_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		public function getLoans($user_id, $show_returned) { 
+
+		public function getLoans($user_id, $show_returned) {
 			try {
-				
+
 			if ($show_returned) {
 				$query = "SELECT DISTINCT l.loan_id, l.vcd_id, v.title, l.borrower_id, l.date_out, l.date_in
 						  FROM $this->TABLE_loans l, $this->TABLE_vcdtousers u, $this->TABLE_vcd v
@@ -636,66 +636,66 @@
 						  u.user_id = ".$user_id." AND u.vcd_id = v.vcd_id
 						  ORDER BY l.borrower_id, l.date_out DESC";
 			}
-			
+
 			$rs = $this->db->Execute($query);
 			$arrObj = array();
 			foreach ($rs as $row) {
-				
+
 				$data = array($row[0], $row[1], $row[2], $row[3], $this->db->UnixDate($row[4]), $this->db->UnixDate($row[5]));
 	    		array_push($arrObj, $data);
 			}
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function deleteLoanRecords($borrower_id) {
 			try {
-			
+
 				$query = "DELETE FROM $this->TABLE_loans WHERE borrower_id = " . $borrower_id;
 				$this->db->Execute($query);
-				
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		/* RSS Feed functions */
-		
+
 		public function addRssfeed($user_id, $feed_name, $feed_url) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_rss (user_id, feed_name, feed_url) VALUES 
+
+			$query = "INSERT INTO $this->TABLE_rss (user_id, feed_name, feed_url) VALUES
 					 (".$user_id.",".$this->db->qstr($feed_name).", ".$this->db->qstr($feed_url).")";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function updateRssfeed($feed_id, $feed_name, $feed_url) {
 			try {
-				
-			$query = "UPDATE $this->TABLE_rss SET feed_name = ".$this->db->qstr($feed_name).", 
+
+			$query = "UPDATE $this->TABLE_rss SET feed_name = ".$this->db->qstr($feed_name).",
 					  feed_url = ".$this->db->qstr($feed_url)." WHERE feed_id =  " . $feed_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getRSSfeedByID($feed_id) {
 			try {
-				
+
 			$query = "SELECT feed_id, feed_name, feed_url FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
@@ -703,47 +703,47 @@
 				$arr = array('id' => $row[0], 'name' => $row[1], 'url' => $row[2]);
 				$rs->Close();
 				return $arr;
-			} 
+			}
 			return null;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getRssFeedsByUserId($user_id) {
 			try {
-				
-			$query = "SELECT feed_id, feed_name, feed_url FROM $this->TABLE_rss WHERE user_id = ".$user_id." 
+
+			$query = "SELECT feed_id, feed_name, feed_url FROM $this->TABLE_rss WHERE user_id = ".$user_id."
 					  ORDER BY feed_name";
 			$rs = $this->db->Execute($query);
 			$arrResults = array();
 			foreach ($rs as $row) {
 				array_push($arrResults, array('id' => $row[0], 'name' => $row[1], 'url' => $row[2]));
 			}
-			
+
 			$rs->Close();
 			return $arrResults;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function delFeed($feed_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getVCDIDsByUser($user_id) {
 			try {
-				
+
 			$query = "SELECT vcd_id FROM $this->TABLE_vcdtousers WHERE user_id = " . $user_id;
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
@@ -756,27 +756,27 @@
 			} else {
 				return null;
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-	
+
 		public function addToWishList($vcd_id, $user_id) {
 			try {
-				
+
 			$query = "INSERT INTO $this->TABLE_wishlist (user_id, vcd_id) VALUES (".$user_id.", ".$vcd_id.")";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getWishList($user_id) {
 			try {
-				
+
 			$query = "SELECT w.vcd_id, v.title FROM $this->TABLE_wishlist w, $this->TABLE_vcd v
 					  WHERE w.user_id = ".$user_id." AND w.vcd_id = v.vcd_id ORDER BY v.title";
 			$rs = $this->db->Execute($query);
@@ -785,17 +785,17 @@
 			} else {
 				return null;
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function isOnWishList($vcd_id, $user_id) {
 			try {
-				
-			$query = "SELECT vcd_id FROM $this->TABLE_wishlist WHERE user_id = ".$user_id." AND 
+
+			$query = "SELECT vcd_id FROM $this->TABLE_wishlist WHERE user_id = ".$user_id." AND
 					  vcd_id = ".$vcd_id."";
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
@@ -805,73 +805,73 @@
 				$rs->Close();
 				return false;
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
-		
+
+
 		public function removeFromWishList($vcd_id, $user_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_wishlist WHERE vcd_id = ".$vcd_id." AND user_id = ".$user_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		/* Comments */
-		
+
 		public function addComment(commentObj $obj) {
 			try {
-				
-			$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, comment, isPrivate) 
+
+			$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, comment, isPrivate)
 					  VALUES (".$obj->getVcdID().", ".$obj->getOwnerID().", ".$this->db->DBDate(time()).",
 					  ".$this->db->qstr($obj->getComment()).", ".$obj->isPrivate().")";
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function deleteComment($comment_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_comments WHERE comment_id = " . $comment_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function getCommentByID($comment_id)  {
 			try {
-				
+
 			$query = "SELECT comment_id, vcd_id, user_id, comment_date, comment, isPrivate FROM
 					  $this->TABLE_comments WHERE comment_id = ".$comment_id." ORDER BY comment_date DESC";
 			$rs = $this->db->Execute($query);
 			if ($rs) {
 				return new commentObj($rs->FetchRow());
-			}			
-			
+			}
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getAllCommentsByUserID($user_id) {
 			try {
-				
+
 			$query = "SELECT comment_id, vcd_id, user_id, comment_date, comment, isPrivate FROM
 					  $this->TABLE_comments WHERE user_id = ".$user_id." ORDER BY comment_date DESC";
-			
+
 			$rs = $this->db->Execute($query);
 			$arrObj = array();
 			foreach ($rs as $row) {
@@ -880,22 +880,22 @@
 			}
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
-			
+
 		}
-		
+
 		public function getAllCommentsByVCD($vcd_id) {
 			try {
-				
-			$query = "SELECT c.comment_id, c.vcd_id, c.user_id, c.comment_date, c.comment, 
+
+			$query = "SELECT c.comment_id, c.vcd_id, c.user_id, c.comment_date, c.comment,
 					  c.isPrivate, u.user_name FROM
 					  $this->TABLE_comments AS c
 					  LEFT OUTER JOIN $this->TABLE_users AS u ON c.user_id = u.user_id
 					  WHERE c.vcd_id = ".$vcd_id." ORDER BY c.comment_date DESC";
-						
+
 			$rs = $this->db->Execute($query);
 			$arrObj = array();
 			foreach ($rs as $row) {
@@ -905,70 +905,70 @@
 			}
 			$rs->Close();
 			return $arrObj;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		/* Metadata objects */
-		
+
 		public function addMetadata(metadataObj $obj) {
 			try {
-			
-			$query = "INSERT INTO $this->TABLE_metadata (record_id, user_id, type_id, metadata_value) VALUES 
-					 (".$obj->getRecordID().", ".$obj->getUserID().", ".$obj->getMetadataTypeID().", 
+
+			$query = "INSERT INTO $this->TABLE_metadata (record_id, user_id, type_id, metadata_value) VALUES
+					 (".$obj->getRecordID().", ".$obj->getUserID().", ".$obj->getMetadataTypeID().",
 					 ".$this->db->qstr($obj->getMetadataValue()).")";
-			
+
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function updateMetadata(metadataObj $obj) {
 			try {
-				
-			$query = "UPDATE $this->TABLE_metadata SET metadata_value = ".$this->db->qstr($obj->getMetadataValue())." 
+
+			$query = "UPDATE $this->TABLE_metadata SET metadata_value = ".$this->db->qstr($obj->getMetadataValue())."
 					 WHERE metadata_id = " . $obj->getMetadataID();
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function deleteMetadata($metadata_id) {
 			try {
-				
+
 			$query = "DELETE FROM $this->TABLE_metadata WHERE metadata_id = " . $metadata_id;
 			$this->db->Execute($query);
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getMetadata($record_id, $user_id, $metadata_name) {
 			try {
-				
+
 			$metaArr = array();
 			if (strlen($metadata_name) == 0) {
-				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.metadata_type_name, m.metadata_value, 
-						  n.metadata_type_id, n.metadata_type_level FROM $this->TABLE_metadata m
-						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.metadata_type_id
-						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ." 
-						  ORDER BY n.metadata_type_name";
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
+						  n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
+						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ."
+						  ORDER BY n.type_name";
 			} else {
-				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.metadata_type_name, m.metadata_value, 
-						  n.metadata_type_id, n.metadata_type_level FROM $this->TABLE_metadata m
-						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.metadata_type_id
-						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id . " 
-				 		  AND n.metadata_type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.metadata_type_name";
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
+						  n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
+						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id . "
+				 		  AND n.type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.type_name";
 			}
-			
-						
+
+
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
 				foreach ($rs as $row) {
@@ -976,28 +976,22 @@
 					array_push($metaArr, $obj);
 				}
 			}
-			
+
 			return $metaArr;
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
+
 		public function getRecordIDsByMetadata($user_id, $metadata_name) {
 			try {
-			
-				/*	
-			$query = "SELECT record_id FROM $this->TABLE_metadata WHERE user_id = ".$user_id." 
-					  AND metadata_name = " . $this->db->qstr($metadata_name) ." AND 
-					  (metadata_value <> '0' AND metadata_value <> '')";
-			*/
-			
+
 			$query = "SELECT m.record_id FROM $this->TABLE_metadata m LEFT OUTER JOIN
-					  $this->TABLE_metatypes t on t.metadata_type_id = m.type_id WHERE
-					  m.user_id = {$user_id} AND t.metadata_type_name = ".$this->db->qstr($metadata_name)." 
+					  $this->TABLE_metatypes t on t.type_id = m.type_id WHERE
+					  m.user_id = {$user_id} AND t.type_name = ".$this->db->qstr($metadata_name)."
 					  AND (m.metadata_value <> '0' AND m.metadata_value <> '')";
-						
+
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
 				$arr = array();
@@ -1009,116 +1003,148 @@
 			} else {
 				return null;
 			}
-			
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
-		public function addMetaDataType(metadataTypeObj $obj) { 
+
+
+		public function addMetaDataType(metadataTypeObj $obj) {
 			try {
-				
+
 				// First we check if metadataObj with same name exist, if so
 				// We simply return that metadataTypeObj since we don't allow duplicate names
 				$inObj = $this->getMetadataType($obj->getMetadataTypeName());
 				if ($inObj instanceof metadataTypeObj ) {
-					return $inObj; 
+					return $inObj;
 				} else {
 					// Check for legal typename
 					if (strcmp($obj->getMetadataTypeName(), "") == 0) {
 						throw new Exception("MetadataTypeName cannot be empty");
 					}
-					
+
 					// Object not found .. lets create it ..
-					$query = "INSERT INTO $this->TABLE_metatypes (metadata_type_name, metadata_type_level) VALUES 
-							  (".$this->db->qstr($obj->getMetadataTypeName()).", ".$obj->getMetadataTypeLevel().")";
+					$query = "INSERT INTO $this->TABLE_metatypes (type_name, type_description, owner_id) VALUES
+							  (".$this->db->qstr($obj->getMetadataTypeName()).", ".$this->db->qstr($obj->getMetadataDescription()).",
+							  ".$obj->getMetadataTypeLevel().")";
 					$this->db->Execute($query);
-					
-					
-					/* 	Returns the last autonumbering ID inserted. Returns false if function not supported. 
+
+
+					/* 	Returns the last autonumbering ID inserted. Returns false if function not supported.
 						Only supported by databases that support auto-increment or object id's,
-						such as PostgreSQL, MySQL and MS SQL Server currently. PostgreSQL returns the OID, 
-						which can change on a database reload.	
+						such as PostgreSQL, MySQL and MS SQL Server currently. PostgreSQL returns the OID,
+						which can change on a database reload.
 					*/
-				
+
 					$inserted_id = -1;
-					$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'metadata_type_id');
-							
+					$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'type_id');
+
 					if (!is_numeric($inserted_id) || $inserted_id < 0 ) {
 						// InsertedID not supported, we have to dig the latest entry out manually
-						$query = "SELECT metadata_type_id FROM $this->TABLE_metatypes ORDER BY metadata_type_id DESC";
+						$query = "SELECT type_id FROM $this->TABLE_metatypes ORDER BY type_id DESC";
 						$rs = $this->db->SelectLimit($query, 1);
 						// Should only be 1 recordset
 						foreach ($rs as $row) {
 							$inserted_id = $row[0];
 						}
 					}
-					
+
 					$obj->setMetaDataTypeID($inserted_id);
-					return $obj;			
-				
+					return $obj;
+
 				}
-			
-				
+
+
 			} catch (Exception $ex) {
 				throw new Exception($ex->getMessage());
 			}
 		}
-		
-		
+
+
 		public function getMetadataType($name) {
 			try {
-			
-				$query = "SELECT metadata_type_id, metadata_type_name, metadata_type_level FROM
-						  $this->TABLE_metatypes WHERE metadata_type_name = " . $this->db->qstr($name);	
+
+				$query = "SELECT type_id, type_name, type_description, owner_id FROM
+						  $this->TABLE_metatypes WHERE type_name = " . $this->db->qstr($name);
 				$rs = $this->db->Execute($query);
-				
+
 				if ($rs && $rs->RecordCount() > 0) {
-					foreach ($rs as $row) { 
-						$obj = new metadataTypeObj($row[0], $row[1], $row[2]);
+					foreach ($rs as $row) {
+						$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3]);
 						return $obj;
 					}
-					
+
 				} else {
 					return null;
 				}
-				
-							
+
+
 			} catch (Exception $ex) {
 				throw new Exception($ex->getMessage());
 			}
 		}
-		
-		
+
+		public function getMetadataTypes($user_id = null) {
+			try {
+
+				if (!is_null($user_id) && is_numeric($user_id)) {
+
+					$query = "SELECT type_id, type_name, type_description, owner_id FROM
+							  $this->TABLE_metatypes WHERE owner_id = " . $user_id . " ORDER BY type_name";
+
+				} else {
+					$query = "SELECT type_id, type_name, type_description, owner_id FROM
+							  $this->TABLE_metatypes ORDER BY type_name";
+				}
+
+				$rs = $this->db->Execute($query);
+				if ($rs && $rs->RecordCount() > 0) {
+					$metaArr = array();
+					foreach ($rs as $row) {
+						$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3]);
+						array_push($metaArr, $obj);
+					}
+					return $metaArr;
+				} else {
+					return null;
+				}
+
+
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+
+
 		public function getStatsObj() {
 			try {
-				
+
 			$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcd";
 			$totalmoviecount = $this->db->getOne($query);
-			
+
 			$today = date('Y-m-d',time() - 3600*24);
 			$week = date('Y-m-d',time() - 3600*24*7);
 			$month = date('Y-m-d',time() - 3600*24*30);
 
-			$zdate = $this->db->DBDate($today);		
+			$zdate = $this->db->DBDate($today);
 			$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcdtousers WHERE date_added > " . $zdate;
 			$todaycount = $this->db->getOne($query);
-			
-			$zdate = $this->db->DBDate($week);		
+
+			$zdate = $this->db->DBDate($week);
 			$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcdtousers WHERE date_added > " . $zdate;
 			$weekcount = $this->db->getOne($query);
-			
-			$zdate = $this->db->DBDate($month);		
+
+			$zdate = $this->db->DBDate($month);
 			$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcdtousers WHERE date_added > " . $zdate;
 			$monthcount = $this->db->getOne($query);
-			
-			
+
+
 			$monthArrCats = array();
 			$ArrCats = array();
-			
+
 			// Most movies added to categories this month
-			$query = "SELECT v.category_id, COUNT(v.category_id) AS Num FROM $this->TABLE_vcd v, 
+			$query = "SELECT v.category_id, COUNT(v.category_id) AS Num FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u
 					  WHERE u.vcd_id = v.vcd_id AND u.date_added > ".$zdate."
 					  GROUP BY v.category_id ORDER BY Num DESC";
@@ -1127,9 +1153,9 @@
 				$monthArrCats = $rs->GetArray();
 				$rs->Close();
 			}
-			
+
 			// Biggest categories total
-			$query = "SELECT v.category_id, COUNT(v.category_id) AS Num FROM $this->TABLE_vcd v, 
+			$query = "SELECT v.category_id, COUNT(v.category_id) AS Num FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u
 					  WHERE u.vcd_id = v.vcd_id GROUP BY v.category_id ORDER BY Num DESC";
 			$rs = $this->db->Execute($query);
@@ -1137,19 +1163,19 @@
 				$ArrCats = $rs->GetArray();
 				$rs->Close();
 			}
-						
-			
+
+
 			$query = "SELECT COUNT(cover_id) FROM $this->TABLE_covers";
-			$coverCount = $this->db->getOne($query); 
-			
+			$coverCount = $this->db->getOne($query);
+
 			$zdate = $this->db->DBDate($week);
 			$query = "SELECT COUNT(cover_id) FROM $this->TABLE_covers WHERE date_added > " . $zdate;
-			$coverCountWeek = $this->db->getOne($query); 
-			
+			$coverCountWeek = $this->db->getOne($query);
+
 			$zdate = $this->db->DBDate($month);
 			$query = "SELECT COUNT(cover_id) FROM $this->TABLE_covers WHERE date_added > " . $zdate;
-			$coverCountMonth = $this->db->getOne($query); 
-			
+			$coverCountMonth = $this->db->getOne($query);
+
 			$obj = new statisticsObj();
 			$obj->setMovieCount($totalmoviecount);
 			$obj->setMovieTodayCount($todaycount);
@@ -1158,69 +1184,69 @@
 			$obj->setCoverCount($coverCount, $coverCountWeek, $coverCountMonth);
 			$obj->setBiggestCats($ArrCats);
 			$obj->setBiggestMonhtlyCats($monthArrCats);
-			
+
 			return $obj;
-			
-			
+
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
-			}			
-		
+			}
+
 		}
-		
-		
-		
+
+
+
 		public function getUserStatistics($user_id) {
 			try {
-			
+
 				$stat_array = array();
-				
+
 				$query = "SELECT v.year as year, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 						  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 						  u.user_id = ".$user_id." GROUP BY v.year
 						  ORDER BY v.year DESC";
-				
+
 				$arr = $this->db->Execute($query)->GetArray();
 				if (is_array($arr) && sizeof($arr) > 0) {
 					$stat_array['year'] = $arr;
 				}
-				
-								
-				
+
+
+
 				$query = "SELECT v.category_id, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 						  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 						  u.user_id = ".$user_id." GROUP BY v.category_id
 						  ORDER BY num DESC";
-				
+
 				$arr = $this->db->Execute($query)->GetArray();
 				if (is_array($arr) && sizeof($arr) > 0) {
 					$stat_array['category'] = $arr;
 				}
-				
 
-				
+
+
 				$query = "SELECT u.media_type_id, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 						  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 						  u.user_id = ".$user_id." GROUP BY u.media_type_id
 						  ORDER BY num DESC";
-				
+
 				$arr = $this->db->Execute($query)->GetArray();
 				if (is_array($arr) && sizeof($arr) > 0) {
 					$stat_array['media'] = $arr;
 				}
-				
+
 				return $stat_array;
-				
-				
-				
-				
-			
+
+
+
+
+
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
 			}
 		}
-		
-		
+
+
 	}
 
 
