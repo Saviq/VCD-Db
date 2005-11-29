@@ -434,16 +434,19 @@
 		</field>
 	</table>
 	<table name="vcd_MetaDataTypes">
-		<field name="metadata_type_id" type="I">
+		<field name="type_id" type="I">
 			<KEY/>
 			<AUTOINCREMENT/>
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="metadata_type_name" type="C" size="50">
+		<field name="type_name" type="C" size="50">
 			<NOTNULL/>
 		</field>
-		<field name="metadata_type_level" type="I">
+		<field name="type_description" type="C" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="owner_id" type="I">
 			<NOTNULL/>
 		</field>
 	</table>
