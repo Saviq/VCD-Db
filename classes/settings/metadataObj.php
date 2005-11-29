@@ -2,17 +2,17 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Settings
  * @version $Id$
  */
- 
+
 ?>
 <?php
 
@@ -22,7 +22,7 @@ class metadataObj extends metadataTypeObj  {
 	private $record_id;
 	private $user_id;
 	private $metadata_value;
-	
+
 	/**
 	 * Object constructor
 	 *
@@ -34,17 +34,19 @@ class metadataObj extends metadataTypeObj  {
 		$this->user_id 		     = $dataArr[2];
 		$this->setMetadataTypeName($dataArr[3]);
 		$this->metadata_value    = $dataArr[4];
-		
+
 		if (isset($dataArr[5]))	{
-			$this->metatype_id   = $dataArr[5];	
+			$this->metatype_id   = $dataArr[5];
 		}
-		
+
 		if (isset($dataArr[6])) {
 			$this->metatype_level = $dataArr[6];
 		}
-		
-		
-		//print_r($this);
+
+		if (isset($dataArr[7])) {
+			$this->metatype_description = $dataArr[7];
+		}
+
 	}
 
 
@@ -56,7 +58,7 @@ class metadataObj extends metadataTypeObj  {
 	public function getMetadataID() {
 		return $this->metadata_id;
 	}
-	
+
 	/**
 	 * Set the metadata ID
 	 *
@@ -65,7 +67,7 @@ class metadataObj extends metadataTypeObj  {
 	public function setMetadataID($id) {
 		$this->metadata_id = $id;
 	}
-	
+
 	/**
 	 * Get the record ID associated with this metadata object
 	 *
@@ -74,7 +76,7 @@ class metadataObj extends metadataTypeObj  {
 	public function getRecordID() {
 		return $this->record_id;
 	}
-	
+
 	/**
 	 * Get the user ID of the metadata object
 	 *
@@ -83,7 +85,7 @@ class metadataObj extends metadataTypeObj  {
 	public function getUserID() {
 		return $this->user_id;
 	}
-	
+
 	/**
 	 * Get the metadata key
 	 *
@@ -92,7 +94,7 @@ class metadataObj extends metadataTypeObj  {
 	public function getMetadataName() {
 		return $this->getMetadataTypeName();
 	}
-	
+
 	/**
 	 * Get the metadata value
 	 *
@@ -119,7 +121,7 @@ class metadataObj extends metadataTypeObj  {
  *
  */
 class metadataTypeObj {
-	
+
 	CONST LEVEL_SYSTEM = 0;
 	CONST LEVEL_USER   = 1;
 
@@ -135,26 +137,36 @@ class metadataTypeObj {
 	CONST SYS_MEDIAINDEX   = 10;
 	CONST SYS_FILELOCATION = 11;
 	CONST SYS_SEENLIST 	   = 12;
-	
-	
+
+	/* DVD Specific constants */
+	CONST SYS_DVDREGION	   = 13;
+	CONST SYS_DVDFORMAT	   = 14;
+	CONST SYS_DVDASPECT	   = 15;
+	CONST SYS_DVDAUDIO	   = 16;
+	CONST SYS_DVDSUBS	   = 17;
+
 	protected $metatype_id;
 	protected $metatype_name;
 	protected $metatype_level = metadataTypeObj::LEVEL_SYSTEM;
-	
+	protected $metatype_description;
+
 	/**
 	 * Object constructor
 	 *
 	 * @param int $id | The id of the metadataTypeObj
 	 * @param string $name | The name of the metadataTypeObj
 	 * @param int $level | the access level of the Obj (0 or 1)
+	 * @param string $description | The description of the metadatatype
 	 */
-	public function __construct($id = -1, $name, $level = self::LEVEL_SYSTEM) {
+	public function __construct($id = -1, $name, $description, $level = self::LEVEL_SYSTEM) {
 		$this->metatype_id = $id;
 		$this->metatype_name = $name;
+		$this->metatype_description = $description;
 		$this->metatype_level = $level;
+
 	}
 
-	
+
 	/**
 	 * Get the Object instance.
 	 *
@@ -163,8 +175,8 @@ class metadataTypeObj {
 	public function getMetaDataTypeInstance() {
 		return $this;
 	}
-	
-	
+
+
 		/**
 	 * Get the Type ID associated with this metadata object
 	 *
@@ -182,8 +194,8 @@ class metadataTypeObj {
 	public function getMetadataTypeName() {
 		return $this->metatype_name;
 	}
-	
-	
+
+
 	/**
 	 * Set the metadataType ID
 	 *
@@ -192,8 +204,8 @@ class metadataTypeObj {
 	public function setMetaDataTypeID($id) {
 		$this->metatype_id = $id;
 	}
-	
-	
+
+
 	/**
 	 * Sets the metadatatype name of the object.
 	 * If any of the SYS_constants is being used as $typename parameter
@@ -213,7 +225,7 @@ class metadataTypeObj {
 				$this->metatype_id = -1;
 			}
 		}
-	
+
 	}
 
 	/**
@@ -224,12 +236,26 @@ class metadataTypeObj {
 	public function getMetadataTypeLevel() {
 		return $this->metatype_level;
 	}
-	
+
+	/**
+	 * Check weither metadata type belongs to the system or a user.
+	 *
+	 * @return bool
+	 */
 	public function isSystemObj() {
 		return ($this->metatype_level == self::LEVEL_SYSTEM);
 	}
-	
-	
+
+	/**
+	 * Get the metadata description
+	 *
+	 * @return string
+	 */
+	public function getMetadataDescription() {
+		return $this->metatype_description;
+	}
+
+
 	/**
 	 * Get the string mapping for the current SYSTEM constant.
 	 * If the $SYS_CONST does not match with any of the SYS_ constants defined
@@ -252,12 +278,17 @@ class metadataTypeObj {
 			case self::SYS_MEDIAINDEX: 	 return 'mediaindex';  	 break;
 			case self::SYS_FILELOCATION: return 'filelocation';  break;
 			case self::SYS_SEENLIST: 	 return 'seenlist';  	 break;
+			case self::SYS_DVDREGION:	 return 'dvdregion';	 break;
+			case self::SYS_DVDFORMAT:	 return 'dvdformat';	 break;
+			case self::SYS_DVDASPECT:	 return 'dvdaspect';	 break;
+			case self::SYS_DVDAUDIO:	 return 'dvdaudio';		 break;
+			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
 			default: 					 return false; 			 break;
-			
-		
+
+
 		}
 	}
-			
+
 
 }
 
