@@ -434,16 +434,19 @@
 		</field>
 	</table>
 	<table name="vcd_MetaDataTypes">
-		<field name="metadata_type_id" type="I" size="10">
+		<field name="type_id" type="I" size="10">
 			<KEY/>
 			<AUTOINCREMENT/>
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="metadata_type_name" type="C" size="50">
+		<field name="type_name" type="C" size="50">
 			<NOTNULL/>
 		</field>
-		<field name="metadata_type_level" type="I" size="10">
+		<field name="type_description" type="C" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="owner_id" type="I" size="10">
 			<NOTNULL/>
 		</field>
 	</table>
@@ -463,8 +466,8 @@
 			<NOTNULL/>
 		</field>
 	</table>
-	
-		
+
+
 	<sql>
 		<descr>Insert basic data to get things started.</descr>
 		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('SMTP_SERVER','undefined','Default SMTP Server that the application uses',1,'')</query>
@@ -483,21 +486,21 @@
 		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('ALLOW_REGISTRATION','undefined','Allow new users to register or not',1,'bool')</query>
 		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_SITE','1','Allow RSS feeds from this VCD database',1,'bool')</query>
 		<query>INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_USERS','1','Allow RSS feeds from individual users from this VCD Database',1,'bool')</query>
-		
+
 		<descr>User Roles</descr>
 		<query>INSERT INTO vcd_UserRoles (role_id,role_name,role_description) VALUES (1,'Administrator','Site administration')</query>
 		<query>INSERT INTO vcd_UserRoles (role_id,role_name,role_description) VALUES (2,'User','Normal Site User')</query>
 		<query>INSERT INTO vcd_UserRoles (role_id,role_name,role_description) VALUES (3,'Viewer','Browsing privileges')</query>
-		
+
 		<descr>User Properties</descr>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (1,'SHOW_ADULT','Show adult content on the site ?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (2,'NOTIFY','Send me an email when new movie is added?')</query>
-		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (3,'RSS','Allow RSS feed from my movielist?')</query>		
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (3,'RSS','Allow RSS feed from my movielist?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (4,'WISHLIST','Allow others to see my wishlist ?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (5,'USE_INDEX','Use index number fields for custom media IDs')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (6,'SEEN_LIST','Keep track of movies that I have seen')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (7,'PLAYOPTION','Use client playback options')</query>
-		
+
 		<descr>CD Cover Types</descr>
 		<query>INSERT INTO vcd_CoverTypes (cover_type_id,cover_type_name,cover_type_description) VALUES (1,'VCD Front Cover','Front cover for VCD and SVCD movies')</query>
 		<query>INSERT INTO vcd_CoverTypes (cover_type_id,cover_type_name,cover_type_description) VALUES (2,'VCD Back Cover','Back cover for VCD and SVCD movies')</query>
@@ -526,7 +529,7 @@
 		<query>INSERT INTO vcd_MediaTypes (media_type_id,media_type_name,parent_id,media_type_description) VALUES (14,'SVCD',13,'Ripped with digital boxes')</query>
 		<query>INSERT INTO vcd_MediaTypes (media_type_id,media_type_name,parent_id,media_type_description) VALUES (15,'Telecine',2,'')</query>
 		<query>INSERT INTO vcd_MediaTypes (media_type_id,media_type_name,parent_id,media_type_description) VALUES (16,'Telesync',4,'SVCD telesync')</query>
-	
+
 		<descr>Covers allowed on Media Types</descr>
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 5)</query>
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (2, 5)</query>
@@ -551,7 +554,7 @@
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (5, 2)</query>
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (7, 3)</query>
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 3)</query>
-	
+
 		<descr>Movie Categories</descr>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (1,'Action')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (2,'Comedy')</query>
@@ -568,7 +571,7 @@
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (13,'Short')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (14,'Adult')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (15,'X-Rated')</query>
-		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (16,'James Bond')</query> 
+		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (16,'James Bond')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (17,'Tv Shows')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (18,'Crime')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (19,'Fantasy')</query>
@@ -578,7 +581,7 @@
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (23,'Thriller')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (24,'Music Video')</query>
 		<query>INSERT INTO vcd_MovieCategories (category_id,category_name) VALUES (25,'Anime / Manga')</query>
-		
+
 		<descr>Source Sites</descr>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (1,'Internet Movie Database','imdb','http://www.imdb.com',null,1)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (2,'Adult DVD Empire','DVDempire','http://www.adultdvdempire.com',null,1)</query>
@@ -586,21 +589,26 @@
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (4,'Jaded Video','jaded','http://jadedvideo.com',null,0)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (5,'CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (6,'Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0)</query>
-		
+
 		<descr>System Metadata Types</descr>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (1, 'languages', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (2, 'logtypes', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (3, 'frontstats', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (4, 'frontbar', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (5, 'default_role', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (6, 'player', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (7, 'playerpath', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (8, 'frontrss', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (9, 'ignorelist', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (10, 'mediaindex', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (11, 'filelocation', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (metadata_type_id,metadata_type_name,metadata_type_level) VALUES (12, 'seenlist', 0)</query>
-				
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (1, 'languages', 'Excluded langugages', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (2, 'logtypes', 'Log types', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (3, 'frontstats', 'Show frontpage statistics', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (4, 'frontbar', 'Show the latest movies on frontpage', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (5, 'default_role', 'The default role when user registered', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (6, 'player', 'The media player parameters', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (7, 'playerpath', 'The path to the media player', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (8, 'frontrss', 'RSS feeds for the frontpage', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (9, 'ignorelist', 'Users to ignore', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (10, 'mediaindex', 'Custom index for cd', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (11, 'filelocation', 'The media file location', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (12, 'seenlist', 'Item marked seen', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (13, 'dvdregion', 'DVD Region list', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (14, 'dvdformat', 'DVD Format', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (15, 'dvdaspect', 'DVD Ascpect ratio', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (16, 'dvdaudio', 'DVD Audio streams', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (17, 'dvdsubs', 'DVD subtitles', 0)</query>
+
 		<descr>XML Frontpage feeds</descr>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Compilation', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27003.xml')</query>
@@ -648,6 +656,6 @@
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Top DVD Rentals', 'http://images.rottentomatoes.com/files/rss/top_rentals.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Upcoming Movies', 'http://images.rottentomatoes.com/files/rss/upcoming.xml')</query>
 
-		 		
+
 	</sql>
 </schema>
