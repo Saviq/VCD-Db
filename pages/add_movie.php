@@ -41,28 +41,6 @@
 </form>
 </ul>
 
-<h2>E) <?=$language->show('ADD_EXCEL')?></h2>
-<ul>
-<form action="exec_form.php?action=addfromexcel" method="post" name="excel" enctype="multipart/form-data">
-<input type="hidden" value="excel" name="excel">
-<input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
-<table cellspacing="1" cellpadding="1" class="plain">
-<tr>
-	<td nowrap><?=$language->show('ADD_EXCELFILE')?>:</td>
-	<td><input type="file" name="excelfile" class="input"/>&nbsp;<input type="submit" value="<?=$language->show('MENU_SUBMIT')?>" class="input" onclick="return checkupload(this.form.excelfile.value)"/>
-	<a title="Max upload filesize can be adjusted in the php.ini">(<?=$language->show('ADD_MAXFILESIZE')?>: <?= ini_get('upload_max_filesize')?>)</a>
-	</td>
-</tr>
-<tr>
-	<td colspan="2" valign="top">
-	<?=$language->show('ADD_EXCELNOTE')?>
-		
-	</td>
-</tr>
-</table>
-</form>
-</ul>
-
 <? 
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$showAdult = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
