@@ -132,7 +132,7 @@ class Connection {
 	 */
 	public function oToID($table_name, $column_name) {
 		try {
-			$query = "SELECT ".$column_name." FROM ".$table_name." ORDER BY oid DESC LIMIT 1";
+			$query = "SELECT {$column_name} FROM {$table_name} ORDER BY {$column_name} DESC LIMIT 1";
 			return $this->connection->getOne($query);
 		} catch (Exception $e) {
 			VCDException::display($e);
