@@ -926,7 +926,6 @@ class vcd_settings implements Settings {
 		try {
 			if (is_numeric($user_id)) {
 				
-				$VCDClass = new vcd_movie();
 				$loanArr =  $this->SQL->getLoans($user_id, $show_returned);				
 				$outArr = array();
 				foreach ($loanArr as $data) {
