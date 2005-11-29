@@ -25,8 +25,10 @@ $start_time = VCDUtils::getmicrotime(true);
 
 
 // Set timezone values to get rid of E_STRICT errors in PHP5.1 and above
-$dz = @date_default_timezone_get();
-date_default_timezone_set($dz);
+if (function_exists('date_default_timezone_get')) {
+	$dz = @date_default_timezone_get();
+	date_default_timezone_set($dz);
+}
 
 // Logout user | But we have to keep the users selected language in session
 if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
