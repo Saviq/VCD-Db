@@ -16,7 +16,7 @@
 <?
 
 /**
- * Enter description here...
+ * Display the userlink in the topmenu section.
  *
  */
 function display_topmenu() {
@@ -33,7 +33,7 @@ function display_topmenu() {
 
 		?> | <a href="./?do=logout"><?=$language->show('MENU_LOGOUT')?></a> <?
 
-	} else {
+	} elseif (LDAP_AUTH == 0) {
 		?><a href="./?page=register"><?=$language->show('MENU_REGISTER')?></a> <?
 	}
 
@@ -1110,6 +1110,43 @@ function human_file_size($size)
 {
    $filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
    return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];
+}
+
+function send_file($path) {
+   session_write_close();
+   @ob_end_clean();
+   if (!is_file($path) || connection_status()!=0)
+       return(FALSE);
+
+   //to prevent long file from getting cut off from    //max_execution_time
+
+   set_time_limit(0);
+
+   $name=basename($path);
+
+   //filenames in IE containing dots will screw up the
+   //filename unless we add this
+
+   if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
+       $name = preg_replace('/\./', '%2e', $name, substr_count($name, '.') - 1);
+
+   //required, or it might try to send the serving    //document instead of the file
+
+   header("Cache-Control: ");
+   header("Pragma: ");
+   header("Content-Type: application/octet-stream");
+   header("Content-Length: " .(string)(filesize($path)) );
+   header('Content-Disposition: attachment; filename="'.$name.'"');
+   header("Content-Transfer-Encoding: binary\n");
+
+   if($file = fopen($path, 'rb')){
+       while( (!feof($file)) && (connection_status()==0) ){
+           print(fread($file, 1024*8));
+           flush();
+       }
+       fclose($file);
+   }
+   return((connection_status()==0) and !connection_aborted());
 }
 
 

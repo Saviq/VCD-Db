@@ -41,7 +41,11 @@ switch ($CURRENT_PAGE) {
 		break;
 		
 	case 'register':
-		require_once('pages/register.php');
+		if (LDAP_AUTH != 1) {
+			require_once('pages/register.php');
+		} else {
+			redirect();
+		}
 		break;
 		
 	case 'welcome':
