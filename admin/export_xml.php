@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/includes_admin.php");
+require_once("../classes/includes.php");
 header('Content-type: application/xml');
 if (!isset($_GET['show'])) {
 header('Content-Disposition: attachment; filename="vcd_export.xml"');

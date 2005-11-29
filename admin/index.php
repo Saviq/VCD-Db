@@ -1,5 +1,5 @@
 <?php
-	require_once("../classes/includes_admin.php");
+	require_once("../classes/includes.php");
 	require_once("functions/adminPageFunctions.php");
 		
 	if (!VCDAuthentication::isAdmin()) {

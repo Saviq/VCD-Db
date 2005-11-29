@@ -1,5 +1,5 @@
 <?php
-require_once("../classes/includes_admin.php");
+require_once("../classes/includes.php");
 if (!VCDAuthentication::isAdmin()) {
 		VCDException::display("Only administrators have access here");
 		print "<script>self.close();</script>";
