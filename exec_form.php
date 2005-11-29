@@ -764,7 +764,7 @@ switch ($form) {
 
 
 	    // Update metadata
-	    if (isset($_POST['custom_index']) && strlen($_POST['custom_index']) > 0) {
+	    if (isset($_POST['custom_index'])) {
 	    	// add or update ?
 	    	$metaArr = $SETTINGSClass->getMetadata($vcd->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX );
 	    	if (sizeof($metaArr) == 1) {
@@ -777,10 +777,23 @@ switch ($form) {
 	    	}
 	    }
 
-	    if (isset($_POST['filepath']) && strlen($_POST['filepath']) > 0) {
+	    if (isset($_POST['filepath'])) {
 	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_FILELOCATION , $_POST['filepath']));
 	    	$SETTINGSClass->addMetadata($obj);
 	    }
+
+
+	    // Check for DVD Specific metadata
+	    if (isset($_POST['dvdregion']) && isset($_POST['dvdformat'])) {
+	    	// This is DVD typed media type
+	    	$dvd_region = $_POST['dvdregion'];
+	    	$dvd_format = $_POST['dvdformat'];
+	    	$dvd_aspect = $_POST['dvdaspect'];
+
+
+
+	    }
+
 
 
 	    /*
