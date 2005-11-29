@@ -79,13 +79,19 @@
 				$this->db->Execute($query);
 				
 				// Get the last inserted ID
-				$new_imageid = $this->db->Insert_Id($this->TABLE_images, 'image_id');
-				
-				/*
-				if ($this->conn->getSQLType() == 'postgres7') {
-					$new_imageid =  $this->conn->oToID($this->TABLE_images, 'image_id');
+				try {
+					$new_imageid = $this->db->Insert_Id($this->TABLE_images, 'image_id');
+				} catch (Exception $ex) {
+				// Check if this is a Postgre not using OID columns
+				if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+					// Yeap, postgres not using OID ..
+					$new_imageid = $this->conn->oToID($this->TABLE_images, 'image_id');
+				} else {
+					throw $ex;
 				}
-				*/
+			}
+				
+				
 				
 				// is the new imageID ok ?
 				if (!is_numeric($new_imageid)) {
