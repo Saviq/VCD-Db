@@ -61,6 +61,25 @@ switch ($form) {
 		header("Location: ".$_SERVER['HTTP_REFERER']."");
 		break;
 
+	case 'addmetadata':
+		if (isset($_POST['metadataname']) && isset($_POST['metadatadescription'])) {
+			$metaname = trim($_POST['metadataname']);
+			// Strip all spaces in between
+			$metaname = preg_replace('/\s/', '', $metaname);
+			$metadescription = trim($_POST['metadatadescription']);
+			
+			if (strcmp($metaname, "") != 0 && strcmp($metadescription,"") != 0) {
+			
+				$obj = new metadataTypeObj('', $metaname, $metadescription, VCDUtils::getUserID());
+				$SETTINGSClass->addMetaDataType($obj);
+			}
+			
+			
+			header("Location: ".$_SERVER['HTTP_REFERER']."");
+			
+		}
+	
+		break;
 
 	case 'addfeed':
 
