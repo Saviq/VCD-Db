@@ -168,8 +168,8 @@ class vcd_user implements User {
    				
    				// Create users default frontpage with default options
    				$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-   				$statsObj = new metadataObj(array('',0, $user_id, 'frontstats', 1, 3, 'frontstats', 'system'));
-				$barObj   = new metadataObj(array('',0, $user_id, 'frontbar', 1, 4, 'frontbar', 'system'));
+   				$statsObj = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTSTATS, 1));
+				$barObj   = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTBAR, 1));
 				$SETTINGSClass->addMetadata(array($barObj, $statsObj));
    				
    				return true;
@@ -773,7 +773,7 @@ class vcd_user implements User {
 			}
 			
 			$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
-			$metadata = new metadataObj(array('', 0, 0, 'default_role', $role_id, 5, 'default_role', 'system'));
+			$metadata = new metadataObj(array('', 0, 0, metadataTypeObj::SYS_DEFAULTROLE , $role_id));
 			$CLASSSettings->addMetadata($metadata);
 			
 			
