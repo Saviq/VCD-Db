@@ -36,6 +36,11 @@ class language
 	private $restrict = false;
 	private $arrRestrictions = array();
 	
+	/**
+	 * Object constructor.
+	 *
+	 * @param bool $admin_mode | Is the object being created from Control Panel or not
+	 */
 	public function __construct($admin_mode = false) {
 		$this->admin_mode = $admin_mode;
 		$lang = DEFAULT_LANG;
@@ -44,10 +49,15 @@ class language
 	}
 	
 	
+	/**
+	 * Check for any language restrictions in the metadata.
+	 * If restrictions are set, the languages that are not marked for loading are skipped.
+	 *
+	 */
 	private function checkForRestrictions() {
 		// First check for language file restrictions ..
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		$metaArr = $SETTINGSClass->getMetadata(0, 0, 'languages');
+		$metaArr = $SETTINGSClass->getMetadata(0, 0, metadataTypeObj::SYS_LANGUAGES );
 		$restrict = false;
 		if (is_array($metaArr) && sizeof($metaArr) == 1) {
 			$this->restrict = true;
@@ -105,7 +115,6 @@ class language
 	
 	/**
 	 * Returns the contents from an whole language file.
-	 *
 	 * Returns the file contents as an 2 dimensional array containing all
 	 * the language definition.
 	 *
@@ -119,7 +128,12 @@ class language
 		}
 	}
 	
-	
+	/**
+	 * Get a language translation raw contents, including php code.
+	 *
+	 * @param int $index
+	 * @return string
+	 */
 	public function getRawFileContents($index) {
 		if ($this->admin_mode) {
 			$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
@@ -131,6 +145,12 @@ class language
 		}
 	}
 	
+	/**
+	 * Check if selected language file is writeable on filesystem or not.
+	 *
+	 * @param int $index | The index of the language file
+	 * @return bool
+	 */
 	public function isWriteable($index) {
 		if (is_numeric($index) && $this->admin_mode) {
 			$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
@@ -145,7 +165,12 @@ class language
 	}
 	
 	
-	
+	/**
+	 * Update the file contents of a language file.
+	 *
+	 * @param int $fileIndex | The index of the file to update
+	 * @param array $arrItems | Every item in the translation as an array
+	 */
 	public function updateLangueArray($fileIndex, $arrItems) {
 		if ($this->admin_mode) {
 			if (is_numeric($fileIndex) && is_array($arrItems)) {
@@ -193,16 +218,33 @@ class language
 		}		
 	}
 	
+	/**
+	 * Enter description here...
+	 *
+	 * @param unknown_type $contents
+	 */
 	public function updateLanguageFile($contents) {
 	
 	}
 	
+	/**
+	 * Return the actual filename of the selected translation file.
+	 *
+	 * @param int $index
+	 * @return string
+	 */
 	public function getFileName($index) {
 		if (is_numeric($index)) {
 			return LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
 		}
 	}
 	
+	/**
+	 * Dump the contents of a language file as an array
+	 *
+	 * @param int $index
+	 * @return array
+	 */
 	public function getLangDump($index) {
 		$tag = $this->avail_language_tags[$index];
 		return $this->avail_language_content[$tag];
