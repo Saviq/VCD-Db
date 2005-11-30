@@ -38,7 +38,7 @@
 	
 
 	/**
-	 * Function contructor
+	 * Function contsructor
 	 *
 	 * @param array $dataArr
 	 * @return imdbObj
@@ -382,7 +382,6 @@
 			$xmlstr .= "<year>".$this->year."</year>\n";
 			$xmlstr .= "<plot><![CDATA[".$this->plot."]]></plot>\n";
 			$xmlstr .= "<director><![CDATA[".$this->director."]]></director>\n";
-			//$xmlstr .= "<cast><![CDATA[".$this->cast."]]></cast>\n";
 			$xmlstr .= "<cast><![CDATA[".$this->formatCastForXmlExport()."]]></cast>\n";
 			$xmlstr .= "<rating>".$this->rating."</rating>\n";
 			$xmlstr .= "<runtime>".$this->runtime."</runtime>\n";
