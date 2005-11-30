@@ -12,7 +12,6 @@
  // $Id:
 ?>
 <?
-error_reporting(E_STRICT);
 require_once("classes/includes.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -22,6 +21,7 @@ require_once("classes/includes.php");
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= VCDUtils::getCharSet()?>"/>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> 
 	<link rel="stylesheet" type="text/css" href="<?= VCDUtils::getStyle()?>" media="screen, projection"/>
+	<?= VCDUtils::getAlternateLink() ?>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
 <body>
