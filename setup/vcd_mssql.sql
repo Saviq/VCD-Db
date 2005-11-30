@@ -459,15 +459,17 @@ CREATE TABLE [vcd_RssFeeds] (
 CREATE TABLE [vcd_MetaData] (
 	[metadata_id] [int] IDENTITY (1, 1) NOT NULL ,
 	[record_id] [int] NOT NULL ,
+	[mediatype_id] [int] NOT NULL ,
 	[user_id] [int] NOT NULL ,
 	[type_id] [int] NOT NULL ,
 	[metadata_value] [varchar] (150) NOT NULL
 ) ON [PRIMARY]
 
 CREATE TABLE [vcd_MetaDataTypes] (
-	[metadata_type_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[metadata_type_name] [varchar] (50) NOT NULL ,
-	[metadata_type_level] [bit] NOT NULL
+	[type_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[type_name] [varchar] (50) NOT NULL ,
+	[type_description] [varchar] (150) NULL ,
+	[owner_id] [int] NOT NULL
 ) ON [PRIMARY]
 
 CREATE TABLE [vcd_Log] (

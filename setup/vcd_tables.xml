@@ -423,6 +423,9 @@
 		<field name="record_id" type="I" size="10">
 			<NOTNULL/>
 		</field>
+		<field name="mediatype_id" type="I" size="10">
+			<NOTNULL/>
+		</field>
 		<field name="user_id" type="I" size="10">
 			<NOTNULL/>
 		</field>
