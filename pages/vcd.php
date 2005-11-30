@@ -9,8 +9,7 @@ if (!$movie instanceof vcdObj ) {
 }
 
 if ($movie->isAdult()) {
-	include_once('adultvcd.php');
-	
+	require_once(dirname(__FILE__) . '/adultvcd.php');
 } else {
 	$imdb = $movie->getIMDB();
 	
