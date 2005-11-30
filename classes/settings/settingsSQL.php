@@ -916,8 +916,8 @@
 		public function addMetadata(metadataObj $obj) {
 			try {
 
-			$query = "INSERT INTO $this->TABLE_metadata (record_id, user_id, type_id, metadata_value) VALUES
-					 (".$obj->getRecordID().", ".$obj->getUserID().", ".$obj->getMetadataTypeID().",
+			$query = "INSERT INTO $this->TABLE_metadata (record_id, mediatype_id, user_id, type_id, metadata_value) VALUES
+					 (".$obj->getRecordID().", ".$obj->getMediaTypeID().", ".$obj->getUserID().", ".$obj->getMetadataTypeID().",
 					 ".$this->db->qstr($obj->getMetadataValue()).")";
 
 			$this->db->Execute($query);
@@ -956,13 +956,13 @@
 			$metaArr = array();
 			if (strlen($metadata_name) == 0) {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
-						  n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
 						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
 						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ."
 						  ORDER BY n.type_name";
 			} else {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
-						  n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
 						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
 						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id . "
 				 		  AND n.type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.type_name";
@@ -1038,8 +1038,18 @@
 					*/
 
 					$inserted_id = -1;
-					$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'type_id');
-
+					try {
+						$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'type_id');
+					} catch (Exception $e) {
+						// Check if this is a Postgre not using OID columns
+						if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+							// Yeap, postgres not using OID ..
+							$inserted_id = $this->conn->oToID($this->TABLE_metatypes, 'type_id');
+						} else {
+							throw $ex;
+						}
+					}
+					
 					if (!is_numeric($inserted_id) || $inserted_id < 0 ) {
 						// InsertedID not supported, we have to dig the latest entry out manually
 						$query = "SELECT type_id FROM $this->TABLE_metatypes ORDER BY type_id DESC";
