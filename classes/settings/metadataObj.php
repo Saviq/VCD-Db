@@ -155,8 +155,8 @@ class metadataTypeObj {
 	 *
 	 * @param int $id | The id of the metadataTypeObj
 	 * @param string $name | The name of the metadataTypeObj
-	 * @param int $level | the access level of the Obj (0 or 1)
 	 * @param string $description | The description of the metadatatype
+	 * @param int $level | the access level of the Obj (0 or 1)
 	 */
 	public function __construct($id = -1, $name, $description, $level = self::LEVEL_SYSTEM) {
 		$this->metatype_id = $id;
