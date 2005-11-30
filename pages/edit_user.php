@@ -119,8 +119,20 @@
 <p style="padding:0px 0px 2px 2px">
 &nbsp;<?= $language->show('SE_PAGEMODE')?>
 <select name="template" onchange="switchTemplate(this.options[this.selectedIndex].value)"><? 
+	// Check if user has cookie set for template
+	$selectedTemplate = "";
+	if (isset($_COOKIE['template'])) {
+		$selectedTemplate = $_COOKIE['template'];
+	}
+
+
 	foreach (VCDUtils::getStyleTemplates() as $templateItem) {
-		print "<option value=\"{$templateItem}\">{$templateItem}</option>";
+		if (strcmp($templateItem, $selectedTemplate) == 0) {
+			print "<option value=\"{$templateItem}\" selected=\"selected\">{$templateItem}</option>";
+		} else {
+			print "<option value=\"{$templateItem}\">{$templateItem}</option>";	
+		}
+		
 	}
 	?>
 </select>
@@ -348,3 +360,51 @@
 <br/>
 
 <? } ?>
+
+<h2>My Metadata</h2>
+<? 
+	$arrMyMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+?>
+<form name="metadata" method="post" action="exec_form.php?action=addmetadata">
+<table cellpadding="1" cellspacing="1" border="0" width="100%">
+<tr>
+	<td valign="top" width="60%">
+	<? 
+		if (!is_array($arrMyMeta) || sizeof($arrMyMeta) == 0) {
+			print "No metadata records found.";
+		} else {
+			print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" class=\"displist\" width=\"100%\">";
+			$i = 1;
+			foreach ($arrMyMeta as $metaDataTypeObj) {
+				print "<tr>";
+				print "<td>{$i}</td>";
+				print "<td>{$metaDataTypeObj->getMetadataTypeName()}</td>";
+				print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
+				print "</tr>";
+				$i++;
+			}
+			print "</table>";
+		}
+	?>
+	</td>
+	<td valign="top" width="40%">
+		<table cellpadding="1" cellspacing="1" width="100%" border="0">
+		<tr>
+			<td>Name: </td>
+			<td><input type="text" name="metadataname"/></td>
+		</tr>
+		<tr>
+			<td>Description: </td>
+			<td><input type="text" name="metadatadescription"/> &nbsp; <input type="submit" name="newmeta" value="add"/></td>
+		</tr>
+		</table>
+	</td>
+
+</tr>
+</table>
+
+
+
+
+</form>
+</br>
