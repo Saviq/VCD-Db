@@ -10,41 +10,47 @@
 	if (isset($_GET['do']) && $_GET['do'] == 'reload') {
 		$onload = ";window.opener.location.reload();";
 	}
-	
+
 	$language = new language(true);
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
-	
-	
+
+
 
 	$user = $_SESSION['user'];
 	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
 	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	
-	
+
+
 	$action = "";
 	if (isset($_GET['action'])) {
 		$action = $_GET['action'];
 	}
-	
-	
-	
+
+
+
 	if ($action == "delactor") {
 		$act_id = $_GET['act_id'];
 		$mov_id = $_GET['mov_id'];
 		$pornstar->delPornstarFromMovie($act_id, $mov_id);
 		$cd_id = $mov_id;
 	} else {
-		$cd_id = $_GET['cd_id']; 
+		$cd_id = $_GET['cd_id'];
 	}
-	
+
 	$bIMDB = false;
 	$vcd = $VCDClass->getVcdByID($cd_id);
 	if ($vcd->getIMDB() instanceof imdbObj ) {
 		$imdb = $vcd->getIMDB();
 		$bIMDB = true;
+	}
+
+	$userMetadata = false;
+	$userMetaArray = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
+		$userMetadata = true;
 	}
 
 
@@ -72,7 +78,7 @@
 	<tr>
 		<td id=tab1 class="tab tabActive" height=18><?=$language->show('MAN_BASIC')?></td>
 		<td id=tab2 class=tab>
-		<? if ($vcd->isAdult()) { 
+		<? if ($vcd->isAdult()) {
 			echo $language->show('MAN_EMPIRE');
 				} else {
 			echo $language->show('MAN_IMDB');
@@ -80,17 +86,29 @@
 		</td>
 		<td id=tab3 class=tab><?=$language->show('M_ACTORS')?></td>
 		<td id=tab4 class=tab>Covers</td>
+		<td id=tab5 class=tab>DVD</td>
+		<?
+			if ($userMetadata) {
+				print "<td id=tab6 class=tab>Meta</td>";
+			}
+		?>
 	</tr>
 	<tr>
 		<td id=t1base style="height:2px; border-left:solid thin #E0E7EC"></td>
 		<td id=t2base style="height:2px; background-color:#E0E7EC"></td>
-		<td id=t3base style="height:2px; background-color:#E0E7EC; border-right:solid thin #E0E7EC"></td>	
+		<td id=t3base style="height:2px; background-color:#E0E7EC; border-right:solid thin #E0E7EC"></td>
 		<td id=t4base style="height:2px; background-color:#E0E7EC"></td>
+		<td id=t5base style="height:2px; background-color:#E0E7EC"></td>
+		<?
+			if ($userMetadata) {
+				print "<td id=t6base style=\"height:2px; background-color:#E0E7EC\"></td>";
+			}
+		?>
 	</tr>
 	</table>
 </div>
 
-	
+
 <div id="content1" class="content">
 <p>
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -117,14 +135,14 @@
 	<td class="tblb"><?=$language->show('M_YEAR')?>:</td>
 	<td>
 		<select name="year" class="input" size="1">
-			<? 
+			<?
 				for ($i = date("Y"); $i >= 1900; $i--) {
 					if ($i == $vcd->getYear()) {
 						echo "<option value=\"$i\" selected>$i</option>";
 					} else {
 						echo "<option value=\"$i\">$i</option>";
 					}
-					
+
 				}
 			?>
 		</select>
@@ -147,16 +165,16 @@
 </tr>
 <? } ?>
 
-<? if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  { 
+<? if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  {
    $cusIndex = "";
    $arrMeta = $SETTINGSClass->getMetadata($vcd->getID(), $user->getUserID(), 'mediaindex');
    if (sizeof($arrMeta) == 1) {
    		$cusIndex = $arrMeta[0]->getMetadataValue();
    }
-   
+
 ?>
 
-<tr>	
+<tr>
 	<td class="tblb">Custom Index:</td>
 	<td><input type="text" name="custom_index" size="8" class="input" value="<?=$cusIndex?>"/></td>
 </tr>
@@ -164,16 +182,16 @@
 <? } ?>
 
 
-<? if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  { 
+<? if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  {
    $cusPath = "";
    $arrMeta = $SETTINGSClass->getMetadata($vcd->getID(), $user->getUserID(), 'filelocation');
    if (sizeof($arrMeta) == 1) {
    		$cusPath = $arrMeta[0]->getMetadataValue();
    }
-   
+
 ?>
 
-<tr>	
+<tr>
 	<td class="tblb">File path:</td>
 	<td><input type="text" name="filepath" size="36" class="input" value="<?=$cusPath?>"/>
 		<img src="../images/icon_folder.gif" border="0" align="absmiddle" title="Browse for file" onclick="filebrowse('file')"/>
@@ -185,14 +203,14 @@
 
 
 
-<? 
+<?
 	// Get my copies ..
 	$arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
 	if (sizeof($arrCopies) > 0) {
 		$arrMediaTypes = $arrCopies['mediaTypes'];
 		$arrNumcds = $arrCopies['discs'];
 	}
-	
+
 	if (sizeof($arrCopies) == 0) {
 		print "<tr><td colspan=\"2\"><hr/>".$language->show('MAN_NOCOPY')."</td></tr>";
 	} elseif (sizeof($arrMediaTypes) == 1) {
@@ -200,8 +218,8 @@
 	} else {
 		print "<tr><td colspan=\"2\"><hr/><strong>".$language->show('MAN_COPIES')."</strong></td></tr>";
 	}
-	
-	
+
+
 	if (sizeof($arrCopies) > 0) {
 ?>
 <tr>
@@ -209,39 +227,39 @@
 	<!-- Begin instance table -->
 	<table cellspacing="1" cellpadding="1" border="0" width="100%">
 	<tr><td><?=$language->show('MAN_1COPY')?></td><td><?=$language->show('M_MEDIATYPE')?></td><td><?=$language->show('M_NUM')?></td><td>&nbsp;</td></tr>
-	<? 
+	<?
 		$allMediaTypes =  $SETTINGSClass->getAllMediatypes();
-	
+
 		for ($i = 0; $i < sizeof($arrMediaTypes); $i++) {
 			print "<tr><td>".($i+1)."</td><td>";
-			
+
 			$media_id = $arrMediaTypes[$i]->getmediaTypeID();
 			$cd_count = $arrNumcds[$i];
-									
+
 			print "<select name=\"userMediaType_".$i."\" size=\"1\" class=\"input\">";
 			foreach ($allMediaTypes as $mediaTypeObj) {
-				
+
 				if ($media_id == $mediaTypeObj->getmediaTypeID()) {
 					print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\" selected>".$mediaTypeObj->getDetailedName()."</option>";
 				} else {
 					print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 				}
-				
-				
+
+
 				if ($mediaTypeObj->getChildrenCount() > 0) {
-					foreach ($mediaTypeObj->getChildren() as $childObj) { 
-						if ($media_id == $childObj->getmediaTypeID()) { 
+					foreach ($mediaTypeObj->getChildren() as $childObj) {
+						if ($media_id == $childObj->getmediaTypeID()) {
 							print "<option value=\"".$childObj->getmediaTypeID()."\" selected>&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
 						} else {
-							print "<option value=\"".$childObj->getmediaTypeID()."\">&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";						
+							print "<option value=\"".$childObj->getmediaTypeID()."\">&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
 						}
-						
-						
+
+
 						}
 					}
-				}	
+				}
 			print "</select>";
-			
+
 		print "</td><td>";
 		print "<select name=\"usernumcds_".$i."\" class=\"input\" size=\"1\">";
 				for ($j = 1; $j < 6; $j++) {
@@ -250,18 +268,18 @@
 					} else {
 						echo "<option value=\"$j\">$j</option>";
 					}
-					
+
 				}
 		print "</select>";
-		
-		
+
+
 		print "</td><td><a href=\"#\" onclick=\"deleteCopy(".sizeof($arrMediaTypes).",".$vcd->getNumCopies().",".$vcd->getId().",".$media_id.")\"><img src=\"../images/thrashcan.gif\" alt=\"Delete this copy\" border=\"0\"/></a></td>";
-		
+
 		print "</tr>";
 		}
-		
+
 	?>
-	
+
 	</table>
 	<input type="hidden" name="usercdcount" value="<?=$i?>"/>
 	<!-- End instance table -->
@@ -281,16 +299,16 @@
 </table>
 </p>
 </div>
-	
+
 <div id="content2" class="content">
 <p>
-<? 
+<?
 	if ($vcd->isAdult()) { ?>
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
 	<td class="tblb" valign="top">Studio:</td>
 	<td><select name="studio" class="input">
-		<? 	
+		<?
 			$studioObj = $PORNClass->getStudioByMovieID($vcd->getID());
 			if ($studioObj instanceof studioObj) {
 				$studio_id = $studioObj->getID();
@@ -299,7 +317,7 @@
 			}
 			evalDropdown($PORNClass->getAllStudios(),$studio_id); ?>
 	</select>
-	
+
 	</td>
 </tr>
 <tr>
@@ -309,13 +327,13 @@
 			<tr>
 				<td>
 					<select name="available" size=8 style="width:200px;" onDblClick="moveOver(this.form)" class="input">
-					<? 
+					<?
 					$result = $PORNClass->getSubCategories();
 					foreach ($result as $porncategoryObj) {
 						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
 					}
 					unset($result);
-					?>	
+					?>
 					</select>
 				</td>
 				<td>
@@ -330,17 +348,17 @@
 						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
 					}
 					unset($result);
-					?>	
-					
+					?>
+
 					</select>
-				</td>			
+				</td>
 			</tr>
 			</table>
 	</td>
 </tr>
 </table>
-	
-	
+
+
 	<? } else {  ?>
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
@@ -379,14 +397,14 @@
 <? } ?>
 </p>
 </div>
-	
+
 <div id="content3" class="content">
 <div class="flow" align="left">
 <p>
 <? if($vcd->isAdult()) { ?>
 <div align="right"><input type="button" value="<?=$language->show('MAN_ADDACT')?>" class="buttontext" title="<?=$language->show('MAN_ADDACT')?>" onClick="addActors(<?=$vcd->getID()?>)"/></div>
 <? } ?>
-<? 
+<?
 	if ($vcd->isAdult()) {
 			$ArrayPornstars = $PORNClass->getPornstarsByMovieID($vcd->getID());
 			if(is_array($ArrayPornstars)) {
@@ -394,21 +412,21 @@
 				foreach($ArrayPornstars as $pornstar)   {
 					$p_id   = $pornstar->getId();
 					$p_name	= $pornstar->getName();
-					
+
 					echo "<tr><td><li><a href=\"../?page=pornstar&amp;pornstar_id=$p_id\" target=\"_new\">$p_name</a></li></td>";
 					make_pornstarlinks($p_id, $p_name, $vcd->getId());
 					echo "</tr>";
-					
+
 				}
 			echo "</table>";
 		} else {
 			$language->show('M_NOACTORS');
 		}
 		unset($ArrayPornstars);
-			
-			
+
+
 	} else {
-		?> 
+		?>
 <div align="center">
 <textarea cols="60" rows="15" name="actors" class="input"><? if ($bIMDB) echo $imdb->getCast(false) ?></textarea>
 </div>
@@ -419,17 +437,17 @@
 </p>
 </div>
 </div>
-	
+
 <div id="content4" class="content">
-<? 
+<?
 	// first get all cover types that are allowed on this media type
 	$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 	$arrCoverTypes = $COVERClass->getAllowedCoversForVcd($vcd->getMediaType());
 ?>
-<table cellspacing="1" cellpadding="1" border="0">
+<p><table cellspacing="1" cellpadding="1" border="0">
 <?
 	foreach ($arrCoverTypes as $cdcoverTypeObj) {
-		
+
 		// do we have that cover ?
 		$coverpath = "";
 		$deletecover = "";
@@ -438,20 +456,41 @@
 			$coverpath = $coverObj->getFilename();
 			$deletecover = "&nbsp;&nbsp;<img src=\"../images/thrashcan.gif\" align=\"absmiddle\" onclick=\"deleteCover(".$coverObj->getId().",".$vcd->getId().")\" alt=\"Delete cover\" border=\"0\"/>";
 		}
-		
-		
+
+
 		print "<tr><td class=\"tblb\" valign=\"top\">".$cdcoverTypeObj->getCoverTypeName()."</td>";
 		print "<td><input type=\"text\" name=\"".$cdcoverTypeObj->getCoverTypeName()."\" size=\"20\" class=\"input\" value=\"".$coverpath."\"/>";
 		print "&nbsp; <input type=\"file\" name=\"".$cdcoverTypeObj->getCoverTypeID()."\" value=\"".$cdcoverTypeObj->getCoverTypeName()."\" size=\"10\" class=\"input\"/>$deletecover</td></tr>";
 	}
 
 ?>
-</table>
+</table></p>
 
 </div>
 
+<div id="content5" class="content">
+<? require_once('man_dvd.php'); ?>
+</div>
+
+<? if ($userMetadata) { ?>
+<div id="content6" class="content">
+<p>
+<table cellpadding="1" cellspacing="1" border="0">
+<?
+	foreach ($userMetaArray as $metaDataTypeObj) {
+		print "<tr>";
+		print "<td><input type=\"text\" name=\"{$metaDataTypeObj->getMetadataTypeID()}\" class=\"input\" size=\"30\" maxlength=\"150\"/></td>";
+		print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
+		print "</tr>";
+	}
+?>
+</table>
+</p>
+</div>
+<? } ?>
+
 <div id="submitters">
-		
+
 		<? if ($vcd->isAdult()) { ?>
 			<input type="submit" name="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form);"/>
 			<input type="submit" name="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form);"/>
