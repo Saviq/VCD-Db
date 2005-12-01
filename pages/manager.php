@@ -262,7 +262,7 @@
 
 		print "</td><td>";
 		print "<select name=\"usernumcds_".$i."\" class=\"input\" size=\"1\">";
-				for ($j = 1; $j < 6; $j++) {
+				for ($j = 1; $j < 10; $j++) {
 					if ($j == $cd_count) {
 						echo "<option value=\"$j\" selected>$j</option>";
 					} else {
@@ -477,11 +477,34 @@
 <p>
 <table cellpadding="1" cellspacing="1" border="0">
 <?
-	foreach ($userMetaArray as $metaDataTypeObj) {
-		print "<tr>";
-		print "<td><input type=\"text\" name=\"{$metaDataTypeObj->getMetadataTypeID()}\" class=\"input\" size=\"30\" maxlength=\"150\"/></td>";
-		print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
-		print "</tr>";
+
+	// Since each copy can contain it's own metadata this gets a little tricky.
+	// Finally there we find use for the mediatype_id member of the metadataObj and we use it here
+	// to distinguish the metadata for each media copy.
+	$arrMyMediaTypes = null;
+	if (is_array($arrCopies) && sizeof($arrCopies) > 0) {
+		$arrMyMediaTypes = $arrCopies['mediaTypes'];
+	}
+		
+	
+	if (!is_null($arrMyMediaTypes)) {
+		
+		foreach ($arrMyMediaTypes as $mediaTypeObj) {
+			
+			print "<tr><td colspan=2>Meta: {$mediaTypeObj->getDetailedName()}</td></tr>";
+			
+			foreach ($userMetaArray as $metaDataTypeObj) {
+				
+				$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
+				
+				print "<tr>";
+				print "<td><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" maxlength=\"150\"/></td>";
+				print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
+				print "</tr>";
+			}
+			
+		}
+	
 	}
 ?>
 </table>
