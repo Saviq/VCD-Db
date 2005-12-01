@@ -485,26 +485,39 @@
 	if (is_array($arrCopies) && sizeof($arrCopies) > 0) {
 		$arrMyMediaTypes = $arrCopies['mediaTypes'];
 	}
-		
-	
+
+
 	if (!is_null($arrMyMediaTypes)) {
-		
+
+		// Get existing metadata for the record ID
+		$arrMyMeta = $SETTINGSClass->getMetadata($vcd->getId(), VCDUtils::getUserID(), "");
+
 		foreach ($arrMyMediaTypes as $mediaTypeObj) {
-			
+
 			print "<tr><td colspan=2>Meta: {$mediaTypeObj->getDetailedName()}</td></tr>";
-			
+
 			foreach ($userMetaArray as $metaDataTypeObj) {
-				
+
+				$metaValue = "";
+				foreach ($arrMyMeta as $metadataObj) {
+					if ($metadataObj instanceof metadataObj ) {
+						if ($metadataObj->getMetadataTypeID() === $metaDataTypeObj->getMetadataTypeID()
+						&& $metadataObj->getMediaTypeID() === $mediaTypeObj->getmediaTypeID()) {
+							$metaValue = $metadataObj->getMetadataValue();
+						}
+					}
+				}
+
 				$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
-				
+
 				print "<tr>";
-				print "<td><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" maxlength=\"150\"/></td>";
+				print "<td><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
 				print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
 				print "</tr>";
 			}
-			
+
 		}
-	
+
 	}
 ?>
 </table>
