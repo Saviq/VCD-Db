@@ -21,6 +21,7 @@ class metadataObj extends metadataTypeObj  {
 	private $metadata_id;
 	private $record_id;
 	private $user_id;
+	private $mediatype_id = 0;
 	private $metadata_value;
 
 	/**
@@ -35,16 +36,24 @@ class metadataObj extends metadataTypeObj  {
 		$this->setMetadataTypeName($dataArr[3]);
 		$this->metadata_value    = $dataArr[4];
 
-		if (isset($dataArr[5]))	{
-			$this->metatype_id   = $dataArr[5];
+		// Optional mediatype_id
+		if (isset($dataArr[5])) {
+			$this->mediatype_id = $dataArr[5];
+		}
+		
+		// Optional metatype_id
+		if (isset($dataArr[6]))	{
+			$this->metatype_id   = $dataArr[6];
 		}
 
-		if (isset($dataArr[6])) {
-			$this->metatype_level = $dataArr[6];
-		}
-
+		// Optional owner_id
 		if (isset($dataArr[7])) {
-			$this->metatype_description = $dataArr[7];
+			$this->metatype_level = $dataArr[7];
+		}
+
+		// Optional metadata type description
+		if (isset($dataArr[8])) {
+			$this->metatype_description = $dataArr[8];
 		}
 
 	}
@@ -77,6 +86,26 @@ class metadataObj extends metadataTypeObj  {
 		return $this->record_id;
 	}
 
+	/**
+	 * Get the media type ID assigned to metadata if any.
+	 *
+	 * @return int
+	 */
+	public function getMediaTypeID() {
+		return $this->mediatype_id;
+	}
+	
+	/**
+	 * Set the media type ID
+	 *
+	 * @param int $media_id
+	 */
+	public function setMediaTypeID($media_id) {
+		if (is_numeric($media_id)) {
+			$this->mediatype_id = $media_id;
+		}
+	}
+	
 	/**
 	 * Get the user ID of the metadata object
 	 *
