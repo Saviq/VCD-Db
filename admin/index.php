@@ -293,7 +293,7 @@
 	   		
 	   		if (!$metaObj instanceof metadataObj ) {
 	   			// Create the object for the first time ...
-	   			$metaObj = new metadataObj(array('', 0, 0, 'languages', implode("#", $tags), 1, 'languages', 'system'));
+	   			$metaObj = new metadataObj(array('', 0, 0, metadataTypeObj::SYS_LANGUAGES , implode("#", $tags)));
 	   			$SETTINGSClass->addMetadata($metaObj);
 	   		} 
 	   		
@@ -869,7 +869,7 @@
 						$logTypes = implode("#", $_POST['logoptions']);
 					}
 
-					$metaObj = new metadataObj(array('',0,0,'logtypes', $logTypes, 2, 'logtypes', 'system'));
+					$metaObj = new metadataObj(array('',0,0,metadataTypeObj::SYS_LOGTYPES , $logTypes));
 					$SETTINGSclass->addMetadata($metaObj);
 					$updated = true;
 				}
