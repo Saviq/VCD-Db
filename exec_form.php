@@ -808,12 +808,47 @@ switch ($form) {
 	    	$dvd_region = $_POST['dvdregion'];
 	    	$dvd_format = $_POST['dvdformat'];
 	    	$dvd_aspect = $_POST['dvdaspect'];
-
-
-
 	    }
+	    
+	    
+	    // Handle metadata
+	    $arrMetaData = array();
+		foreach ($_POST as $key => $value) {
+			if ((int)substr_count($key, 'meta') == 1) {
+		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
+		 	}
+		}
+		
+		if (sizeof($arrMetaData) > 0) {
+			$metadataCommit = array();
+			foreach ($arrMetaData as $itemArr) {
+				$key   = $itemArr['key'];
+				$value = $itemArr['value'];
+				$entry = explode("|", $key);
+				$metadataName = $entry[1];
+				$metadatatype_id = $entry[2];
+				$mediatype_id = $entry[3];
+				
+				
+				// Skip empty metadata
+				if (strcmp($value, "") != 0) {
+					$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $value));
+					$obj->setMetaDataTypeID($metadatatype_id);
+					$obj->setMediaTypeID($mediatype_id);
+					array_push($metadataCommit, $obj);
+				}
+				
+			}
+			
+			
+			$SETTINGSClass->addMetadata($metadataCommit, true);
+			unset($metadataCommit);
+			unset($arrMetaData);
+			
+		}
 
 
+		
 
 	    /*
 	    	Process uploaded images
