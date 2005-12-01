@@ -4,9 +4,9 @@ var ie5 = (document.all && document.getElementById);
 var ns6 = (!document.all && document.getElementById);
 
 function show(id){
-	
+
 	try {
-		
+
 	// Netscape 4
 	if(ns4){
 		document.layers[id].visibility = "show";
@@ -20,15 +20,15 @@ function show(id){
 		document.getElementById(id).style.display = "block";
 		document.getElementById(id).style.visibility = "visible";
 	}
-	
+
 	} catch (Exception) {}
 }
 
 function hide(id){
 	// Netscape 4
-	
+
 	try {
-	
+
 	if(ns4){
 		document.layers[id].visibility = "hide";
 	}
@@ -40,15 +40,15 @@ function hide(id){
 	else if(ie5 || ns6){
 		document.getElementById(id).style.visibility = "hidden";
 		document.getElementById(id).style.display = "none";
-		
+
 	}
-	
+
 	} catch (Exception) {}
 }
 
 function openAdminConsole() {
 	url = 'admin/';
-	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');	
+	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
 function showcover(image, db, id) {
@@ -59,7 +59,7 @@ function showcover(image, db, id) {
 
 function loadManager(cd_id) {
 	var page = "pages/manager.php?cd_id="+cd_id+"";
-	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');	
+	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
 
@@ -67,11 +67,11 @@ function loadManager(cd_id) {
 function moveOver(form)  {
 	var boxLength = form.choiceBox.length;
 	var selectedItem = form.available.selectedIndex;
-	
+
 	if (selectedItem < 0) {
 		return;
 	}
-	
+
 	var selectedText = form.available.options[selectedItem].text;
 	var selectedValue = form.available.options[selectedItem].value;
 	var i;
@@ -84,28 +84,28 @@ function moveOver(form)  {
 		break;
       }
    }
-} 
+}
 if (isNew) {
 	newoption = new Option(selectedText, selectedValue, false, false);
 	form.choiceBox.options[boxLength] = newoption;
 	}
-	
-	
+
+
 	form.available.options[form.available.selectedIndex] = null;
 	form.available.selectedIndex=-1;
 }
 
 
 function moveBack(form, selected_id) {
-	
+
 	var boxLength = form.available.length;
 	var selectedItem = form.choiceBox.selectedIndex;
-	
+
 	if (selectedItem < 0) {
 		return;
 	}
-	
-	
+
+
 	var selectedText = form.choiceBox.options[selectedItem].text;
 	var selectedValue = form.choiceBox.options[selectedItem].value;
 	var i;
@@ -118,13 +118,13 @@ function moveBack(form, selected_id) {
 			break;
       		}
    		}
-    } 
+    }
 	if (isNew) {
 		newoption = new Option(selectedText, selectedValue, false, false);
 		form.available.options[boxLength] = newoption;
 	}
 	form.choiceBox.selectedIndex=-1;
-	 
+
 	// Sort the available
     sortSelect(form['available']);
 
@@ -136,7 +136,7 @@ function removeMe(form) {
 	arrSelected = new Array();
 	var count = 0;
 	var selected_index;
-	
+
 	for (i = 0; i < boxLength; i++) {
 		if (form.choiceBox.options[i].selected) {
 		arrSelected[count] = form.choiceBox.options[i].value;
@@ -152,12 +152,12 @@ for (i = 0; i < boxLength; i++) {
 	for (x = 0; x < arrSelected.length; x++) {
 		if (form.choiceBox.options[i].value == arrSelected[x]) {
 		form.choiceBox.options[i] = null;
-		
+
 	   }
 	}
 	boxLength = form.choiceBox.length;
    }
-   
+
 }
 
 
@@ -246,10 +246,10 @@ function selectKeyPress() {
 	//	2) if the search doesn't find a match, this returns to normal 1 key search
 	//		setting returnValue = false below for ALL cases will prevent
 	//		default behavior
-	
+
 	//TODO:
 	//	1) add Netscape handling
-	
+
 
 var sndr = window.event.srcElement;
 var pre = this.document.all["keys"].value;
@@ -298,56 +298,56 @@ function deleteBorrower(form) {
 	var selectedItem = document.borrowForm.borrowers.selectedIndex;
 	var selectedValue =document.borrowForm.borrowers.options[selectedItem].value;
 	var message = "Delete borrower and all his loan records?";
-	
+
 	if (selectedValue != "null") {
 		if (confirm(message)) {
 			url = "exec_query.php?action=delete_borrower&bid="+selectedValue;
 			location.href = url;
 		}
-	}	
+	}
 }
 
 function val_borrower(form){
 	  if(form.borrower_name.value == "")
 	    {
 	    alert("Sláðu inn fullt nafn");
-	    form.borrower_name.focus(); 
+	    form.borrower_name.focus();
 	    return false;
 	  }
-	  
+
 	  if (!emailCheck(form.borrower_email.value))
 	  {
 	  	form.borrower_email.focus();
-	  	return false;  
+	  	return false;
 	  }
-	  
+
 	form.vista.disabled = false;
-	
+
 }
 
 function val_Empire(form) {
-	
+
 	checkFieldsRaw(form);
-	
+
 	if (form.title.value == "") {
 	    alert('CD title can\'t be empty');
-	    form.title.focus(); 
+	    form.title.focus();
 	    return false;
 	}
-	
+
 	if (form.year.value == "") {
 	    alert('Year can\'t be empty');
-	    form.year.focus(); 
+	    form.year.focus();
 	    return false;
 	}
-	
+
 	if (!IsNumeric(form.year.value)) {
 		alert('Year must be numeric');
-	    form.year.focus(); 
+	    form.year.focus();
 	    return false;
 	}
-	
-	
+
+
 	var mtyp = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var mcat = form.category.options[form.category.selectedIndex].value;
 	var mcds = form.cds.options[form.cds.selectedIndex].value;
@@ -356,17 +356,17 @@ function val_Empire(form) {
 		alert('Select media type on your copy');
 		return false;
 	}
-	
+
 	if (mcat == "null") {
 		alert('Select main category');
 		return false;
 	}
-	
+
 	if (mcds == "null") {
 		alert('Select number of cd\'s on your copy');
 		return false;
 	}
-		
+
 	return true;
 }
 
@@ -374,26 +374,26 @@ function val_Empire(form) {
 
 
 function val_IMDB(form) {
-	
+
 	if (form.title.value == "") {
 	    alert('CD title can\'t be empty');
-	    form.title.focus(); 
+	    form.title.focus();
 	    return false;
 	}
-	
+
 	if (form.year.value == "") {
 	    alert('Year can\'t be empty');
-	    form.year.focus(); 
+	    form.year.focus();
 	    return false;
 	}
-	
+
 	if (!IsNumeric(form.year.value)) {
 		alert('Year must be numeric');
-	    form.year.focus(); 
+	    form.year.focus();
 	    return false;
 	}
-	
-	
+
+
 	var mtyp = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var mcat = form.category.options[form.category.selectedIndex].value;
 	var mcds = form.cds.options[form.cds.selectedIndex].value;
@@ -402,17 +402,17 @@ function val_IMDB(form) {
 		alert('Select media type on your copy');
 		return false;
 	}
-	
+
 	if (mcat == "null") {
 		alert('Select main category');
 		return false;
 	}
-	
+
 	if (mcds == "null") {
 		alert('Select number of cd\'s on your copy');
 		return false;
 	}
-		
+
 	return true;
 }
 
@@ -470,7 +470,7 @@ if (domainArray==null) {
 var atomPat=new RegExp(atom,"g")
 var domArr=domain.match(atomPat)
 var len=domArr.length
-if (domArr[domArr.length-1].length<2 || 
+if (domArr[domArr.length-1].length<2 ||
     domArr[domArr.length-1].length>3) {
    alert("Wrong email extension.")
    return false
@@ -494,7 +494,7 @@ function returnloan(loan_id) {
 }
 
 function goSimilar(form) {
-	
+
 	val = form.similar.options[form.similar.selectedIndex].value;
 	url = './?page=cd&vcd_id='+val;
 	location.href = url;
@@ -507,7 +507,7 @@ function Valmynd(box, bOpenWindow) {
 	        if ((-1 < box.selectedIndex) && (val.lastIndexOf('nil') > -1 )) {
 	           return true
 	        }
-        
+
         	if (bOpenWindow)
 	            openWin(val);
         	else
@@ -551,7 +551,7 @@ function addActors(cd_id) {
 
 function changePornstar(pornstar_id) {
 	var url = './pmanager.php?pornstar_id='+pornstar_id+'';
-	window.open(url, 'PornStarManager', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=350,height=270');	
+	window.open(url, 'PornStarManager', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=350,height=270');
 }
 
 function fetchstarimage(star_id) {
@@ -560,7 +560,7 @@ function fetchstarimage(star_id) {
 	if (linktext != null) {
 		url = '../exec_query.php?action=fetchimage&star_id='+star_id+'&path='+linktext;
 		location.href = url;
-	} 
+	}
 }
 
 function delpornstarImage(pornstar_id) {
@@ -580,12 +580,12 @@ function del_actor(pornstar_id, movie_id) {
 
 function addFeed() {
 	var url = './pages/addRssFeed.php';
-	window.open(url, 'RSSFEED', 'height=250,width=350,top=200,left=250');
+	window.open(url, 'RSSFEED', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,height=250,width=350,top=200,left=250');
 }
 
 function rssCheck(form) {
 	count=0
- 	
+
 	for (i=0; i<form.elements.length ;i++)
 	if (form.elements[i].type=='checkbox' && form.elements[i].checked){
 	 	count+=1
@@ -594,7 +594,7 @@ function rssCheck(form) {
 		alert('Select at least one feed to continue');
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -620,7 +620,7 @@ function hideTip() {
 
 
 function wrapTipContent(num) {
-  var cntnt = '<div class="img"><img src="' + messages[num][0] + '" width="' + 
+  var cntnt = '<div class="img"><img src="' + messages[num][0] + '" width="' +
     messages[num][1] + '" height="' + messages[num][2] + '" border="0"></div>';
   if ( messages[num][3] ) cntnt += '<div class="msg">' + messages[num][3] + '</div>';
 	return cntnt;
@@ -665,12 +665,12 @@ function showupload(form, layername) {
 		show(layername);
 	} else {
 		hide(layername);
-		
+
 	}
 }
 
 function checkXMLConfirm(form) {
-	if (form.xmlthumbs.checked && form.xmlthumbfile.value == "") { 
+	if (form.xmlthumbs.checked && form.xmlthumbfile.value == "") {
 		alert('Select the XML file for the thumbnails\nor uncheck the thumbnails upload checkbox!');
 		return false;
 	} else {
@@ -679,21 +679,21 @@ function checkXMLConfirm(form) {
 }
 
 function checkAdvanced(form) {
-	
+
 	var category = form.category.options[form.category.selectedIndex].value;
 	var year = form.year.options[form.year.selectedIndex].value;
 	var mediatype = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var owner = form.owner.options[form.owner.selectedIndex].value;
 	var rating = form.grade.options[form.grade.selectedIndex].value;
-	
-	
-	
-	if (form.title.value == '' && category == 'null' && year == 'null' && mediatype == 'null' && owner == 'null' && rating == 'null') 
+
+
+
+	if (form.title.value == '' && category == 'null' && year == 'null' && mediatype == 'null' && owner == 'null' && rating == 'null')
 	{
-		alert('Please define the search criteria');    
+		alert('Please define the search criteria');
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -701,28 +701,28 @@ function checkManually(form) {
 	var cds = form.cds.options[form.cds.selectedIndex].value;
 	var mediatype = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var category = form.category.options[form.category.selectedIndex].value;
-	
+
 	if (form.title.value == "") {
 		alert('Select title on your movie');
 		form.title.focus();
 		return false;
 	}
-	
+
 	if (mediatype == 'null') {
 		alert('Select media type on your movie');
 		return false;
 	}
-	
+
 	if (category == 'null') {
 		alert('Select category on your movie');
 		return false;
 	}
-	
+
 	if (cds == 'null') {
 		alert('Select CD count on your movie');
 		return false;
 	}
-	
+
 	return true;
 }
 
@@ -733,19 +733,19 @@ function deleteCopy(usercopies, totalcopies, cd_id, media_id) {
 			url = '../exec_query.php?action=deletecopy&cd_id='+cd_id+'&media_id='+media_id+'&mode=full';
 			location.href = url;
 			return;
-		} 
+		}
 	}
-	
+
 	var message = "Delete this copy ?";
 	if (confirm(message)) {
 		url = '../exec_query.php?action=deletecopy&cd_id='+cd_id+'&media_id='+media_id+'&mode=single';
 		location.href = url;
 	}
-	
+
 }
 
 function checkListed(form) {
-	
+
 	checkFieldsRaw(form);
 	if (form.id_list.value == "") {
 		alert('Select at least one movie to proceed');
@@ -755,21 +755,21 @@ function checkListed(form) {
 	}
 }
 
-function confirmListed(form) { 
-      
-    for (i=0; i<form.elements.length ;i++)  { 
-	if (form.elements[i].type=='select-one') { 
-    	val = form.elements[i].options[form.elements[i].selectedIndex].value; 
-        if (val == 'null') { 
-        	alert('Select media type for all the titles'); 
-            return false; 
-         } 
-      } 
+function confirmListed(form) {
+
+    for (i=0; i<form.elements.length ;i++)  {
+	if (form.elements[i].type=='select-one') {
+    	val = form.elements[i].options[form.elements[i].selectedIndex].value;
+        if (val == 'null') {
+        	alert('Select media type for all the titles');
+            return false;
+         }
+      }
  	}
- 	
- 	return true; 
-} 
-        
+
+ 	return true;
+}
+
 
 function printView(type) {
 	url = 'pages/printView.php?mode=' + type;
@@ -789,7 +789,7 @@ function showPage(box, bOpenWindow) {
     if ((-1 < box.selectedIndex) && (val.lastIndexOf('nil') > -1 )) {
        return true
     }
-    
+
     if (bOpenWindow)
         openWin(val);
     else
@@ -800,61 +800,61 @@ function showPage(box, bOpenWindow) {
 
 function showSuggestion(form) {
 	try {
-	
+
 		var seen = 0;
 		if (form.onlynotseen != null) {
 			if (form.onlynotseen.checked) {
 				seen = 1;
 			}
 		}
-		
+
 		var category = form.category.options[form.category.selectedIndex].value;
 		var url = 'pages/user_suggestion.php?do=suggest&cat='+category+'&seen='+seen;
 		window.frames.suggestion.location.href = url;
-		
+
 	} catch (Exception) {}
 }
 
 function checkReg(form) {
-	
+
 	if (form.name.value == "") {
 		alert('Please type in your full name.');
 		form.name.focus();
 		return false;
 	}
-	
+
 	if (form.username.value == "") {
 		alert('Please select username.');
 		form.username.focus();
 		return false;
 	}
-	
+
 	if (form.username.value.length < 3) {
 		alert('Username must be at least 3 characters.');
 		form.username.focus();
 		return false;
 	}
-	
+
 	if (!emailCheck(form.email.value)) {
 		form.email.focus();
 		return false;
 	}
-	
+
 	if (form.password.value.length < 5) {
 		alert('Password needs to be at least 5 characters!');
 		form.password.focus();
 		return false;
 	}
-	
+
 	if (form.password.value != form.password2.value) {
 		alert('Passwords do not match!');
 		form.password.focus();
 		return false;
-	} 
-	
-	
+	}
+
+
 	return true;
-	
+
 
 }
 
@@ -986,22 +986,22 @@ function getPlayerFileName(form) {
 
 function playFile(command) {
 	try {
-		
-		
-		
-		
+
+
+
+
 		if (!document.all) {
 		 	alert ("Sorry but this feature is only\navailable with Internet Explorer.");
   			return;
 		}
-				
+
 		var ws = new ActiveXObject("WScript.Shell");
 		if (OS == 'Windows') {
 			command = replace(command, "#", "\\");
 			command = replace(command, "|", "\"");
-		} 
+		}
  		ws.Exec(command);
- 		
+
 	} catch (Exception) {
 		alert('In order for this to work, you must add\nthis website\'s address to your \"Trusted Sites\"\nunder \"Tools > Internet options > Security\"');
 	}
