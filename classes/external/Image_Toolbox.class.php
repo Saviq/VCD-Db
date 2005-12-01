@@ -80,7 +80,7 @@ class Image_Toolbox {
      * @access private
      * @var string
      */
-	var $_error_prefix = 'Image: ';
+	private $_error_prefix = 'Image: ';
 	
 	/**
      * Defines imagetypes and how they are supported by the server
@@ -88,7 +88,7 @@ class Image_Toolbox {
      * @access private
      * @var array
      */
-	var $_types = array (
+	private $_types = array (
 		1 => array (
 			'ext' => 'gif',
 			'mime' => 'image/gif',
@@ -113,7 +113,7 @@ class Image_Toolbox {
      * @access private
      * @var string
      */
-	var $_resize_function = 'imagecopyresampled';
+	private $_resize_function = 'imagecopyresampled';
 
 	/**
      * Stores all image resource data
@@ -121,7 +121,7 @@ class Image_Toolbox {
      * @access private
      * @var array
      */
-	var $_img = array (
+	private $_img = array (
 		'main' => array (
 			'resource' => 0,
 			'width' => 0,
@@ -142,7 +142,7 @@ class Image_Toolbox {
      * @access private
      * @var string
      */
-	var $_imagecreatefunction = '';
+	private $_imagecreatefunction = '';
 	
     /**
      * The class constructor.
@@ -406,7 +406,7 @@ class Image_Toolbox {
             // set default type jpg.
             $this->_img['operator']['type'] = 2;
             if (isset($args[2]) && is_string($args[2])) {
-            	//neues bild mit farbe fllen
+            	//neues bild mit farbe f?llen
             	$fillcolor = $this->_hexToPHPColor($args[2]);
             	imagefill($this->_img['operator']['resource'], 0, 0, $fillcolor);
             	$this->_img['operator']['color'] = $fillcolor;
