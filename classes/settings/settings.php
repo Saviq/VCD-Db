@@ -1475,10 +1475,38 @@ class vcd_settings implements Settings {
 	 * entry is updated instead of inserting duplicate record.
 	 *
 	 * @param mixed $arrObj
+	 * @param bool $forceCheck | Force to check the mediatypeID field also.
 	 */
-	public function addMetadata($arrObj) {
+	public function addMetadata($arrObj, $forceCheck = false) {
 	 	try {
 
+	 		
+	 		if ($forceCheck) {
+	 			if (is_array($arrObj)) {
+	 				foreach ($arrObj as $metaObj) {
+	 					$this->addMetadata($metaObj, true);
+	 				}
+	 			} else {
+	 				
+	 				if (!$arrObj instanceof metadataObj ) {
+	 					throw new Exception('Excepted metadata object.');
+	 				}
+	 				
+	 				$oldArr = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName(), $arrObj->getmediaTypeID());
+	 				$oldObj = null;
+	 				if (is_array($oldArr) && sizeof($oldArr) == 1) {
+	 					$oldObj = $oldArr[0];
+	 					$arrObj->setMetadataID($oldObj->getMetadataID());
+	 					$this->updateMetadata($arrObj);
+	 				} else {
+	 					$this->SQL->addMetadata($arrObj);
+	 				}
+	 			}
+	 			return;
+	 		}
+	 		
+	 		
+	 		
 	 		if ($arrObj instanceof metadataObj ) {
 	 			$oldObj = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName());
 	 			if (is_array($oldObj) && sizeof($oldObj) == 1) {
@@ -1576,9 +1604,10 @@ class vcd_settings implements Settings {
 	 * @param int $record_id
 	 * @param int $user_id
 	 * @param int $metadata_name
+	 * @param int $mediatype_id | MediaType ID of movieObj.  This forces deeper check.
 	 * @return array
 	 */
-	public function getMetadata($record_id, $user_id, $metadata_name) {
+	public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 		try {
 	 		if (is_numeric($record_id) && is_numeric($user_id)) {
 
@@ -1592,7 +1621,7 @@ class vcd_settings implements Settings {
 	 				}
 
 	 			} else {
-	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name);
+	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
 	 			}
 
 

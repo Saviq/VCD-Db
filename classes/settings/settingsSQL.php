@@ -950,11 +950,20 @@
 			}
 		}
 
-		public function getMetadata($record_id, $user_id, $metadata_name) {
+		public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 			try {
 
 			$metaArr = array();
-			if (strlen($metadata_name) == 0) {
+			
+			if (!is_null($mediatype_id)) {
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
+						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
+						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id . "
+						  AND m.mediatype_id = ".$mediatype_id." 
+				 		  AND n.type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.type_name";
+				
+			} else if (strlen($metadata_name) == 0) {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
 						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
 						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
