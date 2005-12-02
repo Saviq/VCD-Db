@@ -1136,6 +1136,21 @@
 		}
 
 
+		public function deleteMetaDataType($metatype_id) { 
+			try {
+				
+				$query = "DELETE FROM $this->TABLE_metadata WHERE type_id = " . $metatype_id;
+				$this->db->Execute($query);
+				$query = "DELETE FROM $this->TABLE_metatypes WHERE type_id = " . $metatype_id;
+				$this->db->Execute($query);
+				
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+			 
+		}
+		
+		
 		public function getStatsObj() {
 			try {
 

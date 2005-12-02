@@ -1705,6 +1705,41 @@ class vcd_settings implements Settings {
 		}
 	}
 
+	
+	/**
+	 * Delete metadataType object.  Only user defined metadata can be deleted by it's creator.
+	 *
+	 * @param int $metatype_id | The metadataType Id to delete
+	 */
+	public function deleteMetaDataType($metatype_id) {
+		try {
+			
+			if (is_numeric($metatype_id)) {
+				// Check if the user trying to delete the object is actuallt the owner of the metadataType.
+				$canDelete = false;
+				
+				$metaArr = $this->getMetadataTypes(VCDUtils::getUserID());
+				foreach ($metaArr as $metatypeObj) {
+					if ($metatypeObj->getMetadataTypeID() === $metatype_id) {
+						$canDelete = true;
+						break;
+					}
+				}
+				
+				if ($canDelete) {
+					$this->SQL->deleteMetaDataType($metatype_id);
+				} else {
+					throw new Exception('You cannot delete metadataType that you did not create.');
+				}
+				
+			}
+			
+ 		} catch (Exception $ex) {
+ 			VCDException::display($ex);
+ 		}
+	}
+	
+	
 
 	/*
 		Private functions below
