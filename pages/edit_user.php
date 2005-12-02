@@ -317,7 +317,7 @@
 <? 
 	// Get current ignore list
 	$ignorelist = array();
-	$metaArr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), 'ignorelist');
+	$metaArr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST );
 	if (sizeof($metaArr) > 0) {
 		$ignorelist = split("#", $metaArr[0]->getMetadataValue());
 	}
@@ -380,6 +380,7 @@
 				print "<td>{$i}</td>";
 				print "<td>{$metaDataTypeObj->getMetadataTypeName()}</td>";
 				print "<td>{$metaDataTypeObj->getMetadataDescription()}</td>";
+				print "<td width=\"2%\"><img src=\"images/icon_del.gif\" onclick=\"deleteMetaType({$metaDataTypeObj->getMetadataTypeID()})\"/></td>";
 				print "</tr>";
 				$i++;
 			}
