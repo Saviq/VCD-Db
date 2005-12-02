@@ -461,46 +461,56 @@
 
 			print "<tr><td colspan=\"2\" class=\"tblb\"><i>Meta: {$mediaTypeObj->getDetailedName()}</i></td></tr>";
 
-			
+
 			// First print out the System meta types
 			if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  {
-   				$cusIndex = "";
-   				$arrMeta = $SETTINGSClass->getMetadata($vcd->getID(), $user->getUserID(), metadataTypeObj::SYS_MEDIAINDEX, $mediaTypeObj->getmediaTypeID());
-   				if (sizeof($arrMeta) == 1) {
-   					$cusIndex = $arrMeta[0]->getMetadataValue();
-   				}
-   				
+   				$metaValue = "";
+				foreach ($arrMyMeta as $metadataObj) {
+					if ($metadataObj instanceof metadataObj ) {
+						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_MEDIAINDEX
+						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
+							$metaValue = $metadataObj->getMetadataValue();
+							break;
+						}
+					}
+				}
+
    				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX )."|".metadataTypeObj::SYS_MEDIAINDEX ."|".$mediaTypeObj->getmediaTypeID();
-		
+
 	   			print "<tr>";
 	   			print "<td class=\"tblb\">Custom Index:</td>";
-	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$cusIndex}\"/></td>";
+	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/></td>";
 				print "</tr>";
-			 } 
+			 }
 
 
 			if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  {
-			   $cusPath = "";
-			   $arrMeta = $SETTINGSClass->getMetadata($vcd->getID(), $user->getUserID(), metadataTypeObj::SYS_FILELOCATION, $mediaTypeObj->getmediaTypeID() );
-			   if (sizeof($arrMeta) == 1) {
-			   		$cusPath = $arrMeta[0]->getMetadataValue();
-			   }
-			
+			   $metaValue = "";
+				foreach ($arrMyMeta as $metadataObj) {
+					if ($metadataObj instanceof metadataObj ) {
+						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_FILELOCATION
+						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
+							$metaValue = $metadataObj->getMetadataValue();
+							break;
+						}
+					}
+				}
+
 			    $fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION  )."|".metadataTypeObj::SYS_FILELOCATION  ."|".$mediaTypeObj->getmediaTypeID();
-			   
+
 				print "<tr>";
 				print "<td class=\"tblb\">File path:</td>";
-				print "<td style=\"padding-left:5px\"><input type=\"text\" id=\"{$fieldname}\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$cusPath}\"/>";
+				print "<td style=\"padding-left:5px\"><input type=\"text\" id=\"{$fieldname}\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$metaValue}\"/>";
 				print "&nbsp;<img src=\"../images/icon_folder.gif\" border=\"0\" align=\"absmiddle\" title=\"Browse for file\" onclick=\"filebrowse('file', '{$fieldname}')\"/></td>";
 				print "</tr>";
-			
-			} 
-			
-			
-			
-			
-			
-			
+
+			}
+
+
+
+
+
+
 			foreach ($userMetaArray as $metaDataTypeObj) {
 
 				$metaValue = "";
@@ -520,7 +530,7 @@
 				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
 				print "</tr>";
 			}
-			
+
 			$iCounter++;
 			if ($iCounter != sizeof($arrMyMediaTypes)) {
 				print "<tr><td colspan=\"2\"><hr/></td></tr>";
