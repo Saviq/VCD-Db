@@ -310,8 +310,8 @@ function deleteBorrower(form) {
 function val_borrower(form){
 	  if(form.borrower_name.value == "")
 	    {
-	    alert("Sláðu inn fullt nafn");
-	    form.borrower_name.focus();
+	    alert("Please enter a name");
+	    form.borrower_name.focus(); 
 	    return false;
 	  }
 
@@ -604,6 +604,15 @@ function deleteFeed(id) {
 		location.href = url;
 	}
 }
+
+function deleteMetaType(id) {
+	var msg = 'Delete metadata type and all data entered within it?';
+	if (confirm(msg)) {
+		url = 'exec_query.php?action=delmetatype&meta_id='+id;
+		location.href=url;
+	}
+}
+
 
 function doTooltip(e, num) {
   if ( typeof Tooltip == "undefined" || !Tooltip.ready ) return;
@@ -955,21 +964,31 @@ function checkIt(string)
 }
 
 
-function filebrowse(param) {
-	var url = 'filebrowse.php?from='+param;
-	window.open(url, 'FILEBROWSE', 'height=60,width=380,top=200,left=250');
+function filebrowse(param, destField) {
+	try {
+		if (destField == null) {
+			var url = 'filebrowse.php?from='+param;
+		} else {
+			var url = 'filebrowse.php?from='+param+'&field='+destField;	
+		}
+		
+		window.open(url, 'FILEBROWSE', 'height=60,width=380,top=200,left=250');
+		
+	} catch (Ex) {}
 }
 
 
 
-function getFileName(form) {
+function getFileName(form, fieldname) {
 	try {
 		filename = form.filename.value;
-		var targetField = opener.document.choiceForm.filepath;
-		targetField.value = filename;
+		var obj = opener.document.getElementById(fieldname);
+		obj.value = filename;
 		self.close();
 		return false;
-  } catch (Exception) {}
+		
+  } catch (ex) {
+  }
 }
 
 function getPlayerFileName(form) {
