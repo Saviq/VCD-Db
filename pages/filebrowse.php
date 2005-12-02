@@ -11,6 +11,10 @@
 	}
 	
 	$jsaction = "return getFileName(this.form)";
+	if (isset($_GET['field'])) {
+		$jsaction = "return getFileName(this.form, '{$_GET['field']}')";
+	}
+	
 	if (isset($_GET['from']) && strcmp($_GET['from'], "player") == 0) {
 		$jsaction = "return getPlayerFileName(this.form)";
 	}
