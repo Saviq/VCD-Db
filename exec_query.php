@@ -320,6 +320,14 @@ switch ($form) {
 
 		break;
 		
+	case 'delmetatype':
+		$metadatatype_id = $_GET['meta_id'];
+		if (is_numeric($metadatatype_id)) {
+			$SETTINGSClass->deleteMetaDataType($metadatatype_id);
+		}
+		redirect('?page=private&o=settings');
+		break;
+		
 	case 'delactor':
 		$actor_id = $_GET['actor_id'];
 		$movie_id = $_GET['movie_id'];
