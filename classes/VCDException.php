@@ -41,8 +41,14 @@
    		   $err = "Exception occurred.";
    		
    		   if ($exception instanceof Exception) {
-   		   		
-   		   		$file = str_replace('\\',"#",$exception->getFile());
+   		   	
+   		   		if (substr_count($exception->getFile(), '\\') > 0) {
+   		   			$splitter = '\\';
+   		   		} else {
+   		   			$splitter = '/';
+   		   		}
+   		   	
+   		   		$file = str_replace($splitter,"#",$exception->getFile());
    		   		$file = split("#",$file);
    		   		$error_file = $file[sizeof($file)-1];
    		   		
@@ -64,6 +70,9 @@
    		   		$message = $err."<break>".$msg."<break>";
    		   }
    		   
+   		  
+   		   // Check if this needs looging ..
+   		   self::logException($exception);
    		      		   
    		      		   
 	       print "<script>";
@@ -105,6 +114,32 @@
    			$errorMessage = str_replace("<break>", "\\n", "$errorMessage");
    			
    			return $errorMessage;
+   		}
+
+   		/**
+   		 * Check if we are supposed to log the error and if so then write it do database.
+   		 *
+   		 * @param mixed $exception | Either instance of Exception or plain text
+   		 */
+   		private static function logException($exception) {
+   			// Check if we are supposed to log this ...
+   			if (VCDLog::isInLogList(VCDLog::EVENT_ERROR )) {
+   				if ($exception instanceof Exception ) {
+   					if (substr_count($exception->getFile(), '\\') > 0) {
+   		   				$splitter = '\\';
+   		   			} else {
+	   		   			$splitter = '/';
+   			   		}
+   			   		$file = str_replace($splitter,"#",$exception->getFile());
+   		   			$file = split("#",$file);
+   		   			$error_file = $file[sizeof($file)-1];
+   					$logmsg = "File:".$error_file. " Message:".$exception->getMessage();
+   				} else {
+   					$logmsg = $exception;
+   				}
+   				
+				VCDLog::addEntry(VCDLog::EVENT_ERROR , $logmsg);
+			}
    		}
    		
 	
