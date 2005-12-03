@@ -42,15 +42,7 @@
    		
    		   if ($exception instanceof Exception) {
    		   	
-   		   		if (substr_count($exception->getFile(), '\\') > 0) {
-   		   			$splitter = '\\';
-   		   		} else {
-   		   			$splitter = '/';
-   		   		}
-   		   	
-   		   		$file = str_replace($splitter,"#",$exception->getFile());
-   		   		$file = split("#",$file);
-   		   		$error_file = $file[sizeof($file)-1];
+   		   		$error_file = basename($exception->getFile());
    		   		
    		   		$exmsg = str_replace(Chr(13),"",$exception->getMessage());
    		   		$exmsg = str_replace(Chr(12),"",$exmsg);
@@ -125,14 +117,7 @@
    			// Check if we are supposed to log this ...
    			if (VCDLog::isInLogList(VCDLog::EVENT_ERROR )) {
    				if ($exception instanceof Exception ) {
-   					if (substr_count($exception->getFile(), '\\') > 0) {
-   		   				$splitter = '\\';
-   		   			} else {
-	   		   			$splitter = '/';
-   			   		}
-   			   		$file = str_replace($splitter,"#",$exception->getFile());
-   		   			$file = split("#",$file);
-   		   			$error_file = $file[sizeof($file)-1];
+   					$error_file = basename($exception->getFile());
    					$logmsg = "File:".$error_file. " Message:".$exception->getMessage();
    				} else {
    					$logmsg = $exception;
