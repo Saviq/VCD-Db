@@ -105,23 +105,10 @@ switch ($form) {
 					
 					// Write the TAR file to disk
 					VCDUtils::write($tarFilename, $zipfile->toTarOutput("xmlthumbnails", true));
-					$fsize = filesize($tarFilename);
-					$fd = fopen ($tarFilename, "rb");
-					
-					if ($fd) {
-					
-						// Create the http response header
-						header( "Content-type: application/zip" );
-						header( 'Content-Disposition: attachment; filename="thumbnails_export.tgz"' );
-						header( "Content-length: {$fsize}");
-
-						// Stream the contents to browser
-						fpassthru($fd);
-						// Close the file descriptor and clean up
-						fclose($fd);
-						fs_unlink($tarFilename);
-					}
-					
+					// Stream the file to browser
+					send_file($tarFilename);
+					// Delete the tar file from cache
+					fs_unlink($tarFilename);
 					exit();
 				
 				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
@@ -129,30 +116,24 @@ switch ($form) {
 					
 					$zipfile = new zipfile();
 					$zipfile->addFile($xml, "thumbnails_export.xml");
+					
 					// Write the zip file to cache folder
 					VCDUtils::write($zipFilename, $zipfile->file());
-					$fsize = filesize($zipFilename);
-					$fd = fopen ($zipFilename, "rb");
-					if ($fd) {
-										
-						header( 'Content-type: application/zip' );
-						header( 'Content-Disposition: attachment; filename="thumbnails_export.zip"' );
-						header( "Content-length: {$fsize}");
-						
-						// Stream the contents to browser
-						fpassthru($fd);
-						// Close the file descriptor and clean up
-						fclose($fd);
-						fs_unlink($zipFilename);
-					}
-					
+					// Stream the file to browser
+					send_file($zipFilename);
+					// Delete the Zip file from cache
+					fs_unlink($zipFilename);
 					exit();
 						
 				
 				} else {
-					header('Content-type: application/xml');
-					header('Content-Disposition: attachment; filename="thumbnails_export.xml"');
-					print $xml;
+					// Write the XML file to cache folder
+					VCDUtils::write($xmlFilename, $xml);
+					// Stream the file to browser
+					send_file($xmlFilename);
+					// Delete the XML file from cache
+					fs_unlink($xmlFilename);
+					exit();
 					
 				}
 				
@@ -176,6 +157,9 @@ switch ($form) {
 				
 				
 				$xmlFilename = CACHE_FOLDER.'movie_export.xml';
+				$tarFilename = CACHE_FOLDER.'movie_export.tgz';
+				$zipFilename = CACHE_FOLDER.'movie_export.zip';
+				
 				
 				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
 					require_once('classes/external/compression/tar.php');
@@ -184,23 +168,38 @@ switch ($form) {
 					$zipfile = new tar();
 					$zipfile->addFile($xmlFilename);
 					fs_unlink($xmlFilename);
-					header( 'Content-type: application/zip' );
-					header( 'Content-Disposition: attachment; filename="movie_export.tgz"' );
-					print $zipfile->toTarOutput("movie_export", true);
+					
+					// Write the TAR file to disk
+					VCDUtils::write($tarFilename, $zipfile->toTarOutput("movie_export", true));
+					// Stream the file to browser
+					send_file($tarFilename);
+					// Delete the tar file from cache
+					fs_unlink($tarFilename);
+					exit();
 				
 				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
 					require_once('classes/external/compression/zip.php');
 					
 					$zipfile = new zipfile();
 					$zipfile->addFile($xml, "movie_export.xml");
-					header( 'Content-type: application/zip' );
-					header( 'Content-Disposition: attachment; filename="movie_export.zip"' );
-					print $zipfile->file();
+					
+					// Write the zip file to cache folder
+					VCDUtils::write($zipFilename, $zipfile->file());
+					// Stream the file to browser
+					send_file($zipFilename);
+					// Delete the Zip file from cache
+					fs_unlink($zipFilename);
+					exit();
+					
 				
 				} else {
-					header('Content-type: application/xml');
-					header('Content-Disposition: attachment; filename="movie_export.xml"');
-					print $xml;
+					// Write the XML file to cache folder
+					VCDUtils::write($xmlFilename, $xml);
+					// Stream the file to browser
+					send_file($xmlFilename);
+					// Delete the XML file from cache
+					fs_unlink($xmlFilename);
+					exit();
 					
 				}
 				
