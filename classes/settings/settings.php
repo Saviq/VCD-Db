@@ -551,10 +551,11 @@ class vcd_settings implements Settings {
 	}
 
 	/**
-	 * Get a mediatype by name
+	 * Get a mediatypeObj by mediatype name.
+	 * If media type is not found, null is returned.
 	 *
-	 * @param string $media_name
-	 * @return media type object
+	 * @param string $media_name | The name of the media type
+	 * @return mediaTypeObj | The object found.
 	 */
 	public function getMediaTypeByName($media_name) {
 		try {
@@ -1499,7 +1500,11 @@ class vcd_settings implements Settings {
 	 					$arrObj->setMetadataID($oldObj->getMetadataID());
 	 					$this->updateMetadata($arrObj);
 	 				} else {
-	 					$this->SQL->addMetadata($arrObj);
+	 					// if the data is empty .. we return without throwing an error.
+	 					if (strcmp(trim($arrObj->getMetadataValue()), "") != 0)  {
+	 						$this->SQL->addMetadata($arrObj);	
+	 					}
+	 					
 	 				}
 	 			}
 	 			return;
@@ -1521,8 +1526,9 @@ class vcd_settings implements Settings {
 	 					$metaTypeObj = $this->addMetaDataType($metaTypeObj);
 	 					$arrObj->setMetaDataTypeID($metaTypeObj->getMetadataTypeID());
 	 				}
-
-	 				$this->SQL->addMetadata($arrObj);
+					if (strcmp(trim($arrObj->getMetadataValue()), "") != 0)  {
+	 					$this->SQL->addMetadata($arrObj);
+					}
 	 			}
 
 
@@ -1547,7 +1553,9 @@ class vcd_settings implements Settings {
 				 				$metaTypeObj = $this->addMetaDataType($metaTypeObj);
 				 				$arrObj->setMetaDataTypeID($metaTypeObj->getMetadataTypeID());
 				 			}
-			 				$this->SQL->addMetadata($metaObj);
+				 			if (strcmp(trim($metaObj->getMetadataValue()), "") != 0)  {
+			 					$this->SQL->addMetadata($metaObj);
+				 			}
 			 			}
 	 				}
 	 			}
