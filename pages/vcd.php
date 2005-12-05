@@ -1,4 +1,4 @@
-<? 
+<?
 $cd_id = $_GET['vcd_id'];
 
 global $language;
@@ -13,7 +13,7 @@ if ($movie->isAdult()) {
 	require_once(dirname(__FILE__) . '/adultvcd.php');
 } else {
 	$imdb = $movie->getIMDB();
-	
+
 ?>
 
 
@@ -28,7 +28,7 @@ if ($movie->isAdult()) {
 	<table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tr>
 		<td valign="top" width="10%">
-		<? 
+		<?
 		$coverObj = $movie->getCover("thumbnail");
 		if (!is_null($coverObj)) {
 			$coverObj->showImage();
@@ -44,11 +44,11 @@ if ($movie->isAdult()) {
 			</tr>
 			<tr>
 				<td width="30%"><?= $language->show('M_CATEGORY')?>:</td>
-				<td><? 
+				<td><?
 				$mObj = $movie->getCategory();
 				if (!is_null($mObj)) {
 					print "<a href=\"./?page=category&amp;category_id=".$mObj->getID()."\">".$mObj->getName()."</a>";
-				} 
+				}
 				?></td>
 			</tr>
 			<tr>
@@ -61,32 +61,32 @@ if ($movie->isAdult()) {
 			</tr>
 			<tr>
 				<td colspan="2">
-				<? 
-					if (isset($imdb)) { 
+				<?
+					if (isset($imdb)) {
 						$imdb->printImageLink(); $imdb->drawRating();
 					}
 				?>
 				</td>
 			</tr>
-			<? 
+			<?
 				if (VCDUtils::isLoggedIn()) {
 					if ($SETTINGSClass->isOnWishList($movie->getID())) {
 						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= $language->show('W_ONLIST')?>)</a></td></tr><?
 					} else {
-						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= $language->show('W_ADD')?></a></td></tr><?					
+						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= $language->show('W_ADD')?></a></td></tr><?
 					}
-					
+
 				}
 			?>
-			
-			
-			<? 
+
+
+			<?
 				if (VCDUtils::hasPermissionToChange($movie)) {
 					?>
 						<tr><td>&nbsp;</td><td><a href="#" onclick="loadManager(<?=$movie->getID()?>)"><?= $language->show('M_CHANGE')?></a></td></tr>
 					<?
 				}
-				
+
 				// Display seen box if activated
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie) && $_SESSION['user']->getPropertyByKey('SEEN_LIST')) {
    					$arrList = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
@@ -102,8 +102,8 @@ if ($movie->isAdult()) {
 				}
 			?>
 			</table>
-		
-		
+
+
 		</td>
 	</tr>
 	</table>
@@ -116,9 +116,9 @@ if ($movie->isAdult()) {
 		<td><?= $language->show('M_TITLE')?></td>
 		<td><?=$imdb->getTitle() ?></td>
 	</tr>
-	<? 
+	<?
 		if (strcmp($imdb->getAltTitle(), "") != 0) {
-	?> 
+	?>
 	<tr>
 		<td valign="top"><?= $language->show('M_ALTTITLE')?></td>
 		<td><?=$imdb->getAltTitle() ?></td>
@@ -145,22 +145,22 @@ if ($movie->isAdult()) {
 		<td><?=$imdb->getRuntime() ?> <?= $language->show('M_MINUTES')?></td>
 	</tr>
 	</table>
-	
-	
+
+
 	<? } else { print "<ul><li>".$language->show('I_NOT')."</li></ul>"; } ?>
 	</div>
-	
-	
+
+
 	<div id="imdbplot">
 	<a name="plot"></a>
 	<h2><?= $language->show('M_PLOT')?>:</h2>
 	<? if (isset($imdb)) { showPlot($imdb->getPlot()); } else { print "<ul><li>".$language->show('M_NOPLOT')."</li></ul>"; }?>
 	</div>
-	
+
 	<div id="covers">
 	<h2><?= $language->show('M_COVERS')?></h2>
 	<?
-			
+
 		$covers = $movie->getCovers();
 		$bNoCovers = true;
 		if (count($covers) > 0) {
@@ -172,66 +172,66 @@ if ($movie->isAdult()) {
 				}
 			}
 			print "</ul>";
-		} 
-		
+		}
+
 		if ($bNoCovers) {
 			print "<ul><li>".$language->show('M_NOCOVERS')."</li></ul>";
 		}
 	?>
 	</div>
-		
-	
+
+
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
 	<? $movie->displayCopies() ?>
 	</div>
-	
-	
-	<? 
+
+
+	<?
 		if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
 			$userMetaArr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), null);
-			
+
 			if (is_array($userMetaArr) && sizeof($userMetaArr) > 0) {
-			
+
 				$arrCopies = $movie->getInstancesByUserID(VCDUtils::getUserID());
 				$arrMyMediaTypes = $arrCopies['mediaTypes'];
-				
+
 				print "<div id=\"metadata\">";
 				print "<h2>Metadata</h2>";
-				
+
 				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
 				print "<tr><td width=\"20%\">{$language->show('M_MEDIA')}</td><td>Meta name</td><td>Meta value</td></tr>";
 				foreach ($userMetaArr as $metadataObj) {
 					$mediaObj = $SETTINGSClass->getMediaTypeByID($metadataObj->getMediaTypeID());
 					if ($mediaObj instanceof mediaTypeObj && strcmp(trim($metadataObj->getMetadataValue()), "") != 0) {
-						print "<tr><td>{$mediaObj->getName()}</td><td title=\"{$metadataObj->getMetadataDescription()}\">{$metadataObj->getMetadataName()}</td><td>{$metadataObj->prettyPrint(&$movie)}</td></tr>";	
+						print "<tr><td>{$mediaObj->getName()}</td><td title=\"{$metadataObj->getMetadataDescription()}\">{$metadataObj->getMetadataName()}</td><td>{$metadataObj->prettyPrint($movie)}</td></tr>";
 					}
-					
+
 				}
 				print "</table>";
-				
-				
-				
-				
+
+
+
+
 				print "</div>";
-			
+
 			}
 		}
-		
+
 	?>
-	
-	
-	
-	
+
+
+
+
 	<div id="comments">
 	<h2><?= $language->show('C_COMMENTS')?> (<a href="javascript:show('newcomment')"><?= $language->show('C_ADD')?></a>)</h2>
 	</div>
-	
+
 	<div id="newcomment" style="padding-left:15px;visibility:hidden;display:none">
 		<?  if(!VCDUtils::isLoggedIn()) {
 				print "<span class=\"bold\">". $language->show('C_ERROR')."</span>";
 			} else { ?>
-	
+
 		<span class="bold"><?= $language->show('C_TYPE')?>:</span>
 		<form name="newcomment" method="POST" action="exec_form.php?action=addcomment">
 		<input type="hidden" name="vcd_id" value="<?=$movie->getID()?>"/>
@@ -251,7 +251,7 @@ if ($movie->isAdult()) {
 		<? } ?>
 		<br/>
 	</div>
-	
+
 	<?
 		$commArr = $SETTINGSClass->getAllCommentsByVCD($movie->getID());
 		if (empty($commArr)) {
@@ -259,12 +259,12 @@ if ($movie->isAdult()) {
 		} else {
 			print "<ul>";
 			foreach ($commArr as $commObj) {
-				
+
 				$delcomment = "";
 				if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == VCDUtils::getUserID()) {
 					$delcomment = "<a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>";
 				}
-				
+
 				if ($commObj->isPrivate()) {
 					if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == VCDUtils::getUserID())	{
 						print "<li>".$commObj->getOwnerName()." (".$commObj->getDate().") (<i>Private comment</i>) $delcomment
@@ -274,17 +274,17 @@ if ($movie->isAdult()) {
 					print "<li>".$commObj->getOwnerName()." (".$commObj->getDate().") $delcomment
 					   <br/><i style=\"padding-left:3px;display:block\">".$commObj->getComment(true)."</i></li>";
 				}
-				
-				
+
+
 			}
 			print "</ul>";
 		}
-		
+
 	?>
-	
+
 	</div>
-	
-	
+
+
 	</td>
 	<td valign="top">
 	<div id="cast">
@@ -295,26 +295,26 @@ if ($movie->isAdult()) {
 	}
 	?>
 	</div>
-	
+
 	<div id="imdblinks">
-	<? 
+	<?
 		if (isset($imdb)) {
 			display_imdbLinks($imdb->getIMDB());
 		}
 	?>
 	</div>
-	
+
 	<div id="similar">
-	<? 
+	<?
 		$simArr = $VCDClass->getSimilarMovies($movie->getID());
 		if (is_array($simArr) && sizeof($simArr) > 0) {
-			
+
 			print "<h2>".$language->show('M_SIMILAR')."</h2>";
 			print "<form name=\"sim\" action=\"get\"><select name=\"similar\" size=\"1\" onchange=\"goSimilar(this.form)\">";
 			evalDropdown($simArr, 0, true, $language->show('X_SELECT'));
 			print "</form>";
 		}
-		
+
 	?>
 	</div>
 	</td>
@@ -323,6 +323,6 @@ if ($movie->isAdult()) {
 
 
 
-<? 
+<?
 }
 ?>
