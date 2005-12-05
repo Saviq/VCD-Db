@@ -613,13 +613,13 @@ function processXMLMovies($upfile, $use_covers) {
 	      
 		   unset($xml);
 		   fs_unlink($upfile);
+		   
 		   if ($use_covers) {
 		   		fs_unlink($upthumbfile);
 		   }
 		   
 		   $_SESSION['xmlresults'] = $results_array;
 		   redirect('?page=private&o=add&source=xmlresults');
-		   
 		   
 		   
 		   } catch (Exception $ex) {
