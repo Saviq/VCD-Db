@@ -21,7 +21,7 @@ Fixed   - Users that had been deleted by admin since last visit and had selected
 		  were getting error output.
 Updated - Some fixes here and there for PHP 5.1 compatibility.
 Fixed   - SQLite works now as exspected on Linux.
-Added	- Verified and tested compatibility with MySQL 5.0 and Postgre SQL 8.0 and 8.1
+Added	- Verified and tested compatibility with MySQL 5.0 and Postgre SQL 8.0 and 8.1 (with or without OID's)
 Changed - The VCDClassFactory is now a static class and the SQL classes all share 1 connection from the ClassFactory
 		  instead of each SQL class opening it's own connection like before.
 Fixed   - Fixed the vcd_image.php binary ouput for images that are stored in db.  Image size, name and type is now provided
@@ -32,6 +32,7 @@ Fixed   - The installer now correctly checks for folder permissions.
 Fixed   - The installer now correctly creates the database when using PostgreSQL
 Fixed   - Covers under adult flicks are no longer displayed unless they are front or back covers.
 Changed - Adult material is never displayed unless user is logged and has requested to see it under "My Settings"
+Added   - MetaData is now included in the Excel export list.
 
 
 0.973

@@ -67,18 +67,18 @@ switch ($form) {
 			// Strip all spaces in between
 			$metaname = preg_replace('/\s/', '', $metaname);
 			$metadescription = trim($_POST['metadatadescription']);
-			
+
 			if (strcmp($metaname, "") != 0 && strcmp($metadescription,"") != 0) {
-			
+
 				$obj = new metadataTypeObj('', $metaname, $metadescription, VCDUtils::getUserID());
 				$SETTINGSClass->addMetaDataType($obj);
 			}
-			
-			
+
+
 			header("Location: ".$_SERVER['HTTP_REFERER']."");
-			
+
 		}
-	
+
 		break;
 
 	case 'addfeed':
@@ -169,10 +169,10 @@ switch ($form) {
 			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTBAR , 0));
 		}
 
-		if (isset($_POST['id_list']) && strlen($_POST['id_list']) > 1) {
-			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $_POST['id_list']));
+		if (isset($_POST['rss_list']) && strlen($_POST['rss_list']) > 1) {
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $_POST['rss_list']));
 		} else {
-			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $_POST['id_list']));
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $_POST['rss_list']));
 		}
 
 		$SETTINGSClass->addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
@@ -807,16 +807,41 @@ switch ($form) {
 	    if (isset($_POST['current_dvd']) && is_numeric($_POST['current_dvd'])) {
 	    	// This is DVD typed media type
 	    	$is_dvd = true;
-	    	$curr_dvd = $_POST['selected_dvd'];
-	    	
+
+	    	$curr_dvd = $_POST['current_dvd'];
+	    	if (isset($_POST['selected_dvd']) && is_numeric($_POST['selected_dvd'])) {
+	    		$next_dvd = $_POST['selected_dvd'];
+	    	}
+
 	    	$dvd_region = $_POST['dvdregion'];
 	    	$dvd_format = $_POST['dvdformat'];
 	    	$dvd_aspect = $_POST['dvdaspect'];
-	    	
+	    	$audio_list = $_POST['audio_list'];
+	    	$sub_list = $_POST['sub_list'];
+
+	    	$arrDVDMeta = array();
+	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
+	    	array_push($arrDVDMeta, $obj);
+	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
+	    	array_push($arrDVDMeta, $obj);
+	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
+	    	array_push($arrDVDMeta, $obj);
+	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
+	    	array_push($arrDVDMeta, $obj);
+	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
+	    	array_push($arrDVDMeta, $obj);
+	    	foreach ($arrDVDMeta as $metadataObj) {
+	    		$metadataObj->setMediaTypeID($curr_dvd);
+	    	}
+
+	    	// Add / Update the DVD metadata
+	    	$SETTINGSClass->addMetadata($arrDVDMeta, true);
+
+
 	    }
-	    
-	    
-	    
+
+
+
 	    // Handle metadata
 	    $arrMetaData = array();
 		foreach ($_POST as $key => $value) {
@@ -824,7 +849,7 @@ switch ($form) {
 		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
 		 	}
 		}
-		
+
 		if (sizeof($arrMetaData) > 0) {
 			$metadataCommit = array();
 			foreach ($arrMetaData as $itemArr) {
@@ -834,8 +859,8 @@ switch ($form) {
 				$metadataName = $entry[1];
 				$metadatatype_id = $entry[2];
 				$mediatype_id = $entry[3];
-				
-				
+
+
 				// Skip empty metadata
 				if (strcmp($value, "") != 0) {
 					$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $value));
@@ -843,18 +868,18 @@ switch ($form) {
 					$obj->setMediaTypeID($mediatype_id);
 					array_push($metadataCommit, $obj);
 				}
-				
+
 			}
-			
-			
+
+
 			$SETTINGSClass->addMetadata($metadataCommit, true);
 			unset($metadataCommit);
 			unset($arrMetaData);
-			
+
 		}
 
 
-		
+
 
 	    /*
 	    	Process uploaded images
@@ -909,7 +934,7 @@ switch ($form) {
 	    		print "<script>alert('Errors occurred');history.back(-1)</script>";
 	    	} else {
 	    		if ($is_dvd) {
-	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload&curr_dvd=".$curr_dvd.""); /* Redirect back to form */
+	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload&curr_dvd=".$next_dvd.""); /* Redirect back to form */
 	    		} else {
 	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload"); /* Redirect back to form */
 	    		}

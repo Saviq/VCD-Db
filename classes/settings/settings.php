@@ -1481,18 +1481,18 @@ class vcd_settings implements Settings {
 	public function addMetadata($arrObj, $forceCheck = false) {
 	 	try {
 
-	 		
+
 	 		if ($forceCheck) {
 	 			if (is_array($arrObj)) {
 	 				foreach ($arrObj as $metaObj) {
 	 					$this->addMetadata($metaObj, true);
 	 				}
 	 			} else {
-	 				
+
 	 				if (!$arrObj instanceof metadataObj ) {
 	 					throw new Exception('Excepted metadata object.');
 	 				}
-	 				
+
 	 				$oldArr = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName(), $arrObj->getmediaTypeID());
 	 				$oldObj = null;
 	 				if (is_array($oldArr) && sizeof($oldArr) == 1) {
@@ -1502,16 +1502,16 @@ class vcd_settings implements Settings {
 	 				} else {
 	 					// if the data is empty .. we return without throwing an error.
 	 					if (strcmp(trim($arrObj->getMetadataValue()), "") != 0)  {
-	 						$this->SQL->addMetadata($arrObj);	
+	 						$this->SQL->addMetadata($arrObj);
 	 					}
-	 					
+
 	 				}
 	 			}
 	 			return;
 	 		}
-	 		
-	 		
-	 		
+
+
+
 	 		if ($arrObj instanceof metadataObj ) {
 	 			$oldObj = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName());
 	 			if (is_array($oldObj) && sizeof($oldObj) == 1) {
@@ -1713,7 +1713,7 @@ class vcd_settings implements Settings {
 		}
 	}
 
-	
+
 	/**
 	 * Delete metadataType object.  Only user defined metadata can be deleted by it's creator.
 	 *
@@ -1721,11 +1721,11 @@ class vcd_settings implements Settings {
 	 */
 	public function deleteMetaDataType($metatype_id) {
 		try {
-			
+
 			if (is_numeric($metatype_id)) {
 				// Check if the user trying to delete the object is actuallt the owner of the metadataType.
 				$canDelete = false;
-				
+
 				$metaArr = $this->getMetadataTypes(VCDUtils::getUserID());
 				foreach ($metaArr as $metatypeObj) {
 					if ($metatypeObj->getMetadataTypeID() === $metatype_id) {
@@ -1733,21 +1733,23 @@ class vcd_settings implements Settings {
 						break;
 					}
 				}
-				
+
 				if ($canDelete) {
 					$this->SQL->deleteMetaDataType($metatype_id);
 				} else {
 					throw new Exception('You cannot delete metadataType that you did not create.');
 				}
-				
+
 			}
-			
+
  		} catch (Exception $ex) {
  			VCDException::display($ex);
  		}
 	}
-	
-	
+
+
+
+
 
 	/*
 		Private functions below

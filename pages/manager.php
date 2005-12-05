@@ -52,9 +52,9 @@
 	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
 		$userMetadata = true;
 	}
-	
+
 	// Data used below ....
-	
+
 	// Get my copies ..
 	$arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
 	$arrMyMediaTypes = null;
@@ -65,16 +65,21 @@
 		$arrNumcds = $arrCopies['discs'];
 		$showDVDSpecs = VCDUtils::isDVDType($arrMediaTypes);
 	}
-	
+
+	$arrMyMeta = null;
+	if (!is_null($arrMyMediaTypes)) {
+		// Get existing metadata for the record ID, IE. The user defined types ..
+		$arrMyMeta = $SETTINGSClass->getMetadata($vcd->getId(), VCDUtils::getUserID(), "");
+	}
+
 	if ($showDVDSpecs) {
 		if (isset($_GET['curr_dvd']) && is_numeric($_GET['curr_dvd'])) {
 			$current_dvd = $_GET['curr_dvd'];
 		} else {
 			$current_dvd = $arrMediaTypes[0]->getmediaTypeID();
 		}
-		
 	}
-	
+
 
 
 ?>
@@ -186,7 +191,7 @@
 
 
 <?
-	
+
 
 	if (sizeof($arrCopies) == 0) {
 		print "<tr><td colspan=\"2\"><hr/>".$language->show('MAN_NOCOPY')."</td></tr>";
@@ -299,11 +304,11 @@
 </tr>
 <tr>
 	<td class="tblb" valign="top" colspan="2"><?=$language->show('EM_SUBCAT')?>:<br/>
-	<input type="hidden" name="id_list">
+	<input type="hidden" name="id_list" id="id_list">
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available" size=8 style="width:200px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input">
+					<select name="available" id="available" size=8 style="width:200px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input">
 					<?
 					$result = $PORNClass->getSubCategories();
 					foreach ($result as $porncategoryObj) {
@@ -318,7 +323,7 @@
 					<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input">
+					<select multiple name="choiceBox" id="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input">
 					<?
 					$result = $PORNClass->getSubCategoriesByMovieID($vcd->getID());
 					foreach ($result as $porncategoryObj) {
@@ -461,13 +466,12 @@
 	// Since each copy can contain it's own metadata this gets a little tricky.
 	// Finally there we find use for the mediatype_id member of the metadataObj and we use it here
 	// to distinguish the metadata for each media copy.
-	
-	
-	
+
+
+
 	if (!is_null($arrMyMediaTypes)) {
 
-		// Get existing metadata for the record ID, IE. The user defined types ..
-		$arrMyMeta = $SETTINGSClass->getMetadata($vcd->getId(), VCDUtils::getUserID(), "");
+
 		$iCounter = 0;
 
 		foreach ($arrMyMediaTypes as $mediaTypeObj) {
@@ -560,15 +564,25 @@
 <? } ?>
 
 <div id="submitters">
+		<?
+			$dvdCheck = "";
+			$dvdCheck2 = "";
+			if ($showDVDSpecs) {
+				$dvdCheck = "checkFieldsRaw(this.form,'audioChoices','audio_list');checkFieldsRaw(this.form,'langChoices','sub_list');";
+				$dvdCheck2 = "onclick=\"checkFieldsRaw(this.form,'audioChoices','audio_list');checkFieldsRaw(this.form,'langChoices','sub_list');\"";
+			}
+		?>
+
 
 		<? if ($vcd->isAdult()) { ?>
-			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');"/>
-			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');"/>
+			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
+			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list'<?=$dvdCheck?>);"/>
 		<? } else { ?>
-			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext"/>
-			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext"/>
+			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" <?=$dvdCheck2?>/>
+			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" <?=$dvdCheck2?>/>
 		<? } ?>
 		<input type="button" name="close" value="<?=$language->show('X_CLOSE')?>" class="buttontext" onClick="window.close()"/>
+
 </div>
 </form>
 </body>

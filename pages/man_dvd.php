@@ -1,8 +1,20 @@
 <?
 	$dvdObj = new dvdObj();
+	if (!is_null($arrMyMeta)) {
+		$arrDVDMetaObj = metadataTypeObj::getDVDMeta($arrMyMeta);
+	}
+
+	$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDREGION);
+	$dvd_format = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDFORMAT);
+	$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDASPECT);
+	$dvd_audio =  VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDAUDIO);
+	$dvd_subs =   VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDSUBS);
+
 ?>
 <input type="hidden" id="selected_dvd" name="selected_dvd"/>
 <input type="hidden" id="current_dvd" name="current_dvd" value="<?=$current_dvd?>"/>
+<input type="hidden" id="audio_list" name="audio_list" value=""/>
+<input type="hidden" id="sub_list" name="sub_list" value=""/>
 <table width="100%" cellpadding="1" cellspacing="1" border="0">
 <tr>
 	<td class="tblb">Media:</td>
@@ -11,9 +23,13 @@
 <tr>
 	<td class="tblb">Region:</td>
 	<td><select name="dvdregion" class="input">
-		<? foreach ($dvdObj->getRegionList() as $key => $value)
-			print "<option value=\"{$key}\">{$key}. {$value}</option>";
-
+		<? foreach ($dvdObj->getRegionList() as $key => $value) {
+			if ($key == $dvd_region) {
+				print "<option value=\"{$key}\" selected=\"selected\">{$key}. {$value}</option>";
+			} else {
+				print "<option value=\"{$key}\">{$key}. {$value}</option>";
+			}
+		}
 		?>
 		</select>
 	</td>
@@ -22,8 +38,14 @@
 <tr>
 	<td class="tblb">Format:</td>
 	<td><select name="dvdformat" class="input">
-		<? foreach ($dvdObj->getVideoFormats() as $key => $value)
-			print "<option value=\"{$key}\">{$value}</option>";
+		<? foreach ($dvdObj->getVideoFormats() as $key => $value) {
+			if ($key == $dvd_format) {
+				print "<option value=\"{$key}\" selected=\"selected\">{$value}</option>";
+			} else {
+				print "<option value=\"{$key}\">{$value}</option>";
+			}
+
+		}
 
 		?>
 		</select>
@@ -33,8 +55,14 @@
 <tr>
 	<td class="tblb">Aspect ratio:</td>
 	<td><select name="dvdaspect" class="input">
-		<? foreach ($dvdObj->getAspectRatios() as $key => $value)
-			print "<option value=\"{$key}\">{$value}</option>";
+		<? foreach ($dvdObj->getAspectRatios() as $key => $value) {
+			if ($key == $dvd_aspect) {
+				print "<option value=\"{$key}\" selected=\"selected\">{$value}</option>";
+			} else {
+				print "<option value=\"{$key}\">{$value}</option>";
+			}
+		}
+
 
 		?>
 		</select>
@@ -49,7 +77,7 @@
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="audioAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')" class="input">
+					<select name="audioAvailable" id="audioAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
 					foreach ($dvdObj->getAudioList() as $key => $value) {
 						print "<option value=\"{$key}\">{$value}</option>";
@@ -62,7 +90,7 @@
 					<input type="button" value="<<" onclick="removeMe(this.form, 'audioAvailable', 'audioChoices');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="audioChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')" class="input">
+					<select multiple name="audioChoices" id="audioChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
 
 					?>
@@ -82,7 +110,7 @@
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="langAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')" class="input">
+					<select name="langAvailable" id="langAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')" class="input">
 					<?
 					foreach ($dvdObj->getLanguageList(false) as $key => $value) {
 						print "<option value=\"{$key}\">{$value}</option>";
@@ -95,7 +123,7 @@
 					<input type="button" value="<<" onclick="removeMe(this.form,'langAvailable', 'langChoices');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="langChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')" class="input">
+					<select multiple name="langChoices" id="langChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')" class="input">
 					<?
 						foreach ($dvdObj->getDefaultSubtitles() as $key => $value) {
 							print "<option value=\"{$key}\">{$value}</option>";

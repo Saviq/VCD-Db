@@ -352,19 +352,19 @@ class metadataTypeObj {
 			foreach ($arrMetaData as &$metaDataObj) {
 				switch ($metaDataObj->getMetadataTypeID()) {
 					case self::SYS_DVDASPECT:
-						array_push($arrDVDMeta, array(self::SYS_DVDASPECT => $metaDataObj));
+						array_push($arrDVDMeta, $metaDataObj);
 						break;
 					case self::SYS_DVDAUDIO:
-						array_push($arrDVDMeta, array(self::SYS_DVDAUDIO => $metaDataObj));
+						array_push($arrDVDMeta, $metaDataObj);
 						break;
 					case self::SYS_DVDFORMAT:
-						array_push($arrDVDMeta, array(self::SYS_DVDFORMAT => $metaDataObj));
+						array_push($arrDVDMeta, $metaDataObj);
 						break;
 					case self::SYS_DVDREGION:
-						array_push($arrDVDMeta, array(self::SYS_DVDREGION => $metaDataObj));
+						array_push($arrDVDMeta, $metaDataObj);
 						break;
 					case self::SYS_DVDSUBS:
-						array_push($arrDVDMeta, array(self::SYS_DVDSUBS => $metaDataObj));
+						array_push($arrDVDMeta, $metaDataObj);
 						break;
 
 				}
