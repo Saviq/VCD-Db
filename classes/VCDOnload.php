@@ -147,6 +147,7 @@ if (isset($_POST)) {
 		/* Redirect to avoid expired page*/
 		if (strlen($ref) > 0) {
 			header("Location: $ref"); /* Redirect browser */
+			exit();
 		} else {
 			redirect(); /* Redirect browser */
 		}
@@ -170,6 +171,7 @@ if (isset($_GET['action']) && strcmp($_GET['action'], "viewmode") == 0) {
 		$_SESSION['viewmode'] = "text";
 	}
 	header("Location: $url"); /* Redirect browser */
+	exit();
 }
 
 
