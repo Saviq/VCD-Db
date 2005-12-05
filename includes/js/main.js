@@ -73,11 +73,8 @@ function loadManager(cd_id) {
 function moveOver(form, boxAvailable, boxChoices)  {
 try {
 
-	strAvail = form.name + '.' + boxAvailable;
-	strChoice = form.name + '.' + boxChoices;
-
-	var objAvailable = eval(strAvail);
-	var objChoices = eval(strChoice);
+	var objAvailable = document.getElementById(boxAvailable);
+	var objChoices = document.getElementById(boxChoices);
 
 	var boxLength = objChoices.length;
 	var selectedItem = objAvailable.selectedIndex;
@@ -109,20 +106,16 @@ try {
     sortSelect(form[boxChoices]);
 
 
-	} catch (Ex) {
-		alert(Ex.Message);
+	} catch (ex) {
+		alert('Could not locate input fields.');
   }
 }
 
 
 function moveBack(form, selected_id, boxAvailable, boxChoices) {
 
-	strAvail = form.name + '.' + boxAvailable;
-	strChoice = form.name + '.' + boxChoices;
-
-	var objAvailable = eval(strAvail);
-	var objChoices = eval(strChoice);
-
+	var objAvailable = document.getElementById(boxAvailable);
+	var objChoices = document.getElementById(boxChoices);
 
 	var boxLength = objAvailable.length;
 	var selectedItem = objChoices.selectedIndex;
@@ -130,7 +123,6 @@ function moveBack(form, selected_id, boxAvailable, boxChoices) {
 	if (selectedItem < 0) {
 		return;
 	}
-
 
 	var selectedText = objChoices.options[selectedItem].text;
 	var selectedValue = objChoices.options[selectedItem].value;
@@ -152,16 +144,15 @@ function moveBack(form, selected_id, boxAvailable, boxChoices) {
 	objChoices.selectedIndex=-1;
 
 	// Sort the available
-    sortSelect(form[boxAvailable]);
+	if (boxLength < 1000)
+    	sortSelect(form[boxAvailable]);
 
 }
 
 
 function removeMe(form, boxAvailable, boxChoices) {
-	strAvail = form.name + '.' + boxAvailable;
-	strChoice = form.name + '.' + boxChoices;
-	var objAvailable = eval(strAvail);
-	var objChoices = eval(strChoice);
+	var objAvailable = document.getElementById(boxAvailable);
+	var objChoices = document.getElementById(boxChoices);
 
 	var boxLength = objChoices.length;
 	arrSelected = new Array();
@@ -211,11 +202,8 @@ function saveMe() {
 }
 
 function checkFieldsRaw(form, boxChoices, boxSave) {
-	strChoice = form.name + '.' + boxChoices;
-	strSave = form.name + '.' + boxSave;
-	var objChoices = eval(strChoice);
-	var objSave = eval(strSave);
-
+	var objChoices = document.getElementById(boxChoices);
+	var objSave = document.getElementById(boxSave);
 
 	var delimiter = "#";
 	teString = "";
