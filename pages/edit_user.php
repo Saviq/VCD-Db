@@ -261,7 +261,7 @@
 	<table cellpadding="1" cellspacing="1">
 	<tr>
 		<td>
-		<select name="available" size="5" style="width:300px;" onDblClick="moveOver(this.form)">
+		<select name="available" size="5" style="width:300px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')">
 		<?
 		$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(0);
 		foreach ($arrFeeds as $item) {
@@ -273,10 +273,10 @@
 		</td>
 	</tr>
 	<tr>
-		<td align="center"><img src="images/move_down.gif" onclick="moveOver(document.choiceForm);" hspace="4" border="0"/><img src="images/move_up.gif" onclick="removeMe(document.choiceForm);" border="0"/></td>
+		<td align="center"><img src="images/move_down.gif" onclick="moveOver(document.choiceForm, 'available', 'choiceBox');" hspace="4" border="0"/><img src="images/move_up.gif" onclick="removeMe(document.choiceForm, 'available', 'choiceBox');" border="0"/></td>
 	</tr>
 	<tr>
-		<td><select multiple name="choiceBox" style="width:300px;" size="5" class="input">
+		<td><select multiple name="choiceBox" style="width:300px;" size="5" class="input" ondblclick="removeMe(document.choiceForm, 'available', 'choiceBox');">
 		<?
 		foreach ($arrFeeds as $item) {
 			if (is_array($arrSelectedFeeds) && in_array($item['id'], $arrSelectedFeeds))
@@ -297,7 +297,7 @@
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="<?=$language->show('X_UPDATE')?>" onclick="checkFieldsRaw(this.form)"/></td>
+	<td><input type="submit" value="<?=$language->show('X_UPDATE')?>" onclick="checkFieldsRaw(this.form,'choiceBox', 'id_list')"/></td>
 </tr>
 </table>
 </form>
@@ -326,7 +326,7 @@
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
 	<td width="44%" valign="top"">Ignore all movies from the following users:</td>
-	<td width="10%"><select name="available" size="5" style="width:100px;" onDblClick="moveOver(this.form)">
+	<td width="10%"><select name="available" size="5" style="width:100px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')">
 		<?
 	
 		
@@ -341,8 +341,8 @@
 		?> 
 		</select></td>
 	<td width="5%" align="center">
-	<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);" class="input" style="margin-bottom:5px;"/><br/>
-	<input type="button" value="&lt;&lt;" onclick="removeMe(this.form);" class="input"/>
+	<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/><br/>
+	<input type="button" value="&lt;&lt;" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 	</td>
 	<td width="10%"><select multiple name="choiceBox" style="width:100px;" size="5" class="input">
 		<?
@@ -353,7 +353,7 @@
 		}
 		?> 
 		</select></td>
-	<td align="left" valign="bottom"><input type="submit" value="<?=$language->show('X_UPDATE')?>" onclick="checkFieldsRaw(this.form)"/></td>
+	<td align="left" valign="bottom"><input type="submit" value="<?=$language->show('X_UPDATE')?>" onclick="checkFieldsRaw(this.form, 'choiceBox', 'id_list')"/></td>
 </tr>
 </table>
 </form>

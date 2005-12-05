@@ -32,7 +32,7 @@
 	<td>
 	<h2><?=$language->show('ADD_INDB')?></h2>
 	
-	<select name="available" size=20 style="width:300px;"onDblClick="moveOver(this.form);clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();">
+	<select name="available" size=20 style="width:300px;"onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();">
 	<?
 	 
 		foreach ($movies as $movie) {
@@ -45,8 +45,8 @@
 	</select>
 	</td>
 	<td>
-		<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);clr();" class="input" style="margin-bottom:5px;"/><br/>
-		<input type="button" value="&lt;&lt;" onclick="removeMe(this.form);" class="input"/>
+		<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');clr();" class="input" style="margin-bottom:5px;"/><br/>
+		<input type="button" value="&lt;&lt;" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 	</td>
 	<td><h2><?=$language->show('ADD_SELECTED')?></h2>
 		<select multiple name="choiceBox" style="width:300px;" size="8" class="input"></select>

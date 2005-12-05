@@ -19,7 +19,7 @@
 <table cellspacing="0" cellpadding="2" border="0">
 <tr>
 	<td><h2><?=$language->show('MENU_MOVIES')?></h2>
-	<select name="available" id="myitems" size=16 style="width:300px;" onDblClick="moveOver(this.form);clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="inp">
+	<select name="available" id="myitems" size=16 style="width:300px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="inp">
 		<?
 		foreach ($arrVcd as $vcdObj) {
 			print "<option value=\"".$vcdObj->getID()."\">" .  $vcdObj->getTitle() . " " . $vcdObj->showMediaTypes() . "</option>";		}	
@@ -27,13 +27,13 @@
 	</select>
 	</td>
 	<td>
-	<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);clr();" class="input" style="margin-bottom:5px;"/><br/>
-	<input type="button" value="<<" onclick="removeMe(this.form);clr();" class="input"/>
+	<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');clr();" class="input" style="margin-bottom:5px;"/><br/>
+	<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');clr();" class="input"/>
 	</td>
 	<td>
 	<p><br/><br/><br/>
 	<h2><?=$language->show('LOAN_MOVIES')?></h2>
-	<select multiple name="choiceBox" style="width:300px;" size="8" class="inp" onDblClick="removeMe(this.form)"></select>
+	<select multiple name="choiceBox" style="width:300px;" size="8" class="inp" onDblClick="removeMe(this.form, 'available', 'choiceBox')"></select>
 	
 	<br/>
 	<h2><?=$language->show('LOAN_TO')?></h2>

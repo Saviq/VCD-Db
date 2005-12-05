@@ -17,6 +17,12 @@ function show(id){
 	}
 	// W3C - Explorer 5+ and Netscape 6+
 	else if(ie5 || ns6){
+		
+		if (document.getElementById(id).style.visibility == "visible") {
+			hide(id);
+			return;
+		}
+		
 		document.getElementById(id).style.display = "block";
 		document.getElementById(id).style.visibility = "visible";
 	}
@@ -64,55 +70,75 @@ function loadManager(cd_id) {
 
 
 
-function moveOver(form)  {
-	var boxLength = form.choiceBox.length;
-	var selectedItem = form.available.selectedIndex;
+function moveOver(form, boxAvailable, boxChoices)  {
+try {
+	
+	strAvail = form.name + '.' + boxAvailable;
+	strChoice = form.name + '.' + boxChoices;
+	
+	var objAvailable = eval(strAvail);
+	var objChoices = eval(strChoice);
+	
+	var boxLength = objChoices.length;
+	var selectedItem = objAvailable.selectedIndex;
 
-	if (selectedItem < 0) {
-		return;
-	}
+	if (selectedItem < 0) { return; }
 
-	var selectedText = form.available.options[selectedItem].text;
-	var selectedValue = form.available.options[selectedItem].value;
+	var selectedText = objAvailable.options[selectedItem].text;
+	var selectedValue = objAvailable.options[selectedItem].value;
 	var i;
 	var isNew = true;
 	if (boxLength != 0) {
 	for (i = 0; i < boxLength; i++) {
-		thisitem = form.choiceBox.options[i].text;
+		thisitem = objChoices.options[i].text;
 		if (thisitem == selectedText) {
-		isNew = false;
-		break;
-      }
-   }
-}
-if (isNew) {
-	newoption = new Option(selectedText, selectedValue, false, false);
-	form.choiceBox.options[boxLength] = newoption;
+			isNew = false;
+			break;
+      	}
+   	  }
 	}
-
-
-	form.available.options[form.available.selectedIndex] = null;
-	form.available.selectedIndex=-1;
+	
+	if (isNew) {
+		newoption = new Option(selectedText, selectedValue, false, false);
+		objChoices.options[boxLength] = newoption;
+	}
+	objAvailable.options[objAvailable.selectedIndex] = null;
+	objAvailable.selectedIndex=-1;
+	
+	// Sort the selected
+    sortSelect(form[boxChoices]);
+	
+	
+	} catch (Ex) {
+		alert(Ex.Message);
+  }
 }
 
 
-function moveBack(form, selected_id) {
+function moveBack(form, selected_id, boxAvailable, boxChoices) {
 
-	var boxLength = form.available.length;
-	var selectedItem = form.choiceBox.selectedIndex;
+	strAvail = form.name + '.' + boxAvailable;
+	strChoice = form.name + '.' + boxChoices;
+	
+	var objAvailable = eval(strAvail);
+	var objChoices = eval(strChoice);
+	
+	
+	var boxLength = objAvailable.length;
+	var selectedItem = objChoices.selectedIndex;
 
 	if (selectedItem < 0) {
 		return;
 	}
 
 
-	var selectedText = form.choiceBox.options[selectedItem].text;
-	var selectedValue = form.choiceBox.options[selectedItem].value;
+	var selectedText = objChoices.options[selectedItem].text;
+	var selectedValue = objChoices.options[selectedItem].value;
 	var i;
 	var isNew = true;
 	if (boxLength != 0) {
 	for (i = 0; i < boxLength; i++) {
-		thisitem = form.available.options[i].text;
+		thisitem = objAvailable.options[i].text;
 			if (thisitem == selectedText) {
 			isNew = false;
 			break;
@@ -121,43 +147,46 @@ function moveBack(form, selected_id) {
     }
 	if (isNew) {
 		newoption = new Option(selectedText, selectedValue, false, false);
-		form.available.options[boxLength] = newoption;
+		objAvailable.options[boxLength] = newoption;
 	}
-	form.choiceBox.selectedIndex=-1;
+	objChoices.selectedIndex=-1;
 
 	// Sort the available
-    sortSelect(form['available']);
+    sortSelect(form[boxAvailable]);
 
 }
 
 
-function removeMe(form) {
-	var boxLength = form.choiceBox.length;
+function removeMe(form, boxAvailable, boxChoices) {
+	strAvail = form.name + '.' + boxAvailable;
+	strChoice = form.name + '.' + boxChoices;
+	var objAvailable = eval(strAvail);
+	var objChoices = eval(strChoice);
+	
+	var boxLength = objChoices.length;
 	arrSelected = new Array();
 	var count = 0;
 	var selected_index;
 
 	for (i = 0; i < boxLength; i++) {
-		if (form.choiceBox.options[i].selected) {
-		arrSelected[count] = form.choiceBox.options[i].value;
-		selected_index = form.choiceBox.options[i].value;
+		if (objChoices.options[i].selected) {
+			arrSelected[count] = objChoices.options[i].value;
+			selected_index = objChoices.options[i].value;
 		}
-	count++;
+		count++;
 	}
 
-moveBack(form,selected_index);
+	moveBack(form,selected_index, boxAvailable, boxChoices);
 
-var x;
-for (i = 0; i < boxLength; i++) {
-	for (x = 0; x < arrSelected.length; x++) {
-		if (form.choiceBox.options[i].value == arrSelected[x]) {
-		form.choiceBox.options[i] = null;
-
-	   }
-	}
-	boxLength = form.choiceBox.length;
+	var x;
+	for (i = 0; i < boxLength; i++) {
+		for (x = 0; x < arrSelected.length; x++) {
+			if (objChoices.options[i].value == arrSelected[x]) {
+				objChoices.options[i] = null;
+		   }
+		}
+		boxLength = objChoices.length;
    }
-
 }
 
 
@@ -181,56 +210,58 @@ function saveMe() {
 	}
 }
 
+function checkFieldsRaw(form, boxChoices, boxSave) {
+	strChoice = form.name + '.' + boxChoices;
+	strSave = form.name + '.' + boxSave;
+	var objChoices = eval(strChoice);
+	var objSave = eval(strSave);
+	
+	
+	var delimiter = "#";
+	teString = "";
+	tempSt = "";
+
+	for(var i=0; i<objChoices.options.length; i++)  {
+		teString = objChoices.options[i].value;
+		if (i < objChoices.options.length - 1){
+			tempSt = tempSt + teString + delimiter;
+		} else {
+			tempSt = tempSt + teString;
+		}
+	}
+	objSave.value = tempSt;
+}
+
 
 
 function checkFields(form) {
-var delimiter = "#";	// Hvernig viltu splitta strengnum ??
-teString = "";
-tempSt = "";
+	var delimiter = "#";
+	teString = "";
+	tempSt = "";
 
-for(var i=0; i<form.choiceBox.options.length; i++)  {
-	teString = form.choiceBox.options[i].value;
-	if (i < form.choiceBox.options.length - 1){
-		tempSt = tempSt + teString + delimiter;
+	for(var i=0; i<form.choiceBox.options.length; i++)  {
+		teString = form.choiceBox.options[i].value;
+		if (i < form.choiceBox.options.length - 1){
+			tempSt = tempSt + teString + delimiter;
+		} else {
+			tempSt = tempSt + teString;
+		}
+	}
+
+	form.id_list.value = tempSt;
+	var selectedItem = form.borrowers.selectedIndex;
+	var selectedValue = form.borrowers.options[selectedItem].value;
+
+	if (form.id_list.value == "") {
+		alert('No movies have been added to loan');
+		return false;
+	} else if (selectedValue == "null") {
+		alert('Select somneone to lend the movies');
+		return false;
 	} else {
-		tempSt = tempSt + teString;
+		return true;
 	}
 }
-
-form.id_list.value = tempSt;
-var selectedItem = form.borrowers.selectedIndex;
-var selectedValue = form.borrowers.options[selectedItem].value;
-
-if (form.id_list.value == "") {
-	alert('No movies have been added to loan');
-	return false;
-} else if (selectedValue == "null") {
-	alert('Select somneone to lend the movies');
-	return false;
-} else {
-	return true;
-}
-
-}
-
-
-function checkFieldsRaw(form) {
-var delimiter = "#";	// Hvernig viltu splitta strengnum ??
-teString = "";
-tempSt = "";
-
-for(var i=0; i<form.choiceBox.options.length; i++)  {
-	teString = form.choiceBox.options[i].value;
-	if (i < form.choiceBox.options.length - 1){
-		tempSt = tempSt + teString + delimiter;
-	} else {
-		tempSt = tempSt + teString;
-	}
-}
-
-form.id_list.value = tempSt;
-}
-
 
 
 
@@ -327,8 +358,8 @@ function val_borrower(form){
 
 function val_Empire(form) {
 
-	checkFieldsRaw(form);
-
+	checkFieldsRaw(form, 'choiceBox', 'id_list');
+	
 	if (form.title.value == "") {
 	    alert('CD title can\'t be empty');
 	    form.title.focus();
@@ -755,7 +786,7 @@ function deleteCopy(usercopies, totalcopies, cd_id, media_id) {
 
 function checkListed(form) {
 
-	checkFieldsRaw(form);
+	checkFieldsRaw(form,'available', 'id_list');
 	if (form.id_list.value == "") {
 		alert('Select at least one movie to proceed');
 		return false;
@@ -1052,4 +1083,17 @@ function viewMode(category_id, viewmode, batch) {
 function switchTemplate(template) {
 	url = 'exec_query.php?action=templates&name='+template;
 	location.href = url;
+}
+
+function doManagerSubmit(form) {
+	try {
+		var dvdSelectedMediaID = form.options[form.selectedIndex].value;
+		var dvdBox = document.getElementById('selected_dvd');
+		dvdBox.value = dvdSelectedMediaID;
+		var updateButton = document.getElementById('update');
+		updateButton.click();
+		
+	} catch (ex) {
+		alert(ex.Message);
+	}
 }

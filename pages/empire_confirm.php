@@ -114,20 +114,20 @@
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available" size=8 style="width:110px;" onDblClick="moveOver(this.form);" class="plain">
+					<select name="available" size=8 style="width:110px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');" class="plain">
 					<? 
 						evalDropdown($PORNClass->getSubCategories(), -1, false);
 					?>	
 					</select>
 				</td>
 				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form);" class="input"/>
+					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/><br/>
+					<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 				</td>
 				<td>
 					<select multiple name="choiceBox" style="width:110px;" size="8" class="plain">
 					<? 
-						$valid_categories =  $PORNClass->getValidCategories($empire->getCategories());
+						$valid_categories = $PORNClass->getValidCategories($empire->getCategories());
 						evalDropdown($valid_categories, -1, false);
 					?>
 					</select>

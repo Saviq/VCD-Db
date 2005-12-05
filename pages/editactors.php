@@ -7,7 +7,10 @@
 	}
 
 	$language = new language(true);
-	$language->load($_SESSION['vcdlang']);
+	if (isset($_SESSION['vcdlang'])) {
+		$language->load($_SESSION['vcdlang']);	
+	}
+	
 
 	$user = $_SESSION['user'];
 	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
@@ -90,7 +93,7 @@
 		<td>
 		&nbsp;<strong><?=$language->show('MAN_INDB')?></strong>
 		<INPUT TYPE="hidden" NAME="keys" VALUE=""/>
-		<select name="available" size=15 style="width:180px;" onDblClick="moveOver(this.form);clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
+		<select name="available" size=15 style="width:180px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
 		<?
 		 	foreach ($pornstarArr as $pornstar) {
 		 		echo "<option value=\"".$pornstar->getID()."\">".$pornstar->getName()."</option>";
@@ -100,13 +103,13 @@
 		</select>
 		</td>
 		<td>
-			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);clr();" class="input" style="margin-bottom:5px;"/><br/>
-			<input type="button" value="<<" onclick="removeMe(this.form);" class="input"/>
+			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');clr();" class="input" style="margin-bottom:5px;"/><br/>
+			<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 		</td>
 		<td><strong><?=$language->show('MAN_SEL')?></strong>
-			<select multiple name="choiceBox" onclick="removeMe(this.form)" style="width:180px;" size="8" class="input"></select>
+			<select multiple name="choiceBox" onclick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
 			<br/><br/>
-			<input type="submit" onClick="checkFieldsRaw(this.form)" value="<?=$language->show('X_SAVEANDCLOSE')?>" name="update" class="buttontext"/>
+			<input type="submit" onClick="checkFieldsRaw(this.form,'choiceBox','id_list')" value="<?=$language->show('X_SAVEANDCLOSE')?>" name="update" class="buttontext"/>
 		</td>			
 		</tr>
 		</table>

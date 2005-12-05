@@ -1,9 +1,13 @@
 <?
 	$dvdObj = new dvdObj();
 ?>
-
-<p>
+<input type="hidden" id="selected_dvd" name="selected_dvd"/>
+<input type="hidden" id="current_dvd" name="current_dvd" value="<?=$current_dvd?>"/>
 <table width="100%" cellpadding="1" cellspacing="1" border="0">
+<tr>
+	<td class="tblb">Media:</td>
+	<td><? createDVDDropdown($arrCopies['mediaTypes'], $current_dvd); ?></td>
+</tr>
 <tr>
 	<td class="tblb">Region:</td>
 	<td><select name="dvdregion" class="input">
@@ -45,7 +49,7 @@
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available" size="5" style="width:175px;" onDblClick="moveOver(this.form)" class="input">
+					<select name="audioAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
 					foreach ($dvdObj->getAudioList() as $key => $value) {
 						print "<option value=\"{$key}\">{$value}</option>";
@@ -54,11 +58,11 @@
 					</select>
 				</td>
 				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form);" class="input"/>
+					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'audioAvailable', 'audioChoices');" class="input" style="margin-bottom:5px;"/><br/>
+					<input type="button" value="<<" onclick="removeMe(this.form, 'audioAvailable', 'audioChoices');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="choiceBox" style="width:175px;" size="5" onDblClick="removeMe(this.form)" class="input">
+					<select multiple name="audioChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
 
 					?>
@@ -78,7 +82,7 @@
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available2" size="5" style="width:175px;" onDblClick="moveOver(this.form)" class="input">
+					<select name="langAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')" class="input">
 					<?
 					foreach ($dvdObj->getLanguageList(false) as $key => $value) {
 						print "<option value=\"{$key}\">{$value}</option>";
@@ -87,11 +91,11 @@
 					</select>
 				</td>
 				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form);" class="input"/>
+					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'langAvailable', 'langChoices');" class="input" style="margin-bottom:5px;"/><br/>
+					<input type="button" value="<<" onclick="removeMe(this.form,'langAvailable', 'langChoices');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="choiceBox2" style="width:175px;" size="5" onDblClick="removeMe(this.form)" class="input">
+					<select multiple name="langChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')" class="input">
 					<?
 						foreach ($dvdObj->getDefaultSubtitles() as $key => $value) {
 							print "<option value=\"{$key}\">{$value}</option>";
@@ -108,4 +112,3 @@
 
 
 </table>
-</p>
