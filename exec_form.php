@@ -803,12 +803,18 @@ switch ($form) {
 
 
 	    // Check for DVD Specific metadata
-	    if (isset($_POST['dvdregion']) && isset($_POST['dvdformat'])) {
+	    $is_dvd = false;
+	    if (isset($_POST['current_dvd']) && is_numeric($_POST['current_dvd'])) {
 	    	// This is DVD typed media type
+	    	$is_dvd = true;
+	    	$curr_dvd = $_POST['selected_dvd'];
+	    	
 	    	$dvd_region = $_POST['dvdregion'];
 	    	$dvd_format = $_POST['dvdformat'];
 	    	$dvd_aspect = $_POST['dvdaspect'];
+	    	
 	    }
+	    
 	    
 	    
 	    // Handle metadata
@@ -902,7 +908,11 @@ switch ($form) {
 	    	if ($errors) {
 	    		print "<script>alert('Errors occurred');history.back(-1)</script>";
 	    	} else {
-	    		redirect("pages/manager.php?cd_id=".$cd_id."&do=reload"); /* Redirect back to form */
+	    		if ($is_dvd) {
+	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload&curr_dvd=".$curr_dvd.""); /* Redirect back to form */
+	    		} else {
+	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload"); /* Redirect back to form */
+	    		}
 	    	}
 	    }
 

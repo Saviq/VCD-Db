@@ -52,6 +52,29 @@
 	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
 		$userMetadata = true;
 	}
+	
+	// Data used below ....
+	
+	// Get my copies ..
+	$arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
+	$arrMyMediaTypes = null;
+	$showDVDSpecs = false;
+	if (is_array($arrCopies) && sizeof($arrCopies) > 0) {
+		$arrMediaTypes = $arrCopies['mediaTypes'];
+		$arrMyMediaTypes = &$arrMediaTypes;
+		$arrNumcds = $arrCopies['discs'];
+		$showDVDSpecs = VCDUtils::isDVDType($arrMediaTypes);
+	}
+	
+	if ($showDVDSpecs) {
+		if (isset($_GET['curr_dvd']) && is_numeric($_GET['curr_dvd'])) {
+			$current_dvd = $_GET['curr_dvd'];
+		} else {
+			$current_dvd = $arrMediaTypes[0]->getmediaTypeID();
+		}
+		
+	}
+	
 
 
 ?>
@@ -59,7 +82,7 @@
         "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
-	<title>Manager | <?=$vcd->getTitle()?> | My copy</title>
+	<title>Manager | <?=$vcd->getTitle()?></title>
 	<link rel="stylesheet" type="text/css" href="../includes/css/style.css"/>
 	<style type="text/css" media="screen">
 		@import url(../includes/css/manager.css);
@@ -86,12 +109,8 @@
 		</td>
 		<td id=tab3 class=tab><?=$language->show('M_ACTORS')?></td>
 		<td id=tab4 class=tab>Covers</td>
-		<td id=tab5 class=tab>DVD</td>
-		<?
-			if ($userMetadata) {
-				print "<td id=tab6 class=tab>Meta</td>";
-			}
-		?>
+		<? if ($showDVDSpecs) { ?> <td id=tab5 class=tab>DVD</td> <? } ?>
+		<? if ($userMetadata) {?> <td id=tab6 class=tab>Meta</td> <? } ?>
 	</tr>
 	<tr>
 		<td id=t1base style="height:2px; border-left:solid thin #E0E7EC"></td>
@@ -167,12 +186,7 @@
 
 
 <?
-	// Get my copies ..
-	$arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
-	if (sizeof($arrCopies) > 0) {
-		$arrMediaTypes = $arrCopies['mediaTypes'];
-		$arrNumcds = $arrCopies['discs'];
-	}
+	
 
 	if (sizeof($arrCopies) == 0) {
 		print "<tr><td colspan=\"2\"><hr/>".$language->show('MAN_NOCOPY')."</td></tr>";
@@ -289,7 +303,7 @@
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available" size=8 style="width:200px;" onDblClick="moveOver(this.form)" class="input">
+					<select name="available" size=8 style="width:200px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input">
 					<?
 					$result = $PORNClass->getSubCategories();
 					foreach ($result as $porncategoryObj) {
@@ -300,11 +314,11 @@
 					</select>
 				</td>
 				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form);" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form);" class="input"/>
+					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/><br/>
+					<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 				</td>
 				<td>
-					<select multiple name="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form)" class="input">
+					<select multiple name="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input">
 					<?
 					$result = $PORNClass->getSubCategoriesByMovieID($vcd->getID());
 					foreach ($result as $porncategoryObj) {
@@ -431,9 +445,11 @@
 
 </div>
 
+<? if($showDVDSpecs) { ?>
 <div id="content5" class="content">
 <? require_once('man_dvd.php'); ?>
 </div>
+<? } ?>
 
 <? if ($userMetadata) { ?>
 <div id="content6" class="content">
@@ -445,12 +461,9 @@
 	// Since each copy can contain it's own metadata this gets a little tricky.
 	// Finally there we find use for the mediatype_id member of the metadataObj and we use it here
 	// to distinguish the metadata for each media copy.
-	$arrMyMediaTypes = null;
-	if (is_array($arrCopies) && sizeof($arrCopies) > 0) {
-		$arrMyMediaTypes = $arrCopies['mediaTypes'];
-	}
-
-
+	
+	
+	
 	if (!is_null($arrMyMediaTypes)) {
 
 		// Get existing metadata for the record ID, IE. The user defined types ..
@@ -549,11 +562,11 @@
 <div id="submitters">
 
 		<? if ($vcd->isAdult()) { ?>
-			<input type="submit" name="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form);"/>
-			<input type="submit" name="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form);"/>
+			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');"/>
+			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');"/>
 		<? } else { ?>
-			<input type="submit" name="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext"/>
-			<input type="submit" name="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext"/>
+			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext"/>
+			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext"/>
 		<? } ?>
 		<input type="button" name="close" value="<?=$language->show('X_CLOSE')?>" class="buttontext" onClick="window.close()"/>
 </div>

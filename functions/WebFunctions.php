@@ -561,6 +561,7 @@ function redirect($relative_url = '.?')
    else
    {
        print "<script>location.href='".$url."'</script>";
+       exit();
    }
 }
 
@@ -909,8 +910,9 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
  * @param vcdObj $vcd_id
  * @param int $user_id
  * @param string $playcommand
+ * @param metadataObj $metaObj | The metadata Object
  */
-function getPlayCommand($vcdObj, $user_id, &$playcommand) {
+function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
 	if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($vcdObj) && $_SESSION['user']->getPropertyByKey('PLAYOPTION')) {
 
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
@@ -920,10 +922,15 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand) {
 		$filename = "";
 
 		// check for filename
-		$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, 'filelocation');
-		if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
-			$filename = $fileArr[0]->getMetaDataValue();
+		if ($metaObj instanceof metadataObj ) {
+			$filename = $metaObj->getMetaDataValue();
+		} else {
+			$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, metadataTypeObj::SYS_FILELOCATION );
+			if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
+				$filename = $fileArr[0]->getMetaDataValue();
+			}	
 		}
+		
 
 
 		// check for player settings
@@ -1149,5 +1156,42 @@ function send_file($path) {
    return((connection_status()==0) and !connection_aborted());
 }
 
+
+function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
+	try {
+		
+		if (sizeof($arrMediaTypes) == 1 && $arrMediaTypes[0] instanceof mediaTypeObj ) {
+			print $arrMediaTypes[0]->getDetailedName();
+		}
+		
+		else if (is_array($arrMediaTypes)) {
+			$arrDVDTypes = array();
+			foreach ($arrMediaTypes as $mediatypeObj) {
+				if (VCDUtils::isDVDType(array($mediatypeObj))) {
+					array_push($arrDVDTypes, $mediatypeObj);
+				}
+			}
+			
+			if (sizeof($arrDVDTypes) == 1) {
+				print $arrMediaTypes[0]->getDetailedName();
+			} else {
+				print "<select name=\"dvdtype\" class=\"input\" onchange=\"doManagerSubmit(this)\">";
+				foreach ($arrDVDTypes as $mediatypeObj) {
+					if ($selectedIndex === $mediatypeObj->getmediaTypeID()) {
+						print "<option value=\"{$mediatypeObj->getmediaTypeID()}\" selected=\"selected\">{$mediatypeObj->getDetailedName()}</option>";
+					} else {
+						print "<option value=\"{$mediatypeObj->getmediaTypeID()}\">{$mediatypeObj->getDetailedName()}</option>";	
+					}
+					
+				}
+				print "</select>";
+			}
+			
+		}
+		
+	} catch (Exception $ex) {
+		VCDException::display($ex);
+	}
+}
 
 ?>

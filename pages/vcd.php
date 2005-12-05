@@ -3,6 +3,7 @@ $cd_id = $_GET['vcd_id'];
 
 global $language;
 $VCDClass = VCDClassFactory::getInstance("vcd_movie");
+$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 $movie = $VCDClass->getVcdByID($cd_id);
 if (!$movie instanceof vcdObj ) {
 	redirect();
@@ -58,19 +59,6 @@ if ($movie->isAdult()) {
 				<td><?= $language->show('M_COPIES')?>:</td>
 				<td><?= $movie->getNumCopies() ?></td>
 			</tr>
-		<?
-		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		$arr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'mediaindex');
-		
-		if (is_array($arr) && sizeof($arr) == 1) {
-		?>
-			<tr>
-				<td><?= $language->show('M_MEDIAINDEX')?>:</td>
-				<td><?= $arr[0]->getMetadataValue() ?></td>
-			</tr>
-		<?
-		}
-		?>
 			<tr>
 				<td colspan="2">
 				<? 
@@ -112,19 +100,6 @@ if ($movie->isAdult()) {
 				    }
 				    print "</td></tr>";
 				}
-				
-				// Display Play button
-				
-				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
-					$command = "";
-					if (getPlayCommand($movie, VCDUtils::getUserID(), $command)) {
-						print "<tr><td>&nbsp;</td><td>";
-					    print "<a href=\"javascript:void(0)\"><img src=\"images/play.gif\" alt=\"\" border=\"0\" onclick=\"playFile('".$command."')\"/></a>";
-				    	print "</td></tr>";	
-					}
-					
-				}
-				
 			?>
 			</table>
 		
@@ -210,6 +185,43 @@ if ($movie->isAdult()) {
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
 	<? $movie->displayCopies() ?>
 	</div>
+	
+	
+	<? 
+		if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
+			$userMetaArr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), null);
+			
+			if (is_array($userMetaArr) && sizeof($userMetaArr) > 0) {
+			
+				$arrCopies = $movie->getInstancesByUserID(VCDUtils::getUserID());
+				$arrMyMediaTypes = $arrCopies['mediaTypes'];
+				
+				print "<div id=\"metadata\">";
+				print "<h2>Metadata</h2>";
+				
+				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
+				print "<tr><td width=\"20%\">{$language->show('M_MEDIA')}</td><td>Meta name</td><td>Meta value</td></tr>";
+				foreach ($userMetaArr as $metadataObj) {
+					$mediaObj = $SETTINGSClass->getMediaTypeByID($metadataObj->getMediaTypeID());
+					if ($mediaObj instanceof mediaTypeObj && strcmp(trim($metadataObj->getMetadataValue()), "") != 0) {
+						print "<tr><td>{$mediaObj->getName()}</td><td title=\"{$metadataObj->getMetadataDescription()}\">{$metadataObj->getMetadataName()}</td><td>{$metadataObj->prettyPrint(&$movie)}</td></tr>";	
+					}
+					
+				}
+				print "</table>";
+				
+				
+				
+				
+				print "</div>";
+			
+			}
+		}
+		
+	?>
+	
+	
+	
 	
 	<div id="comments">
 	<h2><?= $language->show('C_COMMENTS')?> (<a href="javascript:show('newcomment')"><?= $language->show('C_ADD')?></a>)</h2>
