@@ -282,10 +282,19 @@
 		public function updateMediaType(mediaTypeObj $mediaTypeObj) {
 			try {
 
-			$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = '".$mediaTypeObj->getName()."',
-					  parent_id = ".$mediaTypeObj->getParentID().",
-					  media_type_description = '".$mediaTypeObj->getDescription()."'
-					  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";
+				
+			if (is_numeric($mediaTypeObj->getParentID()) && $mediaTypeObj->getParentID() > 0) {
+				$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = ".$this->db->qstr($mediaTypeObj->getName())." ,
+					  	  parent_id = ".$mediaTypeObj->getParentID().",
+					  	  media_type_description = ".$this->db->qstr($mediaTypeObj->getDescription())."
+					  	  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";	
+			} else {
+				$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = ".$this->db->qstr($mediaTypeObj->getName()).", 
+					  	  media_type_description = ".$this->db->qstr($mediaTypeObj->getDescription())."
+					  	  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";	
+			}
+				
+			
 			$this->db->Execute($query);
 
 			} catch (Exception $e) {
@@ -965,10 +974,10 @@
 				
 			} else if (strlen($metadata_name) == 0) {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
-						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
+						  m.mediatype_id, n.type_id, n.owner_id, n.type_description FROM $this->TABLE_metadata m
 						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
 						  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ."
-						  ORDER BY n.type_name";
+						  ORDER BY m.mediatype_id, n.type_id, n.type_name";
 			} else {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
 						  m.mediatype_id, n.type_id, n.owner_id FROM $this->TABLE_metadata m
