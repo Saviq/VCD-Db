@@ -561,6 +561,47 @@ class VCDUtils {
 
 	}
 
+	
+	/**
+	 * Check if any of the mediaTypes in the incoming array matches a DVD based mediaType.
+	 *
+	 * @param array $arrMediaTypes | Array of mediaTypeObjects
+	 * @return bool
+	 */
+	static function isDVDType($arrMediaTypes) {
+		if (is_array($arrMediaTypes) && sizeof($arrMediaTypes) > 0) {
+			
+			$CLASSsettings = VCDClassFactory::getInstance('vcd_settings');
+			// Get the standars DVD and DVD-R mediaTypeObj
+			$objDVD =  $CLASSsettings->getMediaTypeByName('DVD');
+			$objDVDR = $CLASSsettings->getMediaTypeByName('DVD-R');
+			
+			$isDVDType = false;
+			if ($objDVD instanceof mediaTypeObj && $objDVDR instanceof mediaTypeObj ) {
+				foreach ($arrMediaTypes as $mediaTypeObj) {
+					$curr_id = $mediaTypeObj->getmediaTypeID();
+					$dvd_id = $objDVD->getmediaTypeID();
+					$dvdr_id = $objDVDR->getmediaTypeID();
+					if ($curr_id == $dvd_id || $curr_id == $dvdr_id) {
+						$isDVDType = true;
+						break;
+					}
+					
+					if (is_numeric($mediaTypeObj->getParentID()) && ($mediaTypeObj->getParentID() > 0)) {
+						if ($mediaTypeObj->getParentID() == $dvd_id || $mediaTypeObj->getParentID() == $dvdr_id) { 
+							$isDVDType = true;
+							break;
+					}
+				}
+			}
+		}
+						
+			return $isDVDType;
+			
+		} else {
+			return false;
+		}
+	}
 
 
 
