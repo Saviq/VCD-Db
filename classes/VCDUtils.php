@@ -561,7 +561,7 @@ class VCDUtils {
 
 	}
 
-	
+
 	/**
 	 * Check if any of the mediaTypes in the incoming array matches a DVD based mediaType.
 	 *
@@ -570,12 +570,12 @@ class VCDUtils {
 	 */
 	static function isDVDType($arrMediaTypes) {
 		if (is_array($arrMediaTypes) && sizeof($arrMediaTypes) > 0) {
-			
+
 			$CLASSsettings = VCDClassFactory::getInstance('vcd_settings');
 			// Get the standars DVD and DVD-R mediaTypeObj
 			$objDVD =  $CLASSsettings->getMediaTypeByName('DVD');
 			$objDVDR = $CLASSsettings->getMediaTypeByName('DVD-R');
-			
+
 			$isDVDType = false;
 			if ($objDVD instanceof mediaTypeObj && $objDVDR instanceof mediaTypeObj ) {
 				foreach ($arrMediaTypes as $mediaTypeObj) {
@@ -586,21 +586,45 @@ class VCDUtils {
 						$isDVDType = true;
 						break;
 					}
-					
+
 					if (is_numeric($mediaTypeObj->getParentID()) && ($mediaTypeObj->getParentID() > 0)) {
-						if ($mediaTypeObj->getParentID() == $dvd_id || $mediaTypeObj->getParentID() == $dvdr_id) { 
+						if ($mediaTypeObj->getParentID() == $dvd_id || $mediaTypeObj->getParentID() == $dvdr_id) {
 							$isDVDType = true;
 							break;
 					}
 				}
 			}
 		}
-						
+
 			return $isDVDType;
-			
+
 		} else {
 			return false;
 		}
+	}
+
+
+
+	/**
+	 * Get a value from specfic metaData type in the DVD Section
+	 *
+	 * @param arrray $arrMetaObj
+	 * @param string $dvdTypeToFind
+	 * @return string
+	 */
+	static function getDVDMetaObjValue($arrMetaObj, $dvdTypeToFind) {
+		$metaValue = "";
+		if (is_array($arrMetaObj)) {
+			foreach ($arrMetaObj as $metaDataObj) {
+				if ($metaDataObj->getMetadataTypeID() == $dvdTypeToFind) {
+					$metaValue = $metaDataObj->getMetadataValue();
+					break;
+				}
+			}
+		}
+
+
+		return $metaValue;
 	}
 
 
