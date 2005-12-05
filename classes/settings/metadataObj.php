@@ -40,7 +40,7 @@ class metadataObj extends metadataTypeObj  {
 		if (isset($dataArr[5])) {
 			$this->mediatype_id = $dataArr[5];
 		}
-		
+
 		// Optional metatype_id
 		if (isset($dataArr[6]))	{
 			$this->metatype_id   = $dataArr[6];
@@ -94,7 +94,7 @@ class metadataObj extends metadataTypeObj  {
 	public function getMediaTypeID() {
 		return $this->mediatype_id;
 	}
-	
+
 	/**
 	 * Set the media type ID
 	 *
@@ -105,7 +105,7 @@ class metadataObj extends metadataTypeObj  {
 			$this->mediatype_id = $media_id;
 		}
 	}
-	
+
 	/**
 	 * Get the user ID of the metadata object
 	 *
@@ -141,7 +141,7 @@ class metadataObj extends metadataTypeObj  {
 	public function setMetadataValue($strValue) {
 		$this->metadata_value = $strValue;
 	}
-	
+
 	/**
 	 * Get the metadataValue pretty formatted
 	 *
@@ -157,7 +157,7 @@ class metadataObj extends metadataTypeObj  {
 				}
 				return $this->getMetadataValue();
 				break;
-		
+
 			default:
 				return $this->getMetadataValue();
 		}
@@ -336,6 +336,44 @@ class metadataTypeObj {
 			default: 					 return false; 			 break;
 
 
+		}
+	}
+
+	/**
+	 * Filter out the the DVD related metadata from a metadata collection.
+	 * If incoming array is null, null is returned back.
+	 *
+	 * @param array $arrMetaData | Array of metadataObjects
+	 * @return array
+	 */
+	public static function getDVDMeta($arrMetaData) {
+		if (is_array($arrMetaData)) {
+			$arrDVDMeta = array();
+			foreach ($arrMetaData as &$metaDataObj) {
+				switch ($metaDataObj->getMetadataTypeID()) {
+					case self::SYS_DVDASPECT:
+						array_push($arrDVDMeta, array(self::SYS_DVDASPECT => $metaDataObj));
+						break;
+					case self::SYS_DVDAUDIO:
+						array_push($arrDVDMeta, array(self::SYS_DVDAUDIO => $metaDataObj));
+						break;
+					case self::SYS_DVDFORMAT:
+						array_push($arrDVDMeta, array(self::SYS_DVDFORMAT => $metaDataObj));
+						break;
+					case self::SYS_DVDREGION:
+						array_push($arrDVDMeta, array(self::SYS_DVDREGION => $metaDataObj));
+						break;
+					case self::SYS_DVDSUBS:
+						array_push($arrDVDMeta, array(self::SYS_DVDSUBS => $metaDataObj));
+						break;
+
+				}
+			}
+
+			return $arrDVDMeta;
+
+		} else {
+			return null;
 		}
 	}
 
