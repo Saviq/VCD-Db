@@ -17,12 +17,12 @@ function show(id){
 	}
 	// W3C - Explorer 5+ and Netscape 6+
 	else if(ie5 || ns6){
-		
+
 		if (document.getElementById(id).style.visibility == "visible") {
 			hide(id);
 			return;
 		}
-		
+
 		document.getElementById(id).style.display = "block";
 		document.getElementById(id).style.visibility = "visible";
 	}
@@ -72,13 +72,13 @@ function loadManager(cd_id) {
 
 function moveOver(form, boxAvailable, boxChoices)  {
 try {
-	
+
 	strAvail = form.name + '.' + boxAvailable;
 	strChoice = form.name + '.' + boxChoices;
-	
+
 	var objAvailable = eval(strAvail);
 	var objChoices = eval(strChoice);
-	
+
 	var boxLength = objChoices.length;
 	var selectedItem = objAvailable.selectedIndex;
 
@@ -97,18 +97,18 @@ try {
       	}
    	  }
 	}
-	
+
 	if (isNew) {
 		newoption = new Option(selectedText, selectedValue, false, false);
 		objChoices.options[boxLength] = newoption;
 	}
 	objAvailable.options[objAvailable.selectedIndex] = null;
 	objAvailable.selectedIndex=-1;
-	
+
 	// Sort the selected
     sortSelect(form[boxChoices]);
-	
-	
+
+
 	} catch (Ex) {
 		alert(Ex.Message);
   }
@@ -119,11 +119,11 @@ function moveBack(form, selected_id, boxAvailable, boxChoices) {
 
 	strAvail = form.name + '.' + boxAvailable;
 	strChoice = form.name + '.' + boxChoices;
-	
+
 	var objAvailable = eval(strAvail);
 	var objChoices = eval(strChoice);
-	
-	
+
+
 	var boxLength = objAvailable.length;
 	var selectedItem = objChoices.selectedIndex;
 
@@ -162,7 +162,7 @@ function removeMe(form, boxAvailable, boxChoices) {
 	strChoice = form.name + '.' + boxChoices;
 	var objAvailable = eval(strAvail);
 	var objChoices = eval(strChoice);
-	
+
 	var boxLength = objChoices.length;
 	arrSelected = new Array();
 	var count = 0;
@@ -215,8 +215,8 @@ function checkFieldsRaw(form, boxChoices, boxSave) {
 	strSave = form.name + '.' + boxSave;
 	var objChoices = eval(strChoice);
 	var objSave = eval(strSave);
-	
-	
+
+
 	var delimiter = "#";
 	teString = "";
 	tempSt = "";
@@ -342,7 +342,7 @@ function val_borrower(form){
 	  if(form.borrower_name.value == "")
 	    {
 	    alert("Please enter a name");
-	    form.borrower_name.focus(); 
+	    form.borrower_name.focus();
 	    return false;
 	  }
 
@@ -359,7 +359,7 @@ function val_borrower(form){
 function val_Empire(form) {
 
 	checkFieldsRaw(form, 'choiceBox', 'id_list');
-	
+
 	if (form.title.value == "") {
 	    alert('CD title can\'t be empty');
 	    form.title.focus();
@@ -786,7 +786,7 @@ function deleteCopy(usercopies, totalcopies, cd_id, media_id) {
 
 function checkListed(form) {
 
-	checkFieldsRaw(form,'available', 'id_list');
+	checkFieldsRaw(form,'choiceBox', 'id_list');
 	if (form.id_list.value == "") {
 		alert('Select at least one movie to proceed');
 		return false;
@@ -1000,11 +1000,11 @@ function filebrowse(param, destField) {
 		if (destField == null) {
 			var url = 'filebrowse.php?from='+param;
 		} else {
-			var url = 'filebrowse.php?from='+param+'&field='+destField;	
+			var url = 'filebrowse.php?from='+param+'&field='+destField;
 		}
-		
+
 		window.open(url, 'FILEBROWSE', 'height=60,width=380,top=200,left=250');
-		
+
 	} catch (Ex) {}
 }
 
@@ -1017,7 +1017,7 @@ function getFileName(form, fieldname) {
 		obj.value = filename;
 		self.close();
 		return false;
-		
+
   } catch (ex) {
   }
 }
@@ -1092,7 +1092,7 @@ function doManagerSubmit(form) {
 		dvdBox.value = dvdSelectedMediaID;
 		var updateButton = document.getElementById('update');
 		updateButton.click();
-		
+
 	} catch (ex) {
 		alert(ex.Message);
 	}
