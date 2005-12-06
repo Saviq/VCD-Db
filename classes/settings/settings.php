@@ -1635,7 +1635,13 @@ class vcd_settings implements Settings {
 
 
 	 		} else {
-	 			return null;
+	 			if (is_numeric($record_id)) {
+	 				// Get metadata only based on the Record ID
+	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
+	 			} else {
+	 				return null;	
+	 			}
+	 			
 	 		}
 
 	 	} catch (Exception $e) {
