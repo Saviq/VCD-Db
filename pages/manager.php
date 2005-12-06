@@ -76,9 +76,16 @@
 		if (isset($_GET['curr_dvd']) && is_numeric($_GET['curr_dvd'])) {
 			$current_dvd = $_GET['curr_dvd'];
 		} else {
-			$current_dvd = $arrMediaTypes[0]->getmediaTypeID();
+			// We are bound to find one DVD type since $showDVDSpecs flag = true
+			foreach ($arrMediaTypes as $mediaTypeObj) {
+				if (VCDUtils::isDVDType(array($mediaTypeObj))) {
+					$current_dvd = $mediaTypeObj->getmediaTypeID();
+					break;
+				}
+			}
 		}
 	}
+	
 
 
 

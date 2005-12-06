@@ -376,6 +376,54 @@ class metadataTypeObj {
 			return null;
 		}
 	}
+	
+	
+	/**
+	 * Filter an array full of metadataObj by the mediatype_id.
+	 * Returns array with metadataObjects with the same mediatype_id as the incoming metadata_id
+	 *
+	 * @param array $arrMetaData
+	 * @param int $mediatype_id
+	 * @return array
+	 */
+	public static function filterByMediaTypeID($arrMetaData, $mediatype_id) {
+		if (is_array($arrMetaData)) {
+			$arrReturnValues = array();
+			foreach ($arrMetaData as $metaDataObj) {
+				if ($metaDataObj->getMediaTypeID() == $mediatype_id) {
+					array_push($arrReturnValues, $metaDataObj);
+				}
+			}
+			return $arrReturnValues;
+		} else {
+			return null;
+		}
+	}
+	
+	public static function filterOutSystemMeta($arrMetaData) {
+		if (is_array($arrMetaData)) {
+			$arrReturnValue = array();
+			foreach ($arrMetaData as $metaDataObj) {
+				$type_id = $metaDataObj->getMetadataTypeID();
+								
+				if ((int)$type_id == (int)self::SYS_MEDIAINDEX ) {
+					array_push($arrReturnValue, $metaDataObj);
+				} else if ((int)$type_id == (int)self::SYS_FILELOCATION ) {
+					array_push($arrReturnValue, $metaDataObj);
+				} else if ((int)$type_id > 17) {
+					array_push($arrReturnValue, $metaDataObj);
+				}
+				
+			}
+			
+			return $arrReturnValue;
+			
+			
+		} else {
+			return null;
+		}
+		
+	}
 
 
 }

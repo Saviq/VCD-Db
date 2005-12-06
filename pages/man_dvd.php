@@ -1,7 +1,8 @@
 <?
 	$dvdObj = new dvdObj();
 	if (!is_null($arrMyMeta)) {
-		$arrDVDMetaObj = metadataTypeObj::getDVDMeta($arrMyMeta);
+		$arrDVDMetaObj = metadataTypeObj::filterByMediaTypeID($arrMyMeta, $current_dvd);
+		$arrDVDMetaObj = metadataTypeObj::getDVDMeta($arrDVDMetaObj);
 	}
 
 	$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDREGION);
@@ -9,6 +10,15 @@
 	$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDASPECT);
 	$dvd_audio =  VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDAUDIO);
 	$dvd_subs =   VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDSUBS);
+	
+	if (strcmp($dvd_audio, "") != 0) {
+		$dvd_audio = explode('#', $dvd_audio);
+	}
+	
+	if (strcmp($dvd_subs, "") != 0) {
+		$dvd_subs = explode('#', $dvd_subs);
+	}
+	
 
 ?>
 <input type="hidden" id="selected_dvd" name="selected_dvd"/>
@@ -92,9 +102,12 @@
 				<td>
 					<select multiple name="audioChoices" id="audioChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
-
+						if (is_array($dvd_audio)) {
+							foreach ($dvd_audio as $item) {
+								print "<option value=\"{$item}\">{$dvdObj->getAudio($item)}</option>";
+							}
+						}
 					?>
-
 					</select>
 				</td>
 			</tr>
@@ -125,9 +138,17 @@
 				<td>
 					<select multiple name="langChoices" id="langChoices" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')" class="input">
 					<?
-						foreach ($dvdObj->getDefaultSubtitles() as $key => $value) {
-							print "<option value=\"{$key}\">{$value}</option>";
-					}
+						if (is_array($dvd_subs)) {
+							foreach ($dvd_subs as $item) {
+								print "<option value=\"{$item}\">{$dvdObj->getLanguage($item)}</option>";
+							}
+						} else {
+							foreach ($dvdObj->getDefaultSubtitles() as $key => $value) {
+								print "<option value=\"{$key}\">{$value}</option>";
+							}	
+						}
+					
+						
 					?>
 
 					</select>

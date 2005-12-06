@@ -12,6 +12,7 @@
  // $Id:
 ?>
 <?
+error_reporting(E_ALL | E_STRICT | E_NOTICE);
 include_once("classes/includes.php");
 require_once('classes/fetch/fetch_dvdempire.php');
 include_once('classes/external/Image_Toolbox.class.php');
@@ -809,6 +810,7 @@ switch ($form) {
 	    	$is_dvd = true;
 
 	    	$curr_dvd = $_POST['current_dvd'];
+	    	$next_dvd = null;
 	    	if (isset($_POST['selected_dvd']) && is_numeric($_POST['selected_dvd'])) {
 	    		$next_dvd = $_POST['selected_dvd'];
 	    	}
@@ -832,9 +834,12 @@ switch ($form) {
 	    	array_push($arrDVDMeta, $obj);
 	    	foreach ($arrDVDMeta as $metadataObj) {
 	    		$metadataObj->setMediaTypeID($curr_dvd);
+	    		$metadataObj->setMetadataTypeName(metadataTypeObj::getSystemTypeMapping($metadataObj->getMetadataTypeID()));
 	    	}
 
 	    	// Add / Update the DVD metadata
+	    	//print_r($arrDVDMeta);
+	    	//exit();
 	    	$SETTINGSClass->addMetadata($arrDVDMeta, true);
 
 
@@ -933,7 +938,7 @@ switch ($form) {
 	    	if ($errors) {
 	    		print "<script>alert('Errors occurred');history.back(-1)</script>";
 	    	} else {
-	    		if ($is_dvd) {
+	    		if ($is_dvd && is_numeric($next_dvd)) {
 	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload&curr_dvd=".$next_dvd.""); /* Redirect back to form */
 	    		} else {
 	    			redirect("pages/manager.php?cd_id=".$cd_id."&do=reload"); /* Redirect back to form */

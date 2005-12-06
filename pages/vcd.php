@@ -190,6 +190,8 @@ if ($movie->isAdult()) {
 	<?
 		if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
 			$userMetaArr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), null);
+			// Filter out the SYSTEM Types that we don't want to display ..
+			$userMetaArr = metadataTypeObj::filterOutSystemMeta($userMetaArr);
 
 			if (is_array($userMetaArr) && sizeof($userMetaArr) > 0) {
 
