@@ -1194,4 +1194,23 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 	}
 }
 
+function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
+	
+	$arrDVDMeta = null;
+	if (!is_null($metaDataArr)) {
+		$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID());
+		$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
+	}
+	
+	$img = "<img src=\"images/icon_item.gif\" border=\"0\" hspace=\"1\" alt=\"".sizeof($arrDVDMeta)."\" align=\"center\"/>";
+	
+	if (VCDUtils::isDVDType(array($mediaTypeObj))) {
+		return $img;
+	} else {
+		return "";
+	}
+	
+	
+}
+
 ?>

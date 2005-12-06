@@ -428,19 +428,20 @@
 		 * Print out in a table all user copies of this movie.
 		 *
 		 */
-		public function displayCopies() {
+		public function displayCopies(&$arrMetaData= null) {
 			
 			global $language;
 					
 			print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-			print "<tr><td>".$language->show('M_MEDIA')."</td><td>".$language->show('M_NUM')."</td><td>".$language->show('M_DATE')."</td><td>".$language->show('M_OWNER')."</td></tr>";
+			print "<tr><td>".$language->show('M_MEDIA')."</td><td width=\"1%\">&nbsp;</td><td>".$language->show('M_NUM')."</td><td>".$language->show('M_DATE')."</td><td>".$language->show('M_OWNER')."</td></tr>";
 			for ($i = 0; $i < sizeof($this->ownersObjArr); $i++) {
 				$owner = $this->ownersObjArr[$i];
 				$media = $this->mediaTypeObjArr[$i];
 				print "<tr>";
 				print "<td>".$media->getDetailedName()."</td>";
+				print "<td>".call_user_func('showDVDSpecs', $owner, $media, $arrMetaData)."</td>";
 				print "<td>".$this->arrDisc_count[$i]."</td>";
-				print "<td>".date("Y-d-m", $this->arrDate_added[$i])."</td>";
+				print "<td>".date("d-m-Y", $this->arrDate_added[$i])."</td>";
 				print "<td>".$owner->getUsername()."</td>";
 				print "</tr>";
 

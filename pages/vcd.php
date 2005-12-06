@@ -183,7 +183,10 @@ if ($movie->isAdult()) {
 
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
-	<? $movie->displayCopies() ?>
+	<? 
+		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
+		$movie->displayCopies($allMeta);
+	?>
 	</div>
 
 
