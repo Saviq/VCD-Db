@@ -396,7 +396,7 @@
 		</tr>
 		<tr>
 			<td>Description: </td>
-			<td><input type="text" name="metadatadescription"/> &nbsp; <input type="submit" name="newmeta" value="add"/></td>
+			<td><input type="text" name="metadatadescription"/> &nbsp; <input type="submit" name="newmeta" value="<?= $language->show('X_SAVE') ?>"/></td>
 		</tr>
 		</table>
 	</td>
