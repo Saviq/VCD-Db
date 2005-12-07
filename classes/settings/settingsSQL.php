@@ -786,8 +786,12 @@
 		public function getWishList($user_id) {
 			try {
 
-			$query = "SELECT w.vcd_id, v.title FROM $this->TABLE_wishlist w, $this->TABLE_vcd v
-					  WHERE w.user_id = ".$user_id." AND w.vcd_id = v.vcd_id ORDER BY v.title";
+			$query = "SELECT w.vcd_id, v.title, COUNT(u.user_id) FROM $this->TABLE_wishlist w
+					  INNER JOIN $this->TABLE_vcd v ON v.vcd_id = w.vcd_id
+					  LEFT OUTER JOIN $this->TABLE_vcdtousers u ON u.vcd_id = v.vcd_id AND u.user_id = ".$user_id."
+					  WHERE w.user_id = ".$user_id." GROUP BY w.vcd_id, v.title ORDER BY v.title";
+			
+			
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
 				return $rs->GetArray();
