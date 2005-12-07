@@ -172,7 +172,7 @@ function display_moviecategories() {
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$categories = $SETTINGSClass->getMovieCategoriesInUse();
 	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
-	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT');
+	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT') && VCDUtils::isLoggedIn();
 	if (VCDUtils::isLoggedIn()) {
 		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
 	}
@@ -1196,6 +1196,8 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 
 function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 	
+	global $language;
+	
 	// First get all available owners and mediatypes
 	$arrData = $vcdObj->getInstanceArray();
 	if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
@@ -1257,23 +1259,23 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 					?>
 					<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
 					<tr>
-						<td nowrap="nowrap" width="15%">Region:</td>
+						<td nowrap="nowrap" width="15%"><?= $language->show('DVD_REGION')?>:</td>
 						<td><?= $dvd_region ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap">Format:</td>
+						<td nowrap="nowrap"><?= $language->show('DVD_FORMAT')?>:</td>
 						<td><?= $dvd_format ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap">Aspect ratio:</td>
+						<td nowrap="nowrap"><?= $language->show('DVD_ASPECT')?>:</td>
 						<td><?= $dvd_aspect?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap" valign="top">Audio:</td>
+						<td nowrap="nowrap" valign="top"><?= $language->show('DVD_AUDIO')?>:</td>
 						<td valign="top"><?= $dvd_audio ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap" valign="top">Subtitles:</td>
+						<td nowrap="nowrap" valign="top"><?= $language->show('DVD_SUBTITLES')?>:</td>
 						<td valign="top"><?= $dvd_subs ?></td>
 					</tr>
 					</table>
@@ -1303,7 +1305,7 @@ function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataAr
 	$dhtml = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
 	$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
 	
-	if (VCDUtils::isDVDType(array($mediaTypeObj))) {
+	if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
 		return $img;
 	} else {
 		return "&nbsp;";
