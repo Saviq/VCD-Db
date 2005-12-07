@@ -162,7 +162,20 @@
 				which can change on a database reload.	*/
 				
 			$inserted_id = -1;
-			$inserted_id = $this->db->Insert_ID($this->TABLE_users, 'user_id');
+			
+			try {			
+				$inserted_id = $this->db->Insert_ID($this->TABLE_users, 'user_id');
+			} catch (Exception $ex) {
+				// Check if this is a Postgre not using OID columns
+				if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+					// Yeap, postgres not using OID ..
+					$inserted_id = $this->conn->oToID($this->TABLE_users, 'user_id');
+				} else {
+					throw $ex;
+				}
+			}
+				
+				
 					
 			if (is_numeric($inserted_id) && $inserted_id > 0) {
 
