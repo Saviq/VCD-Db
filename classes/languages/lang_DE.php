@@ -169,6 +169,13 @@ $_ = array(
 'I_LINKS'        	 	=> 'IMDB Links', 
 'I_NOT'           	 	=> 'Keine IMDB Info verf&uuml;gbar', 
 
+/* DVD Specific */
+'DVD_REGION'			=> 'Region',
+'DVD_FORMAT'			=> 'Format',
+'DVD_ASPECT'			=> 'Aspect ratio',
+'DVD_AUDIO'				=> 'Audio',
+'DVD_SUBTITLES'			=> 'Subtitles',
+
 /* My Movies */ 
 'MY_EXPORT'          	=> 'Daten exportieren',
 'MY_EXCEL'          	=> 'als Excel exportieren', 

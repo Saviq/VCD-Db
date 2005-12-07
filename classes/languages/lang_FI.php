@@ -169,6 +169,13 @@ $_ = array(
 'I_LINKS'				=> 'IMDB Linkit',
 'I_NOT'					=> 'IMDB tietoja ei saatavilla',
 
+/* DVD Specific */
+'DVD_REGION'			=> 'Region',
+'DVD_FORMAT'			=> 'Format',
+'DVD_ASPECT'			=> 'Aspect ratio',
+'DVD_AUDIO'				=> 'Audio',
+'DVD_SUBTITLES'			=> 'Subtitles',
+
 /* My Movies */
 'MY_EXPORT' 			=> 'Vie tiedot',
 'MY_EXCEL' 				=> 'Vie tiedot Excel muodossa',

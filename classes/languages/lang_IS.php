@@ -140,7 +140,7 @@ $_ = array(
 'M_DATE' 				=> 'Dags',
 'M_OWNER'			 	=> 'Eigandi',
 'M_NOACTORS'		    => 'Engir leikarar skráðir',
-'M_INFO'			    => 'Upplýsingar um myndina',
+'M_INFO'			    => 'Nánari upplýsingar',
 'M_DETAILS'			    => 'Upplýsingar um mitt eintak',
 'M_MEDIATYPE'		    => 'Myndgæði',
 'M_COMMENT'			    => 'Athugasemd',
@@ -166,6 +166,13 @@ $_ = array(
 'I_TRAILERS'			=> 'Myndbands brot',
 'I_LINKS'				=> 'IMDB Tenglar',
 'I_NOT'					=> 'Engar IMDB upplýsingar tiltækar',
+
+/* DVD Specific */
+'DVD_REGION'			=> 'Svæði',
+'DVD_FORMAT'			=> 'Tegund',
+'DVD_ASPECT'			=> 'Kóðun',
+'DVD_AUDIO'				=> 'Hljóðrás',
+'DVD_SUBTITLES'			=> 'Textar',
 
 /* My Movies */
 'MY_EXPORT' 			=> 'Flytja út gögn',

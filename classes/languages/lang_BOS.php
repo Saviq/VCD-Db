@@ -166,6 +166,13 @@ $_ = array(
 'I_LINKS'				=> 'IMDB linkovi',
 'I_NOT'					=> 'IMDB informacija nije dostupna',
 
+/* DVD Specific */
+'DVD_REGION'			=> 'Region',
+'DVD_FORMAT'			=> 'Format',
+'DVD_ASPECT'			=> 'Aspect ratio',
+'DVD_AUDIO'				=> 'Audio',
+'DVD_SUBTITLES'			=> 'Subtitles',
+
 /* My Movies */
 'MY_EXPORT' 			=> 'Eksortuj podatke',
 'MY_EXCEL' 				=> 'Eksportuj kao Excel fajl',

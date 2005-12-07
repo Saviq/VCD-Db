@@ -168,6 +168,13 @@ $_ = array(
 'I_LINKS'				=> 'IMDB Linkek',
 'I_NOT'					=> 'Nincs IMDB információ errõl',
 
+/* DVD Specific */
+'DVD_REGION'			=> 'Region',
+'DVD_FORMAT'			=> 'Format',
+'DVD_ASPECT'			=> 'Aspect ratio',
+'DVD_AUDIO'				=> 'Audio',
+'DVD_SUBTITLES'			=> 'Subtitles',
+
 /* My Movies */
 'MY_EXPORT' 			=> 'Adatok exportálása',
 'MY_EXCEL' 				=> 'Export Excel dokumentumként',
