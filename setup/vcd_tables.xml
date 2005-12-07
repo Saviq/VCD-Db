@@ -611,6 +611,7 @@
 		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (15, 'dvdaspect', 'DVD Ascpect ratio', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (16, 'dvdaudio', 'DVD Audio streams', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (17, 'dvdsubs', 'DVD subtitles', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (18, 'nfo', 'NFO File', 0)</query>
 
 		<descr>XML Frontpage feeds</descr>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml')</query>
