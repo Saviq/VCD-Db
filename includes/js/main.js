@@ -1085,3 +1085,17 @@ function doManagerSubmit(form) {
 		alert(ex.Message);
 	}
 }
+
+
+function showDVD(id) {
+	try {
+		var obj = document.getElementById(id);
+		if (obj != null) {
+			return obj.innerHTML;
+		} else {
+			return "";
+		}
+	} catch (ex) {
+		alert(ex.Message);
+	}
+}
