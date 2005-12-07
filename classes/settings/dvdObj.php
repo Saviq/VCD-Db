@@ -389,6 +389,29 @@ final class dvdObj {
 		return $arrSubtitles;
 	}
 	
+	
+	
+	public function getArrayDiff(&$arrAll, &$arrItems, $dataType) {
+		if (!is_array($arrItems)) {
+			return $arrAll;
+		}
+		
+		switch ($dataType) {
+			case 'audio':
+				$arrDiff = array();
+						
+			
+				break;
+		
+			default:
+				return $arrAll;
+				break;
+		}
+		
+		
+	}
+	
+	
 }
 
 

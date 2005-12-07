@@ -580,7 +580,7 @@ function inc_tooltipjs() {
 		<?
 	}
 
-	if ($CURRENT_PAGE == '') {
+	if ($CURRENT_PAGE == '' || $CURRENT_PAGE == 'cd') {
 	// Frontpage ..
 		?>
 		<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
@@ -1194,20 +1194,119 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 	}
 }
 
+function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
+	
+	// First get all available owners and mediatypes
+	$arrData = $vcdObj->getInstanceArray();
+	if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
+		
+		$arrOwners = $arrData['owners'];
+		$arrMediatypes = $arrData['mediatypes'];
+		$i = 0;
+				
+		
+		foreach ($arrMediatypes as $mediaTypeObj) {
+						
+			if ($mediaTypeObj instanceof mediaTypeObj && VCDUtils::isDVDType(array($mediaTypeObj))) {
+				
+				$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metadataArr, $mediaTypeObj->getmediaTypeID());
+				$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
+				
+				if (is_array($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
+								
+					$dvdObj = new dvdObj();
+					
+					$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDREGION);
+					$dvd_format = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDFORMAT);
+					$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDASPECT);
+					$dvd_audio = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDAUDIO);
+					$dvd_subs = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDSUBS);
+					
+					if (strcmp($dvd_region, "") != 0) {
+						//$dvd_region = $dvd_region.". (". $dvdObj->getRegion($dvd_region) . ")";
+						$dvd_region = $dvd_region. ".";
+					}
+					
+					if (strcmp($dvd_aspect, "") != 0) {
+						$dvd_aspect = $dvdObj->getAspectRatio($dvd_aspect);
+					}
+					
+					if (strcmp($dvd_audio, "") != 0) {
+						$arrAudio = explode("#", $dvd_audio);
+						$dvd_audio = "<ul class=\"ulnorm\">";
+						foreach ($arrAudio as $audioType) {
+							$dvd_audio .= "<li class=\"linorm\">" . $dvdObj->getAudio($audioType) . "</li>";
+						}
+						$dvd_audio .= "</ul>";
+					}
+					
+					if (strcmp($dvd_subs, "") != 0) {
+						$arrSubs = explode("#", $dvd_subs);
+						$dvd_subs = "<ul class=\"ulnorm\">";
+						foreach ($arrSubs as $subTitle) {
+							$imgsource = $dvdObj->getCountryFlag($subTitle);
+							$langName = $dvdObj->getLanguage($subTitle);
+							$img = "<img src=\"{$imgsource}\" alt=\"{$langName}\" hspace=\"1\"/>";
+							$dvd_subs .= "<li class=\"linorm\">".$img . " " . $langName . "</li>";
+						}
+						$dvd_subs .= "</ul>";
+					}
+					
+					$divid = "x". $mediaTypeObj->getmediaTypeID()."x".$arrOwners[$i]->getUserId();
+					print "<div id=\"{$divid}\" class=\"dvdetails\">";	
+					?>
+					<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
+					<tr>
+						<td nowrap="nowrap" width="15%">Region:</td>
+						<td><?= $dvd_region ?></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap">Format:</td>
+						<td><?= $dvd_format ?></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap">Aspect ratio:</td>
+						<td><?= $dvd_aspect?></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" valign="top">Audio:</td>
+						<td valign="top"><?= $dvd_audio ?></td>
+					</tr>
+					<tr>
+						<td nowrap="nowrap" valign="top">Subtitles:</td>
+						<td valign="top"><?= $dvd_subs ?></td>
+					</tr>
+					</table>
+					<?		
+					print "</div>";
+					
+				}
+			}
+			$i++;
+		}
+		
+		
+	} else {
+		return;
+	}
+	
+}
+
 function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
 	
 	$arrDVDMeta = null;
 	if (!is_null($metaDataArr)) {
 		$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID());
 		$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
+		$divid = "x".$mediaTypeObj->getmediaTypeID() ."x". $userObj->getUserId();
 	}
-	
-	$img = "<img src=\"images/icon_item.gif\" border=\"0\" hspace=\"1\" alt=\"".sizeof($arrDVDMeta)."\" align=\"center\"/>";
+	$dhtml = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
+	$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
 	
 	if (VCDUtils::isDVDType(array($mediaTypeObj))) {
 		return $img;
 	} else {
-		return "";
+		return "&nbsp;";
 	}
 	
 	

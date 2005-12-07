@@ -71,7 +71,7 @@
 		}
 		
 		/**
-		 * Enter description here...
+		 * Get records for the instance related to specified user_id
 		 *
 		 * @param int $user_id
 		 * @return array
@@ -439,7 +439,7 @@
 				$media = $this->mediaTypeObjArr[$i];
 				print "<tr>";
 				print "<td>".$media->getDetailedName()."</td>";
-				print "<td>".call_user_func('showDVDSpecs', $owner, $media, $arrMetaData)."</td>";
+				print "<td align=\"center\">".call_user_func('showDVDSpecs', $owner, $media, $arrMetaData)."</td>";
 				print "<td>".$this->arrDisc_count[$i]."</td>";
 				print "<td>".date("d-m-Y", $this->arrDate_added[$i])."</td>";
 				print "<td>".$owner->getUsername()."</td>";
@@ -448,6 +448,17 @@
 				
 			}
 			print "</table>";
+		}
+		
+		
+		/**
+		 * Get both the array of Owners and the array of mediaTypes of this movie instance.
+		 * Returns associative array with the data, 'owners' and 'mediatypes'
+		 *
+		 * @return array
+		 */
+		public function getInstanceArray() {
+			return array('owners' => $this->ownersObjArr, 'mediatypes' => $this->mediaTypeObjArr);
 		}
 		
 				

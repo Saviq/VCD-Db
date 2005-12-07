@@ -163,28 +163,32 @@ if ($movie->isAdult()) {
 
 		$covers = $movie->getCovers();
 		$bNoCovers = true;
+		$strCoverHTML = "";
 		if (count($covers) > 0) {
-			print "<ul>";
+			$strCoverHTML .= "<ul>";
 			foreach ($covers as $cdcoverObj) {
 				if (!$cdcoverObj->isThumbnail()) {
 					$bNoCovers = false;
-					print "<li><a href=\"#\" onclick=\"showcover('".$cdcoverObj->getFilename()."',".(int)$cdcoverObj->isInDB().",".$cdcoverObj->getImageID().")\">".$cdcoverObj->getCoverTypeName() . "</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
+					$strCoverHTML .= "<li><a href=\"#\" onclick=\"showcover('".$cdcoverObj->getFilename()."',".(int)$cdcoverObj->isInDB().",".$cdcoverObj->getImageID().")\">".$cdcoverObj->getCoverTypeName() . "</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
 				}
 			}
-			print "</ul>";
+			$strCoverHTML .= "</ul>";
 		}
 
 		if ($bNoCovers) {
 			print "<ul><li>".$language->show('M_NOCOVERS')."</li></ul>";
+		} else {
+			print $strCoverHTML;
 		}
 	?>
 	</div>
 
-
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
+		
 	<? 
 		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
+		drawDVDLayers($movie, $allMeta);
 		$movie->displayCopies($allMeta);
 	?>
 	</div>
