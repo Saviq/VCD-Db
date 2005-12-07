@@ -194,6 +194,7 @@ class metadataTypeObj {
 	CONST SYS_DVDASPECT	   = 15;
 	CONST SYS_DVDAUDIO	   = 16;
 	CONST SYS_DVDSUBS	   = 17;
+	CONST SYS_NFO		   = 18;
 
 	protected $metatype_id;
 	protected $metatype_name;
@@ -333,6 +334,7 @@ class metadataTypeObj {
 			case self::SYS_DVDASPECT:	 return 'dvdaspect';	 break;
 			case self::SYS_DVDAUDIO:	 return 'dvdaudio';		 break;
 			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
+			case self::SYS_NFO:	 	 	 return 'nfo';			 break;
 			default: 					 return false; 			 break;
 
 
@@ -410,7 +412,7 @@ class metadataTypeObj {
 					array_push($arrReturnValue, $metaDataObj);
 				} else if ((int)$type_id == (int)self::SYS_FILELOCATION ) {
 					array_push($arrReturnValue, $metaDataObj);
-				} else if ((int)$type_id > 17) {
+				} else if ((int)$type_id > 18) {
 					array_push($arrReturnValue, $metaDataObj);
 				}
 				
