@@ -1,0 +1,32 @@
+.dvdetails {
+	display:none;
+	visibility:hidden;
+	background-color: White;
+}
+
+.dvdspecs {
+	border: 1px;
+	background-color: White;
+}
+
+.dvdspecs td {
+	text-align:left;
+	border-bottom: 1px #F4F4F4 solid;
+	border-right: 1px #F4F4F4 solid;
+	color: #3D3D3D;
+	text-indent: 3px;	
+}
+
+
+.ulnorm {
+	margin: 0;
+	padding: 0px;
+	list-style: none;
+}
+
+.linorm{
+	padding-left: 0px;
+	margin-left: 0px;
+	padding-top: 0px;
+	background-image: none;
+}
