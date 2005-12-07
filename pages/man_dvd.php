@@ -31,7 +31,7 @@
 	<td><? createDVDDropdown($arrCopies['mediaTypes'], $current_dvd); ?></td>
 </tr>
 <tr>
-	<td class="tblb">Region:</td>
+	<td class="tblb"><?= $language->show('DVD_REGION')?>:</td>
 	<td><select name="dvdregion" class="input">
 		<? foreach ($dvdObj->getRegionList() as $key => $value) {
 			if ($key == $dvd_region) {
@@ -46,7 +46,7 @@
 </tr>
 
 <tr>
-	<td class="tblb">Format:</td>
+	<td class="tblb"><?= $language->show('DVD_FORMAT')?>:</td>
 	<td><select name="dvdformat" class="input">
 		<? foreach ($dvdObj->getVideoFormats() as $key => $value) {
 			if ($key == $dvd_format) {
@@ -63,7 +63,7 @@
 </tr>
 
 <tr>
-	<td class="tblb">Aspect ratio:</td>
+	<td class="tblb"><?= $language->show('DVD_ASPECT')?>:</td>
 	<td><select name="dvdaspect" class="input">
 		<? foreach ($dvdObj->getAspectRatios() as $key => $value) {
 			if ($key == $dvd_aspect) {
@@ -81,7 +81,7 @@
 </tr>
 
 <tr>
-	<td class="tblb" valign="top">Audio:</td>
+	<td class="tblb" valign="top"><?= $language->show('DVD_AUDIO')?>:</td>
 	<td valign="top">
 
 	<table cellspacing="0" cellpadding="2" border="0">
@@ -90,7 +90,9 @@
 					<select name="audioAvailable" id="audioAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')" class="input">
 					<?
 					foreach ($dvdObj->getAudioList() as $key => $value) {
-						print "<option value=\"{$key}\">{$value}</option>";
+						if (!(is_array($dvd_audio) && in_array($key, $dvd_audio))) {
+							print "<option value=\"{$key}\">{$value}</option>";
+						}
 					}
 					?>
 					</select>
@@ -118,7 +120,7 @@
 </tr>
 
 <tr>
-	<td class="tblb" valign="top">Subtitles:</td>
+	<td class="tblb" valign="top"><?= $language->show('DVD_SUBTITLES')?>:</td>
 	<td valign="top">
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
@@ -126,7 +128,9 @@
 					<select name="langAvailable" id="langAvailable" size="5" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')" class="input">
 					<?
 					foreach ($dvdObj->getLanguageList(false) as $key => $value) {
-						print "<option value=\"{$key}\">{$value}</option>";
+						if (!(is_array($dvd_subs) && in_array($key, $dvd_subs))) { 
+							print "<option value=\"{$key}\">{$value}</option>";
+						}
 					}
 					?>
 					</select>

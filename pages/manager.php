@@ -92,9 +92,10 @@
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Manager | <?=$vcd->getTitle()?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?= VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../includes/css/style.css"/>
 	<style type="text/css" media="screen">
 		@import url(../includes/css/manager.css);
