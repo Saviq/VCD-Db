@@ -7,19 +7,6 @@
 ?>
 <h1>Pornstar | <?=$pornstarObj->getName()?></h1>
 
-<style type="text/css">
-div#tipDiv {
-  position:absolute; visibility:hidden; left:0; top:0; z-index:10000;
-  background-color:#fff; border:1px solid #000; 
-  width:200px; padding:6px;
-  color:#000; font-size:11px; line-height:1.3;
-}
-
-/* These are used in the wrapTipContent function */
-div#tipDiv div.img { text-align:center }
-div#tipDiv div.msg { text-align:left; margin-top:4px }
-</style>
-
 <script type="text/javascript">
 var messages = new Array();
 
