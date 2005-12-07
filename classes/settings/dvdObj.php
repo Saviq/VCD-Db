@@ -192,7 +192,7 @@ final class dvdObj {
 		'ES' => 'Spanish (Espanol)',
 		'SU' => 'Sundanese',
 		'SW' => 'Swahili',
-		'SV' => 'Svenska (Swedish)',
+		'SE' => 'Svenska (Swedish)',
 		'TL' => 'Tagalog',
 		'TG' => 'Tajik',
 		'TT' => 'Tatar',
@@ -287,6 +287,33 @@ final class dvdObj {
 	}
 	
 	/**
+	 * Get the path to the image representing the selected language
+	 *
+	 * @param string $code | The language code
+	 * @return string
+	 */
+	public function getCountryFlag($code) {
+		$code = strtolower($code);
+		if (strcmp($code, "cat") == 0) {
+			$code = "es_cat";
+		}
+		
+		// Check that the files exists ..
+		$unknown = "unknown.png";
+		$filename = $code.".png";
+		$flagFolder = "images/flags/";
+		$fullpath = $flagFolder.$filename;
+		
+		if (file_exists($fullpath)) {
+			return $fullpath;
+		} else {
+			return $flagFolder.$unknown;
+		}
+		
+	}
+	
+	
+	/**
 	 * Get all known DVD audio formats.
 	 *
 	 * @return array
@@ -325,6 +352,20 @@ final class dvdObj {
 	 */
 	public function getAspectRatios() {
 		return $this->aspect;		
+	}
+	
+	/**
+	 * Get the Aspect Ratio by aspect code
+	 *
+	 * @param string $code
+	 * @return string
+	 */
+	public function getAspectRatio($code) {
+		if (isset($this->aspect[$code])) {
+			return $this->aspect[$code];
+		} else {
+			return false;
+		}
 	}
 	
 	
