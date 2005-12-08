@@ -3,7 +3,7 @@ body {
 	background-color: White;
 	background-image: url(images/background3.gif);
 	color: #333333;
-	font-family: "Courier New", Courier, monospace;
+	font-family: Verdana, Arial, Helvetica;
 	font-size: 11px;
 	margin: 0px;
 }
@@ -191,6 +191,10 @@ h4 {
  padding: 5px 0;
  }
  
+ 
+hr {
+ height:1px;
+}
  
 /* Forms and buttons */ 
 form {
