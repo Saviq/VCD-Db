@@ -46,6 +46,7 @@ class vcd_user implements User {
 	public static $PROPERTY_RSS	 	 = "RSS";
 	public static $PROPERTY_ADULT	 = "SHOW_ADULT";
 	public static $PROPERTY_INDEX	 = "USE_INDEX";
+	public static $PROPERTY_PLAYMODE = "PLAYOPTION";
 	
 	
 	/**
