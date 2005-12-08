@@ -1299,7 +1299,7 @@ function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataAr
 	$divid = "";
 	$arrDVDMeta = null;
 	if (!is_null($metaDataArr)) {
-		$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID());
+		$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID(), $userObj->getUserID());
 		$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
 		$divid = "x".$mediaTypeObj->getmediaTypeID() ."x". $userObj->getUserId();
 	}
