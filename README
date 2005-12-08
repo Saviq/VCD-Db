@@ -38,14 +38,22 @@ Installation.
 Upgrading.
 
 Upgrading from 0.973
-	First of all you need to change the table structure of the table "vcd_MetaData".
-	STEP 1)	 Add 1 new column AFTER the column "record_id",
-			 The new column name is "mediatype_id" of type "int" 
+	First thing first :) Backup your existing database and contents of your VCD-db folder (justin case)
+	Open the path to your vcd-db installation.
+    Open file "classes/VCDConstants.php" and copy your Database settings to an empty
+    text document.  Close the file VCDConstants.php and unzip the new release to same
+    location your existing VCD-db is in and overwrite all files.
 	
+	First of all you need to change the table structure of the table "vcd_MetaData".  Open up
+	your favorite SQL manager .. (phpMyAdmin, Enterprise Manager, pgAdmin III .. etc)
+	
+	STEP 1)	Add 1 new column AFTER the column "record_id",
+			The new column name is "mediatype_id" of type "int" 
+			
 	STEP 2) Open the installer in the vcddb/setup/ folder and select the UPGRADE button.
 			On the upgrade page, select "Update Metadata".
 			By doing so you are rebuilding the metadata, no data will be lost.
-	
+			
 	STEP 3) Again open table "vcd_MetaData" and rename column "metadata_name" to "type_id"
 			and change the datatype to "int".
 
@@ -60,6 +68,7 @@ Upgrading from 0.973
 	STEP 5) Now the dull part is over and you can head back to the "Upgrade Page" and
 			click on the "Upgrade VCD-db" button.
 			
+	Delete the "setup" folder and start using VCD-db again.			
 
 
 Upgrading from 0.971 or 0.972
