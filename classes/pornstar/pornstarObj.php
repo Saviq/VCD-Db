@@ -219,7 +219,11 @@ if (!defined("PORNSTARIMAGE_PATH")) {
 		 * @param string $prefix
 		 */
 		public function showImage($prefix = '') {
-			if (isset($this->image) && strlen($this->image) > 3) {
+			
+			$filenotfoundImage = "notfoundimagestar.gif";
+			if (!file_exists(PORNSTARIMAGE_PATH.$this->image) && isset($this->image)) { 
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/{$filenotfoundImage}\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			} else if (isset($this->image) && strlen($this->image) > 3) {
 				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
 			} else {
 				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
