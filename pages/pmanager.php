@@ -12,6 +12,11 @@
 	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
+	$language = new language(true);
+	if (isset($_SESSION['vcdlang'])) {
+		$language->load($_SESSION['vcdlang']);
+	}
+	
 	
 	$pornstar_id = $_GET['pornstar_id'];
 	$pornstar = $PORNClass->getPornStarByID($pornstar_id);
@@ -41,7 +46,7 @@
 <input type="hidden" name="star_id" value="<?=$pornstar->getId()?>"/>
 <table cellspacing="1" cellpadding="1" border="0" width="100%">
 <tr>
-	<td class="tblb">Nafn:</td>
+	<td class="tblb"><?=$language->show('P_NAME')?>:</td>
 	<td><input type="text" name="name" class="input" size="25" value="<?=$pornstar->getName() ?>"/></td>
 	<td rowspan="4" valign="top">
 	<? if (strlen($pornstar->getImageName()) > 3) {
@@ -52,17 +57,17 @@
 	</td></td>
 </tr>
 <tr>
-	<td class="tblb">Vefur:</td>
+	<td class="tblb"><?=$language->show('P_WEB')?>:</td>
 	<td><input type="text" name="www" class="input" size="25" value="<?=$pornstar->getHomepage()?>"/></td>
 </tr>
 <tr>
-	<td class="tblb">Mynd:</td>
+	<td class="tblb">Image:</td>
 	<td>
 	<? if (strlen($pornstar->getImageName()) < 3)	{ ?>
 	
 	<input type="file" name="userfile" value="userfile" size="10" class="input"/>
 	<input type="button" value="Fetch" class="input" onclick="fetchstarimage(<?=$pornstar_id?>)" title="Click here for paste-ing direct image url on the web to fetch.  Then the image will be automatically downloaded."/>
-	<strong>Resize</strong> <input type="checkbox" name="resize" value="true" title="Check to automaticly resize image" checked>
+	<strong>Resize</strong> <input type="checkbox" name="resize" value="true" title="Check to automatically resize image" checked>
 			
    <? } else { ?>
 	<input type="text" name="image" size="25" class="input" value="<?=$pornstar->getImageName()?>"/>
@@ -81,14 +86,14 @@
 <tr>
 	<td colspan="3" align="center">
 	<hr/>
-	<input type="submit" name="update" value="Uppfæra" class="buttontext">
+	<input type="submit" name="update" value="<?= $language->show('X_UPDATE')?>" class="buttontext">
 	&nbsp;
-	<input type="button" name="close" onclick="window.close()" value="Loka" class="buttontext">
+	<input type="button" name="close" onclick="window.close()" value="<?=$language->show('X_CLOSE')?>" class="buttontext">
 	&nbsp;
-	<input type="submit" name="save" value="Vista og loka" class="buttontext">
+	<input type="submit" name="save" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext">
 	<? if (strlen($pornstar->getImageName()) > 3)	{ ?>
 	&nbsp;
-	<input type="button" name="delimage" value="Eyða mynd" class="buttontext" onClick="delpornstarImage(<?=$pornstar_id?>)">
+	<input type="button" name="delimage" value="Delete image" class="buttontext" onClick="delpornstarImage(<?=$pornstar_id?>)">
 	<? } ?>
 	</td>
 </tr>
