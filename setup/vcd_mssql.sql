@@ -481,6 +481,13 @@ CREATE TABLE [vcd_Log] (
 ) ON [PRIMARY]
 
 
+ALTER TABLE [dbo].[vcd_MetaDataTypes] WITH NOCHECK ADD
+		CONSTRAINT [PK_vcd_MetaDataTypes] PRIMARY KEY  CLUSTERED 
+			(
+				[type_id]
+			)  ON [PRIMARY] 
+
+
 ALTER TABLE [dbo].[vcd_RssFeeds] WITH NOCHECK ADD
 		CONSTRAINT [PK_vcd_RssFeeds] PRIMARY KEY  CLUSTERED 
 			(

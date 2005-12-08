@@ -190,3 +190,12 @@ function IsNumeric(strString)   {
     }
    return blnResult;
 }
+
+function upgradeCheck(form) {
+	var msg = "Have you finished STEP 3 after you Updated Metadata ?";	
+	if (confirm(msg)) {
+		return true;
+	} else {
+		return false;
+	}
+}

@@ -1,0 +1,2 @@
+CREATE TABLE vcd_MetaDataTypes ( type_id INTEGER NOT NULL, type_name VARCHAR(50) NOT NULL, type_description VARCHAR(150), owner_id INTEGER NOT NULL, PRIMARY KEY (type_id) )
+CREATE TABLE vcd_Log ( event_id INTEGER NOT NULL, message VARCHAR(200) NOT NULL, user_id INTEGER, event_date DATE NOT NULL, ip CHAR(15) NOT NULL )

@@ -92,6 +92,34 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 		
 			break;
 			
+
+		case 'sqlite':
+			$filename = "upgrade_sqlite.sql";
+			if (fs_file_exists($filename)) {
+    			$fd = fopen($filename,'rb');
+				if (!$fd) {
+					$error_msg = "Could not open file " . $filename;
+					$goterror = true;
+					return;
+				}
+				
+				// Read the file 
+				$sql = fread($fd, filesize($filename));
+				fclose($fd);
+				
+				if(!$conn->Execute($sql)) {
+					$error_msg = "Error inserting via sql script.";
+					$goterror = true;
+				}
+			} else {
+				$goterror = true;
+				$error_msg = "Could not find file " . $filename;
+			}
+		
+		
+		
+			break;
+			
 			
 		case 'postgres7':
 			
@@ -149,26 +177,40 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 	// insert new updates
 	if (!$goterror) {
 		
-		if (strtolower(DB_TYPE) == 'postgres7') {
-			$query1 = "INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (10,'WISHLIST','Allow others to see my wishlist ?')";
-			$query2 = "INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (11,'USE_INDEX','Use index number fields for custom media IDs')";
-			$query3 = "INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (12,'SEEN_LIST','Keep track of movies that I have seen')";
-			$query4 = "INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (13,'PLAYOPTION','Use client playback options')";
-		} else {
-			$query1 = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('WISHLIST','Allow others to see my wishlist ?')";
-			$query2 = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('USE_INDEX','Use index number fields for custom media IDs')";
-			$query3 = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('SEEN_LIST','Keep track of movies that I have seen')";
-			$query4 = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('PLAYOPTION','Use client playback options')";
-		}
-		
-		
-		
-		$conn->Execute($query1);
-		$conn->Execute($query2);
-		$conn->Execute($query3);
-		$conn->Execute($query4);
-	}
+		// Add the metadata
+		$arrQueries = array();
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('languages', 'Excluded langugages', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('logtypes', 'Log types', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontstats', 'Show frontpage statistics', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontbar', 'Show the latest movies on frontpage', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('default_role', 'The default role when user registered', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('player', 'The media player parameters', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('playerpath', 'The path to the media player', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontrss', 'RSS feeds for the frontpage', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('ignorelist', 'Users to ignore', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('mediaindex', 'Custom index for cd', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('filelocation', 'The media file location', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('seenlist', 'Item marked seen', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdregion', 'DVD Region list', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdformat', 'DVD Format', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdaspect', 'DVD Ascpect ratio', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdaudio', 'DVD Audio streams', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdsubs', 'DVD subtitles', 0)";
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('nfo', 'NFO File', 0)";
+
 	
+		$error_msg = "Could not insert data.";
+		$goterror = false;
+	
+		// Metadata Definitions
+		foreach ($arrQueries as $sqlquery) {
+			try {
+				$conn->Execute($sqlquery);
+			} catch (Exception $e) {
+				$goterror = true;
+			}
+		}
+	}
 }
 
 
@@ -232,11 +274,11 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 		 	 
 		 </li>
 		 <li><span style="color:red">Attention</span>: Only upgrade from VCD-db v.0973 is supported!</li>
-		 <li><span style="color:red">Attention</span>: Be sure to have completed the required STEP 1 described in the <b><a title="File opens in new Window!" target="_new" href="../README">README</a></b></li>
+		 <li><span style="color:red">Attention</span>: Be sure to have completed the required <b>STEP 1</b> described in the <b><a title="File opens in new Window!" target="_new" href="../README">README</a></b></li>
 		
 	</ul>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.open('updateMeta.php');document.getElementById('upgrade').disabled=false;this.disabled=true" value="Update Metadata"/><br/>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Upgrade VCD-db" id="upgrade" disabled="disabled"/>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" onclick="return upgradeCheck(this.form)" value="Upgrade VCD-db" id="upgrade" disabled="disabled"/>
 	</form>
 		
 	

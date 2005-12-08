@@ -50,7 +50,6 @@ class installer {
 		'MS SQL' => 'mssql',
 		'MySQL' => 'mysql',
 		'PostgreSQL' => 'postgres',
-		'Oracle' => 'oci8',
 		'IBM DB2' => 'db2',
 		'SQLite' => 'sqlite',
 		'Interbase' => 'ibase'

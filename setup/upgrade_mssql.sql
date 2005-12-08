@@ -1,15 +1,21 @@
-CREATE TABLE [vcd_MetaData] (
-	[metadata_id] [int] IDENTITY (1, 1) NOT NULL ,
-	[record_id] [int] NOT NULL ,
-	[user_id] [int] NOT NULL ,
-	[metadata_name] [varchar] (50) NOT NULL ,
-	[metadata_value] [varchar] (100) NOT NULL
+CREATE TABLE [vcd_MetaDataTypes] (
+	[type_id] [int] IDENTITY (1, 1) NOT NULL ,
+	[type_name] [varchar] (50) NOT NULL ,
+	[type_description] [varchar] (150) NULL ,
+	[owner_id] [int] NOT NULL
 ) ON [PRIMARY]
 
-ALTER TABLE [dbo].[vcd_MetaData] ADD 
-	CONSTRAINT [FK_vcd_MetaData_vcd_Users] FOREIGN KEY 
-	(
-		[user_id]
-	) REFERENCES [dbo].[vcd_Users] (
-		[user_id]
-	)
+CREATE TABLE [vcd_Log] (
+	[event_id] [tinyint] NOT NULL ,
+	[message] [varchar] (200) NOT NULL ,
+	[user_id] [int] NULL ,
+	[event_date] [datetime] NOT NULL ,
+	[ip] [char] (15) NOT NULL 
+) ON [PRIMARY]
+
+
+ALTER TABLE [dbo].[vcd_MetaDataTypes] WITH NOCHECK ADD
+		CONSTRAINT [PK_vcd_MetaDataTypes] PRIMARY KEY  CLUSTERED 
+			(
+				[type_id]
+			)  ON [PRIMARY] 
