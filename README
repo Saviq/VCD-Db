@@ -9,9 +9,9 @@ Installation.
 3)  Create an empty database.
 	At the moment the following databases are supported 
 	(although others might work like Oracle) 
-	a) MySQL (3.x, 4.x and up) 
+	a) MySQL (3.x/4.x/5.x) 
 	b) Microsoft SQL (7 and 2000) 
-	c) Postgre SQL 7.5 or 8
+	c) Postgre SQL 7.4, 7.5, 8, 8.1 (Even without OID's enabled)
 	d) IBM DB2 (7.2 and up) 
 	e) SQLite
 4)  If your webserver is on a Win32 box this step is unneccassary,
@@ -29,9 +29,6 @@ Installation.
 	chmod 0777 upload/screenshots/generated
 	chmod 0777 upload/thumbnails
 	
-	if you are using SQLite on Linux machine you will probable need to "touch"
-	vcddb.sqlite in your vcddb root folder and chmod it to 0777.
-	
 
 5)  After a successfull install, delete the install folder and 
     if you are running VCD-db on a linux box chmod the VCDConstants.php back to 0644
@@ -39,6 +36,31 @@ Installation.
 
 
 Upgrading.
+
+Upgrading from 0.973
+	First of all you need to change the table structure of the table "vcd_MetaData".
+	STEP 1)	 Add 1 new column AFTER the column "record_id",
+			 The new column name is "mediatype_id" of type "int" 
+	
+	STEP 2) Open the installer in the vcddb/setup/ folder and select the UPGRADE button.
+			On the upgrade page, select "Update Metadata".
+			By doing so you are rebuilding the metadata, no data will be lost.
+	
+	STEP 3) Again open table "vcd_MetaData" and rename column "metadata_name" to "type_id"
+			and change the datatype to "int".
+
+	STEP 4) Verify that your "vcd_MetaData" table is as follows after the changes ...
+			metadata_id (int)
+			record_id (int)
+			mediatype_id (int)
+			user_id (int)
+			type_id (int)
+			metadata_value (varchar)
+			
+	STEP 5) Now the dull part is over and you can head back to the "Upgrade Page" and
+			click on the "Upgrade VCD-db" button.
+			
+
 
 Upgrading from 0.971 or 0.972
    Open the path to your vcd-db installation.
@@ -86,9 +108,20 @@ Upgrading from 0.95a
    button.  From there select upgrade.
    Delete the "setup" folder and start using VCD-db again.
 
+
+
+  
+Installation Notes:
+For the 99.9% of users, USE THE INSTALLER, use/read the following only if your are
+having troubles using the installer.
+Some people have reported problems when installing VCD-db on MySQL .. 
+The exact problem has not been foundm, but just in case the installer is not working for you
+there is a SQL script file for MySQL for creating the tables under "/setup/vcd_mysql.sql", but
+If you execute the SQL file instead of using the supplied installer you will need to
+manually update the file "classes/VCDConstants.php" with the correct DB parameters.
+The script created the user admin with the same password.
    
-   
-Notes.
+Application Notes:
 1) You can change the template that VCD-db uses by modifying the "STYLE" constant in the VCDConstants.php
    file, for example try changing it to "includes/templates/exprm/" for a new look.
 
