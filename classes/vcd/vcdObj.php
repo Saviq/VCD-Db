@@ -424,6 +424,23 @@
 			return $strMediaTypes;
 		}
 
+		
+		/**
+		 * Get the date when movie was added to the database
+		 * Returns empty string if date is not found.
+		 *
+		 * @return date
+		 */
+		public function getDateAdded() {
+			if (is_array($this->arrDate_added) && sizeof($this->arrDate_added) > 0) {
+				return date('d-m-Y', $this->arrDate_added[0]);
+			} else {
+				return "";
+			}
+		}
+
+		
+		
 		/**
 		 * Print out in a table all user copies of this movie.
 		 *
