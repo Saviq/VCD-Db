@@ -29,9 +29,9 @@
 	
 	if (strcmp($_GET['mode'], "text") == 0) {
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"displist\">";
-		print "<tr><td class=\"bold\" width=\"50%\">{$language->show('M_TITLE')}</td><td class=\"bold\">{$language->show('M_YEAR')}</td><td class=\"bold\">{$language->show('M_CATEGORY')}</td><td class=\"bold\">{$language->show('M_DATE')}</td></tr>";
+		print "<tr><td class=\"bold\" width=\"50%\">{$language->show('M_TITLE')}</td><td class=\"bold\">{$language->show('M_CATEGORY')}</td><td class=\"bold\">{$language->show('M_YEAR')}</td><td class=\"bold\">{$language->show('M_MEDIA')}</td><td class=\"bold\">{$language->show('M_DATE')}</td></tr>";
 		foreach ($arr as $vcdObj) {
-			print "<tr><td>{$vcdObj->getTitle()}</td><td>{$vcdObj->getYear()}</td><td>{$vcdObj->showMediaTypes()}</td><td>{$vcdObj->getDateAdded()}</td></tr>";
+			print "<tr><td>{$vcdObj->getTitle()}</td><td>".getLocalizedCategoryName($vcdObj->getCategory()->getName())."</td><td>{$vcdObj->getYear()}</td><td>{$vcdObj->showMediaTypes()}</td><td>{$vcdObj->getDateAdded()}</td></tr>";
 		}
 		print "</table>";
 	}
