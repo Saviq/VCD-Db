@@ -311,7 +311,7 @@
 	if (sizeof($CLASSUsers->getActiveUsers()) > 1) {
 ?>
 
-<h2>Ignore list</h2>
+<h2><?=$language->show('IGN_LIST')?></h2>
 <form name="ignore" method="post" action="exec_form.php?action=update_ignorelist">
 <input type="hidden" name="id_list" id="id_list"/>
 <?
@@ -325,7 +325,7 @@
 ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
-	<td width="44%" valign="top"">Ignore all movies from the following users:</td>
+	<td width="44%" valign="top""><?=$language->show('IGN_DESC')?></td>
 	<td width="10%"><select name="available" id="available" size="5" style="width:100px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')">
 		<?
 
@@ -361,7 +361,7 @@
 
 <? } ?>
 
-<h2>My Metadata</h2>
+<h2><?=$language->show('META_MY')?></h2>
 <?
 	$arrMyMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
 ?>
@@ -371,7 +371,7 @@
 	<td valign="top" width="60%">
 	<?
 		if (!is_array($arrMyMeta) || sizeof($arrMyMeta) == 0) {
-			print "No metadata records found.";
+			print $language->show('META_NONE');
 		} else {
 			print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" class=\"displist\" width=\"100%\">";
 			$i = 1;
@@ -391,11 +391,11 @@
 	<td valign="top" width="40%">
 		<table cellpadding="1" cellspacing="1" width="100%" border="0">
 		<tr>
-			<td>Name: </td>
+			<td><?=$language->show('META_NAME')?>: </td>
 			<td><input type="text" name="metadataname"/></td>
 		</tr>
 		<tr>
-			<td>Description: </td>
+			<td><?=$language->show('META_DESC')?>: </td>
 			<td><input type="text" name="metadatadescription"/> &nbsp; <input type="submit" name="newmeta" value="<?= $language->show('X_SAVE') ?>"/></td>
 		</tr>
 		</table>
