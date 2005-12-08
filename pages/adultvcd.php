@@ -157,7 +157,11 @@ $cd_id = $_GET['vcd_id'];
 
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
-	<? $movie->displayCopies() ?>
+	<? 
+		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
+		drawDVDLayers($movie, $allMeta);
+		$movie->displayCopies($allMeta) 
+	?>
 	</div>
 
 	<p></p>

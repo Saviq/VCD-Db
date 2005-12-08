@@ -55,6 +55,7 @@
 		<? } ?>
 		<li><a href="./?page=private&o=movies&do=picker"><?= $language->show('MY_HELPPICKER') ?></a></li>
 		<br/><br/>
+		<li><a href="#" onclick="printView('text')"><?= $language->show('MY_TEXTALL') ?></a></li>
 		<li><a href="#" onclick="printView('all')"><?= $language->show('MY_PWALL') ?></a></li>
 		<li><a href="#" onclick="printView('movies')"><?= $language->show('MY_PWMOVIES') ?></a></li>
 		<li><a href="#" onclick="printView('tv')"><?= $language->show('MY_PWTV') ?></a></li>

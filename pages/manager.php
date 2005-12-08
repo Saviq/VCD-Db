@@ -52,6 +52,14 @@
 	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
 		$userMetadata = true;
 	}
+	
+	// Still false for $userMetadata .. check if user is using custom Index keys or Playoption
+	if (!$userMetadata) {
+		if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)){
+			$userMetadata = true;
+		}
+	}
+	
 
 	// Data used below ....
 
@@ -85,10 +93,6 @@
 			}
 		}
 	}
-	
-
-
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
@@ -535,25 +539,26 @@
 
 
 
-
-			foreach ($userMetaArray as $metaDataTypeObj) {
-
-				$metaValue = "";
-				foreach ($arrMyMeta as $metadataObj) {
-					if ($metadataObj instanceof metadataObj ) {
-						if ($metadataObj->getMetadataTypeID() === $metaDataTypeObj->getMetadataTypeID()
-						&& $metadataObj->getMediaTypeID() === $mediaTypeObj->getmediaTypeID()) {
-							$metaValue = $metadataObj->getMetadataValue();
+			if (is_array($userMetaArray)) {
+				foreach ($userMetaArray as $metaDataTypeObj) {
+	
+					$metaValue = "";
+					foreach ($arrMyMeta as $metadataObj) {
+						if ($metadataObj instanceof metadataObj ) {
+							if ($metadataObj->getMetadataTypeID() === $metaDataTypeObj->getMetadataTypeID()
+							&& $metadataObj->getMediaTypeID() === $mediaTypeObj->getmediaTypeID()) {
+								$metaValue = $metadataObj->getMetadataValue();
+							}
 						}
 					}
+	
+					$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
+	
+					print "<tr>";
+					print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
+					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
+					print "</tr>";
 				}
-
-				$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
-
-				print "<tr>";
-				print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
-				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
-				print "</tr>";
 			}
 
 			$iCounter++;
@@ -584,7 +589,7 @@
 
 		<? if ($vcd->isAdult()) { ?>
 			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
-			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list'<?=$dvdCheck?>);"/>
+			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
 		<? } else { ?>
 			<input type="submit" name="update" id="update" value="<?=$language->show('X_UPDATE')?>" class="buttontext" <?=$dvdCheck2?>/>
 			<input type="submit" name="submit" id="submit" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext" <?=$dvdCheck2?>/>
