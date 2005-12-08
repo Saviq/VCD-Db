@@ -1211,7 +1211,7 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 						
 			if ($mediaTypeObj instanceof mediaTypeObj && VCDUtils::isDVDType(array($mediaTypeObj))) {
 				
-				$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metadataArr, $mediaTypeObj->getmediaTypeID());
+				$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metadataArr, $mediaTypeObj->getmediaTypeID(), $arrOwners[$i]->getUserId());
 				$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
 				
 				if (is_array($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
@@ -1296,6 +1296,7 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 
 function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
 	
+	$divid = "";
 	$arrDVDMeta = null;
 	if (!is_null($metaDataArr)) {
 		$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID());
