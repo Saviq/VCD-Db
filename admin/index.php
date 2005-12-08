@@ -178,14 +178,13 @@
 	   		echo "<div class=\"content\">";	
 			$USERclass = new vcd_user();
 			
-			$users = $USERclass->getAllUsers();
-			
 			if (isset($_POST['save'])) {
-				$data = array("",$_POST['name'],$_POST['description']);
-				$obj = new cdcoverTypeObj($data);
-				$CTClass->addCoverType($obj);
-				
+				$data = array("",$_POST['username'],md5($_POST['password']), $_POST['name'], $_POST['email'], null, null, null, null);
+				$obj = new userObj($data);
+				$USERclass->addUser($obj);
 			}
+			
+			$users = $USERclass->getAllUsers();
 			
 			$header = array("Full name","Username","Email","Group","Created","","","","");
 			printTableOpen();
