@@ -37,7 +37,10 @@ Added   - DVD specific data can now be added with each copy of a movie.
 Added   - RSS details in the feeds on the frontpage are displayed with a nifty hover layer.
 Added   - 4 new VCD-db translations !! Bosnian, Danish, Hungarian (Magyar) and Polish. (Thank you! to the translators)
 Fixed   - Fixed a bug in the Control Panel when update-ing media types.
-
+Added   - Complete new metadata system.  Users can now create as many new fields to keep additional records for their media.
+	  	  New metadata definitions are created under "My settings" and are edit-able in the "Manager" window.
+Updated - User can now see weither he owns a copy of a movie that is on his wishlist.
+Added   - Missing feature, to be able to view all my movies in text view for printing.
 
 0.973
 Added   - SQLite is now supported.
