@@ -46,7 +46,7 @@ $_ = array(
 'MENU_SUBMIT'			=> 'Lähetä',
 'MENU_TOPUSERS'			=> 'Käyttäjätilastot',
 'MENU_WISHLISTPUBLIC'	=> 'Toisten toivelistat',
-'MENU_STATISTICS'		=> 'Statistics',
+'MENU_STATISTICS'		=> 'Tilastot',
 
 /* Login */
 'LOGIN' 				=> 'Kirjaudu',
@@ -71,8 +71,6 @@ $_ = array(
 'PRO_USE_INDEX'   		=> 'Käytä indeksinumerokenttiä tallenteiden omalle numeroinnille',
 'PRO_SEEN_LIST'   		=> 'Pidä kirjaa elokuvista jotka olen nähnyt',
 'PRO_PLAYOPTION'   		=> 'Käytä soittimen toistoasetuksia',
-'SE_PAGELOOK' 			=> 'Web layout',
-'SE_PAGEMODE' 			=> 'Select default template:',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Soittimen asetukset',
@@ -81,7 +79,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Näytä tilastot',
 'SE_SHOWSIDE' 			=> 'Näytä uudet elokuvat sivuvalikossa',
 'SE_SELECTRSS' 			=> 'Valitse RSS syötteet',
-
+'SE_PAGELOOK' 			=> 'Sivun layout',
+'SE_PAGEMODE' 			=> 'Valitse sivun oletuspohja:',
 
 /* Search */
 'SEARCH' 				=> 'Etsi',
@@ -170,11 +169,11 @@ $_ = array(
 'I_NOT'					=> 'IMDB tietoja ei saatavilla',
 
 /* DVD Specific */
-'DVD_REGION'			=> 'Region',
-'DVD_FORMAT'			=> 'Format',
-'DVD_ASPECT'			=> 'Aspect ratio',
-'DVD_AUDIO'				=> 'Audio',
-'DVD_SUBTITLES'			=> 'Subtitles',
+'DVD_REGION'            => 'Aluekoodi',
+'DVD_FORMAT'            => 'DVD-formaatti',
+'DVD_ASPECT'            => 'Kuvasuhde',
+'DVD_AUDIO'             => 'Ääniraita',
+'DVD_SUBTITLES'         => 'Tekstitys',
 
 /* My Movies */
 'MY_EXPORT' 			=> 'Vie tiedot',
@@ -348,16 +347,16 @@ $_ = array(
 'S_NOTSEENITCLICK'		=> 'Klikkaa tätä merkataksesi näkemättömäksi',
 
 /* Mail messages */
-'MAIL_RETURNTOPIC'		=> 'Loan reminder',
+'MAIL_RETURNTOPIC'      => 'Lainan muistutus ',
 'MAIL_RETURNMOVIES1'	=> '%s, haluaisin, että palautat vuokraamasi elokuvat ;).\n
 							Sinulla on edelleen seuraavat leffat vuokrassa:\n\n',
 'MAIL_RETURNMOVIES2'	=> 'Palautatko pian\n Terveisin %s \n\n
-							Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://URL/)',
+							Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://vcddb.konni.com/)',
 'MAIL_NOTIFY'  			=> '<strong>Uusi elokuva on lisätty DVD tietokantaan!</strong><br/>
 							Klikkaa <a href="%s/?page=cd&vcd_id=%s">tätä</a> nähdäksesi lisää...
-							<p>Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://URL/</p>',
-'MAIL_REGISTER'		 	=> '%s, rekisteröinti järjestelmään onnistui.\n\nKäyttäjänimesi on %s ja salasanasi on  
-							%s.\n\nVoit vaihtaa salasanaasi kun olet kirjautunut sisään.\n
+							<p>Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://vcddb.konni.com</p>',
+'MAIL_REGISTER'		 	=> '%s, rekisteröinti järjestelmään onnistui.<br><br>Käyttäjänimesi on %s ja salasanasi on  
+							%s.<br><br>Voit vaihtaa salasanaasi kun olet kirjautunut sisään.<br>
 							Klikkaa <a href="%s" target="_new">tästä</a> siirtyeksäsi DVD tietokantaan.',
 
 
@@ -372,16 +371,16 @@ $_ = array(
 
 
 /* Metadata */
-'META_MY'				=> 'My Metadata',
-'META_NAME'				=> 'Name',
-'META_DESC'				=> 'Description',
-'META_TYPE'				=> 'Meta type',
-'META_VALUE'			=> 'Meta value',
-'META_NONE'				=> 'No Metadata exists.',
+'META_MY'               => 'Oma metadata',
+'META_NAME'             => 'Nimi',
+'META_DESC'             => 'Kuvaus',
+'META_TYPE'             => 'Metadatan tyyppi',
+'META_VALUE'            => 'Metadatan arvo',
+'META_NONE'             => 'Metadataa ei ole',
 
 /* Ignore List */
-'IGN_LIST'				=> 'Ignore List',
-'IGN_DESC'				=> 'Ignore all movies from the following users:',
+'IGN_LIST'              => 'Lista käyttäjistä joita ei huomioida',
+'IGN_DESC'              => 'Älä näytä seuraavien käyttäjien elokuvia:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'sisältää',
