@@ -188,6 +188,7 @@ $_ = array(
 'MY_JOINSTYPE' 		 	 =>  'Sélectionner une action',
 'MY_JOINSHOW' 		 	 =>  'Voir résultats',
 'MY_NORESULTS' 			 =>  'Pas de films trouvés',
+'MY_TEXTALL'			 =>  'Aperçu (Text)',
 'MY_PWALL' 		 		 =>  'Aperçu (Tous)',
 'MY_PWMOVIES' 			 =>  'Aperçu (Films)',
 'MY_PWTV' 		 		 =>  'Aperçu (Emissions TV)',
@@ -375,6 +376,19 @@ $_ = array(
 							BSPlayer for Win32 or the MPlayer for Linux.<br/>You can download BSPlayer for free 
 							<a href="http://www.bsplayer.org" target="_new">here</a> 
 							and the MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">here</a>.',
+
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 
 'X_CONTAINS' 			 =>  'Contenu',

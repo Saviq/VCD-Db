@@ -189,6 +189,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'Select action',
 'MY_JOINSHOW'			=> 'Show results',
 'MY_NORESULTS'			=> 'Query returned no results',
+'MY_TEXTALL'			=> 'Printview (Textmode)',
 'MY_PWALL'				=> 'Printview (All)',
 'MY_PWMOVIES'			=> 'Printview (Movies)',
 'MY_PWTV'				=> 'Printview (Tv Shows)',
@@ -396,6 +397,19 @@ $_ = array(
 							<a href="http://www.bsplayer.org" target="_new">here</a> 
 							and the MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">here</a>.',
 
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'contains',

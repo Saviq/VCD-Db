@@ -181,6 +181,7 @@ $_ = array(
 'MY_JOINSTYPE' 			=> 'Wybierz działanie',
 'MY_JOINSHOW' 			=> 'Pokaż wyniki',
 'MY_NORESULTS' 			=> 'Nie znaleziono filmów',
+'MY_TEXTALL'			=> 'Wydruk (Text)',
 'MY_PWALL' 				=> 'Wydruk (Wszystko)',
 'MY_PWMOVIES' 			=> 'Wydruk (Filmy)',
 'MY_PWTV' 				=> 'Wydruk (Seriale)',
@@ -352,6 +353,19 @@ $_ = array(
 'PLAYER_NOTE' 			=> 'Wpisz pełną ścieżkę dostępu do odtwarzacza na swoim dysku twardym.
 							Twój odtwarzacz musi obsługiwać ustawienia z linii komend, podobnie jak MPlayer<br/>
 							Możesz go ściągnąć za darmo <a href="http://www.MPlayerHQ.hu" target="_new">stąd</a>.',
+
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */
 'X_CONTAINS' 			=> 'zawiera',

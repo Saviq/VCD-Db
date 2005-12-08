@@ -189,6 +189,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'Lehetõség választása',
 'MY_JOINSHOW'			=> 'Mutasd a találatokat',
 'MY_NORESULTS'			=> 'Nincs találat',
+'MY_TEXTALL'			=> 'Mutasd (Text)',
 'MY_PWALL'				=> 'Mutasd (Mind)',
 'MY_PWMOVIES'			=> 'Mutasd (Filmeket)',
 'MY_PWTV'				=> 'Mutasd (Tv Showkat)',
@@ -379,6 +380,17 @@ $_ = array(
 							<a href="http://www.bsplayer.org" target="_new">innen</a> 
 							és a MPlayer-t <a href="http://www.MPlayerHQ.hu" target="_new">innen</a>.',
 
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'tartalmak',

@@ -190,6 +190,7 @@ $_ = array(
 'MY_JOINSTYPE'        	=> 'Aufgabe w&auml;hlen', 
 'MY_JOINSHOW'        	=> 'Ergebnis anzeigen', 
 'MY_NORESULTS'          => 'Keine Ergebnisse verf&uuml;gbar', 
+'MY_TEXTALL'			=> 'Druckansicht (Text)',
 'MY_PWALL'        		=> 'Druckansicht (Alles)', 
 'MY_PWMOVIES'         	=> 'Druckansicht (Filme)', 
 'MY_PWTV'         		=> 'Druckansicht (Tv Shows)', 
@@ -372,6 +373,18 @@ $_ = array(
 		     <a href="http://www.MPlayerHQ.hu" target="_new">MPlayer gratis (win & lin, recommended)</a>.', 
 
 
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */ 
 'X_CONTAINS'		=> 'enth&auml;lt', 

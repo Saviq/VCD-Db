@@ -186,6 +186,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'ИЗбери категория',
 'MY_JOINSHOW'			=> 'Покажи резултати',
 'MY_NORESULTS'			=> 'Проверката не намери резултати',
+'MY_TEXTALL'			=> 'Общ изглед (Textmode)',
 'MY_PWALL'				=> 'Общ изглед (Всички)',
 'MY_PWMOVIES'			=> 'Общ изглед (Филми)',
 'MY_PWTV'				=> 'Общ изглед (ТВ Шоу)',
@@ -376,6 +377,19 @@ $_ = array(
 							<a href="http://www.bsplayer.org" target="_new">тук</a> 
 							и MPlayer от <a href="http://www.MPlayerHQ.hu" target="_new">тук</a>.',
 
+
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'Съдържа',

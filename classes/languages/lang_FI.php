@@ -190,6 +190,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'Valitse toiminto',
 'MY_JOINSHOW'			=> 'Näytä tulokset',
 'MY_NORESULTS'			=> 'Kysely ei tuottanut yhtään tulosta',
+'MY_TEXTALL'			=> 'Tulostusnäkymä (Text)',
 'MY_PWALL'				=> 'Tulostusnäkymä (kaikki)',
 'MY_PWMOVIES'			=> 'Tulostusnäkymä (elokuvat)',
 'MY_PWTV'				=> 'Tulostusnäkymä (TV showt)',
@@ -199,23 +200,23 @@ $_ = array(
 'MY_J3'					=> 'Elokuvat jotka ovat molemmilla',
 'MY_OVERVIEW'			=> 'Kokoelman yhteenveto',
 'MY_INFO'				=> 'Tältä sivulta löydät kaikki tiedot omista elokuvistasi.
-				Oikealla on lueteltu toimet joita voit tehdä elokuvakokoelmallesi.
-				Voit mm. viedä elokuvalistan tulostusta varten Exceliin.  XML viennillä voit varmuuskopioida tai siirtää dataa toiseen VCD-db tietokantaan.',
-'MY_KEYS'			=> 'Muokkaa ID:tä',
+							Oikealla on lueteltu toimet joita voit tehdä elokuvakokoelmallesi.
+							Voit mm. viedä elokuvalistan tulostusta varten Exceliin.  XML viennillä voit varmuuskopioida tai siirtää dataa toiseen VCD-db tietokantaan.',
+'MY_KEYS'				=> 'Muokkaa ID:tä',
 'MY_SEENLIST'			=> 'Muokkaa nähtyjen elokuvien listaa',
 'MY_HELPPICKER'			=> 'Valitse katseltava elokuva',
 'MY_HELPPICKERINFO'		=> 'Mitä katsoisit tänään?<br/>Anna VCD-db:n auttaa sinua löytämään sopiva elokuva.<br/>
-				Halutessasi voit tehdä rajauksia elokuvien hakuun.',
-'MY_FIND'			=> 'Etsi elokuva',
+							Halutessasi voit tehdä rajauksia elokuvien hakuun.',
+'MY_FIND'				=> 'Etsi elokuva',
 'MY_NOTSEEN'			=> 'Ehdota vain elokuvia joita en ole nähnyt',
 'MY_FRIENDS'			=> 'Ystäväni jotka lainaavat elokuvia',
 
 
 /* Manager window */
 'MAN_BASIC' 			=> 'Perustiedot',
-'MAN_IMDB' 			=> 'IMDB info',
+'MAN_IMDB' 				=> 'IMDB info',
 'MAN_EMPIRE' 			=> 'DVDEmpire info',
-'MAN_COPY' 			=> 'Kopioni',
+'MAN_COPY' 				=> 'Kopioni',
 'MAN_COPIES' 			=> 'Omat kopiot',
 'MAN_NOCOPY' 			=> 'Sinulla ei ole kopioita',
 'MAN_1COPY' 			=> 'Kopio',
@@ -223,26 +224,26 @@ $_ = array(
 'MAN_ADDTODB' 			=> 'Lisää uusia näyttelijöitä tietokantaan',
 'MAN_SAVETODB' 			=> 'Tallenna tietokantaan',
 'MAN_SAVETODBNCD' 		=> 'Tallenna tietokantaan',
-'MAN_INDB' 			=> 'Tietokannassa olevat näyttelijät',
-'MAN_SEL' 			=> 'Valitut näyttelijät',
+'MAN_INDB' 				=> 'Tietokannassa olevat näyttelijät',
+'MAN_SEL' 				=> 'Valitut näyttelijät',
 'MAN_STARS' 			=> 'Tähdet',
 'MAN_BROWSE'			=> 'Selaa...',
 
 
 /* Add movies */
-'ADD_INFO' 			=> 'Valitse menetelmä jolla lisäät uuden elokuvan',
-'ADD_IMDB' 			=> 'Nouda tiedot Internet Movie Databasesta',
+'ADD_INFO' 				=> 'Valitse menetelmä jolla lisäät uuden elokuvan',
+'ADD_IMDB' 				=> 'Nouda tiedot Internet Movie Databasesta',
 'ADD_IMDBTITLE' 		=> 'Syötä hakusana',
 'ADD_MANUAL' 			=> 'Lisää tiedot käsin',
 'ADD_LISTED' 			=> 'Lisää elokuvia jotka on jo listattu',
-'ADD_XML' 			=> 'Lisää elokuvia XML tiedostosta',
+'ADD_XML' 				=> 'Lisää elokuvia XML tiedostosta',
 'ADD_XMLFILE' 			=> 'Valitse tuotava XML tiedosto',
 'ADD_XMLNOTE' 			=> '(Huomaa, että XML-tiedostoja joita on viety toisesta VCD-db sovelluksesta voidaan käyttää tässä uusien elokuvien viemiseen tietokantaan. 							Voit viedä elokuvasi XML-tiedostoon "Omat elokuvat" valikon kautta. Vältä viedyn XML-tiedoston muokkausta käsin.) ',
 'ADD_MAXFILESIZE'		=> 'Maksimikoko',
 'ADD_DVDEMPIRE' 		=> 'Hae tiedot Adult DVD Empire:stä (X-rated films)',
 'ADD_LISTEDSTEP1' 		=> 'Vaihe 1<br/>Valitse elokuvat jotka haluat lisätä omaan listaasi.<br/>Mediatyypin voit valita seuraavassa vaiheessa',
 'ADD_LISTEDSTEP2' 		=> 'Vaihe 2.<br/>Valitse sopiva mediatyyppi.',
-'ADD_INDB' 			=> 'Elokuvat jotka ovat jo tietokannassa',
+'ADD_INDB' 				=> 'Elokuvat jotka ovat jo tietokannassa',
 'ADD_SELECTED' 			=> 'Valitut elokuvat',
 'ADD_INFOLIST' 			=> 'Kaksoisklikkaa elokuvan nimeä tai käytä nuolia.<br/>Voit käyttää näppäimistöä elokuvien pikahakuun.',
 'ADD_NOTITLES' 			=> 'Kukaan muu käyttäjä ei ole lisännyt elokuvia tietokantaan.',
@@ -253,158 +254,170 @@ $_ = array(
 'XML_CONTAINS' 			=> 'XML tiedosto sisältää %d elokuvaa.',
 'XML_INFO1' 			=> 'Paina vahvista-nappia käsitelläksesi elokuvat ja tallentaaksesi ne tietokantaan.<br/>',
 'XML_INFO2' 			=> 'Jos haluat sisällyttää thumbnailit (julisteet) elokuviin joita olet tuomassa XML tiedostosta,
-				niin sinulla <b>TÄYTYY</b> olla thumbnail XML-tiedosto saatavilla tässä vaiheessa!<br/>
-				Julisteita ei voi tuoda erikseen sen jälkeen kun olet tuonut elokuvat tästä XML tiedostosta.
-				Jos sinulla on olemassa thumbnail XML-tiedosto, niin tarkista alla oleva kenttä. 
-				Seuraavassa vaiheessa elokuvien tuonnin jälkeen, sinua pyydetään antamaan thumbnail XML-tiedosto käsittelyä varten.',
+							niin sinulla <b>TÄYTYY</b> olla thumbnail XML-tiedosto saatavilla tässä vaiheessa!<br/>
+							Julisteita ei voi tuoda erikseen sen jälkeen kun olet tuonut elokuvat tästä XML tiedostosta.
+							Jos sinulla on olemassa thumbnail XML-tiedosto, niin tarkista alla oleva kenttä. 
+							Seuraavassa vaiheessa elokuvien tuonnin jälkeen, sinua pyydetään antamaan thumbnail XML-tiedosto käsittelyä varten.',
 'XML_THUMBNAILS'		=> 'Lisää thumbnailit omasta thumbnail XML tiedostosta ',
-'XML_LIST'			=> 'Lista elokuvista jotka löytyivät XML tiedostosta.',
-'XML_ERROR'			=> 'XML tiedostosta ei löytynyt yhtään elokuvaa.<br/>Tiedosto voi olla vahingoittunut tai tyhjä.
-			   	<br/>Varmista, että käytät XML tiedostoa, joka on alunperin viety VCD-db:stä...',
+'XML_LIST'				=> 'Lista elokuvista jotka löytyivät XML tiedostosta.',
+'XML_ERROR'				=> 'XML tiedostosta ei löytynyt yhtään elokuvaa.<br/>Tiedosto voi olla vahingoittunut tai tyhjä.
+			   				<br/>Varmista, että käytät XML tiedostoa, joka on alunperin viety VCD-db:stä...',
 'XML_RESULTS'			=> 'XML upload tulokset.',
 'XML_RESULTS2'			=> 'Tässä XML tuonnin tulokset.<br/>Yhteensä tuotiin %d elokuvaa.',
 
 
 /* Add from DVD Empire */
-'EM_INFO'			=> 'Tiedot AdultDVDEmpire.com:sta....',
-'EM_DESC'			=> 'DVDEmpire kuvaus',
-'EM_SUBCAT'			=> 'Adult kategoriat',
+'EM_INFO'				=> 'Tiedot AdultDVDEmpire.com:sta....',
+'EM_DESC'				=> 'DVDEmpire kuvaus',
+'EM_SUBCAT'				=> 'Adult kategoriat',
 'EM_DETAILS'			=> 'Adultdvdempire.com lisätiedot',
-'EM_STARS'			=> 'Pornotähdet',
-'EM_NOTICE'			=> 'Punaisella merkattuja näyttelijöitä ei ole tällä hetkellä VCD-db:ssä.
-				Voit tarkistaa heidän nimensä jolloin ne lisätää automaattisesti VCD-db:hen ja yhdistetään tähän elokuvaan.',
-'EM_FETCH'			=> 'Hae myös',
+'EM_STARS'				=> 'Pornotähdet',
+'EM_NOTICE'				=> 'Punaisella merkattuja näyttelijöitä ei ole tällä hetkellä VCD-db:ssä.
+							Voit tarkistaa heidän nimensä jolloin ne lisätää automaattisesti VCD-db:hen ja yhdistetään tähän elokuvaan.',
+'EM_FETCH'				=> 'Hae myös',
 
 /* Loan System */
 'LOAN_MOVIES'			=> 'Lainattavat elokuvat',
-'LOAN_TO'			=> 'Lainaa elokuvat henkilölle',
+'LOAN_TO'				=> 'Lainaa elokuvat henkilölle',
 'LOAN_ADDUSERS'			=> 'Lisää käyttäjiä jatkaaksesi',
 'LOAN_NEWUSER'			=> 'Uusi lainaaja',
 'LOAN_REGISTERUSER'		=> 'Lisää uusi lainaaja',
-'LOAN_NAME'			=> 'Nimi',
+'LOAN_NAME'				=> 'Nimi',
 'LOAN_SELECT'			=> 'Valitse lainaaja',
 'LOAN_MOVIELOANS'		=> 'Lainatut elokuvat ...',
 'LOAN_REMINDER'			=> 'Lähetä muistutus',
 'LOAN_HISTORY'			=> 'Lainahistoria',
 'LOAN_HISTORY2'			=> 'Tarkastele lainahistoriaa',
 'LOAN_SINCE'			=> 'Alkoi',
-'LOAN_TIME'			=> 'Pvm lähtien',
+'LOAN_TIME'				=> 'Pvm lähtien',
 'LOAN_RETURN'			=> 'Palauta elokuva',
 'LOAN_SUCCESS'			=> 'Elokuvat onnistuneesti lainattu',
-'LOAN_OUT'			=> 'Ei palautettu',
+'LOAN_OUT'				=> 'Ei palautettu',
 'LOAN_DATEIN'			=> 'Palautettu',
 'LOAN_DATEOUT'			=> 'Lainassa',
 'LOAN_PERIOD'			=> 'Laina-aika',
-'LOAN_BACK'			=> 'Palaa lainahakuun',
-'LOAN_DAY'			=> 'päivä',
-'LOAN_DAYS'			=> 'päivää',
+'LOAN_BACK'				=> 'Palaa lainahakuun',
+'LOAN_DAY'				=> 'päivä',
+'LOAN_DAYS'				=> 'päivää',
 'LOAN_TODAY'			=> 'tästä päivästä lähtien',
 
 
 /* RSS */
-'RSS'				=> 'RSS Syötteet',
-'RSS_TITLE'			=> 'RSS syötteet kaverieni VCD-DB sivustoilta',
-'RSS_SITE'			=> 'RSS Sivuston syöte',
-'RSS_USER'			=> 'RSS Käyttäjän syöte',
-'RSS_VIEW'			=> 'Näytä RSS syöte',
-'RSS_ADD'			=> 'Lisää uusi syöte',
-'RSS_NOTE'			=> 'Syötä VCD-db:n <strong>tarkka URL osoite</strong>.<br/>
-				Jos RSS syötteet ovat sallittuja kohdesivulla, voit valita ne syötteet jotka haluat omalle sivullesi.',
-'RSS_FETCH'			=> 'Hae RSS lista',
-'RSS_NONE'			=> 'RSS syötteitä ei ole lisätty.',
-'RSS_FOUND'			=> 'Seuraavat RSS syötteet löydettiin, valitse ne syötteet jotka haluat lisätä:',
+'RSS'					=> 'RSS Syötteet',
+'RSS_TITLE'				=> 'RSS syötteet kaverieni VCD-DB sivustoilta',
+'RSS_SITE'				=> 'RSS Sivuston syöte',
+'RSS_USER'				=> 'RSS Käyttäjän syöte',
+'RSS_VIEW'				=> 'Näytä RSS syöte',
+'RSS_ADD'				=> 'Lisää uusi syöte',
+'RSS_NOTE'				=> 'Syötä VCD-db:n <strong>tarkka URL osoite</strong>.<br/>
+							Jos RSS syötteet ovat sallittuja kohdesivulla, voit valita ne syötteet jotka haluat omalle sivullesi.',
+'RSS_FETCH'				=> 'Hae RSS lista',
+'RSS_NONE'				=> 'RSS syötteitä ei ole lisätty.',
+'RSS_FOUND'				=> 'Seuraavat RSS syötteet löydettiin, valitse ne syötteet jotka haluat lisätä:',
 'RSS_NOTFOUND'			=> 'Ei syötteitä kohteessa',
 
 
 /* Wishlist */
-'W_ADD'				=> 'Lisää toivelistaani',
-'W_ONLIST'			=> 'On your wishlist',
-'W_EMPTY'			=> 'Toivelistasi on tyhjä',
-'W_OWN'				=> 'Omistan kopion tästä elokuvasta',
-'W_NOTOWN'			=> 'En omista kopiota tästä elokuvasta',
+'W_ADD'					=> 'Lisää toivelistaani',
+'W_ONLIST'				=> 'On your wishlist',
+'W_EMPTY'				=> 'Toivelistasi on tyhjä',
+'W_OWN'					=> 'Omistan kopion tästä elokuvasta',
+'W_NOTOWN'				=> 'En omista kopiota tästä elokuvasta',
 
 
 /* Comments */
 'C_COMMENTS'			=> 'Kommentit',
-'C_ADD'				=> 'Lähetä uusi kommentti',
-'C_NONE'			=> 'Yhtään kommenttia ei ole lähetetty',
-'C_TYPE'			=> 'Syötä uusi kommentti',
-'C_YOUR'			=> 'Kommenttisi',
-'C_POST'			=> 'Lähetä kommentti',
-'C_ERROR'			=> 'Sinun pitää kirjautua sisään lähettääksesi kommentin',
+'C_ADD'					=> 'Lähetä uusi kommentti',
+'C_NONE'				=> 'Yhtään kommenttia ei ole lähetetty',
+'C_TYPE'				=> 'Syötä uusi kommentti',
+'C_YOUR'				=> 'Kommenttisi',
+'C_POST'				=> 'Lähetä kommentti',
+'C_ERROR'				=> 'Sinun pitää kirjautua sisään lähettääksesi kommentin',
 
 
 /* Pornstars */
-'P_NAME'			=> 'Nimi',
-'P_WEB'				=> 'Verkkosivu',
+'P_NAME'				=> 'Nimi',
+'P_WEB'					=> 'Verkkosivu',
 'P_MOVIECOUNT'			=> 'Elokuvalaskuri',
 
 
 /* Seen List */
-'S_SEENIT'			=> 'Olen nähnyt elokuvan',
+'S_SEENIT'				=> 'Olen nähnyt elokuvan',
 'S_NOTSEENIT'			=> 'En ole nähnyt elokuvaa',
 'S_SEENITCLICK'			=> 'Klikkaa tätä merkataksesi nähdyksi',
 'S_NOTSEENITCLICK'		=> 'Klikkaa tätä merkataksesi näkemättömäksi',
 
 /* Mail messages */
 'MAIL_RETURNTOPIC'		=> 'Loan reminder',
-'MAIL_RETURNMOVIES1'		=> '%s, haluaisin, että palautat vuokraamasi elokuvat ;).\n
-				Sinulla on edelleen seuraavat leffat vuokrassa:\n\n',
-'MAIL_RETURNMOVIES2'		=> 'Palautatko pian\n Terveisin %s \n\n
-				Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://URL/)',
+'MAIL_RETURNMOVIES1'	=> '%s, haluaisin, että palautat vuokraamasi elokuvat ;).\n
+							Sinulla on edelleen seuraavat leffat vuokrassa:\n\n',
+'MAIL_RETURNMOVIES2'	=> 'Palautatko pian\n Terveisin %s \n\n
+							Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://URL/)',
 'MAIL_NOTIFY'  			=> '<strong>Uusi elokuva on lisätty DVD tietokantaan!</strong><br/>
-				Klikkaa <a href="%s/?page=cd&vcd_id=%s">tätä</a> nähdäksesi lisää...
-				<p>Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://URL/</p>',
+							Klikkaa <a href="%s/?page=cd&vcd_id=%s">tätä</a> nähdäksesi lisää...
+							<p>Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://URL/</p>',
 'MAIL_REGISTER'		 	=> '%s, rekisteröinti järjestelmään onnistui.\n\nKäyttäjänimesi on %s ja salasanasi on  
-				%s.\n\nVoit vaihtaa salasanaasi kun olet kirjautunut sisään.\n
-				Klikkaa <a href="%s" target="_new">tästä</a> siirtyeksäsi DVD tietokantaan.',
+							%s.\n\nVoit vaihtaa salasanaasi kun olet kirjautunut sisään.\n
+							Klikkaa <a href="%s" target="_new">tästä</a> siirtyeksäsi DVD tietokantaan.',
 
 
 /* Player */
-'PLAYER'			=> 'Soitin',
+'PLAYER'				=> 'Soitin',
 'PLAYER_PATH'			=> 'Polku',
 'PLAYER_PARAM'			=> 'Parametrit',
 'PLAYER_NOTE'			=> 'Syötä soittimen polku. Soittimesi pitää tukea komentoriviltä annettuja parametrejä. 
-				Sellaisia soittimia ovat esimerkiksi BSPlayer Windowsille ja MPlayer Linuxille.<br/>
-				BSPlayerin voit ladata ilmaiseksi <a href="http://www.bsplayer.org" target="_new">täältä</a> 
-				ja MPlayerin <a href="http://www.MPlayerHQ.hu" target="_new">täältä</a>.',
+							Sellaisia soittimia ovat esimerkiksi BSPlayer Windowsille ja MPlayer Linuxille.<br/>
+							BSPlayerin voit ladata ilmaiseksi <a href="http://www.bsplayer.org" target="_new">täältä</a> 
+							ja MPlayerin <a href="http://www.MPlayerHQ.hu" target="_new">täältä</a>.',
 
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'sisältää',
-'X_GRADE'			=> 'IMDB arviointi enemmän kuin',
-'X_ANY'				=> 'Mikä tahansa',
+'X_GRADE'				=> 'IMDB arviointi enemmän kuin',
+'X_ANY'					=> 'Mikä tahansa',
 'X_TRYAGAIN'			=> 'Yritä uudelleen',
 'X_PROCEED' 			=> 'Jatka',
-'X_SELECT' 			=> 'Valitse',
+'X_SELECT' 				=> 'Valitse',
 'X_CONFIRM' 			=> 'Vahvista',
-'X_CANCEL' 			=> 'Peruuta',
+'X_CANCEL' 				=> 'Peruuta',
 'X_ATTENTION' 			=> 'Huom!',
-'X_STATUS' 			=> 'Tila',
+'X_STATUS' 				=> 'Tila',
 'X_SUCCESS' 			=> 'Onnistui',
 'X_FAILURE' 			=> 'Epäonnistui',
-'X_YES' 			=> 'Kyllä',
-'X_NO' 				=> 'Ei',
+'X_YES' 				=> 'Kyllä',
+'X_NO' 					=> 'Ei',
 'X_SHOWMORE' 			=> 'Näytä lisää',
 'X_SHOWLESS' 			=> 'Näytä vähemmän',
-'X_NEW' 			=> 'Uusi',
-'X_CHANGE' 			=> 'muuta',
-'X_DELETE' 			=> 'poista',
-'X_UPDATE' 			=> 'Päivitä',
+'X_NEW' 				=> 'Uusi',
+'X_CHANGE' 				=> 'muuta',
+'X_DELETE' 				=> 'poista',
+'X_UPDATE' 				=> 'Päivitä',
 'X_SAVEANDCLOSE' 		=> 'Tallenna ja sulje',
-'X_CLOSE' 			=> 'Sulje',
-'X_EDIT' 			=> 'Muokkaa',
+'X_CLOSE' 				=> 'Sulje',
+'X_EDIT' 				=> 'Muokkaa',
 'X_RESULTS' 			=> 'Results',
 'X_LATESTMOVIES' 		=> 'viimeisintä elokuvaa',
 'X_LATESTTV' 			=> 'viimeisimmät TV showt',
 'X_LATESTBLUE' 			=> 'viimeisimmät X-rated',
-'X_MOVIES' 			=> 'elokuvat',
-'X_NOCATS' 			=> 'Elokuvia ei ole lisätty.',
+'X_MOVIES' 				=> 'elokuvat',
+'X_NOCATS' 				=> 'Elokuvia ei ole lisätty.',
 'X_NOUSERS' 			=> 'Ei aktiivisia käyttäjiä',
-'X_KEY' 			=> 'Key',
+'X_KEY' 				=> 'Key',
 'X_SAVENEXT' 			=> 'Talleta ja muokkaa seuraavaa',
-'X_SAVE' 			=> 'Talleta',
-'X_SEEN' 			=> 'Nähty'
+'X_SAVE' 				=> 'Talleta',
+'X_SEEN' 				=> 'Nähty'
 
 
 );

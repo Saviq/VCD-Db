@@ -188,6 +188,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'Veldu tegund keyrslu',
 'MY_JOINSHOW'			=> 'Sýna niðurstöður',
 'MY_NORESULTS'			=> 'Keyrsla skilaði engum niðurstöðum',
+'MY_TEXTALL'			=> 'Prentsýn (textasýn)',
 'MY_PWALL'				=> 'Prentsýn allra mynda',
 'MY_PWMOVIES'			=> 'Prentsýn kvikmynda',
 'MY_PWTV'				=> 'Prentsýn þátta',
@@ -375,6 +376,19 @@ $_ = array(
 							BSPlayer fyrir Windows eða MPlayer fyrir Linux.<br/>Þú getur náð í BS spilarann frítt 
 							<a href="http://www.bsplayer.org" target="_new">hérna</a> 
 							og MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">hérna</a>.',
+
+
+/* Metadata */
+'META_MY'				=> 'Mín Aukagildi',
+'META_NAME'				=> 'Lykill',
+'META_DESC'				=> 'Lýsing',
+'META_TYPE'				=> 'Tegund',
+'META_VALUE'			=> 'Gildi',
+'META_NONE'				=> 'Engin aukagildi skráð.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Útilokunar listi',
+'IGN_DESC'				=> 'Ekki birta myndir frá eftirfarandi notendum:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'inniheldur',

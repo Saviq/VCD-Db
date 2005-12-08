@@ -187,6 +187,7 @@ $_ = array(
 'MY_JOINSTYPE'        	=> 'Selecteer aktie', 
 'MY_JOINSHOW'        	=> 'Toon resultaten', 
 'MY_NORESULTS'          => 'Zoekterm leverde geen resultaten', 
+'MY_TEXTALL'			=> 'Printbeeld (Text)',
 'MY_PWALL'        		=> 'Printbeeld (Alles)', 
 'MY_PWMOVIES'         	=> 'Printbeeld (Films)', 
 'MY_PWTV'         		=> 'Printbeeld (Tv Shows)', 
@@ -376,6 +377,19 @@ $_ = array(
                      <a href="http://www.bsplayer.org" target="_new">hier</a> gratis downloaden 
                      en MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">hier</a>.', 
 
+
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 
 /* Misc keywords */ 

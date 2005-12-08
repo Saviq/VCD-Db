@@ -187,6 +187,7 @@ $_ = array(
 'MY_JOINSTYPE'			=> 'Odaberi akciju',
 'MY_JOINSHOW'			=> 'Prikaži rezultat',
 'MY_NORESULTS'			=> 'Upit nije vratio rezultate',
+'MY_TEXTALL'			=> 'Pregled svih (Textmode)',
 'MY_PWALL'				=> 'Pregled svih video podataka za štampanje',
 'MY_PWMOVIES'			=> 'Pregled svih filmova za štampanje',
 'MY_PWTV'				=> 'Pregled svih TV šoua za štampanje',
@@ -392,6 +393,19 @@ $_ = array(
 							BSPlayer-a za Win32 ili MPlayer-a za Linux.<br/>Možete downloadovati BSPlayer besplatno
 							<a href="http://www.bsplayer.org" target="_new">ovdje</a>
 							i MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">ovdje</a>.',
+
+
+/* Metadata */
+'META_MY'				=> 'My Metadata',
+'META_NAME'				=> 'Name',
+'META_DESC'				=> 'Description',
+'META_TYPE'				=> 'Meta type',
+'META_VALUE'			=> 'Meta value',
+'META_NONE'				=> 'No Metadata exists.',
+
+/* Ignore List */
+'IGN_LIST'				=> 'Ignore List',
+'IGN_DESC'				=> 'Ignore all movies from the following users:',
 
 
 /* Misc keywords */
