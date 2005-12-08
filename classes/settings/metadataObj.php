@@ -388,13 +388,22 @@ class metadataTypeObj {
 	 * @param int $mediatype_id
 	 * @return array
 	 */
-	public static function filterByMediaTypeID($arrMetaData, $mediatype_id) {
+	public static function filterByMediaTypeID($arrMetaData, $mediatype_id, $user_id = null) {
 		if (is_array($arrMetaData)) {
 			$arrReturnValues = array();
 			foreach ($arrMetaData as $metaDataObj) {
-				if ($metaDataObj->getMediaTypeID() == $mediatype_id) {
-					array_push($arrReturnValues, $metaDataObj);
+				
+				if (!is_null($user_id) && is_numeric($user_id)) {
+					if ($metaDataObj->getMediaTypeID() == $mediatype_id && $metaDataObj->getUserID() == $user_id) {
+						array_push($arrReturnValues, $metaDataObj);
+					}					
+				} else {
+					if ($metaDataObj->getMediaTypeID() == $mediatype_id) {
+						array_push($arrReturnValues, $metaDataObj);
+					}					
 				}
+				
+				
 			}
 			return $arrReturnValues;
 		} else {
