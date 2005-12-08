@@ -12,7 +12,6 @@
  // $Id:
 ?>
 <?
-error_reporting(E_ALL | E_STRICT | E_NOTICE);
 include_once("classes/includes.php");
 require_once('classes/fetch/fetch_dvdempire.php');
 include_once('classes/external/Image_Toolbox.class.php');
