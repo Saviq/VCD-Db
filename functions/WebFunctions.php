@@ -1311,6 +1311,27 @@ function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataAr
 	} else {
 		return "&nbsp;";
 	}
+}
+
+
+function getLocalizedCategoryName($category_name) {
+	
+	$baseMap = getCategoryMapping();
+	if (key_exists($category_name, $baseMap)) {
+		
+		$baseKey = $baseMap[$category_name];
+		global $language;
+		$translatedKey = $language->show($baseKey);
+		$notfound = "undefined";
+		if (strcmp($translatedKey, strtolower($notfound)) == 0) {
+			return $category_name;
+		} else {
+			return $translatedKey;
+		}
+		
+	} else {
+		return $category_name;
+	}
 	
 	
 }
