@@ -28,7 +28,7 @@
 		if ($USERClass->addUser($userObj)) {
 			// Try to send mail to user with registration details.
 			$body = sprintf($language->show('MAIL_REGISTER'), $name, $username, $_POST['password'], $SETTINGSClass->getSettingsByKey('SITE_HOME'));
-			sendMail($email, "VCD-db" . $language->show('REGISTER_TITLE'), $body, true);	
+			sendMail($email, "VCD-db " . $language->show('REGISTER_TITLE'), $body, true);	
 		
 			// save the user in session
 			$_SESSION['new_user'] = $userObj;
