@@ -1280,7 +1280,7 @@ class vcd_movie implements Vcd  {
 	/**
 	 * Get all vcd objects by userid for printview.
 	 *
-	 * $list_type can be 'all', 'movies', 'tv' or 'blue'
+	 * $list_type can be 'all', 'movies', 'tv', text or 'blue'
 	 * Return array of vcd objects.
 	 *
 	 * @param int $user_id
@@ -1310,6 +1310,8 @@ class vcd_movie implements Vcd  {
 				return $this->SQL->getPrintViewList($user_id, array($cat_tv), null, $thumbnail_id);
 			} elseif (strcmp($list_type, 'blue') == 0) {
 				return $this->SQL->getPrintViewList($user_id, array($cat_adult), null, $thumbnail_id);
+			} elseif (strcmp($list_type, 'text') == 0) {
+				return $this->getAllVcdByUserId($user_id, false);
 			}
 
 			return null;
