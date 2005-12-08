@@ -363,8 +363,8 @@ $_ = array(
 'MAIL_NOTIFY'  			=> '<strong>Ný mynd hefur verið skráð í grunninn</strong><br/>
 							 Smelltu <a href="%s/?page=cd&vcd_id=%s">hér</a> til að kíkja á málið
 							 <p>ps. þetta er sjálfvirkur póstur frá VCD kerfinu.</p>',
-'MAIL_REGISTER'		 	=> '%s, skráning þín tókst í VCD-db kerfið.\n\nNotandanafnið þitt er %s og lykilorðið 
-							þitt er %s.\n\nÞú getur síðan skipt um lykilorð eftir að þú hefur skráð þig inn.\n
+'MAIL_REGISTER'		 	=> '%s, skráning þín tókst í VCD-db kerfið.<br><br>Notandanafnið þitt er %s og lykilorðið 
+							þitt er %s.<br><br>Þú getur síðan skipt um lykilorð eftir að þú hefur skráð þig inn.<br>
 							VCD-db vefurinn er síðan <a href="%s" target="_new">hér</a>.',
 
 /* Player */

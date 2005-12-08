@@ -382,8 +382,8 @@ $_ = array(
 'MAIL_NOTIFY'  		    => '<strong>New movie has been added to VCD-db</strong><br/>
 							 Click <a href="%s/?page=cd&vcd_id=%s">here</a> to see more ..
 							 <p>nb. this is an automated e-mail from the VCD-db (vcddb.konni.com)</p>',
-'MAIL_REGISTER'		 	=> '%s, registration to VCD-db was successful.\n\nYour username is %s and your password is 
-							%s.\n\nYou can always change your password after you have logged in.\n
+'MAIL_REGISTER'		 	=> '%s, registration to VCD-db was successful.<br><br>Your username is %s and your password is 
+							%s.<br><br>You can always change your password after you have logged in.<br>
 							Click <a href="%s" target="_new">here</a> to goto the VCD-db website.',
 
 
