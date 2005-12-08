@@ -505,10 +505,10 @@ function prepareUploader(&$uploadObj, $fileObj, $fieldname, $maxFileSize, $arrEx
 		$uploadObj->set("supported_extensions", $arrExtensions);
 
 		// Generate a unique name for uploaded file? bool(true/false).
-		$uploadObj->set("randon_name",true);
+		$uploadObj->set("randon_name",$randomFilename);
 
 		// Replace existent files or not?
-		$uploadObj->set("replace",false);
+		$uploadObj->set("replace",$replaceFile);
 
 		// Destination directory for uploaded files.
 		$uploadObj->set("dst_dir", $destinationDirectory);
