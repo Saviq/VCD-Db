@@ -38,24 +38,23 @@ function setBorder(obj) {
 	
 	id = obj.name;
 	
-	if (document.getElementById) {
-		document.getElementById(id).style.borderColor = "#0C2862";
-		document.getElementById(id).style.borderWidth = "1px";
-		document.getElementById(id).style.borderStyle = "solid";
-		document.getElementById(id).style.padding = "1px";
-		document.getElementById(id).style.margin = "1px";
-	}
+	document.getElementById(id).style.borderColor = "#0C2862";
+	document.getElementById(id).style.borderWidth = "1px";
+	document.getElementById(id).style.borderStyle = "solid";
+	document.getElementById(id).style.padding = "1px";
+	document.getElementById(id).style.margin = "1px";
+	
 }
 
 function clearBorder(obj) {
 	id = obj.name;
-	if (document.getElementById) {
-		document.getElementById(id).style.borderColor = "#dadce0";
-		document.getElementById(id).style.borderWidth = "1px";
-		document.getElementById(id).style.borderStyle = "solid";
-		document.getElementById(id).style.padding = "1px";
-		document.getElementById(id).style.margin = "1px";
-	}
+	
+	document.getElementById(id).style.borderColor = "#dadce0";
+	document.getElementById(id).style.borderWidth = "1px";
+	document.getElementById(id).style.borderStyle = "solid";
+	document.getElementById(id).style.padding = "1px";
+	document.getElementById(id).style.margin = "1px";
+	
 }
 
 function trOn(obj) {
