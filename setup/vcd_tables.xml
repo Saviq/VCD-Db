@@ -614,38 +614,54 @@
 		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (18, 'nfo', 'NFO File', 0)</query>
 
 		<descr>XML Frontpage feeds</descr>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Compilation', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27003.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27004.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27005.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Gonzo', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27006.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers Interactive ', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_27007.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers R-Rated', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_33384.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks All Sex', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25941.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Compilation', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25723.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25720.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25944.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Editors Picks Interactive', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_edpick_25725.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Pornstars New Stars', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_pornstars_new.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Pornstars Popular Stars', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_pornstars_pop.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases All Sex', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8925.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Compilation ', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8927.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Feature', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8924.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Fetish', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8923.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Gonzo', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8926.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Interactive', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8928.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases R-Rated', 'http://www.adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_recent_8930.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'futuremovies.co.uk - Latest articles', 'http://www.futuremovies.co.uk/rss/film.asp')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'futuremovies.co.uk - Latest reviews', 'http://www.futuremovies.co.uk/rss/reviews.asp')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movie-gazette.com - DVD releases', 'http://www.movie-gazette.com/rss/rssdvd.asp')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movie-gazette.com - Screen releases', 'http://www.movie-gazette.com/rss/rsscinema.asp')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - DVD News', 'http://www.movieweb.com/out/dvd_news.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Latest DVD Easter Eggs', 'http://www.movieweb.com/out/dvd_eggs.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Latest Film Trailers', 'http://www.movieweb.com/out/trailers.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Movie News', 'http://www.movieweb.com/out/movie_news.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - This Weeks DVD Releases', 'http://www.movieweb.com/out/releases_dvd.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - This Weeks Theatrical Releases', 'http://www.movieweb.com/out/releases_theater.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'movieweb.com - Todays Box Office Take', 'http://www.movieweb.com/out/box_office_daily.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'qDupe.com TV', 'http://qdupe.com/rss/rss2.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'qDupe.com DVDR', 'http://qdupe.com/rss/rss3.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'qDupe.com Xvid/Divx', 'http://qdupe.com/rss/rss4.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'qDupe.com SVCD', 'http://qdupe.com/rss/rss7.asp')</query>
+				
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver dvdr', 'http://www.tehserver.us/rss/dvdr.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver mdvdr', 'http://www.tehserver.us/rss/mdvdr.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver svcd', 'http://www.tehserver.us/rss/svcd.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver tv-dvdr', 'http://www.tehserver.us/rss/tv-dvdr.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver tv-dvdrip', 'http://www.tehserver.us/rss/tv-dvdrip.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver tv-hr', 'http://www.tehserver.us/rss/tv-hr.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver tv-vcd', 'http://www.tehserver.us/rss/tv-vcd.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver tv-xvid', 'http://www.tehserver.us/rss/tv-xvid.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver vcd', 'http://www.tehserver.us/rss/vcd.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver xvid', 'http://www.tehserver.us/rss/xvid.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Tehserver xxx', 'http://www.tehserver.us/rss/xxx.xml')</query>
+				
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases All Sex', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=All Sex')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Compilation', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=All Sex')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Digital Playground Picks', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=All Sex')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Empire 25', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Empire 25')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Feature', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Feature')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Fetish', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Fetish')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Gonzo', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Gonzo')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Interactive', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Interactive')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Jenna on DVD', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Jenna on DVD')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Jesse on DVD', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Jesse on DVD')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Private Picks', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Private Picks')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases R-Rated', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=R-Rated')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Red Light District Picks', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Red Light District Picks')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Seymore Butts Picks', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Seymore Butts Picks')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Tera on DVD', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Tera on DVD')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Recent Releases Wicked Picks', 'http://adult.dvdempire.com/RSS_Feeds/feed_generator.asp?cat_id=1&site_id=7&site_media_id=2&sort=4&cat_name=Wicked Picks')</query>
+				
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Futuremovies - Latest articles', 'http://www.futuremovies.co.uk/rss/film.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Futuremovies - Latest reviews', 'http://www.futuremovies.co.uk/rss/reviews.asp')</query>
+		
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movie Gazette - DVD releases', 'http://www.movie-gazette.com/rss/rssdvd.asp')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movie Gazette - Screen releases', 'http://www.movie-gazette.com/rss/rsscinema.asp')</query>
+		
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - DVD News', 'http://www.movieweb.com/out/dvd_news.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - Latest DVD Easter Eggs', 'http://www.movieweb.com/out/dvd_eggs.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - Latest Film Trailers', 'http://www.movieweb.com/out/trailers.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - Movie News', 'http://www.movieweb.com/out/movie_news.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - This Weeks DVD Releases', 'http://www.movieweb.com/out/releases_dvd.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - This Weeks Theatrical Releases', 'http://www.movieweb.com/out/releases_theater.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Movieweb - Todays Box Office Take', 'http://www.movieweb.com/out/box_office_daily.xml')</query>
+		
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - Anime', 'http://nforce.nl/rss/rss_16.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - DivX', 'http://nforce.nl/rss/rss_12.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - DVD-R', 'http://nforce.nl/rss/rss_18.xml')</query>
@@ -654,11 +670,15 @@
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - VCD', 'http://nforce.nl/rss/rss_14.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - XviD', 'http://nforce.nl/rss/rss_13.xml')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'NFOrce.nl - XXX', 'http://nforce.nl/rss/rss_17.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Box Office Movies', 'http://images.rottentomatoes.com/files/rss/box_office.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Movies Opening This Week', 'http://images.rottentomatoes.com/files/rss/opening.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - New DVD Releases', 'http://images.rottentomatoes.com/files/rss/new_releases.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Top DVD Rentals', 'http://images.rottentomatoes.com/files/rss/top_rentals.xml')</query>
-		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'rottentomatoes.com - Upcoming Movies', 'http://images.rottentomatoes.com/files/rss/upcoming.xml')</query>
+				
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - In Theaters', 'http://i.rottentomatoes.com/syndication/rss/in_theaters.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Top Movies', 'http://i.rottentomatoes.com/syndication/rss/top_movies.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Opening Movies', 'http://i.rottentomatoes.com/syndication/rss/opening.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Upcoming Movies', 'http://i.rottentomatoes.com/syndication/rss/upcoming.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Certified Fresh Movies', 'http://i.rottentomatoes.com/syndication/rss/movie_certified_fresh.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Top DVDs', 'http://i.rottentomatoes.com/syndication/rss/top_dvds.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - New Releases', 'http://i.rottentomatoes.com/syndication/rss/new_releases.xml')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Rotten Tomatoes - Certified Fresh Video/DVD', 'http://i.rottentomatoes.com/syndication/rss/video_certified_fresh.xml')</query>
 
 
 	</sql>
