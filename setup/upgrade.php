@@ -48,14 +48,13 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 				}
 				
 				// Read the file 
-				$sql = fread($fd, filesize($filename));
-				fclose($fd);
-				
-				if(!$conn->Execute($sql)) {
-					$error_msg = "Error inserting via sql script.";
-					$goterror = true;
-					return;
+				$tables = file($filename);
+				foreach ($tables as $query_num => $query) {
+				  $conn->Execute($query);
 				}
+				
+				
+				
 			} else {
 				$goterror = true;
 				$error_msg = "Could not find file " . $filename;
@@ -103,14 +102,15 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 					return;
 				}
 				
-				// Read the file 
-				$sql = fread($fd, filesize($filename));
-				fclose($fd);
 				
-				if(!$conn->Execute($sql)) {
-					$error_msg = "Error inserting via sql script.";
-					$goterror = true;
+				// Read the file 
+				$tables = file($filename);
+				foreach ($tables as $query_num => $query) {
+				  $conn->Execute($query);
 				}
+				
+				
+				
 			} else {
 				$goterror = true;
 				$error_msg = "Could not find file " . $filename;
@@ -212,7 +212,7 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 		}
 	}
 }
-
+function addQueryCount() {}
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -231,7 +231,7 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 <tr>
 	<td valign="top" style="padding:18px 0px 0px 16px" class="content">
 	<!-- Setup content -->
-	<h2>VCD-DB (v. 0.973) Upgrade</h2>
+	<h2>VCD-DB (v. 0.98) Upgrade</h2>
 	<br/>
 	<? if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0) { 
 	
