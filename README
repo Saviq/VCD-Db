@@ -149,5 +149,9 @@ Application Notes:
    
 7) When using PostgreSQL, make sure the encoding is set to Latin1 not Unicode
 
-8) When LDAP is used for authentication (defined in the classes/VCDConstants.php) users can not register,
+8) To use LDAP authentication instead of the internal DB authentication system, you must
+   edit the file 'classes/VCDConstants.php' and set the appropriate values to match your
+   Directory Server configuration.
+
+9) When LDAP is used for authentication (defined in the classes/VCDConstants.php) users can not register,
    All they have to do is login with their LDAP account and then the user is created for them.
