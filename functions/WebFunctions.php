@@ -790,9 +790,8 @@ function ShowOneRSS($url, $showdescription = false) {
             	  	$hovertext = str_replace("&apos;", "", $hovertext);
             	  	$hovertext = str_replace(chr(13), "", $hovertext);
             	  	$hovertext = str_replace(chr(10), "", $hovertext);
-            	  	$hovertext = htmlentities($hovertext);
             	  	
-            	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=5;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
+            	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
             	  }
 
 					// Fix so the long titles will not fuck up the layout
