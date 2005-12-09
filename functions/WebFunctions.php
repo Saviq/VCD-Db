@@ -781,12 +781,24 @@ function ShowOneRSS($url, $showdescription = false) {
 
             	  $onmouseover= "";
             	  if (isset($item['description'])) {
+            	  	            	  	
+            	  	
             	  	$hovertext = str_replace("&#039;", "", $item['description']);
             	  	$hovertext = str_replace("'", "", $hovertext);
+            	  	$hovertext = str_replace("\"", "", $hovertext);
+            	  	
+            	  	$hovertext = str_replace("&apos;", "", $hovertext);
+            	  	$hovertext = str_replace(chr(13), "", $hovertext);
+            	  	$hovertext = str_replace(chr(10), "", $hovertext);
+            	  	$hovertext = htmlentities($hovertext);
+            	  	
             	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=5;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
             	  }
 
-	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" {$onmouseover}>".unhtmlentities(str_replace("&apos;", "'", $item['title']))."</a></li>\n";
+					// Fix so the long titles will not fuck up the layout
+					$item['title'] = str_replace("."," ", $item['title']);
+
+	              echo "\t<li><a href=\"".str_replace('<![CDATA[&]]>', '&amp;', $item['link'])."\" target=\"_new\" {$onmouseover}>".unhtmlentities(str_replace("&apos;", "", $item['title']))."</a></li>\n";
             }
             echo "</ul>\n";
     }
