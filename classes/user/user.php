@@ -172,7 +172,8 @@ class vcd_user implements User {
    				$statsObj = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTSTATS, 1));
 				$barObj   = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTBAR, 1));
 				$SETTINGSClass->addMetadata(array($barObj, $statsObj));
-   				
+   								
+				$this->updateUserCache(true);
    				return true;
    				   				
    			} else {
@@ -461,12 +462,14 @@ class vcd_user implements User {
 
    
    /**
-    * Enter description here...
+    * Update the internal Users Cache
     *
+    * @param bool $force | Force update even if data exists
     */
-   private function updateUserCache() {
-   		if (is_null($this->userObjArr))
+   private function updateUserCache($force = false) {
+   		if ($force || is_null($this->userObjArr)) {
    			$this->userObjArr = $this->SQL->getAllUsers();
+   		}
    }
 	
    
