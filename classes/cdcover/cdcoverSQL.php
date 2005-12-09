@@ -66,7 +66,7 @@
 		public function updateCoverType(cdcoverTypeObj $cdcoverTypeObj) {
 			$query = "UPDATE $this->TABLE_types SET cover_type_name = 
 					  ".$this->db->qstr($cdcoverTypeObj->getCoverTypeName()).",
-					  cover_type_description = ".$this->db->qstr($cdcoverTypeObj->getCoverTypeDescription()).", 
+					  cover_type_description = ".$this->db->qstr($cdcoverTypeObj->getCoverTypeDescription())."
 					  WHERE cover_type_id = " . $cdcoverTypeObj->getCoverTypeID();
 			$this->db->Execute($query);
 		}
