@@ -26,7 +26,29 @@ function upgradeMetaData() {
 	
 	
 	foreach ($arr as $key => $value) {
-		$updatequery = "UPDATE vcd_MetaData SET metadata_name = " . getNewMetaId($value) . " WHERE metadata_id = " . $key;
+		$queryRecord = "SELECT record_id FROM vcd_MetaData WHERE metadata_id = " . $key;
+		$queryUser = "SELECT user_id FROM vcd_MetaData WHERE metadata_id = " . $key;
+		$record_id = $conn->getOne($queryRecord);
+		$user_id = $conn->getOne($queryUser);
+		$bestGuess = 0;
+		if (is_numeric($record_id) && $record_id > 0 && is_numeric($user_id) && $user_id > 0) {
+			$mediaQuery = "SELECT media_type_id FROM vcd_VcdToUsers WHERE vcd_id = {$record_id} AND user_id = " . $user_id;
+			$rs = $conn->Execute($mediaQuery);
+			if ($rs && $rs->RecordCount() > 0) {
+				foreach ($rs as $row) { 
+					$bestGuess = $row[0];
+					break;
+				}
+			}
+		}
+		
+		if ($bestGuess == 0) {
+			$updatequery = "UPDATE vcd_MetaData SET metadata_name = " . getNewMetaId($value) . " WHERE metadata_id = " . $key;	
+		} else {
+			$updatequery = "UPDATE vcd_MetaData SET metadata_name = " . getNewMetaId($value) . ", mediatype_id = {$bestGuess} WHERE metadata_id = " . $key;	
+		}
+		
+		
 		$conn->Execute($updatequery);
 		$iRecordCounter++;
 	}
