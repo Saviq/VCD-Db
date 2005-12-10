@@ -500,9 +500,10 @@
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (2,'NOTIFY','Send me an email when new movie is added?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (3,'RSS','Allow RSS feed from my movielist?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (4,'WISHLIST','Allow others to see my wishlist ?')</query>
-		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (5,'USE_INDEX','Use index number fields for custom media IDs')</query>
-		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (6,'SEEN_LIST','Keep track of movies that I have seen')</query>
-		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (7,'PLAYOPTION','Use client playback options')</query>
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (5,'USE_INDEX','Use index number fields for custom media IDs?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (6,'SEEN_LIST','Keep track of movies that I have seen?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (7,'PLAYOPTION','Use client playback options?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (8,'NFO','Use NFO Files?')</query>
 
 		<descr>CD Cover Types</descr>
 		<query>INSERT INTO vcd_CoverTypes (cover_type_id,cover_type_name,cover_type_description) VALUES (1,'VCD Front Cover','Front cover for VCD and SVCD movies')</query>
