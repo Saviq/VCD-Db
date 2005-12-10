@@ -22,6 +22,7 @@ define("CACHE_FOLDER","upload/cache/");					// Fetch cache folder
 define("THUMBNAIL_PATH","upload/thumbnails/");			// Thumbnail path
 define("COVER_PATH","upload/covers/");					// Covers path
 define("PORNSTARIMAGE_PATH","upload/pornstars/");		// Pornstar images
+define("NFO_PATH","upload/nfo/");						// NFO files
 
 // Proxy settings | if using proxy server, define it here below
 define("USE_PROXY",  0);								// Change to "1" if using proxy server
