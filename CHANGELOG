@@ -42,6 +42,8 @@ Added   - Complete new metadata system.  Users can now create as many new fields
 Updated - User can now see weither he owns a copy of a movie that is on his wishlist.
 Added   - Missing feature, to be able to view all my movies in text view for printing.
 Added   - Users can now be created from the "Control Panel", useful if registration is disabled.
+Updates - All filesize setting for Max cover sizes have been moved to VCDConstants.php for convenience.
+Added   - NFO Files can now be associated with Movies.
 
 0.973
 Added   - SQLite is now supported.
