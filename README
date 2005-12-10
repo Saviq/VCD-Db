@@ -70,7 +70,7 @@ Upgrading from 0.973
 			click on the "Upgrade VCD-db" button.
 			
 			
-	Final Step for those running on Unix/Linux/Mac .. (If running windows you get skip this step)
+	Final Step for those running on Unix/Linux/Mac .. (If running on Windows you can skip this step)
 	The new folder "/vcddb/upload/nfo" needs to be CHMOD-ed 0777 so NFO files can be uploaded.
 				
 	Delete the "setup" folder and start using VCD-db again.			
