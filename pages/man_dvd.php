@@ -27,7 +27,7 @@
 <input type="hidden" id="sub_list" name="sub_list" value=""/>
 <table width="100%" cellpadding="1" cellspacing="1" border="0">
 <tr>
-	<td class="tblb">Media:</td>
+	<td class="tblb"><?= $language->show('M_MEDIATYPE')?>:</td>
 	<td><? createDVDDropdown($arrCopies['mediaTypes'], $current_dvd); ?></td>
 </tr>
 <tr>
