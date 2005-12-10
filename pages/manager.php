@@ -511,6 +511,36 @@
 	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/></td>";
 				print "</tr>";
 			 }
+			 
+			 
+			 if ($_SESSION['user']->getPropertyByKey('NFO'))  {
+   				$metaValue = "";
+   				$metaDataID = "";
+				foreach ($arrMyMeta as $metadataObj) {
+					if ($metadataObj instanceof metadataObj ) {
+						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_NFO 
+						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
+							$metaValue = $metadataObj->getMetadataValue();
+							$metaDataID = $metadataObj->getMetadataID();
+							break;
+						}
+					}
+				}
+
+   				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO)."|".metadataTypeObj::SYS_NFO ."|".$mediaTypeObj->getmediaTypeID();
+
+	   			print "<tr>";
+	   			print "<td class=\"tblb\">NFO:</td>";
+	   			if (strcmp($metaValue, "") == 0) {
+	   				print "<td style=\"padding-left:5px\"><input type=\"file\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$metaValue}\"/></td>";
+	   			} else {
+	   				$deleteNfo = "&nbsp;&nbsp;<img src=\"../images/thrashcan.gif\" align=\"absmiddle\" onclick=\"deleteNFO({$metaDataID},{$cd_id})\" alt=\"Delete NFO\" border=\"0\"/>";
+	   				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"null\" readonly=\"readonly\" size=\"30\" class=\"input\" value=\"{$metaValue}\"/>{$deleteNfo}</td>";	
+	   			}
+	   			
+				print "</tr>";
+			 }
+			 
 
 
 			if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  {
