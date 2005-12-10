@@ -478,6 +478,7 @@ INSERT INTO vcd_UserProperties (property_id,property_name,property_description) 
 INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (5,'USE_INDEX','Use index number fields for custom media IDs');
 INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (6,'SEEN_LIST','Keep track of movies that I have seen');
 INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (7,'PLAYOPTION','Use client playback options');
+INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (8,'NFO','Use NFO files?');
 
 -- <descr>CD Cover Types</descr>
 INSERT INTO vcd_CoverTypes (cover_type_id,cover_type_name,cover_type_description) VALUES (1,'VCD Front Cover','Front cover for VCD and SVCD movies');
