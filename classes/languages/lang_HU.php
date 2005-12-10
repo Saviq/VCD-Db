@@ -70,6 +70,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Használjon index szám mezõt a médiák azonosítójának',
 'PRO_SEEN_LIST' 		=> 'Tartsd meg ezt a filmet, hogy láthassam',
 'PRO_PLAYOPTION' 		=> 'Use client playback options',
+'PRO_NFO' 				=> 'Enable NFO files?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Lejátszó beállítások',

@@ -70,6 +70,7 @@ $_ = array(
 'PRO_USE_INDEX'         => 'Index Feld f&uuml;r eigene Medien ID\'s verwenden?',
 'PRO_SEEN_LIST'         => 'Eigene \'Gesehene Filme\' Liste verwalten',
 'PRO_PLAYOPTION'        => 'Zus&auml;tzliche Abspieloptionen verwenden',
+'PRO_NFO' 				=> 'Benutzen Sie NFO Akte?',
 
 
 /* User Settings */

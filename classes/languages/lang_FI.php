@@ -71,6 +71,7 @@ $_ = array(
 'PRO_USE_INDEX'   		=> 'Käytä indeksinumerokenttiä tallenteiden omalle numeroinnille',
 'PRO_SEEN_LIST'   		=> 'Pidä kirjaa elokuvista jotka olen nähnyt',
 'PRO_PLAYOPTION'   		=> 'Käytä soittimen toistoasetuksia',
+'PRO_NFO' 				=> 'Salli NFO tiedosto?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Soittimen asetukset',

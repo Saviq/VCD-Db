@@ -66,9 +66,10 @@ $_ = array(
 'PRO_SHOW_ADULT' 		=> 'Show adult content on the site?',
 'PRO_RSS' 				=> 'Allow RSS feed from my movie list?',
 'PRO_WISHLIST' 			=> 'Allow others to see my wishlist ?',
-'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s',
-'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen',
-'PRO_PLAYOPTION' 		=> 'Use client playback options',
+'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s?',
+'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen?',
+'PRO_PLAYOPTION' 		=> 'Use client playback options?',
+'PRO_NFO' 				=> 'Enable NFO files?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Player settings',

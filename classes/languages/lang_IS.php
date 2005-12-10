@@ -69,7 +69,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Nota sér auðkenni fyrir myndir?',
 'PRO_SEEN_LIST' 		=> 'Halda utan um myndir sem ég hef séð?',
 'PRO_PLAYOPTION' 		=> 'Nota afspilun frá VCD-db?',
-
+'PRO_NFO' 				=> 'Nota NFO skjöl?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Stilla spilara',

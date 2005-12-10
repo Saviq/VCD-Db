@@ -69,6 +69,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s',
 'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen',
 'PRO_PLAYOPTION' 		=> 'Use client playback options',
+'PRO_NFO' 				=> 'Bruge NFO arkiverer?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Bruger Indstillinger',

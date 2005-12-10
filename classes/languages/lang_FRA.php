@@ -69,7 +69,7 @@ $_ = array(
 'PRO_USE_INDEX'   		=> 'Utiliser le numéro d\'indice comme identifiant des média personnels',
 'PRO_SEEN_LIST'  		=> 'Conserver un historiques des films que j\'ai vus',
 'PRO_PLAYOPTION' 		=> 'Autoriser l\'utilisation d\'un visualiseur',
-
+'PRO_NFO' 				=> 'Employez le dossier de NFO?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Player settings',

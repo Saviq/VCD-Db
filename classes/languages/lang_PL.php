@@ -66,6 +66,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Używaj numerów wierszy jako numerów ID?',
 'PRO_SEEN_LIST' 		=> 'Pilnuj, które filmy widziałem',
 'PRO_PLAYOPTION' 		=> 'Użyj opcje odtwarzacza klienta',
+'PRO_NFO' 				=> 'Używaj pliku NFO?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Ustawienia odtwarzacza',

@@ -70,6 +70,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Koristi broj indeksa kao vlastitu numeraciju medija?',
 'PRO_SEEN_LIST' 		=> 'Vodi raèuna o filmovima koje sam odgledao?',
 'PRO_PLAYOPTION' 		=> 'Koristi vlastite postavke za ',
+'PRO_NFO' 				=> 'Koristi NFO?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Postavke sviraèa (Player)',

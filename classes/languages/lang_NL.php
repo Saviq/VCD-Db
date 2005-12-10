@@ -69,6 +69,7 @@ $_ = array(
 'PRO_USE_INDEX'         => 'Gebruik index nummer veld voor eigen media ID\'s',
 'PRO_SEEN_LIST'         => 'Bijhouden welke films ik heb gezien',
 'PRO_PLAYOPTION'        => 'Gebruik player opties op client',
+'PRO_NFO' 				=> 'Van het gebruik NFO- dossier?',
 
 /* User Settings */
 'SE_PLAYER'             => 'Player instellingen', 
