@@ -59,6 +59,15 @@ switch ($form) {
 		break;
 		
 		
+	case 'deleteNFO':
+		if (isset($_GET['meta_id']) && is_numeric($_GET['meta_id'])) {
+			$SETTINGSClass->deleteNFO($_GET['meta_id']);
+			$vcd_id = $_GET['rid'];
+			redirect("pages/manager.php?cd_id=".$vcd_id."&do=reload");
+		}
+	
+		break;
+		
 	case 'delete_borrower':
 		$borrowerObj = $SETTINGSClass->getBorrowerByID($_GET['bid']);
 		$SETTINGSClass->deleteBorrower($borrowerObj);

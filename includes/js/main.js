@@ -1099,3 +1099,12 @@ function showDVD(id) {
 		alert(ex.Message);
 	}
 }
+
+function deleteNFO(metadata_id, cd_id) {
+	try {
+		if (metadata_id > 0) {
+			url = '../exec_query.php?action=deleteNFO&meta_id='+metadata_id+'&rid='+cd_id;
+			location.href = url;
+		}
+	} catch (ex) {}
+}
