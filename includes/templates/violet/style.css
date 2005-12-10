@@ -381,29 +381,22 @@ unknown {
 }
 
 .stata {
-	background-color: #DCDCDC;
+	BACKGROUND-COLOR: #dcdcdc
 }
-
+.statsTable .stata {
+	BACKGROUND-COLOR: #dcdcdc;
+}
 .statb {
-	background-color: #FFFFFF;
+	BACKGROUND-COLOR: white;
 }
-
-.statstable {
-	background-color: #DCDCDC;
-	color: #000000;
+.statsTable {
+	COLOR: #000000; BACKGROUND-COLOR: #dcdcdc;
 }
-
-.statstable .stata {
-	background-color: #DCDCDC;
+.statsTable TD {
+	TEXT-INDENT: 2px; BACKGROUND-COLOR: white;
 }
-
-.statstable td {
-	background-color: #FFFFFF;
-	text-indent: 2px;
-}
-
-.statstable td a {
-	color: #000000;
+.statsTable TD A {
+	COLOR: #000000;
 }
 
 .tblsmall {
