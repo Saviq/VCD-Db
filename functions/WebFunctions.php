@@ -1170,7 +1170,7 @@ function send_file($path) {
 
 function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 	try {
-		
+				
 		if (sizeof($arrMediaTypes) == 1 && $arrMediaTypes[0] instanceof mediaTypeObj ) {
 			print $arrMediaTypes[0]->getDetailedName();
 		}
@@ -1184,7 +1184,7 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 			}
 			
 			if (sizeof($arrDVDTypes) == 1) {
-				print $arrMediaTypes[0]->getDetailedName();
+				print $arrDVDTypes[0]->getDetailedName();
 			} else {
 				print "<select name=\"dvdtype\" class=\"input\" onchange=\"doManagerSubmit(this)\">";
 				foreach ($arrDVDTypes as $mediatypeObj) {
@@ -1199,6 +1199,7 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 			}
 			
 		}
+				
 		
 	} catch (Exception $ex) {
 		VCDException::display($ex);
@@ -1318,6 +1319,34 @@ function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataAr
 	$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
 	
 	if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
+		return $img;
+	} else {
+		return "&nbsp;";
+	}
+}
+
+
+function showNFO(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
+
+	$hasNFO = false;
+	if (!is_null($metaDataArr)) {
+		$currMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID(), $userObj->getUserID());
+		// Search for NFO metadata ..
+		if (is_array($currMeta) && sizeof($currMeta) > 0) {
+			foreach ($currMeta as $metadataObj) {
+				if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
+					$nfofile = NFO_PATH . $metadataObj->getMetaDataValue();
+					$js = "window.open('{$nfofile}');";
+					$img = "<a href=\"#\" onclick=\"{$js};\"><img src=\"images/icon_nfo.gif\" border=\"0\" hspace=\"1\" alt=\"NFO\" align=\"middle\"/></a>";
+					$hasNFO = true;
+					break;
+				}
+			}
+		}
+	}
+		
+	
+	if ($hasNFO) {
 		return $img;
 	} else {
 		return "&nbsp;";
