@@ -24,6 +24,7 @@ Installation.
 	chmod 0777 upload
 	chmod 0777 upload/cache
 	chmod 0777 upload/covers
+	chmod 0777 upload/nfo
 	chmod 0777 upload/pornstars
 	chmod 0777 upload/screenshots/albums
 	chmod 0777 upload/screenshots/generated
@@ -68,6 +69,10 @@ Upgrading from 0.973
 	STEP 5) Now the dull part is over and you can head back to the "Upgrade Page" and
 			click on the "Upgrade VCD-db" button.
 			
+			
+	Final Step for those running on Unix/Linux/Mac .. (If running windows you get skip this step)
+	The new folder "/vcddb/upload/nfo" needs to be CHMOD-ed 0777 so NFO files can be uploaded.
+				
 	Delete the "setup" folder and start using VCD-db again.			
 
 
