@@ -198,9 +198,7 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdsubs', 'DVD subtitles', 0)";
 		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('nfo', 'NFO File', 0)";
 
-		// Add the new Property To User
-		$propQuery = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO','Use NFO Files?')";
-	
+
 		$error_msg = "Could not insert data.";
 		$goterror = false;
 	
@@ -212,6 +210,11 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 				$goterror = true;
 			}
 		}
+		
+		// Add the new Property To User
+		$propQuery = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO','Use NFO Files?')";
+		$conn->Execute($propQuery);
+		
 	}
 }
 function addQueryCount() {}
