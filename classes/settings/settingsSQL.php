@@ -1196,6 +1196,18 @@
 		}
 		
 		
+		public function getMetadataValueCount(metadataObj $obj) {
+			try {
+				
+				$query = "SELECT COUNT(metadata_id) FROM $this->TABLE_metadata 
+						  WHERE metadata_value = " . $this->db->qstr($obj->getMetadataValue());
+				return $this->db->GetOne($query);
+				
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+		
 		public function getStatsObj() {
 			try {
 
