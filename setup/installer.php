@@ -88,6 +88,8 @@ class installer {
 			  in mind.</li>
 			  <li>If storing images in the database is not working correctly you can always change the settings and store
 			  images on HD from in the Control Panel</li>
+			  <li>If you want to use LDAP Directory for authentication, you will need to edit the file 'classes/VCDConstants.php after 
+			  installation and adjust the LDAP settings accordingly.'</li>
 			  </ul><br/>",
 		6 => "<ul><li><b>Everything wen't well!</b><li><b>Now delete the setup folder</b> to finish the installation.
 		      You must do that in order to be able to use the web because the setup always looks for the setup folder in 
@@ -426,7 +428,7 @@ class installer {
     	$this->env['SESSIONS'] = function_exists('session_id');
     	    	
     	$arrFolders = array('../upload/', '../upload/cache/', '../upload/covers/',
-    						'../upload/pornstars/', '../upload/thumbnails/');
+    						'../upload/pornstars/', '../upload/thumbnails/', '../upload/nfo/');
     	
     	$arrBadFolders = array();
     	$bUpload = true;
