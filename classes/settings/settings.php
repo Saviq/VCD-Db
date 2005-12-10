@@ -1648,6 +1648,27 @@ class vcd_settings implements Settings {
 	 		VCDException::display($e);
 	 	}
 	}
+	
+	/**
+	 * Get single MetadataObject by metadata ID
+	 *
+	 * @param int $metadata_id | The MetaData ID
+	 * @return metadataObj
+	 */
+	public function getMetadataById($metadata_id) {
+		try {
+			
+			if (is_numeric($metadata_id)) {
+				return $this->SQL->getMetadataById($metadata_id);
+			} else {
+				throw new Exception("Metadata ID must be numeric");
+			}
+			
+ 		} catch (Exception $ex) {
+ 			VCDException::display($ex);
+ 		}
+	}
+	
 
 	/**
 	 * Get an array of all records id's in metadata objects belonging to specified user_id and metadata_name.
@@ -1754,7 +1775,37 @@ class vcd_settings implements Settings {
 	}
 
 
-
+	/**
+	 * Delete NFO Metadata from DB and delete the file aswell from filelevel.
+	 *
+	 * @param int $metadata_id | The metadata ID to delete
+	 */
+	public function deleteNFO($metadata_id) {
+		try {
+			if (VCDUtils::isLoggedIn() && is_numeric($metadata_id)) {
+				// Get the metadata Object
+				$metaObj = $this->getMetadataById($metadata_id);
+				
+				// Check if the logged in user is actually the owner of the file
+				if ($metaObj->getUserID() == VCDUtils::getUserID()) {
+					
+					// Delete the file from filelevel
+					$filename = NFO_PATH . $metaObj->getMetadataValue();
+					fs_unlink($filename);
+					
+					// Delete the metadataObj from DB
+					$this->deleteMetadata($metadata_id);
+					
+				} else {
+					throw new Exception("You have no access to delete this file!");
+				}
+				
+			}
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
 
 
 	/*
