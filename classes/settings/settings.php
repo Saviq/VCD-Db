@@ -1787,12 +1787,17 @@ class vcd_settings implements Settings {
 				$metaObj = $this->getMetadataById($metadata_id);
 				
 				// Check if the logged in user is actually the owner of the file
-				if ($metaObj->getUserID() == VCDUtils::getUserID()) {
+				if ($metaObj instanceof metadataObj && $metaObj->getUserID() == VCDUtils::getUserID()) {
 					
-					// Delete the file from filelevel
-					$filename = NFO_PATH . $metaObj->getMetadataValue();
-					fs_unlink($filename);
-					
+					// But before we delete the NFO file, make sure no one else is linking to it ..
+					$useCount = $this->SQL->getMetadataValueCount($metaObj);
+					if (is_numeric($useCount) && $useCount == 1) {
+						// No one else is using this NFO, safe to delete
+						// Delete the file from filelevel
+						$filename = NFO_PATH . $metaObj->getMetadataValue();
+						fs_unlink($filename);
+					}
+			
 					// Delete the metadataObj from DB
 					$this->deleteMetadata($metadata_id);
 					
