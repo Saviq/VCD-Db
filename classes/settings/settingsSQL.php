@@ -1012,6 +1012,31 @@
 				throw new Exception($e->getMessage());
 			}
 		}
+		
+		public function getMetadataById($metadata_id) {
+			try {
+				
+				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
+						  m.mediatype_id, n.type_id, n.owner_id, n.type_description FROM $this->TABLE_metadata m
+						  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
+						  WHERE m.metadata_id = " . $metadata_id;
+				$rs = $this->db->Execute($query);
+				
+				if ($rs && $rs->RecordCount() > 0) {
+					foreach ($rs as $row) {
+						$obj = new metadataObj($row);
+						return $obj;
+					}
+				} else {
+					return null;
+				}
+				
+				
+			} catch (Exception $ex) {
+				throw new Exception($ex->getMessage());
+			}
+		}
+		
 
 		public function getRecordIDsByMetadata($user_id, $metadata_name) {
 			try {
