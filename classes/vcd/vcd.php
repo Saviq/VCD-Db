@@ -27,6 +27,10 @@ class vcd_movie implements Vcd  {
 	 * @var vcdSQL
 	 */
 	private $SQL;
+	
+	
+	private $searchMethods = array('title', 'actor', 'director');
+	
 
    public function __construct() {
 	 	$this->SQL = new vcdSQL();
@@ -1159,6 +1163,14 @@ class vcd_movie implements Vcd  {
 	 */
 	public function search($keyword, $method) {
 		try {
+			
+			
+			// Check that the search method is legal
+			if (!in_array($method, $this->searchMethods)) {
+				throw new Exception('Unsupported search method!');
+			}
+			
+			
 			// are adult categories in use ? and if so does user want to see them ?
 			$showadult = false;
 
