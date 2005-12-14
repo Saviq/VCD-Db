@@ -10,6 +10,10 @@ $batch  = 0;
 if (isset($_GET['batch']))
 	$batch = $_GET['batch'];
 
+	if (!is_numeric($batch)) {
+		$batch = 0;
+	}
+	
 
 	$imagemode = false;
 
