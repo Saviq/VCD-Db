@@ -55,7 +55,7 @@
 	
 	// Still false for $userMetadata .. check if user is using custom Index keys or Playoption
 	if (!$userMetadata) {
-		if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)){
+		if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_NFO) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)){
 			$userMetadata = true;
 		}
 	}
