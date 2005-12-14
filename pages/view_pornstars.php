@@ -19,7 +19,13 @@
 		} else {
 			$arrAlpha = $PORNClass->getPornstarsAlphabet(false);
 		}
-		asort($arrAlpha);
+		
+		if (is_array($arrAlpha))  {
+			asort($arrAlpha);	
+		} else {
+			print "<strong>No pornstars found in database.</strong>";
+		}
+		
 		
 		
 		print "<div align=\"center\">";
