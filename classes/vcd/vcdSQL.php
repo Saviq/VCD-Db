@@ -1308,11 +1308,12 @@
 			$query .= "LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON s.vcd_id = v.vcd_id ";
 
 			$query .= "LEFT OUTER JOIN $this->TABLE_imdb AS i ON i.imdb = s.external_id ";
-
+ 
 
 			$bCon = false;
 			if (!is_null($title)) {
-				$query .= "WHERE v.title LIKE '%".$title."%'";
+				$title = "%".$title."%";
+				$query .= "WHERE v.title LIKE ".$this->db->qstr($title);
 				$bCon = true;
 			}
 
