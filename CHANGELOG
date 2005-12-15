@@ -1,3 +1,11 @@
+0.981
+Fixed   - User can now create user specific metadata with the same name.
+Fixed   - 2 security updates.
+Fixed   - Edit pornstar entry did not show image although it existed.
+Fixed   - If NFO metadata property was the only selected Metadata, the Metadata column in the manager 
+          window was not visible.  Now fixed.
+Fixed   - When cover filesize was not available, division by zero error was displayed instead of coversize.
+
 0.98
 Fixed   - User can now successfully logout after having selected "Remember me".
 Changed - Upgraded to Adodb 4.66 which handles the DB abstraction layer (http://adodb.sourceforge.net/)
