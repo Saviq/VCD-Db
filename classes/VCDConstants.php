@@ -15,7 +15,7 @@
 ?>
 <? 
 // All constants used by VCD-db will be placed here
-define("VCDDB_VERSION","0.98");							// VCD-db version
+define("VCDDB_VERSION","0.981");						// VCD-db version
 define("STYLE","includes/templates/default/");			// Path to current template
 define("TEMP_FOLDER","upload/");						// Temp folder used by VCD-db
 define("CACHE_FOLDER","upload/cache/");					// Fetch cache folder
