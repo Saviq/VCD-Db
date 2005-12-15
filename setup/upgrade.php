@@ -236,7 +236,7 @@ function addQueryCount() {}
 <tr>
 	<td valign="top" style="padding:18px 0px 0px 16px" class="content">
 	<!-- Setup content -->
-	<h2>VCD-DB (v. 0.98) Upgrade</h2>
+	<h2>VCD-DB (v. <?= VCDDB_VERSION?>) Upgrade</h2>
 	<br/>
 	<? if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0) { 
 	
