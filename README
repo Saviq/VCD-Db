@@ -38,7 +38,15 @@ Installation.
 
 Upgrading.
 
-Upgrading from 0.973
+
+Upgrading from 0.98
+	Open file "classes/VCDConstants.php" and copy your Database settings to an empty
+    text document.  Close the file VCDConstants.php and unzip the new release to same
+    location your existing VCD-db is in and overwrite all files.
+    Thats it ..  Don't forget to delete the SETUP folder.
+
+
+Upgrading from 0.973, 0.972 or 0.971
 	First thing first :) Backup your existing database and contents of your VCD-db folder (justin case)
 	Open the path to your vcd-db installation.
     Open file "classes/VCDConstants.php" and copy your Database settings to an empty
@@ -75,53 +83,10 @@ Upgrading from 0.973
 				
 	Delete the "setup" folder and start using VCD-db again.			
 
-
-Upgrading from 0.971 or 0.972
-   Open the path to your vcd-db installation.
-   Open file "classes/VCDConstants.php" and copy your Database settings to an empty
-   text document.  Close the file VCDConstants.php and unzip the new release to same
-   location your existing VCD-db is in and overwrite all files.
-   Open the file "classes/VCDConstants.php" and paste in you database settings over the 
-   default ones, also update the proxy settings if your were using proxy server before.
-   Delete the "setup" folder and start using VCD-db again.
    
-Upgrading from 0.97
-   Open the path to your vcd-db installation.
-   Open file "classes/VCDConstants.php" and copy your Database settings to an empty
-   text document.  Close the file VCDConstants.php and unzip the new release to same
-   location your existing VCD-db is in and overwrite all files.
-   Open the file "classes/VCDConstants.php" and paste in you database settings over the 
-   default ones.  
-   NOW THE BORING PART !!
-   Open your sql database and .. do the following,
-   		1) Edit table vcd_MetaData - Change the size of the "metadata_value" column to 100
-   		2) Edit table vcd_RssFeeds - Change the size of the "feed_url" column to 150
-   		(This is not vital, but otherwise new data may be partially inserted)
-   		
-   Open a browser to your VCD-db SETUP folder "http://server.com/vcddb/setup/" and select the "Upgrade"
-   button.  From there select upgrade FROM 0.97 !!!
-   Delete the "setup" folder and start using VCD-db again.
-
-Upgrading from 0.96
-   Open the path to your vcd-db installation.
-   Open file "classes/VCDConstants.php" and copy your Database settings to an empty
-   text document.  Close the file VCDConstants.php and unzip the new release to same
-   location your existing VCD-db is in and overwrite all files.
-   Open the file "classes/VCDConstants.php" and paste in you database settings over the 
-   default ones.  
-   Open a browser to your VCD-db SETUP folder "http://server.com/vcddb/setup/" and select the "Upgrade"
-   button.  From there select upgrade.
-   Delete the "setup" folder and start using VCD-db again.
-
-
-
-Upgrading from 0.95a
-   Unzip the new release to same location your existing VCD-db is in and overwrite all files.
-   Open the file "classes/VCDConstants.php" and update your database settings.
-   Open a browser to your VCD-db SETUP folder "http://server.com/vcddb/setup/" and select the "Upgrade"
-   button.  From there select upgrade.
-   Delete the "setup" folder and start using VCD-db again.
-
+Upgrading from versions below ..
+  	You will have to d/l an older release such as VCD-db 0.973 from sourceforge.net and
+  	upgrade from that version.  Then after that, upgrade again with latest version.
 
 
   
