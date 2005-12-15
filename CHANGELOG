@@ -5,6 +5,8 @@ Fixed   - Edit pornstar entry did not show image although it existed.
 Fixed   - If NFO metadata property was the only selected Metadata, the Metadata column in the manager 
           window was not visible.  Now fixed.
 Fixed   - When cover filesize was not available, division by zero error was displayed instead of coversize.
+Fixed   - Some databases seem not to return results with the substring function, implemented alternative
+		  method for getting the pornstars actor list for display.
 
 0.98
 Fixed   - User can now successfully logout after having selected "Remember me".
