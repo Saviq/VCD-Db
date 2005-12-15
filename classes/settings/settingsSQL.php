@@ -1070,7 +1070,7 @@
 				// First we check if metadataObj with same name exist, if so
 				// We simply return that metadataTypeObj since we don't allow duplicate names
 				$inObj = $this->getMetadataType($obj->getMetadataTypeName());
-				if ($inObj instanceof metadataTypeObj ) {
+				if ($inObj instanceof metadataTypeObj && $inObj->isSystemObj()) {
 					return $inObj;
 				} else {
 					// Check for legal typename
