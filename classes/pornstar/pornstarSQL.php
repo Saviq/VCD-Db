@@ -462,6 +462,37 @@
 				
 				$rs->Close();
 				return $arrAlphabet;
+			} else {
+				
+				// Some have reported that the Alphabet query does not return any results
+				// although the table contains data ..  There for we try another approach here ..
+				$count_query = "SELECT COUNT(*) FROM ".$this->TABLE_pornstars;
+				$pornstarcount = $this->db->GetOne($count_query);
+				if (is_numeric($pornstarcount) && $pornstarcount > 0) {
+					
+					if ($active_only) {
+						$queryAllNames = "SELECT p.name FROM $this->TABLE_pornstars p, $this->TABLE_vcdtopornstars t 
+										  WHERE p.pornstar_id = t.pornstar_id ORDER BY name";	
+					} else {
+						$queryAllNames = "SELECT name FROM $this->TABLE_pornstars ORDER BY name";	
+					}
+					
+					
+					
+					$rsAll = $this->db->Execute($queryAllNames);
+					if ($rsAll && $rsAll->RecordCount() > 0) {
+						foreach ($rsAll as $row) {
+							$currName = $row[0];
+							$currChar = strtoupper($currName{0});
+							if (!in_array($currChar, $arrAlphabet)) {
+								array_push($arrAlphabet, $currChar);	
+							}
+						}	
+					}
+					
+					return $arrAlphabet;
+					
+				}
 			}
 			
 			return null;
