@@ -1167,7 +1167,7 @@ class vcd_movie implements Vcd  {
 			
 			// Check that the search method is legal
 			if (!in_array($method, $this->searchMethods)) {
-				throw new Exception('Unsupported search method!');
+				$method = $this->searchMethods[0];
 			}
 			
 			
