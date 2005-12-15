@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  H??kon Birgsson <konni@konni.com>
+ * @author   Michael Sawicz <michal@sawicz.net>
  * @package Language
  * @version $Id$
  */
@@ -66,7 +66,7 @@ $_ = array(
 'PRO_USE_INDEX' 		=> 'Używaj numerów wierszy jako numerów ID?',
 'PRO_SEEN_LIST' 		=> 'Pilnuj, które filmy widziałem',
 'PRO_PLAYOPTION' 		=> 'Użyj opcje odtwarzacza klienta',
-'PRO_NFO' 				=> 'Używaj pliku NFO?',
+'PRO_NFO' 				=> 'Używaj plików NFO?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Ustawienia odtwarzacza',
@@ -75,6 +75,8 @@ $_ = array(
 'SE_SHOWSTAT' 			=> 'Pokaż statystyki',
 'SE_SHOWSIDE' 			=> 'Pokaż nowe filmy po prawej',
 'SE_SELECTRSS' 			=> 'Wybierz kanały RSS',
+'SE_PAGELOOK' 			=> 'Uk³ad strony',
+'SE_PAGEMODE' 			=> 'Wybierz domy¶lny schemat:',
 
 /* Search */
 'SEARCH' 				=> 'Szukaj',
@@ -152,6 +154,7 @@ $_ = array(
 'M_IMAGEVIEW' 			=> 'Widok obrazkowy',
 'M_MINEONLY' 			=> 'Pokaż tylko moje filmy',
 'M_SIMILAR' 			=> 'Podobne filmy',
+'M_MEDIAINDEX'			=> 'Numer no¶nika',
 
 /* IMDB */
 'I_DETAILS' 			=> 'Szczegóły IMDb',
@@ -164,9 +167,9 @@ $_ = array(
 /* DVD Specific */
 'DVD_REGION'			=> 'Region',
 'DVD_FORMAT'			=> 'Format',
-'DVD_ASPECT'			=> 'Aspect ratio',
-'DVD_AUDIO'				=> 'Audio',
-'DVD_SUBTITLES'			=> 'Subtitles',
+'DVD_ASPECT'			=> 'Proporcje',
+'DVD_AUDIO'				=> 'D¼wiêk',
+'DVD_SUBTITLES'			=> 'Napisy',
 	
 /* My Movies */
 'MY_EXPORT' 			=> 'Eksport danych',
@@ -256,6 +259,17 @@ $_ = array(
 'XML_RESULTS' 			=> 'Wynik importu z pliku XML.',
 'XML_RESULTS2' 			=> 'To wyniki importowania z pliku XML.<br/>Zaimportowano razem %d filmów.',
 
+/* Add from Excel */
+'EXCEL_CONFIRM' 		=> 'Potwierd¼ dodanie filmów z pliku',
+'EXCEL_CONTAINS' 		=> 'Plik zawiera %d filmów.',
+'EXCEL_INFO1' 			=> 'Wci¶nij potwierd¼ by za³adowaæ plik i zapisaæ do bazy.<br/>
+                                        Lub anuluj je¶li chcesz. ',
+'EXCEL_LIST'			=> 'Pe³na lista filmów znalezionych w pliku.',
+'EXCEL_ERROR'			=> 'Nie znaleziono filmów w pliku.<br/>Plik mo¿e byæ uszkodzony albo pusty.
+			   				<br/>Upewnij siê, ¿e wybra³e¶ plik eksportu z VCD-db...',
+'EXCEL_RESULTS'			=> 'Wyniki importu z Excela.',
+'EXCEL_RESULTS2'		=> 'Poni¿ej znajdziesz wyniki importu z pliku Excela.<br/>Razem zaimportowano %d filmów.',
+
 /* Add from DVD Empire */
 'EM_INFO' 				=> 'Pobierz dane z AdultDVDEmpire.com ....',
 'EM_DESC' 				=> 'Opis DVDEmpire',
@@ -335,7 +349,7 @@ $_ = array(
 'S_NOTSEENITCLICK' 		=> 'Kliknij by zaznaczyć, jako nie obejrzany',
 
 /* Mail messages */
-'MAIL_RETURNTOPIC'		=> 'Loan reminder',
+'MAIL_RETURNTOPIC'		=> 'Przypomnienie o po¿yczonych filmach',
 'MAIL_RETURNMOVIES1' 	=> '%s, Chciałem przypomnieć ci o zwrocie moich filmów.\n
 							Wciąż masz następujące moje filmy :\n\n',
 'MAIL_RETURNMOVIES2' 	=> 'Proszę zwróć płyty najszybciej jak to możliwe\n Pozdrawiam, %s \n\n
@@ -357,16 +371,16 @@ $_ = array(
 
 
 /* Metadata */
-'META_MY'				=> 'My Metadata',
-'META_NAME'				=> 'Name',
-'META_DESC'				=> 'Description',
-'META_TYPE'				=> 'Meta type',
-'META_VALUE'			=> 'Meta value',
-'META_NONE'				=> 'No Metadata exists.',
+'META_MY'				=> 'Moje dodatkowe dane',
+'META_NAME'				=> 'Nazwa',
+'META_DESC'				=> 'Opis',
+'META_TYPE'				=> 'Typ danych',
+'META_VALUE'			=> 'Warto¶æ',
+'META_NONE'				=> 'Brak danych.',
 
 /* Ignore List */
-'IGN_LIST'				=> 'Ignore List',
-'IGN_DESC'				=> 'Ignore all movies from the following users:',
+'IGN_LIST'				=> 'Lista ignorowanych',
+'IGN_DESC'				=> 'Ignoruj wszystkie filmy od tych u¿ytkowników:',
 
 /* Misc keywords */
 'X_CONTAINS' 			=> 'zawiera',
