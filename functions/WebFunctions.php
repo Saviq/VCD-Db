@@ -1126,8 +1126,12 @@ function doRewrite($buffer) {
 
 function human_file_size($size)
 {
-   $filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-   return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];
+   if (is_numeric($size) && $size > 0) {
+   		$filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+   		return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];	
+   } else {
+   		return "0 Bytes";
+   }
 }
 
 function send_file($path) {
