@@ -20,7 +20,7 @@
 	}
 ?>
 
-<form name="advanced_search" method="post" action="./?page=detailed_search&action=search">
+<form name="advanced_search" method="post" action="./index.php?page=detailed_search&action=search">
 <table class="displist" cellpadding="1" cellspacing="0" width="100%">
 <tr>
 	<td width="40%"><?=$language->show('M_TITLE')?>  <?=$language->show('X_CONTAINS')?>:</td>

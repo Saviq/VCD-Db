@@ -5,7 +5,7 @@
 <h2>A) <?=$language->show('ADD_IMDB')?></h2>
 <ul>
 
-<form action="./?page=private&o=add&source=imdb" method="post" name="imdb" id="imdb">
+<form action="./index.php?page=private&o=add&source=imdb" method="post" name="imdb" id="imdb">
 <table cellspacing="1" cellpadding="1" class="plain">
 <tr>
 	<td><?=$language->show('ADD_IMDBTITLE')?>:</td>
@@ -51,7 +51,7 @@
 
 <h2>E) <?=$language->show('ADD_DVDEMPIRE')?></h2>
 <ul>
-<form action="./?page=private&o=add&source=dvdempire" method="post" name="empire" id="empire">
+<form action="./index.php?page=private&o=add&source=dvdempire" method="post" name="empire" id="empire">
 <table cellspacing="1" cellpadding="1" class="plain">
 <tr>
 	<td nowrap><?=$language->show('ADD_IMDBTITLE')?>:</td>
