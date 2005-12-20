@@ -43,7 +43,7 @@
 	Display and process registration
 */
 ?>
-<form name="user" method="POST" action="./?page=private&o=settings&action=update">
+<form name="user" method="POST" action="./index.php?page=private&o=settings&action=update">
 <h1><?=$language->show('MENU_SETTINGS')?></h1>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>
