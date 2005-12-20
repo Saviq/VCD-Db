@@ -47,7 +47,7 @@ if (!$allow_registration) {
 
 ?>
 
-<form name="register" method="post" action="./?page=register">
+<form name="register" method="post" action="./index.php?page=register">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>
 	<td width="45%"><?=$language->show('REGISTER_FULLNAME') ?> :</td>

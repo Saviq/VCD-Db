@@ -310,7 +310,7 @@ class language
 		
 		
 		$i = 0;
-		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./?\"> ";
+		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./index.php?\"> ";
 		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
 		foreach ($this->avail_languages as $lang) { 
 			
