@@ -1,11 +1,11 @@
 body {
 	margin:0px;
+	padding: 0px;
 	background-color: White;
 	background-image: url(images/background3.gif);
 	color: #333333;
 	font-family: Verdana, Arial, Helvetica;
 	font-size: 11px;
-	margin: 0px;
 }
 
 body.nobg {

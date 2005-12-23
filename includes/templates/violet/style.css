@@ -23,6 +23,7 @@ body {
 	font-family: "Verdana", verdana, monospace;
 	font-size: 11px;
 	margin: 0px;
+	padding: 0px;
 }
 
 body.nobg {
