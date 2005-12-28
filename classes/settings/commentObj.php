@@ -98,7 +98,7 @@
 		 * @return date
 		 */
 		public function getDate() {
-			return date("Y-d-m", $this->date);
+			return date("d-m-Y", $this->date);
 			
 		}
 		
