@@ -626,6 +626,30 @@ class VCDUtils {
 
 		return $metaValue;
 	}
+	
+	
+	/**
+	 * Filter comments in the commentsObj Array for by specified userID
+	 *
+	 * @param array $arrCommentsObj | Array of commentObjects
+	 * @param int $user_id | The userID to filter by
+	 * @return array | The filtered array
+	 */
+	static function filterCommentsByUserID($arrCommentsObj, $user_id) {
+		if (!is_numeric($user_id)) {
+			return $arrCommentsObj;
+		}
+		
+		$arrFilteredComments = array();
+		foreach ($arrCommentsObj as &$commentObj) {
+			if ((int)$commentObj->getOwnerID() === (int)$user_id) {
+				array_push($arrFilteredComments, $commentObj);
+			}
+		}
+		
+		return $arrFilteredComments;
+		
+	}
 
 
 }
