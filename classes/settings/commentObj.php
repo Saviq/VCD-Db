@@ -132,7 +132,17 @@
 		 *
 		 */
 		public function toXML() {
+			$xmlstr  = "<comment>\n";
+			$xmlstr .= "<cd_id>".$this->vcd_id."</cd_id>\n";
+			$xmlstr .= "<owner_id>".$this->owner_id."</owner_id>\n";
+			$xmlstr .= "<owner_name>".$this->owner_name."</owner_name>\n";
+			$xmlstr .= "<date>".$this->date."</date>\n";
+			$xmlstr .= "<text>".$this->comment."</text>\n";
+			$xmlstr .= "<isPrivate>".(string)$this->isPrivate."</isPrivate>\n";
+			$xmlstr .= "</comment>\n";
 			
+			return $xmlstr;
+				
 		}
 		
 	}
