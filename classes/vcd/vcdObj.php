@@ -562,6 +562,27 @@
 				$xmlstr .= "</pornstars>\n";
 			}
 			
+			// Check for metadata
+			$CLASSsettings = VCDClassFactory::getInstance('vcd_settings');
+			$arrMeta = $CLASSsettings->getMetadata($this->id, VCDUtils::getUserID(), "");
+			if (is_array($arrMeta) && sizeof($arrMeta) > 0) {
+				$xmlstr .= "<meta>\n";
+				foreach ($arrMeta as $metaObj) {
+					$xmlstr .= $metaObj->toXML();
+				}
+				$xmlstr .= "</meta>\n";
+			} 
+			
+			// Check for comments
+			$arrComments = VCDUtils::filterCommentsByUserID($CLASSsettings->getAllCommentsByVCD($this->id), VCDUtils::getUserID());
+			if (is_array($arrComments) && sizeof($arrComments) > 0) {
+				$xmlstr .= "<comments>";
+				foreach ($arrComments as $commentObj) {
+					$xmlstr .= $commentObj->toXML();
+				}
+				$xmlstr .= "</comments>";
+			}
+	
 			
 			$xmlstr .= "</movie>\n";
 			
