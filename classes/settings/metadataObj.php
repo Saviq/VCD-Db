@@ -16,7 +16,7 @@
 ?>
 <?php
 
-class metadataObj extends metadataTypeObj  {
+class metadataObj extends metadataTypeObj implements XMLable {
 
 	private $metadata_id;
 	private $record_id;
@@ -161,6 +161,23 @@ class metadataObj extends metadataTypeObj  {
 			default:
 				return $this->getMetadataValue();
 		}
+	}
+	
+	/**
+	 * Get the metadataObj as XML
+	 *
+	 */
+	public function toXML() {
+		$xmlstr  = "<metadata>\n";
+		$xmlstr .= "<type_id>".$this->metatype_id."</type_id>\n";
+		$xmlstr .= "<type_name>".$this->metatype_name."</type_name>\n";
+		$xmlstr .= "<type_level>".$this->metatype_level."</type_level>\n";
+		$xmlstr .= "<record_id>".$this->record_id."</record_id>\n";
+		$xmlstr .= "<mediatype_id>".$this->mediatype_id."</mediatype_id>\n";
+		$xmlstr .= "<data><![CDATA[".trim($this->metadata_value)."]]></data>\n";
+		$xmlstr .= "</metadata>\n";
+		return $xmlstr;
+		
 	}
 
 }
