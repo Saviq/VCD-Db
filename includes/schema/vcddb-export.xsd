@@ -49,6 +49,45 @@
 	<xs:element name="imdb_id" type="xs:string"/>
 	<xs:element name="mediatype" type="xs:string"/>
 	<xs:element name="mediatype_id" type="xs:byte"/>
+	<xs:element name="record_id" type="xs:byte"/>
+	<xs:element name="date" type="xs:string"/>
+	<xs:element name="text" type="xs:string"/>
+	<xs:element name="isPrivate" type="xs:boolean"/>
+	<xs:element name="comment">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="date"/>
+				<xs:element ref="text"/>
+				<xs:element ref="isPrivate"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="comments">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="comment" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="meta">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="metadata" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="metadata">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="type_id"/>
+				<xs:element ref="type_name"/>
+				<xs:element ref="type_level"/>
+				<xs:element ref="record_id"/>
+				<xs:element ref="mediatype_id"/>
+				<xs:element name="data" type="xs:string"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
 	<xs:element name="movie">
 		<xs:complexType>
 			<xs:sequence>
@@ -61,12 +100,14 @@
 				<xs:element ref="mediatype"/>
 				<xs:element ref="mediatype_id"/>
 				<xs:element ref="dateadded"/>
-				<xs:element ref="sourcesite_id"/>
-				<xs:element ref="external_id"/>
+				<xs:element ref="sourcesite_id" minOccurs="0"/>
+				<xs:element ref="external_id" minOccurs="0"/>
 				<xs:element ref="imdb" minOccurs="0"/>
 				<xs:element ref="studio" minOccurs="0"/>
 				<xs:element ref="adult_category" minOccurs="0"/>
 				<xs:element ref="pornstars" minOccurs="0"/>
+				<xs:element ref="meta" minOccurs="0"/>
+				<xs:element ref="comments" minOccurs="0"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -102,6 +143,9 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="title" type="xs:string"/>
+	<xs:element name="type_id" type="xs:short"/>
+	<xs:element name="type_level" type="xs:short"/>
+	<xs:element name="type_name" type="xs:string"/>
 	<xs:element name="vcdmovies">
 		<xs:complexType>
 			<xs:sequence>
