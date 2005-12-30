@@ -60,7 +60,7 @@ function printRowHeader($arrHeader) {
  * @param string $rowdata
  * @param string $cssClass
  */
-function printRow($rowdata = "", $cssClass = "") {
+function printRow($rowdata = "", $cssClass = "", $nowrap=false) {
 
 	if (is_bool($rowdata)) {
 		if ($rowdata)
@@ -72,7 +72,13 @@ function printRow($rowdata = "", $cssClass = "") {
 	if ($cssClass != "") {
 		$cssClass = " class=".$cssClass;
 	}
-	print "<td valign=top$cssClass>$rowdata</td>";
+	
+	$wrap = "";
+	if ($nowrap) {
+		$wrap = " nowrap=\"nowrap\"";
+	}
+	
+	print "<td valign=top{$cssClass}{$wrap}>$rowdata</td>";
 }
 
 
