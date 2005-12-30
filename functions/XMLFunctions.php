@@ -450,6 +450,7 @@ function processXMLMovies($upfile, $use_covers) {
 							// Still no luck .. then lets create mediatype
 							$newMediaTypeObj = new mediaTypeObj(array('',(string)$item->mediatype,'','Created by XML importer.'));
 							$SETTINGSClass->addMediaType($newMediaTypeObj);
+							$mediaTypeObj = $SETTINGSClass->getMediaTypeByName((string)$item->mediatype);
 						}
 					}
 					
@@ -563,6 +564,29 @@ function processXMLMovies($upfile, $use_covers) {
 						$vcd->setSourceSite($source_id, $external_id);
 		   			}
 					
+		   			
+		   			// Check for comments
+		   			$comments = $item->comments->comment;
+		   			if (isset($comments) && !is_null($comments)) {
+		   				foreach ($comments as $xmlComment) {
+		   					$commentData = array('', '', VCDUtils::getUserID(), (string)$xmlComment->date, utf8_decode((string)$xmlComment->text), (bool)$xmlComment->isPrivate);
+		   					$commentObj = new commentObj($commentData);
+		   					$vcd->addComment($commentObj);
+		   				}
+		   			}
+		   			
+		   			
+		   			// Check for metadata
+		   			$metadata = $item->meta->metadata;
+		   			if (isset($metadata) && !is_null($metadata)) {
+		   				foreach ($metadata as $xmlMeta) {
+		   					$metaArr = array('', '', VCDUtils::getUserID(),(string)$xmlMeta->type_name, (string)$xmlMeta->data, $mediaTypeObj->getmediaTypeID(), 
+		   							  (string)$xmlMeta->type_id, (int)$xmlMeta->type_level, (string)$xmlMeta->type_desc);
+		   					$metaObj = new metadataObj($metaArr);
+		   					$vcd->addMetaData($metaObj);
+		   				}
+		   			}
+		   			
 		   			
 		   			// If thumbnails XML were exported, find the image in the imported image array ...
 		   			if ($use_covers) {
