@@ -564,7 +564,7 @@
 			
 			// Check for metadata
 			$CLASSsettings = VCDClassFactory::getInstance('vcd_settings');
-			$arrMeta = $CLASSsettings->getMetadata($this->id, VCDUtils::getUserID(), "");
+			$arrMeta = $CLASSsettings->getMetadata($this->id, VCDUtils::getUserID(), "", $mediaTypeObj->getmediaTypeID());
 			if (is_array($arrMeta) && sizeof($arrMeta) > 0) {
 				$xmlstr .= "<meta>\n";
 				foreach ($arrMeta as $metaObj) {
