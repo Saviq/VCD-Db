@@ -569,7 +569,7 @@ function processXMLMovies($upfile, $use_covers) {
 		   			$comments = $item->comments->comment;
 		   			if (isset($comments) && !is_null($comments)) {
 		   				foreach ($comments as $xmlComment) {
-		   					$commentData = array('', '', VCDUtils::getUserID(), (string)$xmlComment->date, utf8_decode((string)$xmlComment->text), (bool)$xmlComment->isPrivate);
+		   					$commentData = array('', '', VCDUtils::getUserID(), (string)$xmlComment->date, utf8_decode((string)$xmlComment->text), (string)$xmlComment->isPrivate);
 		   					$commentObj = new commentObj($commentData);
 		   					$vcd->addComment($commentObj);
 		   				}
