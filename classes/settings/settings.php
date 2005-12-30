@@ -1723,11 +1723,11 @@ class vcd_settings implements Settings {
 
 	/**
 	 * Get all known metadatatypes from database.
-	 * Id $user_id is provided, only metadatatypes created by that
+	 * If $user_id is provided, only metadatatypes created by that
 	 * user_id will be returned.
 	 * Function returns array of metadataTypeObjects.
 	 *
-	 * @param int_type $user_id | The user_id to filter metadatatypes to, null = no filter
+	 * @param int $user_id | The user_id to filter metadatatypes to, null = no filter
 	 * @return array
 	 */
 	public function getMetadataTypes($user_id = null) {
