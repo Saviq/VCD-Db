@@ -442,8 +442,31 @@ class vcd_movie implements Vcd  {
 			
 			// Add metadata to the movie if any
 			if (is_array($vcdObj->getMetaData()) && sizeof($vcdObj->getMetaData()) > 0) {
+				// Get metadataObjects created by user if any ..
+				$arrUserMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
 				foreach ($vcdObj->getMetaData() as $metadataObj) {
 					$metadataObj->setRecordID($cd_id);
+					// Check if metadata is a System type ..
+					if (!$metadataObj->isSystemObj()) {
+						// Check if this metadataType exists ..
+						$mFound = false;
+						foreach ($arrUserMeta as $existingMetaObj) {
+							if (strcmp($existingMetaObj->getMetadataTypeName(),$metadataObj->getMetadataTypeName()) == 0) {
+								$metadataObj->setMetaDataTypeID($existingMetaObj->getMetadataTypeID());
+								$mFound = true;
+								break;
+							}
+						}
+						if (!$mFound) {
+							// Metadata Type was not found .. lets create it ..
+							$mObj = new metadataTypeObj('', $metadataObj->getMetadataTypeName(), $metadataObj->getMetadataDescription(), VCDUtils::getUserID());
+							$mObj = $SETTINGSClass->addMetaDataType($mObj);
+							$metadataObj->setMetaDataTypeID($mObj->getMetadataTypeID());
+							// Update the internal $arrUserMeta stack
+							$arrUserMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+						}
+					}
+					
 					$SETTINGSClass->addMetadata($metadataObj, true);
 				}
 			}
