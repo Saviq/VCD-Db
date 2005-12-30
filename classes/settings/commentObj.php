@@ -143,7 +143,7 @@
 		public function toXML() {
 			$xmlstr  = "<comment>\n";
 			$xmlstr .= "<date>".$this->date."</date>\n";
-			$xmlstr .= "<text>".$this->comment."</text>\n";
+			$xmlstr .= "<text><![CDATA[".$this->comment."]]></text>\n";
 			$xmlstr .= "<isPrivate>".(string)$this->isPrivate."</isPrivate>\n";
 			$xmlstr .= "</comment>\n";
 			
