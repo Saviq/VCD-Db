@@ -419,7 +419,8 @@ class vcd_movie implements Vcd  {
 				// in other words .. does this exact copy already belong to him ?
 				if ($this->checkDuplicateEntry($vcdObj->getInsertValueUserID(),$exisisting_id, $vcdObj->getInsertValueMediaTypeID())) {
 					// Return from function, nothing more to do ..
-					return;
+					VCDException::display("You have already added this movie, in same format.", true);
+					exit();
 				}
 
 				if (!$this->SQL->addVcdInstance($vcdObj)) {
@@ -430,6 +431,23 @@ class vcd_movie implements Vcd  {
 
 			}
 
+			
+			// Add comments to the movie if any
+			if (is_array($vcdObj->getComments()) && sizeof($vcdObj->getComments()) > 0) {
+				foreach ($vcdObj->getComments() as $commentObj) {
+					$commentObj->setVcdID($cd_id);
+					$SETTINGSClass->addComment($commentObj);
+				}
+			}
+			
+			// Add metadata to the movie if any
+			if (is_array($vcdObj->getMetaData()) && sizeof($vcdObj->getMetaData()) > 0) {
+				foreach ($vcdObj->getMetaData() as $metadataObj) {
+					$metadataObj->setRecordID($cd_id);
+					$SETTINGSClass->addMetadata($metadataObj, true);
+				}
+			}
+			
 
 			// Check if people wan't to be notified of the new entry
 			$SETTINGSClass->notifyOfNewEntry($vcdObj);
