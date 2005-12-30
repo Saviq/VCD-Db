@@ -36,7 +36,7 @@
 				<xs:element ref="alt_title" minOccurs="0"/>
 				<xs:element ref="image"/>
 				<xs:element ref="year"/>
-				<xs:element ref="plot"/>
+				<xs:element ref="plot" minOccurs="0"/>
 				<xs:element ref="director"/>
 				<xs:element ref="cast"/>
 				<xs:element ref="rating" minOccurs="0"/>
@@ -81,6 +81,7 @@
 			<xs:sequence>
 				<xs:element ref="type_id"/>
 				<xs:element ref="type_name"/>
+				<xs:element ref="type_desc" minOccurs="0"/>
 				<xs:element ref="type_level"/>
 				<xs:element ref="record_id"/>
 				<xs:element ref="mediatype_id"/>
@@ -146,6 +147,7 @@
 	<xs:element name="type_id" type="xs:short"/>
 	<xs:element name="type_level" type="xs:short"/>
 	<xs:element name="type_name" type="xs:string"/>
+	<xs:element name="type_desc" type="xs:string"/>
 	<xs:element name="vcdmovies">
 		<xs:complexType>
 			<xs:sequence>
