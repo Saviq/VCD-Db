@@ -87,6 +87,15 @@ class metadataObj extends metadataTypeObj implements XMLable {
 	}
 
 	/**
+	 * Set the recordID belonging to this metadataObject
+	 *
+	 * @param int $id
+	 */
+	public function setRecordID($id) {
+		$this->record_id = $id;
+	}
+	
+	/**
 	 * Get the media type ID assigned to metadata if any.
 	 *
 	 * @return int
@@ -171,6 +180,7 @@ class metadataObj extends metadataTypeObj implements XMLable {
 		$xmlstr  = "<metadata>\n";
 		$xmlstr .= "<type_id>".$this->metatype_id."</type_id>\n";
 		$xmlstr .= "<type_name>".$this->metatype_name."</type_name>\n";
+		$xmlstr .= "<type_desc><![CDATA[".$this->metatype_description."]]></type_desc>\n";
 		$xmlstr .= "<type_level>".$this->metatype_level."</type_level>\n";
 		$xmlstr .= "<record_id>".$this->record_id."</record_id>\n";
 		$xmlstr .= "<mediatype_id>".$this->mediatype_id."</mediatype_id>\n";
