@@ -91,6 +91,15 @@
 			return $this->vcd_id;
 		}
 		
+		/**
+		 * Set the CD id belonging to this comment
+		 *
+		 * @param int $id
+		 */
+		public function setVcdID($id) {
+			$this->vcd_id = $id;
+		}
+		
 		
 		/**
 		 * Get the date of comment creation
