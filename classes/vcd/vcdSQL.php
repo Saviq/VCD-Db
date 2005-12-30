@@ -647,8 +647,11 @@
 			$this->db->Execute($query);
 			$query = "DELETE FROM $this->TABLE_comments WHERE vcd_id = ". $vcd_id;
 			$this->db->Execute($query);
+			$query = "DELETE FROM $this->TABLE_metadata WHERE record_id = ". $vcd_id;
+			$this->db->Execute($query);
 			$query = "DELETE FROM $this->TABLE_vcd WHERE vcd_id = " . $vcd_id;
 			$this->db->Execute($query);
+			
 
 			} catch (Exception $e) {
 				throw new Exception($e->getMessage());
