@@ -24,11 +24,37 @@
 
 	abstract class cdObj {
 	
-		/* local variables */
+		/**
+		 * The ID of the media item
+		 *
+		 * @var int
+		 */
 		protected $id;
+		/**
+		 * The title of the media item
+		 *
+		 * @var string
+		 */
 		protected $title;
+		/**
+		 * The publishing year of the media
+		 *
+		 * @var int
+		 */
 		protected $year;
 		
+		/**
+		 * Array collection of metadataObjects associated with media item
+		 *
+		 * @var array
+		 */
+		protected $arrMetadata = array();
+		/**
+		 * Array collection of commentObjects associated with media item
+		 *
+		 * @var array
+		 */
+		protected $arrComments = array();
 		
 					
 		/**
@@ -85,6 +111,44 @@
 			$this->year = $iYear;
 		}
 			
+		/**
+		 * Add metadata Object to media
+		 *
+		 * @param metadataObj $obj
+		 */
+		public function addMetaData(metadataObj $obj) {
+			array_push($this->arrMetadata, $obj);
+		}
+		
+		/**
+		 * Add commentObject to media
+		 *
+		 * @param commentObj $obj
+		 */
+		public function addComment(commentObj $obj) {
+			array_push($this->arrComments, $obj);
+		}
+		
+		/**
+		 * Get all comments associated with media.
+		 * Returns array of commentObjects
+		 *
+		 * @return array
+		 */
+		public function getComments() {
+			return $this->arrComments;
+		}
+		
+		/**
+		 * Return all metadataObjects associated with media.
+		 * Returns array of metadataObjects.
+		 *
+		 * @return array
+		 */
+		public function getMetaData() {
+			return $this->arrMetadata;
+		}
+		
 		
 		/**
 		 * Get the id and name of this object as an array
