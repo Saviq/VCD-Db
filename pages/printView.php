@@ -1,17 +1,22 @@
 <? 
-	error_reporting(E_ALL);
 	require_once("../classes/includes.php");
 	if (!VCDUtils::isLoggedIn()) {
 		VCDException::display("User must be logged in");
 		print "<script>self.close();</script>";
 		exit();
 	}
+	
+	$language = new language(true);
+	if (isset($_SESSION['vcdlang'])) {
+		$language->load($_SESSION['vcdlang']);
+	}
+
 ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title>VCD-db</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?= VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<script src="../includes/js/main.js" type="text/javascript"></script>
 </head>
@@ -22,10 +27,7 @@
 	// Get all the users movies based on the selection
 	$MOVIEClass = new vcd_movie();
 	$arr = $MOVIEClass->getPrintViewList(VCDUtils::getUserID(), $_GET['mode']);
-	$language = new language(true);
-	if (isset($_SESSION['vcdlang'])) {
-		$language->load($_SESSION['vcdlang']);
-	}
+	
 	
 	if (strcmp($_GET['mode'], "text") == 0) {
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"displist\">";
