@@ -234,7 +234,12 @@ class VCDUtils {
 	 */
 	static public function getCharSet() {
 		global $language;
-		return $language->show('LANG_CHARSET');
+		$charset = $language->show('LANG_CHARSET');
+		if (strcmp($charset, "undefined") == 0) {
+			return "iso-8859-1";
+		} else {
+			return $charset;
+		}
 	}
 
 
