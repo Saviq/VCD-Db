@@ -9,7 +9,7 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Core
+ * @package Kernel
  * @version $Id$
  *
 	Class to store and fetch binary data trough the ADODB Layer.

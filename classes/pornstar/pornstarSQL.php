@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Porndata
+ * @package Kernel
+ * @subpackage Pornstars
  * @version $Id$
  */
  ?>
@@ -455,7 +456,7 @@
 			
 			$rs = $this->db->Execute($query);
 			$arrAlphabet = array();
-			if ($rs && $rs->RecordCount() > 0) {
+			if ($rs && $rs->RecordCount() > 1) {
 				foreach ($rs as $row) {
 					array_push($arrAlphabet, $row[0]);
 				}
@@ -505,12 +506,15 @@
 		
 		public function getPornstarsByLetter($letter, $active_only) {
 			try {
-							
+			
+				
+			$letter = $letter."%";
+				
 			if ($active_only) {
 				$query = "SELECT p.pornstar_id, p.name, p.homepage, p.image_name,  
 						  COUNT(v.pornstar_id) as numfilms 
 						  FROM $this->TABLE_pornstars p, $this->TABLE_vcdtopornstars v
-						  WHERE p.name LIKE '".$letter."%' AND
+						  WHERE p.name LIKE ".$this->db->qstr($letter)." AND
 						  p.pornstar_id = v.pornstar_id
 						  GROUP BY p.pornstar_id, p.name, p.homepage, p.image_name
 						  ORDER BY p.name";
@@ -521,7 +525,7 @@
 						  COUNT(v.pornstar_id) as numfilms 
 						  FROM $this->TABLE_pornstars AS p
 						  LEFT OUTER JOIN $this->TABLE_vcdtopornstars AS v ON p.pornstar_id = v.pornstar_id
-						  WHERE p.name LIKE '".$letter."%' 
+						  WHERE p.name LIKE ".$this->db->qstr($letter)."
 						  GROUP BY p.pornstar_id, p.name, p.homepage, p.image_name
 						  ORDER BY p.name";
 				

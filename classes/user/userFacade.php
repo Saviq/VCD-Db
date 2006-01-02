@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package User
+ * @package Kernel
+ * @subpackage User
  * @version $Id$
  */
  
@@ -19,7 +20,7 @@
 	require_once('userSQL.php');
 	
 
-	interface User {
+	interface IUser {
 		
 		/* Users */
 		public function getUserByID($user_id);

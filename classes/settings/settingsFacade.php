@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
  
@@ -18,7 +19,7 @@
 	require_once("settings.php");
 	require_once('settingsSQL.php');
 
-	interface Settings {
+	interface ISettings {
 		
 		/* Applications settings */
 		public function getAllSettings();

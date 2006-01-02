@@ -9,7 +9,8 @@
  * your option) any later version.
  *
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
 
@@ -75,7 +76,7 @@
 			try {
 
 			$query = "UPDATE $this->TABLE_settings SET
-					  settings_key = '".$settingsObj->getKey()."',
+					  settings_key = ".$this->db->qstr($settingsObj->getKey()).",
 					  settings_value = ".$this->db->qstr($settingsObj->getValue()).",
 					  settings_description = ".$this->db->qstr($settingsObj->getDescription()).",
 					  isProtected = ".$settingsObj->isProtected()."
@@ -94,16 +95,16 @@
 			if (is_array($settingsObj)) {
 
 				foreach ($settingsObj as $obj) {
-					$query = "INSERT INTO $this->TABLE_settings
-							  (settings_key, settings_value, settings_description, isProtected)
-							   VALUES ('".$settingsObj->getKey()."','".$settingsObj->getValue()."','".$settingsObj->getDescription()."', ".$settingsObj->isProtected().")";
+					$query = "INSERT INTO $this->TABLE_settings (settings_key, settings_value, settings_description, isProtected)
+							  VALUES (".$this->db->qstr($settingsObj->getKey()).",  ".$this->db->qstr($settingsObj->getValue()).",
+							  ".$this->db->qstr($settingsObj->getDescription()).", ".$settingsObj->isProtected().")";
+					
 					$this->db->Execute($query);
 				}
 
 			} else {
-				$query = "INSERT INTO $this->TABLE_settings
-						 (settings_key, settings_value, settings_description, isProtected)
-						  VALUES ('".$settingsObj->getKey()."',".$this->db->qstr($settingsObj->getValue()).",
+				$query = "INSERT INTO $this->TABLE_settings (settings_key, settings_value, settings_description, isProtected)
+						  VALUES (".$this->db->qstr($settingsObj->getKey()).",".$this->db->qstr($settingsObj->getValue()).",
 						  ".$this->db->qstr($settingsObj->getDescription()).", ".$settingsObj->isProtected().")";
 				$this->db->Execute($query);
 			}
@@ -194,10 +195,10 @@
 			try {
 
 			$query = "UPDATE $this->TABLE_sites SET
-					  site_name = '".$obj->getName()."',
-					  site_alias = '".$obj->getAlias()."',
-					  site_homepage = '".$obj->getHomepage()."',
-					  site_getCommand = '".$obj->getCommand()."',
+					  site_name = ".$this->db->qstr($obj->getName()).",
+					  site_alias = ".$this->db->qstr($obj->getAlias()).",
+					  site_homepage = ".$this->db->qstr($obj->getHomepage()).",
+					  site_getCommand = ".$this->db->qstr($obj->getCommand()).",
 					  site_isFetchable = ".(int)$obj->isFetchable()."
 					  WHERE site_id = " . $obj->getsiteID();
 			$this->db->Execute($query);
@@ -256,8 +257,8 @@
 
 			$query = "INSERT INTO $this->TABLE_mediatypes
 					  (media_type_name, parent_id, media_type_description)
-					  VALUES ('".$mediaTypeObj->getName()."',
-					  ".$mediaTypeObj->getParentID().",'".$mediaTypeObj->getDescription()."')";
+					  VALUES (".$this->db->qstr($mediaTypeObj->getName()).",
+					  ".$mediaTypeObj->getParentID()." ,".$this->db->qstr($mediaTypeObj->getDescription()).")";
 
 			$this->db->Execute($query);
 
@@ -470,7 +471,8 @@
 		public function addMovieCategory(movieCategoryObj $movieCategoryObj) {
 			try {
 
-			$query = "INSERT INTO $this->TABLE_categories (category_name) VALUES ('".$movieCategoryObj->getName()."')";
+			$query = "INSERT INTO $this->TABLE_categories (category_name) 
+					  VALUES (".$this->db->qstr($movieCategoryObj->getName()).")";
 			$this->db->Execute($query);
 
 			} catch (Exception $e) {
@@ -492,7 +494,7 @@
 		public function updateMovieCategory(movieCategoryObj $movieCategoryObj) {
 			try {
 
-			$query = "UPDATE $this->TABLE_categories SET category_name = '".$movieCategoryObj->getName()."'";
+			$query = "UPDATE $this->TABLE_categories SET category_name = ".$this->db->qstr($movieCategoryObj->getName())."";
 			$this->db->Execute($query);
 
 			} catch (Exception $e) {

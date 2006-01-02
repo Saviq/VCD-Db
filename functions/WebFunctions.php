@@ -10,6 +10,7 @@
  *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Functions
+ * @subpackage Web
  * @version $Id$
  */
 ?>
@@ -1376,8 +1377,19 @@ function getLocalizedCategoryName($category_name) {
 	} else {
 		return $category_name;
 	}
-	
-	
+}
+
+function drawGraph($instructions) {
+	$qs = base64_decode($instructions);
+	$PG = new PowerGraphic($qs);
+	$PG->drawimg = false;
+	$PG->start();
+
+	$obj = $PG->create_graphic();
+	header('Content-type: image/png');
+	imagepng($obj);
+	imagedestroy($obj);
+	exit();
 }
 
 ?>

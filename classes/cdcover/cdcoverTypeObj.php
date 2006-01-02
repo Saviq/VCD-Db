@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package CDCover
+ * @package Kernel
+ * @subpackage CDCover
  * @version $Id$
  */
  
@@ -39,7 +40,7 @@ class cdcoverTypeObj implements XMLable {
 		
 		
 		/**
-		 * Constructor, accepts array as an parameter containing all the objects variables.
+		 * Constructor, accepts array as parameter containing all the objects variables.
 		 *
 		 * @param array $dataArr
 		 * @return cdcoverTypeObj
@@ -89,7 +90,6 @@ class cdcoverTypeObj implements XMLable {
 		
 		/**
 		 * Check if current coverTypeID has the thumbnail id.
-		 *
 		 * Used by cdcover objects to get information about themselves.
 		 *
 		 * @return boolean

@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Vcd
+ * @package Kernel
+ * @subpackage Vcd
  * @version $Id$
  */
  
@@ -19,7 +20,7 @@
 	require_once(dirname(__FILE__).'/vcd.php');
 	require_once(dirname(__FILE__).'/vcdSQL.php');
 	
-	interface Vcd {
+	interface IVcd {
 		
 		public function getVcdByID($vcd_id);
 		public function addVcd(vcdObj $vcdObj);

@@ -9,7 +9,8 @@
  * your option) any later version.
  *
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Vcd
+ * @package Kernel
+ * @subpackage Vcd
  * @version $Id$
  */
 
@@ -20,7 +21,7 @@ require_once("cdObj.php");
 require_once("vcdObj.php");
 require_once("imdbObj.php");
 
-class vcd_movie implements Vcd  {
+class vcd_movie implements IVcd  {
 
 	/**
 	 *

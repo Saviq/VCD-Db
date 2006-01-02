@@ -25,7 +25,7 @@ $_ = array(
 
 /* Language Identifier */
 'LANG_TYPE' 			=> 'BR',
-'LANG_NAME' 			=> 'Portuguese Brazil',
+'LANG_NAME' 			=> 'Portuguese',
 'LANG_CHARSET'		 	=> 'iso-8859-1',
 
 /* Menu system */

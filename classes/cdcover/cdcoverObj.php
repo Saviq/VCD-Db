@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package CDCover
+ * @package Kernel
+ * @subpackage CDCover
  * @version $Id$
  */
  
@@ -221,7 +222,6 @@
 		
 		/**
 		 * Prints out the HTML image tag for display-ing the current cdcover object.
-		 *
 		 * Param prefix can be forexample path below like "../"
 		 *
 		 * @param string $prefix
@@ -244,7 +244,6 @@
 		
 		/**
 		 * Get the HTML image SRC string for display-ing the cover object.
-		 *
 		 * Param prefix can be directory below like "../"
 		 * Function can accept height and width as parameters to
 		 * force image width and height in the IMG SRC string.
@@ -284,7 +283,6 @@
 		
 		/**
 		 * Print the cover objects HTML IMG SRC string with a clickable link under.
-		 *
 		 * Param title is optional and is used in alt text
 		 * Param prefix can be directory below like "../"
 		 *
@@ -333,7 +331,6 @@
 		
 		/**
 		 * Get the path of the file within the VCD-db application.
-		 *
 		 * Returns the image path.
 		 *
 		 * @return string
@@ -390,7 +387,6 @@
 		
 		/**
 		 * Get cover image as binary stream for the xml stream.
-		 *
 		 * Image streams from database are return base64 encoded and
 		 * Images stored on HD are also read, and then returned as base64 stream.
 		 *

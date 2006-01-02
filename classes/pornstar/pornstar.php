@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Porndata
+ * @package Kernel
+ * @subpackage Pornstars
  * @version $Id$
  */
  ?>
@@ -19,7 +20,7 @@ require_once("pornstarObj.php");
 require_once('studioObj.php');
 require_once('porncategoryObj.php');
 
-class vcd_pornstar implements Pornstar {
+class vcd_pornstar implements IPornstar {
 	
 	/**
 	 * Instance of pornstarSQL database class
@@ -451,7 +452,6 @@ class vcd_pornstar implements Pornstar {
 	
 	/**
 	 * Get all valid porncategories.
-	 *
 	 * Checks all elements in the incoming array for valid porn category names in database,
 	 * for each element found, porncategory object is added to the return array.
 	 *
@@ -484,7 +484,6 @@ class vcd_pornstar implements Pornstar {
 	
 	/**
 	 * Get pornstars by Alphabet letter.
-	 *
 	 * Get an array of chars with each char representing a beginning of a letter of a known pornstar
 	 * Parameter active only can limit the results to only those that are linked to a 
 	 * movie in the database.

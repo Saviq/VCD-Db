@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Fetch
+ * @package Kernel
+ * @subpackage WebFetch
  * @version $Id$
  */
  

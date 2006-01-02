@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Porndata
+ * @package Kernel
+ * @subpackage Pornstars
  * @version $Id$
  */
  ?>
@@ -34,7 +35,7 @@
 		private $name;
 		
 		/**
-		 * Constuctor
+		 * Constructor
 		 *
 		 * @param array $dataArr
 		 * @return studioObj

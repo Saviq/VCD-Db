@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package CDCover
+ * @package Kernel
+ * @subpackage CDCover
  * @version $Id$
  */
  
@@ -18,7 +19,7 @@
 
 require_once("cdcoverObj.php");
 
-class vcd_cdcover implements Cdcover {
+class vcd_cdcover implements ICdcover {
 	
 	/**
 	 * Instance of cdcoverSQL

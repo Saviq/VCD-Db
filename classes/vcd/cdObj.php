@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Vcd
+ * @package Kernel
+ * @subpackage Vcd
  * @version $Id$
  */
  

@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Porndata
+ * @package Kernel
+ * @subpackage Pornstars
  * @version $Id$
  */
  ?>
@@ -17,7 +18,7 @@
 	require_once(dirname(__FILE__).'/pornstar.php');
 	require_once(dirname(__FILE__).'/pornstarSQL.php');
 	
-	interface Pornstar {
+	interface IPornstar {
 		
 		/*  Functions for pornstars */
 		public function getAllPornstars();

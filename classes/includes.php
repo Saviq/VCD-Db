@@ -9,7 +9,7 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Core
+ * @package Kernel
  * @version $Id$
  */
 ?>
@@ -72,6 +72,10 @@
 		require_once(dirname(__FILE__) . '/external/fs_unix.php');
 	}
 	
+	/**
+	 * Check for current PHP Version and see if VCD-db can continue.
+	 *
+	 */
 	function checkEnvironment() {
 		if (PHP_VERSION < 5) {
 			print "<br/><br/><div align=\"center\">PHP 5.0 or later must be installed for VCD-db to work.

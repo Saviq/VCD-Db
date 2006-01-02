@@ -10,6 +10,7 @@
  *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Functions
+ * @subpackage Backend
  * @version $Id$
  */
 ?>

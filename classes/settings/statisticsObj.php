@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
  

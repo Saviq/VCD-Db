@@ -9,7 +9,8 @@
  * your option) any later version.
  *
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
 
@@ -438,6 +439,14 @@ class metadataTypeObj {
 		}
 	}
 	
+	/**
+	 * Filter out all SYSTEM Specific metadata from a metadata collection with the 
+	 * exception of SYS_MEDIAINDEX and SYS_FILELOCATION.
+	 * Returns filtered array of metadataObjects
+	 *
+	 * @param array $arrMetaData
+	 * @return array
+	 */
 	public static function filterOutSystemMeta($arrMetaData) {
 		if (is_array($arrMetaData)) {
 			$arrReturnValue = array();

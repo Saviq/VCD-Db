@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package User
+ * @package Kernel
+ * @subpackage User
  * @version $Id$
  */
  
@@ -17,7 +18,7 @@
 <? 
 require_once("userObj.php");
 
-class vcd_user implements User {
+class vcd_user implements IUser {
 	
 	/**
 	 * Internal user object cache

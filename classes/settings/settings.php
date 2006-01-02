@@ -9,7 +9,8 @@
  * your option) any later version.
  *
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
 
@@ -27,7 +28,7 @@ require_once("statisticsObj.php");
 require_once("metadataObj.php");
 require_once("dvdObj.php");
 
-class vcd_settings implements Settings {
+class vcd_settings implements ISettings {
 
 	private $settingsArray = null;
 	private $mediatypeArray = null;

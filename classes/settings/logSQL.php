@@ -9,7 +9,9 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
+ * @todo Implement the date interval SQL query in function getLogEntries()
  * @version $Id$
  */
  
@@ -25,12 +27,21 @@ class logSQL {
 		 */
 		private $db = null;
 
+		/**
+		 * Class constructor
+		 *
+		 */
 		public function __construct() {
 			$conn = VCDClassFactory::getInstance('Connection');
 	 		$this->db = &$conn->getConnection();
 		}
 		
 		
+		/**
+		 * Add a single LogEntry to database.
+		 *
+		 * @param VCDLogEntry $entry
+		 */
 		public function addEntry(VCDLogEntry $entry) {
 			try {
 				
@@ -44,6 +55,15 @@ class logSQL {
 			}
 		}
 		
+		/**
+		 * Get all LogEntries within the specified time interval.  If date_from and date_to are not specified
+		 * All LogEntries from database will be returned.
+		 * Returns array of LogEntries
+		 *
+		 * @param date $date_from
+		 * @param date $date_to
+		 * @return array
+		 */
 		public function getLogEntries($date_from = null, $date_to = null) {
 			try {
 			
@@ -71,6 +91,10 @@ class logSQL {
 			
 		}
 		
+		/**
+		 * Delete all LogEntries from database
+		 *
+		 */
 		public function clearLog() {
 			try {
 			
@@ -82,6 +106,11 @@ class logSQL {
 			}
 		}
 		
+		/**
+		 * Get the count of total logentries in database.
+		 *
+		 * @return int
+		 */
 		public function getLogCount() {
 			try {
 			

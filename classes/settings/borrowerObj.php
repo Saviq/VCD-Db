@@ -9,13 +9,14 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package Settings
+ * @package Kernel
+ * @subpackage Settings
  * @version $Id$
  */
  
 ?>
 <? 
-	class borrowerObj implements XMLable {
+	class borrowerObj {
 
 		private $id;
 		private $owner_id;
@@ -99,14 +100,6 @@
 		public function getList() {
         return array("id"   => $this->id,
                      "name" => $this->name);
-		}
-
-		/**
-		 * Get the XML output from this object
-		 *
-		 */
-		public function toXML() {
-			
 		}
 		
 	}

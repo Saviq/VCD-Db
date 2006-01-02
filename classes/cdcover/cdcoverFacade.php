@@ -9,7 +9,8 @@
  * your option) any later version.
  * 
  * @author  Hákon Birgsson <konni@konni.com>
- * @package CDCover
+ * @package Kernel
+ * @subpackage CDCover
  * @version $Id$
  */
  
@@ -19,7 +20,7 @@
 	require_once("cdcoverSQL.php");
 	
 
-	interface Cdcover {
+	interface ICdcover {
 		
 		public function getAllCoverTypes();
 		public function addCoverType($cdcoverTypeObj);

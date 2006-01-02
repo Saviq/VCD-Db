@@ -1,5 +1,10 @@
 <?php
 require_once("classes/includes.php");
+if (isset($_GET['o'])) {
+	require_once('classes/external/powergraph.php');
+	drawGraph($_GET['o']);
+	exit();
+}
 $image_id = $_GET['id'];
 $CLASSImage = new VCDImage($image_id);
 
