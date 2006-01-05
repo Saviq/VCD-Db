@@ -4,6 +4,9 @@ Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
 Fixed	- Cover display fix - big images handling, better window fitting [Saviq]
 Fixed	- UTF titles got splitted characters sometimes [Saviq]
+Fixed	- Trailing space from actor's name in movie view [Saviq]
+Fixed	- Language in statistics, footer and user profile [Saviq]
+Updated - Laguage files - PLEASE UPDATE TRANSLATIONS [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
@@ -69,7 +72,7 @@ Added   - User properties under user settings finally translated.
 Fixed   - Media types and cd-count can be updated from the manager window.
 Fixed   - User property selection has finally be translated, and some others that were forgotten.
 Added   - German language file is now included with VCD-db (Big thanks to Stefan Schackmann)
-Added   - Finnish language file is now included with VCD-db (Big thanks to Lari Majamäki)
+Added   - Finnish language file is now included with VCD-db (Big thanks to Lari Majamï¿½ki)
 Added   - Bulgarian language file is now included with VCD-db (Big thanks to Cuci)
 Added   - Statistics page for user to see how his collection is distributed.
 Fixed   - Delete borrower from "user settings" was not working in Mozilla.
@@ -107,7 +110,7 @@ Changed - Added a little CSS hack so the pages look exactly the same in IE, Fire
 Fixed   - Selected language is now remembered after user logs out.
 Fixed   - HTML garbage was in the XML file exported from the "Control Panel" when exporting users movies.
 Added   - Dutch language file is now included with VCD-db. (Big thanks to ikerstges for the translation.)
-Added   - French language file is now included with VCD-db. (Big thanks to Cédric FOURNIER for the translation.)
+Added   - French language file is now included with VCD-db. (Big thanks to Cï¿½dric FOURNIER for the translation.)
 Fixed   - Fixed problem with updating movies that had been added manually to the system.
 Fixed   - Fixed javascript problems with Firefox/Mozilla containg &amp; in urls.
 Added   - VCD-db client is now included with VCD-db.
