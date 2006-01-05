@@ -3,12 +3,13 @@ Fixed   - When user tries to add duplicate copy of movie and media type an excep
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
 
+Dummy Line from Saviq :]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
 Fixed   - 2 security updates.
 Fixed   - Edit pornstar entry did not show image although it existed.
-Fixed   - If NFO metadata property was the only selected Metadata, the Metadata column in the manager 
+Fixed   - If NFO metadata property was the only selected Metadata, the Metadata column in the manager
           window was not visible.  Now fixed.
 Fixed   - When cover filesize was not available, division by zero error was displayed instead of coversize.
 Fixed   - Some databases seem not to return results with the substring function, implemented alternative
