@@ -2,21 +2,21 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
  */
- 
+
 ?>
-<? 
-/** 
+<?
+/**
 	Class imdbObj
 	Container for the IMDB data on the current movie.
 */
@@ -36,7 +36,7 @@
 	private $runtime;
 	private $country;
 	private $genre;
-	
+
 
 	/**
 	 * Function contsructor
@@ -62,7 +62,7 @@
 			}
 		}
 
-		
+
 	/**
 	 * Get the IMDB plot
 	 *
@@ -71,8 +71,8 @@
 	public function getPlot() {
 		return $this->plot;
 	}
-		
-	
+
+
 	/**
 	 * Set the IMDB plot
 	 *
@@ -81,7 +81,7 @@
 	public function setPlot($strPlot) {
 		$this->plot = stripslashes($strPlot);
 	}
-	
+
 	/**
 	 * Get IMDB cast
 	 *
@@ -94,7 +94,7 @@
 		} else {
 			return $this->cast;
 		}
-		
+
 	}
 
 	/**
@@ -105,7 +105,7 @@
 	public function setCast($strCast) {
 		$this->cast = $strCast;
 	}
-	
+
 	/**
 	 * Get the IMDB title
 	 *
@@ -114,7 +114,7 @@
 	public function getTitle() {
 		return $this->title;
 	}
-	
+
 	/**
 	 * Set the IMDB title
 	 *
@@ -123,7 +123,7 @@
 	public function setTitle($strTitle) {
 		$this->title = stripslashes($strTitle);
 	}
-	
+
 	/**
 	 * Get the IMDB alternative title
 	 *
@@ -132,7 +132,7 @@
 	public function getAltTitle() {
 		return $this->alt_title1;
 	}
-	
+
 	/**
 	 * Set the IMDB alternative title
 	 *
@@ -141,7 +141,7 @@
 	public function setAltTitle($strAltTitle) {
 		$this->alt_title1 = $strAltTitle;
 	}
-	
+
 	/**
 	 * Get the IMDB year
 	 *
@@ -153,9 +153,9 @@
 		} else {
 			return 0;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Set the IMDB year
 	 *
@@ -164,7 +164,7 @@
 	public function setYear($strYear) {
 		$this->year = $strYear;
 	}
-	
+
 	/**
 	 * Get the Director
 	 *
@@ -173,7 +173,7 @@
 	public function getDirector() {
 		return $this->director;
 	}
-	
+
 	/**
 	 * Set the director
 	 *
@@ -182,7 +182,7 @@
 	public function setDirector($strDirector)  {
 		$this->director = stripslashes($strDirector);
 	}
-	
+
 	/**
 	 * Get the IMDB rating
 	 *
@@ -191,7 +191,7 @@
 	public function getRating() {
 		return $this->rating;
 	}
-	
+
 	/**
 	 * Set the IMDB ratings
 	 *
@@ -200,7 +200,7 @@
 	public function setRating($strRating) {
 		$this->rating = $strRating;
 	}
-	
+
 	/**
 	 * Get the IMDB runtime in minutes
 	 *
@@ -212,9 +212,9 @@
 		} else {
 			return $this->runtime;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Set the runtime in minutes
 	 *
@@ -223,7 +223,7 @@
 	public function setRuntime($strRuntime) {
 		$this->runtime = $strRuntime;
 	}
-	
+
 	/**
 	 * Get the country list origin of the movie
 	 *
@@ -232,7 +232,7 @@
 	public function getCountry() {
 		return $this->country;
 	}
-	
+
 	/**
 	 * Set the procuction countries of this movie.
 	 *
@@ -241,7 +241,7 @@
 	public function setCountry($strCountry) {
 		$this->country = $strCountry;
 	}
-	
+
 	/**
 	 * Get the IMDB genres
 	 *
@@ -250,7 +250,7 @@
 	public function getGenre() {
 		return $this->genre;
 	}
-	
+
 	/**
 	 * Set the IMDB genres
 	 *
@@ -259,7 +259,7 @@
 	public function setGenre($strGenre) {
 		$this->genre = $strGenre;
 	}
-	
+
 	/**
 	 * Get the IMDB id
 	 *
@@ -268,7 +268,7 @@
 	public function getIMDB() {
 		return $this->imdb;
 	}
-	
+
 	/**
 	 * Set the IMDB id
 	 *
@@ -277,7 +277,7 @@
 	public function setIMDB($strIMDB) {
 		$this->imdb = $strIMDB;
 	}
-	
+
 	/**
 	 * Set the image associated with this movie
 	 *
@@ -286,7 +286,7 @@
 	public function setImage($strImage) {
 		$this->image = $strImage;
 	}
-	
+
 	/**
 	 * Get the image associated with this IMDB object
 	 *
@@ -295,8 +295,8 @@
 	public function getImage() {
 		return $this->image;
 	}
-	
-		
+
+
 	/**
 	 * Draw the rating of the IMDB object, writes html image star icons
 	 *
@@ -314,11 +314,11 @@
 		for (;$counter < $tomar; $counter++) {
 			echo("<img src=\"images/greystar.gif\" border=\"0\" alt=\"$stjornur stars\"/>");
 		}
-		
-	
+
+
 	}
-	
-	
+
+
 	/**
 	 * Format the cast list and prints the cast list.
 	 *
@@ -326,7 +326,7 @@
 	 */
 	public function formatCast($cast)	{
 		$cast = ereg_replace(13,"<br>",$cast);
-		
+
 		$pieces = explode("<br>", $cast);
 		$st		= count($pieces);
 		$counter = 0;
@@ -334,13 +334,13 @@
 				$tmp = explode("...",$pieces[$n]);
 				$role = strstr($pieces[$n],'....');
 				$role = str_replace('....','',$role);
-				
+
 				$imdb = explode(" ",$tmp[0]); // the IMDB url
-				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">$tmp[0]</a>";
+				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
 				$actor = trim($tmp[0]);
-			
+
 				// Create imdb url for actor
-				if (isset($imdb[2])) { 
+				if (isset($imdb[2])) {
 					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_new\">[imdb]</a>";
 				} elseif(isset($imdb[1])) {
 					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_new\">[imdb]</a>";
@@ -351,7 +351,7 @@
 			}
 	}
 
-			
+
 	/**
 	 * Print html link to the IMDB page of the movie.
 	 *
@@ -361,20 +361,20 @@
 		if (!empty($align)) {
 			$align = "align=\"$align\"";
 		}
-		
+
 		print "<a href=\"http://www.imdb.com/title/tt".$this->imdb."\" target=\"_new\"><img src=\"images/imdb-logo.gif\" style=\"padding-right:15px;\" alt=\"\" title=\"Detailed info\" border=\"0\" ".$align."/></a>";
 	}
-			
-	
-	
-	
+
+
+
+
 	/**
 	 * Return the XML representation of the IMDB object.
 	 *
 	 * @return string
 	 */
 	public function toXML() {
-		
+
 			$xmlstr  = "<imdb>\n";
 			$xmlstr .= "<imdb_id>".$this->imdb."</imdb_id>\n";
 			$xmlstr .= "<title><![CDATA[".$this->title."]]></title>\n";
@@ -389,11 +389,11 @@
 			$xmlstr .= "<country>".$this->country."</country>\n";
 			$xmlstr .= "<genre>".$this->genre."</genre>\n";
 			$xmlstr .= "</imdb>\n";
-			
+
 			return $xmlstr;
 	}
-	
-	
+
+
 	/**
 	 * Format the cast in XML compatible manner.
 	 *
@@ -403,9 +403,9 @@
 		$export_cast = ereg_replace(13,"|",$this->cast);
 		return $export_cast;
 	}
-	
-	
-	
+
+
+
 }
 
 ?>
