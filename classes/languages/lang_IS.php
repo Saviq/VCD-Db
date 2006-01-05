@@ -2,431 +2,446 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
- * @author  Hákon Birgsson <konni@konni.com>
+ *
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
- 
+
 ?>
-<? 
-	/** 
+<?
+	/**
 		Icelandic language file
-	
+
 	*/
 
 
-	
+
 $_ = array(
 
 /* Language Identifier */
 'LANG_TYPE' 			=> 'IS',
-'LANG_NAME' 			=> 'Íslenska',
+'LANG_NAME' 			=> 'ï¿½slenska',
 'LANG_CHARSET'			=> 'iso-8859-1',
 
 /* Menu system */
-'MENU_MINE' 			=> 'Mín valmynd',
-'MENU_SETTINGS' 		=> 'Mínar stillingar',
-'MENU_MOVIES' 			=> 'Mínar myndir',
-'MENU_ADDMOVIE' 		=> 'Bæta við mynd',
-'MENU_LOANSYSTEM'		=> 'Lánakerfið',
-'MENU_WISHLIST' 		=> 'Óskalistinn',
+'MENU_MINE' 			=> 'Mï¿½n valmynd',
+'MENU_SETTINGS' 		=> 'Mï¿½nar stillingar',
+'MENU_MOVIES' 			=> 'Mï¿½nar myndir',
+'MENU_ADDMOVIE' 		=> 'Bï¿½ta viï¿½ mynd',
+'MENU_LOANSYSTEM'		=> 'Lï¿½nakerfiï¿½',
+'MENU_WISHLIST' 		=> 'ï¿½skalistinn',
 'MENU_CATEGORIES' 		=> 'Flokkar mynda',
 'MENU_RSS' 				=> 'RSS straumar',
-'MENU_CONTROLPANEL' 	=> 'Stjórnborð',
-'MENU_REGISTER' 		=> 'Nýskráning',
-'MENU_LOGOUT' 			=> 'Útskráning',
-'MENU_SUBMIT'			=> 'Staðfesta',
+'MENU_CONTROLPANEL' 	=> 'Stjï¿½rnborï¿½',
+'MENU_REGISTER' 		=> 'Nï¿½skrï¿½ning',
+'MENU_LOGOUT' 			=> 'ï¿½tskrï¿½ning',
+'MENU_SUBMIT'			=> 'Staï¿½festa',
 'MENU_TOPUSERS'			=> 'Top notendur',
-'MENU_WISHLISTPUBLIC'	=> 'Óskalisti annara',
-'MENU_STATISTICS'		=> 'Tölfræði',
+'MENU_WISHLISTPUBLIC'	=> 'ï¿½skalisti annara',
+'MENU_STATISTICS'		=> 'Tï¿½lfrï¿½ï¿½i',
 
 /* Login */
-'LOGIN' 				=> 'Innskráning',
+'LOGIN' 				=> 'Innskrï¿½ning',
 'LOGIN_USERNAME' 		=> 'Notandi',
-'LOGIN_PASSWORD' 		=> 'Lykilorð',
+'LOGIN_PASSWORD' 		=> 'Lykilorï¿½',
 'LOGIN_REMEMBER' 		=> 'Mundu mig',
-'LOGIN_INFO' 			=> 'Hafðu þetta tómt ef þú vilt <b>ekki</b> breyta lykilorðinu þínu',
+'LOGIN_INFO' 			=> 'Hafï¿½u ï¿½etta tï¿½mt ef ï¿½ï¿½ vilt <b>ekki</b> breyta lykilorï¿½inu ï¿½ï¿½nu',
 
 /* Register */
-'REGISTER_TITLE'		=> 'Nýskráning',
+'REGISTER_TITLE'		=> 'Nï¿½skrï¿½ning',
 'REGISTER_FULLNAME' 	=> 'Fullt nafn',
 'REGISTER_EMAIL' 		=> 'Netfang',
-'REGISTER_AGAIN' 		=> 'Lykilorð aftur',
-'REGISTER_DISABLED' 	=> 'Þvi miður, kerfisstjóri leyfir ekki nýskráningar eins og er',
-'REGISTER_OK' 			=> 'Skráning heppnaðist, þú getur núna skráð þig inn.',
+'REGISTER_AGAIN' 		=> 'Lykilorï¿½ aftur',
+'REGISTER_DISABLED' 	=> 'ï¿½vi miï¿½ur, kerfisstjï¿½ri leyfir ekki nï¿½skrï¿½ningar eins og er',
+'REGISTER_OK' 			=> 'Skrï¿½ning heppnaï¿½ist, ï¿½ï¿½ getur nï¿½na skrï¿½ï¿½ ï¿½ig inn.',
 
 /* User Properties */
-'PRO_NOTIFY' 			=> 'Senda mér póst þegar að ný mynd er skráð?',
-'PRO_SHOW_ADULT' 		=> 'Sýna fullorðins efni?',
-'PRO_RSS' 				=> 'Leyfa RSS straum frá mínum lista?',
-'PRO_WISHLIST' 			=> 'Leyfa öðrum að sjá óskalistann minn?',
-'PRO_USE_INDEX' 		=> 'Nota sér auðkenni fyrir myndir?',
-'PRO_SEEN_LIST' 		=> 'Halda utan um myndir sem ég hef séð?',
-'PRO_PLAYOPTION' 		=> 'Nota afspilun frá VCD-db?',
-'PRO_NFO' 				=> 'Nota NFO skjöl?',
+'PRO_NOTIFY' 			=> 'Senda mï¿½r pï¿½st ï¿½egar aï¿½ nï¿½ mynd er skrï¿½ï¿½?',
+'PRO_SHOW_ADULT' 		=> 'Sï¿½na fullorï¿½ins efni?',
+'PRO_RSS' 				=> 'Leyfa RSS straum frï¿½ mï¿½num lista?',
+'PRO_WISHLIST' 			=> 'Leyfa ï¿½ï¿½rum aï¿½ sjï¿½ ï¿½skalistann minn?',
+'PRO_USE_INDEX' 		=> 'Nota sï¿½r auï¿½kenni fyrir myndir?',
+'PRO_SEEN_LIST' 		=> 'Halda utan um myndir sem ï¿½g hef sï¿½ï¿½?',
+'PRO_PLAYOPTION' 		=> 'Nota afspilun frï¿½ VCD-db?',
+'PRO_NFO' 				=> 'Nota NFO skjï¿½l?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Stilla spilara',
-'SE_OWNFEED' 			=> 'Skoða minn XML straum',
-'SE_CUSTOM' 			=> 'Stilla forsíðu',
-'SE_SHOWSTAT' 			=> 'Sýna tölfræði',
-'SE_SHOWSIDE' 			=> 'Sýna nýjar myndir í hægri valmynd',
+'SE_OWNFEED' 			=> 'Skoï¿½a minn XML straum',
+'SE_CUSTOM' 			=> 'Stilla forsï¿½ï¿½u',
+'SE_SHOWSTAT' 			=> 'Sï¿½na tï¿½lfrï¿½ï¿½i',
+'SE_SHOWSIDE' 			=> 'Sï¿½na nï¿½jar myndir ï¿½ hï¿½gri valmynd',
 'SE_SELECTRSS' 			=> 'Veldu RSS strauma',
-'SE_PAGELOOK' 			=> 'Útlit vefs',
-'SE_PAGEMODE' 			=> 'Veldu sjálfgefið sniðmát:',
+'SE_PAGELOOK' 			=> 'ï¿½tlit vefs',
+'SE_PAGEMODE' 			=> 'Veldu sjï¿½lfgefiï¿½ sniï¿½mï¿½t:',
+'SE_UPDATED'			=> 'User information updated',
+'SE_UPDATE_FAILED'		=> 'Failed to update',
 
 /* Search */
 'SEARCH' 				=> 'Leita',
 'SEARCH_TITLE' 			=> 'Eftir titli',
 'SEARCH_ACTOR' 			=> 'Eftir leikara',
-'SEARCH_DIRECTOR' 		=> 'Eftir leikstjóra',
-'SEARCH_RESULTS' 		=> 'Leitarniðurstöður',
-'SEARCH_EXTENDED' 		=> 'Ítarleg leit',
-'SEARCH_NORESULT' 		=> 'Leit skilaði engum niðurstöðum',
+'SEARCH_DIRECTOR' 		=> 'Eftir leikstjï¿½ra',
+'SEARCH_RESULTS' 		=> 'Leitarniï¿½urstï¿½ï¿½ur',
+'SEARCH_EXTENDED' 		=> 'ï¿½tarleg leit',
+'SEARCH_NORESULT' 		=> 'Leit skilaï¿½i engum niï¿½urstï¿½ï¿½um',
 
 /* Movie categories*/
 'CAT_ACTION' 			=> 'Spennumyndir',
-'CAT_ADULT' 			=> 'Erótískar',
-'CAT_ADVENTURE' 		=> 'Ævintýramyndir',
+'CAT_ADULT' 			=> 'Erï¿½tï¿½skar',
+'CAT_ADVENTURE' 		=> 'ï¿½vintï¿½ramyndir',
 'CAT_ANIMATION' 		=> 'Teiknimyndir',
 'CAT_ANIME' 			=> 'Anime / Manga',
 'CAT_COMEDY' 			=> 'Gamanmyndir',
-'CAT_CRIME' 			=> 'Sakamálamyndir',
+'CAT_CRIME' 			=> 'Sakamï¿½lamyndir',
 'CAT_DOCUMENTARY' 		=> 'Heimildarmyndir',
 'CAT_DRAMA' 			=> 'Drama',
-'CAT_FAMILY' 			=> 'Fjöldskyldumyndir',
-'CAT_FANTASY' 			=> 'Fantasía',
+'CAT_FAMILY' 			=> 'Fjï¿½ldskyldumyndir',
+'CAT_FANTASY' 			=> 'Fantasï¿½a',
 'CAT_FILMNOIR' 			=> 'Film Noir',
 'CAT_HORROR' 			=> 'Hryllingsmyndir',
 'CAT_JAMESBOND' 		=> 'James Bond',
-'CAT_MUSICVIDEO' 		=> 'Tónlistarmyndbönd',
-'CAT_MUSICAL' 			=> 'Söngvamyndir',
-'CAT_MYSTERY' 			=> 'Ráðgáta',
-'CAT_ROMANCE' 			=> 'Rómantik',
-'CAT_SCIFI' 			=> 'Vísindarskáldsaga',
+'CAT_MUSICVIDEO' 		=> 'Tï¿½nlistarmyndbï¿½nd',
+'CAT_MUSICAL' 			=> 'Sï¿½ngvamyndir',
+'CAT_MYSTERY' 			=> 'Rï¿½ï¿½gï¿½ta',
+'CAT_ROMANCE' 			=> 'Rï¿½mantik',
+'CAT_SCIFI' 			=> 'Vï¿½sindarskï¿½ldsaga',
 'CAT_SHORT' 			=> 'Stuttmyndir',
-'CAT_THRILLER' 			=> 'Þriller',
-'CAT_TVSHOWS' 			=> 'Sjónvarpsþættir',
-'CAT_WAR' 				=> 'Stríðsmyndir',
+'CAT_THRILLER' 			=> 'ï¿½riller',
+'CAT_TVSHOWS' 			=> 'Sjï¿½nvarpsï¿½ï¿½ttir',
+'CAT_WAR' 				=> 'Strï¿½ï¿½smyndir',
 'CAT_WESTERN' 			=> 'Vestrar',
-'CAT_XRATED' 			=> 'Ljósbláar',
+'CAT_XRATED' 			=> 'Ljï¿½sblï¿½ar',
 
 /* Movie Listings */
 'M_MOVIE' 				=> 'Um myndina',
 'M_ACTORS' 				=> 'Leikarar',
 'M_CATEGORY'		    => 'Flokkur',
-'M_YEAR'				=> 'Framleiðsluár',
-'M_COPIES'				=> 'Eintök til',
-'M_FROM' 				=> 'Frá',
+'M_YEAR'				=> 'Framleiï¿½sluï¿½r',
+'M_COPIES'				=> 'Eintï¿½k til',
+'M_FROM' 				=> 'Frï¿½',
 'M_TITLE' 				=> 'Titill',
 'M_ALTTITLE' 			=> 'Aukatitill',
 'M_GRADE'				=> 'Einkunn',
-'M_DIRECTOR' 			=> 'Leikstjóri',
-'M_COUNTRY'				=> 'Framleiðsluland',
+'M_DIRECTOR' 			=> 'Leikstjï¿½ri',
+'M_COUNTRY'				=> 'Framleiï¿½sluland',
 'M_RUNTIME' 			=> 'Lengd',
 'M_MINUTES'			 	=> 'min.',
-'M_PLOT' 				=> 'Söguþráður',
-'M_NOPLOT' 				=> 'Enginn söguþráður til',
+'M_PLOT' 				=> 'Sï¿½guï¿½rï¿½ï¿½ur',
+'M_NOPLOT' 				=> 'Enginn sï¿½guï¿½rï¿½ï¿½ur til',
 'M_COVERS' 				=> 'CD Covers',
-'M_AVAILABLE' 			=> 'Eintök til',
-'M_MEDIA'			 	=> 'Myndgæði',
-'M_NUM' 				=> 'Fjöldi diska',
+'M_AVAILABLE' 			=> 'Eintï¿½k til',
+'M_MEDIA'			 	=> 'Myndgï¿½ï¿½i',
+'M_NUM' 				=> 'Fjï¿½ldi diska',
 'M_DATE' 				=> 'Dags',
 'M_OWNER'			 	=> 'Eigandi',
-'M_NOACTORS'		    => 'Engir leikarar skráðir',
-'M_INFO'			    => 'Nánari upplýsingar',
-'M_DETAILS'			    => 'Upplýsingar um mitt eintak',
-'M_MEDIATYPE'		    => 'Myndgæði',
+'M_NOACTORS'		    => 'Engir leikarar skrï¿½ï¿½ir',
+'M_INFO'			    => 'Nï¿½nari upplï¿½singar',
+'M_DETAILS'			    => 'Upplï¿½singar um mitt eintak',
+'M_MEDIATYPE'		    => 'Myndgï¿½ï¿½i',
 'M_COMMENT'			    => 'Athugasemd',
-'M_PRIVATE'				=> 'Merkja prívat?',
-'M_SCREENSHOTS'			=> 'Skjámyndir',
-'M_NOSCREENS'			=> 'Engar skjámyndir eru til',
-'M_SHOW'				=> 'Sýna',
+'M_PRIVATE'				=> 'Merkja prï¿½vat?',
+'M_SCREENSHOTS'			=> 'Skjï¿½myndir',
+'M_NOSCREENS'			=> 'Engar skjï¿½myndir eru til',
+'M_SHOW'				=> 'Sï¿½na',
 'M_HIDE'				=> 'Fela',
-'M_CHANGE'				=> 'Breyta upplýsingum',
+'M_CHANGE'				=> 'Breyta upplï¿½singum',
 'M_NOCOVERS'			=> 'Enginn CD-Cover eru til',
 'M_BYCAT'				=> 'Titlar eftir flokki',
 'M_CURRCAT'				=> 'Valinn flokkur',
-'M_TEXTVIEW'			=> 'Textasýn',
-'M_IMAGEVIEW'			=> 'Myndasýn',
-'M_MINEONLY'			=> 'Sýna bara mínar myndir',
-'M_SIMILAR'				=> 'Svipaðir titlar',
-'M_MEDIAINDEX'			=> 'Auðkenni',
+'M_TEXTVIEW'			=> 'Textasï¿½n',
+'M_IMAGEVIEW'			=> 'Myndasï¿½n',
+'M_MINEONLY'			=> 'Sï¿½na bara mï¿½nar myndir',
+'M_SIMILAR'				=> 'Svipaï¿½ir titlar',
+'M_MEDIAINDEX'			=> 'Auï¿½kenni',
 
 /* IMDB */
-'I_DETAILS'				=> 'IMDB Lýsing',
-'I_PLOT'				=> 'Söguþráður',
+'I_DETAILS'				=> 'IMDB Lï¿½sing',
+'I_PLOT'				=> 'Sï¿½guï¿½rï¿½ï¿½ur',
 'I_GALLERY'				=> 'Myndasafn',
 'I_TRAILERS'			=> 'Myndbands brot',
 'I_LINKS'				=> 'IMDB Tenglar',
-'I_NOT'					=> 'Engar IMDB upplýsingar tiltækar',
+'I_NOT'					=> 'Engar IMDB upplï¿½singar tiltï¿½kar',
 
 /* DVD Specific */
-'DVD_REGION'			=> 'Svæði',
+'DVD_REGION'			=> 'Svï¿½ï¿½i',
 'DVD_FORMAT'			=> 'Tegund',
-'DVD_ASPECT'			=> 'Kóðun',
-'DVD_AUDIO'				=> 'Hljóðrás',
+'DVD_ASPECT'			=> 'Kï¿½ï¿½un',
+'DVD_AUDIO'				=> 'Hljï¿½ï¿½rï¿½s',
 'DVD_SUBTITLES'			=> 'Textar',
 
 /* My Movies */
-'MY_EXPORT' 			=> 'Flytja út gögn',
-'MY_EXCEL' 				=> 'Flytja listann út í Excel',
-'MY_XML' 				=> 'Flytja listann út sem XML',
-'MY_XMLTHUMBS'			=> 'Flytja thumbnails út sem XML',
-'MY_ACTIONS'			=> 'Mínar aðgerðir',
+'MY_EXPORT' 			=> 'Flytja ï¿½t gï¿½gn',
+'MY_EXCEL' 				=> 'Flytja listann ï¿½t ï¿½ Excel',
+'MY_XML' 				=> 'Flytja listann ï¿½t sem XML',
+'MY_XMLTHUMBS'			=> 'Flytja thumbnails ï¿½t sem XML',
+'MY_ACTIONS'			=> 'Mï¿½nar aï¿½gerï¿½ir',
 'MY_JOIN'				=> 'Samkeyrslur',
-'MY_JOINMOVIES'			=> 'Samkeyrslur á myndum',
+'MY_JOINMOVIES'			=> 'Samkeyrslur ï¿½ myndum',
 'MY_JOINSUSER'			=> 'Veldu notanda',
-'MY_JOINSMEDIA'			=> 'Veldu myndgæði',
+'MY_JOINSMEDIA'			=> 'Veldu myndgï¿½ï¿½i',
 'MY_JOINSCAT'			=> 'Veldu yfirflokk',
 'MY_JOINSTYPE'			=> 'Veldu tegund keyrslu',
-'MY_JOINSHOW'			=> 'Sýna niðurstöður',
-'MY_NORESULTS'			=> 'Keyrsla skilaði engum niðurstöðum',
-'MY_TEXTALL'			=> 'Prentsýn (textasýn)',
-'MY_PWALL'				=> 'Prentsýn allra mynda',
-'MY_PWMOVIES'			=> 'Prentsýn kvikmynda',
-'MY_PWTV'				=> 'Prentsýn þátta',
-'MY_PWBLUE'				=> 'Prentsýn erótískra mynda',
-'MY_J1'					=> 'Myndir sem ég á en notandi ekki',
-'MY_J2'					=> 'Myndir sem notandi á en ég ekki',
-'MY_J3'					=> 'Myndir sem báðir eiga',
+'MY_JOINSHOW'			=> 'Sï¿½na niï¿½urstï¿½ï¿½ur',
+'MY_NORESULTS'			=> 'Keyrsla skilaï¿½i engum niï¿½urstï¿½ï¿½um',
+'MY_TEXTALL'			=> 'Prentsï¿½n (textasï¿½n)',
+'MY_PWALL'				=> 'Prentsï¿½n allra mynda',
+'MY_PWMOVIES'			=> 'Prentsï¿½n kvikmynda',
+'MY_PWTV'				=> 'Prentsï¿½n ï¿½ï¿½tta',
+'MY_PWBLUE'				=> 'Prentsï¿½n erï¿½tï¿½skra mynda',
+'MY_J1'					=> 'Myndir sem ï¿½g ï¿½ en notandi ekki',
+'MY_J2'					=> 'Myndir sem notandi ï¿½ en ï¿½g ekki',
+'MY_J3'					=> 'Myndir sem bï¿½ï¿½ir eiga',
 'MY_OVERVIEW'			=> 'Yfirlit mynda',
 
-'MY_INFO'				=> 'Á þessari siðu er allt að finna um mínar myndir
-							Til hægri eru mögulegar aðgerðir sem snúa að þinum myndum.
-							Einnig geturu hérna flutt út gögn á Excel formi til útprentunar eða notað XML útflutnings 
-							möguleikana til að færa allar þinar myndir í heilu lagi frá einum VCD-db 
+'MY_INFO'				=> 'ï¿½ ï¿½essari siï¿½u er allt aï¿½ finna um mï¿½nar myndir
+							Til hï¿½gri eru mï¿½gulegar aï¿½gerï¿½ir sem snï¿½a aï¿½ ï¿½inum myndum.
+							Einnig geturu hï¿½rna flutt ï¿½t gï¿½gn ï¿½ Excel formi til ï¿½tprentunar eï¿½a notaï¿½ XML ï¿½tflutnings
+							mï¿½guleikana til aï¿½ fï¿½ra allar ï¿½inar myndir ï¿½ heilu lagi frï¿½ einum VCD-db
 							gagnagrunni til annars.',
 'MY_KEYS'				=> 'Stilla lykla',
-'MY_SEENLIST'			=> 'Stilla séðar myndir',
-'MY_HELPPICKER'			=> 'Finna mynd fyrir kvöldið',
-'MY_HELPPICKERINFO'		=> 'Veistu ekki hvað þú átt að glápa á?<br/>Leyfðu VCD-db að finna mynd fyrir þig.<br/>
-							Þú getur stillt skorður ef þú vilt til að þrengja úrtakið fyrir VCD-db.',
+'MY_SEENLIST'			=> 'Stilla sï¿½ï¿½ar myndir',
+'MY_HELPPICKER'			=> 'Finna mynd fyrir kvï¿½ldiï¿½',
+'MY_HELPPICKERINFO'		=> 'Veistu ekki hvaï¿½ ï¿½ï¿½ ï¿½tt aï¿½ glï¿½pa ï¿½?<br/>Leyfï¿½u VCD-db aï¿½ finna mynd fyrir ï¿½ig.<br/>
+							ï¿½ï¿½ getur stillt skorï¿½ur ef ï¿½ï¿½ vilt til aï¿½ ï¿½rengja ï¿½rtakiï¿½ fyrir VCD-db.',
 'MY_FIND'				=> 'Finna mynd',
-'MY_NOTSEEN'			=> 'Stinga bara uppá myndum sem ég hef ekki séð',
-'MY_FRIENDS'			=> 'Mínir lánþegar',
+'MY_NOTSEEN'			=> 'Stinga bara uppï¿½ myndum sem ï¿½g hef ekki sï¿½ï¿½',
+'MY_FRIENDS'			=> 'Mï¿½nir lï¿½nï¿½egar',
 
 /* Manager window */
-'MAN_BASIC' 			=> 'Grunnupplýsingar',
-'MAN_IMDB' 				=> 'IMDB upplýsingar',
-'MAN_EMPIRE' 			=> 'Empire upplýsingar',
+'MAN_BASIC' 			=> 'Grunnupplï¿½singar',
+'MAN_IMDB' 				=> 'IMDB upplï¿½singar',
+'MAN_EMPIRE' 			=> 'Empire upplï¿½singar',
 'MAN_COPY' 				=> 'Mitt eintak',
-'MAN_COPIES' 			=> 'Mín eintök',
-'MAN_NOCOPY' 			=> 'Þú átt engin eintök',
+'MAN_COPIES' 			=> 'Mï¿½n eintï¿½k',
+'MAN_NOCOPY' 			=> 'ï¿½ï¿½ ï¿½tt engin eintï¿½k',
 'MAN_1COPY' 			=> 'Eintak',
-'MAN_ADDACT' 			=> 'Bæta við leikurum',
-'MAN_ADDTODB' 			=> 'Bæta við nýjum leikara í grunninn',
-'MAN_SAVETODB' 			=> 'Vista í db',
-'MAN_SAVETODBNCD' 		=> 'Vista í db og mynd',
-'MAN_INDB' 				=> 'Leikarar í gagnagrunni',
+'MAN_ADDACT' 			=> 'Bï¿½ta viï¿½ leikurum',
+'MAN_ADDTODB' 			=> 'Bï¿½ta viï¿½ nï¿½jum leikara ï¿½ grunninn',
+'MAN_SAVETODB' 			=> 'Vista ï¿½ db',
+'MAN_SAVETODBNCD' 		=> 'Vista ï¿½ db og mynd',
+'MAN_INDB' 				=> 'Leikarar ï¿½ gagnagrunni',
 'MAN_SEL' 				=> 'Valdir leikarar',
-'MAN_STARS' 			=> 'Stjörnur',
+'MAN_STARS' 			=> 'Stjï¿½rnur',
 'MAN_BROWSE'			=> 'Velja skjal',
 
 /* Add movies */
-'ADD_INFO' 				=> 'Veldu einn af eftirfarandi möguleikum til að skrá inn nýja mynd',
-'ADD_IMDB' 				=> 'Sækja beint frá IMDB',
-'ADD_IMDBTITLE' 		=> 'Sláðu inn titil til að leita eftir',
-'ADD_MANUAL' 			=> 'Slá inn handvirkt',
-'ADD_LISTED' 			=> 'Bæta við myndum sem er nú þegar skráðar',
-'ADD_XML' 				=> 'Hlaða inn úr XML skjali',
-'ADD_XMLFILE' 			=> 'Skjal til að hlaða inn',
-'ADD_XMLNOTE' 			=> '(Athugið, aðeins XML skjöl sem hafa verið flutt út með VCD-DB geta verið notuð til að 
-							flytja inn myndir. Þú getur flutt út myndir í XML form undir "Mínar myndir". 
-							Forðist að breyta XML skjölum frá VCD-DB handvirkt.) ',
-'ADD_MAXFILESIZE'		=> 'Hámarks skrárstærð',
-'ADD_DVDEMPIRE' 		=> 'Sækja beint frá adultdvdempire.com (bláar myndir)',
-'ADD_LISTEDSTEP1' 		=> 'Skref 1. <br/>Veldu myndir sem þú vilt bæta við á listann þinn.<br/>
-							Í næsta skrefi velur þú myndgæði. ',
-'ADD_LISTEDSTEP2' 		=> 'Skref 2.<br/>Veldu viðeigandi myndgæði.',
-'ADD_INDB' 				=> 'Myndir í grunni',
+'ADD_INFO' 				=> 'Veldu einn af eftirfarandi mï¿½guleikum til aï¿½ skrï¿½ inn nï¿½ja mynd',
+'ADD_IMDB' 				=> 'Sï¿½kja beint frï¿½ IMDB',
+'ADD_IMDBTITLE' 		=> 'Slï¿½ï¿½u inn titil til aï¿½ leita eftir',
+'ADD_MANUAL' 			=> 'Slï¿½ inn handvirkt',
+'ADD_LISTED' 			=> 'Bï¿½ta viï¿½ myndum sem er nï¿½ ï¿½egar skrï¿½ï¿½ar',
+'ADD_XML' 				=> 'Hlaï¿½a inn ï¿½r XML skjali',
+'ADD_XMLFILE' 			=> 'Skjal til aï¿½ hlaï¿½a inn',
+'ADD_XMLNOTE' 			=> '(Athugiï¿½, aï¿½eins XML skjï¿½l sem hafa veriï¿½ flutt ï¿½t meï¿½ VCD-DB geta veriï¿½ notuï¿½ til aï¿½
+							flytja inn myndir. ï¿½ï¿½ getur flutt ï¿½t myndir ï¿½ XML form undir "Mï¿½nar myndir".
+							Forï¿½ist aï¿½ breyta XML skjï¿½lum frï¿½ VCD-DB handvirkt.) ',
+'ADD_MAXFILESIZE'		=> 'Hï¿½marks skrï¿½rstï¿½rï¿½',
+'ADD_DVDEMPIRE' 		=> 'Sï¿½kja beint frï¿½ adultdvdempire.com (blï¿½ar myndir)',
+'ADD_LISTEDSTEP1' 		=> 'Skref 1. <br/>Veldu myndir sem ï¿½ï¿½ vilt bï¿½ta viï¿½ ï¿½ listann ï¿½inn.<br/>
+							ï¿½ nï¿½sta skrefi velur ï¿½ï¿½ myndgï¿½ï¿½i. ',
+'ADD_LISTEDSTEP2' 		=> 'Skref 2.<br/>Veldu viï¿½eigandi myndgï¿½ï¿½i.',
+'ADD_INDB' 				=> 'Myndir ï¿½ grunni',
 'ADD_SELECTED' 			=> 'Valdir titlar',
-'ADD_INFOLIST' 			=> 'Tvísmelltu á mynd til að færa yfir, eða notaðu örina. <br/>
-							Hægt er að nota lyklaborðið í valmyndinni vinstra megin <br/>
-							til að flýta fyrir að finna ákveðna mynd.',
-'ADD_NOTITLES' 			=> 'Enginn annar notandi hefur skráð myndir i grunninn.',
+'ADD_INFOLIST' 			=> 'Tvï¿½smelltu ï¿½ mynd til aï¿½ fï¿½ra yfir, eï¿½a notaï¿½u ï¿½rina. <br/>
+							Hï¿½gt er aï¿½ nota lyklaborï¿½iï¿½ ï¿½ valmyndinni vinstra megin <br/>
+							til aï¿½ flï¿½ta fyrir aï¿½ finna ï¿½kveï¿½na mynd.',
+'ADD_NOTITLES' 			=> 'Enginn annar notandi hefur skrï¿½ï¿½ myndir i grunninn.',
 
 /* Add from XML */
-'XML_CONFIRM' 			=> 'Staðfesta XML innflutning',
+'XML_CONFIRM' 			=> 'Staï¿½festa XML innflutning',
 'XML_CONTAINS' 			=> 'XML skjal inniheldur %d myndir.',
-'XML_INFO1' 			=> 'Ýttu á staðfesta til að lesa inn myndir og vista i grunninn.<br/>
-							Eða ýttu á Hætta við til að hætta við. ',
-'XML_INFO2' 			=> 'Ef þú vilt að thumbnail myndir fylgi með innflutningi myndanna sem þú ert að flytja inn úr XML skjalinu,
-							<b>verður</b> þú að eiga XML thumbnails skjalið tilbúið líka núna.<br/>
-							Thumbnails geta ekki verið sjálfkrafa fluttir inn nema núna.
-							Ef þú ert nú þegar með XML thumbnails skjalið, ýttu þá á tékkboxið hér fyrir neðan og finndu XML skjalið sem
-							á að fylgja með myndunum þínum.  Þá munu myndir verða fluttar inn með viðkomandi titlum.',
-'XML_THUMBNAILS'		=> 'Flytja inn thumbnails frá XML skjali',
-'XML_LIST'				=> 'Eftirfarandi titlar fundust í XML skjalinu.',
-'XML_ERROR'				=> 'Engar myndir fundust í XML skjalinu.<br/>Skjal gæti verið tómt eða skemmt.
-			   				<br/>Gangtu úr skugga um að þú sért að nota XML skjal sem var flutt úr VCD-db ..',
-'XML_RESULTS'			=> 'Niðurstöður XML innflutnings.',
-'XML_RESULTS2'			=> 'Hér eru niðustöður XML innflutnings.<br/>Samtals %d myndir voru vistaðar í grunninn.',
+'XML_INFO1' 			=> 'ï¿½ttu ï¿½ staï¿½festa til aï¿½ lesa inn myndir og vista i grunninn.<br/>
+							Eï¿½a ï¿½ttu ï¿½ Hï¿½tta viï¿½ til aï¿½ hï¿½tta viï¿½. ',
+'XML_INFO2' 			=> 'Ef ï¿½ï¿½ vilt aï¿½ thumbnail myndir fylgi meï¿½ innflutningi myndanna sem ï¿½ï¿½ ert aï¿½ flytja inn ï¿½r XML skjalinu,
+							<b>verï¿½ur</b> ï¿½ï¿½ aï¿½ eiga XML thumbnails skjaliï¿½ tilbï¿½iï¿½ lï¿½ka nï¿½na.<br/>
+							Thumbnails geta ekki veriï¿½ sjï¿½lfkrafa fluttir inn nema nï¿½na.
+							Ef ï¿½ï¿½ ert nï¿½ ï¿½egar meï¿½ XML thumbnails skjaliï¿½, ï¿½ttu ï¿½ï¿½ ï¿½ tï¿½kkboxiï¿½ hï¿½r fyrir neï¿½an og finndu XML skjaliï¿½ sem
+							ï¿½ aï¿½ fylgja meï¿½ myndunum ï¿½ï¿½num.  ï¿½ï¿½ munu myndir verï¿½a fluttar inn meï¿½ viï¿½komandi titlum.',
+'XML_THUMBNAILS'		=> 'Flytja inn thumbnails frï¿½ XML skjali',
+'XML_LIST'				=> 'Eftirfarandi titlar fundust ï¿½ XML skjalinu.',
+'XML_ERROR'				=> 'Engar myndir fundust ï¿½ XML skjalinu.<br/>Skjal gï¿½ti veriï¿½ tï¿½mt eï¿½a skemmt.
+			   				<br/>Gangtu ï¿½r skugga um aï¿½ ï¿½ï¿½ sï¿½rt aï¿½ nota XML skjal sem var flutt ï¿½r VCD-db ..',
+'XML_RESULTS'			=> 'Niï¿½urstï¿½ï¿½ur XML innflutnings.',
+'XML_RESULTS2'			=> 'Hï¿½r eru niï¿½ustï¿½ï¿½ur XML innflutnings.<br/>Samtals %d myndir voru vistaï¿½ar ï¿½ grunninn.',
 
 
 
 /* Add from DVD Empire */
-'EM_INFO'				=> 'Upplýsingar frá adultdvdempire.com um myndina ....',
-'EM_DESC'				=> 'DVDEmpire lýsing',
+'EM_INFO'				=> 'Upplï¿½singar frï¿½ adultdvdempire.com um myndina ....',
+'EM_DESC'				=> 'DVDEmpire lï¿½sing',
 'EM_SUBCAT'				=> 'Undirflokkar',
-'EM_DETAILS'			=> 'Nánari upplýsingar frá Adultdvdempire.com',
+'EM_DETAILS'			=> 'Nï¿½nari upplï¿½singar frï¿½ Adultdvdempire.com',
 'EM_STARS'				=> 'Leikarar',
-'EM_NOTICE'				=> 'Leikarar merktir með rauðu fundust ekki í grunninum.
-							En það er hægt að haka við þá ef þú vilt bæta þeim við í grunninn og 
-							tengja við þessa mynd.',
-'EM_FETCH'				=> 'Sækja aukalega',
+'EM_NOTICE'				=> 'Leikarar merktir meï¿½ rauï¿½u fundust ekki ï¿½ grunninum.
+							En ï¿½aï¿½ er hï¿½gt aï¿½ haka viï¿½ ï¿½ï¿½ ef ï¿½ï¿½ vilt bï¿½ta ï¿½eim viï¿½ ï¿½ grunninn og
+							tengja viï¿½ ï¿½essa mynd.',
+'EM_FETCH'				=> 'Sï¿½kja aukalega',
 
 /* Loan System */
-'LOAN_MOVIES'			=> 'Myndir til láns',
-'LOAN_TO'				=> 'Lána myndir til',
-'LOAN_ADDUSERS'			=> 'Byrjaðu á að búa til lánþega',
-'LOAN_NEWUSER'			=> 'Nýr lánþegi',
-'LOAN_REGISTERUSER'		=> 'Bæta við lánþega',
+'LOAN_MOVIES'			=> 'Myndir til lï¿½ns',
+'LOAN_TO'				=> 'Lï¿½na myndir til',
+'LOAN_ADDUSERS'			=> 'Byrjaï¿½u ï¿½ aï¿½ bï¿½a til lï¿½nï¿½ega',
+'LOAN_NEWUSER'			=> 'Nï¿½r lï¿½nï¿½egi',
+'LOAN_REGISTERUSER'		=> 'Bï¿½ta viï¿½ lï¿½nï¿½ega',
 'LOAN_NAME'				=> 'Nafn',
-'LOAN_SELECT'			=> 'Veldu lánþega',
-'LOAN_MOVIELOANS'		=> 'Myndir í láni ...',
-'LOAN_REMINDER'			=> 'Senda áminningu',
-'LOAN_HISTORY'			=> 'Lánasaga',
-'LOAN_HISTORY2'			=> 'Sjá lánasögu',
-'LOAN_SINCE'			=> 'Síðan',
-'LOAN_TIME'				=> 'Tími siðan',
+'LOAN_SELECT'			=> 'Veldu lï¿½nï¿½ega',
+'LOAN_MOVIELOANS'		=> 'Myndir ï¿½ lï¿½ni ...',
+'LOAN_REMINDER'			=> 'Senda ï¿½minningu',
+'LOAN_HISTORY'			=> 'Lï¿½nasaga',
+'LOAN_HISTORY2'			=> 'Sjï¿½ lï¿½nasï¿½gu',
+'LOAN_SINCE'			=> 'Sï¿½ï¿½an',
+'LOAN_TIME'				=> 'Tï¿½mi siï¿½an',
 'LOAN_RETURN'			=> 'Skila eintaki',
-'LOAN_SUCCESS'			=> 'Myndir hafa verið settar í lán',
-'LOAN_OUT'				=> 'Óskilað',
+'LOAN_SUCCESS'			=> 'Myndir hafa veriï¿½ settar ï¿½ lï¿½n',
+'LOAN_OUT'				=> 'ï¿½skilaï¿½',
 'LOAN_DATEIN'			=> 'Dags inn',
-'LOAN_DATEOUT'			=> 'Dags út',
-'LOAN_PERIOD'			=> 'Lánstími',
-'LOAN_BACK'				=> 'Aftur á lánayfirlit',
+'LOAN_DATEOUT'			=> 'Dags ï¿½t',
+'LOAN_PERIOD'			=> 'Lï¿½nstï¿½mi',
+'LOAN_BACK'				=> 'Aftur ï¿½ lï¿½nayfirlit',
 'LOAN_DAY'				=> 'dagur',
 'LOAN_DAYS'				=> 'dagar',
-'LOAN_TODAY'			=> 'frá í dag',
+'LOAN_TODAY'			=> 'frï¿½ ï¿½ dag',
 
 
 /* RSS */
 'RSS'					=> 'RSS Straumar',
-'RSS_TITLE'				=> 'RSS straumar frá öðrum VCD-DB félögum',
+'RSS_TITLE'				=> 'RSS straumar frï¿½ ï¿½ï¿½rum VCD-DB fï¿½lï¿½gum',
 'RSS_SITE'				=> 'RSS Vef straumur',
 'RSS_USER'				=> 'RSS Notanda straumur',
-'RSS_VIEW'				=> 'Skoða RSS straum',
-'RSS_ADD'				=> 'Bæta við RSS straum',
-'RSS_NOTE'				=> 'Sláðu inn <strong>nákvæma slóð</strong> á VCD-DB til að tengjast.<br/>
-							Ef RSS straumur er virkjaður á viðkomandi slóð geturu valið úr
-							RSS straumum til að birta á síðunni þinni.',
-'RSS_FETCH'				=> 'Sækja RSS Lista',
-'RSS_NONE'				=> 'Engir RSS straumar hafa verið skilgreindir.',
-'RSS_FOUND'				=> 'Eftirfarandi RSS straumar fundust, veldu þá sem þú vilt birta:',
-'RSS_NOTFOUND'			=> 'Engar straumar fundust á slóðinni',
+'RSS_VIEW'				=> 'Skoï¿½a RSS straum',
+'RSS_ADD'				=> 'Bï¿½ta viï¿½ RSS straum',
+'RSS_NOTE'				=> 'Slï¿½ï¿½u inn <strong>nï¿½kvï¿½ma slï¿½ï¿½</strong> ï¿½ VCD-DB til aï¿½ tengjast.<br/>
+							Ef RSS straumur er virkjaï¿½ur ï¿½ viï¿½komandi slï¿½ï¿½ geturu valiï¿½ ï¿½r
+							RSS straumum til aï¿½ birta ï¿½ sï¿½ï¿½unni ï¿½inni.',
+'RSS_FETCH'				=> 'Sï¿½kja RSS Lista',
+'RSS_NONE'				=> 'Engir RSS straumar hafa veriï¿½ skilgreindir.',
+'RSS_FOUND'				=> 'Eftirfarandi RSS straumar fundust, veldu ï¿½ï¿½ sem ï¿½ï¿½ vilt birta:',
+'RSS_NOTFOUND'			=> 'Engar straumar fundust ï¿½ slï¿½ï¿½inni',
 
 
 /* Wishlist */
-'W_ADD'					=> 'Setja á óskalistann',
-'W_ONLIST'				=> 'Er á óskalistanum',
-'W_EMPTY'				=> 'Óskalistinn þinn er tómur',
-'W_OWN'					=> 'Ég á eintak af þessari mynd',
-'W_NOTOWN'				=> 'Ég á ekki eintak af þessari mynd',
+'W_ADD'					=> 'Setja ï¿½ ï¿½skalistann',
+'W_ONLIST'				=> 'Er ï¿½ ï¿½skalistanum',
+'W_EMPTY'				=> 'ï¿½skalistinn ï¿½inn er tï¿½mur',
+'W_OWN'					=> 'ï¿½g ï¿½ eintak af ï¿½essari mynd',
+'W_NOTOWN'				=> 'ï¿½g ï¿½ ekki eintak af ï¿½essari mynd',
 
 
 /* Comments */
 'C_COMMENTS'			=> 'Athugasemdir',
-'C_ADD'					=> 'Skrá athugasemd',
-'C_NONE'				=> 'Engar athugasemdir hafa verið sendar inn',
-'C_TYPE'				=> 'Sláðu inn athugasemd',
-'C_YOUR'				=> 'Þín athugasemd',
+'C_ADD'					=> 'Skrï¿½ athugasemd',
+'C_NONE'				=> 'Engar athugasemdir hafa veriï¿½ sendar inn',
+'C_TYPE'				=> 'Slï¿½ï¿½u inn athugasemd',
+'C_YOUR'				=> 'ï¿½ï¿½n athugasemd',
 'C_POST'				=> 'Senda athugasemd',
-'C_ERROR'				=> 'Skráðu þig inn áður en þú sendir inn athugasemd',
+'C_ERROR'				=> 'Skrï¿½ï¿½u ï¿½ig inn ï¿½ï¿½ur en ï¿½ï¿½ sendir inn athugasemd',
 
 
 /* Pornstars */
 'P_NAME'				=> 'Nafn',
-'P_WEB'					=> 'Vefsíða',
-'P_MOVIECOUNT'			=> 'Fjöldi mynda',
+'P_WEB'					=> 'Vefsï¿½ï¿½a',
+'P_MOVIECOUNT'			=> 'Fjï¿½ldi mynda',
 
 /* Seen List */
-'S_SEENIT'				=> 'Búinn að sjá hana',
-'S_NOTSEENIT'			=> 'Eftir að sjá hana',
-'S_SEENITCLICK'			=> 'Smelltu til að merkja sem séða',
-'S_NOTSEENITCLICK'		=> 'Smelltu til að merkja mynd óséða',
+'S_SEENIT'				=> 'Bï¿½inn aï¿½ sjï¿½ hana',
+'S_NOTSEENIT'			=> 'Eftir aï¿½ sjï¿½ hana',
+'S_SEENITCLICK'			=> 'Smelltu til aï¿½ merkja sem sï¿½ï¿½a',
+'S_NOTSEENITCLICK'		=> 'Smelltu til aï¿½ merkja mynd ï¿½sï¿½ï¿½a',
+
+/* Statistics */
+'STAT_TOP_MOVIES'		=> 'Movies in database',
+'STAT_TOP_CATS'			=> 'Top categories',
+'STAT_TOP_ACT'			=> 'Most active categories',
+'STAT_TOP_COVERS'		=> 'Covers in database',
+'STAT_TOTAL'			=> 'Total',
+'STAT_TODAY'			=> 'Added today',
+'STAT_WEEK'				=> 'Added in last 7 days',
+'STAT_MONTH'			=> 'Added in last 30 days',
 
 /* Mail messages */
-'MAIL_RETURNTOPIC'		=> 'Áminning um skil',
-'MAIL_RETURNMOVIES1'	=> '%s, vill minna þig á að skila myndunum mínum.\n
-							Þú ert með eftirtalda diska í láni :\n\n',
-'MAIL_RETURNMOVIES2'    => 'Vinsamlegast skilið diskunum sem fyrst\n Kveðjur %s \n\n
-							ps. þetta er sjálfvirkur póstur frá VCD-db kerfinu (http://vcddb.konni.com)',
+'MAIL_RETURNTOPIC'		=> 'ï¿½minning um skil',
+'MAIL_RETURNMOVIES1'	=> '%s, vill minna ï¿½ig ï¿½ aï¿½ skila myndunum mï¿½num.\n
+							ï¿½ï¿½ ert meï¿½ eftirtalda diska ï¿½ lï¿½ni :\n\n',
+'MAIL_RETURNMOVIES2'    => 'Vinsamlegast skiliï¿½ diskunum sem fyrst\n Kveï¿½jur %s \n\n
+							ps. ï¿½etta er sjï¿½lfvirkur pï¿½stur frï¿½ VCD-db kerfinu (http://vcddb.konni.com)',
 
-'MAIL_NOTIFY'  			=> '<strong>Ný mynd hefur verið skráð í grunninn</strong><br/>
-							 Smelltu <a href="%s/?page=cd&vcd_id=%s">hér</a> til að kíkja á málið
-							 <p>ps. þetta er sjálfvirkur póstur frá VCD kerfinu.</p>',
-'MAIL_REGISTER'		 	=> '%s, skráning þín tókst í VCD-db kerfið.<br><br>Notandanafnið þitt er %s og lykilorðið 
-							þitt er %s.<br><br>Þú getur síðan skipt um lykilorð eftir að þú hefur skráð þig inn.<br>
-							VCD-db vefurinn er síðan <a href="%s" target="_new">hér</a>.',
+'MAIL_NOTIFY'  			=> '<strong>Nï¿½ mynd hefur veriï¿½ skrï¿½ï¿½ ï¿½ grunninn</strong><br/>
+							 Smelltu <a href="%s/?page=cd&vcd_id=%s">hï¿½r</a> til aï¿½ kï¿½kja ï¿½ mï¿½liï¿½
+							 <p>ps. ï¿½etta er sjï¿½lfvirkur pï¿½stur frï¿½ VCD kerfinu.</p>',
+'MAIL_REGISTER'		 	=> '%s, skrï¿½ning ï¿½ï¿½n tï¿½kst ï¿½ VCD-db kerfiï¿½.<br><br>Notandanafniï¿½ ï¿½itt er %s og lykilorï¿½iï¿½
+							ï¿½itt er %s.<br><br>ï¿½ï¿½ getur sï¿½ï¿½an skipt um lykilorï¿½ eftir aï¿½ ï¿½ï¿½ hefur skrï¿½ï¿½ ï¿½ig inn.<br>
+							VCD-db vefurinn er sï¿½ï¿½an <a href="%s" target="_new">hï¿½r</a>.',
 
 /* Player */
 'PLAYER'				=> 'Spilari',
-'PLAYER_PATH'			=> 'Slóði',
-'PLAYER_PARAM'			=> 'Færibreytur',
-'PLAYER_NOTE'			=> 'Sláðu inn fullan slóða á spilara forritið þitt.
-							Spilarinn verður að geta tekið inn færibreytur á skjöl eins og td.
-							BSPlayer fyrir Windows eða MPlayer fyrir Linux.<br/>Þú getur náð í BS spilarann frítt 
-							<a href="http://www.bsplayer.org" target="_new">hérna</a> 
-							og MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">hérna</a>.',
+'PLAYER_PATH'			=> 'Slï¿½ï¿½i',
+'PLAYER_PARAM'			=> 'Fï¿½ribreytur',
+'PLAYER_NOTE'			=> 'Slï¿½ï¿½u inn fullan slï¿½ï¿½a ï¿½ spilara forritiï¿½ ï¿½itt.
+							Spilarinn verï¿½ur aï¿½ geta tekiï¿½ inn fï¿½ribreytur ï¿½ skjï¿½l eins og td.
+							BSPlayer fyrir Windows eï¿½a MPlayer fyrir Linux.<br/>ï¿½ï¿½ getur nï¿½ï¿½ ï¿½ BS spilarann frï¿½tt
+							<a href="http://www.bsplayer.org" target="_new">hï¿½rna</a>
+							og MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">hï¿½rna</a>.',
 
 
 /* Metadata */
-'META_MY'				=> 'Mín Aukagildi',
+'META_MY'				=> 'Mï¿½n Aukagildi',
 'META_NAME'				=> 'Lykill',
-'META_DESC'				=> 'Lýsing',
+'META_DESC'				=> 'Lï¿½sing',
 'META_TYPE'				=> 'Tegund',
 'META_VALUE'			=> 'Gildi',
-'META_NONE'				=> 'Engin aukagildi skráð.',
+'META_NONE'				=> 'Engin aukagildi skrï¿½ï¿½.',
 
 /* Ignore List */
-'IGN_LIST'				=> 'Útilokunar listi',
-'IGN_DESC'				=> 'Ekki birta myndir frá eftirfarandi notendum:',
+'IGN_LIST'				=> 'ï¿½tilokunar listi',
+'IGN_DESC'				=> 'Ekki birta myndir frï¿½ eftirfarandi notendum:',
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'inniheldur',
 'X_GRADE'				=> 'IMDB einkunn meira en',
 'X_ANY'					=> 'Allt',
 'X_TRYAGAIN'			=> 'Reyndu aftur',
-'X_PROCEED' 			=> 'Áfram',
+'X_PROCEED' 			=> 'ï¿½fram',
 'X_SELECT' 				=> 'Veldu',
-'X_CONFIRM' 			=> 'Staðfesta',
-'X_CANCEL' 				=> 'Hætta við',
-'X_ATTENTION' 			=> 'Athugið!',
-'X_STATUS' 				=> 'Staða',
-'X_SUCCESS' 			=> 'Tókst',
-'X_FAILURE' 			=> 'Mistókst',
-'X_YES' 				=> 'Já',
+'X_CONFIRM' 			=> 'Staï¿½festa',
+'X_CANCEL' 				=> 'Hï¿½tta viï¿½',
+'X_ATTENTION' 			=> 'Athugiï¿½!',
+'X_STATUS' 				=> 'Staï¿½a',
+'X_SUCCESS' 			=> 'Tï¿½kst',
+'X_FAILURE' 			=> 'Mistï¿½kst',
+'X_YES' 				=> 'Jï¿½',
 'X_NO' 					=> 'Nei',
-'X_SHOWMORE' 			=> 'Sýna meira',
-'X_SHOWLESS' 			=> 'Sýna minna',
-'X_NEW' 				=> 'Nýtt',
+'X_SHOWMORE' 			=> 'Sï¿½na meira',
+'X_SHOWLESS' 			=> 'Sï¿½na minna',
+'X_NEW' 				=> 'Nï¿½tt',
 'X_CHANGE' 				=> 'breyta',
-'X_DELETE' 				=> 'eyða',
-'X_UPDATE' 				=> 'Uppfæra',
+'X_DELETE' 				=> 'eyï¿½a',
+'X_UPDATE' 				=> 'Uppfï¿½ra',
 'X_SAVEANDCLOSE' 		=> 'Vista og loka',
 'X_CLOSE' 				=> 'Loka',
 'X_EDIT' 				=> 'Breyta',
-'X_RESULTS' 			=> 'Niðurstöður',
-'X_LATESTMOVIES' 		=> 'nýjustu myndirnar',
-'X_LATESTTV' 			=> 'nýjustu þættirnir',
-'X_LATESTBLUE' 			=> 'nýjustu XXX',
+'X_RESULTS' 			=> 'Niï¿½urstï¿½ï¿½ur',
+'X_LATESTMOVIES' 		=> 'nï¿½justu myndirnar',
+'X_LATESTTV' 			=> 'nï¿½justu ï¿½ï¿½ttirnir',
+'X_LATESTBLUE' 			=> 'nï¿½justu XXX',
 'X_MOVIES' 				=> 'myndir',
-'X_NOCATS' 				=> 'Engar myndir til í grunni.',
+'X_NOCATS' 				=> 'Engar myndir til ï¿½ grunni.',
 'X_NOUSERS' 			=> 'Engir virkir notendur',
 'X_KEY' 				=> 'Lykill',
-'X_SAVENEXT' 			=> 'Vista og breyta næstu',
+'X_SAVENEXT' 			=> 'Vista og breyta nï¿½stu',
 'X_SAVE' 				=> 'Vista',
-'X_SEEN' 				=> 'Séð'
+'X_SEEN' 				=> 'Sï¿½ï¿½',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
 
- 
+
+
 
 );
 

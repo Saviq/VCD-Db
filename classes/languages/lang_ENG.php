@@ -83,7 +83,6 @@ $_ = array(
 'SE_UPDATED'			=> 'User information updated',
 'SE_UPDATE_FAILED'		=> 'Failed to update',
 
-
 /* Search */
 'SEARCH' 				=> 'Search',
 'SEARCH_TITLE' 			=> 'By title',

@@ -2,27 +2,27 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
- * @author  Hákon Birgsson <konni@konni.com>
+ *
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
- 
+
 ?>
-<? 
-	/** 
+<?
+	/**
 		Hungarian language file
 		Thanks to MiszterX for the translation.
-	
+
 	*/
 
 
-	
+
 $_ = array(
 
 /* Language Identifier */
@@ -31,78 +31,80 @@ $_ = array(
 'LANG_CHARSET'		 	=> 'iso-8859-2',
 
 /* Menu system */
-'MENU_MINE' 			=> 'Saját menü',
-'MENU_SETTINGS' 		=> 'Saját Beáálításaim',
-'MENU_MOVIES' 			=> 'Saját filmjeim',
-'MENU_ADDMOVIE' 		=> 'Új film hozzáadása',
-'MENU_LOANSYSTEM'		=> 'Kölcsönadó rendszer',
-'MENU_WISHLIST' 		=> 'Saját Kívánságlistám',
-'MENU_CATEGORIES' 		=> 'Film Kategóriák',
-'MENU_RSS' 				=> 'Saját Rss Feeds',
-'MENU_CONTROLPANEL' 	=> 'Vezérlõpult',
-'MENU_REGISTER' 		=> 'Regisztráció',
-'MENU_LOGOUT' 			=> 'Kilépés',
-'MENU_SUBMIT'			=> 'Elküld',
-'MENU_TOPUSERS'			=> 'Top felhasználók',
-'MENU_WISHLISTPUBLIC'	=> 'Mások kívánságlistája',
-'MENU_STATISTICS'		=> 'Statisztikák',
+'MENU_MINE' 			=> 'Sajï¿½t menï¿½',
+'MENU_SETTINGS' 		=> 'Sajï¿½t Beï¿½ï¿½lï¿½tï¿½saim',
+'MENU_MOVIES' 			=> 'Sajï¿½t filmjeim',
+'MENU_ADDMOVIE' 		=> 'ï¿½j film hozzï¿½adï¿½sa',
+'MENU_LOANSYSTEM'		=> 'Kï¿½lcsï¿½nadï¿½ rendszer',
+'MENU_WISHLIST' 		=> 'Sajï¿½t Kï¿½vï¿½nsï¿½glistï¿½m',
+'MENU_CATEGORIES' 		=> 'Film Kategï¿½riï¿½k',
+'MENU_RSS' 				=> 'Sajï¿½t Rss Feeds',
+'MENU_CONTROLPANEL' 	=> 'Vezï¿½rlï¿½pult',
+'MENU_REGISTER' 		=> 'Regisztrï¿½ciï¿½',
+'MENU_LOGOUT' 			=> 'Kilï¿½pï¿½s',
+'MENU_SUBMIT'			=> 'Elkï¿½ld',
+'MENU_TOPUSERS'			=> 'Top felhasznï¿½lï¿½k',
+'MENU_WISHLISTPUBLIC'	=> 'Mï¿½sok kï¿½vï¿½nsï¿½glistï¿½ja',
+'MENU_STATISTICS'		=> 'Statisztikï¿½k',
 
 /* Login */
-'LOGIN' 				=> 'Belépés',
-'LOGIN_USERNAME' 		=> 'Felhasználó név',
+'LOGIN' 				=> 'Belï¿½pï¿½s',
+'LOGIN_USERNAME' 		=> 'Felhasznï¿½lï¿½ nï¿½v',
 'LOGIN_PASSWORD' 		=> 'Password',
-'LOGIN_REMEMBER' 		=> 'Emlékezz rám',
-'LOGIN_INFO' 			=> 'Hagyd ezt a mezõt üresen ha <b>nem</b> akarod a passwordödet megváltoztatni.',
+'LOGIN_REMEMBER' 		=> 'Emlï¿½kezz rï¿½m',
+'LOGIN_INFO' 			=> 'Hagyd ezt a mezï¿½t ï¿½resen ha <b>nem</b> akarod a passwordï¿½det megvï¿½ltoztatni.',
 
 /* Register */
-'REGISTER_TITLE'		=> 'Regisztráció',
-'REGISTER_FULLNAME' 	=> 'Teljes név',
+'REGISTER_TITLE'		=> 'Regisztrï¿½ciï¿½',
+'REGISTER_FULLNAME' 	=> 'Teljes nï¿½v',
 'REGISTER_EMAIL' 		=> 'Email',
-'REGISTER_AGAIN' 		=> 'Password újra',
-'REGISTER_DISABLED' 	=> 'Bocsi, Az administrátor kikapcsolta a regisztrációt most.',
-'REGISTER_OK' 			=> 'Regisztráció sikers volt, most be tudsz lépni a VCD-dbbe.',
+'REGISTER_AGAIN' 		=> 'Password ï¿½jra',
+'REGISTER_DISABLED' 	=> 'Bocsi, Az administrï¿½tor kikapcsolta a regisztrï¿½ciï¿½t most.',
+'REGISTER_OK' 			=> 'Regisztrï¿½ciï¿½ sikers volt, most be tudsz lï¿½pni a VCD-dbbe.',
 
 /* User Properties */
-'PRO_NOTIFY' 			=> 'Küldjön nekem egy email, ha új filme került hozzáadásra?',
-'PRO_SHOW_ADULT' 		=> 'Mutassa a felnõtt tartalmat is az oldalon?',
-'PRO_RSS' 				=> 'Engedjéjezem a RSS feed a saját filmjistámról?',
-'PRO_WISHLIST' 			=> 'Engedéjezem másoknak, hogy láthassák az én kívánságlistámat ?',
-'PRO_USE_INDEX' 		=> 'Használjon index szám mezõt a médiák azonosítójának',
-'PRO_SEEN_LIST' 		=> 'Tartsd meg ezt a filmet, hogy láthassam',
+'PRO_NOTIFY' 			=> 'Kï¿½ldjï¿½n nekem egy email, ha ï¿½j filme kerï¿½lt hozzï¿½adï¿½sra?',
+'PRO_SHOW_ADULT' 		=> 'Mutassa a felnï¿½tt tartalmat is az oldalon?',
+'PRO_RSS' 				=> 'Engedjï¿½jezem a RSS feed a sajï¿½t filmjistï¿½mrï¿½l?',
+'PRO_WISHLIST' 			=> 'Engedï¿½jezem mï¿½soknak, hogy lï¿½thassï¿½k az ï¿½n kï¿½vï¿½nsï¿½glistï¿½mat ?',
+'PRO_USE_INDEX' 		=> 'Hasznï¿½ljon index szï¿½m mezï¿½t a mï¿½diï¿½k azonosï¿½tï¿½jï¿½nak',
+'PRO_SEEN_LIST' 		=> 'Tartsd meg ezt a filmet, hogy lï¿½thassam',
 'PRO_PLAYOPTION' 		=> 'Use client playback options',
 'PRO_NFO' 				=> 'Enable NFO files?',
 
 /* User Settings */
-'SE_PLAYER' 			=> 'Lejátszó beállítások',
-'SE_OWNFEED' 			=> 'Saját feed megtekintése',
+'SE_PLAYER' 			=> 'Lejï¿½tszï¿½ beï¿½llï¿½tï¿½sok',
+'SE_OWNFEED' 			=> 'Sajï¿½t feed megtekintï¿½se',
 'SE_CUSTOM' 			=> 'Customize my frontpage',
-'SE_SHOWSTAT' 			=> 'Mutasd a statisztikákat',
-'SE_SHOWSIDE' 			=> 'Mutassa az új filmeket a sidebar-ban',
+'SE_SHOWSTAT' 			=> 'Mutasd a statisztikï¿½kat',
+'SE_SHOWSIDE' 			=> 'Mutassa az ï¿½j filmeket a sidebar-ban',
 'SE_SELECTRSS' 			=> 'Select RSS feeds',
 'SE_PAGELOOK' 			=> 'Web layout',
 'SE_PAGEMODE' 			=> 'Select default template:',
+'SE_UPDATED'			=> 'User information updated',
+'SE_UPDATE_FAILED'		=> 'Failed to update',
 
 
 /* Search */
 'SEARCH' 				=> 'Search',
-'SEARCH_TITLE' 			=> 'Cím szerint',
-'SEARCH_ACTOR' 			=> 'Színész szerint',
-'SEARCH_DIRECTOR' 		=> 'Rendezõ szerint',
-'SEARCH_RESULTS' 		=> 'Értékeléses keresés',
-'SEARCH_EXTENDED' 		=> 'Részletes keresés',
-'SEARCH_NORESULT' 		=> 'A keresesés eredménytelen volt',
+'SEARCH_TITLE' 			=> 'Cï¿½m szerint',
+'SEARCH_ACTOR' 			=> 'Szï¿½nï¿½sz szerint',
+'SEARCH_DIRECTOR' 		=> 'Rendezï¿½ szerint',
+'SEARCH_RESULTS' 		=> 'ï¿½rtï¿½kelï¿½ses keresï¿½s',
+'SEARCH_EXTENDED' 		=> 'Rï¿½szletes keresï¿½s',
+'SEARCH_NORESULT' 		=> 'A keresesï¿½s eredmï¿½nytelen volt',
 
 /* Movie categories*/
-'CAT_ACTION' 			=> 'Akció',
-'CAT_ADULT' 			=> 'Felnõtt',
+'CAT_ACTION' 			=> 'Akciï¿½',
+'CAT_ADULT' 			=> 'Felnï¿½tt',
 'CAT_ADVENTURE' 		=> 'Kaland',
-'CAT_ANIMATION' 		=> 'Animációs',
+'CAT_ANIMATION' 		=> 'Animï¿½ciï¿½s',
 'CAT_ANIME' 			=> 'Anime / Manga',
-'CAT_COMEDY' 			=> 'Vígjáték',
+'CAT_COMEDY' 			=> 'Vï¿½gjï¿½tï¿½k',
 'CAT_CRIME' 			=> 'Krimi',
 'CAT_DOCUMENTARY' 		=> 'Documentum',
-'CAT_DRAMA' 			=> 'Dráma',
-'CAT_FAMILY' 			=> 'Családi',
+'CAT_DRAMA' 			=> 'Drï¿½ma',
+'CAT_FAMILY' 			=> 'Csalï¿½di',
 'CAT_FANTASY' 			=> 'Fantasy',
 'CAT_FILMNOIR' 			=> 'Film Noir',
 'CAT_HORROR' 			=> 'Horror',
@@ -112,62 +114,62 @@ $_ = array(
 'CAT_MYSTERY' 			=> 'Mystery',
 'CAT_ROMANCE' 			=> 'Romantikus',
 'CAT_SCIFI' 			=> 'Sci-Fi',
-'CAT_SHORT' 			=> 'Rövid',
+'CAT_SHORT' 			=> 'Rï¿½vid',
 'CAT_THRILLER' 			=> 'Thiller',
 'CAT_TVSHOWS' 			=> 'TV Shows',
-'CAT_WAR' 				=> 'Háborús',
+'CAT_WAR' 				=> 'Hï¿½borï¿½s',
 'CAT_WESTERN' 			=> 'Western',
 'CAT_XRATED' 			=> 'X-Rated',
 
 /* Movie Listings */
 'M_MOVIE' 				=> 'A Film',
-'M_ACTORS' 				=> 'Szereplõk',
-'M_CATEGORY'		    => 'Kategória',
-'M_YEAR'				=> 'Kiadás éve',
-'M_COPIES'				=> 'Másolatok',
-'M_FROM' 				=> 'Származás',
-'M_TITLE' 				=> 'Cím',
-'M_ALTTITLE' 			=> 'Másik cím',
-'M_GRADE'				=> 'Értékelés',
-'M_DIRECTOR' 			=> 'Rendezõ',
-'M_COUNTRY'				=> 'Megjelenési Ország',
+'M_ACTORS' 				=> 'Szereplï¿½k',
+'M_CATEGORY'		    => 'Kategï¿½ria',
+'M_YEAR'				=> 'Kiadï¿½s ï¿½ve',
+'M_COPIES'				=> 'Mï¿½solatok',
+'M_FROM' 				=> 'Szï¿½rmazï¿½s',
+'M_TITLE' 				=> 'Cï¿½m',
+'M_ALTTITLE' 			=> 'Mï¿½sik cï¿½m',
+'M_GRADE'				=> 'ï¿½rtï¿½kelï¿½s',
+'M_DIRECTOR' 			=> 'Rendezï¿½',
+'M_COUNTRY'				=> 'Megjelenï¿½si Orszï¿½g',
 'M_RUNTIME' 			=> 'Runtime',
 'M_MINUTES'			 	=> 'perc',
-'M_PLOT' 				=> 'Cselekmény',
-'M_NOPLOT' 				=> 'Nem áll rendelkezésre összegzõ cselekmény',
-'M_COVERS' 				=> 'Borító',
-'M_AVAILABLE' 			=> 'Rendelkezésre álló másolatok',
-'M_MEDIA'			 	=> 'Médium',
+'M_PLOT' 				=> 'Cselekmï¿½ny',
+'M_NOPLOT' 				=> 'Nem ï¿½ll rendelkezï¿½sre ï¿½sszegzï¿½ cselekmï¿½ny',
+'M_COVERS' 				=> 'Borï¿½tï¿½',
+'M_AVAILABLE' 			=> 'Rendelkezï¿½sre ï¿½llï¿½ mï¿½solatok',
+'M_MEDIA'			 	=> 'Mï¿½dium',
 'M_NUM' 				=> 'Darab CD\'k',
-'M_DATE' 				=> 'Hozzáadás dátumad',
+'M_DATE' 				=> 'Hozzï¿½adï¿½s dï¿½tumad',
 'M_OWNER'			 	=> 'Birtokos',
-'M_NOACTORS'		    => 'Nem található színész',
-'M_INFO'			    => 'Film információ',
-'M_DETAILS'			    => 'Részletes másolatokDetails on my copy',
-'M_MEDIATYPE'		    => 'Media típusa',
-'M_COMMENT'			    => 'Hozzászólás',
-'M_PRIVATE'				=> 'Privát film (más nem láthatja)?',
-'M_SCREENSHOTS'			=> 'Képernyõkép',
-'M_NOSCREENS'			=> 'Nincs képernyõkép',
+'M_NOACTORS'		    => 'Nem talï¿½lhatï¿½ szï¿½nï¿½sz',
+'M_INFO'			    => 'Film informï¿½ciï¿½',
+'M_DETAILS'			    => 'Rï¿½szletes mï¿½solatokDetails on my copy',
+'M_MEDIATYPE'		    => 'Media tï¿½pusa',
+'M_COMMENT'			    => 'Hozzï¿½szï¿½lï¿½s',
+'M_PRIVATE'				=> 'Privï¿½t film (mï¿½s nem lï¿½thatja)?',
+'M_SCREENSHOTS'			=> 'Kï¿½pernyï¿½kï¿½p',
+'M_NOSCREENS'			=> 'Nincs kï¿½pernyï¿½kï¿½p',
 'M_SHOW'				=> 'Mutasd',
 'M_HIDE'				=> 'Rejtsd el',
-'M_CHANGE'				=> 'Információ megváltoztatása',
-'M_NOCOVERS'			=> 'Nincs CD-borító',
-'M_BYCAT'				=> 'Kategória címek',
-'M_CURRCAT'				=> 'Jelenlegi kategórai',
-'M_TEXTVIEW'			=> 'Szöveges nézet',
-'M_IMAGEVIEW'			=> 'Képes nézet',
-'M_MINEONLY'			=> 'Csak az én filmjeimet mutasd',
+'M_CHANGE'				=> 'Informï¿½ciï¿½ megvï¿½ltoztatï¿½sa',
+'M_NOCOVERS'			=> 'Nincs CD-borï¿½tï¿½',
+'M_BYCAT'				=> 'Kategï¿½ria cï¿½mek',
+'M_CURRCAT'				=> 'Jelenlegi kategï¿½rai',
+'M_TEXTVIEW'			=> 'Szï¿½veges nï¿½zet',
+'M_IMAGEVIEW'			=> 'Kï¿½pes nï¿½zet',
+'M_MINEONLY'			=> 'Csak az ï¿½n filmjeimet mutasd',
 'M_SIMILAR'				=> 'Similar filmek',
-'M_MEDIAINDEX'			=> 'Médiák index',
+'M_MEDIAINDEX'			=> 'Mï¿½diï¿½k index',
 
 /* IMDB */
-'I_DETAILS'				=> 'IMDB részletek',
-'I_PLOT'				=> 'Cselekmény összegzés',
-'I_GALLERY'				=> 'Fotó Gallériar',
-'I_TRAILERS'			=> 'Elõzetesek',
+'I_DETAILS'				=> 'IMDB rï¿½szletek',
+'I_PLOT'				=> 'Cselekmï¿½ny ï¿½sszegzï¿½s',
+'I_GALLERY'				=> 'Fotï¿½ Gallï¿½riar',
+'I_TRAILERS'			=> 'Elï¿½zetesek',
 'I_LINKS'				=> 'IMDB Linkek',
-'I_NOT'					=> 'Nincs IMDB információ errõl',
+'I_NOT'					=> 'Nincs IMDB informï¿½ciï¿½ errï¿½l',
 
 /* DVD Specific */
 'DVD_REGION'			=> 'Region',
@@ -177,94 +179,94 @@ $_ = array(
 'DVD_SUBTITLES'			=> 'Subtitles',
 
 /* My Movies */
-'MY_EXPORT' 			=> 'Adatok exportálása',
-'MY_EXCEL' 				=> 'Export Excel dokumentumként',
-'MY_XML' 				=> 'Export XML dokumentumként',
-'MY_XMLTHUMBS'			=> 'Export thumbnails XMLként',
-'MY_ACTIONS'			=> 'Lehetõségeim',
+'MY_EXPORT' 			=> 'Adatok exportï¿½lï¿½sa',
+'MY_EXCEL' 				=> 'Export Excel dokumentumkï¿½nt',
+'MY_XML' 				=> 'Export XML dokumentumkï¿½nt',
+'MY_XMLTHUMBS'			=> 'Export thumbnails XMLkï¿½nt',
+'MY_ACTIONS'			=> 'Lehetï¿½sï¿½geim',
 'MY_JOIN'				=> 'Disc join',
 'MY_JOINMOVIES'			=> 'Disc join movies',
-'MY_JOINSUSER'			=> 'Felhasználó választás',
-'MY_JOINSMEDIA'			=> 'Media típus választás',
-'MY_JOINSCAT'			=> 'Kategória választás',
-'MY_JOINSTYPE'			=> 'Lehetõség választása',
-'MY_JOINSHOW'			=> 'Mutasd a találatokat',
-'MY_NORESULTS'			=> 'Nincs találat',
+'MY_JOINSUSER'			=> 'Felhasznï¿½lï¿½ vï¿½lasztï¿½s',
+'MY_JOINSMEDIA'			=> 'Media tï¿½pus vï¿½lasztï¿½s',
+'MY_JOINSCAT'			=> 'Kategï¿½ria vï¿½lasztï¿½s',
+'MY_JOINSTYPE'			=> 'Lehetï¿½sï¿½g vï¿½lasztï¿½sa',
+'MY_JOINSHOW'			=> 'Mutasd a talï¿½latokat',
+'MY_NORESULTS'			=> 'Nincs talï¿½lat',
 'MY_TEXTALL'			=> 'Mutasd (Text)',
 'MY_PWALL'				=> 'Mutasd (Mind)',
 'MY_PWMOVIES'			=> 'Mutasd (Filmeket)',
 'MY_PWTV'				=> 'Mutasd (Tv Showkat)',
-'MY_PWBLUE'				=> 'Mutasd ("Kék" filmeket)',
+'MY_PWBLUE'				=> 'Mutasd ("Kï¿½k" filmeket)',
 'MY_J1'					=> 'Movies i got but user not',
 'MY_J2'					=> 'Movies that user owns but i dont',
 'MY_J3'					=> 'Movies we both own',
-'MY_OVERVIEW'			=> 'Kollekció áttekintése',
-'MY_INFO'				=> 'Ezen az oldalon megtalálhatsz minden információt a filmjeimrõl.
+'MY_OVERVIEW'			=> 'Kollekciï¿½ ï¿½ttekintï¿½se',
+'MY_INFO'				=> 'Ezen az oldalon megtalï¿½lhatsz minden informï¿½ciï¿½t a filmjeimrï¿½l.
 							To the right are actions you can run on your movie collection.
 							You can also export your list as Excel for printing or use the XML
 							export functions for backup or to move all your collection data from one
 							VCD-db to another.',
-'MY_KEYS'				=> 'Egyedi azonosító szerkesztése',
-'MY_SEENLIST'			=> 'Megnézett filmek kezelése',
-'MY_HELPPICKER'			=> 'Dobj egy filmet amit megnézzek',
-'MY_HELPPICKERINFO'		=> 'Nem tudod mit kéne nézni este?<br/>Használd a Filmtárat, hogy segítsen a keresésben.<br/>
-							Be tudsz állítani különbözõ szõrõket ami alapján javasol egy filmet a Filmtár.',
-'MY_FIND'				=> 'Megtalálni egy filmet',
-'MY_NOTSEEN'			=> 'Csak olyan filmeket javasolj amiket még nem láttam',
-'MY_FRIENDS'			=> 'Barátaim akik CD-ket kértek kölcsön tõllem',
+'MY_KEYS'				=> 'Egyedi azonosï¿½tï¿½ szerkesztï¿½se',
+'MY_SEENLIST'			=> 'Megnï¿½zett filmek kezelï¿½se',
+'MY_HELPPICKER'			=> 'Dobj egy filmet amit megnï¿½zzek',
+'MY_HELPPICKERINFO'		=> 'Nem tudod mit kï¿½ne nï¿½zni este?<br/>Hasznï¿½ld a Filmtï¿½rat, hogy segï¿½tsen a keresï¿½sben.<br/>
+							Be tudsz ï¿½llï¿½tani kï¿½lï¿½nbï¿½zï¿½ szï¿½rï¿½ket ami alapjï¿½n javasol egy filmet a Filmtï¿½r.',
+'MY_FIND'				=> 'Megtalï¿½lni egy filmet',
+'MY_NOTSEEN'			=> 'Csak olyan filmeket javasolj amiket mï¿½g nem lï¿½ttam',
+'MY_FRIENDS'			=> 'Barï¿½taim akik CD-ket kï¿½rtek kï¿½lcsï¿½n tï¿½llem',
 
 
 /* Manager window */
-'MAN_BASIC' 			=> 'Alap információ',
-'MAN_IMDB' 				=> 'IMDB infó',
-'MAN_EMPIRE' 			=> 'DVDEmpire infó',
-'MAN_COPY' 				=> 'Másolatom',
-'MAN_COPIES' 			=> 'Másolataim',
-'MAN_NOCOPY' 			=> 'Nincs másolatod',
-'MAN_1COPY' 			=> 'Másol',
-'MAN_ADDACT' 			=> 'Színész hozzáadása',
-'MAN_ADDTODB' 			=> 'Új színész hozzáadása az adatbázishoz',
-'MAN_SAVETODB' 			=> 'Mentés adatbázisba',
-'MAN_SAVETODBNCD' 		=> 'Mentés adatbázisba és filmbe',
-'MAN_INDB' 				=> 'A színész az adatbázisban',
-'MAN_SEL' 				=> 'Színész kiválasztása',
+'MAN_BASIC' 			=> 'Alap informï¿½ciï¿½',
+'MAN_IMDB' 				=> 'IMDB infï¿½',
+'MAN_EMPIRE' 			=> 'DVDEmpire infï¿½',
+'MAN_COPY' 				=> 'Mï¿½solatom',
+'MAN_COPIES' 			=> 'Mï¿½solataim',
+'MAN_NOCOPY' 			=> 'Nincs mï¿½solatod',
+'MAN_1COPY' 			=> 'Mï¿½sol',
+'MAN_ADDACT' 			=> 'Szï¿½nï¿½sz hozzï¿½adï¿½sa',
+'MAN_ADDTODB' 			=> 'ï¿½j szï¿½nï¿½sz hozzï¿½adï¿½sa az adatbï¿½zishoz',
+'MAN_SAVETODB' 			=> 'Mentï¿½s adatbï¿½zisba',
+'MAN_SAVETODBNCD' 		=> 'Mentï¿½s adatbï¿½zisba ï¿½s filmbe',
+'MAN_INDB' 				=> 'A szï¿½nï¿½sz az adatbï¿½zisban',
+'MAN_SEL' 				=> 'Szï¿½nï¿½sz kivï¿½lasztï¿½sa',
 'MAN_STARS' 			=> 'Csillagok',
-'MAN_BROWSE'			=> 'Tallózd a file elérhetõségét',
+'MAN_BROWSE'			=> 'Tallï¿½zd a file elï¿½rhetï¿½sï¿½gï¿½t',
 
 
 /* Add movies */
-'ADD_INFO' 				=> 'Választ ki a módot a film hozzáadásához',
-'ADD_IMDB' 				=> 'Lekérni a Internet Movie Database-ból',
-'ADD_IMDBTITLE' 		=> 'Kulcsszó megadása kereséshez',
-'ADD_MANUAL' 			=> 'Adat megadása kézzel',
-'ADD_LISTED' 			=> 'A film már benne van a listában',
-'ADD_XML' 				=> 'FIlm hozzáadása exportált XML file-bõl',
-'ADD_XMLFILE' 			=> 'Válaszd ki az XML file-t az importáláshoz',
-'ADD_XMLNOTE' 			=> '(Please note, only XML files that have been exported from another VCD-db application 
-							can be used to import your movies here. You can export your movies from the "My movies" 
+'ADD_INFO' 				=> 'Vï¿½laszt ki a mï¿½dot a film hozzï¿½adï¿½sï¿½hoz',
+'ADD_IMDB' 				=> 'Lekï¿½rni a Internet Movie Database-bï¿½l',
+'ADD_IMDBTITLE' 		=> 'Kulcsszï¿½ megadï¿½sa keresï¿½shez',
+'ADD_MANUAL' 			=> 'Adat megadï¿½sa kï¿½zzel',
+'ADD_LISTED' 			=> 'A film mï¿½r benne van a listï¿½ban',
+'ADD_XML' 				=> 'FIlm hozzï¿½adï¿½sa exportï¿½lt XML file-bï¿½l',
+'ADD_XMLFILE' 			=> 'Vï¿½laszd ki az XML file-t az importï¿½lï¿½shoz',
+'ADD_XMLNOTE' 			=> '(Please note, only XML files that have been exported from another VCD-db application
+							can be used to import your movies here. You can export your movies from the "My movies"
 							section. You should avoid manual editing of the exported XML files. ) ',
-'ADD_MAXFILESIZE'		=> 'Max fileméret',
-'ADD_DVDEMPIRE' 		=> 'Lekérés az Adult DVD Empire-tõl (X-rated filmek)',
-'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media 
+'ADD_MAXFILESIZE'		=> 'Max filemï¿½ret',
+'ADD_DVDEMPIRE' 		=> 'Lekï¿½rï¿½s az Adult DVD Empire-tï¿½l (X-rated filmek)',
+'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media
 						    type in next step.',
 'ADD_LISTEDSTEP2' 		=> 'Step 2.<br/>Select the appropriate media type.',
 'ADD_INDB' 				=> 'Movies in VCD-DB',
-'ADD_SELECTED' 			=> 'Kiválasztott címek',
+'ADD_SELECTED' 			=> 'Kivï¿½lasztott cï¿½mek',
 'ADD_INFOLIST' 			=> 'Double click on title to select title or use the arrows.<br/>You can use the keyboard to
 							quickly find titles.',
-'ADD_NOTITLES' 			=> 'Nincs másik felhasználónak ez a film hozzáadva a Filmtárba',
+'ADD_NOTITLES' 			=> 'Nincs mï¿½sik felhasznï¿½lï¿½nak ez a film hozzï¿½adva a Filmtï¿½rba',
 
 
 /* Add from XML */
-'XML_CONFIRM' 			=> 'Az XML feltötlését igazolása',
+'XML_CONFIRM' 			=> 'Az XML feltï¿½tlï¿½sï¿½t igazolï¿½sa',
 'XML_CONTAINS' 			=> 'XML file  %d filmeket tartalmazza.',
 'XML_INFO1' 			=> 'Press confirm to process the movies and save to the database.<br/>
 							Or press cancel to bail out. ',
-'XML_INFO2' 			=> 'If you want to include the thumbnails (posters) with the movies that you are about to 
+'XML_INFO2' 			=> 'If you want to include the thumbnails (posters) with the movies that you are about to
 							import in your XML file, you <b>MUST</b> have the thumbnails XML file availeble now!.<br/>
-							Posters cannot be imported after you have finished importing you movies from the current XML file. 
-							If you already have the thumbnails XML file available check the field below and in next step 
-							after the import of your movies in the list below, you will be asked to submit you thumbnails XML 
+							Posters cannot be imported after you have finished importing you movies from the current XML file.
+							If you already have the thumbnails XML file available check the field below and in next step
+							after the import of your movies in the list below, you will be asked to submit you thumbnails XML
 							file aswell for processing. ',
 'XML_THUMBNAILS'		=> 'Insert thumbnails from my thumbnails XML file ',
 'XML_LIST'				=> 'Full list of movies found in XML file.',
@@ -275,32 +277,32 @@ $_ = array(
 
 
 /* Add from DVD Empire */
-'EM_INFO'				=> 'Információk AdultDVDEmpire.com-tól ....',
-'EM_DESC'				=> 'DVDEmpire leírása',
-'EM_SUBCAT'				=> 'Adult kategóriák',
+'EM_INFO'				=> 'Informï¿½ciï¿½k AdultDVDEmpire.com-tï¿½l ....',
+'EM_DESC'				=> 'DVDEmpire leï¿½rï¿½sa',
+'EM_SUBCAT'				=> 'Adult kategï¿½riï¿½k',
 'EM_DETAILS'			=> 'Adultdvdempire.com details',
-'EM_STARS'				=> 'Pornócsillagok',
+'EM_STARS'				=> 'Pornï¿½csillagok',
 'EM_NOTICE'				=> 'Actors marked red are currently not in the VCD-DB.
 							But you can check their names and they will be automatically added to the VCD-db
 						    and associated with this movie.',
 'EM_FETCH'				=> 'Fetch Also',
 
 /* Loan System */
-'LOAN_MOVIES'			=> 'Filmek kölcsönzésre',
-'LOAN_TO'				=> 'Kölcsönadom a filmet neki',
-'LOAN_ADDUSERS'			=> 'Adj néhány kölcsönzõ felhasználót hogy folytathasd',
-'LOAN_NEWUSER'			=> 'Új kölcsönzõ',
-'LOAN_REGISTERUSER'		=> 'Újkölcsönzõ hozzáadása',
+'LOAN_MOVIES'			=> 'Filmek kï¿½lcsï¿½nzï¿½sre',
+'LOAN_TO'				=> 'Kï¿½lcsï¿½nadom a filmet neki',
+'LOAN_ADDUSERS'			=> 'Adj nï¿½hï¿½ny kï¿½lcsï¿½nzï¿½ felhasznï¿½lï¿½t hogy folytathasd',
+'LOAN_NEWUSER'			=> 'ï¿½j kï¿½lcsï¿½nzï¿½',
+'LOAN_REGISTERUSER'		=> 'ï¿½jkï¿½lcsï¿½nzï¿½ hozzï¿½adï¿½sa',
 'LOAN_NAME'				=> 'Neve',
-'LOAN_SELECT'			=> 'Kölcsönzõ kiválasztása',
-'LOAN_MOVIELOANS'		=> 'Kölcsönzendõ filmek ...',
-'LOAN_REMINDER'			=> 'Küldj emlékeztetést',
-'LOAN_HISTORY'			=> 'Kölcsönzési napló',
-'LOAN_HISTORY2'			=> 'Kölcsönzési napló megtekintése',
-'LOAN_SINCE'			=> 'Tõl',
-'LOAN_TIME'				=> 'Idõpontól',
-'LOAN_RETURN'			=> 'Visszaadva a másolat',
-'LOAN_SUCCESS'			=> 'A film kölcsönzése jóváhagyva',
+'LOAN_SELECT'			=> 'Kï¿½lcsï¿½nzï¿½ kivï¿½lasztï¿½sa',
+'LOAN_MOVIELOANS'		=> 'Kï¿½lcsï¿½nzendï¿½ filmek ...',
+'LOAN_REMINDER'			=> 'Kï¿½ldj emlï¿½keztetï¿½st',
+'LOAN_HISTORY'			=> 'Kï¿½lcsï¿½nzï¿½si naplï¿½',
+'LOAN_HISTORY2'			=> 'Kï¿½lcsï¿½nzï¿½si naplï¿½ megtekintï¿½se',
+'LOAN_SINCE'			=> 'Tï¿½l',
+'LOAN_TIME'				=> 'Idï¿½pontï¿½l',
+'LOAN_RETURN'			=> 'Visszaadva a mï¿½solat',
+'LOAN_SUCCESS'			=> 'A film kï¿½lcsï¿½nzï¿½se jï¿½vï¿½hagyva',
 'LOAN_OUT'				=> 'Nincs visszahozva',
 'LOAN_DATEIN'			=> 'Visszahozva',
 'LOAN_DATEOUT'			=> 'Kiadva',
@@ -308,7 +310,7 @@ $_ = array(
 'LOAN_BACK'				=> 'Back to loan index',
 'LOAN_DAY'				=> 'nap',
 'LOAN_DAYS'				=> 'napok',
-'LOAN_TODAY'			=> 'mától',
+'LOAN_TODAY'			=> 'mï¿½tï¿½l',
 
 
 /* RSS */
@@ -328,58 +330,68 @@ $_ = array(
 
 
 /* Wishlist */
-'W_ADD'					=> 'Hozzáadás a Kívánságlistámhoz',
-'W_ONLIST'				=> 'A saját kívánságlistádon',
-'W_EMPTY'				=> 'A kívánságlistád üres',
-'W_OWN'					=> 'Már van másolatom errõl a filmrõl',
-'W_NOTOWN'				=> 'Nem rendelkezem másolattal errõl a filmrõl',
+'W_ADD'					=> 'Hozzï¿½adï¿½s a Kï¿½vï¿½nsï¿½glistï¿½mhoz',
+'W_ONLIST'				=> 'A sajï¿½t kï¿½vï¿½nsï¿½glistï¿½don',
+'W_EMPTY'				=> 'A kï¿½vï¿½nsï¿½glistï¿½d ï¿½res',
+'W_OWN'					=> 'Mï¿½r van mï¿½solatom errï¿½l a filmrï¿½l',
+'W_NOTOWN'				=> 'Nem rendelkezem mï¿½solattal errï¿½l a filmrï¿½l',
 
 
 /* Comments */
-'C_COMMENTS'			=> 'Hozzászólások',
-'C_ADD'					=> 'Új hozzászólás hozzáadáasa',
-'C_NONE'				=> 'Nincs hozzászólás',
-'C_TYPE'				=> 'Írj egy új hozzászólást',
-'C_YOUR'				=> 'A te hozzászólásod',
+'C_COMMENTS'			=> 'Hozzï¿½szï¿½lï¿½sok',
+'C_ADD'					=> 'ï¿½j hozzï¿½szï¿½lï¿½s hozzï¿½adï¿½asa',
+'C_NONE'				=> 'Nincs hozzï¿½szï¿½lï¿½s',
+'C_TYPE'				=> 'ï¿½rj egy ï¿½j hozzï¿½szï¿½lï¿½st',
+'C_YOUR'				=> 'A te hozzï¿½szï¿½lï¿½sod',
 'C_POST'				=> 'Post comment',
-'C_ERROR'				=> 'Be kell jelentkezned hogy kommentálhass',
+'C_ERROR'				=> 'Be kell jelentkezned hogy kommentï¿½lhass',
 
 
 /* Pornstars */
-'P_NAME'				=> 'Név',
+'P_NAME'				=> 'Nï¿½v',
 'P_WEB'					=> 'Website',
-'P_MOVIECOUNT'			=> 'Film számláló',
+'P_MOVIECOUNT'			=> 'Film szï¿½mlï¿½lï¿½',
 
 
 /* Seen List */
-'S_SEENIT'				=> 'Már láttam',
-'S_NOTSEENIT'			=> 'Még nem láttam ',
-'S_SEENITCLICK'			=> 'Már láttam-ra állításhoz klikk',
-'S_NOTSEENITCLICK'		=> 'Még nemláttam-ra állításhoz klikk',
+'S_SEENIT'				=> 'Mï¿½r lï¿½ttam',
+'S_NOTSEENIT'			=> 'Mï¿½g nem lï¿½ttam ',
+'S_SEENITCLICK'			=> 'Mï¿½r lï¿½ttam-ra ï¿½llï¿½tï¿½shoz klikk',
+'S_NOTSEENITCLICK'		=> 'Mï¿½g nemlï¿½ttam-ra ï¿½llï¿½tï¿½shoz klikk',
+
+/* Statistics */
+'STAT_TOP_MOVIES'		=> 'Movies in database',
+'STAT_TOP_CATS'			=> 'Top categories',
+'STAT_TOP_ACT'			=> 'Most active categories',
+'STAT_TOP_COVERS'		=> 'Covers in database',
+'STAT_TOTAL'			=> 'Total',
+'STAT_TODAY'			=> 'Added today',
+'STAT_WEEK'				=> 'Added in last 7 days',
+'STAT_MONTH'			=> 'Added in last 30 days',
 
 /* Mail messages */
 'MAIL_RETURNTOPIC'		=> 'Loan reminder',
-'MAIL_RETURNMOVIES1'	=> '%s, csak emlékeztetni szeretnélek hogy vissza kell hoznod a filmem.\n
+'MAIL_RETURNMOVIES1'	=> '%s, csak emlï¿½keztetni szeretnï¿½lek hogy vissza kell hoznod a filmem.\n
 							You still have the following movies :\n\n',
-'MAIL_RETURNMOVIES2'    => 'Kérlek hozd vissza amilyen gyorsan csak tudod a lemezeim \n Üdvözlettel %s \n\n
-							ui. Ez egy autómatikus e-mail küldõ rendszer (http://filmtar.xorp.hu)',
-'MAIL_NOTIFY'  		    => '<strong>Új film lett hozzáadva a Filmtárhoz</strong><br/>
-							 Klikk <a href="%s/?page=cd&vcd_id=%s">ide</a>, hogy megnézhesd ..
-							 <p>ui. Ez egy autómatikus e-mail küldo rendszer (http://filmtar.xorp.hu)</p>',
-'MAIL_REGISTER'		 	=> '%s, regisztrációd a filmtárhoz megtörtént.\n\nA felhasználó neved:%s és a passwordöd: 
-							%s.\n\nBármikor megváltoztathatod a jelszavad, hogy bejelentkeztél.\n
-							Klikk <a href="%s" target="_new">ide</a> a Filmtárhoz.',
+'MAIL_RETURNMOVIES2'    => 'Kï¿½rlek hozd vissza amilyen gyorsan csak tudod a lemezeim \n ï¿½dvï¿½zlettel %s \n\n
+							ui. Ez egy autï¿½matikus e-mail kï¿½ldï¿½ rendszer (http://filmtar.xorp.hu)',
+'MAIL_NOTIFY'  		    => '<strong>ï¿½j film lett hozzï¿½adva a Filmtï¿½rhoz</strong><br/>
+							 Klikk <a href="%s/?page=cd&vcd_id=%s">ide</a>, hogy megnï¿½zhesd ..
+							 <p>ui. Ez egy autï¿½matikus e-mail kï¿½ldo rendszer (http://filmtar.xorp.hu)</p>',
+'MAIL_REGISTER'		 	=> '%s, regisztrï¿½ciï¿½d a filmtï¿½rhoz megtï¿½rtï¿½nt.\n\nA felhasznï¿½lï¿½ neved:%s ï¿½s a passwordï¿½d:
+							%s.\n\nBï¿½rmikor megvï¿½ltoztathatod a jelszavad, hogy bejelentkeztï¿½l.\n
+							Klikk <a href="%s" target="_new">ide</a> a Filmtï¿½rhoz.',
 
 
 /* Player */
-'PLAYER'				=> 'Lejátszó',
-'PLAYER_PATH'			=> 'Elérési útvonal',
-'PLAYER_PARAM'			=> 'Paraméterek',
-'PLAYER_NOTE'			=> 'Add meg a teljes elérési útvonalát a filmenk a merevlemezeden.
-							A lejátszódnak képesnek kell lennie az paraméterek átadására, ilyen például
-							BSPlayer Win32-re vagy  MPlayer Linux-ra.<br/>YLetöltheted a BSPlayer-t ingyen 
-							<a href="http://www.bsplayer.org" target="_new">innen</a> 
-							és a MPlayer-t <a href="http://www.MPlayerHQ.hu" target="_new">innen</a>.',
+'PLAYER'				=> 'Lejï¿½tszï¿½',
+'PLAYER_PATH'			=> 'Elï¿½rï¿½si ï¿½tvonal',
+'PLAYER_PARAM'			=> 'Paramï¿½terek',
+'PLAYER_NOTE'			=> 'Add meg a teljes elï¿½rï¿½si ï¿½tvonalï¿½t a filmenk a merevlemezeden.
+							A lejï¿½tszï¿½dnak kï¿½pesnek kell lennie az paramï¿½terek ï¿½tadï¿½sï¿½ra, ilyen pï¿½ldï¿½ul
+							BSPlayer Win32-re vagy  MPlayer Linux-ra.<br/>YLetï¿½ltheted a BSPlayer-t ingyen
+							<a href="http://www.bsplayer.org" target="_new">innen</a>
+							ï¿½s a MPlayer-t <a href="http://www.MPlayerHQ.hu" target="_new">innen</a>.',
 
 /* Metadata */
 'META_MY'				=> 'My Metadata',
@@ -395,39 +407,42 @@ $_ = array(
 
 /* Misc keywords */
 'X_CONTAINS'			=> 'tartalmak',
-'X_GRADE'				=> 'IMDB értékelés alapján vagy jobb',
-'X_ANY'					=> 'Más',
-'X_TRYAGAIN'			=> 'Próbáld újra',
-'X_PROCEED' 			=> 'Végrehajtva',
-'X_SELECT' 				=> 'kiválaszt',
-'X_CONFIRM' 			=> 'Jóváhagy',
-'X_CANCEL' 				=> 'Mégse',
+'X_GRADE'				=> 'IMDB ï¿½rtï¿½kelï¿½s alapjï¿½n vagy jobb',
+'X_ANY'					=> 'Mï¿½s',
+'X_TRYAGAIN'			=> 'Prï¿½bï¿½ld ï¿½jra',
+'X_PROCEED' 			=> 'Vï¿½grehajtva',
+'X_SELECT' 				=> 'kivï¿½laszt',
+'X_CONFIRM' 			=> 'Jï¿½vï¿½hagy',
+'X_CANCEL' 				=> 'Mï¿½gse',
 'X_ATTENTION' 			=> 'FIGYELEM!',
-'X_STATUS' 				=> 'Státusz',
-'X_SUCCESS' 			=> 'Kész',
+'X_STATUS' 				=> 'Stï¿½tusz',
+'X_SUCCESS' 			=> 'Kï¿½sz',
 'X_FAILURE' 			=> 'Hiba',
 'X_YES' 				=> 'Igen',
 'X_NO' 					=> 'Nem',
-'X_SHOWMORE' 			=> 'Mutass többet',
+'X_SHOWMORE' 			=> 'Mutass tï¿½bbet',
 'X_SHOWLESS' 			=> 'Mutass kevesebbet',
-'X_NEW' 				=> 'Új',
-'X_CHANGE' 				=> 'megváltoztat',
-'X_DELETE' 				=> 'töröl',
-'X_UPDATE' 				=> 'Frissít',
-'X_SAVEANDCLOSE' 		=> 'Ment és bezár',
-'X_CLOSE' 				=> 'Bezár',
+'X_NEW' 				=> 'ï¿½j',
+'X_CHANGE' 				=> 'megvï¿½ltoztat',
+'X_DELETE' 				=> 'tï¿½rï¿½l',
+'X_UPDATE' 				=> 'Frissï¿½t',
+'X_SAVEANDCLOSE' 		=> 'Ment ï¿½s bezï¿½r',
+'X_CLOSE' 				=> 'Bezï¿½r',
 'X_EDIT' 				=> 'Szerkeszt',
-'X_RESULTS' 			=> 'Találatok',
-'X_LATESTMOVIES' 		=> 'Utolsó filmek',
-'X_LATESTTV' 			=> 'Utolsó TV mûsorok',
-'X_LATESTBLUE' 			=> 'utolsó X-rated',
+'X_RESULTS' 			=> 'Talï¿½latok',
+'X_LATESTMOVIES' 		=> 'Utolsï¿½ filmek',
+'X_LATESTTV' 			=> 'Utolsï¿½ TV mï¿½sorok',
+'X_LATESTBLUE' 			=> 'utolsï¿½ X-rated',
 'X_MOVIES' 				=> 'filmek',
-'X_NOCATS' 				=> 'Nincs film hozzáadva.',
-'X_NOUSERS' 			=> 'Nincs aktív felhasználó',
+'X_NOCATS' 				=> 'Nincs film hozzï¿½adva.',
+'X_NOUSERS' 			=> 'Nincs aktï¿½v felhasznï¿½lï¿½',
 'X_KEY' 				=> 'kulcs',
-'X_SAVENEXT' 			=> 'Mentés és szerkeszt a következõt',
-'X_SAVE' 				=> 'Mentés',
-'X_SEEN' 				=> 'Megnézve'
+'X_SAVENEXT' 			=> 'Mentï¿½s ï¿½s szerkeszt a kï¿½vetkezï¿½t',
+'X_SAVE' 				=> 'Mentï¿½s',
+'X_SEEN' 				=> 'Megnï¿½zve',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
+
 
 
 );
