@@ -2,26 +2,26 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
- * @author  Hákon Birgsson <konni@konni.com>
+ *
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
- 
+
 ?>
-<? 
-	/** 
+<?
+	/**
 		English language file
-	
+
 	*/
 
 
-	
+
 $_ = array(
 
 /* Language Identifier */
@@ -80,6 +80,8 @@ $_ = array(
 'SE_SELECTRSS' 			=> 'Select RSS feeds',
 'SE_PAGELOOK' 			=> 'Web layout',
 'SE_PAGEMODE' 			=> 'Select default template:',
+'SE_UPDATED'			=> 'User information updated',
+'SE_UPDATE_FAILED'		=> 'Failed to update',
 
 
 /* Search */
@@ -208,7 +210,7 @@ $_ = array(
 'MY_SEENLIST'			=> 'Edit Seen list',
 'MY_HELPPICKER'			=> 'Pick a movie to watch',
 'MY_HELPPICKERINFO'		=> 'Don\'t know what to watch tonight ?<br/>Let VCD-db help you find a movie.<br/>
-							You can optionally create filters and use them to narrow the suggested selections 
+							You can optionally create filters and use them to narrow the suggested selections
 						    by VCD-db.',
 'MY_FIND'				=> 'Find a movie',
 'MY_NOTSEEN'			=> 'Suggest only movies I haven\'t seen',
@@ -241,8 +243,8 @@ $_ = array(
 'ADD_LISTED' 			=> 'Add movies already listed',
 'ADD_XML' 				=> 'Add movies from exported XML file',
 'ADD_XMLFILE' 			=> 'Select XML file to import',
-'ADD_XMLNOTE' 			=> '(Please note, only XML files that have been exported from another VCD-db application 
-							can be used to import your movies here. You can export your movies from the "My movies" 
+'ADD_XMLNOTE' 			=> '(Please note, only XML files that have been exported from another VCD-db application
+							can be used to import your movies here. You can export your movies from the "My movies"
 							section. You should avoid manual editing of the exported XML files.) ',
 'ADD_EXCEL' 			=> 'Add movies from Excel file',
 'ADD_EXCELFILE' 		=> 'Select Excel file to import',
@@ -250,7 +252,7 @@ $_ = array(
 							export your movies to an Excel file</a>.)',
 'ADD_MAXFILESIZE'		=> 'Max filesize',
 'ADD_DVDEMPIRE' 		=> 'Fetch from Adult DVD Empire (X-rated films)',
-'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media 
+'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media
 						    type in next step.',
 'ADD_LISTEDSTEP2' 		=> 'Step 2.<br/>Select the appropriate media type.',
 'ADD_INDB' 				=> 'Movies in VCD-DB',
@@ -265,11 +267,11 @@ $_ = array(
 'XML_CONTAINS' 			=> 'XML file contains %d movies.',
 'XML_INFO1' 			=> 'Press confirm to process the movies and save to the database.<br/>
 							Or press cancel to bail out. ',
-'XML_INFO2' 			=> 'If you want to include the thumbnails (posters) with the movies that you are about to 
+'XML_INFO2' 			=> 'If you want to include the thumbnails (posters) with the movies that you are about to
 							import in your XML file, you <b>MUST</b> have the thumbnails XML file availeble now!.<br/>
-							Posters cannot be imported after you have finished importing you movies from the current XML file. 
-							If you already have the thumbnails XML file available check the field below and in next step 
-							after the import of your movies in the list below, you will be asked to submit you thumbnails XML 
+							Posters cannot be imported after you have finished importing you movies from the current XML file.
+							If you already have the thumbnails XML file available check the field below and in next step
+							after the import of your movies in the list below, you will be asked to submit you thumbnails XML
 							file aswell for processing. ',
 'XML_THUMBNAILS'		=> 'Insert thumbnails from my thumbnails XML file ',
 'XML_LIST'				=> 'Full list of movies found in XML file.',
@@ -374,6 +376,16 @@ $_ = array(
 'S_SEENITCLICK'			=> 'Click to mark seen',
 'S_NOTSEENITCLICK'		=> 'Click to mark unseen',
 
+/* Statistics */
+'STAT_TOP_MOVIES'		=> 'Movies in database',
+'STAT_TOP_CATS'			=> 'Top categories',
+'STAT_TOP_ACT'			=> 'Most active categories',
+'STAT_TOP_COVERS'		=> 'Covers in database',
+'STAT_TOTAL'			=> 'Total',
+'STAT_TODAY'			=> 'Added today',
+'STAT_WEEK'				=> 'Added in last 7 days',
+'STAT_MONTH'			=> 'Added in last 30 days',
+
 /* Mail messages */
 'MAIL_RETURNTOPIC'		=> 'Loan reminder',
 'MAIL_RETURNMOVIES1'	=> '%s, just wanted to remind you to return my movies.\n
@@ -383,7 +395,7 @@ $_ = array(
 'MAIL_NOTIFY'  		    => '<strong>New movie has been added to VCD-db</strong><br/>
 							 Click <a href="%s/?page=cd&vcd_id=%s">here</a> to see more ..
 							 <p>nb. this is an automated e-mail from the VCD-db (vcddb.konni.com)</p>',
-'MAIL_REGISTER'		 	=> '%s, registration to VCD-db was successful.<br><br>Your username is %s and your password is 
+'MAIL_REGISTER'		 	=> '%s, registration to VCD-db was successful.<br><br>Your username is %s and your password is
 							%s.<br><br>You can always change your password after you have logged in.<br>
 							Click <a href="%s" target="_new">here</a> to goto the VCD-db website.',
 
@@ -394,8 +406,8 @@ $_ = array(
 'PLAYER_PARAM'			=> 'Parameters',
 'PLAYER_NOTE'			=> 'Enter the full path to your movie player on your harddrive.
 							Your player must be able to take parameters as command line such as the
-							BSPlayer for Win32 or the MPlayer for Linux.<br/>You can download BSPlayer for free 
-							<a href="http://www.bsplayer.org" target="_new">here</a> 
+							BSPlayer for Win32 or the MPlayer for Linux.<br/>You can download BSPlayer for free
+							<a href="http://www.bsplayer.org" target="_new">here</a>
 							and the MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">here</a>.',
 
 
@@ -446,8 +458,9 @@ $_ = array(
 'X_KEY' 				=> 'Key',
 'X_SAVENEXT' 			=> 'Save and edit next',
 'X_SAVE' 				=> 'Save',
-'X_SEEN' 				=> 'Seen'
-
+'X_SEEN' 				=> 'Seen',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
 
 );
 

@@ -2,18 +2,18 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Language
  * @version $Id$
  */
- 
+
 ?>
 <?php
 
@@ -24,7 +24,7 @@ define ("FILE_SIZE", 10);
 
 class language
 {
-	
+
 	private $language_name;
 	private $language_tag;
 
@@ -33,10 +33,10 @@ class language
 	private $avail_language_files = array();
 	private $avail_language_content = array();
 	private $admin_mode = false;
-		
+
 	private $restrict = false;
 	private $arrRestrictions = array();
-	
+
 	/**
 	 * Object constructor.
 	 *
@@ -48,8 +48,8 @@ class language
 		$this->init();
 		$this->checkForRestrictions();
 	}
-	
-	
+
+
 	/**
 	 * Check for any language restrictions in the metadata.
 	 * If restrictions are set, the languages that are not marked for loading are skipped.
@@ -64,14 +64,14 @@ class language
 			$this->restrict = true;
 			$this->arrRestrictions = explode("#", $metaArr[0]->getMetadataValue());
 		}
-		
+
 		if (sizeof($this->arrRestrictions) == 1) {
 			// Only 1 language allowed, set it as default language.
 			$this->language_tag = $this->arrRestrictions[0];
 		}
 	}
-	
-		
+
+
 	/**
 	 * Return the language tag that is currently in use.
 	 *
@@ -80,7 +80,7 @@ class language
 	public function getLanguageTag() {
 		return $this->language_tag;
 	}
-	
+
 	/**
 	 * Check if default language is beging used.
 	 *
@@ -92,9 +92,9 @@ class language
 		} else {
 			return false;
 		}
-		
+
 	}
-	
+
 	/**
 	 * Prepares the class for paths in upper directories.
 	 *
@@ -102,18 +102,18 @@ class language
 	public function setLevelUp() {
 		$this->admin_mode = true;
 	}
-	
+
 	/**
 	 * Return an array of all available language tags from the known language files on HD.
 	 *
 	 * @return array
 	 */
 	public function getAvailableLanguages() {
-		return array('languages' => $this->avail_languages, 
+		return array('languages' => $this->avail_languages,
 					 'tags' => $this->avail_language_tags,
 					 'files' => $this->avail_language_files);
 	}
-	
+
 	/**
 	 * Returns the contents from an whole language file.
 	 * Returns the file contents as an 2 dimensional array containing all
@@ -128,7 +128,7 @@ class language
 			return $this->avail_language_content[$tag];
 		}
 	}
-	
+
 	/**
 	 * Get a language translation raw contents, including php code.
 	 *
@@ -145,7 +145,7 @@ class language
 			}
 		}
 	}
-	
+
 	/**
 	 * Check if selected language file is writeable on filesystem or not.
 	 *
@@ -160,12 +160,12 @@ class language
 			} else {
 				return false;
 			}
-		} 
-		
+		}
+
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * Update the file contents of a language file.
 	 *
@@ -177,11 +177,11 @@ class language
 			if (is_numeric($fileIndex) && is_array($arrItems)) {
 				$filename = '../' . LANGUAGE_FILE_ROOT . $this->avail_language_files[$fileIndex];
 				if (fs_file_exists($filename) && is_writable($filename)) {
-					
+
 					$currContents = file_get_contents($filename);
 					$iStartPos = strpos($currContents, '$_ = array');
 					$iEndPos   = strpos($currContents, ');');
-					
+
 					if (is_numeric($iStartPos) && is_numeric($iEndPos)) {
 
 						$newFile = substr($currContents, 0, $iStartPos+11);
@@ -195,39 +195,39 @@ class language
 							}
 							$i++;
 						}
-						
+
 						$newFile .= "\n\n);\n\n?>";
-						
+
 						// File ready, write it ..
 						VCDUtils::write($filename, $newFile);
-						
-										
+
+
 					} else {
-						throw new Exception('Cound not fund update position.');
+						throw new Exception('Cound not find update position.');
 					}
-					
+
 				} else {
-					throw new Exception('File not found or is not writeable.');
+					throw new Exception('File not find or is not writeable.');
 				}
-				
+
 			} else {
 				throw new Exception('Invalid parameters.');
 			}
-			
+
 		} else {
 			throw new Exception('Admin access required to update language file.');
-		}		
+		}
 	}
-	
+
 	/**
 	 * Enter description here...
 	 *
 	 * @param unknown_type $contents
 	 */
 	public function updateLanguageFile($contents) {
-	
+
 	}
-	
+
 	/**
 	 * Return the actual filename of the selected translation file.
 	 *
@@ -239,7 +239,7 @@ class language
 			return LANGUAGE_FILE_ROOT . $this->avail_language_files[$index];
 		}
 	}
-	
+
 	/**
 	 * Dump the contents of a language file as an array
 	 *
@@ -249,20 +249,20 @@ class language
 	public function getLangDump($index) {
 		$tag = $this->avail_language_tags[$index];
 		return $this->avail_language_content[$tag];
-		
+
 	}
-	
-	
+
+
 /**
  * @return void
  * @param $language String
  * @desc Load language into the Language class
  */
 	public function load($lang) {
-		
+
 		if (in_array ($lang, $this->avail_language_tags)) {
 		    $this->language_tag = $lang;
-		    
+
 		  	$i = 0;
 		  	$index = -1;
 		  	foreach ($this->avail_language_tags as $tag)  {
@@ -272,19 +272,19 @@ class language
 		  		}
 		  		$i++;
 		  	}
-		    
-		  	
+
+
 		  	$this->language_name = $this->avail_languages[$index];
-		  			  	
+
 		  	//update current session with current language
 		  	$_SESSION['vcdlang'] = $this->language_tag;
-	  	
+
 		}
 
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Return an translated phrase by the given associated index.
 	 *
@@ -298,26 +298,26 @@ class language
 			return "undefined";
 		}
 	}
-	
-	
-		
+
+
+
 	/**
 	* @return String
 	* @desc Prints out the HTML dropdown box for language selection on the site.
  */
 	public function printDropdownBox() {
-		
-		
-		
-		
+
+
+
+
 		$i = 0;
 		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./index.php?\"> ";
 		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
-		foreach ($this->avail_languages as $lang) { 
-			
+		foreach ($this->avail_languages as $lang) {
+
 			if ($this->restrict && !in_array($this->avail_language_tags[$i], $this->arrRestrictions)) {
-				
-				
+
+
 			} else {
 
 				$strSelected = "";
@@ -327,18 +327,18 @@ class language
 
 				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>".htmlentities($lang)."</option>";
 			}
-			
+
 			$i++;
-			
+
 		}
 		$html .= "</select>";
 		$html .= "</form></div>";
 		return $html;
-		
+
 	}
-		
- 	
- 	
+
+
+
  	/**
  	 * Extra initialation of the language class.
  	 *
@@ -348,8 +348,8 @@ class language
  		$this->language_tag = DEFAULT_LANG;
  		$this->language_name = "English";
  	}
-	
-	
+
+
  	/**
 	* @return Array
 	* @param $arr Array of directories
@@ -357,16 +357,16 @@ class language
 	* @access Private
  */
 	private function getAvailableLanguageFiles() {
-		
+
 		$arrLanguageFiles = array();
 		$arrLanguageFiles = $this->findfile(LANGUAGE_FILE_ROOT,'/\.(php)$/');
-		
+
 		// Call from RSS probably
 		if (!is_array($arrLanguageFiles)) {
-			$arrLanguageFiles = $this->findfile("../".LANGUAGE_FILE_ROOT,'/\.(php)$/');	
+			$arrLanguageFiles = $this->findfile("../".LANGUAGE_FILE_ROOT,'/\.(php)$/');
 		}
-		
-				
+
+
 		foreach ($arrLanguageFiles as $file) {
 			$filename = split('//',$file);
 			$x = substr($filename[1],0,5);
@@ -374,20 +374,20 @@ class language
 				array_push($this->avail_language_files, $filename[1]);
 			}
 		}
-		
-				
+
+
 		// Language files are now known to the class ..
 		// Lets check out what languages we have
-		
-		if (!$this->admin_mode) { 
+
+		if (!$this->admin_mode) {
 			foreach ($this->avail_language_files as $language_file) {
-				
+
 				if (file_exists(LANGUAGE_FILE_ROOT.$language_file)) {
-	
+
 					if (is_readable(LANGUAGE_FILE_ROOT.$language_file)) {
 						require_once('./'.LANGUAGE_FILE_ROOT.$language_file);
 						$currLang = &$_;
-					
+
 						// Add the Language name and tag to our class
 						array_push($this->avail_language_tags, $currLang['LANG_TYPE']);
 						array_push($this->avail_languages, $currLang['LANG_NAME']);
@@ -397,13 +397,13 @@ class language
 			}
 		} else {
 			foreach ($this->avail_language_files as $language_file) {
-			
+
 				if (file_exists("./../".LANGUAGE_FILE_ROOT.$language_file)) {
-			
+
 					if (is_readable("./../".LANGUAGE_FILE_ROOT.$language_file)) {
 						require_once("./../".LANGUAGE_FILE_ROOT.$language_file);
 						$currLang = &$_;
-					
+
 						// Add the Language name and tag to our class
 						array_push($this->avail_language_tags, $currLang['LANG_TYPE']);
 						array_push($this->avail_languages, $currLang['LANG_NAME']);
@@ -414,9 +414,9 @@ class language
 		}
 	}
 
-	
-	
-	
+
+
+
 	/**
 	* @return Array
 	* @param $location String
@@ -428,9 +428,9 @@ class language
    		if (!$location or !is_dir($location) or !$fileregex) {
        		return false;
    		}
- 
+
 		$matchedfiles = array();
-	 
+
 	   	$all = opendir($location);
 	   	while ($file = readdir($all)) {
 	       	if (is_dir($location.'/'.$file) and $file <> ".." and $file <> ".") {
@@ -443,15 +443,15 @@ class language
 	             	array_push($matchedfiles,$location.'/'.$file);
 	         	}
 		       }
-	   		}	
+	   		}
 	   	   closedir($all);
 		   unset($all);
 	       return $matchedfiles;
  	}
-	
-	
-	
-	
+
+
+
+
 }
 
 
