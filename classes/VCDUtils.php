@@ -180,7 +180,12 @@ class VCDUtils {
 	 */
 	static function shortenText($text, $length) {
 		if (strlen($text) > $length) {
-				$text = substr($text, 0, $length);
+				$text_spl = explode(' ', $text);
+				$i = 1;
+				$text = $text_spl[0];
+				while(strlen($text.$text_spl[$i]) < $length) {
+					$text .= " ".$text_spl[$i++];
+				}
 				$text = $text."...";
 			}
 		return $text;
@@ -631,8 +636,8 @@ class VCDUtils {
 
 		return $metaValue;
 	}
-	
-	
+
+
 	/**
 	 * Filter comments in the commentsObj Array for by specified userID
 	 *
@@ -644,16 +649,16 @@ class VCDUtils {
 		if (!is_numeric($user_id)) {
 			return $arrCommentsObj;
 		}
-		
+
 		$arrFilteredComments = array();
 		foreach ($arrCommentsObj as &$commentObj) {
 			if ((int)$commentObj->getOwnerID() === (int)$user_id) {
 				array_push($arrFilteredComments, $commentObj);
 			}
 		}
-		
+
 		return $arrFilteredComments;
-		
+
 	}
 
 
