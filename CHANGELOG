@@ -3,8 +3,6 @@ Fixed   - When user tries to add duplicate copy of movie and media type an excep
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
 
-Dummy Line from Saviq :]
-
 0.981
 Fixed   - User can now create user specific metadata with the same name.
 Fixed   - 2 security updates.
