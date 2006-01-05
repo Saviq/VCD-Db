@@ -2,6 +2,7 @@
 Fixed   - When user tries to add duplicate copy of movie and media type an exception is thrown instead of getting blank page.
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
+Fixed	- Cover display fix - big images handling, better window fitting
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
