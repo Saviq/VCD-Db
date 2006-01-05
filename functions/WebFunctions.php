@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Functions
  * @subpackage Web
  * @version $Id$
@@ -782,16 +782,16 @@ function ShowOneRSS($url, $showdescription = false) {
 
             	  $onmouseover= "";
             	  if (isset($item['description'])) {
-            	  	            	  	
-            	  	
+
+
             	  	$hovertext = str_replace("&#039;", "", $item['description']);
             	  	$hovertext = str_replace("'", "", $hovertext);
             	  	$hovertext = str_replace("\"", "", $hovertext);
-            	  	
+
             	  	$hovertext = str_replace("&apos;", "", $hovertext);
             	  	$hovertext = str_replace(chr(13), "", $hovertext);
             	  	$hovertext = str_replace(chr(10), "", $hovertext);
-            	  	
+
             	  	$onmouseover = "onmouseover=\"this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$hovertext}')\"";
             	  }
 
@@ -832,6 +832,8 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$statObj = $SETTINGSClass->getStatsObj();
 
+	global $language;
+
 	if (strcmp($style, "statsTable") == 0) {
 		$header = "stata";
 	?>
@@ -846,27 +848,27 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	<div align="center">
 	<table cellspacing="1" cellpadding="1" border="0" class="<?=$style?>" style="width:<?=$width?>px">
 	<tr>
-		<td class="<?=$header?>" colspan="2">Movies in database</td>
+		<td class="<?=$header?>" colspan="2"><?=$language->show('STAT_TOP_MOVIES')?></td>
 	</tr>
 	<tr>
-		<td align="left">Total</td>
+		<td align="left"><?=$language->show('STAT_TOTAL')?></td>
 		<td align="right"><?=$statObj->getMovieCount()?></td>
 	</tr>
 	<tr>
-		<td align="left">Added today</td>
+		<td align="left"><?=$language->show('STAT_TODAY')?></td>
 		<td align="right"><?=$statObj->getMovieTodayCount()?></td>
 	</tr>
 	<tr>
-		<td align="left">Added this week</td>
+		<td align="left"><?=$language->show('STAT_WEEK')?></td>
 		<td align="right"><?=$statObj->getMovieWeeklyCount()?></td>
 	</tr>
 	<tr>
-		<td align="left">Added this month</td>
+		<td align="left"><?=$language->show('STAT_MONTH')?></td>
 		<td align="right"><?=$statObj->getMovieMonthlyCount()?></td>
 	</tr>
 
 	<tr>
-		<td class="<?=$header?>" colspan="2">Top categories</td>
+		<td class="<?=$header?>" colspan="2"><?=$language->show('STAT_TOP_CATS')?></td>
 	</tr>
 	<?
 		foreach ($statObj->getBiggestCats() as $catObj) {
@@ -878,7 +880,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	?>
 
 	<tr>
-		<td class="<?=$header?>" colspan="2">Most active categories</td>
+		<td class="<?=$header?>" colspan="2"><?=$language->show('STAT_TOP_ACT')?></td>
 	</tr>
 	<?
 		foreach ($statObj->getBiggestMonhtlyCats() as $catObj) {
@@ -890,18 +892,18 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	?>
 
 	<tr>
-		<td colspan="2" class="<?=$header?>">Covers in database</td>
+		<td colspan="2" class="<?=$header?>"><?=$language->show('STAT_TOP_COVERS')?></td>
 	</tr>
 	<tr>
-		<td align="left">Total</td>
+		<td align="left"><?=$language->show('STAT_TOTAL')?></td>
 		<td align="right"><?=$statObj->getTotalCoverCount()?></td>
 	</tr>
 	<tr>
-		<td align="left">Added this week</td>
+		<td align="left"><?=$language->show('STAT_WEEK')?></td>
 		<td align="right"><?=$statObj->getWeeklyCoverCount()?></td>
 	</tr>
 	<tr>
-		<td align="left">Added this month</td>
+		<td align="left"><?=$language->show('STAT_MONTH')?></td>
 		<td align="right"><?=$statObj->getMonthlyCoverCount()?></td>
 	</tr>
 	</table>
@@ -940,9 +942,9 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
 			$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, metadataTypeObj::SYS_FILELOCATION );
 			if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
 				$filename = $fileArr[0]->getMetaDataValue();
-			}	
+			}
 		}
-		
+
 
 
 		// check for player settings
@@ -1129,7 +1131,7 @@ function human_file_size($size)
 {
    if (is_numeric($size) && $size > 0) {
    		$filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
-   		return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];	
+   		return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];
    } else {
    		return "0 Bytes";
    }
@@ -1175,11 +1177,11 @@ function send_file($path) {
 
 function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 	try {
-				
+
 		if (sizeof($arrMediaTypes) == 1 && $arrMediaTypes[0] instanceof mediaTypeObj ) {
 			print $arrMediaTypes[0]->getDetailedName();
 		}
-		
+
 		else if (is_array($arrMediaTypes)) {
 			$arrDVDTypes = array();
 			foreach ($arrMediaTypes as $mediatypeObj) {
@@ -1187,7 +1189,7 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 					array_push($arrDVDTypes, $mediatypeObj);
 				}
 			}
-			
+
 			if (sizeof($arrDVDTypes) == 1) {
 				print $arrDVDTypes[0]->getDetailedName();
 			} else {
@@ -1196,60 +1198,60 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 					if ($selectedIndex === $mediatypeObj->getmediaTypeID()) {
 						print "<option value=\"{$mediatypeObj->getmediaTypeID()}\" selected=\"selected\">{$mediatypeObj->getDetailedName()}</option>";
 					} else {
-						print "<option value=\"{$mediatypeObj->getmediaTypeID()}\">{$mediatypeObj->getDetailedName()}</option>";	
+						print "<option value=\"{$mediatypeObj->getmediaTypeID()}\">{$mediatypeObj->getDetailedName()}</option>";
 					}
-					
+
 				}
 				print "</select>";
 			}
-			
+
 		}
-				
-		
+
+
 	} catch (Exception $ex) {
 		VCDException::display($ex);
 	}
 }
 
 function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
-	
+
 	global $language;
-	
+
 	// First get all available owners and mediatypes
 	$arrData = $vcdObj->getInstanceArray();
 	if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
-		
+
 		$arrOwners = $arrData['owners'];
 		$arrMediatypes = $arrData['mediatypes'];
 		$i = 0;
-				
-		
+
+
 		foreach ($arrMediatypes as $mediaTypeObj) {
-						
+
 			if ($mediaTypeObj instanceof mediaTypeObj && VCDUtils::isDVDType(array($mediaTypeObj))) {
-				
+
 				$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metadataArr, $mediaTypeObj->getmediaTypeID(), $arrOwners[$i]->getUserId());
 				$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
-				
+
 				if (is_array($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
-								
+
 					$dvdObj = new dvdObj();
-					
+
 					$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDREGION);
 					$dvd_format = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDFORMAT);
 					$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDASPECT);
 					$dvd_audio = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDAUDIO);
 					$dvd_subs = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDSUBS);
-					
+
 					if (strcmp($dvd_region, "") != 0) {
 						//$dvd_region = $dvd_region.". (". $dvdObj->getRegion($dvd_region) . ")";
 						$dvd_region = $dvd_region. ".";
 					}
-					
+
 					if (strcmp($dvd_aspect, "") != 0) {
 						$dvd_aspect = $dvdObj->getAspectRatio($dvd_aspect);
 					}
-					
+
 					if (strcmp($dvd_audio, "") != 0) {
 						$arrAudio = explode("#", $dvd_audio);
 						$dvd_audio = "<ul class=\"ulnorm\">";
@@ -1258,7 +1260,7 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 						}
 						$dvd_audio .= "</ul>";
 					}
-					
+
 					if (strcmp($dvd_subs, "") != 0) {
 						$arrSubs = explode("#", $dvd_subs);
 						$dvd_subs = "<ul class=\"ulnorm\">";
@@ -1270,9 +1272,9 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 						}
 						$dvd_subs .= "</ul>";
 					}
-					
+
 					$divid = "x". $mediaTypeObj->getmediaTypeID()."x".$arrOwners[$i]->getUserId();
-					print "<div id=\"{$divid}\" class=\"dvdetails\">";	
+					print "<div id=\"{$divid}\" class=\"dvdetails\">";
 					?>
 					<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
 					<tr>
@@ -1296,23 +1298,23 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 						<td valign="top"><?= $dvd_subs ?></td>
 					</tr>
 					</table>
-					<?		
+					<?
 					print "</div>";
-					
+
 				}
 			}
 			$i++;
 		}
-		
-		
+
+
 	} else {
 		return;
 	}
-	
+
 }
 
 function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
-	
+
 	$divid = "";
 	$arrDVDMeta = null;
 	if (!is_null($metaDataArr)) {
@@ -1322,7 +1324,7 @@ function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataAr
 	}
 	$dhtml = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
 	$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
-	
+
 	if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
 		return $img;
 	} else {
@@ -1349,8 +1351,8 @@ function showNFO(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = n
 			}
 		}
 	}
-		
-	
+
+
 	if ($hasNFO) {
 		return $img;
 	} else {
@@ -1360,10 +1362,10 @@ function showNFO(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = n
 
 
 function getLocalizedCategoryName($category_name) {
-	
+
 	$baseMap = getCategoryMapping();
 	if (key_exists($category_name, $baseMap)) {
-		
+
 		$baseKey = $baseMap[$category_name];
 		global $language;
 		$translatedKey = $language->show($baseKey);
@@ -1373,7 +1375,7 @@ function getLocalizedCategoryName($category_name) {
 		} else {
 			return $translatedKey;
 		}
-		
+
 	} else {
 		return $category_name;
 	}
