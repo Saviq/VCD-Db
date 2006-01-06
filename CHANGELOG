@@ -2,11 +2,13 @@
 Fixed   - When user tries to add duplicate copy of movie and media type an exception is thrown instead of getting blank page.
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
+Fixed   - Updated to W3CDTF datestamp in specific user XML feeds.
 Fixed	- Cover display fix - big images handling, better window fitting [Saviq]
 Fixed	- UTF titles got splitted characters sometimes [Saviq]
 Fixed	- Trailing space from actor's name in movie view [Saviq]
 Fixed	- Language in statistics, footer and user profile [Saviq]
-Updated - Laguage files - PLEASE UPDATE TRANSLATIONS [Saviq]
+Updated - Language files - PLEASE UPDATE TRANSLATIONS [Saviq]
+Fixed   - "Call to a member function show() on a non-object" when using Register_globals = true
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
