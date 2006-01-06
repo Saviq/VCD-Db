@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hï¿½kon Birgsson <konni@konni.com>
+ * @author  Hïákon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -65,7 +65,7 @@ $_ = array(
 'PRO_NOTIFY' 			=> 'Send me an email when new movie is added?',
 'PRO_SHOW_ADULT' 		=> 'Show adult content on the site?',
 'PRO_RSS' 				=> 'Allow RSS feed from my movie list?',
-'PRO_WISHLIST' 			=> 'Allow others to see my wishlist ?',
+'PRO_WISHLIST' 			=> 'Allow others to see my wishlist?',
 'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s?',
 'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen?',
 'PRO_PLAYOPTION' 		=> 'Use client playback options?',
@@ -376,6 +376,7 @@ $_ = array(
 'S_NOTSEENITCLICK'		=> 'Click to mark unseen',
 
 /* Statistics */
+'STAT_TITLE'			=> 'Today\'s Report',
 'STAT_TOP_MOVIES'		=> 'Movies in database',
 'STAT_TOP_CATS'			=> 'Top categories',
 'STAT_TOP_ACT'			=> 'Most active categories',
@@ -459,7 +460,10 @@ $_ = array(
 'X_SAVE' 				=> 'Save',
 'X_SEEN' 				=> 'Seen',
 'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
-'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website',
+'X_TOGGLE'				=> 'Toggle preview',
+'X_TOGGLE_ON'			=> 'on',
+'X_TOGGLE_OFF'			=> 'off'
 
 );
 

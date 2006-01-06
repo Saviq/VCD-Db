@@ -289,6 +289,7 @@ $_ = array(
 'S_NOTSEENIT'			=> 'Nie widziałem',
 'S_SEENITCLICK'			=> 'Kliknij by zaznaczyć, jako obejrzany',
 'S_NOTSEENITCLICK'		=> 'Kliknij by zaznaczyć, jako nie obejrzany',
+'STAT_TITLE'			=> 'Statystyki dnia',
 'STAT_TOP_MOVIES'		=> 'Dodanych Filmów',
 'STAT_TOP_CATS'			=> 'Najpopularniejsze gatunki',
 'STAT_TOP_ACT'			=> 'Najbardziej aktywne gatunki',
@@ -349,8 +350,10 @@ $_ = array(
 'X_SAVE'				=> 'Zapisz',
 'X_SEEN'				=> 'Obejrzany',
 'X_FOOTER'				=> 'Czas ładowania strony: %s s (<i>%d zapytań</i>) &nbsp; Wszelkie prawa zastrzeżone (c)',
-'X_FOOTER_LINK'			=> 'Odwiedź oficjalną stronę VCD-Db'
-
+'X_FOOTER_LINK'			=> 'Odwiedź oficjalną stronę VCD-Db',
+'X_TOGGLE'				=> 'Przełącz statystyki',
+'X_TOGGLE_ON'			=> 'włącz',
+'X_TOGGLE_OFF'			=> 'wyłącz'
 
 );
 
