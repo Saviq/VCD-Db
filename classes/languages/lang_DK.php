@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hï¿½kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -34,24 +34,24 @@ $_ = array(
 'MENU_MINE' 			=> 'Min menu',
 'MENU_SETTINGS' 		=> 'Mine indstillinger',
 'MENU_MOVIES' 			=> 'Mine film',
-'MENU_ADDMOVIE' 		=> 'Tilfï¿½j ny film',
-'MENU_LOANSYSTEM' 		=> 'Udlï¿½n',
-'MENU_WISHLIST' 		=> 'Min ï¿½nskeliste',
+'MENU_ADDMOVIE' 		=> 'Tilføj ny film',
+'MENU_LOANSYSTEM' 		=> 'Udlån',
+'MENU_WISHLIST' 		=> 'Min ønskeliste',
 'MENU_CATEGORIES' 		=> 'Filmkategorier',
 'MENU_RSS' 				=> 'My Rss Feeds',
 'MENU_CONTROLPANEL' 	=> 'Kontrolpanel',
-'MENU_REGISTER' 		=> 'Registrï¿½r',
+'MENU_REGISTER' 		=> 'Registrér',
 'MENU_LOGOUT' 			=> 'Log ud',
 'MENU_SUBMIT' 			=> 'Send',
 'MENU_TOPUSERS' 		=> 'Topbrugere',
-'MENU_WISHLISTPUBLIC' 	=> 'Andres ï¿½nskelister',
+'MENU_WISHLISTPUBLIC' 	=> 'Andres ønskelister',
 
 /* Login */
 'LOGIN' 				=> 'Login',
 'LOGIN_USERNAME' 		=> 'Brugernavn',
 'LOGIN_PASSWORD' 		=> 'Password',
 'LOGIN_REMEMBER' 		=> 'Husk mine loginfo.',
-'LOGIN_INFO' 			=> 'Lad dette felt vï¿½re tomt hvis du <b>ikke</b> vil ï¿½ndre dit password',
+'LOGIN_INFO' 			=> 'Lad dette felt være tomt hvis du <b>ikke</b> vil ændre dit password',
 
 /* Register */
 'REGISTER_TITLE' 		=> 'Oprettelse',
@@ -59,12 +59,12 @@ $_ = array(
 'REGISTER_EMAIL' 		=> 'Email',
 'REGISTER_AGAIN' 		=> 'Password igen',
 'REGISTER_DISABLED' 	=> 'Beklager, administratoren har lukket for tilmelding indtil videre',
-'REGISTER_OK' 			=> 'Oprettelsen er gennemfï¿½rt, du kan nu logge ind i databasen.',
+'REGISTER_OK' 			=> 'Oprettelsen er gennemført, du kan nu logge ind i databasen.',
 
 /* User Properties */
-'PRO_NOTIFY' 			=> 'Send mig en emial nï¿½r en ny film bliver tilfï¿½jet.',
+'PRO_NOTIFY' 			=> 'Send mig en emial når en ny film bliver tilføjet.',
 'PRO_SHOW_ADULT' 		=> 'Vis pornofilm i oversigten',
-'PRO_RSS' 				=> 'Tillad RSS tilfï¿½jelser fra min filmliste?',
+'PRO_RSS' 				=> 'Tillad RSS tilføjelser fra min filmliste?',
 'PRO_WISHLIST' 			=> 'Allow others to see my wishlist ?',
 'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s',
 'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen',
@@ -73,24 +73,24 @@ $_ = array(
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Bruger Indstillinger',
-'SE_OWNFEED' 			=> 'Vis mine tilfï¿½jelser',
+'SE_OWNFEED' 			=> 'Vis mine tilføjelser',
 'SE_CUSTOM' 			=> 'Forside indstillinger',
 'SE_SHOWSTAT' 			=> 'Vis statistik',
 'SE_SHOWSIDE' 			=> 'Vis nye film i sidebar',
-'SE_SELECTRSS' 			=> 'Vï¿½lg RSS Side',
+'SE_SELECTRSS' 			=> 'Vælg RSS Side',
 'SE_PAGELOOK' 			=> 'Web layout',
 'SE_PAGEMODE' 			=> 'Select default template:',
 'SE_UPDATED'			=> 'User information updated',
 'SE_UPDATE_FAILED'		=> 'Failed to update',
 
 /* Search */
-'SEARCH' 				=> 'Sï¿½g efter',
+'SEARCH' 				=> 'Søg efter',
 'SEARCH_TITLE' 			=> 'Titel',
 'SEARCH_ACTOR' 			=> 'Skuespiller',
-'SEARCH_DIRECTOR'		=> 'Instruktï¿½r',
-'SEARCH_RESULTS' 		=> 'Sï¿½geresultater',
-'SEARCH_EXTENDED' 		=> 'Avanceret sï¿½gning',
-'SEARCH_NORESULT' 		=> 'Din sï¿½gning var forgï¿½ves',
+'SEARCH_DIRECTOR'		=> 'Instruktør',
+'SEARCH_RESULTS' 		=> 'Søgeresultater',
+'SEARCH_EXTENDED' 		=> 'Avanceret søgning',
+'SEARCH_NORESULT' 		=> 'Din søgning var forgæves',
 
 /* Movie categories*/
 'CAT_ACTION' 			=> 'Action',
@@ -123,38 +123,38 @@ $_ = array(
 'M_MOVIE' 				=> 'Filmen',
 'M_ACTORS' 				=> 'Skuespillere',
 'M_CATEGORY' 			=> 'Kategori',
-'M_YEAR' 				=> 'Produktionsï¿½r',
+'M_YEAR' 				=> 'Produktionsår',
 'M_COPIES' 				=> 'Film',
 'M_FROM' 				=> 'Fra',
 'M_TITLE' 				=> 'Titel',
 'M_ALTTITLE' 			=> 'Alt titel',
 'M_GRADE' 				=> 'Rating',
-'M_DIRECTOR' 			=> 'Instruktï¿½r',
+'M_DIRECTOR' 			=> 'Instruktør',
 'M_COUNTRY'				=> 'Land',
-'M_RUNTIME' 			=> 'Filmens lï¿½ngde',
+'M_RUNTIME' 			=> 'Filmens længde',
 'M_MINUTES' 			=> 'minutter',
 'M_PLOT' 				=> 'Plot beskrivelse',
-'M_NOPLOT'				=> 'Ingen plot-beskrivelse er tilgï¿½ngelig',
+'M_NOPLOT'				=> 'Ingen plot-beskrivelse er tilgængelig',
 'M_COVERS' 				=> 'CD Covers',
-'M_AVAILABLE' 			=> 'Tilgï¿½ngelige film',
+'M_AVAILABLE' 			=> 'Tilgængelige film',
 'M_MEDIA' 				=> 'Medie',
 'M_NUM' 				=> 'Antal DVDer',
 'M_DATE' 				=> 'Lagt i databasen',
 'M_OWNER' 				=> 'Ejer',
-'M_NOACTORS' 			=> 'Ingen skuespilleroversigt tilgï¿½ngelig',
+'M_NOACTORS' 			=> 'Ingen skuespilleroversigt tilgængelig',
 'M_INFO' 				=> 'Information om filmen',
-'M_DETAILS' 			=> 'Detaljer pï¿½ min kopi',
+'M_DETAILS' 			=> 'Detaljer på min kopi',
 'M_MEDIATYPE'			=> 'Medietype',
 'M_COMMENT' 			=> 'Kommentar',
-'M_PRIVATE' 			=> 'Markï¿½r som privat?',
+'M_PRIVATE' 			=> 'Markér som privat?',
 'M_SCREENSHOTS' 		=> 'Screenshots',
-'M_NOSCREENS' 			=> 'Der er ingen tilgï¿½ngelige screenshots',
+'M_NOSCREENS' 			=> 'Der er ingen tilgængelige screenshots',
 'M_SHOW' 				=> 'Vis',
 'M_HIDE' 				=> 'Skjul',
 'M_CHANGE' 				=> 'Rediger information',
-'M_NOCOVERS' 			=> 'Der er ingen tilgï¿½ngelige covers',
+'M_NOCOVERS' 			=> 'Der er ingen tilgængelige covers',
 'M_BYCAT' 				=> 'Titler efter kategori',
-'M_CURRCAT' 			=> 'Nuvï¿½rende kategori',
+'M_CURRCAT' 			=> 'Nuværende kategori',
 'M_TEXTVIEW' 			=> 'Vis tekst',
 'M_IMAGEVIEW' 			=> 'Vis billeder',
 'M_MINEONLY' 			=> 'Vis kun mine film',
@@ -167,7 +167,7 @@ $_ = array(
 'I_GALLERY' 			=> 'Fotogalleri',
 'I_TRAILERS' 			=> 'Trailers',
 'I_LINKS' 				=> 'IMDB Links',
-'I_NOT' 				=> 'Der er ingen tilgï¿½ngelig IMDB-information',
+'I_NOT' 				=> 'Der er ingen tilgængelig IMDB-information',
 
 /* DVD Specific */
 'DVD_REGION'			=> 'Region',
@@ -184,12 +184,12 @@ $_ = array(
 'MY_ACTIONS' 			=> 'Mine handlinger',
 'MY_JOIN' 				=> 'Disc join',
 'MY_JOINMOVIES' 		=> 'Disc join movies',
-'MY_JOINSUSER' 			=> 'Vï¿½lg bruger',
-'MY_JOINSMEDIA' 		=> 'Vï¿½lg medietype',
-'MY_JOINSCAT' 			=> 'Vï¿½lg kategori',
-'MY_JOINSTYPE' 			=> 'Vï¿½lg handling',
+'MY_JOINSUSER' 			=> 'Vælg bruger',
+'MY_JOINSMEDIA' 		=> 'Vælg medietype',
+'MY_JOINSCAT' 			=> 'Vælg kategori',
+'MY_JOINSTYPE' 			=> 'Vælg handling',
 'MY_JOINSHOW' 			=> 'Vis resultater',
-'MY_NORESULTS' 			=> 'Forespï¿½rgslen gav ingen resultater',
+'MY_NORESULTS' 			=> 'Forespørgslen gav ingen resultater',
 'MY_TEXTALL'			=> 'Printervenlig version (Text)',
 'MY_PWALL' 				=> 'Printervenlig version (Alt)',
 'MY_PWMOVIES' 			=> 'Printervenlig version (Film)',
@@ -197,19 +197,19 @@ $_ = array(
 'MY_PWBLUE' 			=> 'Printervenlig version (Porno)',
 'MY_J1' 				=> 'Film jeg har som brugeren ikke har',
 'MY_J2' 				=> 'Film brugeren har som jeg ikke har',
-'MY_J3' 				=> 'Film som bï¿½de jeg og brugeren har',
+'MY_J3' 				=> 'Film som både jeg og brugeren har',
 'MY_OVERVIEW' 			=> 'Overblik over samling',
-'MY_INFO' 				=> 'Pï¿½ denne side kan du finde ud af alt om mine film.
-						Til hï¿½jre finder du en oversigt over dine mulige handlinger.
-						Du kan ogsï¿½ eksportere dine data som XML og udprinte den eller flytte hele din database til en anden lokation.',
+'MY_INFO' 				=> 'På denne side kan du finde ud af alt om mine film.
+						Til højre finder du en oversigt over dine mulige handlinger.
+						Du kan også eksportere dine data som XML og udprinte den eller flytte hele din database til en anden lokation.',
 'MY_KEYS' 				=> 'Edit Custom ID\'s',
 'MY_SEENLIST' 			=> 'Rediger har set-liste',
-'MY_HELPPICKER' 		=> 'Vï¿½lg en film',
-'MY_HELPPICKERINFO' 	=> 'Ved du ikke hvad du vil se i aften?<br/>Lad databasen hjï¿½lpe dig med at finde en film.<br/>
-						Du kan selv definere indenfor hvilke rammer databasen sï¿½ger.',
+'MY_HELPPICKER' 		=> 'Vælg en film',
+'MY_HELPPICKERINFO' 	=> 'Ved du ikke hvad du vil se i aften?<br/>Lad databasen hjælpe dig med at finde en film.<br/>
+						Du kan selv definere indenfor hvilke rammer databasen søger.',
 'MY_FIND' 				=> 'Find en film',
-'MY_NOTSEEN' 			=> 'Foreslï¿½ kun film jeg ikke har set',
-'MY_FRIENDS' 			=> 'Mine venner som lï¿½ner CDer',
+'MY_NOTSEEN' 			=> 'Foreslå kun film jeg ikke har set',
+'MY_FRIENDS' 			=> 'Mine venner som låner CDer',
 
 /* Manager window */
 'MAN_BASIC' 			=> 'Basic information',
@@ -219,27 +219,27 @@ $_ = array(
 'MAN_COPIES' 			=> 'Mine film',
 'MAN_NOCOPY' 			=> 'Du har ikke denne film',
 'MAN_1COPY' 			=> 'Kopi',
-'MAN_ADDACT' 			=> 'Tilfï¿½j skuespillere',
-'MAN_ADDTODB' 			=> 'Tilfï¿½je nye skuespillere til DB',
+'MAN_ADDACT' 			=> 'Tilføj skuespillere',
+'MAN_ADDTODB' 			=> 'Tilføje nye skuespillere til DB',
 'MAN_SAVETODB' 			=> 'Gem til DB',
 'MAN_SAVETODBNCD' 		=> 'Gem til DB og film',
 'MAN_INDB' 				=> 'Skuespillere i database',
-'MAN_SEL' 				=> 'Vï¿½lg af skuespillere',
+'MAN_SEL' 				=> 'Vælg af skuespillere',
 'MAN_STARS' 			=> 'Stjerner',
-'MAN_BROWSE' 			=> 'Sï¿½g efter fil',
+'MAN_BROWSE' 			=> 'Søg efter fil',
 
 /* Add movies */
-'ADD_INFO' 				=> 'Vï¿½lg mï¿½de du vil tilfï¿½je din film pï¿½',
+'ADD_INFO' 				=> 'Vælg måde du vil tilføje din film på',
 'ADD_IMDB' 				=> 'Hent fra Internet Movie Database',
-'ADD_IMDBTITLE' 		=> 'Skriv nï¿½gleord du vil sï¿½ge pï¿½',
+'ADD_IMDBTITLE' 		=> 'Skriv nøgleord du vil søge på',
 'ADD_MANUAL' 			=> 'Skriv den ind manuelt',
-'ADD_LISTED' 			=> 'Tilfï¿½je film der allerede i databasen',
-'ADD_XML' 				=> 'Tilfï¿½je film fra eksporterede XML arkiverer',
-'ADD_XMLFILE' 			=> 'Vï¿½lg den XML arkiverer der skal importeres',
-'ADD_XMLNOTE' 			=> '(HUSK at det er kun XML arkiverer der kan blive eksporteret fra ansï¿½gning fra andre VCD-db
-						sï¿½ kan blive tilfï¿½je dem her. Du kan eksporteret dine film fra "Mine film"
+'ADD_LISTED' 			=> 'Tilføje film der allerede i databasen',
+'ADD_XML' 				=> 'Tilføje film fra eksporterede XML arkiverer',
+'ADD_XMLFILE' 			=> 'Vælg den XML arkiverer der skal importeres',
+'ADD_XMLNOTE' 			=> '(HUSK at det er kun XML arkiverer der kan blive eksporteret fra ansøgning fra andre VCD-db
+						så kan blive tilføje dem her. Du kan eksporteret dine film fra "Mine film"
 						sektion. You should avoid manual editing of the exported XML files. ) ',
-'ADD_MAXFILESIZE' 		=> 'Max fil stï¿½rrelse',
+'ADD_MAXFILESIZE' 		=> 'Max fil størrelse',
 'ADD_DVDEMPIRE' 		=> 'Fetch from Adult DVD Empire (X-rated films)',
 'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media
 					    type in next step.',
@@ -305,24 +305,24 @@ $_ = array(
 'LOAN_TODAY' 			=> 'from today',
 
 /* RSS */
-'RSS' 					=> 'RSS tilfï¿½jelser',
-'RSS_TITLE' 			=> 'RSS tilfï¿½jelser fra mine venners VCD-DB hjemme-sider',
-'RSS_SITE' 				=> 'RSS Side tilfï¿½jelser',
-'RSS_USER' 				=> 'RSS Bruger tilfï¿½jelser',
-'RSS_VIEW' 				=> 'Vis RSS tilfï¿½jelser',
-'RSS_ADD' 				=> 'Tilfï¿½j ny brugerliste',
-'RSS_NOTE' 				=> 'Skriv den <strong>nï¿½jagtige url</strong> pï¿½ din vens VCD database.<br/>
-						Hvis RSS er slï¿½et til pï¿½ din vens side sï¿½ kan du udvï¿½lge
-						de film du er intresseret i og vise dem pï¿½ din side.',
+'RSS' 					=> 'RSS tilføjelser',
+'RSS_TITLE' 			=> 'RSS tilføjelser fra mine venners VCD-DB hjemme-sider',
+'RSS_SITE' 				=> 'RSS Side tilføjelser',
+'RSS_USER' 				=> 'RSS Bruger tilføjelser',
+'RSS_VIEW' 				=> 'Vis RSS tilføjelser',
+'RSS_ADD' 				=> 'Tilføj ny brugerliste',
+'RSS_NOTE' 				=> 'Skriv den <strong>nøjagtige url</strong> på din vens VCD database.<br/>
+						Hvis RSS er slået til på din vens side så kan du udvælge
+						de film du er intresseret i og vise dem på din side.',
 'RSS_FETCH' 			=> 'Fetch RSS List',
-'RSS_NONE' 				=> 'Ingen RSS er blevet tilfï¿½jet.',
+'RSS_NONE' 				=> 'Ingen RSS er blevet tilføjet.',
 'RSS_FOUND' 			=> 'The following RSS feeds were found, select the feeds you want to add:',
 'RSS_NOTFOUND' 			=> 'No feeds found at location',
 
 /* Wishlist */
-'W_ADD' 				=> 'Tilfï¿½j til min ï¿½nskeliste',
-'W_ONLIST' 				=> 'Er pï¿½ din ï¿½nskeliste',
-'W_EMPTY' 				=> 'Din ï¿½nskeliste er tom',
+'W_ADD' 				=> 'Tilføj til min ønskeliste',
+'W_ONLIST' 				=> 'Er på din ønskeliste',
+'W_EMPTY' 				=> 'Din ønskeliste er tom',
 'W_OWN' 				=> 'Du har denne film',
 'W_NOTOWN' 				=> 'Du har ikke denne film',
 
@@ -347,6 +347,7 @@ $_ = array(
 'S_NOTSEENITCLICK' 		=> 'Click to mark unseen',
 
 /* Statistics */
+'STAT_TITLE'			=> 'Today\'s Report',
 'STAT_TOP_MOVIES'		=> 'Movies in database',
 'STAT_TOP_CATS'			=> 'Top categories',
 'STAT_TOP_ACT'			=> 'Most active categories',
@@ -373,8 +374,8 @@ $_ = array(
 'PLAYER' 				=> 'Afspiller',
 'PLAYER_PATH' 			=> 'Path',
 'PLAYER_PARAM' 			=> 'Parameters',
-'PLAYER_NOTE' 			=> 'Skriv den fulde path til din film-afspiller pï¿½ din harddisk.
-						Din afspiller skal vï¿½re kompatible til tage parameters og kommando linjer ligesom til
+'PLAYER_NOTE' 			=> 'Skriv den fulde path til din film-afspiller på din harddisk.
+						Din afspiller skal være kompatible til tage parameters og kommando linjer ligesom til
 						BSPlayer til Win32 og MPlayer til Linux.<br/>du kan downloade BSPlayer gratis
 						<a href="http://www.bsplayer.org" target="_new"><b>HER</b></a>
 						og MPlayer til linux <a href="http://www.MPlayerHQ.hu" target="_new"><b>HER</b></a>.',
@@ -394,14 +395,14 @@ $_ = array(
 
 /* Misc keywords */
 'X_CONTAINS' 			=> 'indhold',
-'X_GRADE' 				=> 'IMDB karakter hï¿½jere end',
+'X_GRADE' 				=> 'IMDB karakter højere end',
 'X_ANY' 				=> 'Alle',
-'X_TRYAGAIN' 			=> 'Prï¿½v igen',
+'X_TRYAGAIN' 			=> 'Prøv igen',
 'X_PROCEED' 			=> 'Proceed',
-'X_SELECT' 				=> 'Vï¿½lge',
-'X_CONFIRM' 			=> 'Bekrï¿½ft',
+'X_SELECT' 				=> 'Vælge',
+'X_CONFIRM' 			=> 'Bekræft',
 'X_CANCEL' 				=> 'Annuller',
-'X_ATTENTION' 			=> 'Opmï¿½rksomhed!',
+'X_ATTENTION' 			=> 'Opmærksomhed!',
 'X_STATUS' 				=> 'Status',
 'X_SUCCESS' 			=> 'Succes',
 'X_FAILURE' 			=> 'Fejl',
@@ -421,15 +422,15 @@ $_ = array(
 'X_LATESTTV' 			=> 'sidste TV show',
 'X_LATESTBLUE' 			=> 'sidste X-rated',
 'X_MOVIES' 				=> 'filmene',
-'X_NOCATS' 				=> 'Ingen film er blivet tilfï¿½jet.',
+'X_NOCATS' 				=> 'Ingen film er blivet tilføjet.',
 'X_NOUSERS' 			=> 'Ingen aktive bruger',
-'X_KEY' 				=> 'Nï¿½gle',
-'X_SAVENEXT' 			=> 'Gem og ret den nï¿½ste',
+'X_KEY' 				=> 'Nøgle',
+'X_SAVENEXT' 			=> 'Gem og ret den næste',
 'X_SAVE' 				=> 'Gem',
 'X_SEEN' 				=> 'Set',
-'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
-'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
-
+'X_TOGGLE'				=> 'Toggle preview',
+'X_TOGGLE_ON'			=> 'on',
+'X_TOGGLE_OFF'			=> 'off'
 
 );
 

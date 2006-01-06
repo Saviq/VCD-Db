@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hï¿½kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -127,7 +127,7 @@ $_ = array(
 'M_ACTORS'       	  	=> 'Besetzung',
 'M_CATEGORY'         	=> 'Kategorie',
 'M_YEAR'         		=> 'Produktionsjahr',
-'M_COPIES'        	 	=> 'Kopiï¿½n',
+'M_COPIES'        	 	=> 'Kopiën',
 'M_FROM'          		=> 'Von',
 'M_TITLE'         	 	=> 'Titel',
 'M_ALTTITLE'          	=> 'Alternativer Titel',
@@ -354,6 +354,7 @@ $_ = array(
 'S_NOTSEENITCLICK'      => 'Als ungesehen markierren',
 
 /* Statistics */
+'STAT_TITLE'			=> 'Today\'s Report',
 'STAT_TOP_MOVIES'		=> 'Movies in database',
 'STAT_TOP_CATS'			=> 'Top categories',
 'STAT_TOP_ACT'			=> 'Most active categories',
@@ -434,9 +435,9 @@ $_ = array(
 'X_SAVENEXT'		=> 'Sichern SpeicherNext??',
 'X_SAVE'		=> 'Speichern',
 'X_SEEN'		=> 'Gesehen',
-'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
-'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
-
+'X_TOGGLE'				=> 'Toggle preview',
+'X_TOGGLE_ON'			=> 'on',
+'X_TOGGLE_OFF'			=> 'off'
 
 
 );
