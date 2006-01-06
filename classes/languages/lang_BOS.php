@@ -35,62 +35,61 @@ $_ = array(
 'MENU_SETTINGS' 		=> 'Moje postavke',
 'MENU_MOVIES' 			=> 'Moji filmovi',
 'MENU_ADDMOVIE' 		=> 'Dodaj novi film',
-'MENU_LOANSYSTEM'		=> 'Sistem posuï¿½ivanja',
-'MENU_WISHLIST' 		=> 'Moje ï¿½elje',
+'MENU_LOANSYSTEM'		=> 'Sistem posuðivanja',
+'MENU_WISHLIST' 		=> 'Moje želje',
 'MENU_CATEGORIES' 		=> 'Kategorije filmova',
 'MENU_RSS' 				=> 'Moji RSS izvori',
 'MENU_CONTROLPANEL' 	=> 'Control Panel',
 'MENU_REGISTER' 		=> 'Registrovanje',
 'MENU_LOGOUT' 			=> 'Odjava',
 'MENU_SUBMIT'			=> 'Submit',
-'MENU_TOPUSERS'			=> 'ï¿½esti korisnici',
-'MENU_WISHLISTPUBLIC'	=> 'ï¿½elje drugih...',
+'MENU_TOPUSERS'			=> 'Èesti korisnici',
+'MENU_WISHLISTPUBLIC'	=> 'Želje drugih...',
 'MENU_STATISTICS'		=> 'Statistika',
 
 /* Login */
 'LOGIN' 				=> 'Prijava',
-'LOGIN_USERNAME' 		=> 'Korisniï¿½ko ime',
+'LOGIN_USERNAME' 		=> 'Korisnièko ime',
 'LOGIN_PASSWORD' 		=> 'Lozinka',
 'LOGIN_REMEMBER' 		=> 'Zapamti!',
-'LOGIN_INFO' 			=> 'Ostavi prazno ako <b>ne</b> ï¿½eliï¿½ da mijenjaï¿½ svoju lozinku',
+'LOGIN_INFO' 			=> 'Ostavi prazno ako <b>ne</b> želiš da mijenjaš svoju lozinku',
 
 /* Register */
 'REGISTER_TITLE'		=> 'Registrovanje',
 'REGISTER_FULLNAME' 	=> 'Ime i prezime',
 'REGISTER_EMAIL' 		=> 'E-mail',
 'REGISTER_AGAIN' 		=> 'Ponvi lozinku',
-'REGISTER_DISABLED' 	=> 'ï¿½alim, administrator je privremeno iskljuï¿½io registrovanje',
-'REGISTER_OK' 			=> 'Uspjeï¿½no ste se registrovali. Sad se moï¿½ete prijaviti na VCD-db.',
+'REGISTER_DISABLED' 	=> 'Žalim, administrator je privremeno iskljuèio registrovanje',
+'REGISTER_OK' 			=> 'Uspješno ste se registrovali. Sad se možete prijaviti na VCD-db.',
 
 /* User Properties */
-'PRO_NOTIFY' 			=> 'Poï¿½alji mi e-mail kad se pojavi novi film?',
-'PRO_SHOW_ADULT' 		=> 'Prikaï¿½i sadrï¿½aj za odrasle na stranici?',
+'PRO_NOTIFY' 			=> 'Pošalji mi e-mail kad se pojavi novi film?',
+'PRO_SHOW_ADULT' 		=> 'Prikaži sadržaj za odrasle na stranici?',
 'PRO_RSS' 				=> 'Dopusti RSS izvore s moje liste filmova?',
-'PRO_WISHLIST' 			=> 'Dopusti drugima da vide moje ï¿½elje?',
+'PRO_WISHLIST' 			=> 'Dopusti drugima da vide moje želje?',
 'PRO_USE_INDEX' 		=> 'Koristi broj indeksa kao vlastitu numeraciju medija?',
-'PRO_SEEN_LIST' 		=> 'Vodi raï¿½una o filmovima koje sam odgledao?',
+'PRO_SEEN_LIST' 		=> 'Vodi raèuna o filmovima koje sam odgledao?',
 'PRO_PLAYOPTION' 		=> 'Koristi vlastite postavke za ',
 'PRO_NFO' 				=> 'Koristi NFO?',
 
 /* User Settings */
-'SE_PLAYER' 			=> 'Postavke sviraï¿½a (Player)',
+'SE_PLAYER' 			=> 'Postavke sviraèa (Player)',
 'SE_OWNFEED' 			=> 'Pregledaj moj vlastiti izvor (feed)',
-'SE_CUSTOM' 			=> 'Prilagodi moju poï¿½etnu stranicu',
-'SE_SHOWSTAT' 			=> 'Prikaï¿½i statistiku',
-'SE_SHOWSIDE' 			=> 'Prikaï¿½i nove filmove u boï¿½nom meniju',
+'SE_CUSTOM' 			=> 'Prilagodi moju poèetnu stranicu',
+'SE_SHOWSTAT' 			=> 'Prikaži statistiku',
+'SE_SHOWSIDE' 			=> 'Prikaži nove filmove u boènom meniju',
 'SE_SELECTRSS' 			=> 'Odaberi RSS izvor',
 'SE_UPDATED'			=> 'User information updated',
 'SE_UPDATE_FAILED'		=> 'Failed to update',
-
 
 /* Search */
 'SEARCH' 				=> 'Pretraga',
 'SEARCH_TITLE' 			=> 'Po naslovu',
 'SEARCH_ACTOR' 			=> 'Po glumcu',
-'SEARCH_DIRECTOR' 		=> 'Po reï¿½iseru',
+'SEARCH_DIRECTOR' 		=> 'Po režiseru',
 'SEARCH_RESULTS' 		=> 'Rezultati pretrage',
 'SEARCH_EXTENDED' 		=> 'Detaljna pretraga',
-'SEARCH_NORESULT' 		=> 'Vaï¿½a pretraga nije dala rezultate',
+'SEARCH_NORESULT' 		=> 'Vaša pretraga nije dala rezultate',
 
 /* Movie categories*/
 'CAT_ACTION' 			=> 'Akcija',
@@ -99,25 +98,25 @@ $_ = array(
 'CAT_ANIMATION' 		=> 'Crtani',
 'CAT_ANIME' 			=> 'Anime / Manga',
 'CAT_COMEDY' 			=> 'Komedija',
-'CAT_CRIME' 			=> 'Krimiï¿½',
+'CAT_CRIME' 			=> 'Krimiæ',
 'CAT_DOCUMENTARY' 		=> 'Dokumentarni',
 'CAT_DRAMA' 			=> 'Drama',
-'CAT_FAMILY' 			=> 'Porodiï¿½ni',
+'CAT_FAMILY' 			=> 'Porodièni',
 'CAT_FANTASY' 			=> 'Fantazija',
 'CAT_FILMNOIR' 			=> 'Film Noir',
 'CAT_HORROR' 			=> 'Horor',
 'CAT_JAMESBOND' 		=> 'James Bond',
-'CAT_MUSICVIDEO' 		=> 'Muziï¿½ki - video',
+'CAT_MUSICVIDEO' 		=> 'Muzièki - video',
 'CAT_MUSICAL' 			=> 'Mjuzikl',
 'CAT_MYSTERY' 			=> 'Film misterije',
-'CAT_ROMANCE' 			=> 'Romantiï¿½ni',
+'CAT_ROMANCE' 			=> 'Romantièni',
 'CAT_SCIFI' 			=> 'SF',
 'CAT_SHORT' 			=> 'Kratki',
 'CAT_THRILLER' 			=> 'Triler',
 'CAT_TVSHOWS' 			=> 'TV Show',
 'CAT_WAR' 				=> 'Ratni',
 'CAT_WESTERN' 			=> 'Vestern',
-'CAT_XRATED' 			=> 'X-Oznaï¿½eni',
+'CAT_XRATED' 			=> 'X-Oznaèeni',
 
 /* Movie Listings */
 'M_MOVIE' 				=> 'Film',
@@ -129,7 +128,7 @@ $_ = array(
 'M_TITLE' 				=> 'Naslov',
 'M_ALTTITLE' 			=> 'Alternativni naslov',
 'M_GRADE'				=> 'Ocjena',
-'M_DIRECTOR' 			=> 'Reï¿½iser',
+'M_DIRECTOR' 			=> 'Režiser',
 'M_COUNTRY'				=> 'Zemlja produkcije',
 'M_RUNTIME' 			=> 'Trajanje filma',
 'M_MINUTES'			 	=> 'minuta',
@@ -146,10 +145,10 @@ $_ = array(
 'M_DETAILS'			    => 'Detalji o mojoj kopiji',
 'M_MEDIATYPE'		    => 'Tip medija',
 'M_COMMENT'			    => 'Komentar',
-'M_PRIVATE'				=> 'Oznaï¿½i kao privatno ?',
+'M_PRIVATE'				=> 'Oznaèi kao privatno ?',
 'M_SCREENSHOTS'			=> 'Scene',
 'M_NOSCREENS'			=> 'Scene nisu dostupne',
-'M_SHOW'				=> 'Prikaï¿½i',
+'M_SHOW'				=> 'Prikaži',
 'M_HIDE'				=> 'Sakrij',
 'M_CHANGE'				=> 'Promijeni podatke',
 'M_NOCOVERS'			=> 'CD omot nije dostupan',
@@ -157,8 +156,8 @@ $_ = array(
 'M_CURRCAT'				=> 'Trenutna kategorija',
 'M_TEXTVIEW'			=> 'Tekstualni pregled',
 'M_IMAGEVIEW'			=> 'Slikovni pregled',
-'M_MINEONLY'			=> 'Prikaï¿½i samo moje filmove',
-'M_SIMILAR'				=> 'Sliï¿½ni filmovi',
+'M_MINEONLY'			=> 'Prikaži samo moje filmove',
+'M_SIMILAR'				=> 'Slièni filmovi',
 'M_MEDIAINDEX'				=> 'Indeks medija',
 
 /* IMDB */
@@ -180,39 +179,39 @@ $_ = array(
 'MY_EXPORT' 			=> 'Eksortuj podatke',
 'MY_EXCEL' 				=> 'Eksportuj kao Excel fajl',
 'MY_XML' 				=> 'Eksportuj kao XML fajl',
-'MY_XMLTHUMBS'			=> 'Eksportuj sliï¿½ice kao XML fajl',
+'MY_XMLTHUMBS'			=> 'Eksportuj slièice kao XML fajl',
 'MY_ACTIONS'			=> 'Moje akcije',
-'MY_JOIN'				=> 'Pridruï¿½ivanje diskova',
-'MY_JOINMOVIES'			=> 'Pridruï¿½ivanje film diskova',
+'MY_JOIN'				=> 'Pridruživanje diskova',
+'MY_JOINMOVIES'			=> 'Pridruživanje film diskova',
 'MY_JOINSUSER'			=> 'Odabveri korisnika',
 'MY_JOINSMEDIA'			=> 'Odaberi tip medija',
 'MY_JOINSCAT'			=> 'Odaberi kategoriju',
 'MY_JOINSTYPE'			=> 'Odaberi akciju',
-'MY_JOINSHOW'			=> 'Prikaï¿½i rezultat',
+'MY_JOINSHOW'			=> 'Prikaži rezultat',
 'MY_NORESULTS'			=> 'Upit nije vratio rezultate',
 'MY_TEXTALL'			=> 'Pregled svih (Textmode)',
-'MY_PWALL'				=> 'Pregled svih video podataka za ï¿½tampanje',
-'MY_PWMOVIES'			=> 'Pregled svih filmova za ï¿½tampanje',
-'MY_PWTV'				=> 'Pregled svih TV ï¿½oua za ï¿½tampanje',
-'MY_PWBLUE'				=> 'Pregled svih X rejting filmova za ï¿½tampanje',
+'MY_PWALL'				=> 'Pregled svih video podataka za štampanje',
+'MY_PWMOVIES'			=> 'Pregled svih filmova za štampanje',
+'MY_PWTV'				=> 'Pregled svih TV šoua za štampanje',
+'MY_PWBLUE'				=> 'Pregled svih X rejting filmova za štampanje',
 'MY_J1'					=> 'Filmovi koje ja imam, ali ne i drugi korisnik',
 'MY_J2'					=> 'Filmovi koje drugi korisnik ima, ali ne i ja',
 'MY_J3'					=> 'Filmovi koje obojica imamo',
 'MY_OVERVIEW'			=> 'Pregled kolekcije',
-'MY_INFO'				=> 'Na ovoj stranici moï¿½ete pronaï¿½i sve o mojim filmovima.
-							Desno se nalaze akcije koje moï¿½ete izvrï¿½iti na vaï¿½oj filmskoj kolekciji.
-							Takoï¿½er, moï¿½ete eksportovati vaï¿½u listu kao excel fajl ili koristiti XML
-							izvozne funklcije za pravljenje sigurnosnih kopija ili da pomjerite vaï¿½u
+'MY_INFO'				=> 'Na ovoj stranici možete pronaæi sve o mojim filmovima.
+							Desno se nalaze akcije koje možete izvršiti na vašoj filmskoj kolekciji.
+							Takoðer, možete eksportovati vašu listu kao excel fajl ili koristiti XML
+							izvozne funklcije za pravljenje sigurnosnih kopija ili da pomjerite vašu
 							kolekciju filmova iz jedne VCD-db baze u drugu.',
 'MY_KEYS'				=> 'Promijeni vlastitu numeraciju',
 'MY_SEENLIST'			=> 'Mijenjal listu pregledanih filmova',
 'MY_HELPPICKER'			=> 'Odaberi film za gledanje',
-'MY_HELPPICKERINFO'		=> 'Ne znate ï¿½ta gledati veï¿½eras?<br/>Neka VCD-db odabere film za vas.<br/>
-							Opcionalno moï¿½ete postaviti filtere da bi suzili podruï¿½je za prijedlog
+'MY_HELPPICKERINFO'		=> 'Ne znate šta gledati veèeras?<br/>Neka VCD-db odabere film za vas.<br/>
+							Opcionalno možete postaviti filtere da bi suzili podruèje za prijedlog
 						    VCD-db-a.',
-'MY_FIND'				=> 'Pronaï¿½i film',
-'MY_NOTSEEN'			=> 'Predloï¿½i samo filmove koje nisam gledao',
-'MY_FRIENDS'			=> 'Moji prijatelji koji posuï¿½uju filmove',
+'MY_FIND'				=> 'Pronaði film',
+'MY_NOTSEEN'			=> 'Predloži samo filmove koje nisam gledao',
+'MY_FRIENDS'			=> 'Moji prijatelji koji posuðuju filmove',
 
 
 /* Manager window */
@@ -221,14 +220,14 @@ $_ = array(
 'MAN_EMPIRE' 			=> 'DVDEmpire informacije',
 'MAN_COPY' 				=> 'Moja kopija',
 'MAN_COPIES' 			=> 'Moje kopije',
-'MAN_NOCOPY' 			=> 'Nemaï¿½ vlastitih kopija',
+'MAN_NOCOPY' 			=> 'Nemaš vlastitih kopija',
 'MAN_1COPY' 			=> 'Kopija',
 'MAN_ADDACT' 			=> 'Dodaj glumca',
 'MAN_ADDTODB' 			=> 'Dodaj novog glumca u bazu',
 'MAN_SAVETODB' 			=> 'Snimi u bazu',
 'MAN_SAVETODBNCD' 		=> 'Snimi u bazu DB i film',
 'MAN_INDB' 				=> 'Glumci u bazi',
-'MAN_SEL' 				=> 'Oznaï¿½eni glumci',
+'MAN_SEL' 				=> 'Oznaèeni glumci',
 'MAN_STARS' 			=> 'Zvijezde',
 'MAN_BROWSE'			=> 'Odaberi lokaciju za fajlove',
 
@@ -236,59 +235,59 @@ $_ = array(
 /* Add movies */
 'ADD_INFO' 				=> 'Odaberi metod za dodavanje novih filmova',
 'ADD_IMDB' 				=> 'Dobavi podatke s Internet Movie Database',
-'ADD_IMDBTITLE' 		=> 'Unesi kljuï¿½ne rijeï¿½i za pretragu po',
+'ADD_IMDBTITLE' 		=> 'Unesi kljuène rijeæi za pretragu po',
 'ADD_MANUAL' 			=> 'Unesi podatke manuelno',
-'ADD_LISTED' 			=> 'Dodaj film koji je veï¿½ izlistan',
+'ADD_LISTED' 			=> 'Dodaj film koji je veæ izlistan',
 'ADD_XML' 				=> 'Dodaj film iz eksportovanog XML fajla',
 'ADD_XMLFILE' 			=> 'Odaberi XML fajl za import podataka',
 'ADD_XMLNOTE' 			=> '(Napomena: Samo XML fajlovi koji su eksportovani iz druge VCD-db baze
-							se mogu koristiti za import vaï¿½ih filmova. Filmove moï¿½ete eksportovati iz sekcije
+							se mogu koristiti za import vaših filmova. Filmove možete eksportovati iz sekcije
 							"Moji filmovi". Izbjegavajte mmanuelno mijenjanje exportovanih XML files.) ',
 'ADD_EXCEL' 			=> 'Dodaj filmove iz excel fajla',
 'ADD_EXCELFILE' 		=> 'Odaberi excel fajl za importovanje',
-'ADD_EXCELNOTE' 		=> '(Da bi saznali taï¿½an format excel fajla, prvo <a href="./exec_query.php?action=export&type=excel">
+'ADD_EXCELNOTE' 		=> '(Da bi saznali taèan format excel fajla, prvo <a href="./exec_query.php?action=export&type=excel">
 							exportujte svoje filmove u excel fajl</a>.)',
-'ADD_MAXFILESIZE'		=> 'Max. veliï¿½ina',
+'ADD_MAXFILESIZE'		=> 'Max. velièina',
 'ADD_DVDEMPIRE' 		=> 'Dobavi podatje sa Adult DVD Empire (X-rated filmovi)',
-'ADD_LISTEDSTEP1' 		=> 'Korak 1<br/>Oznaï¿½ite naslove koje ï¿½elite da dodate na svoju listu.<br/>Tip medija moï¿½ete
-						    oznaï¿½iti u slijedeï¿½em koraku.',
-'ADD_LISTEDSTEP2' 		=> 'Korak 2.<br/>Odaberi odgovarajuï¿½i tip medija.',
+'ADD_LISTEDSTEP1' 		=> 'Korak 1<br/>Oznaèite naslove koje želite da dodate na svoju listu.<br/>Tip medija možete
+						    oznaèiti u slijedeæem koraku.',
+'ADD_LISTEDSTEP2' 		=> 'Korak 2.<br/>Odaberi odgovarajuèi tip medija.',
 'ADD_INDB' 				=> 'Filmovi u VCD-DB',
-'ADD_SELECTED' 			=> 'Oznaï¿½eni naslovi',
-'ADD_INFOLIST' 			=> 'Dvo-klikni na naslov da ga oznaï¿½iï¿½ ili koristi kurzore.<br/>Moï¿½ete koristiti tastaturu da
-							brzo pronaï¿½ete naslove.',
+'ADD_SELECTED' 			=> 'Oznaèeni naslovi',
+'ADD_INFOLIST' 			=> 'Dvo-klikni na naslov da ga oznaèiš ili koristi kurzore.<br/>Možete koristiti tastaturu da
+							brzo pronaðete naslove.',
 'ADD_NOTITLES' 			=> 'Drugi korisnici nisu dodavali filmove u VCD-db',
 
 
 /* Add from XML */
 'XML_CONFIRM' 			=> 'Potvrdi XML upload',
-'XML_CONTAINS' 			=> 'XML fajl sadrï¿½i %d filmova.',
+'XML_CONTAINS' 			=> 'XML fajl sadrži %d filmova.',
 'XML_INFO1' 			=> 'Odaberi Potvrda da importujem i snimim filmove u bazu.<br/>
-							Ili odaberi Otkaï¿½i da prekineï¿½ radnju. ',
-'XML_INFO2' 			=> 'Ukoliko ï¿½elite da ukljuï¿½ite sliï¿½ice (postere) sa filmovima koje ï¿½elite da
-							importujete u vaï¿½em XML fajlu, sliï¿½ice <b>MORAJU</b> imati XML fijl prilikom importa!.<br/>
-							Posteri ne mogu biti importovani nakon ï¿½to ste zavrï¿½ili importovanje filmova iz trenutnog XML fajla.
-							Ukoliko imate XML fajl s sliï¿½icama dostupan sada, provjerite polje za unos (dole) i u slijedeï¿½em koraku
-							nakon ï¿½to importujete filmove iz liste, od vas ï¿½e se traï¿½iti da importujete XML fajl s sliï¿½icama,
-							takoï¿½er. ',
-'XML_THUMBNAILS'		=> 'Dodaj sliï¿½ice iz XML fajla s sliï¿½icama ',
+							Ili odaberi Otkaži da prekineš radnju. ',
+'XML_INFO2' 			=> 'Ukoliko želite da ukljuèite slièice (postere) sa filmovima koje želite da
+							importujete u vašem XML fajlu, slièice <b>MORAJU</b> imati XML fijl prilikom importa!.<br/>
+							Posteri ne mogu biti importovani nakon što ste završili importovanje filmova iz trenutnog XML fajla.
+							Ukoliko imate XML fajl s slièicama dostupan sada, provjerite polje za unos (dole) i u slijedeæem koraku
+							nakon što importujete filmove iz liste, od vas æe se tražiti da importujete XML fajl s slièicama,
+							takoðer. ',
+'XML_THUMBNAILS'		=> 'Dodaj slièice iz XML fajla s slièicama ',
 'XML_LIST'				=> 'Puna lista filmova iz XML fajla.',
-'XML_ERROR'				=> 'Nije pronaï¿½en ni jedan naslov u XML fajlu.<br/>Moï¿½da je fajl oï¿½teï¿½en ili jednostavno prazan.
+'XML_ERROR'				=> 'Nije pronaðen ni jedan naslov u XML fajlu.<br/>Možda je fajl ošteæen ili jednostavno prazan.
 			   				<br/>Provjerite da li koristite XML fajl koji je eksportovan iz VCD-db...',
 'XML_RESULTS'			=> 'XML upload rezultati.',
-'XML_RESULTS2'			=> 'Rezultati vaï¿½eg XML importa.<br/>Ukupno je %d filmova dodano u bazu.',
+'XML_RESULTS2'			=> 'Rezultati vašeg XML importa.<br/>Ukupno je %d filmova dodano u bazu.',
 
 
 /* Add from Excel */
 'EXCEL_CONFIRM' 		=> 'Potvrdi Excel fajl upload',
-'EXCEL_CONTAINS' 		=> 'Excel fajl sadrï¿½i podatke o %d filmova.',
-'EXCEL_INFO1' 			=> 'Odaberi Potvrdi da importujeï¿½ i snimiï¿½ filmove u bazu.<br/>
-							Ili odaberi Otkaï¿½i da prekineï¿½ radnju. ',
+'EXCEL_CONTAINS' 		=> 'Excel fajl sadrži podatke o %d filmova.',
+'EXCEL_INFO1' 			=> 'Odaberi Potvrdi da importuješ i snimiš filmove u bazu.<br/>
+							Ili odaberi Otkaži da prekineš radnju. ',
 'EXCEL_LIST'			=> 'Puna lista filmova iz excel fajla.',
-'EXCEL_ERROR'			=> 'Nije pronaï¿½en ni jedan naslov u excel fajlu.<br/>Moï¿½da je fajl oï¿½teï¿½en ili jednostavno prazan.
+'EXCEL_ERROR'			=> 'Nije pronaðen ni jedan naslov u excel fajlu.<br/>Možda je fajl ošteæen ili jednostavno prazan.
 			   				<br/>Provjerite da li koristite excel fajl koji je eksportovan iz VCD-db...',
 'EXCEL_RESULTS'			=> 'Excel upload rezultati.',
-'EXCEL_RESULTS2'		=> 'Rezultati vaï¿½eg XML importa.<br/>Ukupno je %d filmova dodano u bazu.',
+'EXCEL_RESULTS2'		=> 'Rezultati vašeg XML importa.<br/>Ukupno je %d filmova dodano u bazu.',
 
 
 /* Add from DVD Empire */
@@ -297,32 +296,32 @@ $_ = array(
 'EM_SUBCAT'				=> 'Podkategorija',
 'EM_DETAILS'			=> 'Adultdvdempire.com detalji',
 'EM_STARS'				=> 'Porno zvijezde',
-'EM_NOTICE'				=> 'Glumci oznaï¿½eni crvenom bojom se ne nalaze u VCD-DB bazi.
-							Ali moï¿½ete oznaï¿½iti njihova imena i oni ï¿½e se automatski dodati u VCD-db bazu
+'EM_NOTICE'				=> 'Glumci oznaèeni crvenom bojom se ne nalaze u VCD-DB bazi.
+							Ali možete oznaèiti njihova imena i oni æe se automatski dodati u VCD-db bazu
 						    i asocirati s ovim filmom.',
-'EM_FETCH'				=> 'Takoï¿½er dobavi',
+'EM_FETCH'				=> 'Takoðer dobavi',
 
 /* Loan System */
-'LOAN_MOVIES'			=> 'Filmovi za posuï¿½ivanje',
+'LOAN_MOVIES'			=> 'Filmovi za posuðivanje',
 'LOAN_TO'				=> 'Posudi film...',
-'LOAN_ADDUSERS'			=> 'Dodaj korisnike kojima posuï¿½ujeï¿½ da bi nastavio',
+'LOAN_ADDUSERS'			=> 'Dodaj korisnike kojima posuðuješ da bi nastavio',
 'LOAN_NEWUSER'			=> 'Novi korisnik',
 'LOAN_REGISTERUSER'		=> 'Dodaj novog korisnika',
 'LOAN_NAME'				=> 'Ime',
 'LOAN_SELECT'			=> 'Odaberi korisnika',
-'LOAN_MOVIELOANS'		=> 'Posuï¿½eni filmovi ...',
-'LOAN_REMINDER'			=> 'Poï¿½alji napomenu',
-'LOAN_HISTORY'			=> 'Istorija posuï¿½ivanja',
-'LOAN_HISTORY2'			=> 'Pregledaj istoriju posuï¿½ivanja',
-'LOAN_SINCE'			=> 'Posuï¿½eno do',
-'LOAN_TIME'				=> 'Posuï¿½eno vrijeme',
-'LOAN_RETURN'			=> 'Oznaï¿½i kao vraï¿½eno',
-'LOAN_SUCCESS'			=> 'Filmovi posuï¿½eni (uspjeï¿½no)',
-'LOAN_OUT'				=> 'Nisu vraï¿½eni',
-'LOAN_DATEIN'			=> 'Datum posuï¿½ivanja',
-'LOAN_DATEOUT'			=> 'Datum vraï¿½anja',
-'LOAN_PERIOD'			=> 'Period posuï¿½ivanja',
-'LOAN_BACK'				=> 'Nazad na indeks posuï¿½ivanja',
+'LOAN_MOVIELOANS'		=> 'Posuðeni filmovi ...',
+'LOAN_REMINDER'			=> 'Pošalji napomenu',
+'LOAN_HISTORY'			=> 'Istorija posuðivanja',
+'LOAN_HISTORY2'			=> 'Pregledaj istoriju posuðivanja',
+'LOAN_SINCE'			=> 'Posuðeno do',
+'LOAN_TIME'				=> 'Posuðeno vrijeme',
+'LOAN_RETURN'			=> 'Oznaèi kao vraæeno',
+'LOAN_SUCCESS'			=> 'Filmovi posuðeni (uspješno)',
+'LOAN_OUT'				=> 'Nisu vraèeni',
+'LOAN_DATEIN'			=> 'Datum posuðivanja',
+'LOAN_DATEOUT'			=> 'Datum vraèanja',
+'LOAN_PERIOD'			=> 'Period posuðivanja',
+'LOAN_BACK'				=> 'Nazad na indeks posuðivanja',
 'LOAN_DAY'				=> 'dan',
 'LOAN_DAYS'				=> 'dana',
 'LOAN_TODAY'			=> 'od danas',
@@ -335,19 +334,19 @@ $_ = array(
 'RSS_USER'				=> 'RSS izvor korisnika',
 'RSS_VIEW'				=> 'Pregledaj RSS izvor',
 'RSS_ADD'				=> 'Dodaj novi izvor',
-'RSS_NOTE'				=> 'Unesi <strong>taï¿½an url</strong> VCD baze vaï¿½eg prijatelja.<br/>
-							Ako je RSS ukljuï¿½en na sajtu vaï¿½eg prijatelja moï¿½ete odabrati pojedini
+'RSS_NOTE'				=> 'Unesi <strong>taèan url</strong> VCD baze vašeg prijatelja.<br/>
+							Ako je RSS ukljuèen na sajtu vašeg prijatelja možete odabrati pojedini
 							izvor za koji ste zainteresovani i prikazati ga na stranici.',
 'RSS_FETCH'				=> 'Dobavi RSS izvore',
 'RSS_NONE'				=> 'RSS izvori su dodani.',
-'RSS_FOUND'				=> 'Slijedeï¿½i RSS izvori su dodani, oznaï¿½ite one koje ï¿½elite dodati:',
-'RSS_NOTFOUND'			=> 'RSS izvori nisu pronaï¿½eni na lokaciji',
+'RSS_FOUND'				=> 'Slijedeæi RSS izvori su dodani, oznaèite one koje želite dodati:',
+'RSS_NOTFOUND'			=> 'RSS izvori nisu pronaðeni na lokaciji',
 
 
 /* Wishlist */
-'W_ADD'					=> 'Dodaj u moju listu ï¿½elja',
-'W_ONLIST'				=> 'Na vaï¿½oj listi ï¿½elja',
-'W_EMPTY'				=> 'Vaï¿½a lista ï¿½elja je prazna',
+'W_ADD'					=> 'Dodaj u moju listu želja',
+'W_ONLIST'				=> 'Na vašoj listi želja',
+'W_EMPTY'				=> 'Vaša lista želja je prazna',
 'W_OWN'					=> 'Posjedujem kopiju ovog filma',
 'W_NOTOWN'				=> 'Ne posjedujem kopiju ovog filma',
 
@@ -357,7 +356,7 @@ $_ = array(
 'C_ADD'					=> 'Dodaj novi komentar',
 'C_NONE'				=> 'Nema komentara',
 'C_TYPE'				=> 'Unesi svoj komentar',
-'C_YOUR'				=> 'Vaï¿½ komentar',
+'C_YOUR'				=> 'Vaš komentar',
 'C_POST'				=> 'Objavi komentar',
 'C_ERROR'				=> 'Morate biti prijavljeni da bi mogli komentarisati',
 
@@ -371,10 +370,11 @@ $_ = array(
 /* Seen List */
 'S_SEENIT'				=> 'Ovaj film sam gledao',
 'S_NOTSEENIT'			=> 'Ovaj film nisam gledao',
-'S_SEENITCLICK'			=> 'Klikni da oznaï¿½iï¿½ film da je gledan',
-'S_NOTSEENITCLICK'		=> 'Klikni da oznaï¿½iï¿½ film da nije gledan',
+'S_SEENITCLICK'			=> 'Klikni da oznaèiš film da je gledan',
+'S_NOTSEENITCLICK'		=> 'Klikni da oznaèiš film da nije gledan',
 
 /* Statistics */
+'STAT_TITLE'			=> 'Today\'s Report',
 'STAT_TOP_MOVIES'		=> 'Movies in database',
 'STAT_TOP_CATS'			=> 'Top categories',
 'STAT_TOP_ACT'			=> 'Most active categories',
@@ -385,25 +385,25 @@ $_ = array(
 'STAT_MONTH'			=> 'Added in last 30 days',
 
 /* Mail messages */
-'MAIL_RETURNMOVIES1'	=> '%s, samo ï¿½elim da te podsjetim da vratiï¿½ moje filmove.\n
-							Kod tebe su slijedeï¿½i filmovi:\n\n',
-'MAIL_RETURNMOVIES2'    => 'Molim te da ih vratiï¿½ ï¿½to prije moguï¿½e\n Pozdrav %s \n\n
+'MAIL_RETURNMOVIES1'	=> '%s, samo želim da te podsjetim da vratiš moje filmove.\n
+							Kod tebe su slijedeæi filmovi:\n\n',
+'MAIL_RETURNMOVIES2'    => 'Molim te da ih vratiš što prije moguæe\n Pozdrav %s \n\n
 							nb. ovo je automatska poruka od VCD-db sistema (http://vcddb.konni.com)',
 'MAIL_NOTIFY'  		    => '<strong>Novi film je dodan u VCD-db</strong><br/>
-							 Klikni <a href="%s/?page=cd&vcd_id=%s">ovdje</a> da bi vidio viï¿½e ...
+							 Klikni <a href="%s/?page=cd&vcd_id=%s">ovdje</a> da bi vidio više ...
 							 <p>nb. ovo je automatska poruka od VCD-db sistema (vcddb.konni.com)</p>',
-'MAIL_REGISTER'		 	=> '%s, registracija na VCD-db je uspjeï¿½na.\n\nVaï¿½e korisniï¿½ko ime je %s i vaï¿½a lozinka je
-							%s.\n\nUvijek moï¿½ete promijeniti vaï¿½u lozinku, nakon ï¿½to se prijavite na stranicu.\n
+'MAIL_REGISTER'		 	=> '%s, registracija na VCD-db je uspješna.\n\nVaše korisnièko ime je %s i vaša lozinka je
+							%s.\n\nUvijek možete promijeniti vašu lozinku, nakon što se prijavite na stranicu.\n
 							Kliknite <a href="%s" target="_new">ovdje</a> da odete na VCD-db stranicu.',
 
 
 /* Player */
-'PLAYER'				=> 'Sviraï¿½ (Player)',
+'PLAYER'				=> 'Sviraè (Player)',
 'PLAYER_PATH'			=> 'Put (Path)',
 'PLAYER_PARAM'			=> 'Parametri',
-'PLAYER_NOTE'			=> 'Unesite puni put do vaï¿½eg put do vaï¿½eg sviraï¿½a za filmove (movie player) na vaï¿½em disku.
-							Vaï¿½ sviraï¿½ mora biti u moguï¿½nosti da prihvati parametre s komandne linije poput
-							BSPlayer-a za Win32 ili MPlayer-a za Linux.<br/>Moï¿½ete downloadovati BSPlayer besplatno
+'PLAYER_NOTE'			=> 'Unesite puni put do vašeg put do vašeg sviraèa za filmove (movie player) na vašem disku.
+							Vaš sviraè mora biti u moguènosti da prihvati parametre s komandne linije poput
+							BSPlayer-a za Win32 ili MPlayer-a za Linux.<br/>Možete downloadovati BSPlayer besplatno
 							<a href="http://www.bsplayer.org" target="_new">ovdje</a>
 							i MPlayer <a href="http://www.MPlayerHQ.hu" target="_new">ovdje</a>.',
 
@@ -422,25 +422,25 @@ $_ = array(
 
 
 /* Misc keywords */
-'X_CONTAINS'			=> 'sadrï¿½i',
-'X_GRADE'				=> 'IMDB rejting viï¿½i od',
+'X_CONTAINS'			=> 'sadrži',
+'X_GRADE'				=> 'IMDB rejting viši od',
 'X_ANY'					=> 'Bilo koji',
 'X_TRYAGAIN'			=> 'probaj ponovo',
 'X_PROCEED' 			=> 'Proslijedi',
-'X_SELECT' 				=> 'Oznaï¿½i',
+'X_SELECT' 				=> 'Oznaèi',
 'X_CONFIRM' 			=> 'Potvrdi',
-'X_CANCEL' 				=> 'Otkaï¿½i',
-'X_ATTENTION' 			=> 'Paï¿½nja!',
+'X_CANCEL' 				=> 'Otkaži',
+'X_ATTENTION' 			=> 'Pažnja!',
 'X_STATUS' 				=> 'Status',
 'X_SUCCESS' 			=> 'Uspijeh!',
-'X_FAILURE' 			=> 'Greï¿½ka',
+'X_FAILURE' 			=> 'Greška',
 'X_YES' 				=> 'Da',
 'X_NO' 					=> 'Ne',
-'X_SHOWMORE' 			=> 'Prikaï¿½i viï¿½e',
-'X_SHOWLESS' 			=> 'Prikaï¿½i manje',
+'X_SHOWMORE' 			=> 'Prikaži više',
+'X_SHOWLESS' 			=> 'Prikaži manje',
 'X_NEW' 				=> 'Novi',
 'X_CHANGE' 				=> 'mijenjaj',
-'X_DELETE' 				=> 'obriï¿½i',
+'X_DELETE' 				=> 'obriši',
 'X_UPDATE' 				=> 'Obnovi',
 'X_SAVEANDCLOSE' 		=> 'Snimi i zatvori',
 'X_CLOSE' 				=> 'Zatvori',
@@ -452,12 +452,13 @@ $_ = array(
 'X_MOVIES' 				=> 'filmovi',
 'X_NOCATS' 				=> 'Filmovi nisu dodavani.',
 'X_NOUSERS' 			=> 'Nema aktivnih korisnika',
-'X_KEY' 				=> 'Kljuï¿½',
-'X_SAVENEXT' 			=> 'Snimi i edituj slijedeï¿½i',
+'X_KEY' 				=> 'Kljuè',
+'X_SAVENEXT' 			=> 'Snimi i edituj slijedeæi',
 'X_SAVE' 				=> 'Snimi',
 'X_SEEN' 				=> 'Odgledan',
-'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
-'X_FOOTER_LINK'			=> 'Check out the official VCD-db website'
+'X_TOGGLE'				=> 'Toggle preview',
+'X_TOGGLE_ON'			=> 'on',
+'X_TOGGLE_OFF'			=> 'off'
 
 
 );
