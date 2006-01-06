@@ -125,12 +125,13 @@ function display_imdbLinks($imdb_id) {
  */
 function display_toggle() {
 	global $CURRENT_PAGE;
+	global $language;
 	if ($CURRENT_PAGE == "") {
 	?>
 
-	<div class="topic">Toggle preview</div>
+	<div class="topic"><?=$language->show('X_TOGGLE')?></div>
 	<div class="forms" align="center">
-	<a href="javascript:show('r-col')">[on]</a>-<a href="javascript:hide('r-col')">[off]</a>
+	<a href="javascript:show('r-col')">[<?=$language->show('X_TOGGLE_ON')?>]</a>-<a href="javascript:hide('r-col')">[<?=$language->show('X_TOGGLE_OFF')?>]</a>
 	</div>
 
 
@@ -452,7 +453,7 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
  *
  * @return unknown
  */
-function getCategoryMapping() {
+function 	getCategoryMapping() {
 	$mapping = array(
 		'Action' 		=> 'CAT_ACTION',
 		'Adult' 		=> 'CAT_ADULT',
@@ -764,6 +765,7 @@ function ShowOneRSS($url, $showdescription = false) {
 	$rss = VCDClassFactory::getInstance('lastRSS');
 	$rss->cache_dir = CACHE_FOLDER;
 	$rss->cache_time = RSS_CACHE_TIME;
+	$rss->cp = VCDUtils::getCharSet();
 
     if ($rs = $rss->get($url)) {
 
@@ -842,7 +844,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	<img src="images/logotest.gif" width="187" align="middle" height="118" alt="" border="0"/>
 	<br/>
 	<? } ?>
-	Todays report
+	<?=$language->show('STAT_TITLE');?>
 	</h3>
 	<? }  else {$header = "header";} ?>
 	<div align="center">
