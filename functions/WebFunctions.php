@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hï¿½kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgsson <konni@konni.com>
  * @package Functions
  * @subpackage Web
  * @version $Id$
@@ -540,8 +540,8 @@ function server_url()
 {
    $proto = "http" .
        ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
-   $server = isset($_SERVER['HTTP_HOST']) ?
-       $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+   $server = isset($_SERVER['SERVER_NAME']) ?
+       $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
    return $proto . $server;
 }
 
