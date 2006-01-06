@@ -367,8 +367,8 @@ switch ($form) {
 		}
 		
 		if (isset($_COOKIE['language'])) {
-			$language = $_COOKIE['language'];
-			$Cookie->put("language",$language);
+			$langname = $_COOKIE['language'];
+			$Cookie->put("language",$langname);
 		}
 				
 		$Cookie->put("template",$template_name);	
