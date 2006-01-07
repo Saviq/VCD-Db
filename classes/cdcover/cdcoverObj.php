@@ -2,24 +2,24 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage CDCover
  * @version $Id$
  */
- 
+
 ?>
-<? 
+<?
 	require_once("cdcoverTypeObj.php");
-	
+
 	class cdcoverObj extends cdcoverTypeObj implements XMLable  {
-	
+
 		/**
 		 * Id of the cdcover
 		 *
@@ -61,8 +61,8 @@
 		 *
 		 * @var int
 		 */
-		private $image_id;		
-		
+		private $image_id;
+
 		/**
 		 * Constructor, accepts array as an parameter containing all the objects variables.
 		 *
@@ -82,8 +82,8 @@
 				$this->image_id			   = $dataArr[8];
 			}
 		}
-		
-		
+
+
 		/**
 		 * Get the coverID
 		 *
@@ -92,7 +92,7 @@
 		public function getId() {
 			return $this->cover_id;
 		}
-		
+
 		/**
 		 * Set cover ID
 		 *
@@ -101,7 +101,7 @@
 		public function setCoverID($cover_id) {
 			$this->cover_id = $cover_id;
 		}
-		
+
 		/**
 		 * Get the id of the CD that this cover belongs to.
 		 *
@@ -110,7 +110,7 @@
 		public function getVcdId() {
 			return $this->vcd_id;
 		}
-		
+
 		/**
 		 * Set the CD id that this cover belongs to.
 		 *
@@ -119,7 +119,7 @@
 		public function setVcdId($vcd_id) {
 			$this->vcd_id = $vcd_id;
 		}
-		
+
 		/**
 		 * Get the filename of the cover.
 		 *
@@ -128,7 +128,7 @@
 		public function getFilename() {
 			return $this->filename;
 		}
-		
+
 		/**
 		 * Set the cover object filename.
 		 *
@@ -137,7 +137,7 @@
 		public function setFilename($strFilename) {
 			$this->filename = $strFilename;
 		}
-		
+
 		/**
 		 * Get the filesize of the cover object.
 		 *
@@ -150,7 +150,7 @@
 				return -1;
 			}
 		}
-		
+
 		/**
 		 * Set the objects filesize.
 		 *
@@ -159,8 +159,8 @@
 		public function setFilesize($fsize) {
 			$this->filesize = $fsize;
 		}
-		
-				
+
+
 		/**
 		 * Get the user_id of the cover objects creator
 		 *
@@ -169,7 +169,7 @@
 		public function getOwnerId() {
 			return $this->owner_id;
 		}
-		
+
 		/**
 		 * Set the user_id of the cover objects creator.
 		 *
@@ -178,7 +178,7 @@
 		public function setOwnerId($owner_id) {
 			$this->owner_id = $owner_id;
 		}
-		
+
 		/**
 		 * Get the date this cover object was added.
 		 *
@@ -187,7 +187,7 @@
 		public function getDateAdded() {
 			return $this->date_added;
 		}
-		
+
 		/**
 		 * Get the image_id in database if image is stored as binary stream, otherwise returns -1
 		 *
@@ -200,7 +200,7 @@
 				return -1;
 			}
 		}
-		
+
 		/**
 		 * Set the database image_id
 		 *
@@ -209,8 +209,8 @@
 		public function setImageID($image_id) {
 			$this->image_id = $image_id;
 		}
-		
-		
+
+
 		/**
 		 * Check if image is stored in database or on filelevel.
 		 *
@@ -219,7 +219,7 @@
 		public function isInDB() {
 			return (isset($this->image_id) && $this->image_id > 0);
 		}
-		
+
 		/**
 		 * Prints out the HTML image tag for display-ing the current cdcover object.
 		 * Param prefix can be forexample path below like "../"
@@ -233,15 +233,15 @@
 			} else {
 				// image is on disk
 				if ($this->isThumbnail()) {
-					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" width=\"150\" border=\"0\"/>";
 				} else {
 					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
 				}
-				
+
 			}
 		}
-		
-		
+
+
 		/**
 		 * Get the HTML image SRC string for display-ing the cover object.
 		 * Param prefix can be directory below like "../"
@@ -261,26 +261,26 @@
 				} else {
 					return "<img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
 				}
-				
+
 			} else {
 				// image is on disk
 				if ($this->isThumbnail()) {
-					
+
 					if ($height != '' && $width != '') {
 						return "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" width=\"".$width."\" height=\"".$height."\" class=\"imgx\" border=\"0\"/>";
 					} else {
 						return "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/>";
-					} 
-					
-					
+					}
+
+
 				} else {
 					return "<a name=\"".$this->covertypeName."\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a><br/>";
 				}
-				
+
 			}
 		}
-		
-		
+
+
 		/**
 		 * Print the cover objects HTML IMG SRC string with a clickable link under.
 		 * Param title is optional and is used in alt text
@@ -301,11 +301,11 @@
 				} else {
 					print "<a href=\"$url\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a>";
 				}
-				
+
 			}
 		}
-		
-		
+
+
 		/**
 		 * Same as function showImageAndLink but is explicitly used for display-ing movie categories.
 		 *
@@ -324,11 +324,11 @@
 				} else {
 					print "<a href=\"$url\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a>";
 				}
-				
+
 			}
 		}
-		
-		
+
+
 		/**
 		 * Get the path of the file within the VCD-db application.
 		 * Returns the image path.
@@ -346,10 +346,10 @@
 				} else {
 					return COVER_PATH.$this->filename;
 				}
-				
+
 			}
 		}
-		
+
 		/**
 		 * Returns the XML reprentation of the cdcover object.
 		 *
@@ -374,17 +374,17 @@
 			if (!$cover_contents) {
 				return "";
 			}
-			
+
 			if ($cover_contents != false) {
 				$xmlstr .= "<data><![CDATA[".$cover_contents."]]></data>\n";
 			}
 			$xmlstr .= "</cdcover>\n";
-			
+
 			return $xmlstr;
 		}
-		
-		
-		
+
+
+
 		/**
 		 * Get cover image as binary stream for the xml stream.
 		 * Image streams from database are return base64 encoded and
@@ -393,41 +393,41 @@
 		 * @return string
 		 */
 		public function getCoverAsBinary() {
-			
+
 			if (!$this->isThumbnail()) {
 				return false;
 			}
-			
+
 			if ($this->isInDB()) {
 				$vcdImage = new VCDImage();
 				return base64_encode($vcdImage->getImageStream($this->image_id));
 			} else {
-				
+
 				$filepath = THUMBNAIL_PATH.$this->filename;
-				
+
 				if (fs_file_exists($filepath)) {
-										
+
 					$fd = fopen($filepath,'rb');
 					if (!$fd) {
 						return false;
 					}
-					
-					// Read the file 
+
+					// Read the file
 					$contents = fread($fd, filesize($filepath));
-										
+
 					// Close the file descriptor
 					fclose($fd);
-					
+
 					return base64_encode($contents);
-					
-					
+
+
 				} else {
-					
+
 					return false;
 				}
 			}
 		}
-		
-		
+
+
 	}
 ?>
