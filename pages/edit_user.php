@@ -31,9 +31,9 @@
 		if ($USERClass->updateUser($user)) {
 			// update the user in session as well
 			$_SESSION['user'] = $user;
-			VCDUtils::setMessage("(User information updated)");
+			VCDUtils::setMessage("(".$language->show('SE_UPDATED').")");
 		} else {
-			VCDUtils::setMessage("(Failed to update)");
+			VCDUtils::setMessage("(".$language->show('SE_UPDATE_FAILED').")");
 		}
 
 
