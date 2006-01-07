@@ -13,6 +13,7 @@ Fixed	- RSS feeds are now converted to proper encoding [Saviq]
 Fixed	- Redirection to SERVER_NAME not HTTP_HOST [Saviq]
 Fixed	- Movie picker, AddRSS encoding [Saviq]
 Fixed	- Thumbnail has a fixed width - to prevent messing up the layout [Saviq]
+Fixed	- Statistics bars don't jump out the window [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
