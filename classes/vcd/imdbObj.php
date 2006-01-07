@@ -336,7 +336,7 @@
 				$role = str_replace('....','',$role);
 
 				$imdb = explode(" ",$tmp[0]); // the IMDB url
-				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0]).</a>";
+				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
 				$actor = trim($tmp[0]);
 
 				// Create imdb url for actor
