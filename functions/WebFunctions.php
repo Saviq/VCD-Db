@@ -186,74 +186,19 @@ function display_moviecategories() {
 	}
 
 	if (sizeof($categories) > 0) {
-
-		if ($language->isUsingDefault()) {
-
-			foreach ($categories as $category) {
-
-				$cssclass = "nav";
-				if ($category->getID() == $curr_catid) {
-					$cssclass = "navon";
-				}
-
-				if ($category->getID() == $adult_id) {
-					if ($show_adult) {
-						print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
-					}
-				} else {
+		foreach ($categories as $category) {
+			$cssclass = "nav";
+			if ($category->getID() == $curr_catid) {
+				$cssclass = "navon";
+			}
+			if ($category->getID() == $adult_id) {
+				if ($show_adult) {
 					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
 				}
+			} else {
+				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
 			}
-
-		} else {
-			$mapping = getCategoryMapping();
-
-			$arrList = array();
-			$arrTranslatedList = array();
-
-			foreach ($categories as $category) {
-				array_push($arrList, $category->getList());
-			}
-
-			foreach ($arrList as $catObj => $item) {
-				if (isset($mapping[$item['name']])) {
-					$translated = $mapping[$item['name']];
-					$newKey = $language->show($translated);
-				} else {
-					$newKey = $item['name'];
-				}
-
-
-
-				if ($item['id'] == $adult_id) {
-					if ($show_adult) {
-						$arrTranslatedList[$item['id']] = $newKey;
-					}
-				} else {
-					$arrTranslatedList[$item['id']] = $newKey;
-				}
-
-			}
-
-			unset($arrList);
-			unset($mapping);
-			unset($categories);
-
-			asort($arrTranslatedList);
-
-			foreach ($arrTranslatedList as $id => $name) {
-				$cssclass = "nav";
-				if ($id == $curr_catid) {
-					$cssclass = "navon";
-				}
-				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$id."\" class=\"navx\">" .$name. "</a></span>";
-			}
-			unset($arrTranslatedList);
-
 		}
-
-
-
 	} else {
 		print "<ul><li>".$language->show('X_NOCATS')."</li></ul>";
 	}
@@ -498,23 +443,16 @@ function parseCategoryList($strList) {
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$categories = $SETTINGSClass->getAllMovieCategories();
 	$mapping = getCategoryMapping();
-	$inArr = explode(",", $strList);
+	$inArr = explode(", ", $strList);
 
 	$strResult = "";
 	foreach ($inArr as $cat) {
 
 		$cat_id = $SETTINGSClass->getCategoryIDByName($cat);
 		$cat_name = $cat;
-
 		if (is_numeric($cat_id) && $cat_id != 0) {
 			$catObj = $SETTINGSClass->getMovieCategoryByID($cat_id);
-
-			if (!$language->isUsingDefault() && isset($mapping[$catObj->getName()])) {
-				$translated =  $mapping[$catObj->getName()];
-				$cat_name = $language->show($translated);
-			} else {
-				$cat_name = $catObj->getName();
-			}
+			$cat_name = $catObj->getName();
 		}
 
 		if ($cat_id != 0) {
