@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Micha? Sawicz <michal@sawicz.net>
+ * @author  Michał Sawicz <michal@sawicz.net>
  * @package Language
  * @version $Id$
  */
@@ -76,7 +76,7 @@ $_ = array(
 'SEARCH_RESULTS'		=> 'Wyniki szukania',
 'SEARCH_EXTENDED'		=> 'Szukanie zaawansowane',
 'SEARCH_NORESULT'		=> 'Nie znaleziono filmów',
-'CAT_ACTION'			=> 'Film akcji',
+'CAT_ACTION'			=> 'Sensacyjny',
 'CAT_ADULT'				=> 'Dla dorosłych',
 'CAT_ADVENTURE'			=> 'Przygodowy',
 'CAT_ANIMATION'			=> 'Animowany',
@@ -95,8 +95,8 @@ $_ = array(
 'CAT_MYSTERY'			=> 'Zagadka',
 'CAT_ROMANCE'			=> 'Romans',
 'CAT_SCIFI'				=> 'Science-Fiction',
-'CAT_SHORT'				=> 'Krótki metraż',
-'CAT_THRILLER'			=> 'Thiller',
+'CAT_SHORT'				=> 'Krótkometrażowy',
+'CAT_THRILLER'			=> 'Thriller',
 'CAT_TVSHOWS'			=> 'Serial',
 'CAT_WAR'				=> 'Wojenny',
 'CAT_WESTERN'			=> 'Western',
@@ -311,7 +311,7 @@ $_ = array(
 'META_NAME'				=> 'Nazwa',
 'META_DESC'				=> 'Opis',
 'META_TYPE'				=> 'Typ danych',
-'META_VALUE'			=> 'Warto¶æ',
+'META_VALUE'			=> 'Wartość',
 'META_NONE'				=> 'Brak danych.',
 'IGN_LIST'				=> 'Lista ignorowanych',
 'IGN_DESC'				=> 'Ignoruj wszystkie filmy od tych u¿ytkowników:',
