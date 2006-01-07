@@ -233,7 +233,7 @@
 			} else {
 				// image is on disk
 				if ($this->isThumbnail()) {
-					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" width=\"150\" border=\"0\"/>";
+					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
 				} else {
 					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
 				}
