@@ -9,8 +9,8 @@
  * your option) any later version.
  *
  * @author  H·kon Birgsson <konni@konni.com>
- * @modded for Filmweb.pl Micha≈Ç Sawicz <michal@sawicz.net>
- * @package Vcd
+ * @package Kernel
+ * @subpackage Vcd
  * @version $Id$
  */
 
@@ -122,25 +122,6 @@
 	 */
 	public function setTitle($strTitle) {
 		$this->title = stripslashes($strTitle);
-	}
-
-	/**
-	 * Set the original title
-	 *
-	 * @param string $strTitle
-	 */
-
-	public function setOrigTitle($strTitle) {
-		$this->alt_title2 = stripslashes($strTitle);
-	}
-
-	/**
-	 * Get the original title
-	 *
-	 * @return string
-	 */
-	public function getOrigTitle() {
-		return $this->alt_title2;
 	}
 
 	/**
@@ -326,12 +307,12 @@
 		$tomar = $max - $stjornur;
 		$counter = 0;
 		for (;$counter < $stjornur; $counter++) {
-			echo("<img src=\"images/goldstar.gif\" border=\"0\" align=\"abs_middle\" alt=\"$stjornur stars\"/>");
+			echo("<img src=\"images/goldstar.gif\" border=\"0\" alt=\"$stjornur stars\"/>");
 		}
 
 		$counter = 0;
 		for (;$counter < $tomar; $counter++) {
-			echo("<img src=\"images/greystar.gif\" border=\"0\" align=\"abs_middle\" alt=\"$stjornur stars\"/>");
+			echo("<img src=\"images/greystar.gif\" border=\"0\" alt=\"$stjornur stars\"/>");
 		}
 
 
@@ -355,7 +336,7 @@
 				$role = str_replace('....','',$role);
 
 				$imdb = explode(" ",$tmp[0]); // the IMDB url
-				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
+				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0]).</a>";
 				$actor = trim($tmp[0]);
 
 				// Create imdb url for actor
@@ -376,12 +357,12 @@
 	 *
 	 * @param string $align
 	 */
-	public function printImageLink($align = "abs_middle") {
+	public function printImageLink($align = "") {
 		if (!empty($align)) {
 			$align = "align=\"$align\"";
 		}
 
-		print "<a href=\"http://filmweb.pl/Film?id=".$this->imdb."\" target=\"_new\"><img src=\"images/filmweb-logo.gif\" style=\"padding-left:5px; padding-right:10px;\" alt=\"\" title=\"Dodatkowe informacje\" border=\"0\" ".$align."/></a>";
+		print "<a href=\"http://www.imdb.com/title/tt".$this->imdb."\" target=\"_new\"><img src=\"images/imdb-logo.gif\" style=\"padding-right:15px;\" alt=\"\" title=\"Detailed info\" border=\"0\" ".$align."/></a>";
 	}
 
 
@@ -397,7 +378,6 @@
 			$xmlstr  = "<imdb>\n";
 			$xmlstr .= "<imdb_id>".$this->imdb."</imdb_id>\n";
 			$xmlstr .= "<title><![CDATA[".$this->title."]]></title>\n";
-			$xmlstr .= "<orig_title><![CDATA[".$this->alt_title2."]]></orig_title>\n";
 			$xmlstr .= "<alt_title><![CDATA[".$this->alt_title1."]]></alt_title>\n";
 			$xmlstr .= "<image>".$this->image."</image>\n";
 			$xmlstr .= "<year>".$this->year."</year>\n";
