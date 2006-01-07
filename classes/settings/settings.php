@@ -1410,8 +1410,7 @@ class vcd_settings implements ISettings {
 			$arrMonCatObjs = array();
 			foreach ($arrMonCats as $item) {
 				if ($counter >= $maxRecords) { break; }
-				$cObj = $this->getMovieCategoryByID($item[0]);
-				$currObj = new movieCategoryObj(array($cObj->getID(), $cObj->getName()));
+				$currObj = $this->getMovieCategoryByID($item[0]);
 				$currObj->setCategoryCount($item[1]);
 				array_push($arrMonCatObjs, $currObj);
 				$counter++;
@@ -1640,16 +1639,16 @@ class vcd_settings implements ISettings {
 	 				// Get metadata only based on the Record ID
 	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
 	 			} else {
-	 				return null;	
+	 				return null;
 	 			}
-	 			
+
 	 		}
 
 	 	} catch (Exception $e) {
 	 		VCDException::display($e);
 	 	}
 	}
-	
+
 	/**
 	 * Get single MetadataObject by metadata ID
 	 *
@@ -1658,18 +1657,18 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMetadataById($metadata_id) {
 		try {
-			
+
 			if (is_numeric($metadata_id)) {
 				return $this->SQL->getMetadataById($metadata_id);
 			} else {
 				throw new Exception("Metadata ID must be numeric");
 			}
-			
+
  		} catch (Exception $ex) {
  			VCDException::display($ex);
  		}
 	}
-	
+
 
 	/**
 	 * Get an array of all records id's in metadata objects belonging to specified user_id and metadata_name.
@@ -1786,10 +1785,10 @@ class vcd_settings implements ISettings {
 			if (VCDUtils::isLoggedIn() && is_numeric($metadata_id)) {
 				// Get the metadata Object
 				$metaObj = $this->getMetadataById($metadata_id);
-				
+
 				// Check if the logged in user is actually the owner of the file
 				if ($metaObj instanceof metadataObj && $metaObj->getUserID() == VCDUtils::getUserID()) {
-					
+
 					// But before we delete the NFO file, make sure no one else is linking to it ..
 					$useCount = $this->SQL->getMetadataValueCount($metaObj);
 					if (is_numeric($useCount) && $useCount == 1) {
@@ -1798,20 +1797,20 @@ class vcd_settings implements ISettings {
 						$filename = NFO_PATH . $metaObj->getMetadataValue();
 						fs_unlink($filename);
 					}
-			
+
 					// Delete the metadataObj from DB
 					$this->deleteMetadata($metadata_id);
-					
+
 				} else {
 					throw new Exception("You have no access to delete this file!");
 				}
-				
+
 			}
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
-	
+
 
 
 	/*
