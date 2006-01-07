@@ -11,7 +11,8 @@ Updated - Language files - PLEASE UPDATE TRANSLATIONS [Saviq]
 Fixed   - "Call to a member function show() on a non-object" when using Register_globals = true
 Fixed	- RSS feeds are now converted to proper encoding [Saviq]
 Fixed	- Redirection to SERVER_NAME not HTTP_HOST [Saviq]
-Fixed	- Movie picker encoding [Saviq]
+Fixed	- Movie picker, AddRSS encoding [Saviq]
+Fixed	- Thumbnail has a fixed width - to prevent messing up the layout [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
