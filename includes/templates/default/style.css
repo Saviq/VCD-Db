@@ -29,7 +29,7 @@ a:visited {
 
 a:hover {
 	text-decoration: underline;
-	
+
 }
 
 
@@ -44,7 +44,7 @@ a:hover {
 	background:#eeeeee;
 	background-image: url(images/vcd_headersmall.jpg);
 	color: #333333;
-	margin: 0px; 
+	margin: 0px;
 	padding: 0px;
 }
 
@@ -63,7 +63,7 @@ a:hover {
 	background:#c0c0c0;
 	background-image: url(images/linethrough_bg.gif);
 	color: White;
-	border:solid #000000;	
+	border:solid #000000;
 	border-width:1px 0 1px 0;
 	text-align:right;
 	padding-right: 110px;
@@ -71,7 +71,7 @@ a:hover {
 }
 
 #bar a {
-	color:white;	
+	color:white;
 }
 
 #bar a:link {
@@ -93,7 +93,7 @@ a:hover {
 	position:relative;
 	color: #333333;
 	width:830px;
-	padding:0px;	
+	padding:0px;
 	background-image: url(images/sidebar_bg.gif);
 	background-color:White;
 }
@@ -109,10 +109,10 @@ a:hover {
 
 html>body #l-col {
   border-right: 1px solid #000000;
-} 
+}
 
 
- 
+
 #r-col {
 	float: right;
 	position: relative;
@@ -126,7 +126,7 @@ html>body #l-col {
 	width:680px;
 	background:#ffffff;
 	color: #333333;
-	border: solid #c0c0c0;	
+	border: solid #c0c0c0;
 	border-width:0 0 0 0px;
 	text-align:left;
 }
@@ -140,7 +140,7 @@ html>body #l-col {
 	margin:0;
 	clear:both;
 }
- 
+
 
 /* Basic elements */
 
@@ -180,23 +180,23 @@ H5 {
 	width:73%;
 }
 
- 
+
 h3, p {
  margin:0;
  padding:15px;
  }
 
 h4 {
- margin:0; 
+ margin:0;
  padding: 5px 0;
  }
- 
- 
+
+
 hr {
  height:1px;
 }
- 
-/* Forms and buttons */ 
+
+/* Forms and buttons */
 form {
 	margin: 0px;
 }
@@ -215,7 +215,7 @@ input, select, textarea {
 	color: black;
 }
 
-.dashed { 
+.dashed {
 	font-size: 10px;
 	border: #dcdcdc 1px ridge;
 	background-image: url(images/dash.gif);
@@ -245,7 +245,7 @@ input, select, textarea {
 	color: red;
 }
 
-/* Presentation Stylesheet */ 
+/* Presentation Stylesheet */
 
 .header {
 	border: dashed #c0c0c0;
@@ -261,7 +261,7 @@ input, select, textarea {
 	color: #333333;
 }
 
-.list td { background-color:white; } 
+.list td { background-color:white; }
 
 .list a {
 	 color: #333333;
@@ -272,12 +272,12 @@ input, select, textarea {
 	 color: #333333;
  	 text-decoration: none;
  }
-	
+
 .list a:visited {
 	 color: #333333;
 	 text-decoration: none;
  }
- 
+
 .list a:hover {
 	 color: red;
 	 text-decoration: underline;
@@ -303,7 +303,7 @@ input, select, textarea {
 	border-right: 1px #F4F4F4 solid;
 	line-height: 17px;
 	color: #3D3D3D;
-	text-indent: 4px;	
+	text-indent: 4px;
 }
 
 .displist .header {
@@ -317,8 +317,8 @@ input, select, textarea {
 	padding-left:2px;
 }
 
- 
-/* Movie listing */ 
+
+/* Movie listing */
 
 #cast .item {
 	display: block;
@@ -337,16 +337,17 @@ input, select, textarea {
 	border-color: #dcdcdc;
 	border-style: ridge;
 	border-width: thin;
+	width: 150px;
 }
 
 #actorimages {
 	width: 100%;
 	margin: 0px;
 	text-indent: 0px;
-	
+
 }
 
-#actorimages .imgx { 
+#actorimages .imgx {
 	margin: 4px;
 }
 
@@ -394,11 +395,11 @@ li {
 
 
 #actorlist {
-	
+
 }
 
 
- 
+
  /* Others */
 
  .topic {
@@ -408,14 +409,14 @@ li {
 	text-align: center;
 	font-weight: bolder;
  }
-	
+
 .poster {
 	text-align: center;
 	width: 100px;
 	margin-top: 40px;
 	font-style: italic;
 }
-	
+
 .navx {
 	display: block;
 }
@@ -428,7 +429,7 @@ li {
 	display: block;
 	clear: none;
 	border-bottom: 1px dotted White;
-	line-height: 18px; 
+	line-height: 18px;
 }
 
 .nav A {
@@ -436,7 +437,7 @@ li {
 	text-decoration: none;
 	color: White;
 	font-weight: bolder;
-} 
+}
 
 
 .nav A:visited {
@@ -444,7 +445,7 @@ li {
 	text-decoration: none;
 	color: White;
 	font-weight: bolder;
-} 
+}
 
 
 .nav A:hover {
@@ -465,7 +466,7 @@ li {
 	display: block;
 	clear: none;
 	border-bottom: 1px dotted White;
-	line-height: 18px; 
+	line-height: 18px;
 }
 
 .navon A {
@@ -473,7 +474,7 @@ li {
 	text-decoration: none;
 	color: #FF6600;
 	font-weight: bolder;
-} 
+}
 
 
 .navon A:visited {
@@ -481,7 +482,7 @@ li {
 	text-decoration: none;
 	color: #FF6600;
 	font-weight: bolder;
-} 
+}
 
 
 .navon A:hover {

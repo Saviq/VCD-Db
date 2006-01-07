@@ -229,6 +229,7 @@ unknown {
 	border-right: #DCDCDC thin ridge;
 	border-top: #DCDCDC thin ridge;
 	margin-top: 3px;
+	width: 150px;
 }
 
 .info {
@@ -529,7 +530,7 @@ unknown {
 
 html>body #l-col {
   border-right: 1px solid #000000;
-} 
+}
 
 #l-col {
 	background: #FFFFFF;
