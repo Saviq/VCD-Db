@@ -5,11 +5,19 @@
 		print "<script>self.close();</script>";
 		exit();
 	}
+
+	$language = new language(true);
+	if (isset($_SESSION['vcdlang'])) {
+		$language->load($_SESSION['vcdlang']);
+	}
+
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?=VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<script src="../includes/js/main.js" type="text/javascript"></script>
 </head>
@@ -19,12 +27,6 @@
 <?
 
 	$CLASSVcd = VCDClassFactory::getInstance('vcd_movie');
-	$language = new language(true);
-	if (isset($_SESSION['vcdlang'])) {
-		$language->load($_SESSION['vcdlang']);
-	}
-
-
 
 	if (VCDUtils::isLoggedIn() && isset($_GET['do']) && strcmp($_GET['do'], "suggest") == 0) {
 
