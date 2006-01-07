@@ -15,7 +15,7 @@ Fixed	- Movie picker, AddRSS encoding [Saviq]
 Fixed	- Thumbnail has a fixed width - to prevent messing up the layout [Saviq]
 Fixed	- Statistics bars don't jump out the window [Saviq]
 Fixed	- Category name translation [Saviq]
-Fixed	- Parsing category list in movie view [Saviq]
+Fixed	- Parsing category list in movie view - now all known genres are linked [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
