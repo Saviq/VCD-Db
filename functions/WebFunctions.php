@@ -981,23 +981,11 @@ function getLocalizedCategories($categoryObjArr = null) {
 	$altLang = $language->isUsingDefault();
 	// Create translated category array
 	$arrCategories = array();
-	if ($altLang) {
-		foreach ($categoryObjArr as $categoryObj) {
-			array_push($arrCategories, $categoryObj->getList());
-		}
-
-	} else {
-		foreach ($categoryObjArr as $categoryObj) {
-			$category_name = $categoryObj->getName();
-			if (!$altLang && key_exists($category_name, $mapping)) {
-				$category_name = $language->show($mapping[$category_name]);
-			}
-			$arr = array("id" => $categoryObj->getID(), "name" => $category_name);
-			array_push($arrCategories, $arr);
-		}
-		$arrCategories = aSortBySecondIndex($arrCategories, 'name');
+	foreach ($categoryObjArr as $categoryObj) {
+		$arr = array("id" => $categoryObj->getID(), "name" => $categoryObj->getName());
+		array_push($arrCategories, $arr);
 	}
-
+	$arrCategories = aSortBySecondIndex($arrCategories, 'name');
 	return $arrCategories;
 
 }
