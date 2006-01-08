@@ -16,6 +16,8 @@ Fixed	- Thumbnail has a fixed width - to prevent messing up the layout [Saviq]
 Fixed	- Statistics bars don't jump out the window [Saviq]
 Fixed	- Category name translation [Saviq]
 Fixed	- Parsing category list in movie view - now all known genres are linked [Saviq]
+Fixed	- All categories work fine now, even if default language changed in language.php [Saviq]
+Added	- Director's name is now a link to search and a link to imdb is added [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
