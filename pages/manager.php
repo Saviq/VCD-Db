@@ -52,14 +52,14 @@
 	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
 		$userMetadata = true;
 	}
-	
+
 	// Still false for $userMetadata .. check if user is using custom Index keys or Playoption
 	if (!$userMetadata) {
 		if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_NFO) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || (bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)){
 			$userMetadata = true;
 		}
 	}
-	
+
 
 	// Data used below ....
 
@@ -271,6 +271,25 @@
 
 		print "</tr>";
 		}
+		print "<tr><td>".($i +1)."</td><td>";
+		print "<select name=\"userMediaType_".$i."\" size=\"1\" class=\"input\">";
+		print "<option value=\"null\" selected>".$language->show('MAN_ADDMEDIA')."</option>";
+		foreach ($allMediaTypes as $mediaTypeObj) {
+			print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
+			if ($mediaTypeObj->getChildrenCount() > 0) {
+				foreach ($mediaTypeObj->getChildren() as $childObj) {
+					print "<option value=\"".$childObj->getmediaTypeID()."\">&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
+				}
+			}
+		}
+		print "</select>";
+
+		print "</td><td>";
+		print "<select name=\"usernumcds_".$i."\" class=\"input\" size=\"1\">";
+		for ($j = 1; $j < 10; $j++) {
+				echo "<option value=\"$j\">$j</option>";
+		}
+		print "</select>";
 
 	?>
 
@@ -511,14 +530,14 @@
 	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/></td>";
 				print "</tr>";
 			 }
-			 
-			 
+
+
 			 if ($_SESSION['user']->getPropertyByKey('NFO'))  {
    				$metaValue = "";
    				$metaDataID = "";
 				foreach ($arrMyMeta as $metadataObj) {
 					if ($metadataObj instanceof metadataObj ) {
-						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_NFO 
+						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_NFO
 						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
 							$metaValue = $metadataObj->getMetadataValue();
 							$metaDataID = $metadataObj->getMetadataID();
@@ -535,12 +554,12 @@
 	   				print "<td style=\"padding-left:5px\"><input type=\"file\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$metaValue}\"/></td>";
 	   			} else {
 	   				$deleteNfo = "&nbsp;&nbsp;<img src=\"../images/thrashcan.gif\" align=\"absmiddle\" onclick=\"deleteNFO({$metaDataID},{$cd_id})\" alt=\"Delete NFO\" border=\"0\"/>";
-	   				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"null\" readonly=\"readonly\" size=\"30\" class=\"input\" value=\"{$metaValue}\"/>{$deleteNfo}</td>";	
+	   				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"null\" readonly=\"readonly\" size=\"30\" class=\"input\" value=\"{$metaValue}\"/>{$deleteNfo}</td>";
 	   			}
-	   			
+
 				print "</tr>";
 			 }
-			 
+
 
 
 			if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  {
@@ -571,7 +590,7 @@
 
 			if (is_array($userMetaArray)) {
 				foreach ($userMetaArray as $metaDataTypeObj) {
-	
+
 					$metaValue = "";
 					foreach ($arrMyMeta as $metadataObj) {
 						if ($metadataObj instanceof metadataObj ) {
@@ -581,9 +600,9 @@
 							}
 						}
 					}
-	
+
 					$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
-	
+
 					print "<tr>";
 					print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
 					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
