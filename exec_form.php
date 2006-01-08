@@ -777,10 +777,11 @@ switch ($form) {
 						foreach($arrMediaTypes as $MediaType) {
 							if ($MediaType->getmediaTypeID() == $postedMediaType) {
 		      					VCDException::display("You can not double the media type.");
+								$double = true;
 		      					$errors = true;
-							}
+							} else $double = false;
 						}
-						if (!$errors) {
+						if (!$double) {
 							// Either media type or numCD's have been updated .. update entry to DB
 							$VCDClass->updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
 						}
@@ -789,6 +790,22 @@ switch ($form) {
 
 	     }
 
+	     // Check if user has added a cd item
+	     if ($_POST["userMediaType_".$i] != "null") {
+			$postedMediaType = $_POST["userMediaType_".$i];
+			$postedCDCount = $_POST["usernumcds_".$i];
+	     	foreach($arrMediaTypes as $MediaType) {
+	     		if ($MediaType->getmediaTypeID() == $postedMediaType) {
+	     			VCDException::display("You can not double the media type.");
+	     			$double = true;
+	     			$errors = true;
+	     		} else $double = false;
+	     		if (!$double) {
+	     			// Added media...
+					$VCDClass->addVcdToUser(VCDUtils::getUserID(), $cd_id, $postedMediaType, $postedCDCount);
+	     		}
+	     	}
+	     }
 
 
 	    // Update metadata
