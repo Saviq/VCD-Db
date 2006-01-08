@@ -229,6 +229,7 @@ $_ = array(
 'MAN_SEL'         		=> 'Geselecteerde acteurs',
 'MAN_STARS' 			=> 'Stars',
 'MAN_BROWSE'			=> 'Browse for file location',
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO'          	=> 'Kies methode om nieuwe film toe te voegen',

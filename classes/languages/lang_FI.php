@@ -230,7 +230,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Valitut näyttelijät',
 'MAN_STARS' 			=> 'Tähdet',
 'MAN_BROWSE'			=> 'Selaa...',
-
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Valitse menetelmä jolla lisäät uuden elokuvan',

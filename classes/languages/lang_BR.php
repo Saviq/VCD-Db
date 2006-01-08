@@ -230,7 +230,7 @@ $_ = array(
 'MAN_SEL' 			=> 'Atores selecionados',
 'MAN_STARS' 			=> 'Estrelas',
 'MAN_BROWSE'			=> 'Navegar por localização de arquivo',
-
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 			=> 'Selecione um método para adicionar novo filme',

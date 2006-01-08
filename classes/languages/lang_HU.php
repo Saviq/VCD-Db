@@ -231,7 +231,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Színész kiválasztása',
 'MAN_STARS' 			=> 'Csillagok',
 'MAN_BROWSE'			=> 'Tallózd a file elérhetõségét',
-
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Választ ki a módot a film hozzáadásához',

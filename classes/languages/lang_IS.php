@@ -230,6 +230,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Valdir leikarar',
 'MAN_STARS' 			=> 'Stjörnur',
 'MAN_BROWSE'			=> 'Velja skjal',
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Veldu einn af eftirfarandi möguleikum til ağ skrá inn nıja mynd',

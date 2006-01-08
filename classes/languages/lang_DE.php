@@ -231,6 +231,7 @@ $_ = array(
 'MAN_SEL'         		=> 'Ausgew&auml;hlte Schauspieler',
 'MAN_STARS' 			=> 'Stars',
 'MAN_BROWSE'			=> 'Browse for file location',
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO'          	=> 'Folgende Datenquellen stehen zur Verf&uuml;gung',

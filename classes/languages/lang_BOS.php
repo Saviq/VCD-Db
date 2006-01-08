@@ -230,7 +230,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Oznaèeni glumci',
 'MAN_STARS' 			=> 'Zvijezde',
 'MAN_BROWSE'			=> 'Odaberi lokaciju za fajlove',
-
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Odaberi metod za dodavanje novih filmova',

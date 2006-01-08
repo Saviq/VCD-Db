@@ -232,7 +232,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Selected actors',
 'MAN_STARS' 			=> 'Stars',
 'MAN_BROWSE'			=> 'Browse for file location',
-
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Select method to add a new movie',

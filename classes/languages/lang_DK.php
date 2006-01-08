@@ -227,6 +227,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Vælg af skuespillere',
 'MAN_STARS' 			=> 'Stjerner',
 'MAN_BROWSE' 			=> 'Søg efter fil',
+'MAN_ADDMEDIA'			=> 'Add...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Vælg måde du vil tilføje din film på',
