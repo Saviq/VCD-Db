@@ -18,6 +18,7 @@ Fixed	- Category name translation [Saviq]
 Fixed	- Parsing category list in movie view - now all known genres are linked [Saviq]
 Fixed	- All categories work fine now, even if default language changed in language.php [Saviq]
 Added	- Director's name is now a link to search and a link to imdb is added [Saviq]
+Fixed	- Preventing doubling media type in one movie [Saviq]
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
