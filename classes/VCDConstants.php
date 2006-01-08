@@ -36,11 +36,11 @@ define("RSS_CACHE_TIME",7200);							// 2 hours
 define("IMDB_MAXRESULT",50);							// Maximum count of results to display from the imdb search
 
 // Database settings
-define("DB_TYPE",	"mysql");
-define("DB_USER",	"vcddb");
-define("DB_PASS",	"vcddb.1");
-define("DB_HOST",	"localhost");
-define("DB_CATALOG","vcddb");
+define("DB_TYPE",	"SETUP_TYPE");
+define("DB_USER",	"SETUP_USER");
+define("DB_PASS",	"SETUP_PASSWORD");
+define("DB_HOST",	"SETUP_HOST");
+define("DB_CATALOG","SETUP_CATALOG");
 
 // Authentication Method
 define("LDAP_AUTH", 0);									// Are you using LDAP for authentication ?
