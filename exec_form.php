@@ -774,11 +774,20 @@ switch ($form) {
 				$postedCDCount   = $_POST["usernumcds_".$i];
 				if ($media_id == $postedMediaType && $arrNumcds[$i] == $postedCDCount) {}
 					else {
-					// Either media type or numCD's have been updated .. update entry to DB
-					$VCDClass->updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
-				}
+						foreach($arrMediaTypes as $MediaType) {
+							if ($MediaType->getmediaTypeID() == $postedMediaType) {
+		      					VCDException::display("You can not double the media type.");
+		      					$errors = true;
+							}
+						}
+						if (!$errors) {
+							// Either media type or numCD's have been updated .. update entry to DB
+							$VCDClass->updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
+						}
+					}
 			}
-		 }
+
+	     }
 
 
 
@@ -908,17 +917,17 @@ switch ($form) {
 		      // Check which covertypes were uploaded and update them
 		      $COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 		      foreach ($upload->succeed_files_track as $cfile) {
-		      	
+
 		      		$cover_typeid = $cfile['field_name'];
-		      		
+
 		      		// Check if this uploaded file is a NFO file ..
 		      		$nfostart = "meta|nfo";
 		      		if (substr_count($cover_typeid, $nfostart) > 0)  {
-		      			
+
 		      			// Yeap it's a NFO file
 		      			// Begin with moving the file to the NFO folder
 		      			if (fs_file_exists(TEMP_FOLDER.$cfile['new_file_name'])) {
-								      				
+
 		      				if (!fs_rename(TEMP_FOLDER.$cfile['new_file_name'], NFO_PATH . $cfile['new_file_name'])) {
 		      					VCDException::display("Could not move NFO file " . $$cfile['new_file_name'] . " to NFO folder!");
 		      					$errors = true;
@@ -927,26 +936,26 @@ switch ($form) {
 								$entry = explode("|", $cover_typeid);
 								$metadataName = $entry[1];
 								$metadatatype_id = $entry[2];
-								$mediatype_id = $entry[3];	
-								
+								$mediatype_id = $entry[3];
+
 								// Create the MetadataObject
 								$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $cfile['new_file_name']));
 								$obj->setMetaDataTypeID($metadatatype_id);
 								$obj->setMediaTypeID($mediatype_id);
-								
+
 								// And save to DB
 								$SETTINGSClass->addMetadata($obj, true);
-		      						      					
+
 		      				}
-		      				
+
 		      			} else {
 		      				VCDException::display("Could not find uploaded NFO file " . $$cfile['new_file_name']);
 		      				$errors = true;
 		      			}
-		      			
-		      			
-		      			
-		      			
+
+
+
+
 		      		} else {
 		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
 
@@ -954,7 +963,7 @@ switch ($form) {
 			      							 VCDUtils::getUserID(), date(time()), $cover_typeid,
 			      							 $coverType->getCoverTypeName(), '');
 			      		$cdcover = new cdcoverObj($imginfo);
-			      		$vcd->addCovers(array($cdcover));	
+			      		$vcd->addCovers(array($cdcover));
 		      		}
 		      }
 		 }
