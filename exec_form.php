@@ -774,8 +774,9 @@ switch ($form) {
 				$postedCDCount   = $_POST["usernumcds_".$i];
 				if ($media_id == $postedMediaType && $arrNumcds[$i] == $postedCDCount) {}
 					else {
-						foreach($arrMediaTypes as $MediaType) {
-							if ($MediaType->getmediaTypeID() == $postedMediaType) {
+						for($j = 0; $j < sizeof($arrMediaTypes); $j++) {
+							$MediaType = $arrMediaTypes[$j];
+							if (($MediaType->getmediaTypeID() == $postedMediaType) && ($i != $j)) {
 		      					VCDException::display("You can not double the media type.");
 								$double = true;
 		      					$errors = true;
