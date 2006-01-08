@@ -184,6 +184,24 @@
 	}
 
 	/**
+	 * Get the Director link for searching
+	 *
+	 * @return string
+	 */
+	public function getDirectorLink() {
+		$directorLink =  "<a href=\"search.php?searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
+		$imdb = explode(" ", $this->director);
+		// Create imdb url for director
+		if (isset($imdb[2])) {
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_new\">[imdb]</a>";
+		} elseif(isset($imdb[1])) {
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_new\">[imdb]</a>";	} else {
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_new\">[imdb]</a>";
+		}
+		return "<strong>".$directorLink."</strong> &nbsp;".$urlid;
+	}
+
+	/**
 	 * Get the IMDB rating
 	 *
 	 * @return double
