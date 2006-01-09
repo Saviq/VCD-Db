@@ -478,8 +478,8 @@ function server_url()
 {
    $proto = "http" .
        ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
-   $server = isset($_SERVER['SERVER_NAME']) ?
-       $_SERVER['SERVER_NAME'] : $_SERVER['HTTP_HOST'];
+   $server = isset($_SERVER['HTTP_HOST']) ?
+       $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
    return $proto . $server;
 }
 
