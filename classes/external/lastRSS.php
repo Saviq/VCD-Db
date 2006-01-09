@@ -2,11 +2,11 @@
 /*
  ======================================================================
  lastRSS 0.9.1
- 
+
  Simple yet powerfull PHP class to parse RSS files.
- 
+
  by Vojtech Semecky, webmaster @ webdot . cz
- 
+
  Latest version, features, manual and examples:
  	http://lastrss.webdot.cz/
 
@@ -50,6 +50,7 @@ class lastRSS {
 	private $itemtags = array('title', 'link', 'description', 'author', 'category', 'comments', 'enclosure', 'guid', 'pubDate', 'source');
 	private $imagetags = array('title', 'url', 'link', 'width', 'height');
 	private $textinputtags = array('title', 'description', 'name', 'link');
+	private $rsscp;
 
 	// -------------------------------------------------------------------
 	// Parse RSS file and returns associative array.
@@ -83,7 +84,7 @@ class lastRSS {
 		// return result
 		return $result;
 	}
-	
+
 	// -------------------------------------------------------------------
 	// Modification of preg_match(); return trimed field with index 1
 	// from 'classic' preg_match() array output
