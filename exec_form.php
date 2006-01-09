@@ -714,7 +714,10 @@ switch ($form) {
 	     		$subCatArr = split('#',$_POST['id_list']);
 	     		$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 	     		foreach ($subCatArr as $adult_catid) {
-	     			$adultCatObj = $PORNClass->getSubCategoryByID($adult_catid);
+	     			$adultCatObj = null;
+	     			if (is_numeric($adult_catid)) {
+	     				$adultCatObj = $PORNClass->getSubCategoryByID($adult_catid);
+	     			}
 	     			if ($adultCatObj instanceof porncategoryObj ) {
 	     				$vcd->addAdultCategory($adultCatObj);
 	     			}
