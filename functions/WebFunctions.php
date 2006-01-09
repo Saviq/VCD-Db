@@ -505,6 +505,8 @@ function redirect($relative_url = '.?')
    }
 }
 
+
+
 /**
  * Enter description here...
  *
@@ -1321,5 +1323,7 @@ function drawGraph($instructions) {
 	imagedestroy($obj);
 	exit();
 }
+
+
 
 ?>
