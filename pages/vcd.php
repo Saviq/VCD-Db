@@ -130,7 +130,7 @@ if ($movie->isAdult()) {
 	</tr>
 	<tr>
 		<td><?= $language->show('M_DIRECTOR')?>:</td>
-		<td><?=$imdb->getDirector() ?></td>
+		<td><?=$imdb->getDirectorLink() ?></td>
 	</tr>
 	<tr>
 		<td nowrap="nowrap"><?= $language->show('M_COUNTRY')?>:</td>
@@ -185,8 +185,8 @@ if ($movie->isAdult()) {
 
 	<div id="copies">
 	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
-		
-	<? 
+
+	<?
 		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
 		drawDVDLayers($movie, $allMeta);
 		$movie->displayCopies($allMeta);
