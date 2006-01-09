@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hï¿½kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -50,7 +50,7 @@ class movieCategoryObj implements XMLable {
 		public function getName(){
 			global $language;
 			$map = getCategoryMapping();
-			if ($language->show($map[$this->category_name]) != "undefined") {
+			if (isset($map[$this->category_name]) && $language->show($map[$this->category_name]) != "undefined") {
 				return $language->show($map[$this->category_name]);
 			} else {
 				return $this->category_name;
