@@ -16,7 +16,8 @@
  
 ?>
 <?
-require_once('external/snoopy/Snoopy.class.php');
+require_once(dirname(__FILE__) . '/../external/snoopy/Snoopy.class.php');
+
 if (!defined('CACHE_FOLDER')) {
 	define("CACHE_FOLDER","upload/cache/");
 }
@@ -25,8 +26,9 @@ if (!defined('CACHE_FOLDER')) {
 abstract class VCDFetch {
 	
 	
-	protected $itemID = null;
-	
+	private $itemID = null;
+	private $siteID = null; 		// For example "imdb" or "dvdempire".
+		
 	private $fetchDomain;
 	private $fetchSearchPath;
 	private $fetchItemPath;
@@ -37,8 +39,8 @@ abstract class VCDFetch {
 	private $proxyPort;
 	
 	private $searchKey;
-	private $searchContents;
-	private $itemContents;
+	private $fetchContents;
+	private $isCached;				// Flags if contents are Cached.
 	
 	private $useSnoopy = false;
 	/**
@@ -51,7 +53,7 @@ abstract class VCDFetch {
 	
 	
 	public function __construct() {
-		
+		$this->isCached = false;
 	}
 	
 		
@@ -85,24 +87,112 @@ abstract class VCDFetch {
 		$this->fetchItemPath = $itemPath;
 	}
 	
-	protected function getHeader() {
+	
+	
+	
+	/**
+	 * Create the HTTP header to send in the HTTP request.
+	 *
+	 * @param string $url | The url to get.  For example /item/500
+	 * @param string $referer | The referer hostname.
+	 * @param string $host | The hostname to connect to
+	 * @return string
+	 */
+	private function getHeader($url, $referer, $host) {
+		$header  = "GET {$url} HTTP/1.0\r\n";
+		$header .= "User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\r\n";
+		$header .= "Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*\r\n";
+		$header .= "Accept-Language: de\r\n";
+		$header .= "Referer: {$referer}\r\n";
+		$header .= "Host: {$host}\r\n";
+		$header .= "Connection: Keep-Alive\r\n";
+		$header .= "Cache-Control: no-cache\r\n";
+		$header .= "\r\n";
 		
+		return $header;
 	}
 	
 	
-	protected function fetchPage() {
+	protected function fetchPage($url, $host, $referer, $useCache=true) {
+		
+		// First check the cache
+		if ($useCache) {
+			$contents = $this->fetchCachedPage($url);
+			if (!is_null($contents)) {
+				$this->fetchContents = $contents;
+				return $this->fetchContents;
+			}
+		}
+		
+		
+		// Item not found in cache
 		if ($this->useSnoopy) {
+			
 			$this->initSnoopy();
+			$snoopyurl = "http://".$host.$url;
+			$this->snoopy->fetch($snoopyurl);
+			$this->fetchContents = $this->snoopy->results;
 			
 		} else {
+
+			$psplit = split(":",$host);
+			$pserver = $psplit[0];
+			if(isset($psplit[1])) {
+				$pport = $psplit[1];
+			} else {
+				$pport = 80;
+			}
+			
+			
+			$fp = @fsockopen($pserver, $pport);
+			if (!$fp) {
+				throw new Exception("Could not connect to host " . $host);
+			}	
 						
+			$requestHeader = $this->getHeader($url, $referer, $host);
+						
+			fputs($fp, $requestHeader);
+			$site = "";
+			while (!feof($fp)) {
+				$site .= fgets ($fp, 1024);
+			}
+			
+			fclose($fp);
+			$this->fetchContents = $site;		
+					
 			
 		}
+		
+		if ($useCache) {
+			// Write the results to CACHE
+			$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+			$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
+			$fp = fopen($cacheFileName, "w");
+			fwrite($fp, $this->fetchContents);
+			fclose($fp);
+		}
+		
+		
 	}
 	
-	protected function fetchCachedPage() {
-		
-		
+	
+	
+	/**
+	 * Get the page from Cache if it exists.  Otherwise function returns null.
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	private function fetchCachedPage($url) {
+		$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+		$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
+
+		if(file_exists($cacheFileName)) {
+			$this->isCached = true;
+			return (implode("", file($cacheFileName)));
+		} else {
+			return null;
+		}
 	}
 	
 	/**
@@ -119,8 +209,8 @@ abstract class VCDFetch {
 	 *
 	 * @return string
 	 */
-	protected function getContents() {
-		return $this->itemContents;		
+	public function getContents() {
+		return $this->fetchContents;
 	}
 	
 	
@@ -133,8 +223,16 @@ abstract class VCDFetch {
 	}
 	
 	
-	
-	
+	/**
+	 * Set the www Site name. For example "imdb" or "dvdempire".
+	 * Used for internal caching naming convention.
+	 *
+	 * @param string $sitename
+	 */
+	protected function setSiteName($sitename) {
+		$this->siteID = $sitename;
+	}
+		
 	
 	
 	

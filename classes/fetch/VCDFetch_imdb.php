@@ -19,16 +19,20 @@
 class VCDFetch_imdb extends VCDFetch {
 	
 	public function __construct() {
-		
+		$this->setSiteName("imdb");
 	}
 	
 	
 	public function showSearchResults() {
+				
 		
 	}
 	
 	
-	
+	public function search() {
+		//http://www.imdb.com/title/tt0377092/
+		$this->fetchPage('/title/tt0377092/', 'www.imdb.com', 'http://akas.imdb.com');
+	}
 	
 	
 	
