@@ -448,7 +448,7 @@ function parseCategoryList($strList) {
 	$strResult = "";
 	foreach ($inArr as $cat) {
 
-		$cat_id = $SETTINGSClass->getCategoryIDByName($cat);
+		$cat_id = $SETTINGSClass->getCategoryIDByName($cat, true);
 		$cat_name = $cat;
 		if (is_numeric($cat_id) && $cat_id != 0) {
 			$catObj = $SETTINGSClass->getMovieCategoryByID($cat_id);
