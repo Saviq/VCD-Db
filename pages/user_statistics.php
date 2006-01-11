@@ -30,7 +30,7 @@
 	print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"list\">";
 	print "<tr><td class=\"statheader\">".$language->show('M_CATEGORY')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 	foreach ($arrCats as $subArr) {
-		$category = $CLASSSettings->getMovieCategoryByID($subArr[0])->getName();
+		$category = $CLASSSettings->getMovieCategoryByID($subArr[0])->getName(true);
 		if (!$altLang && key_exists($category, $mapping)) {
 			$category = $language->show($mapping[$category]);
 		}

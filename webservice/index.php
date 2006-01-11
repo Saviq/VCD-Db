@@ -262,7 +262,7 @@ function getMovieById($movie_id) {
 			'id' 		  	=> $vcdObj->getID(),
 			'title' 	  	=> $vcdObj->getTitle(),
 			'category_id' 	=> $categoryObj->getID(),
-			'category'	    => $categoryObj->getName(),
+			'category'	    => $categoryObj->getName(true),
 			'year'			=> $vcdObj->getYear(),
 			'media'			=> $mediaTypes,
 			'date'			=> $mediaCDs,
@@ -300,7 +300,7 @@ function getMyMovies() {
 		$aMOV[]= array('id' => $vcdObj->getID(),
 					   'title' => $vcdObj->getTitle(),
 					   'category_id' => $vcdObj->getCategoryID(),
-					   'category' => $SETTINGClass->getMovieCategoryByID($vcdObj->getCategoryID())->getName(),
+					   'category' => $SETTINGClass->getMovieCategoryByID($vcdObj->getCategoryID())->getName(true),
 					   'year' => $vcdObj->getYear()
 					   );
 	}

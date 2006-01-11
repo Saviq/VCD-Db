@@ -47,7 +47,7 @@ if ($movie->isAdult()) {
 				<td><?
 				$mObj = $movie->getCategory();
 				if (!is_null($mObj)) {
-					print "<a href=\"./?page=category&amp;category_id=".$mObj->getID()."\">".$mObj->getName()."</a>";
+					print "<a href=\"./?page=category&amp;category_id=".$mObj->getID()."\">".$mObj->getName(true)."</a>";
 				}
 				?></td>
 			</tr>

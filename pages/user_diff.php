@@ -99,7 +99,7 @@ if ($dbCompatible) {
 			}
 				
 			
-			print "<option value=\"".$categoryObj->getID()."\" ".$sel.">".$categoryObj->getName()."</option>";
+			print "<option value=\"".$categoryObj->getID()."\" ".$sel.">".$categoryObj->getName(true)."</option>";
 		}
 		print "</select>"; ?></td>
 </tr>

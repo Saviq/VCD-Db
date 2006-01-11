@@ -58,7 +58,7 @@
 			}
 
 			print "<tr>";
-			print "<td nowrap=\"nowrap\" class=\"".$css_class."\">".$categoryObj->getName()."</td>";
+			print "<td nowrap=\"nowrap\" class=\"".$css_class."\">".$categoryObj->getName(true)."</td>";
 
 			$arr2 = $s->getMediaCountByCategoryAndUserID(VCDUtils::getUserID(),$categoryObj->getID());
 			$resultArr = getCategoryResults($arrMediaTypes,  $arr2);

@@ -12,7 +12,7 @@
 		print "<select name=\"category\" size=\"1\">";
 		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
 		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
-			print "<option value=\"".$categoryObj->getID()."\">".$categoryObj->getName()."</option>";
+			print "<option value=\"".$categoryObj->getID()."\">".$categoryObj->getName(true)."</option>";
 		}
 		print "</select>"; ?></td>
 </tr>

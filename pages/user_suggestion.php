@@ -65,7 +65,7 @@
 					<td><?
 					$mObj = $movie->getCategory();
 					if (!is_null($mObj)) {
-						print "<a href=\"../?page=category&category_id=".$mObj->getID()."\" target=\"_top\">".$mObj->getName()."</a>";
+						print "<a href=\"../?page=category&category_id=".$mObj->getID()."\" target=\"_top\">".$mObj->getName(true)."</a>";
 					}
 					?></td>
 				</tr>

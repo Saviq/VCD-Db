@@ -193,10 +193,10 @@ function display_moviecategories() {
 			}
 			if ($category->getID() == $adult_id) {
 				if ($show_adult) {
-					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
+					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 				}
 			} else {
-				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName() . "</a></span>";
+				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 			}
 		}
 	} else {
@@ -452,7 +452,7 @@ function parseCategoryList($strList) {
 		$cat_name = $cat;
 		if (is_numeric($cat_id) && $cat_id != 0) {
 			$catObj = $SETTINGSClass->getMovieCategoryByID($cat_id);
-			$cat_name = $catObj->getName();
+			$cat_name = $catObj->getName(true);
 		}
 
 		if ($cat_id != 0) {
@@ -815,7 +815,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	<?
 		foreach ($statObj->getBiggestCats() as $catObj) {
 			print "<tr>";
-				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName()."</a></td>";
+				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName(true)."</a></td>";
 				print "<td align=\"right\">".$catObj->getCategoryCount()."</td>";
 			print "</tr>";
 		}
@@ -827,7 +827,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	<?
 		foreach ($statObj->getBiggestMonhtlyCats() as $catObj) {
 			print "<tr>";
-				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName()."</a></td>";
+				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName(true)."</a></td>";
 				print "<td align=\"right\">".$catObj->getCategoryCount()."</td>";
 			print "</tr>";
 		}
@@ -984,7 +984,7 @@ function getLocalizedCategories($categoryObjArr = null) {
 	// Create translated category array
 	$arrCategories = array();
 	foreach ($categoryObjArr as $categoryObj) {
-		$arr = array("id" => $categoryObj->getID(), "name" => $categoryObj->getName());
+		$arr = array("id" => $categoryObj->getID(), "name" => $categoryObj->getName(true));
 		array_push($arrCategories, $arr);
 	}
 	$arrCategories = aSortBySecondIndex($arrCategories, 'name');

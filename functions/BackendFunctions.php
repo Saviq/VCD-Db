@@ -264,7 +264,7 @@ function generateExcel() {
 
 		// Write The category
 		if (!is_null($movie->getCategory())) {
-			$excel->WriteText($row, $col, $movie->getCategory()->getName());
+			$excel->WriteText($row, $col, $movie->getCategory()->getName(true));
 		}
 		$col++;
 

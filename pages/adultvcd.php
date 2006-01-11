@@ -208,7 +208,7 @@ $cd_id = $_GET['vcd_id'];
 	<?
 		$subcats = $PORNClass->getSubCategoriesByMovieID($movie->getID());
 		foreach ($subcats as $categoryObj) {
-			print "<li><a href=\"./?page=adultcategory&amp;category_id=".$categoryObj->getId()."\">".$categoryObj->getName() . "</a></li>";
+			print "<li><a href=\"./?page=adultcategory&amp;category_id=".$categoryObj->getId()."\">".$categoryObj->getName(true) . "</a></li>";
 		}
 
 	?>
