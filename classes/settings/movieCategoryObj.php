@@ -49,13 +49,13 @@ class movieCategoryObj implements XMLable {
 		 * @return string
 		 */
 		public function getName($localize=false){
-			if ($localize && isset($map[$this->category_name]) && $language->show($map[$this->category_name]) != "undefined") {
-				global $language;
-				$map = getCategoryMapping();
-				return $language->show($map[$this->category_name]);
-			} else {
-				return $this->category_name;
-			}
+			if ($localize)
+				if (isset($map[$this->category_name]) && $language->show($map[$this->category_name]) != "undefined") {
+					global $language;
+					$map = getCategoryMapping();
+					return $language->show($map[$this->category_name]);
+				} else return $this->category_name;
+        		} else return $this->category_name;
 		}
 
 		/**
