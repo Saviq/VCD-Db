@@ -719,10 +719,10 @@ class vcd_settings implements ISettings {
 	 * @param string $category_name
 	 * @return int
 	 */
-	public function getCategoryIDByName($category_name) {
+	public function getCategoryIDByName($category_name, $localized=false) {
 		try {
 			foreach ($this->getAllMovieCategories() as $movieCategoryObj) {
-				if (strcmp(strtolower($category_name), strtolower($movieCategoryObj->getName())) == 0) {
+				if (strcmp(strtolower($category_name), strtolower($movieCategoryObj->getName($localized))) == 0) {
 					return $movieCategoryObj->getID();
 				}
 			}
