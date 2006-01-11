@@ -33,13 +33,15 @@ abstract class VCDFetch {
 	private $fetchSearchPath;
 	private $fetchItemPath;
 		
+	private $errorMessage;			// Container for error messages
 	
-	private $useProxy = false;
-	private $proxyHost;
-	private $proxyPort;
+	private $useProxy = false;		// Use proxy server for fetching ?
+	private $proxyHost;				// The proxy server hostname
+	private $proxyPort;				// The proxy server port
 	
 	private $searchKey;
-	private $fetchContents;
+	private $fetchContents;			// The fetched page.
+	private $fetchItem;				// The item filled after getItem() has been called
 	private $isCached;				// Flags if contents are Cached.
 	
 	private $useSnoopy = false;
@@ -51,8 +53,12 @@ abstract class VCDFetch {
 	private $snoopy = null;
 	
 	
+	CONST ITEM_ERROR 	= 0;
+	CONST ITEM_OK 	 	= 1;
+	CONST ITEM_NOTFOUND = 2;
 	
-	public function __construct() {
+	
+	protected function __construct() {
 		$this->isCached = false;
 	}
 	
@@ -113,14 +119,25 @@ abstract class VCDFetch {
 	}
 	
 	
-	protected function fetchPage($url, $host, $referer, $useCache=true) {
+	/**
+	 * Fetch a page from Remote HTTP server
+	 *
+	 * @param string $host | The host server name
+	 * @param string $url | The url within the servername to fetch
+	 * @param string $referer | The referer host name to use
+	 * @param bool $useCache | Use the cache file if exists
+	 * @return bool
+	 */
+	protected function fetchPage($host, $url, $referer, $useCache=true) {
+		
+		$results = true;
 		
 		// First check the cache
 		if ($useCache) {
 			$contents = $this->fetchCachedPage($url);
 			if (!is_null($contents)) {
 				$this->fetchContents = $contents;
-				return $this->fetchContents;
+				return true;
 			}
 		}
 		
@@ -135,44 +152,63 @@ abstract class VCDFetch {
 			
 		} else {
 
-			$psplit = split(":",$host);
-			$pserver = $psplit[0];
-			if(isset($psplit[1])) {
-				$pport = $psplit[1];
+			if ($this->useProxy) {
+				
+				$proxyurl = "http://".$host.$url;
+				$results = $this->fetchThroughProxy($proxyurl);
+				
 			} else {
-				$pport = 80;
+			
+				$psplit = split(":",$host);
+				$pserver = $psplit[0];
+				if(isset($psplit[1])) {
+					$pport = $psplit[1];
+				} else {
+					$pport = 80;
+				}
+				
+				
+				$fp = @fsockopen($pserver, $pport);
+				if (!$fp) {
+					throw new Exception("Could not connect to host " . $host);
+				}	
+							
+				$requestHeader = $this->getHeader($url, $referer, $host);
+							
+				fputs($fp, $requestHeader);
+				$site = "";
+				while (!feof($fp)) {
+					$site .= fgets ($fp, 1024);
+				}
+				
+				fclose($fp);
+				$this->fetchContents = $site;		
 			}
-			
-			
-			$fp = @fsockopen($pserver, $pport);
-			if (!$fp) {
-				throw new Exception("Could not connect to host " . $host);
-			}	
-						
-			$requestHeader = $this->getHeader($url, $referer, $host);
-						
-			fputs($fp, $requestHeader);
-			$site = "";
-			while (!feof($fp)) {
-				$site .= fgets ($fp, 1024);
-			}
-			
-			fclose($fp);
-			$this->fetchContents = $site;		
-					
-			
 		}
 		
 		if ($useCache) {
-			// Write the results to CACHE
+			$this->writeToCache($url);
+		}
+		
+		return $results;
+		
+		
+	}
+	
+	
+	/**
+	 * Write the current fetchContents of the class to CACHE
+	 *
+	 * @param string $url | The url that is the owner of the cache
+	 */
+	private function writeToCache($url) {
+		if (!is_null($this->fetchContents) && strlen($this->fetchContents) > 0) {
 			$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
 			$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
 			$fp = fopen($cacheFileName, "w");
 			fwrite($fp, $this->fetchContents);
 			fclose($fp);
 		}
-		
-		
 	}
 	
 	
@@ -215,6 +251,67 @@ abstract class VCDFetch {
 	
 	
 	/**
+	 * Find text from the current fetchContents using regular expressions.
+	 * Returns the status code of the fetch status defined as constants in the class.
+	 *
+	 * @param string $expression | The Regular Expression to use in the search
+	 * @param bool $multivalue | Tell weither the search values are multiple items or not
+	 * @return int
+	 */
+	protected function getItem($expression, $multivalue=false) {
+		$retval = "";
+		if (!$multivalue) {
+			
+			 if(!eregi($expression, $this->fetchContents, $retval)) { 
+			 	// Try using preg_match instead
+			 	if(!preg_match($expression, $this->fetchContents, $retval)) { 
+			 		return self::ITEM_NOTFOUND;
+			 	}
+			 }
+			 			 
+			
+		} else {
+			
+			// Multiple valuse expected
+			$retval = array();
+			$contents = $this->fetchContents;
+			while(eregi($expression, $contents, $arrRoller)) {
+	  	      $contents = substr($contents,strpos($contents,$arrRoller[0])+strlen($arrRoller[0]));
+		      array_push($retval, $arrRoller);
+		    }
+			
+			if (sizeof($retval) == 0) {
+				return self::ITEM_NOTFOUND;
+			}
+		
+		}
+		
+		$this->fetchItem = $retval;
+		return self::ITEM_OK;
+		
+		
+	}
+	
+	/**
+	 * Get the item that was succesfully found via function getItem().
+	 * Return value can either be an Array or string.
+	 *
+	 * @return mixed
+	 */
+	protected function getFetchedItem() {
+		return $this->fetchItem;
+	}
+	
+	
+	private function clean($strData) {
+		while(ereg("&#([0-9]{3});", $strData, $x)) {
+			$strData = str_replace("&#".$x[1].";", chr($x[1]), $strData);
+		}
+		return $strData;
+	}
+	
+	
+	/**
 	 * Use the external Snoopy Lib to fetch the page instead of opening a socket.
 	 *
 	 */
@@ -234,7 +331,14 @@ abstract class VCDFetch {
 	}
 		
 	
-	
+	/**
+	 * Tell weither the contents of the fetched page are cached or not.
+	 *
+	 * @return bool
+	 */
+	public function isCached() {
+		return $this->isCached;
+	}
 	
 	
 	
@@ -255,8 +359,47 @@ abstract class VCDFetch {
 	}
 	
 	
+	/**
+	 * Set the current error message
+	 *
+	 * @param string $strError
+	 */
+	private function setErrorMsg($strError) {
+		$this->errorMessage = $strError;
+	}
 	
 	
+	/**
+	 * Fetch a page from Remote HTTP server through the help of Proxy Server.
+	 * Return true if operation succeded.
+	 *
+	 * @param string $proxy_url | The Url to fetch
+	 * @return bool 
+	 */
+	private function fetchThroughProxy($proxy_url) {
+
+	   if ((strcmp($this->proxyHost, "") == 0) || (!is_numeric($this->proxyPort))) {
+	   		throw new Exception("Proxy settings are undefined.");
+	   }
+		
+	   $contents = "";
+
+	   $fp = fsockopen($this->proxyHost, $this->proxyPort);
+	   if (!$fp)  {
+	   		$this->setErrorMsg("No response from proxy server at " . $this->proxyHost);
+	   		return false;
+	   }
+
+	   $urlArr = parse_url($proxy_url);
+	   $domain = $urlArr['host'];
+
+	   fputs($fp, "GET $proxy_url HTTP/1.0\r\nHost: $domain\r\n\r\n");
+	   while(!feof($fp)) {$contents .= fread($fp,4096);}
+	   fclose($fp);
+	   $contents = substr($contents, strpos($contents,"\r\n\r\n")+4);
+	   $this->fetchContents = $contents;
+	   return true;
+	}
 	
 	
 	

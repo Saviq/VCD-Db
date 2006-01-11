@@ -18,6 +18,28 @@
 <? 
 class VCDFetch_imdb extends VCDFetch {
 	
+	
+	private $regexArray = array(
+		'title' 	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
+		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
+		'poster' 	=> '/<img border="0" alt="cover" src="([^"]+)"/is',
+		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
+		'genre' 	=> '#Genre:</b>(.*?)<br>#msi',
+		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
+		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
+		'plot'		=> '<p class="plotpar">([^<]*)</p>',
+		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
+		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
+		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
+		
+		
+		
+		
+		
+		);
+	
+	
+	
 	public function __construct() {
 		$this->setSiteName("imdb");
 	}
@@ -30,8 +52,18 @@ class VCDFetch_imdb extends VCDFetch {
 	
 	
 	public function search() {
-		//http://www.imdb.com/title/tt0377092/
-		$this->fetchPage('/title/tt0377092/', 'www.imdb.com', 'http://akas.imdb.com');
+		
+		$this->fetchPage('www.imdb.com', '/title/tt0360717/', 'http://akas.imdb.com');
+		
+		
+		foreach ($this->regexArray as $item => $value) {
+			if ($this->getItem($value) == parent::ITEM_OK ) {
+				print "<br>br>";
+				print_r($this->getFetchedItem());
+			} 
+		}
+		
+		
 	}
 	
 	
