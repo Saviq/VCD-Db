@@ -40,6 +40,7 @@ abstract class VCDFetch {
 	private $proxyPort;				// The proxy server port
 	
 	private $searchKey;
+	private $searchMaxResults = 50; // Maximum search results
 	private $fetchContents;			// The fetched page.
 	private $fetchItem;				// The item filled after getItem() has been called
 	private $isCached;				// Flags if contents are Cached.
@@ -63,9 +64,45 @@ abstract class VCDFetch {
 	}
 	
 		
-	public abstract function search();
+	protected function search($title) {
+		$this->searchKey = rawurlencode($title);
+		if ($this->useSnoopy) {
+			$this->fetchSearchPath = str_replace('[$]', $this->searchKey, $this->fetchSearchPath);
+		}
+		
+		$referer = "http://".$this->fetchDomain;
+		$header = $this->getHeader($this->fetchSearchPath, $referer, $this->fetchDomain);
+		$header = str_replace("[$]", $this->searchKey, $header);
+		$this->fetchPage($this->fetchDomain, $this->fetchSearchPath, $referer, false, $header);
+	}
 	
 	public abstract function showSearchResults();
+	
+	
+	protected function generateSimpleSearchResults($regex, $indexId, $indexTitle) {
+		$this->getItem($regex, true);
+		$results = $this->getFetchedItem();
+		
+		/*
+		$idIndex = 1;
+		$titleIndex = 3;
+		if (!isset($results[0][3])) {
+			$idIndex = 0;
+			$titleIndex = 1;
+		}
+		*/
+		
+		$arrSearchResults = array();
+		for ($i = 0; $i < sizeof($results); $i++) {
+			if ($i > $this->searchMaxResults) { break; }
+						
+			$searchItem = $results[$i];
+			array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => $searchItem[$indexTitle]));
+		}
+		
+		return $arrSearchResults;
+	}
+	
 	
 	/**
 	 * Set the fetch class to use proxy with the defined proxy parameters
@@ -81,7 +118,7 @@ abstract class VCDFetch {
 	
 	
 	/**
-	 * Set the correct url parameters for the current Fetch site
+	 * Set the correct url parameters for the current Fetch site.
 	 *
 	 * @param string $domain | The full domain name of the site to fetch
 	 * @param string $searchPath | The search path without the domain name. For example "/search?text="
@@ -126,9 +163,10 @@ abstract class VCDFetch {
 	 * @param string $url | The url within the servername to fetch
 	 * @param string $referer | The referer host name to use
 	 * @param bool $useCache | Use the cache file if exists
+	 * @param string $header | Use predefined header, otherwise it will be automatically created.
 	 * @return bool
 	 */
-	protected function fetchPage($host, $url, $referer, $useCache=true) {
+	protected function fetchPage($host, $url, $referer, $useCache=true, $header=null) {
 		
 		$results = true;
 		
@@ -173,7 +211,12 @@ abstract class VCDFetch {
 					throw new Exception("Could not connect to host " . $host);
 				}	
 							
-				$requestHeader = $this->getHeader($url, $referer, $host);
+				if (is_null($header)) {
+					$requestHeader = $this->getHeader($url, $referer, $host);	
+				} else {
+					$requestHeader = &$header;
+				}
+				
 							
 				fputs($fp, $requestHeader);
 				$site = "";
@@ -229,6 +272,25 @@ abstract class VCDFetch {
 		} else {
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * Set the maximum allowed records in searh results
+	 *
+	 * @param int $iNum
+	 */
+	protected function setMaxSearchResults($iNum) {
+		$this->searchMaxResults = $iNum;
+	}
+	
+	/**
+	 * Get the number of allowed search results
+	 *
+	 * @return int
+	 */
+	protected function getMaxSearchResults() {
+		return $this->searchMaxResults;
 	}
 	
 	/**

@@ -16,7 +16,7 @@
  
 ?>
 <? 
-class VCDFetch_imdb extends VCDFetch {
+class VCDFetch_dvdempire extends VCDFetch {
 	
 	
 	private $regexArray = array(
@@ -33,13 +33,14 @@ class VCDFetch_imdb extends VCDFetch {
 		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
 		);
 	
-	private $servername = 'akas.imdb.com';
-	private $searchpath = '/find?more=tt;q=[$]';
+	private $servername = 'adult.dvdempire.com';
+	private $searchpath = '/exec/v1_search_titles.asp?userid=0000&string=[$]&include_desc=0&used=0&view=0&pp=4&sort=';
 	private $itempath   = '/title/[$]/';
 		
 	
 	public function __construct() {
-		$this->setSiteName("imdb");
+		$this->useSnoopy();
+		$this->setSiteName("empire");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
 	}
 	
@@ -50,42 +51,28 @@ class VCDFetch_imdb extends VCDFetch {
 	
 	public function showSearchResults() {
 		
-		$this->setMaxSearchResults(25);
-		$regx = '<a href=\"\/title\/tt([0-9]+)\/([^\<]*)\">([^\<]*)</a>';
-		$results = parent::generateSimpleSearchResults($regx);
+		$this->setMaxSearchResults(50);
+		//$regx = '<a href=\"\/title\/tt([0-9]+)\/([^\<]*)\">([^\<]*)</a>';
+		
+		
+		//print $this->getContents();
+		//exit();
+		
+		//$regx = '<b><a href="/Exec/v1_item.asp?userid=([0-9]+)&amp;item_id=([0-9]+)&amp;searchID=([0-9]+)">([^\<]*)</a></b>';
+		$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
+		
+		$results = parent::generateSimpleSearchResults($regx, 3, 2);
 		print "<pre>";
 		print_r($results);
 		print "</pre>";
 		
-				
-		/*
-		$this->fetchPage('www.imdb.com', '/title/tt0360717/', 'http://akas.imdb.com');
-		
-		
-		foreach ($this->regexArray as $item => $value) {
-			if ($this->getItem($value) == parent::ITEM_OK ) {
-				print "<br>br>";
-				print_r($this->getFetchedItem());
-			} 
-		}
-		*/
-		
+						
 	}
 	
 	
 	
 	
-	
-	
-	
-	
-	
 }
-
-
-
-
-
 
 
 
