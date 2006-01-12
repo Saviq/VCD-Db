@@ -34,7 +34,8 @@ class VCDFetch_imdb extends VCDFetch {
 		);
 	
 	private $servername = 'akas.imdb.com';
-	private $searchpath = '/find?more=tt;q=[$]';
+	//private $searchpath = '/find?more=tt;q=[$]';
+	private $searchpath = '/find?q=[$]';
 	private $itempath   = '/title/[$]/';
 		
 	
@@ -45,7 +46,7 @@ class VCDFetch_imdb extends VCDFetch {
 	
 	
 	public function search($title) { 
-		parent::search($title);
+		return parent::search($title);
 	}
 	
 	public function showSearchResults() {

@@ -34,7 +34,8 @@ class VCDFetch_dvdempire extends VCDFetch {
 		);
 	
 	private $servername = 'adult.dvdempire.com';
-	private $searchpath = '/exec/v1_search_titles.asp?userid=0000&string=[$]&include_desc=0&used=0&view=0&pp=4&sort=';
+	//private $searchpath = '/exec/v1_search_titles.asp?userid=0000&string=[$]&include_desc=0&used=0&view=0&pp=4&sort=';
+	private $searchpath = '/exec/v1_search_titles.asp?userid=00000000000001&string=[$]&include_desc=0&used=0&view=1&sort=5';
 	private $itempath   = '/title/[$]/';
 		
 	
@@ -46,7 +47,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	
 	public function search($title) { 
-		parent::search($title);
+		return parent::search($title);
 	}
 	
 	public function showSearchResults() {
@@ -59,12 +60,15 @@ class VCDFetch_dvdempire extends VCDFetch {
 		//exit();
 		
 		//$regx = '<b><a href="/Exec/v1_item.asp?userid=([0-9]+)&amp;item_id=([0-9]+)&amp;searchID=([0-9]+)">([^\<]*)</a></b>';
+		//$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
 		$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
 		
-		$results = parent::generateSimpleSearchResults($regx, 3, 2);
+		$results = parent::generateSimpleSearchResults($regx, 1, 2);
 		print "<pre>";
 		print_r($results);
 		print "</pre>";
+		
+		
 		
 						
 	}
