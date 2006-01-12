@@ -39,8 +39,9 @@ abstract class VCDFetch {
 	private $proxyHost;				// The proxy server hostname
 	private $proxyPort;				// The proxy server port
 	
-	private $searchKey;
+	private $searchKey;				// The search key used in the search query
 	private $searchMaxResults = 50; // Maximum search results
+	private $searchRedirectUrl;		// The url that is redirected to if search is exact match.
 	private $fetchContents;			// The fetched page.
 	private $fetchItem;				// The item filled after getItem() has been called
 	private $isCached;				// Flags if contents are Cached.
@@ -58,12 +59,22 @@ abstract class VCDFetch {
 	CONST ITEM_OK 	 	= 1;
 	CONST ITEM_NOTFOUND = 2;
 	
+	CONST SEARCH_ERROR  = 0;
+	CONST SEARCH_DONE   = 1;
+	CONST SEARCH_EXACT  = 2;
 	
 	protected function __construct() {
 		$this->isCached = false;
 	}
 	
-		
+
+	/**
+	 * Search the current site for the given keyword, The search then fills the internal page buffer
+	 * with the searchresults.  Returning the status of the search, SEARCH_ERROR, SEARCH_DONE or SEARCH_EXACT.
+	 *
+	 * @param string $title
+	 * @return int
+	 */
 	protected function search($title) {
 		$this->searchKey = rawurlencode($title);
 		if ($this->useSnoopy) {
@@ -73,24 +84,55 @@ abstract class VCDFetch {
 		$referer = "http://".$this->fetchDomain;
 		$header = $this->getHeader($this->fetchSearchPath, $referer, $this->fetchDomain);
 		$header = str_replace("[$]", $this->searchKey, $header);
-		$this->fetchPage($this->fetchDomain, $this->fetchSearchPath, $referer, false, $header);
+		$iResults = $this->fetchPage($this->fetchDomain, $this->fetchSearchPath, $referer, false, $header);
+
+		if (!$iResults) {
+			$SEARCH_RESULTS = self::SEARCH_ERROR;
+		} else {
+			$SEARCH_RESULTS = self::SEARCH_DONE;	
+		}
+		
+		
+		// Check for exact match
+		if ($this->useSnoopy) {
+			if (strcmp($this->snoopy->lastredirectaddr, "") != 0) {
+				$this->searchRedirectUrl = $this->snoopy->lastredirectaddr;
+				$SEARCH_RESULTS = self::SEARCH_EXACT;
+			}
+		} else {
+			if(strstr($this->fetchContents, "HTTP/1.0 302") || strstr($this->fetchContents, "HTTP/1.1 302")) { 
+				// Break up the header
+				$headerArr = split("\n", $this->fetchContents, 10);
+				$neddle = "Location:";
+				// Find the item with Location:
+				foreach ($headerArr as $entry) {
+					if (substr_count($entry, $neddle) == 1) {
+						// Found it ..
+						$url = trim(substr($entry, strlen($neddle)));
+						$this->searchRedirectUrl = $url;
+						break;
+					}
+				}
+				
+				$SEARCH_RESULTS = self::SEARCH_EXACT;
+			}
+		}
+		
+		
+		return $SEARCH_RESULTS;
+		
 	}
 	
 	public abstract function showSearchResults();
 	
 	
-	protected function generateSimpleSearchResults($regex, $indexId, $indexTitle) {
+	protected function generateSimpleSearchResults($regex, $indexId=null, $indexTitle=null) {
 		$this->getItem($regex, true);
 		$results = $this->getFetchedItem();
 		
-		/*
-		$idIndex = 1;
-		$titleIndex = 3;
-		if (!isset($results[0][3])) {
-			$idIndex = 0;
-			$titleIndex = 1;
+		if (is_null($indexId) || is_null($indexTitle)) {
+			return $results;
 		}
-		*/
 		
 		$arrSearchResults = array();
 		for ($i = 0; $i < sizeof($results); $i++) {
@@ -276,6 +318,16 @@ abstract class VCDFetch {
 	
 	
 	/**
+	 * If search() returns SEARCH_EXACT, this function will return the url that was redirected to.
+	 *
+	 * @return string
+	 */
+	public function getSearchRedirectUrl() {
+		return $this->searchRedirectUrl;
+	}
+	
+	
+	/**
 	 * Set the maximum allowed records in searh results
 	 *
 	 * @param int $iNum
@@ -422,12 +474,22 @@ abstract class VCDFetch {
 	
 	
 	/**
-	 * Set the current error message
+	 * Set the current Error Message
 	 *
 	 * @param string $strError
 	 */
 	private function setErrorMsg($strError) {
 		$this->errorMessage = $strError;
+	}
+	
+	
+	/**
+	 * Get the current Error Message
+	 *
+	 * @return string
+	 */
+	protected function getErrorMsg() {
+		return $this->errorMessage;
 	}
 	
 	
