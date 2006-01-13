@@ -42,6 +42,7 @@ abstract class VCDFetch {
 	private $searchKey;				// The search key used in the search query
 	private $searchMaxResults = 50; // Maximum search results
 	private $searchRedirectUrl;		// The url that is redirected to if search is exact match.
+		
 	private $fetchContents;			// The fetched page.
 	private $fetchItem;				// The item filled after getItem() has been called
 	private $isCached;				// Flags if contents are Cached.
@@ -53,7 +54,7 @@ abstract class VCDFetch {
 	 * @var Snoopy
 	 */
 	private $snoopy = null;
-	
+			
 	
 	CONST ITEM_ERROR 	= 0;
 	CONST ITEM_OK 	 	= 1;
@@ -126,6 +127,15 @@ abstract class VCDFetch {
 	public abstract function showSearchResults();
 	
 	
+	/**
+	 * Generate simple array containing the search results,
+	 * Returns assoc array of search results with entries [id] and [title]
+	 *
+	 * @param string $regex | The regular expression used to defined the item rules.
+	 * @param int $indexId | The index of the ID in the array created with $regex
+	 * @param int $indexTitle | The index of the TITLE in the array created with $regex
+	 * @return array
+	 */
 	protected function generateSimpleSearchResults($regex, $indexId=null, $indexTitle=null) {
 		$this->getItem($regex, true);
 		$results = $this->getFetchedItem();
@@ -143,6 +153,51 @@ abstract class VCDFetch {
 		}
 		
 		return $arrSearchResults;
+	}
+	
+	
+	/**
+	 * Generate simple selection from the current search results so user can choose a title to fetch.
+	 * The array $arrSearchResults must be assoc and contain key [id] and [title].
+	 *
+	 * @param array $arrSearchResults
+	 */
+	protected function generateSearchSelection($arrSearchResults) {
+		if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) {
+			print "No search results to generate from.";
+			return;
+		}
+		
+		$testItem = $arrSearchResults[0];
+		if (!isset($testItem['id']) || !isset($testItem['title']))	{
+			throw new Exception('Results array must contain keys [id] and [title]');
+		}
+		
+		
+		$extUrl = "http://".$this->fetchDomain.$this->fetchItemPath;
+		print "<ul>";
+		foreach ($arrSearchResults as $item) {
+			$link = "?page=private&amp;o=add&amp;source={$this->siteID}&amp;fid={$item['id']}";
+			$info = str_replace('[$]', $item['id'], $extUrl);
+			$str = "<li><a href=\"{$link}\">{$item['title']}</a>&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a></li>";
+			print $str;
+		}
+		print "<ul>";
+		
+	}
+	
+	
+	/**
+	 * Get contents of Exact title, Fills the local page buffer and returns the status of the fetch.
+	 *
+	 * @param string $id
+	 * @return int
+	 */
+	public function fetchItemByID($id) {
+		$this->itemID = $id;
+		$itemUrl = str_replace('[$]', $id, $this->fetchItemPath);
+		$referer = "http://".$this->fetchDomain;
+		return $this->fetchPage($this->fetchDomain, $itemUrl, $referer);
 	}
 	
 	
@@ -224,8 +279,6 @@ abstract class VCDFetch {
 		
 		// Item not found in cache
 		if ($this->useSnoopy) {
-			
-			$this->initSnoopy();
 			$snoopyurl = "http://".$host.$url;
 			$this->snoopy->fetch($snoopyurl);
 			$this->fetchContents = $this->snoopy->results;
@@ -376,9 +429,9 @@ abstract class VCDFetch {
 		$retval = "";
 		if (!$multivalue) {
 			
-			 if(!eregi($expression, $this->fetchContents, $retval)) { 
+			 if(!@eregi($expression, $this->fetchContents, $retval)) { 
 			 	// Try using preg_match instead
-			 	if(!preg_match($expression, $this->fetchContents, $retval)) { 
+			 	if(!@preg_match($expression, $this->fetchContents, $retval)) { 
 			 		return self::ITEM_NOTFOUND;
 			 	}
 			 }
@@ -431,6 +484,7 @@ abstract class VCDFetch {
 	 */
 	protected function useSnoopy() {
 		$this->useSnoopy = true;
+		$this->initSnoopy();
 	}
 	
 	

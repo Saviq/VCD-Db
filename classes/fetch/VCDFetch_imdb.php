@@ -24,7 +24,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
 		'poster' 	=> '/<img border="0" alt="cover" src="([^"]+)"/is',
 		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
-		'genre' 	=> '#Genre:</b>(.*?)<br>#msi',
+		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
 		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
 		'plot'		=> '<p class="plotpar">([^<]*)</p>',
@@ -32,11 +32,15 @@ class VCDFetch_imdb extends VCDFetch {
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
 		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
 		);
+		
+	private $multiArray = array(
+		'genre', 'cast', 'akas', 'country'
+	);
+		
 	
 	private $servername = 'akas.imdb.com';
-	//private $searchpath = '/find?more=tt;q=[$]';
 	private $searchpath = '/find?q=[$]';
-	private $itempath   = '/title/[$]/';
+	private $itempath   = '/title/tt[$]/';
 		
 	
 	public function __construct() {
@@ -51,31 +55,23 @@ class VCDFetch_imdb extends VCDFetch {
 	
 	public function showSearchResults() {
 		
-		$this->setMaxSearchResults(25);
+		$this->setMaxSearchResults(40);
 		$regx = '<a href=\"\/title\/tt([0-9]+)\/([^\<]*)\">([^\<]*)</a>';
-		$results = parent::generateSimpleSearchResults($regx);
-		print "<pre>";
-		print_r($results);
-		print "</pre>";
-		
-				
-		/*
-		$this->fetchPage('www.imdb.com', '/title/tt0360717/', 'http://akas.imdb.com');
-		
-		
-		foreach ($this->regexArray as $item => $value) {
-			if ($this->getItem($value) == parent::ITEM_OK ) {
-				print "<br>br>";
-				print_r($this->getFetchedItem());
-			} 
-		}
-		*/
-		
+		$results = parent::generateSimpleSearchResults($regx, 1, 3);
+		parent::generateSearchSelection($results);
 	}
 	
 	
-	
-	
+	public function getMovie() {
+		foreach ($this->regexArray as $item => $value) {
+			$multi = (bool)in_array($item, $this->multiArray);
+			if ($this->getItem($value, $multi) == self::ITEM_OK ) {
+				print_r($this->getFetchedItem());
+			} else {
+				print "Could not fetch ITEM " . $item . "<br>";
+			}
+		}
+	}
 	
 	
 	
