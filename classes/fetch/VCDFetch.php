@@ -69,6 +69,16 @@ abstract class VCDFetch {
 	}
 	
 
+	// These functions must be implemented by this class inheritors
+	public abstract function showSearchResults();
+	protected abstract function processResults();
+	protected abstract function fetchDeeper($item);
+	
+	
+	
+	
+	
+	
 	/**
 	 * Search the current site for the given keyword, The search then fills the internal page buffer
 	 * with the searchresults.  Returning the status of the search, SEARCH_ERROR, SEARCH_DONE or SEARCH_EXACT.
@@ -124,7 +134,7 @@ abstract class VCDFetch {
 		
 	}
 	
-	public abstract function showSearchResults();
+		
 	
 	
 	/**
@@ -414,6 +424,25 @@ abstract class VCDFetch {
 	 */
 	public function getContents() {
 		return $this->fetchContents;
+	}
+	
+	/**
+	 * Fill the internal page buffer with data.
+	 *
+	 * @param string $strContents
+	 */
+	protected function setContents($strContents) {
+		$this->fetchContents = $strContents;
+	}
+	
+	
+	/**
+	 * Get the current item ID
+	 *
+	 * @return string
+	 */
+	protected function getItemID() {
+		return $this->itemID;
 	}
 	
 	

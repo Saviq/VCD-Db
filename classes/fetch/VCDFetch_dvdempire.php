@@ -45,6 +45,9 @@ class VCDFetch_dvdempire extends VCDFetch {
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
 	}
 	
+	protected function processResults() {
+	
+	}
 	
 	public function search($title) { 
 		return parent::search($title);
