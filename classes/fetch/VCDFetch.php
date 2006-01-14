@@ -56,6 +56,8 @@ abstract class VCDFetch {
 	private $snoopy = null;
 			
 	
+	protected $workerArray = array();
+	
 	CONST ITEM_ERROR 	= 0;
 	CONST ITEM_OK 	 	= 1;
 	CONST ITEM_NOTFOUND = 2;
@@ -73,6 +75,70 @@ abstract class VCDFetch {
 	public abstract function showSearchResults();
 	protected abstract function processResults();
 	protected abstract function fetchDeeper($item);
+	
+	
+	
+	/**
+	 * Get contents of Exact title, Fills the local page buffer and returns the status of the fetch.
+	 *
+	 * @param string $id
+	 * @return int
+	 */
+	public function fetchItemByID($id) {
+		$this->itemID = $id;
+		$itemUrl = str_replace('[$]', $id, $this->fetchItemPath);
+		$referer = "http://".$this->fetchDomain;
+		return $this->fetchPage($this->fetchDomain, $itemUrl, $referer);
+	}
+	
+	
+	
+	/**
+	 * Tell weither the contents of the fetched page are cached or not.
+	 *
+	 * @return bool
+	 */
+	public function isCached() {
+		return $this->isCached;
+	}
+	
+	
+		
+	/**
+	 * Try to featch each item in $regexArray the simple way, call the fetchDeeper() on failure
+	 * for deeper processing.  Each success item is pushed into array $workerArray.
+	 * Functions fetchDeeper() and processResults() must have been implemented in the inhereted class.
+	 *
+	 */
+	public function fetchValues() {
+		foreach ($this->regexArray as $entry => $regex) {
+			$multi = (bool)in_array($entry, $this->multiArray);
+			if ($this->getItem($regex, $multi) == self::ITEM_OK ) {
+				array_push($this->workerArray, array($entry, $this->getFetchedItem()));
+			} else {
+				$this->fetchDeeper($entry);
+			}
+		}
+		
+		// and finally process the results
+		$this->processResults();
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 
+	 * 
+	 * 
+	 * Protected functions.  Used internally and by inheritor classes.
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
 	
 	
 	
@@ -134,7 +200,7 @@ abstract class VCDFetch {
 		
 	}
 	
-		
+			
 	
 	
 	/**
@@ -196,21 +262,7 @@ abstract class VCDFetch {
 		
 	}
 	
-	
-	/**
-	 * Get contents of Exact title, Fills the local page buffer and returns the status of the fetch.
-	 *
-	 * @param string $id
-	 * @return int
-	 */
-	public function fetchItemByID($id) {
-		$this->itemID = $id;
-		$itemUrl = str_replace('[$]', $id, $this->fetchItemPath);
-		$referer = "http://".$this->fetchDomain;
-		return $this->fetchPage($this->fetchDomain, $itemUrl, $referer);
-	}
-	
-	
+		
 	/**
 	 * Set the fetch class to use proxy with the defined proxy parameters
 	 *
@@ -237,30 +289,6 @@ abstract class VCDFetch {
 		$this->fetchItemPath = $itemPath;
 	}
 	
-	
-	
-	
-	/**
-	 * Create the HTTP header to send in the HTTP request.
-	 *
-	 * @param string $url | The url to get.  For example /item/500
-	 * @param string $referer | The referer hostname.
-	 * @param string $host | The hostname to connect to
-	 * @return string
-	 */
-	private function getHeader($url, $referer, $host) {
-		$header  = "GET {$url} HTTP/1.0\r\n";
-		$header .= "User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\r\n";
-		$header .= "Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*\r\n";
-		$header .= "Accept-Language: de\r\n";
-		$header .= "Referer: {$referer}\r\n";
-		$header .= "Host: {$host}\r\n";
-		$header .= "Connection: Keep-Alive\r\n";
-		$header .= "Cache-Control: no-cache\r\n";
-		$header .= "\r\n";
-		
-		return $header;
-	}
 	
 	
 	/**
@@ -344,48 +372,13 @@ abstract class VCDFetch {
 	}
 	
 	
-	/**
-	 * Write the current fetchContents of the class to CACHE
-	 *
-	 * @param string $url | The url that is the owner of the cache
-	 */
-	private function writeToCache($url) {
-		if (!is_null($this->fetchContents) && strlen($this->fetchContents) > 0) {
-			$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
-			$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
-			$fp = fopen($cacheFileName, "w");
-			fwrite($fp, $this->fetchContents);
-			fclose($fp);
-		}
-	}
-	
-	
-	
-	/**
-	 * Get the page from Cache if it exists.  Otherwise function returns null.
-	 *
-	 * @param string $url
-	 * @return string
-	 */
-	private function fetchCachedPage($url) {
-		$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
-		$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
-
-		if(file_exists($cacheFileName)) {
-			$this->isCached = true;
-			return (implode("", file($cacheFileName)));
-		} else {
-			return null;
-		}
-	}
-	
 	
 	/**
 	 * If search() returns SEARCH_EXACT, this function will return the url that was redirected to.
 	 *
 	 * @return string
 	 */
-	public function getSearchRedirectUrl() {
+	protected function getSearchRedirectUrl() {
 		return $this->searchRedirectUrl;
 	}
 	
@@ -417,14 +410,16 @@ abstract class VCDFetch {
 		return $this->searchContents;		
 	}
 	
+	
 	/**
 	 * Get the Contents of the fetched page
 	 *
 	 * @return string
 	 */
-	public function getContents() {
+	protected function getContents() {
 		return $this->fetchContents;
 	}
+	
 	
 	/**
 	 * Fill the internal page buffer with data.
@@ -488,6 +483,7 @@ abstract class VCDFetch {
 		
 	}
 	
+	
 	/**
 	 * Get the item that was succesfully found via function getItem().
 	 * Return value can either be an Array or string.
@@ -498,15 +494,7 @@ abstract class VCDFetch {
 		return $this->fetchItem;
 	}
 	
-	
-	private function clean($strData) {
-		while(ereg("&#([0-9]{3});", $strData, $x)) {
-			$strData = str_replace("&#".$x[1].";", chr($x[1]), $strData);
-		}
-		return $strData;
-	}
-	
-	
+		
 	/**
 	 * Use the external Snoopy Lib to fetch the page instead of opening a socket.
 	 *
@@ -527,18 +515,95 @@ abstract class VCDFetch {
 		$this->siteID = $sitename;
 	}
 		
+		
+	/**
+	 * Set the current Error Message
+	 *
+	 * @param string $strError
+	 */
+	protected function setErrorMsg($strError) {
+		$this->errorMessage = $strError;
+	}
+	
 	
 	/**
-	 * Tell weither the contents of the fetched page are cached or not.
+	 * Get the current Error Message
 	 *
-	 * @return bool
+	 * @return string
 	 */
-	public function isCached() {
-		return $this->isCached;
+	protected function getErrorMsg() {
+		return $this->errorMessage;
 	}
 	
 	
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * Private internal functions.
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
+	/**
+	 * Get the page from Cache if it exists.  Otherwise function returns null.
+	 *
+	 * @param string $url
+	 * @return string
+	 */
+	private function fetchCachedPage($url) {
+		$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+		$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
+
+		if(file_exists($cacheFileName)) {
+			$this->isCached = true;
+			return (implode("", file($cacheFileName)));
+		} else {
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Write the current fetchContents of the class to CACHE
+	 *
+	 * @param string $url | The url that is the owner of the cache
+	 */
+	private function writeToCache($url) {
+		if (!is_null($this->fetchContents) && strlen($this->fetchContents) > 0) {
+			$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+			$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
+			$fp = fopen($cacheFileName, "w");
+			fwrite($fp, $this->fetchContents);
+			fclose($fp);
+		}
+	}
+	
+		
+	/**
+	 * Create the HTTP header to send in the HTTP request.
+	 *
+	 * @param string $url | The url to get.  For example /item/500
+	 * @param string $referer | The referer hostname.
+	 * @param string $host | The hostname to connect to
+	 * @return string
+	 */
+	private function getHeader($url, $referer, $host) {
+		$header  = "GET {$url} HTTP/1.0\r\n";
+		$header .= "User-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\r\n";
+		$header .= "Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*\r\n";
+		$header .= "Accept-Language: de\r\n";
+		$header .= "Referer: {$referer}\r\n";
+		$header .= "Host: {$host}\r\n";
+		$header .= "Connection: Keep-Alive\r\n";
+		$header .= "Cache-Control: no-cache\r\n";
+		$header .= "\r\n";
+		
+		return $header;
+	}
 	
 	
 	/**
@@ -553,26 +618,6 @@ abstract class VCDFetch {
 				$this->snoopy->proxy_port = $this->proxyPort;
 			}
 		}
-	}
-	
-	
-	/**
-	 * Set the current Error Message
-	 *
-	 * @param string $strError
-	 */
-	private function setErrorMsg($strError) {
-		$this->errorMessage = $strError;
-	}
-	
-	
-	/**
-	 * Get the current Error Message
-	 *
-	 * @return string
-	 */
-	protected function getErrorMsg() {
-		return $this->errorMessage;
 	}
 	
 	
@@ -606,6 +651,14 @@ abstract class VCDFetch {
 	   $contents = substr($contents, strpos($contents,"\r\n\r\n")+4);
 	   $this->fetchContents = $contents;
 	   return true;
+	}
+	
+	
+	private function clean($strData) {
+		while(ereg("&#([0-9]{3});", $strData, $x)) {
+			$strData = str_replace("&#".$x[1].";", chr($x[1]), $strData);
+		}
+		return $strData;
 	}
 	
 	
