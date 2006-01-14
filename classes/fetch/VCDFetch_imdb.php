@@ -19,7 +19,7 @@
 class VCDFetch_imdb extends VCDFetch {
 	
 	
-	private $regexArray = array(
+	protected $regexArray = array(
 		'title' 	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
 		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
 		'poster' 	=> '/<img border="0" alt="cover" src="([^"]+)"/is',
@@ -33,14 +33,11 @@ class VCDFetch_imdb extends VCDFetch {
 		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
 		);
 		
-	private $multiArray = array(
+	protected $multiArray = array(
 		'genre', 'cast', 'akas', 'country'
 	);
 	
-	private $workerArray = array();
-	private $resultArray = array();
 	
-		
 	
 	private $servername = 'akas.imdb.com';
 	private $searchpath = '/find?q=[$]';
@@ -74,15 +71,96 @@ class VCDFetch_imdb extends VCDFetch {
 	
 	protected function processResults() {
 		if (!is_array($this->workerArray) || sizeof($this->workerArray) == 0) {
-			print "No results to process";
+			$this->setErrorMsg("No results to process.");
 			return;
 		}
 		
+		$obj = new imdbObj();
+		$obj->setIMDB($this->getItemID());
+		
 		foreach ($this->workerArray as $key => $data) {
-			print $key . "<br>";			
+			
+			$entry = $data[0];
+			$arrData = $data[1];
+			
+			switch ($entry) {
+				case 'title':
+					$title = $arrData[1];
+					$obj->setTitle($title);
+					break;
+				
+				case 'year':
+					$year = $arrData[2];
+					$obj->setYear($year);		
+					break;
+					
+				case 'poster':
+					$poster = $arrData[1];
+					$obj->setImage($poster);
+					break;
+					
+				case 'director':
+					$director = $arrData[1];
+					$obj->setDirector($director);
+					break;
+					
+				case 'genre':
+					
+					$arr = array();
+					foreach ($arrData as $item) {
+						array_push($arr, $item[1]);
+					}
+					$obj->setGenre($arr);
+					break;
+					
+				case 'rating':
+					$rating = $arrData[1].$arrData[2];
+				    $rating = $rating/10;
+				    $obj->setRating($rating);
+					break;
+					
+				case 'cast':
+					$arr = null;
+					$arr = array();				
+					foreach ($arrData as $itemArr) {
+						$actor = $itemArr[2];
+						$role = $itemArr[3];
+						$result = $actor." .... " .$role;
+						array_push($arr, $result);
+					}
+					$obj->setCast($arr);
+					break;
+					
+				case 'runtime':
+					$runtime = $arrData[1];
+					$obj->setRuntime($runtime);
+					break;
+					
+				case 'akas':
+					$akaTitles = implode(',', $arrData);
+					$obj->setAltTitle($akaTitles);
+					break;
+					
+				case 'plot':
+					$plot = $arrData;
+					$obj->setPlot($plot);
+					break;
+					
+				case 'country':
+				
+					break;
+					
+					
+					
+				default:
+					break;
+			}
 			
 		}
 		
+		print_r($obj);
+		
+		$this->toString();
 		
 		
 	}
@@ -145,26 +223,7 @@ class VCDFetch_imdb extends VCDFetch {
 		}
 	}
 	
-	
-	/**
-	 * Try to featch each item in $regexArray the simple way, call the fetchDeeper() on failure
-	 * for deeper processing.  Each success item is pushed into array $resultArray
-	 *
-	 */
-	public function fetchValues() {
-		foreach ($this->regexArray as $entry => $regex) {
-			$multi = (bool)in_array($entry, $this->multiArray);
-			if ($this->getItem($regex, $multi) == self::ITEM_OK ) {
-				array_push($this->workerArray, $this->getFetchedItem());
-			} else {
-				$this->fetchDeeper($entry);
-			}
-		}
-		
-		// and finally process the results
-		$this->processResults();
-		
-	}
+
 	
 	
 	
