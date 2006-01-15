@@ -113,7 +113,7 @@ abstract class VCDFetch {
 	public function fetchValues() {
 		foreach ($this->regexArray as $entry => $regex) {
 			$multi = (bool)in_array($entry, $this->multiArray);
-			if ($this->getItem($regex, $multi) == self::ITEM_OK ) {
+			if (!is_null($regex) && $this->getItem($regex, $multi) == self::ITEM_OK ) {
 				array_push($this->workerArray, array($entry, $this->getFetchedItem()));
 			} else {
 				$this->fetchDeeper($entry);
@@ -125,8 +125,13 @@ abstract class VCDFetch {
 	}
 	
 	
+	public function toString() {
+		print "<pre>";
+		print_r($this->workerArray);
+		print "</pre>";
+	}
 	
-	
+		
 	/**
 	 * 
 	 * 
@@ -463,7 +468,7 @@ abstract class VCDFetch {
 			
 		} else {
 			
-			// Multiple valuse expected
+			// Multiple values expected
 			$retval = array();
 			$contents = $this->fetchContents;
 			while(eregi($expression, $contents, $arrRoller)) {
