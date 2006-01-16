@@ -29,8 +29,8 @@ class VCDFetch_imdb extends VCDFetch {
 		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
 		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'plot'		=> '<p class="plotpar">([^<]*)</p>',
-		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
+		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>',
+		'plot'		=> '<p class="plotpar">([^<]*)</p>'
 		);
 		
 	protected $multiArray = array(
@@ -62,11 +62,6 @@ class VCDFetch_imdb extends VCDFetch {
 		parent::generateSearchSelection($results);
 	}
 	
-	public function toString() {
-		print "<pre>";
-		print_r($this->workerArray);
-		print "</pre>";
-	}
 	
 	
 	protected function processResults() {
@@ -147,7 +142,7 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 					
 				case 'country':
-				
+					
 					break;
 					
 					

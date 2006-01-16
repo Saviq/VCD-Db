@@ -19,20 +19,23 @@
 class VCDFetch_dvdempire extends VCDFetch {
 	
 	
-	private $regexArray = array(
-		'title' 	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
-		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
-		'poster' 	=> '/<img border="0" alt="cover" src="([^"]+)"/is',
-		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
-		'genre' 	=> '#Genre:</b>(.*?)<br>#msi',
-		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
-		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
-		'plot'		=> '<p class="plotpar">([^<]*)</p>',
-		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
-		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>'
+	protected $regexArray = array(
+		'title' 	=> '<title>Adult DVD Empire - (.*) - Adult DVD',
+		'year'  	=> 'Production Year: ([0-9]{4})',
+		'poster' 	=>  null,
+		'studio' 	=> '<font color=\"white\">i</font><a href=\"/Exec/studio.asp[?]userid=([0-9]{14})&amp;studio_id=([0-9]{3})\">([^<]*)</a><br>',
+		'studio2'	=> 'studio_id=([0-9])">([^<]*)</a>',
+		'screens'	=> 'topoftabs\">([^<]*) Screen Shots</a>',
+		'genre'		=> 'site_media_id=([0-9])">([^<]*)</a></nobr>',
+		'cast' 		=> 'sort=2\'>([^<]*)</a>'
 		);
 	
+	protected $multiArray = array(
+		'cast', 'genre', 'poster'
+	);
+		
+		
+		
 	private $servername = 'adult.dvdempire.com';
 	//private $searchpath = '/exec/v1_search_titles.asp?userid=0000&string=[$]&include_desc=0&used=0&view=0&pp=4&sort=';
 	private $searchpath = '/exec/v1_search_titles.asp?userid=00000000000001&string=[$]&include_desc=0&used=0&view=1&sort=5';
@@ -46,7 +49,14 @@ class VCDFetch_dvdempire extends VCDFetch {
 	}
 	
 	protected function processResults() {
+		print $this->getContents();
+	}
 	
+	
+	protected function fetchDeeper($entry) {
+		
+		print "Deeper " . $entry . "<br>";
+		
 	}
 	
 	public function search($title) { 
