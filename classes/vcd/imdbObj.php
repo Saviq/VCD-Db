@@ -21,7 +21,7 @@
 	Container for the IMDB data on the current movie.
 */
 
-	class imdbObj implements XMLable {
+	class imdbObj extends fetchedObj implements XMLable {
 
 	private $imdb;
 	private $title;
