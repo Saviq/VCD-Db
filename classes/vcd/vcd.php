@@ -16,10 +16,9 @@
 
 ?>
 <?
-
-require_once("cdObj.php");
-require_once("vcdObj.php");
-require_once("imdbObj.php");
+require_once(dirname(__FILE__).'/cdObj.php');
+require_once(dirname(__FILE__).'/vcdObj.php');
+require_once(dirname(__FILE__).'/fetchedObj.php');
 
 class vcd_movie implements IVcd  {
 
@@ -30,6 +29,11 @@ class vcd_movie implements IVcd  {
 	private $SQL;
 	
 	
+	/**
+	 * Legal search methods.
+	 *
+	 * @var array
+	 */
 	private $searchMethods = array('title', 'actor', 'director');
 	
 
@@ -876,9 +880,9 @@ class vcd_movie implements IVcd  {
 
 
 	/**
-	 * Enter description here...
+	 * Get specific movies by ID's.  Returns array of vcdObjects.
 	 *
-	 * @param array $arrIDs
+	 * @param array $arrIDs | Array of numeric values representing the movie ID's
 	 * @return array
 	 */
 	public function getVcdForListByIds($arrIDs) {
