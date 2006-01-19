@@ -231,7 +231,7 @@ abstract class VCDFetch {
 			if ($i > $this->searchMaxResults) { break; }
 						
 			$searchItem = $results[$i];
-			array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => $searchItem[$indexTitle]));
+			array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => strip_tags($searchItem[$indexTitle])));
 		}
 		
 		return $arrSearchResults;
