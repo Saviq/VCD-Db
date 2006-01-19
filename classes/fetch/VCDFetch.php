@@ -127,7 +127,8 @@ abstract class VCDFetch {
 	
 	public function toString() {
 		print "<pre>";
-		print_r($this->workerArray);
+		$results = print_r($this->workerArray, true);
+		print htmlentities($results, ENT_QUOTES);
 		print "</pre>";
 	}
 	
@@ -324,7 +325,9 @@ abstract class VCDFetch {
 		if ($this->useSnoopy) {
 			$snoopyurl = "http://".$host.$url;
 			$this->snoopy->fetch($snoopyurl);
-			$this->fetchContents = $this->snoopy->results;
+			
+			// Clean hex garbage from results.
+			$this->fetchContents = preg_replace('[\x00]','',$this->snoopy->results);
 			
 		} else {
 
