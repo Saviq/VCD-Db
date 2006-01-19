@@ -22,8 +22,8 @@ class VCDFetch_dvdempire extends VCDFetch {
 	protected $regexArray = array(
 		'title' 	=> '<title>Adult DVD Empire - (.*) - Adult DVD',
 		'year'  	=> 'Production Year: ([0-9]{4})',
-		'poster' 	=>  null,
-		'studio' 	=> '<font color=\"white\">i</font><a href=\"/Exec/studio.asp[?]userid=([0-9]{14})&amp;studio_id=([0-9]{3})\">([^<]*)</a><br>',
+		'poster' 	=> 'http://images.dvdempire.com/res/movies/([0-9])/([^<]*).jpg" border="0" hspace="0" vspace="0" align="center"',
+		'studio' 	=> '<font color="white">i</font><a href="/Exec/studio.asp[?]userid=([0-9]{14})&amp;studio_id=([0-9]{3})">([^<]*)</a><br>',
 		'studio2'	=> 'studio_id=([0-9])">([^<]*)</a>',
 		'screens'	=> 'topoftabs\">([^<]*) Screen Shots</a>',
 		'genre'		=> 'site_media_id=([0-9])">([^<]*)</a></nobr>',
@@ -49,7 +49,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 	}
 	
 	protected function processResults() {
-		print $this->getContents();
+		//print $this->getContents();
 	}
 	
 	
@@ -84,9 +84,55 @@ class VCDFetch_dvdempire extends VCDFetch {
 		print_r($results);
 		print "</pre>";
 		*/
+					
+	}
+	
+	
+	/**
+	 * Get the Full HTTP image path for the asked for image on the DVDEmpire server.
+	 * Valid image types are thumbnail, VCD Front Cover, VCD Back cover and screenshots.
+	 * All except screenshots return strings, screenshots returns an array of all screenshot images for that movie.
+	 *
+	 * @param string $image_type
+	 * @return mixed.
+	 */
+	public function getImagePath($image_type) {
+	
+		$folder = substr($this->getItemID(),0,1);
+		$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 		
+		switch ($image_type) {
+			case 'thumbnail':
+				return $imagebase.".jpg";
+				break;
+				
+			case 'VCD Front Cover':
+				return $imagebase."h.jpg";
+				break;
+				
+			case 'VCD Back Cover':
+				return $imagebase."bh.jpg";
+				break;
 		
-						
+			case 'screenshots':
+				// Return array of all screenshots
+				$screenbase = "http://images.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
+				$screens = array();
+				for($i = 1; $i <= $this->screenshotcount; $i++) {
+					$path = $screenbase."_".$i."l.jpg";
+					array_push($screens, $path);
+				}
+				
+				return $screens;
+				
+				break;
+				
+				
+			default:
+				return false;
+				break;
+		}
+	
 	}
 	
 	
