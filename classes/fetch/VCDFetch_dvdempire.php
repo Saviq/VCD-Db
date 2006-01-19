@@ -20,16 +20,19 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title' 	=> '<title>Adult DVD Empire - (.*) - Adult DVD',
-		'year'  	=> 'Production Year: ([0-9]{4})',
-		'poster' 	=> 'http://images.dvdempire.com/res/movies/([0-9])/([^<]*).jpg" border="0" hspace="0" vspace="0" align="center"',
-		'studio' 	=> '<font color="white">i</font><a href="/Exec/studio.asp[?]userid=([0-9]{14})&amp;studio_id=([0-9]{3})">([^<]*)</a><br>',
-		'studio2'	=> 'studio_id=([0-9])">([^<]*)</a>',
-		'screens'	=> 'topoftabs\">([^<]*) Screen Shots</a>',
-		'genre'		=> 'site_media_id=([0-9])">([^<]*)</a></nobr>',
-		'cast' 		=> 'sort=2\'>([^<]*)</a>'
+		'title' 	  => '<title>Adult DVD Empire - (.*) - Adult DVD',
+		'year'  	  => 'Production Year: ([0-9]{4})',
+		'studio'	  => '&amp;studio_id=([0-9]{1,4})">([^<]*)</a>',
+		'screens'	  => 'topoftabs\">([^<]*) Screen Shots</a>',
+		'genre'	 	  => 'site_media_id=([0-9])">([^<]*)</a></nobr>',
+		'cast' 		  => 'sort=2\'>([^<]*)</a>',
+		'thumbnail'	  => null,
+		'frontcover'  => null,
+		'backcover'   => null,
+		'screenshots' => null
 		);
 	
+			
 	protected $multiArray = array(
 		'cast', 'genre', 'poster'
 	);
@@ -55,7 +58,30 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	protected function fetchDeeper($entry) {
 		
-		print "Deeper " . $entry . "<br>";
+		switch ($entry) {
+			case 'thumbnail':
+				$value = $this->getImagePath($entry);
+				array_push($this->workerArray, array($entry, $value));
+				break;
+				
+			case 'frontcover':
+				$value = $this->getImagePath($entry);
+				array_push($this->workerArray, array($entry, $value));
+				break;
+				
+			case 'backcover':
+				$value = $this->getImagePath($entry);
+				array_push($this->workerArray, array($entry, $value));
+				break;
+				
+			case 'screenshots':
+				$value = $this->getImagePath($entry);
+				array_push($this->workerArray, array($entry, $value));
+				break;
+		
+			default:
+				break;
+		}
 		
 	}
 	
@@ -73,10 +99,11 @@ class VCDFetch_dvdempire extends VCDFetch {
 		//exit();
 		
 		//$regx = '<b><a href="/Exec/v1_item.asp?userid=([0-9]+)&amp;item_id=([0-9]+)&amp;searchID=([0-9]+)">([^\<]*)</a></b>';
-		//$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
 		$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
+		//$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
 		$results = parent::generateSimpleSearchResults($regx, 1, 2);
 		
+				
 		parent::generateSearchSelection($results);
 		
 		/*
@@ -90,13 +117,13 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	/**
 	 * Get the Full HTTP image path for the asked for image on the DVDEmpire server.
-	 * Valid image types are thumbnail, VCD Front Cover, VCD Back cover and screenshots.
+	 * Valid image types are thumbnail, frontcover, backcover and screenshots.
 	 * All except screenshots return strings, screenshots returns an array of all screenshot images for that movie.
 	 *
 	 * @param string $image_type
 	 * @return mixed.
 	 */
-	public function getImagePath($image_type) {
+	private function getImagePath($image_type) {
 	
 		$folder = substr($this->getItemID(),0,1);
 		$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
@@ -106,11 +133,11 @@ class VCDFetch_dvdempire extends VCDFetch {
 				return $imagebase.".jpg";
 				break;
 				
-			case 'VCD Front Cover':
+			case 'frontcover':
 				return $imagebase."h.jpg";
 				break;
 				
-			case 'VCD Back Cover':
+			case 'backcover':
 				return $imagebase."bh.jpg";
 				break;
 		
@@ -118,15 +145,12 @@ class VCDFetch_dvdempire extends VCDFetch {
 				// Return array of all screenshots
 				$screenbase = "http://images.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
 				$screens = array();
-				for($i = 1; $i <= $this->screenshotcount; $i++) {
+				for($i = 1; $i <= 40 ; $i++) {
 					$path = $screenbase."_".$i."l.jpg";
 					array_push($screens, $path);
 				}
-				
 				return $screens;
-				
 				break;
-				
 				
 			default:
 				return false;
@@ -134,9 +158,6 @@ class VCDFetch_dvdempire extends VCDFetch {
 		}
 	
 	}
-	
-	
-	
 	
 }
 
