@@ -24,16 +24,13 @@
 	class imdbObj extends fetchedObj implements XMLable {
 
 	private $imdb;
-	private $title;
 	private $alt_title1;
 	private $alt_title2;
 	private $image;
-	private $year;
 	private $plot;
 	private $director;
 	private $cast;
 	private $rating;
-	private $runtime;
 	private $country;
 	private $genre;
 
@@ -106,23 +103,6 @@
 		$this->cast = $strCast;
 	}
 
-	/**
-	 * Get the IMDB title
-	 *
-	 * @return string
-	 */
-	public function getTitle() {
-		return $this->title;
-	}
-
-	/**
-	 * Set the IMDB title
-	 *
-	 * @param string $strTitle
-	 */
-	public function setTitle($strTitle) {
-		$this->title = stripslashes($strTitle);
-	}
 
 	/**
 	 * Get the IMDB alternative title
@@ -142,28 +122,6 @@
 		$this->alt_title1 = $strAltTitle;
 	}
 
-	/**
-	 * Get the IMDB year
-	 *
-	 * @return int
-	 */
-	public function getYear() {
-		if (is_numeric($this->year)) {
-			return $this->year;
-		} else {
-			return 0;
-		}
-
-	}
-
-	/**
-	 * Set the IMDB year
-	 *
-	 * @param int $strYear
-	 */
-	public function setYear($strYear) {
-		$this->year = $strYear;
-	}
 
 	/**
 	 * Get the Director
