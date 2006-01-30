@@ -44,7 +44,10 @@ class VCDRss {
 		$this->baseurl = $this->VCDSettings->getSettingsByKey('SITE_HOME');
 		$CLASSUser = VCDClassFactory::getInstance('vcd_user');
 		$pObj = $CLASSUser->getPropertyByKey('RSS');
-		$this->rssUsers = $CLASSUser->getAllUsersWithProperty($pObj->getpropertyID());
+		if ($pObj instanceof userPropertiesObj) {
+			$this->rssUsers = $CLASSUser->getAllUsersWithProperty($pObj->getpropertyID());
+		} 
+		
 	}
 
 
