@@ -80,8 +80,8 @@ $_ = array(
 'SE_SELECTRSS' 			=> 'Vælg RSS Side',
 'SE_PAGELOOK' 			=> 'Web layout',
 'SE_PAGEMODE' 			=> 'Vælg udsende:',
-'SE_UPDATED'			=> 'User information updated',
-'SE_UPDATE_FAILED'		=> 'Failed to update',
+'SE_UPDATED'			=> 'Bruge info opdateret',
+'SE_UPDATE_FAILED'		=> 'Opdatering mislykket',
 
 /* Search */
 'SEARCH' 				=> 'Søg efter',
@@ -227,7 +227,7 @@ $_ = array(
 'MAN_SEL' 				=> 'Vælg af skuespillere',
 'MAN_STARS' 			=> 'Stjerner',
 'MAN_BROWSE' 			=> 'Søg efter fil',
-'MAN_ADDMEDIA'			=> 'Add...',
+'MAN_ADDMEDIA'			=> 'Tliføj...',
 
 /* Add movies */
 'ADD_INFO' 				=> 'Vælg måde du vil tilføje din film på',
@@ -337,15 +337,15 @@ $_ = array(
 'S_NOTSEENITCLICK' 		=> 'Klik her for at markere som uset',
 
 /* Statistics */
-'STAT_TITLE'			=> 'Today\'s Report',
-'STAT_TOP_MOVIES'		=> 'Movies in database',
-'STAT_TOP_CATS'			=> 'Top categories',
-'STAT_TOP_ACT'			=> 'Most active categories',
-'STAT_TOP_COVERS'		=> 'Covers in database',
+'STAT_TITLE'			=> 'Dagens Raport',
+'STAT_TOP_MOVIES'		=> 'Film i databasen',
+'STAT_TOP_CATS'			=> 'Top kategorier',
+'STAT_TOP_ACT'			=> 'Mest aktive kategorier',
+'STAT_TOP_COVERS'		=> 'Covers i database',
 'STAT_TOTAL'			=> 'Total',
-'STAT_TODAY'			=> 'Added today',
-'STAT_WEEK'				=> 'Added in last 7 days',
-'STAT_MONTH'			=> 'Added in last 30 days',
+'STAT_TODAY'			=> 'Tilføjet i dag',
+'STAT_WEEK'				=> 'Tilføjet seneste 7 dage',
+'STAT_MONTH'			=> 'Tilføjet seneste 30 dage',
 
 /* Mail messages */
 'MAIL_RETURNTOPIC'		=> 'Udlån påmindelse',
@@ -415,8 +415,8 @@ $_ = array(
 'X_SAVE' 				=> 'Gem',
 'X_SEEN' 				=> 'Set',
 'X_TOGGLE'				=> 'Toggle preview',
-'X_TOGGLE_ON'			=> 'on',
-'X_TOGGLE_OFF'			=> 'off'
+'X_TOGGLE_ON'			=> 'Til',
+'X_TOGGLE_OFF'			=> 'Fra'
 
 );
 
