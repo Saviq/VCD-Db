@@ -27,7 +27,7 @@ $_ = array(
 
 /* Language Identifier */
 'LANG_TYPE' 			=> 'DK',
-'LANG_NAME'				=> 'Danish',
+'LANG_NAME'				=> 'Dansk',
 'LANG_CHARSET'			=> 'iso-8859-1',
 
 /* Menu system */
@@ -38,9 +38,9 @@ $_ = array(
 'MENU_LOANSYSTEM' 		=> 'Udlån',
 'MENU_WISHLIST' 		=> 'Min ønskeliste',
 'MENU_CATEGORIES' 		=> 'Filmkategorier',
-'MENU_RSS' 				=> 'My Rss Feeds',
+'MENU_RSS' 				=> 'Mine Rss Feeds',
 'MENU_CONTROLPANEL' 	=> 'Kontrolpanel',
-'MENU_REGISTER' 		=> 'Registrér',
+'MENU_REGISTER' 		=> 'Registrer',
 'MENU_LOGOUT' 			=> 'Log ud',
 'MENU_SUBMIT' 			=> 'Send',
 'MENU_TOPUSERS' 		=> 'Topbrugere',
@@ -56,19 +56,19 @@ $_ = array(
 /* Register */
 'REGISTER_TITLE' 		=> 'Oprettelse',
 'REGISTER_FULLNAME' 	=> 'Fulde navn',
-'REGISTER_EMAIL' 		=> 'Email',
+'REGISTER_EMAIL' 		=> 'E-mail',
 'REGISTER_AGAIN' 		=> 'Password igen',
 'REGISTER_DISABLED' 	=> 'Beklager, administratoren har lukket for tilmelding indtil videre',
 'REGISTER_OK' 			=> 'Oprettelsen er gennemført, du kan nu logge ind i databasen.',
 
 /* User Properties */
-'PRO_NOTIFY' 			=> 'Send mig en emial når en ny film bliver tilføjet.',
+'PRO_NOTIFY' 			=> 'Send mig en e-mail når en ny film bliver tilføjet.',
 'PRO_SHOW_ADULT' 		=> 'Vis pornofilm i oversigten',
 'PRO_RSS' 				=> 'Tillad RSS tilføjelser fra min filmliste?',
-'PRO_WISHLIST' 			=> 'Allow others to see my wishlist ?',
-'PRO_USE_INDEX' 		=> 'Use index number fields for custom media ID\'s',
-'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen',
-'PRO_PLAYOPTION' 		=> 'Use client playback options',
+'PRO_WISHLIST' 			=> 'Tillad at andre ser min ønskeliste ?',
+'PRO_USE_INDEX' 		=> 'Brug index numre felter for peresonlige media ID\'er',
+'PRO_SEEN_LIST' 		=> 'Hold styr på de film jeg har set',
+'PRO_PLAYOPTION' 		=> 'Brug klient playback options',
 'PRO_NFO' 				=> 'Bruge NFO arkiverer?',
 
 /* User Settings */
@@ -79,7 +79,7 @@ $_ = array(
 'SE_SHOWSIDE' 			=> 'Vis nye film i sidebar',
 'SE_SELECTRSS' 			=> 'Vælg RSS Side',
 'SE_PAGELOOK' 			=> 'Web layout',
-'SE_PAGEMODE' 			=> 'Select default template:',
+'SE_PAGEMODE' 			=> 'Vælg udsende:',
 'SE_UPDATED'			=> 'User information updated',
 'SE_UPDATE_FAILED'		=> 'Failed to update',
 
@@ -174,7 +174,7 @@ $_ = array(
 'DVD_FORMAT'			=> 'Format',
 'DVD_ASPECT'			=> 'Aspect ratio',
 'DVD_AUDIO'				=> 'Audio',
-'DVD_SUBTITLES'			=> 'Subtitles',
+'DVD_SUBTITLES'			=> 'Unddertekster',
 
 /* My Movies */
 'MY_EXPORT' 			=> 'Eksporter data',
@@ -195,14 +195,14 @@ $_ = array(
 'MY_PWMOVIES' 			=> 'Printervenlig version (Film)',
 'MY_PWTV' 				=> 'Printervenlig version (Tv Shows)',
 'MY_PWBLUE' 			=> 'Printervenlig version (Porno)',
-'MY_J1' 				=> 'Film jeg har som brugeren ikke har',
-'MY_J2' 				=> 'Film brugeren har som jeg ikke har',
+'MY_J1' 				=> 'Film jeg har, som brugeren ikke har',
+'MY_J2' 				=> 'Film brugeren har, som jeg ikke har',
 'MY_J3' 				=> 'Film som både jeg og brugeren har',
 'MY_OVERVIEW' 			=> 'Overblik over samling',
 'MY_INFO' 				=> 'På denne side kan du finde ud af alt om mine film.
 						Til højre finder du en oversigt over dine mulige handlinger.
-						Du kan også eksportere dine data som XML og udprinte den eller flytte hele din database til en anden lokation.',
-'MY_KEYS' 				=> 'Edit Custom ID\'s',
+						Du kan også eksportere dine data til Excel for udskrift, som backup eller for at flytte hele din database til en anden VCD-db.',
+'MY_KEYS' 				=> 'Rediger personlige IDer',
 'MY_SEENLIST' 			=> 'Rediger har set-liste',
 'MY_HELPPICKER' 		=> 'Vælg en film',
 'MY_HELPPICKERINFO' 	=> 'Ved du ikke hvad du vil se i aften?<br/>Lad databasen hjælpe dig med at finde en film.<br/>
@@ -237,73 +237,63 @@ $_ = array(
 'ADD_LISTED' 			=> 'Tilføje film der allerede i databasen',
 'ADD_XML' 				=> 'Tilføje film fra eksporterede XML arkiverer',
 'ADD_XMLFILE' 			=> 'Vælg den XML arkiverer der skal importeres',
-'ADD_XMLNOTE' 			=> '(HUSK at det er kun XML arkiverer der kan blive eksporteret fra ansøgning fra andre VCD-db
-						så kan blive tilføje dem her. Du kan eksporteret dine film fra "Mine film"
-						sektion. You should avoid manual editing of the exported XML files. ) ',
+'ADD_XMLNOTE' 			=> '(HUSK at det er kun XML arkiverer, der kan blive eksporteret fra ansøgning fra andre VCD-db
+						så kan blive tilføje dem her. Du kan eksporteret dine film fra "Mine film" sektion. Du bør undgå, at redigere i de eksporterede XML filer. ) ',
 'ADD_MAXFILESIZE' 		=> 'Max fil størrelse',
-'ADD_DVDEMPIRE' 		=> 'Fetch from Adult DVD Empire (X-rated films)',
-'ADD_LISTEDSTEP1' 		=> 'Step 1<br/>Select the titles that you want to add to your list.<br/>You can select media
-					    type in next step.',
-'ADD_LISTEDSTEP2' 		=> 'Step 2.<br/>Select the appropriate media type.',
-'ADD_INDB' 				=> 'Movies in VCD-DB',
-'ADD_SELECTED' 			=> 'Selected titles',
-'ADD_INFOLIST' 			=> 'Double click on title to select title or use the arrows.<br/>You can use the keyboard to
-						quickly find titles.',
-'ADD_NOTITLES' 			=> 'No other user has added movies to the VCD-db',
+'ADD_DVDEMPIRE' 		=> 'Hent fra Adult DVD Empire (X-rated films)',
+'ADD_LISTEDSTEP1' 		=> 'Trin 1<br/>Vælg de titler du vil tilføje din liste.<br/>Du kan vælge media typen i næste trin.',
+'ADD_LISTEDSTEP2' 		=> 'Trin 2.<br/>Vælg den rette media type.',
+'ADD_INDB' 				=> 'Film i VCD-DB',
+'ADD_SELECTED' 			=> 'Valgte titler',
+'ADD_INFOLIST' 			=> 'Dobbelt klik på en titel for at vælge den eller brug piletasterne.<br/>Du kan bruge tastaturet til hutrigt at finde en titel.',
+'ADD_NOTITLES' 			=> 'Ingen andre brugere har tilføjet film til VCD-db',
 
 /* Add from XML */
-'XML_CONFIRM' 			=> 'Confirm XML upload',
-'XML_CONTAINS' 			=> 'XML file contains %d movies.',
-'XML_INFO1' 			=> 'Press confirm to process the movies and save to the database.<br/>
-						Or press cancel to bail out. ',
-'XML_INFO2' 			=> 'If you want to include the thumbnails (posters) with the movies that you are about to
-						import in your XML file, you <b>MUST</b> have the thumbnails XML file availeble now!.<br/>
-						Posters cannot be imported after you have finished importing you movies from the current XML file.
-						If you already have the thumbnails XML file available check the field below and in next step
-						after the import of your movies in the list below, you will be asked to submit you thumbnails XML
-						file aswell for processing. ',
-'XML_THUMBNAILS' 		=> 'Insert thumbnails from my thumbnails XML file ',
-'XML_LIST' 				=> 'Full list of movies found in XML file.',
-'XML_ERROR' 			=> 'No titles found in XML file.<br/>File could be damaged or just plain empty.
-		   				<br/>Make sure that you are using XML file that was exported from the VCD-db..',
-'XML_RESULTS' 			=> 'XML upload results.',
-'XML_RESULTS2' 			=> 'Here are the results on your XML import.<br/>Total %d movies were imported.',
+'XML_CONFIRM' 			=> 'Bekræft XML upload',
+'XML_CONTAINS' 			=> 'XML fil indeholder %d film.',
+'XML_INFO1' 			=> 'Tryk bekræft for at behandle filmen og gemme den i databasen.<br/>Eller tryk fortryd for at stoppe. ',
+'XML_INFO2' 			=> 'Hvis du ønsker at inkludere thumbnails (posters) med filmene du er ved at	importere i din XML fil, <b>SKALT</b> du have thumbnails XML fil tilgængelig nu!.<br/>
+						Posters kan ikke importeres efter du har gennemført importen af film fra denne XML fil.
+						Hvis du allerede har thumbnails XML filen klar afmærk feltet herunder, og i efter importen af dine film vil du blive spurgt efter din thumbnails XML fil. ',
+'XML_THUMBNAILS' 		=> 'Indsæt thumbnails fra min thumbnails XML fil ',
+'XML_LIST' 				=> 'Komplet liste over film fundet i XML fil.',
+'XML_ERROR' 			=> 'Ingen titler fundet i XML fil.<br/>Filen kan være tom eller ødelagt. <br/>Check at du bruger en XML fil der er eksporteret fra VCD-db..',
+'XML_RESULTS' 			=> 'XML upload resultat.',
+'XML_RESULTS2' 			=> 'Her er resultatet af din XML import.<br/>Totalt %d film blev importeret.',
 
 /* Add from DVD Empire */
-'EM_INFO' 				=> 'Information from AdultDVDEmpire.com ....',
-'EM_DESC' 				=> 'DVDEmpire description',
-'EM_SUBCAT' 			=> 'Adult categories',
-'EM_DETAILS' 			=> 'Adultdvdempire.com details',
-'EM_STARS' 				=> 'Pornstars',
-'EM_NOTICE' 			=> 'Actors marked red are currently not in the VCD-DB.
-						But you can check their names and they will be automatically added to the VCD-db
-					    and associated with this movie.',
-'EM_FETCH' 				=> 'Fetch Also',
+'EM_INFO' 				=> 'Information fra AdultDVDEmpire.com ....',
+'EM_DESC' 				=> 'DVDEmpire beskrivelse',
+'EM_SUBCAT' 			=> 'Voksen kategorier',
+'EM_DETAILS' 			=> 'Adultdvdempire.com detaljer',
+'EM_STARS' 				=> 'Pornstjerner',
+'EM_NOTICE' 			=> 'Skuespillere markeret med rødt findes p.t. ikke i VCD-DB. Du kan markere deres navn og de tilføjes automatisk til VCD-db og kædes til denne film.',
+'EM_FETCH' 				=> 'Hent også',
 
 /* Loan System */
-'LOAN_MOVIES' 			=> 'Movies to borrow',
-'LOAN_TO' 				=> 'Borrow movies to',
-'LOAN_ADDUSERS' 		=> 'Add some users to borrow to continue',
-'LOAN_NEWUSER' 			=> 'New borrower',
-'LOAN_REGISTERUSER' 	=> 'Add new borrower',
-'LOAN_NAME' 			=> 'Name',
-'LOAN_SELECT' 			=> 'Select borrower',
-'LOAN_MOVIELOANS' 		=> 'Borrowed movies ...',
-'LOAN_REMINDER' 		=> 'Send reminder',
-'LOAN_HISTORY' 			=> 'Loan history',
-'LOAN_HISTORY2' 		=> 'See loan history',
-'LOAN_SINCE' 			=> 'Since',
-'LOAN_TIME' 			=> 'Time since',
-'LOAN_RETURN' 			=> 'Return copy',
-'LOAN_SUCCESS' 			=> 'Movies successfully loaned',
-'LOAN_OUT' 				=> 'Not returned',
-'LOAN_DATEIN' 			=> 'Date in',
-'LOAN_DATEOUT' 			=> 'Date out',
-'LOAN_PERIOD' 			=> 'Loan period',
-'LOAN_BACK' 			=> 'Back to loan index',
-'LOAN_DAY' 				=> 'day',
-'LOAN_DAYS' 			=> 'days',
-'LOAN_TODAY' 			=> 'from today',
+'LOAN_MOVIES' 			=> 'Film til udlån',
+'LOAN_TO' 				=> 'Lån fil til',
+'LOAN_ADDUSERS' 		=> 'Tilføj nogle lånere for at kunne fortsætte',
+'LOAN_NEWUSER' 			=> 'Ny låner',
+'LOAN_REGISTERUSER' 	=> 'Tilføj ny låner',
+'LOAN_NAME' 			=> 'Navn',
+'LOAN_SELECT' 			=> 'Vælg låner',
+'LOAN_MOVIELOANS' 		=> 'Udlånte film ...',
+'LOAN_REMINDER' 		=> 'Send påmindelse',
+'LOAN_HISTORY' 			=> 'Udlåns historik',
+'LOAN_HISTORY2' 		=> 'Se udlåns historik',
+'LOAN_SINCE' 			=> 'Siden',
+'LOAN_TIME' 			=> 'Tid siden',
+'LOAN_RETURN' 			=> 'Retur kopi',
+'LOAN_SUCCESS' 			=> 'Film udlån genneført',
+'LOAN_OUT' 				=> 'Ikke returneret',
+'LOAN_DATEIN' 			=> 'Dato ind',
+'LOAN_DATEOUT' 			=> 'Dato ud',
+'LOAN_PERIOD' 			=> 'Låne periode',
+'LOAN_BACK' 			=> 'Tilbage til udlåns index',
+'LOAN_DAY' 				=> 'dag',
+'LOAN_DAYS' 			=> 'dage',
+'LOAN_TODAY' 			=> 'fra i dag',
 
 /* RSS */
 'RSS' 					=> 'RSS tilføjelser',
@@ -312,13 +302,12 @@ $_ = array(
 'RSS_USER' 				=> 'RSS Bruger tilføjelser',
 'RSS_VIEW' 				=> 'Vis RSS tilføjelser',
 'RSS_ADD' 				=> 'Tilføj ny brugerliste',
-'RSS_NOTE' 				=> 'Skriv den <strong>nøjagtige url</strong> på din vens VCD database.<br/>
-						Hvis RSS er slået til på din vens side så kan du udvælge
+'RSS_NOTE' 				=> 'Skriv den <strong>nøjagtige url</strong> på din vens VCD database.<br/>Hvis RSS er slået til på din vens side så kan du udvælge
 						de film du er intresseret i og vise dem på din side.',
-'RSS_FETCH' 			=> 'Fetch RSS List',
+'RSS_FETCH' 			=> 'Hent RSS liste',
 'RSS_NONE' 				=> 'Ingen RSS er blevet tilføjet.',
-'RSS_FOUND' 			=> 'The following RSS feeds were found, select the feeds you want to add:',
-'RSS_NOTFOUND' 			=> 'No feeds found at location',
+'RSS_FOUND' 			=> 'Følgende RSS feeds blev fundet. Vælg de feeds du vil tilføje:',
+'RSS_NOTFOUND' 			=> 'Ingen feeds blev fundet på denne lokation',
 
 /* Wishlist */
 'W_ADD' 				=> 'Tilføj til min ønskeliste',
@@ -328,24 +317,24 @@ $_ = array(
 'W_NOTOWN' 				=> 'Du har ikke denne film',
 
 /* Comments */
-'C_COMMENTS' 			=> 'Comments',
-'C_ADD' 				=> 'Post new comment',
-'C_NONE' 				=> 'No comments have been posted',
-'C_TYPE' 				=> 'Type in your new comment',
-'C_YOUR' 				=> 'Your comment',
-'C_POST' 				=> 'Post comment',
-'C_ERROR' 				=> 'You have be logged in to post a comment',
+'C_COMMENTS' 			=> 'Kommentarer',
+'C_ADD' 				=> 'Post ny kommentar',
+'C_NONE' 				=> 'Ingen kommentarer er postet',
+'C_TYPE' 				=> 'Skriv din nye kommentar',
+'C_YOUR' 				=> 'Din kommentar',
+'C_POST' 				=> 'Post kommentar',
+'C_ERROR' 				=> 'Du skal være logget ind for at kunne poste en kommentar',
 
 /* Pornstars */
 'P_NAME' 				=> 'Navn',
 'P_WEB' 				=> 'Hjemmeside',
-'P_MOVIECOUNT' 			=> 'Movie count',
+'P_MOVIECOUNT' 			=> 'Film antal',
 
 /* Seen List */
-'S_SEENIT' 				=> 'I\'ve seen it',
-'S_NOTSEENIT' 			=> 'I\'ve not seen it',
-'S_SEENITCLICK' 		=> 'Click to mark seen',
-'S_NOTSEENITCLICK' 		=> 'Click to mark unseen',
+'S_SEENIT' 				=> 'Jeg har set den',
+'S_NOTSEENIT' 			=> 'Jeg har ikke set den',
+'S_SEENITCLICK' 		=> 'Klik her for at markere som set',
+'S_NOTSEENITCLICK' 		=> 'Klik her for at markere som uset',
 
 /* Statistics */
 'STAT_TITLE'			=> 'Today\'s Report',
@@ -359,50 +348,46 @@ $_ = array(
 'STAT_MONTH'			=> 'Added in last 30 days',
 
 /* Mail messages */
-'MAIL_RETURNTOPIC'		=> 'Loan reminder',
-'MAIL_RETURNMOVIES1' 	=> '%s, just wanted to remind you to return my movies.\n
-						You still have the following movies :\n\n',
-'MAIL_RETURNMOVIES2'	=> 'Please return the discs as soon as possible\n Cheers %s \n\n
-						nb. this is an automated e-mail from the VCD-db system (http://vcddb.konni.com)',
-'MAIL_NOTIFY' 			=> '<strong>New movie has been added to VCD-db</strong><br/>
-						 Click <a href="%s/?page=cd&vcd_id=%s">here</a> to see more ..
-						 <p>nb. this is an automated e-mail from the VCD-db (vcddb.konni.com)</p>',
-'MAIL_REGISTER' 		=> '%s, registration to VCD-db was successful.\n\nYour username is %s and your password is
-						%s.\n\nYou can always change your password after you have logged in.\n
-						Click <a href="%s" target="_new">here</a> to goto the VCD-db website.',
+'MAIL_RETURNTOPIC'		=> 'Udlån påmindelse',
+'MAIL_RETURNMOVIES1' 	=> '%s, vil bare minde dig om, at du skal aflevere mine film.\n	Du har stadig følgende film:\n\n',
+'MAIL_RETURNMOVIES2'	=> 'Venligst returnere skiverne så snart som muligt\n Hilsen %s \n\n NB: Dette er en e-mail der sendes automatisk fra VCD-db system (http://klixbuell.dk)',
+'MAIL_NOTIFY' 			=> '<strong>Nye film er tilføjet VCD-db</strong><br/> Klik <a href="%s/?page=cd&vcd_id=%s">her</a> for at se mere ..
+						 <p>NB: Dette er en e-mail der sendes automatisk fra VCD-db system (www.klixbuell.dk)</p>',
+'MAIL_REGISTER' 		=> '%s, registreringen på VCD-db er gennemført.\n\nDit brugernavn er %s og dit password er
+						%s.\n\nDu kan altid ændre dit password når du er logget på.\n
+						Klik <a href="%s" target="_new">her</a> for at komme til VCD-db website.',
 
 /* Player */
 'PLAYER' 				=> 'Afspiller',
-'PLAYER_PATH' 			=> 'Path',
-'PLAYER_PARAM' 			=> 'Parameters',
-'PLAYER_NOTE' 			=> 'Skriv den fulde path til din film-afspiller på din harddisk.
-						Din afspiller skal være kompatible til tage parameters og kommando linjer ligesom til
-						BSPlayer til Win32 og MPlayer til Linux.<br/>du kan downloade BSPlayer gratis
-						<a href="http://www.bsplayer.org" target="_new"><b>HER</b></a>
+'PLAYER_PATH' 			=> 'Sti',
+'PLAYER_PARAM' 			=> 'Parametere',
+'PLAYER_NOTE' 			=> 'Skriv den fulde sti til din film-afspiller på din harddisk.
+						Din afspiller skal være kompatible til tage parameters og kommando linjer som fx. BSPlayer til Win32 og MPlayer til Linux.<br/>
+						Du kan downloade BSPlayer <a href="http://www.bsplayer.org" target="_new"><b>HER</b></a>
 						og MPlayer til linux <a href="http://www.MPlayerHQ.hu" target="_new"><b>HER</b></a>.',
 
 
 /* Metadata */
-'META_MY'				=> 'My Metadata',
-'META_NAME'				=> 'Name',
-'META_DESC'				=> 'Description',
+'META_MY'				=> 'Mine Metadata',
+'META_NAME'				=> 'Navn',
+'META_DESC'				=> 'Beskrivelse',
 'META_TYPE'				=> 'Meta type',
-'META_VALUE'			=> 'Meta value',
-'META_NONE'				=> 'No Metadata exists.',
+'META_VALUE'			=> 'Meta værdi',
+'META_NONE'				=> 'ingen Metadata findes.',
 
 /* Ignore List */
-'IGN_LIST'				=> 'Ignore List',
-'IGN_DESC'				=> 'Ignore all movies from the following users:',
+'IGN_LIST'				=> 'Ignorer Liste',
+'IGN_DESC'				=> 'Ignorer alle film fra følgende brugere:',
 
 /* Misc keywords */
 'X_CONTAINS' 			=> 'indhold',
 'X_GRADE' 				=> 'IMDB karakter højere end',
 'X_ANY' 				=> 'Alle',
 'X_TRYAGAIN' 			=> 'Prøv igen',
-'X_PROCEED' 			=> 'Proceed',
+'X_PROCEED' 			=> 'Kør',
 'X_SELECT' 				=> 'Vælge',
 'X_CONFIRM' 			=> 'Bekræft',
-'X_CANCEL' 				=> 'Annuller',
+'X_CANCEL' 				=> 'Fortryd',
 'X_ATTENTION' 			=> 'Opmærksomhed!',
 'X_STATUS' 				=> 'Status',
 'X_SUCCESS' 			=> 'Succes',
@@ -414,11 +399,11 @@ $_ = array(
 'X_NEW' 				=> 'Ny',
 'X_CHANGE' 				=> 'skift',
 'X_DELETE' 				=> 'slet',
-'X_UPDATE' 				=> 'Update',
+'X_UPDATE' 				=> 'Opdater',
 'X_SAVEANDCLOSE' 		=> 'Gem og luk',
 'X_CLOSE' 				=> 'Luk',
 'X_EDIT' 				=> 'Ret',
-'X_RESULTS' 			=> 'Results',
+'X_RESULTS' 			=> 'Resulter',
 'X_LATESTMOVIES' 		=> 'sidste film',
 'X_LATESTTV' 			=> 'sidste TV show',
 'X_LATESTBLUE' 			=> 'sidste X-rated',
