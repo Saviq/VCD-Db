@@ -22,7 +22,7 @@ class VCDFetch_imdb extends VCDFetch {
 	protected $regexArray = array(
 		'title' 	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
 		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
-		'poster' 	=> '/<img border="0" alt="cover" src="([^"]+)"/is',
+		'poster' 	=> '<a name="poster" href="photogallery" title="([^<]*)"><img border="0" alt="([^<]*)" title="([^<]*)" src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>',
 		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
@@ -90,7 +90,7 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 					
 				case 'poster':
-					$poster = $arrData[1];
+					$poster = $arrData[4];
 					$obj->setImage($poster);
 					break;
 					
@@ -163,6 +163,32 @@ class VCDFetch_imdb extends VCDFetch {
 	protected function fetchDeeper($entry) {
 
 		switch ($entry) {
+			
+			case 'poster':
+			
+				$regx = '<a name="poster" href="photogallery" title="([^<]*)"><img border="0" alt="([^<]*)" title="([^<]*)" src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>';
+
+				if ($this->getItem($regx) == self::ITEM_OK) {
+				
+					$res = $this->getFetchedItem();
+				
+					print "<pre>";
+					$res = print_r($res, true);
+					print htmlentities(trim($res, "\n"), ENT_QUOTES);
+					print "</pre>";
+									
+				} else {
+					print "Item not found";
+				}
+				
+				die();
+				
+			
+				break;
+			
+			
+			
+			
 			case 'akas':
 			
 				$ret = array();
