@@ -660,6 +660,23 @@ class VCDUtils {
 		return $arrFilteredComments;
 
 	}
+	
+	
+	/**
+	 * Clean up Magic_Quotes_GPC() stupidity
+	 *
+	 */
+	static function cleanMagicQuotes() {
+		if (!(bool)get_magic_quotes_gpc()) {return;}
+		
+		foreach($_GET as $k=>$v) {
+			$_GET[$k]=stripslashes($v);
+		}
+		foreach($_POST as $k=>$v) {
+			$_POST[$k]=stripslashes($v);
+		}
+	}
+	
 
 
 }
