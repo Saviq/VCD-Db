@@ -64,6 +64,10 @@ if (!isset($_SESSION['user'])) {
 }
 
 
+// Clean up magic_quotes garbage
+VCDUtils::cleanMagicQuotes();
+
+
 global $CURRENT_PAGE;
 if (isset($_GET['page'])) {
 	$CURRENT_PAGE = $_GET['page'];
