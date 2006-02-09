@@ -378,10 +378,11 @@ class fetch_imdb {
 				/** 
 	    	    	Fetch the poster url
 		        */
-		        if(!preg_match('/<img border="0" alt="cover" src="([^"]+)"/is', $this->item_contents, $x)) {
+				$regxposter = '<a name="poster" href="photogallery" title="([^<]*)"><img border="0" alt="([^<]*)" title="([^<]*)" src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>';
+		        if(!eregi($regxposter, $this->item_contents, $x)) {
 		            return (ITEM_ERROR);
 		        } else {
-		        	$ret = $x[1];
+		        	$ret = $x[4];
 		        	$ret = addslashes($ret);
 		        	$this->posterUrl = $ret;
 		        }
