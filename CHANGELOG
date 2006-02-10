@@ -1,26 +1,31 @@
 0.982
+	|- Konni
 Fixed   - When user tries to add duplicate copy of movie and media type an exception is thrown instead of getting blank page.
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
-Fixed   - Updated to W3CDTF datestamp in specific user XML feeds.
-Fixed	- Cover display fix - big images handling, better window fitting [Saviq]
-Fixed	- UTF titles got splitted characters sometimes [Saviq]
-Fixed	- Trailing space from actor's name in movie view [Saviq]
-Fixed	- Language in statistics, footer and user profile [Saviq]
-Updated - Language files - PLEASE UPDATE TRANSLATIONS [Saviq]
-Fixed   - "Call to a member function show() on a non-object" when using Register_globals = true
-Fixed	- RSS feeds are now converted to proper encoding [Saviq]
-Fixed	- Redirection to SERVER_NAME not HTTP_HOST [Saviq]
-Fixed	- Movie picker, AddRSS encoding [Saviq]
-Fixed	- Thumbnail has a fixed width - to prevent messing up the layout [Saviq]
-Fixed	- Statistics bars don't jump out the window [Saviq]
-Fixed	- Category name translation [Saviq]
-Fixed	- Parsing category list in movie view - now all known genres are linked [Saviq]
-Fixed	- All categories work fine now, even if default language changed in language.php [Saviq]
-Added	- Director's name is now a link to search and a link to imdb is added [Saviq]
-Fixed	- Preventing doubling media type in one movie [Saviq]
-Added	- User can now add another MediaType through movie manager [Saviq]
+Fixed   - Updated to W3CDTF datestamp in specific user XML feeds.	
+Fixed   - "Call to a member function show() on a non-object" when using Register_globals = true	
 Fixed   - Fixed "Fatal error: Call to a member function show()" when running with REGISTER_GLOBALS = On
+Fixed   - Magic_quotes GPC double quote problems finally fixed.	
+	
+	|- Saviq
+Fixed	- Cover display fix - big images handling, better window fitting.
+Fixed	- UTF titles got splitted characters sometimes.
+Fixed	- Trailing space from actor's name in movie view.
+Fixed	- Language in statistics, footer and user profile.
+Updated - Language files - PLEASE UPDATE TRANSLATIONS.
+Fixed	- RSS feeds are now converted to proper encoding.
+Fixed	- Redirection to SERVER_NAME not HTTP_HOST.
+Fixed	- Movie picker, AddRSS encoding.
+Fixed	- Statistics bars don't jump out the window.
+Fixed	- Category name translation.
+Fixed	- Parsing category list in movie view - now all known genres are linked.
+Fixed	- All categories work fine now, even if default language changed in language.php
+Added	- Director's name is now a link to search and a link to imdb is added.
+Fixed	- Preventing doubling media type in one movie.
+Added	- User can now add another MediaType through movie manager.
+
+
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
