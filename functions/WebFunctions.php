@@ -491,7 +491,12 @@ function server_url()
  */
 function redirect($relative_url = '.?')
 {
-   $url = server_url() . dirname($_SERVER['PHP_SELF']) . "/" . $relative_url;
+   $url = server_url() . dirname($_SERVER['PHP_SELF']);
+	if (!strcmp(dirname($_SERVER['PHP_SELF']), "/") == 0) {
+		$url .= "/";
+	}
+   $url .= $relative_url;
+      
    if (!headers_sent())
    {
        header("Location: $url");
