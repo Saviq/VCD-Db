@@ -8,23 +8,31 @@ $cat_id = $_GET['category_id'];
 $batch  = 0;
 
 if (isset($_GET['batch']))
-	$batch = $_GET['batch'];
+$batch = $_GET['batch'];
 
-	if (!is_numeric($batch)) {
-		$batch = 0;
+if (!is_numeric($batch)) {
+	$batch = 0;
+}
+
+$imagemode = false;
+
+// Check if Image View is default
+
+if(VCDUtils::isLoggedIn()) {
+	$userObj = $_SESSION['user'];
+	if(!isset($_GET['viewmode']) && !isset($_SESSION['viewmode']) && $userObj->getPropertyByKey('DEFAULT_IMAGE')) {
+		$_SESSION['viewmode'] = 'image';
 	}
-	
+}
 
-	$imagemode = false;
-
-	if (isset($_GET['viewmode']) || (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'], 'image') == 0)) {
-		$imagemode = true;
-		$js = "viewMode({$cat_id}, 'text', {$batch})";
-		$viewbar = "(<a href=\"#\" onclick=\"{$js}\">".$language->show('M_TEXTVIEW')."</a> / ".$language->show('M_IMAGEVIEW').")";
-	} else {
-		$js = "viewMode({$cat_id}, 'image', {$batch})";
-		$viewbar = "(".$language->show('M_TEXTVIEW')." / <a href=\"#\" onclick=\"{$js}\">".$language->show('M_IMAGEVIEW')."</a>)";
-	}
+if (isset($_GET['viewmode']) || (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'], 'image') == 0)) {
+	$imagemode = true;
+	$js = "viewMode({$cat_id}, 'text', {$batch})";
+	$viewbar = "(<a href=\"#\" onclick=\"{$js}\">".$language->show('M_TEXTVIEW')."</a> / ".$language->show('M_IMAGEVIEW').")";
+} else {
+	$js = "viewMode({$cat_id}, 'image', {$batch})";
+	$viewbar = "(".$language->show('M_TEXTVIEW')." / <a href=\"#\" onclick=\"{$js}\">".$language->show('M_IMAGEVIEW')."</a>)";
+}
 
 $showmine = false;
 $checked = "";
@@ -94,20 +102,20 @@ if (sizeof($movies) > 0 || $showmine) {
 		print "</table>";
 
 	} else {
-			print "<hr/>";
-			print "<div id=\"actorimages\">";
-			foreach ($movies as $movie) {
+		print "<hr/>";
+		print "<div id=\"actorimages\">";
+		foreach ($movies as $movie) {
 
-				$coverObj = $movie->getCover('thumbnail');
-				if ($coverObj instanceof cdcoverObj ) {
-					print $coverObj->showCategoryImageAndLink("./?page=cd&amp;vcd_id=".$movie->getID()."",$movie->getTitle());
+			$coverObj = $movie->getCover('thumbnail');
+			if ($coverObj instanceof cdcoverObj ) {
+				print $coverObj->showCategoryImageAndLink("./?page=cd&amp;vcd_id=".$movie->getID()."",$movie->getTitle());
 
-				}
 			}
-
-			print "</div>";
-
 		}
+
+		print "</div>";
+
+	}
 
 
 } else {
