@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hïákon Birgsson <konni@konni.com>
+ * @author  Hï¿½ï¿½kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -70,6 +70,7 @@ $_ = array(
 'PRO_SEEN_LIST' 		=> 'Keep track of movies that I\'ve seen?',
 'PRO_PLAYOPTION' 		=> 'Use client playback options?',
 'PRO_NFO' 				=> 'Enable NFO files?',
+'PRO_DEFAULT_IMAGE'		=> 'Should Image View be default?',
 
 /* User Settings */
 'SE_PLAYER' 			=> 'Player settings',

@@ -59,6 +59,7 @@ $_ = array(
 'PRO_SEEN_LIST'			=> 'Pilnuj, które filmy widziałem',
 'PRO_PLAYOPTION'		=> 'Użyj opcje odtwarzacza klienta',
 'PRO_NFO'				=> 'Używaj plików NFO?',
+'PRO_DEFAULT_IMAGE'		=> 'Domyślnie wyświetlaj w widoku obrazkowym?',
 'SE_PLAYER'				=> 'Ustawienia odtwarzacza',
 'SE_OWNFEED'			=> 'Zobacz swój kanał RSS',
 'SE_CUSTOM'				=> 'Ustaw stronę główną',
