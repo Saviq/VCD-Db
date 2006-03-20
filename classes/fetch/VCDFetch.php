@@ -49,15 +49,21 @@ abstract class VCDFetch {
 	
 	private $useSnoopy = false;
 	/**
-	 * Instance of Snoppy Class
+	 * Instance of a Snoppy Class
 	 *
 	 * @var Snoopy
 	 */
 	private $snoopy = null;
-			
 	
 	protected $workerArray = array();
 	
+	/**
+	 * The fetched Object to be populated.
+	 *
+	 * @var fetchObj
+	 */
+	protected $fetchedObj = null;
+		
 	CONST ITEM_ERROR 	= 0;
 	CONST ITEM_OK 	 	= 1;
 	CONST ITEM_NOTFOUND = 2;
@@ -70,12 +76,28 @@ abstract class VCDFetch {
 		$this->isCached = false;
 	}
 	
-
-	// These functions must be implemented by this class inheritors
+	
+	/**********************
+	 * 
+	 * Abstract functions.
+	 * These functions must be implemented by this class inheritors
+	 * 
+	 **********************/
 	public abstract function showSearchResults();
 	protected abstract function processResults();
 	protected abstract function fetchDeeper($item);
+
 	
+	
+	
+	
+	
+	/********************
+	 * 
+	 * Public functions.
+	 * 
+	 *******************/
+		
 	
 	
 	/**
@@ -125,6 +147,10 @@ abstract class VCDFetch {
 	}
 	
 	
+	/**
+	 * Print out the entire populated RegEx array.
+	 *
+	 */
 	public function toString() {
 		print "<pre>";
 		$results = print_r($this->workerArray, true);
@@ -132,6 +158,15 @@ abstract class VCDFetch {
 		print "</pre>";
 	}
 	
+	
+	/**
+	 * Get the populated Object.
+	 *
+	 * @return fetchedObj
+	 */
+	public function getFetchedObject() {
+		return $this->fetchedObj;	
+	}
 		
 	/**
 	 * 
