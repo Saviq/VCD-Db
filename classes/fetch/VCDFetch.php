@@ -54,6 +54,7 @@ abstract class VCDFetch {
 	 * @var Snoopy
 	 */
 	private $snoopy = null;
+	private $isAdult = false;		// Flag to tell if the fetched site is an adult site.
 	
 	protected $workerArray = array();
 	
@@ -74,6 +75,7 @@ abstract class VCDFetch {
 	
 	protected function __construct() {
 		$this->isCached = false;
+		$this->searchRedirectUrl = null;
 	}
 	
 	
@@ -106,9 +108,16 @@ abstract class VCDFetch {
 	 * @param string $id
 	 * @return int
 	 */
-	public function fetchItemByID($id) {
-		$this->itemID = $id;
-		$itemUrl = str_replace('[$]', $id, $this->fetchItemPath);
+	public function fetchItemByID($id = null) {
+		if (!is_null($id)) {
+			$this->itemID = $id;
+		} 
+		
+		if (is_null($id) && is_null($this->getItemID())) {
+			throw new Exception("Fetch ID is null");
+		} 
+		
+		$itemUrl = str_replace('[$]', $this->getItemID(), $this->fetchItemPath);
 		$referer = "http://".$this->fetchDomain;
 		return $this->fetchPage($this->fetchDomain, $itemUrl, $referer);
 	}
@@ -480,7 +489,22 @@ abstract class VCDFetch {
 	 * @return string
 	 */
 	protected function getItemID() {
-		return $this->itemID;
+		if (is_null($this->getSearchRedirectUrl())) {
+			return $this->itemID;	
+		} else {
+			
+			/*  Since the item was a direct hit we have to figure out 
+			    the id from the given redirect url */
+			
+			$regex = str_replace("[$]", "([0-9]+)", $this->fetchItemPath);
+			@ereg($regex, $this->getSearchRedirectUrl(), $results);
+			if (isset($regex[1])) {
+				$this->itemID = $results[1];
+				return $this->itemID;
+			} else {
+				return null;
+			}
+		}
 	}
 	
 	
@@ -578,6 +602,22 @@ abstract class VCDFetch {
 		return $this->errorMessage;
 	}
 	
+	/**
+	 * Flag the current site that is being fethed contains adult movies.
+	 *
+	 */
+	protected function setAdult() {
+		$this->isAdult = true;
+	}
+	
+	/**
+	 * Check weither the fecthed site contains adult movies or not.
+	 *
+	 * @return unknown
+	 */
+	protected function isAdultSite() {
+		return $this->isAdult;
+	}
 	
 	
 	/**
