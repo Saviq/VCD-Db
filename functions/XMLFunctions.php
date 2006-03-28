@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Functions
  * @subpackage Web
  * @version $Id$
@@ -25,7 +25,7 @@ function showAvailableFeeds($url) {
 
 	global $language;
 	
-	// Flush errors ..
+	// Flush errors .. dfdf
 	error_reporting(0);
 	
 	$user_url = $url;
