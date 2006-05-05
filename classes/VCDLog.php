@@ -39,15 +39,15 @@ class VCDLog {
 		
 	/**
 	 * Get all log entries.  Returns array of VCDLogEntry objects.
-	 * If $date_from and $date_to are not specified, all entries are returned.
+	 * If $numrows and $offset are not specified, all entries are returned.
 	 *
-	 * @param date $date_from
-	 * @param date $date_to
+	 * @param int $numrows
+	 * @param int $offset
 	 * @return array
 	 */
-	public static function getLogEntries($date_from = null, $date_to = null) {
+	public static function getLogEntries($numrows = null, $offset = null) {
 		try {
-			return VCDClassFactory::getInstance('logSQL')->getLogEntries($date_from, $date_to);
+			return VCDClassFactory::getInstance('logSQL')->getLogEntries($numrows, $offset);
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
