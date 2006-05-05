@@ -473,4 +473,44 @@ function setDefaultRole($recordID) {
 	redirect('?page=roles');
 }
 
+
+function drawLogBar($numrows, $offset) {
+	print "<div align=\"right\" id=\"newObj\">";
+	
+	$backDisabled = "";
+	if (!isset($_GET['offset']) || $offset<=0) {
+		$backDisabled = "disabled=disabled";
+	}
+	
+	
+	
+	$totalrows = VCDLog::getLogCount();
+	$rowsto = $offset + $numrows;
+	$rowsback = $offset - $numrows;
+	
+	$frontDisabled = "";
+	if ($rowsto >= $totalrows) {
+		$rowsto = $totalrows;
+		$frontDisabled = "disabled=disabled";
+	}
+	
+	
+	$msg = "Showing records {$offset} to {$rowsto} of {$totalrows} records. &nbsp;&nbsp;&nbsp;";
+	
+	print $msg;
+	
+	$jsBack = "./?page=viewlog&offset=".$rowsback;
+	$btnBack = "<input type=\"button\" value=\"&lt;&lt;\" title=\"Previous entries\" {$backDisabled} onclick=\"location.href='{$jsBack}'\">";
+	
+	$jsForward = "./?page=viewlog&offset=".$rowsto;
+	$btnForward = "<input type=\"button\" value=\"&gt;&gt;\"  title=\"Next entries\" {$frontDisabled} onclick=\"location.href='{$jsForward}'\">";
+	
+	print $btnBack;
+	print $btnForward;
+	
+	
+	print "</div>";
+
+}
+
 ?>

@@ -56,25 +56,28 @@ class logSQL {
 		}
 		
 		/**
-		 * Get all LogEntries within the specified time interval.  If date_from and date_to are not specified
+		 * Get all LogEntries within the specified time interval.  If $numrows and $offset are not specified
 		 * All LogEntries from database will be returned.
 		 * Returns array of LogEntries
 		 *
-		 * @param date $date_from
-		 * @param date $date_to
+		 * @param int $numrows
+		 * @param int $offset
 		 * @return array
 		 */
-		public function getLogEntries($date_from = null, $date_to = null) {
+		public function getLogEntries($numrows = null, $offset = null) {
 			try {
 			
-				if (is_null($date_from) && is_null($date_to)) {
+				if (is_null($numrows) && is_null($offset)) {
 					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log ORDER BY event_date DESC";
+					$rs = $this->db->Execute($query);
 				} else {
-				
+					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log ORDER BY event_date DESC";
+					$rs = $this->db->SelectLimit($query, $numrows, $offset);
+					
 				}
 				
 				
-				$rs = $this->db->Execute($query);
+				
 				$arrLogEntries = array();
 				foreach ($rs as $row) {
 		    		$obj = new VCDLogEntry($row[0], $row[1], $row[2], $row[3], $row[4]);

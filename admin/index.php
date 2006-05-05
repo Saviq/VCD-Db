@@ -884,7 +884,16 @@
 			*/
 			if ($CURRENT_PAGE == "viewlog") { 
 				
-				$arrLog = VCDLog::getLogEntries();
+				
+				$numrows = 40;
+				$offset = 0;
+				if (isset($_GET['offset']) && is_numeric($_GET['offset'])) {
+					$offset = $_GET['offset'];
+				}
+				
+				drawLogBar($numrows, $offset);
+				
+				$arrLog = VCDLog::getLogEntries($numrows, $offset);
 				$CLASSUser = new vcd_user();
 				
 				$arrAllUsers = $CLASSUser->getAllUsers();
