@@ -8,6 +8,7 @@ Fixed   - "Call to a member function show() on a non-object" when using Register
 Fixed   - Fixed "Fatal error: Call to a member function show()" when running with REGISTER_GLOBALS = On
 Fixed   - Magic_quotes GPC double quote problems finally fixed.	
 Added   - LogViewer in "Control Panel" now includes paging.
+Fixed   - List view in "Control Panel" now renders like it should.
 	
 	|- Saviq
 Fixed	- Cover display fix - big images handling, better window fitting.
