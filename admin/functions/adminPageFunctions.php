@@ -495,7 +495,7 @@ function drawLogBar($numrows, $offset) {
 	}
 	
 	
-	$msg = "Showing records {$offset} to {$rowsto} of {$totalrows} records. &nbsp;&nbsp;&nbsp;";
+	$msg = "<span style=\"font-weight:bold;font-size:10px\">(Showing records {$offset} to {$rowsto} of {$totalrows} records.)</span> &nbsp;&nbsp;&nbsp;";
 	
 	print $msg;
 	
