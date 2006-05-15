@@ -24,6 +24,7 @@ class sourceSiteObj implements XMLable {
 		private $site_homepage;
 		private $site_getCommand;
 		private $isFetchable;
+		private $site_classname;
 	
 	/**
 	 * Object constructor
@@ -38,6 +39,7 @@ class sourceSiteObj implements XMLable {
 		$this->site_homepage 	= $dataArr[3];
 		$this->site_getCommand  = $dataArr[4];
 		$this->isFetchable 		= $dataArr[5];
+		$this->site_classname   = $dataArr[6];
 	}
 	
 	/**
@@ -96,6 +98,14 @@ class sourceSiteObj implements XMLable {
 		return (bool)$this->isFetchable;
 	}
 	
+	/**
+	 * Get the name of the PHP fetch class for this site.
+	 *
+	 * @return string
+	 */
+	public function getClassName() {
+		return $this->site_classname;
+	}
 		
 		
 	/**

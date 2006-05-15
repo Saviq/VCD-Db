@@ -1,6 +1,6 @@
 <?php 
 	
-	$objArr = array ("id"=>"", "name"=>"", "alias"=>"", "homepage"=>"", "command"=>"", "isFetchable"=>"");
+	$objArr = array ("id"=>"", "name"=>"", "alias"=>"", "homepage"=>"", "command"=>"", "isFetchable"=>"", "classname"=>"");
 	$readonly = "";	
 	$button_value = "Save";
 	$check = "";
@@ -18,6 +18,7 @@
 		$objArr['homepage']   = $sourceSiteObj->getHomepage();
 		$objArr['command']   = $sourceSiteObj->getCommand();
 		$objArr['isFetchable']   = $sourceSiteObj->isFetchable();
+		$objArr['classname']   = $sourceSiteObj->getClassName();
 		if ((bool)$objArr['isFetchable']) 
 			$check = "checked";
 		
@@ -53,6 +54,10 @@
 <tr>
 	<td>Fetch Url:</td>
 	<td><input name="command" type="text" size="60" value="<?=$objArr['command']?>"  onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+</tr>
+<tr>
+	<td>Class name:</td>
+	<td><input name="classname" type="text" size="60" value="<?=$objArr['classname']?>"  onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Is fetchable:</td>
