@@ -36,24 +36,21 @@ function SaveModeEdit(file_id) {
 
 function setBorder(obj) {
 	
-	id = obj.name;
-	
-	document.getElementById(id).style.borderColor = "#0C2862";
-	document.getElementById(id).style.borderWidth = "1px";
-	document.getElementById(id).style.borderStyle = "solid";
-	document.getElementById(id).style.padding = "1px";
-	document.getElementById(id).style.margin = "1px";
+	obj.style.borderColor = "#0C2862";
+	obj.style.borderWidth = "1px";
+	obj.style.borderStyle = "solid";
+	obj.style.padding = "1px";
+	obj.style.margin = "1px";
 	
 }
 
 function clearBorder(obj) {
-	id = obj.name;
 	
-	document.getElementById(id).style.borderColor = "#dadce0";
-	document.getElementById(id).style.borderWidth = "1px";
-	document.getElementById(id).style.borderStyle = "solid";
-	document.getElementById(id).style.padding = "1px";
-	document.getElementById(id).style.margin = "1px";
+	obj.style.borderColor = "#dadce0";
+	obj.style.borderWidth = "1px";
+	obj.style.borderStyle = "solid";
+	obj.style.padding = "1px";
+	obj.style.margin = "1px";
 	
 }
 
