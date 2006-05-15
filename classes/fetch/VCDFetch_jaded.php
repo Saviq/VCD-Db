@@ -47,6 +47,7 @@ class VCDFetch_jaded extends VCDFetch {
 		$this->useSnoopy();
 		$this->setSiteName("jaded");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
+		$this->setAdult();
 	}
 	
 	protected function processResults() {

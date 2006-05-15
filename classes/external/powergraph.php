@@ -910,7 +910,9 @@ class PowerGraphic {
         if ($this->latin_notation == true) {
             return number_format(round($number, $dec_size), $dec_size, ",", ".");
         }
+        
         return number_format(round($number, $dec_size), $dec_size, ".", ",");
+        
     }
 
     function number_float($number)
@@ -935,7 +937,12 @@ class PowerGraphic {
             // Office
             case 1:
                 $this->color['title']       = imagecolorallocate($this->img,   0,   0, 100);
-                $this->color['background']  = imagecolorallocate($this->img, 220, 220, 220);
+                $this->color['background']  = imagecolorallocate($this->img, 255, 255, 255);
+                
+                //$background = imageColorAllocate ($this->img, 0, 0, 0);
+                //$this->color['background']  = imageColorTransparent($this->img, $background);
+                
+                
                 $this->color['axis_values'] = imagecolorallocate($this->img,  50,  50,  50);
                 $this->color['axis_line']   = imagecolorallocate($this->img, 100, 100, 100);
                 $this->color['bg_lines']    = imagecolorallocate($this->img, 240, 240, 240);

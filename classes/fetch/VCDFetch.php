@@ -176,6 +176,15 @@ abstract class VCDFetch {
 	public function getFetchedObject() {
 		return $this->fetchedObj;	
 	}
+	
+	/**
+	 * Check weither the fecthed site contains adult movies or not.
+	 *
+	 * @return unknown
+	 */
+	public function isAdultSite() {
+		return $this->isAdult;
+	}
 		
 	/**
 	 * 
@@ -608,15 +617,6 @@ abstract class VCDFetch {
 	 */
 	protected function setAdult() {
 		$this->isAdult = true;
-	}
-	
-	/**
-	 * Check weither the fecthed site contains adult movies or not.
-	 *
-	 * @return unknown
-	 */
-	protected function isAdultSite() {
-		return $this->isAdult;
 	}
 	
 	
