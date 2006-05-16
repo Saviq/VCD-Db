@@ -312,7 +312,7 @@ abstract class VCDFetch {
 		$extUrl = "http://".$this->fetchDomain.$this->fetchItemPath;
 		print "<ul>";
 		foreach ($arrSearchResults as $item) {
-			$link = "?page=private&amp;o=add&amp;source={$this->siteID}&amp;fid={$item['id']}";
+			$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->siteID}&amp;fid={$item['id']}";
 			$info = str_replace('[$]', $item['id'], $extUrl);
 			$str = "<li><a href=\"{$link}\">{$item['title']}</a>&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a></li>";
 			print $str;
