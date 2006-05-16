@@ -152,9 +152,7 @@ class VCDFetch_imdb extends VCDFetch {
 			
 		}
 		
-		print_r($obj);
-		
-		$this->toString();
+		$this->fetchedObj = $obj;
 		
 		
 	}

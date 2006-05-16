@@ -48,6 +48,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 	public function __construct() {
 		$this->useSnoopy();
 		$this->setSiteName("empire");
+		$this->setAdult();
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
 		$this->setAdult();
 	}

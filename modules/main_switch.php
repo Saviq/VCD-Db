@@ -166,6 +166,10 @@ switch ($CURRENT_PAGE) {
 					if (isset($_GET['source'])) {
 						$source = $_GET['source'];
 						
+						if (strcmp($source, "webfetch") == 0) {
+							require_once('pages/add_webfetch.php');
+						}
+						
 						if (strcmp($source, "imdb") == 0) {
 							require_once('pages/add_imdbfetch.php');
 						}

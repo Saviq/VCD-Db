@@ -16,6 +16,7 @@
 ?>
 <?
 require_once(dirname(__FILE__).'/imdbObj.php');
+require_once(dirname(__FILE__).'/adultObj.php');
 
 /**
  * Base class for all fetched objects with the Fetch Classes.

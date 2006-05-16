@@ -134,6 +134,25 @@ class VCDUtils {
 	}
 
 	/**
+	 * Check weither adult content should be displayed or not.
+	 *
+	 * @return bool
+	 */
+	static function showAdultContent() {
+		if (!VCDUtils::isLoggedIn()) {
+			return false;
+		}
+		
+		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+		$showAdult = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
+		$curruser = &$_SESSION['user'];
+		return ($showAdult && $curruser->getPropertyByKey('SHOW_ADULT'));
+		
+	
+	}
+	
+	
+	/**
 	 * Get the current users ID, if user is not logged in null is returned.
 	 *
 	 * @return int

@@ -233,7 +233,19 @@
 	 * @param string $strGenre
 	 */
 	public function setGenre($strGenre) {
-		$this->genre = $strGenre;
+		if (is_array($strGenre)) {
+			$str = "";
+			for ($i=0;$i<sizeof($strGenre);$i++) {
+				$str .= trim($strGenre[$i]);
+				if ($i != sizeof($strGenre)) {
+					$str .= ", ";
+				}
+			}
+			$this->genre = $str;
+		} else {
+			$this->genre = $strGenre;	
+		}
+		
 	}
 
 	/**

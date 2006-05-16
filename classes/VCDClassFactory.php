@@ -77,10 +77,49 @@ final class VCDClassFactory {
 			VCDException::display($e);
 			die();
 		}
-			
-		
-			
 	}
+	
+	
+	/**
+	 * Ask the framework to load specific class.
+	 * If the class is not known, then the /classes/fetch directory will be searched for
+	 * the specific class.  The fetch classes are the only onces that need dynamic loading.
+	 * If function failes to load the class, null is returned.
+	 *
+	 * @param string $className
+	 * @return $class
+	 */
+	public static function loadClass($className) {
+		try {
+			
+			// Check if class is cached in the factory
+			if (array_key_exists($className, VCDClassFactory::$classArray)) {
+					return VCDClassFactory::$classArray[$className];
+			}
+			
+			// Check if this is a known class ..
+			if (class_exists($className)) {
+				return new $className;
+			}
+						
+			// Class not found .. check the fetch classes
+			
+			// Try to include the file ..
+			$classPath = "/fetch/{$className}.php";
+            @include_once(dirname(__FILE__) . $classPath);
+            if (class_exists($className)) {
+            	return new $className;
+            } else {
+            	return null;
+            }
+			
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
 	
 	/**
 	 * Get the size of the cache.

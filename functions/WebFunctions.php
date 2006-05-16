@@ -1328,6 +1328,54 @@ function drawGraph($instructions) {
 	exit();
 }
 
+function display_fetchsites() {
+	
+	$arrFetchableSites = getFetchClasses(VCDUtils::showAdultContent());
+	
+	if (sizeof($arrFetchableSites) == 0) {
+		VCDException::display("No Fetchclasses available.<break>Enable some fetch classes from the Control Panel.");
+		return;
+	}
+	
+	$html = "<select name=\"fetchsite\">";
+	foreach ($arrFetchableSites as $sourceSiteObj) {
+		$html .= "<option value=\"".$sourceSiteObj->getAlias()."\">".$sourceSiteObj->getName()."</option>";
+	}
+	$html .= "</select>";
+	
+	print $html;
+	
+}
+
+
+function getFetchClasses($bShowAdult = false) {
+	
+	$SettingsClass = VCDClassFactory::getInstance("vcd_settings");
+	$arrSourceSites = $SettingsClass->getSourceSites();
+	$arrSourceList = array();
+	foreach ($arrSourceSites as $siteObj) {
+
+	   if ($siteObj->isFetchable() && strcmp($siteObj->getClassName(), "") != 0) {
+	           
+            // Try to instanceate the class ..
+            $className = $siteObj->getClassName();
+            if (!class_exists($className)) {
+                   
+                    // Check if the $VCDClassfactory can load the class.                    
+                    if (!is_null(VCDClassFactory::loadClass($className))) {
+                            // Create instance and check class status
+                            $fetchClass = new $className;
+                            $adultStatus = $fetchClass->isAdultSite();
+                            if ((!$adultStatus) || ($adultStatus && $bShowAdult)) {
+                                    array_push($arrSourceList, $siteObj);
+                            }
+                    }
+            }
+	    }
+	}
+	return $arrSourceList;
+       
+} 
 
 
 ?>

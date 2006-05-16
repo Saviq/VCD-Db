@@ -5,11 +5,11 @@
 <h2>A) <?=$language->show('ADD_IMDB')?></h2>
 <ul>
 
-<form action="./index.php?page=private&o=add&source=imdb" method="post" name="imdb" id="imdb">
+<form action="./index.php?page=private&o=add&source=webfetch" method="post" name="imdb" id="imdb">
 <table cellspacing="1" cellpadding="1" class="plain">
 <tr>
 	<td><?=$language->show('ADD_IMDBTITLE')?>:</td>
-	<td><input type="text" name="imdb" class="input" size="15"/>&nbsp;<input type="submit" value="<?=$language->show('SEARCH')?>" class="buttontext"/></td>
+	<td><input type="text" name="searchTitle" class="input" size="15"/>&nbsp; <?= display_fetchsites();?>&nbsp; <input type="submit" value="<?=$language->show('SEARCH')?>" class="buttontext"/></td>
 </tr>
 </table>
 </form>
@@ -42,11 +42,8 @@
 </ul>
 
 <? 
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$showAdult = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
-	$curruser = &$_SESSION['user'];
 	
-	if ($showAdult && $curruser->getPropertyByKey('SHOW_ADULT')) {
+	if (VCDUtils::showAdultContent()) {
 ?>
 
 <h2>E) <?=$language->show('ADD_DVDEMPIRE')?></h2>
