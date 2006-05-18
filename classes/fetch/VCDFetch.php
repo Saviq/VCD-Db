@@ -41,11 +41,11 @@ abstract class VCDFetch {
 	
 	private $searchKey;				// The search key used in the search query
 	private $searchMaxResults = 50; // Maximum search results
-	private $searchRedirectUrl;		// The url that is redirected to if search is exact match.
+	private $searchRedirectUrl=null;// The url that is redirected to if search is exact match.
 		
 	private $fetchContents;			// The fetched page.
 	private $fetchItem;				// The item filled after getItem() has been called
-	private $isCached;				// Flags if contents are Cached.
+	private $isCached = false;		// Flags if contents are Cached.
 	
 	private $useSnoopy = false;
 	/**
@@ -73,10 +73,7 @@ abstract class VCDFetch {
 	CONST SEARCH_DONE   = 1;
 	CONST SEARCH_EXACT  = 2;
 	
-	protected function __construct() {
-		$this->isCached = false;
-		$this->searchRedirectUrl = null;
-	}
+	protected function __construct() {}
 	
 	
 	/**********************

@@ -107,11 +107,14 @@ if(is_array($fetchedObj->getCast(false))) {
 		// Try to find the first category from IMDB and mark it default for conveniance
 		$sid = -1;
 		$items = $fetchedObj->getGenre();
+		if (!is_array($items)) {
+			$items = explode(",", $items);
+		}
+		
 		if (is_array($items)) {
 			$scat = $items[0];
 			$sid = $SettingsClass->getCategoryIDByName($scat);
-			
-		}
+		} 
 		
 		// Get the localized category list
 		$arrCategories = getLocalizedCategories();
