@@ -508,8 +508,9 @@ abstract class VCDFetch {
 			$regex = str_replace("[$]", "([0-9]+)", $this->fetchItemPath);
 			@ereg($regex, $this->getSearchRedirectUrl(), $results);
 			
-			print_r($results);
-			die($this->getSearchRedirectUrl());
+						
+			//print_r($results);
+			//die($this->getSearchRedirectUrl());
 			
 			if (isset($regex[1])) {
 				$this->itemID = $results[1];

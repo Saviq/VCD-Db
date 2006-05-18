@@ -224,6 +224,21 @@ class metadataTypeObj {
 	CONST SYS_DVDSUBS	   = 17;
 	CONST SYS_NFO		   = 18;
 
+	
+	/* Additional system types */
+	CONST SYS_LASTFETCH	   = 19;
+	CONST SYS_RESERVED01   = 20;
+	CONST SYS_RESERVED02   = 21;
+	CONST SYS_RESERVED03   = 22;
+	CONST SYS_RESERVED04   = 23;
+	CONST SYS_RESERVED05   = 24;
+	CONST SYS_RESERVED06   = 25;
+	CONST SYS_RESERVED07   = 26;
+	CONST SYS_RESERVED08   = 27;
+	CONST SYS_RESERVED09   = 28;
+	CONST SYS_RESERVED10   = 29;
+	CONST SYS_RESERVED11   = 30;
+	
 	protected $metatype_id;
 	protected $metatype_name;
 	protected $metatype_level = metadataTypeObj::LEVEL_SYSTEM;
@@ -363,6 +378,18 @@ class metadataTypeObj {
 			case self::SYS_DVDAUDIO:	 return 'dvdaudio';		 break;
 			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
 			case self::SYS_NFO:	 	 	 return 'nfo';			 break;
+			case self::SYS_LASTFETCH:	 return 'lastfetch';	 break;
+			case self::SYS_RESERVED01 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED02 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED03 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED04 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED05 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED06 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED07 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED08 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED09 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED10 :	 return 'reserved';	     break;
+			case self::SYS_RESERVED11 :	 return 'reserved';	     break;
 			default: 					 return false; 			 break;
 
 
@@ -457,7 +484,7 @@ class metadataTypeObj {
 					array_push($arrReturnValue, $metaDataObj);
 				} else if ((int)$type_id == (int)self::SYS_FILELOCATION ) {
 					array_push($arrReturnValue, $metaDataObj);
-				} else if ((int)$type_id > 18) {
+				} else if ((int)$type_id > 30) {
 					array_push($arrReturnValue, $metaDataObj);
 				}
 				

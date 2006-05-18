@@ -29,7 +29,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
 		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'country' 	=> '<a href="/Sections/Countries/([^>]*)>([^<]*)</a>',
+		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
 		'plot'		=> '<p class="plotpar">([^<]*)</p>'
 		);
 		
@@ -141,6 +141,13 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 					
 				case 'country':
+					if (sizeof($arrData) > 0) {
+						$arrCountries = array();
+						foreach ($arrData as $itemArr) {
+							array_push($arrCountries, $itemArr[2]);
+						}
+						$obj->setCountry($arrCountries);
+					}
 					
 					break;
 					

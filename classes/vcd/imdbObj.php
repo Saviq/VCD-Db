@@ -26,7 +26,6 @@
 	private $imdb;
 	private $alt_title1;
 	private $alt_title2;
-	private $image;
 	private $plot;
 	private $director;
 	private $cast;
@@ -234,14 +233,7 @@
 	 */
 	public function setGenre($strGenre) {
 		if (is_array($strGenre)) {
-			$str = "";
-			for ($i=0;$i<sizeof($strGenre);$i++) {
-				$str .= trim($strGenre[$i]);
-				if ($i != sizeof($strGenre)) {
-					$str .= ", ";
-				}
-			}
-			$this->genre = $str;
+			$this->genre = implode(",",$strGenre);
 		} else {
 			$this->genre = $strGenre;	
 		}
@@ -266,23 +258,7 @@
 		$this->imdb = $strIMDB;
 	}
 
-	/**
-	 * Set the image associated with this movie
-	 *
-	 * @param string $strImage
-	 */
-	public function setImage($strImage) {
-		$this->image = $strImage;
-	}
 
-	/**
-	 * Get the image associated with this IMDB object
-	 *
-	 * @return string
-	 */
-	public function getImage() {
-		return $this->image;
-	}
 
 
 	/**

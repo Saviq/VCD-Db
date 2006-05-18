@@ -29,6 +29,16 @@ if (is_null($fetchClass)) {
 	VCDException::display("Class {$className} could not be loaded.", true);
 }
 
+// Save the current fetch class in use for next time user fetches movie
+$metaDefaultClass = $SettingsClass->getMetadata(0,VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
+if (!($metaDefaultClass instanceof metadataObj && strcmp($metaDefaultClass->getMetadataValue(), $sSource)==0)) {
+	// Default class changed or not found .. add "last used class" to database
+	$metaLastUsedClass = new metadataObj(array('',0,VCDUtils::getUserID(),metadataTypeObj::SYS_LASTFETCH,$sSource));
+	$SettingsClass->addMetadata(array($metaLastUsedClass));
+}
+
+
+
 
 if (strcmp($sTitle, "") != 0) {
 	print "<h1>{$sourceObj->getName()} &gt;&gt; {$sTitle}</h1><br/>";
@@ -42,25 +52,9 @@ if (isset($_GET['fid'])) {
 	$id = $_GET['fid'];
 	$fetchClass->fetchItemByID($id);
 	$fetchClass->fetchValues();
-	$fetchedObj = $fetchClass->getFetchedObject();
-		
-	$obj = &$fetchedObj;
+	$obj = $fetchClass->getFetchedObject();
 	
-	if ($obj instanceof imdbObj ) {
-		
-		/*
-		// Grab the image
-		if ($im->getPosterUrl() != ITEM_NOTFOUND) {
-			$filename = VCDUtils::grabImage($im->getPosterUrl());
-			$obj->setImage($filename);
-		}
-		*/
-				
-		// Grab the image
-		$filename = VCDUtils::grabImage($obj->getImage());
-		$obj->setImage($filename);
-		require_once('pages/imdb_confirm.php');
-	}
+	displayFetchedObject($obj);
 	
 	
 	
@@ -72,12 +66,44 @@ if (isset($_GET['fid'])) {
 	 	$fetchClass->fetchItemByID();
 	 	$fetchClass->fetchValues();
 	 	$obj = $fetchClass->getFetchedObject();
-	 	print_r($obj);
+	 	displayFetchedObject($obj);
 	} else {
 	 	$fetchClass->showSearchResults();	
 	}
 }
 
+
+function displayFetchedObject($fetchedObj) {
+	try {
+		if (!$fetchedObj instanceof fetchedObj ) {
+			throw new Exception("Invalid fetched object.");
+		}
+		
+		
+		// Generic Fetched Object actions ..
+		if (strcmp($fetchedObj->getImage(), "") != 0) {
+			$filename = VCDUtils::grabImage($fetchedObj->getImage());
+			$fetchedObj->setImage($filename);	
+		}
+		
+		
+		
+		if ($fetchedObj instanceof imdbObj ) {
+			
+			require_once('pages/imdb_confirm.php');
+		
+		
+		} elseif ($fetchedObj instanceof adultObj ) {
+		
+			
+				
+		}
+		
+		
+	} catch (Exception $ex) {
+		VCDException::display($ex, true);
+	}
+}
 
 
 ?>

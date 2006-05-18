@@ -1337,9 +1337,22 @@ function display_fetchsites() {
 		return;
 	}
 	
+	// Check for the last used fetch class and make it default if we find one ..
+	$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
+	$metaDefaultArr = $SettingsClass->getMetadata(0,VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
+	$defaultClassName = "";
+	if (is_array($metaDefaultArr) && sizeof($metaDefaultArr) > 0 && $metaDefaultArr[0] instanceof metadataObj ) {
+		$defaultClassName = $metaDefaultArr[0]->getMetadataValue();
+	}
+	
+	
 	$html = "<select name=\"fetchsite\">";
 	foreach ($arrFetchableSites as $sourceSiteObj) {
-		$html .= "<option value=\"".$sourceSiteObj->getAlias()."\">".$sourceSiteObj->getName()."</option>";
+		$selected = "";
+		if (strcmp($sourceSiteObj->getAlias(), $defaultClassName) == 0) {
+			$selected = " selected=\"selected\"";
+		}
+		$html .= "<option value=\"".$sourceSiteObj->getAlias()."\"{$selected}>".$sourceSiteObj->getName()."</option>";
 	}
 	$html .= "</select>";
 	

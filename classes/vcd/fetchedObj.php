@@ -30,6 +30,7 @@ class fetchedObj {
 	protected $title;
 	protected $year;
 	protected $runtime;
+	protected $image;
 	
 
 	public function __construct() {}
@@ -99,6 +100,24 @@ class fetchedObj {
 		$this->runtime = $iRuntime;
 	}
 
+	
+		/**
+	 * Set the image associated with this movie
+	 *
+	 * @param string $strImage
+	 */
+	public function setImage($strImage) {
+		$this->image = $strImage;
+	}
+
+	/**
+	 * Get the image associated with this IMDB object
+	 *
+	 * @return string
+	 */
+	public function getImage() {
+		return $this->image;
+	}
 
 }
 

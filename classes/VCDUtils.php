@@ -378,7 +378,7 @@ class VCDUtils {
   		$string = implode($sepator, $arrItems);
   		return $string;
   	} else {
-  		return "";
+  		return $arrItems;
   	}
   }
 
