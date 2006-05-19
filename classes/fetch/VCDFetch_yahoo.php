@@ -22,10 +22,12 @@ class VCDFetch_yahoo extends VCDFetch {
 	protected $regexArray = array(
 		'title' 	  => '<td bgcolor=A6B9DC width=570><h1><strong>([^<]*)</strong></h1></td>',
 		'year'  	  => '<td bgcolor=A6B9DC width=570><h1><strong>([^<]*)</strong></h1></td>',
-		'genre'	 	  => 'site_media_id=([0-9])">([^<]*)</a></nobr>',
+		'genre'	 	  => 'Genres:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
 		'cast' 		  => null,
-		'director'	  => 'Directed by:</font></td><td><font face=arial size=-1><a href="/shop?d=hc&id=1804476864&cf=gen">([^<]*)</a></font>',
-		'thumbnail'	  => '<img src=([^<]*) width="101"',
+		'plot'		  => '<font face=arial size=-1>([^<]*)<br clear',
+		'director'	  => '&id=([0-9]{10})&cf=gen">([^<]*)</a></font>',
+		'poster'	  => '<img src=([^<]*) width="101"',
+		'country'	  => 'Produced in:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
 		'frontcover'  => null,
 		'backcover'   => null
 		);
@@ -39,7 +41,8 @@ class VCDFetch_yahoo extends VCDFetch {
 		
 	private $servername = 'movies.yahoo.com';
 	private $searchpath = '/mv/search?p=[$]';
-	private $itempath   = '/shop?d=hv&cf=info&id=[$]';
+	private $itempath   = '/movie/[$]/details';
+	//private $itempath   = '/shop?d=hv&cf=info&id=[$]';
 		
 	
 	public function __construct() {
@@ -69,26 +72,39 @@ class VCDFetch_yahoo extends VCDFetch {
 					break;
 				
 				case 'year':
-					$year = $arrData[2];
-					$obj->setYear($year);		
+					$title = $arrData[1];
+					$regex = "([0-9]{4})";
+					if(@eregi($regex, $title, $retval)) { 
+						$year = $retval[0];
+						if (is_numeric($year)) {
+							$obj->setYear($year);
+						}
+					}
+									
 					break;
 					
 				case 'poster':
-					$poster = $arrData[4];
-					$obj->setImage($poster);
+					$poster = $arrData[0][1];
+					if (substr_count($poster, "npa.gif") == 0) {
+						$obj->setImage($poster);
+					}
+					
 					break;
 					
 				case 'director':
-					$director = $arrData[1];
-					$obj->setDirector($director);
+					// Implemented in the cast section ..
+					break;
+					
+					
+				case 'plot':
+					$plot = $arrData[1];
+					$obj->setPlot($plot);
 					break;
 					
 				case 'genre':
+					$genres = $arrData[0][2];
+					$arr = split("and", $genres);
 					
-					$arr = array();
-					foreach ($arrData as $item) {
-						array_push($arr, $item[1]);
-					}
 					$obj->setGenre($arr);
 					break;
 					
@@ -104,9 +120,14 @@ class VCDFetch_yahoo extends VCDFetch {
 					foreach ($arrData as $itemArr) {
 						$actor = $itemArr[1];
 						$role = $itemArr[3];
+						if (strcmp($role, "<!-- N/A -->") ==0) {
+							$role = "";
+						}
 						
 						// Break when we hit the director ..
-						if (strcmp($role,"Director")==0) {break;}
+						if (strcmp($role,"Director")==0) {
+							$obj->setDirector($actor);
+							break;}
 						
 						$result = $actor." .... " .$role;
 						array_push($arr, $result);
@@ -130,13 +151,8 @@ class VCDFetch_yahoo extends VCDFetch {
 					break;
 					
 				case 'country':
-					if (sizeof($arrData) > 0) {
-						$arrCountries = array();
-						foreach ($arrData as $itemArr) {
-							array_push($arrCountries, $itemArr[2]);
-						}
-						$obj->setCountry($arrCountries);
-					}
+					$country = $arrData[2];
+					$obj->setCountry($country);
 					
 					break;
 					
