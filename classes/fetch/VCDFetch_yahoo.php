@@ -28,6 +28,7 @@ class VCDFetch_yahoo extends VCDFetch {
 		'director'	  => '&id=([0-9]{10})&cf=gen">([^<]*)</a></font>',
 		'poster'	  => '<img src=([^<]*) width="101"',
 		'country'	  => 'Produced in:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
+		'runtime' 	  => 'Running Time:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
 		'frontcover'  => null,
 		'backcover'   => null
 		);
@@ -42,7 +43,6 @@ class VCDFetch_yahoo extends VCDFetch {
 	private $servername = 'movies.yahoo.com';
 	private $searchpath = '/mv/search?p=[$]';
 	private $itempath   = '/movie/[$]/details';
-	//private $itempath   = '/shop?d=hv&cf=info&id=[$]';
 		
 	
 	public function __construct() {
@@ -88,8 +88,27 @@ class VCDFetch_yahoo extends VCDFetch {
 					if (substr_count($poster, "npa.gif") == 0) {
 						$obj->setImage($poster);
 					}
+					break;
+					
+				case 'runtime':
+					$runtime = $arrData[2];
+					if (!is_numeric($runtime)) {
+						$regex = "([0-9]{1}) hr. ([0-9]{1,2}) min.";
+						if(@eregi($regex, $runtime, $retval)) { 
+							if (sizeof($retval) >= 2) {
+								$hours = $retval[1];
+								$minutes = $retval[2];
+								if (is_numeric($hours) && is_numeric($minutes)) {
+									$runtime = ($hours*60) + $minutes;
+									$obj->setRuntime($runtime);
+								}
+							}
+						}
+					}
+					$obj->setRuntime($runtime);
 					
 					break;
+					
 					
 				case 'director':
 					// Implemented in the cast section ..
