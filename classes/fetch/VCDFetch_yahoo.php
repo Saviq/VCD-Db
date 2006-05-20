@@ -28,9 +28,7 @@ class VCDFetch_yahoo extends VCDFetch {
 		'director'	  => '&id=([0-9]{10})&cf=gen">([^<]*)</a></font>',
 		'poster'	  => '<img src=([^<]*) width="101"',
 		'country'	  => 'Produced in:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
-		'runtime' 	  => 'Running Time:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
-		'frontcover'  => null,
-		'backcover'   => null
+		'runtime' 	  => 'Running Time:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>'
 		);
 	
 			
@@ -68,7 +66,9 @@ class VCDFetch_yahoo extends VCDFetch {
 			switch ($entry) {
 				case 'title':
 					$title = $arrData[1];
-					$obj->setTitle($title);
+					$regex = "\(([0-9]{4})\)";
+					$title = ereg_replace($regex, "", $title);
+					$obj->setTitle($title);	
 					break;
 				
 				case 'year':
@@ -93,11 +93,11 @@ class VCDFetch_yahoo extends VCDFetch {
 				case 'runtime':
 					$runtime = $arrData[2];
 					if (!is_numeric($runtime)) {
-						$regex = "([0-9]{1}) hr. ([0-9]{1,2}) min.";
+						$regex = "([0-9]{1}) ([^<]*) ([0-9]{1,2}) min.";
 						if(@eregi($regex, $runtime, $retval)) { 
-							if (sizeof($retval) >= 2) {
+							if (sizeof($retval) >= 3) {
 								$hours = $retval[1];
-								$minutes = $retval[2];
+								$minutes = $retval[3];
 								if (is_numeric($hours) && is_numeric($minutes)) {
 									$runtime = ($hours*60) + $minutes;
 									$obj->setRuntime($runtime);
@@ -122,7 +122,8 @@ class VCDFetch_yahoo extends VCDFetch {
 					
 				case 'genre':
 					$genres = $arrData[0][2];
-					$arr = split("and", $genres);
+					$genres = str_replace("and", ",", $genres);
+					$arr = split("/", $genres);
 					
 					$obj->setGenre($arr);
 					break;
