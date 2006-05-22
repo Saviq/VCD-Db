@@ -73,7 +73,7 @@ class fetchedObj {
 	 * @param string $strTitle
 	 */
 	public function setTitle($strTitle) {
-		$this->title = stripslashes($strTitle);
+		$this->title = stripslashes(trim($strTitle));
 	}
 	
 	/**

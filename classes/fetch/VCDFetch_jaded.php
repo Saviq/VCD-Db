@@ -24,7 +24,7 @@ class VCDFetch_jaded extends VCDFetch {
 		'year'  	  => 'REL: ([0-9]{1,2})/([0-9]{1,2})/([0-9]{4})<br>',
 		'studio'	  => 'Manufacturer=([^<]*)>([^<]*)</a><BR>',
 		'screens'	  => 'topoftabs\">([^<]*) Screen Shots</a>',
-		'genre'	 	  => 'site_media_id=([0-9])">([^<]*)</a></nobr>',
+		'genre'	 	  => 'CAT: <a href=search_result.asp?([^<]*)>([^<]*)</a><BR>',
 		'cast' 		  => '</font><font color=#00000>([^<]*)<br>',
 		'thumbnail'	  => null,
 		'frontcover'  => null,
@@ -51,7 +51,67 @@ class VCDFetch_jaded extends VCDFetch {
 	}
 	
 	protected function processResults() {
-		//print $this->getContents();
+			if (!is_array($this->workerArray) || sizeof($this->workerArray) == 0) {
+				$this->setErrorMsg("No results to process.");
+				return;
+			}
+					
+		$obj = new adultObj();
+		$obj->setObjectID($this->getItemID());
+				
+		foreach ($this->workerArray as $key => $data) {
+			
+			$entry = $data[0];
+			$arrData = $data[1];
+			
+			switch ($entry) {
+				case 'title':
+					$title = $arrData[1];
+					$regex = "\(([A-z]{3})\)";
+					$title = ereg_replace($regex, "", $title);
+					$obj->setTitle($title);
+					break;
+				
+				case 'year':
+					$year = $arrData[3];
+					$obj->setYear($year);		
+					break;
+					
+				case 'studio':
+					$studio = $arrData[2];
+					$obj->setStudio($studio);
+					break;
+										
+				case 'thumbnail':
+					$obj->setImage($arrData);
+					break;
+					
+				case 'genre':
+					foreach ($arrData as $item) {
+						$genre = $item[2];
+						$obj->addCategory($genre);
+					}
+					break;
+					
+				case 'cast':
+					if (isset($arrData[0][1])) {
+						$pornstars = explode(",", $arrData[0][1]);
+						foreach ($pornstars as $pornstar) {
+							$obj->addActor(ltrim($pornstar, "\."));
+						}
+					}
+					
+					
+					break;
+					
+					
+				default:
+					break;
+			}
+			
+		}
+		
+		$this->fetchedObj = $obj;
 	}
 	
 	
@@ -112,7 +172,7 @@ class VCDFetch_jaded extends VCDFetch {
 	
 	/**
 	 * Get the Full HTTP image path for the asked for image on the DVDEmpire server.
-	 * Valid image types are thumbnail, frontcover, backcover and screenshots.
+	 * Valid image types are thumbnail, frontcover, backcover.
 	 * All except screenshots return strings, screenshots returns an array of all screenshot images for that movie.
 	 *
 	 * @param string $image_type
@@ -120,33 +180,24 @@ class VCDFetch_jaded extends VCDFetch {
 	 */
 	private function getImagePath($image_type) {
 	
-		$folder = substr($this->getItemID(),0,1);
-		$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
-		
+		$folder = substr($this->getItemID(),0,3);
+				
 		switch ($image_type) {
 			case 'thumbnail':
+				$imagebase = "http://www.jadedvideo.com/images/".$folder."/thumbs/".$this->getItemID();
 				return $imagebase.".jpg";
 				break;
 				
 			case 'frontcover':
-				return $imagebase."h.jpg";
+				$imagebase = "http://www.jadedvideo.com/images/".$folder."/front/".$this->getItemID();
+				return $imagebase.".jpg";
 				break;
 				
 			case 'backcover':
-				return $imagebase."bh.jpg";
+				$imagebase = "http://www.jadedvideo.com/images/".$folder."/back/".$this->getItemID();
+				return $imagebase.".jpg";
 				break;
-		
-			case 'screenshots':
-				// Return array of all screenshots
-				$screenbase = "http://images.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
-				$screens = array();
-				for($i = 1; $i <= 40 ; $i++) {
-					$path = $screenbase."_".$i."l.jpg";
-					array_push($screens, $path);
-				}
-				return $screens;
-				break;
-				
+						
 			default:
 				return false;
 				break;

@@ -84,6 +84,25 @@ function displayFetchedObject($fetchedObj) {
 		// Generic Fetched Object actions ..
 		if (strcmp($fetchedObj->getImage(), "") != 0) {
 			$filename = VCDUtils::grabImage($fetchedObj->getImage());
+			// Check if we need to resize the thumbnail ..
+			list($width, $height) = getimagesize(TEMP_FOLDER.$filename); 
+			if ((int)$width > 135) {
+				// Image to big .. resize it
+				$im = new Image_Toolbox(TEMP_FOLDER.$filename);
+				if ($fetchedObj instanceof adultObj ) {
+					$im->newOutputSize(135,0);
+				} else {
+					$im->newOutputSize(0,140);
+				}
+				
+				$newFilename ="x".$filename;
+				$im->save(TEMP_FOLDER.$newFilename, 'jpg');
+				//unset($im);
+				//fs_unlink($filename);
+				$filename = $newFilename;
+			}
+			
+			
 			$fetchedObj->setImage($filename);	
 		}
 		

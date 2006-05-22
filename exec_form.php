@@ -14,7 +14,6 @@
 <?
 include_once("classes/includes.php");
 require_once('classes/fetch/fetch_dvdempire.php');
-include_once('classes/external/Image_Toolbox.class.php');
 
 if (!VCDUtils::isLoggedIn()) {
 	die("Unauthorized Access");
