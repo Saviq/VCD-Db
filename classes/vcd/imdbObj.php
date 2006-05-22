@@ -176,28 +176,7 @@
 		$this->rating = $strRating;
 	}
 
-	/**
-	 * Get the IMDB runtime in minutes
-	 *
-	 * @return int
-	 */
-	public function getRuntime() {
-		if (!is_numeric($this->runtime)) {
-			return 0;
-		} else {
-			return $this->runtime;
-		}
 
-	}
-
-	/**
-	 * Set the runtime in minutes
-	 *
-	 * @param int $strRuntime
-	 */
-	public function setRuntime($strRuntime) {
-		$this->runtime = $strRuntime;
-	}
 
 	/**
 	 * Get the country list origin of the movie

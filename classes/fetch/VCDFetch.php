@@ -502,16 +502,20 @@ abstract class VCDFetch {
 			/*  Since the item was a direct hit we have to figure out 
 			    the id from the given redirect url */
 			
+			$dvdempitempath = 'item_id=[$]';
 			$regex = str_replace("[$]", "([0-9]+)", $this->fetchItemPath);
 			@ereg($regex, $this->getSearchRedirectUrl(), $results);
-			
 						
-			//print_r($results);
-			//die($this->getSearchRedirectUrl());
-			
-			if (isset($regex[1])) {
+			if (isset($results[1])) {
+				// IMDB and most generic sites
 				$this->itemID = $results[1];
 				return $this->itemID;
+				
+			} elseif (@ereg(str_replace("[$]", "([0-9]+)", $dvdempitempath), $this->getSearchRedirectUrl(), $results)) {
+				// dvdempire only ..
+				$this->itemID = $results[1];
+				return $this->itemID;
+				
 			} else {
 				return null;
 			}

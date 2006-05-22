@@ -1349,7 +1349,7 @@ function display_fetchsites() {
 	$html = "<select name=\"fetchsite\">";
 	foreach ($arrFetchableSites as $sourceSiteObj) {
 		$selected = "";
-		if (strcmp($sourceSiteObj->getAlias(), $defaultClassName) == 0) {
+		if (strcmp(strtolower($sourceSiteObj->getAlias()), strtolower($defaultClassName)) == 0) {
 			$selected = " selected=\"selected\"";
 		}
 		$html .= "<option value=\"".$sourceSiteObj->getAlias()."\"{$selected}>".$sourceSiteObj->getName()."</option>";

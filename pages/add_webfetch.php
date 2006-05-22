@@ -53,6 +53,7 @@ if (isset($_GET['fid'])) {
 	$fetchClass->fetchItemByID($id);
 	$fetchClass->fetchValues();
 	$obj = $fetchClass->getFetchedObject();
+	$obj->setSourceSite($sourceObj->getsiteID());
 	
 	displayFetchedObject($obj);
 	
@@ -90,12 +91,19 @@ function displayFetchedObject($fetchedObj) {
 		
 		if ($fetchedObj instanceof imdbObj ) {
 			
-			require_once('pages/imdb_confirm.php');
+			require_once('pages/confirm_movie.php');
 		
 		
 		} elseif ($fetchedObj instanceof adultObj ) {
 		
 			
+			require_once('pages/confirm_adult.php');
+			
+			/*
+			print "<pre>";
+			print_r($fetchedObj)	;
+			print "</pre>";
+			*/
 				
 		}
 		

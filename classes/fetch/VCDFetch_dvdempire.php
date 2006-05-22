@@ -53,7 +53,71 @@ class VCDFetch_dvdempire extends VCDFetch {
 	}
 	
 	protected function processResults() {
-		//print $this->getContents();
+			if (!is_array($this->workerArray) || sizeof($this->workerArray) == 0) {
+				$this->setErrorMsg("No results to process.");
+				return;
+			}
+					
+		$obj = new adultObj();
+		$obj->setObjectID($this->getItemID());
+				
+		foreach ($this->workerArray as $key => $data) {
+			
+			$entry = $data[0];
+			$arrData = $data[1];
+			
+			switch ($entry) {
+				case 'title':
+					$title = $arrData[1];
+					$obj->setTitle($title);
+					break;
+				
+				case 'year':
+					$year = $arrData[1];
+					$obj->setYear($year);		
+					break;
+					
+				case 'studio':
+					$studio = $arrData[2];
+					$obj->setStudio($studio);
+					break;
+					
+				case 'screens':
+					$screencount = $arrData[1];
+					if (is_numeric($screencount)) {
+						$arrScreens = $this->getImagePath('screenshots');
+						for($i=0;$i<$screencount;$i++) {
+							$obj->addScreenShotFile($arrScreens[$i]);
+						}
+					}
+					break;
+					
+				case 'thumbnail':
+					$obj->setImage($arrData);
+					break;
+					
+				case 'genre':
+					foreach ($arrData as $item) {
+						$genre = $item[2];
+						$obj->addCategory($genre);
+					}
+					break;
+					
+				case 'cast':
+					foreach ($arrData as $item) {
+						$actor = $item[1];
+						$obj->addActor($actor);
+					}
+					break;
+					
+					
+				default:
+					break;
+			}
+			
+		}
+		
+		$this->fetchedObj = $obj;
 	}
 	
 	

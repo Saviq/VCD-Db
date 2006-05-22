@@ -31,10 +31,32 @@ class fetchedObj {
 	protected $year;
 	protected $runtime;
 	protected $image;
+	protected $covers = array();
+	private $sourcesiteID;
 	
 
 	public function __construct() {}
 
+	
+	/**
+	 * Set the Object ID.  The ID of the fetched item from the fetched site.
+	 *
+	 * @param string $strID
+	 */
+	public function setObjectID($strID) {
+		$this->objectID = $strID;
+	}
+	
+
+	/**
+	 * Get the Object ID.  The ID of the item from the fetched site.
+	 *
+	 * @return string
+	 */
+	public function getObjectID() {
+		return $this->objectID;
+	}
+	
 	
 	/**
 	 * Get the movie title
@@ -107,7 +129,7 @@ class fetchedObj {
 	 * @param string $strImage
 	 */
 	public function setImage($strImage) {
-		$this->image = $strImage;
+		$this->image = trim($strImage);
 	}
 
 	/**
@@ -118,6 +140,47 @@ class fetchedObj {
 	public function getImage() {
 		return $this->image;
 	}
+	
+	
+	/**
+	 * Set the ID of the sourceSiteObj that created the object
+	 *
+	 * @param int $iSourceSiteID
+	 */
+	public function setSourceSite($iSourceSiteID) {
+		if (is_numeric($iSourceSiteID)) {
+			$this->sourcesiteID = $iSourceSiteID;
+		} 
+	}
+	
+	/**
+	 * Get the ID of the Sourcesite that created the object
+	 *
+	 * @return int
+	 */
+	public function getSourceSiteID() {
+		return $this->sourcesiteID;
+	}
+	
+	/**
+	 * Add CD-cover to the fetched object
+	 *
+	 * @param cdcoverObj $coverObj
+	 */
+	public function addCover(cdcoverObj $coverObj) {
+		array_push($this->covers, $coverObj);
+	}
+	
+	/**
+	 * Get the CD-covers that have been added to the object.
+	 * Returns array of cdcoverObjects.
+	 *
+	 * @return array
+	 */
+	public function getCovers() {
+		return $this->covers;
+	}
+	
 
 }
 
