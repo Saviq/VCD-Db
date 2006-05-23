@@ -23,6 +23,7 @@
 		private $actors = array();
 		private $screenshots = 0;
 		private $screenshotimages = array();
+		private $images = array();
 			
 		
 		/**
@@ -122,6 +123,35 @@
 		 */
 		public function getActors() {
 			return $this->actors;
+		}
+		
+		
+		/**
+		 * Add new image to the image array.
+		 *
+		 * @param string $strImageType
+		 * @param string $strImageLocation
+		 */
+		public function addImage($strImageType, $strImageLocation) {
+			if (strcmp($strImageType, "") != 0 && strcmp($strImageLocation,"") != 0) {
+				array_push($this->images, array('type' => $strImageType, 'url' => $strImageLocation));
+			}
+		}
+		
+		/**
+		 * Get the location of the requested image type.
+		 * If image type is not found, function returns null.
+		 *
+		 * @param string $strImageType
+		 * @return string
+		 */
+		public function getImageLocation($strImageType) {
+			foreach ($this->images as $imageItem) {
+				if (strcmp($strImageType, $imageItem['type']) == 0) {
+					return $imageItem['url'];
+				}
+			}
+			return null;
 		}
 		
 		public function toXML() {

@@ -20,7 +20,7 @@
 ?>
 
 
-<form name="empire_comfirm" action="exec_form.php?action=addfromempire" method="post">
+<form name="empire_comfirm" action="exec_form.php?action=adultmoviefetch" method="post">
 <input type="hidden" name="thumbnail" value="<?=$picname?>"/>
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
 <tr>
@@ -183,8 +183,8 @@
 			<?=$language->show('EM_NOTICE')?>
 			</td>
 			<td valign="top" width="25%"><h2><?=$language->show('EM_FETCH')?></h2>
-			<input type="checkbox" name="imagefetch[]" value="VCD Front Cover" checked class="nof"/>Front Cover<br/>
-			<input type="checkbox" name="imagefetch[]" value="VCD Back Cover" checked class="nof"/>Back Cover<br/>
+			<input type="checkbox" name="imagefetch[]" value="VCD Front Cover" checked="checked" class="nof"/>Front Cover<br/>
+			<input type="checkbox" name="imagefetch[]" value="VCD Back Cover" checked="checked" class="nof"/>Back Cover<br/>
 			<?
 				$screens = $fetchedObj->getScreenShotCount();
 				if ($screens > 0) {

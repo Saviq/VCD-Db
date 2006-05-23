@@ -3,7 +3,7 @@
 	$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
 ?>
 
-<form name="imdbfetcher" action="exec_form.php?action=addfromimdb" method="post">
+<form name="imdbfetcher" action="exec_form.php?action=moviefetch" method="post">
 <input type="hidden" name="imdb" value="<?=$fetchedObj->getIMDB()?>"/>
 <input type="hidden" name="image" value="<?=$fetchedObj->getImage()?>"/>
 <table cellspacing="0" cellpadding="0" width="100%" border="0" class="displist">

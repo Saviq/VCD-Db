@@ -1,6 +1,6 @@
 <?php 
 	
-	$objArr = array ("id"=>"", "name"=>"", "alias"=>"", "homepage"=>"", "command"=>"", "isFetchable"=>"", "classname"=>"");
+	$objArr = array ("id"=>"", "name"=>"", "alias"=>"", "homepage"=>"", "command"=>"", "isFetchable"=>"", "classname"=>"", "image"=>"");
 	$readonly = "";	
 	$button_value = "Save";
 	$check = "";
@@ -19,6 +19,7 @@
 		$objArr['command']   = $sourceSiteObj->getCommand();
 		$objArr['isFetchable']   = $sourceSiteObj->isFetchable();
 		$objArr['classname']   = $sourceSiteObj->getClassName();
+		$objArr['image']   = $sourceSiteObj->getImage();
 		if ((bool)$objArr['isFetchable']) 
 			$check = "checked";
 		
@@ -57,7 +58,11 @@
 </tr>
 <tr>
 	<td>Class name:</td>
-	<td><input name="classname" type="text" size="60" value="<?=$objArr['classname']?>"  onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="classname" type="text" size="60" title="The PHP classname, Case Sensetive, Class must reside in folder 'classes/fetch'" value="<?=$objArr['classname']?>"  onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+</tr>
+<tr>
+	<td>Image path:</td>
+	<td valign="absmiddle"><input name="imagename" type="text" size="44" value="<?=$objArr['image']?>" title="Image must reside in folder 'images/logos/'" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Is fetchable:</td>

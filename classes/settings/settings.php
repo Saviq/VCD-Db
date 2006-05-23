@@ -267,6 +267,9 @@ class vcd_settings implements ISettings {
 	public function addSourceSite($sourceSiteObj) {
 		try {
 			if ($sourceSiteObj instanceof sourceSiteObj ) {
+				if ($sourceSiteObj->isFetchable() && strcmp($sourceSiteObj->getClassName(),"") == 0) {
+					throw new Exception("When object is marked fetchable, classname must be defined.");
+				}
 				$this->SQL->addSourceSite($sourceSiteObj);
 				$this->updateSiteCache();
 			} else {
@@ -304,6 +307,19 @@ class vcd_settings implements ISettings {
 	public function updateSourceSite($sourceSiteObj) {
 		try {
 			if ($sourceSiteObj instanceof sourceSiteObj ) {
+				
+				if ($sourceSiteObj->isFetchable() && strcmp($sourceSiteObj->getClassName(),"") == 0) {
+					throw new Exception("When object is marked fetchable, classname must be defined.");
+				}
+				
+				if (strcmp($sourceSiteObj->getImage(),"") != 0) {
+					$filename = '../images/logos/'.$sourceSiteObj->getImage();
+					if (!fs_file_exists($filename)) {
+						throw new Exception("File " . $filename ." was not found.");
+					}
+				}
+			
+			
 				$this->SQL->updateSourceSite($sourceSiteObj);
 				$this->updateSiteCache();
 			} else {

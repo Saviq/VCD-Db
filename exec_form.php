@@ -13,7 +13,6 @@
 ?>
 <?
 include_once("classes/includes.php");
-require_once('classes/fetch/fetch_dvdempire.php');
 
 if (!VCDUtils::isLoggedIn()) {
 	die("Unauthorized Access");
@@ -350,7 +349,7 @@ switch ($form) {
 
 
 	/* Add a movie to the database from the IMDB form */
-	case 'addfromimdb':
+	case 'moviefetch':
 
 		// Create the basic CD obj
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
@@ -423,8 +422,13 @@ switch ($form) {
 		break;
 
 
-		/* Add movie from the DVDEmpire fetcher */
-		case 'addfromempire':
+		/* Add adult movie from Web-fetch */
+		case 'adultmoviefetch':
+			// Get the fetchedObj from session and unset it from session
+			$fetchedObj = $_SESSION['_fetchedObj'];
+			unset($_SESSION['_fetchedObj']);
+			
+			
 			// Create the basic CD obj
 			$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
 			$vcd = new vcdObj($basic);
@@ -453,7 +457,7 @@ switch ($form) {
 
 
 			// Set the source site
-			$sourceSiteObj = $SETTINGSClass->getSourceSiteByAlias('DVDempire');
+			$sourceSiteObj = $SETTINGSClass->getSourceSiteByID($fetchedObj->getSourceSiteID());
 			if ($sourceSiteObj instanceof sourceSiteObj ) {
 				$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['id']);
 			}
@@ -481,10 +485,6 @@ switch ($form) {
 					}
 				}
 	     	}
-
-
-
-
 
 
 
@@ -516,21 +516,17 @@ switch ($form) {
 
 						if (isset($_POST['screenshotcount'])) {
 							$screencount = $_POST['screenshotcount'];
-							$empire = new fetch_dvdempire();
-							$empire->setID($vcd->getExternalID());
-							$empire->setScreenShotsCount($screencount);
-							$screenFiles = $empire->getImagePath('screenshots');
-
+							$screenFiles = $fetchedObj->getScreenShotImages();
 						}
 
 
 					} else {
 
-						// Fetch the image from DVDEmpire
-						$empire = new fetch_dvdempire();
-						$empire->setID($vcd->getExternalID());
-						$path = $empire->getImagePath($image_type);
+						// Fetch the image from the sourceSite
+						$path = $fetchedObj->getImageLocation($image_type);
+												
 						$image_name = VCDUtils::grabImage($path);
+						print $path . "<br>";
 
 						$cover = new cdcoverObj();
 						$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
@@ -585,8 +581,7 @@ switch ($form) {
 				$SETTINGSClass->addComment($commObj);
 			}
 
-
-
+			
 			if (is_numeric($new_id) && $new_id != -1) {
 				redirect("?page=cd&vcd_id=".$new_id."");
 			}

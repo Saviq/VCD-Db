@@ -154,7 +154,8 @@
 		public function getSourceSites() {
 			try {
 
-			$query = "SELECT site_id, site_name, site_alias, site_homepage, site_getCommand, site_isFetchable, site_classname
+			$query = "SELECT site_id, site_name, site_alias, site_homepage, site_getCommand, 
+					  site_isFetchable, site_classname, site_image
 					  FROM $this->TABLE_sites ORDER BY site_name";
 
 			$rs = $this->db->Execute($query);
@@ -177,12 +178,13 @@
 			try {
 
 			$query = "INSERT INTO $this->TABLE_sites
-					  (site_name, site_alias, site_homepage, site_getCommand, site_isFetchable, site_classname) VALUES
+					  (site_name, site_alias, site_homepage, site_getCommand, site_isFetchable, site_classname, site_image) VALUES
 					  (".$this->db->qstr($obj->getName()).",
 					   ".$this->db->qstr($obj->getAlias()).",
 					   ".$this->db->qstr($obj->getHomepage()).",
 					   ".$this->db->qstr($obj->getCommand()).",".(int)$obj->isFetchable().",
-					   ".$this->db->qstr($obj->getClassName())."
+					   ".$this->db->qstr($obj->getClassName()).",
+					   ".$this->db->qstr($obj->getImage())."
 					   )";
 
 			$this->db->Execute($query);
@@ -202,7 +204,8 @@
 					  site_homepage = ".$this->db->qstr($obj->getHomepage()).",
 					  site_getCommand = ".$this->db->qstr($obj->getCommand()).",
 					  site_isFetchable = ".(int)$obj->isFetchable().",
-					  site_classname = ".$this->db->qstr($obj->getClassName())."
+					  site_classname = ".$this->db->qstr($obj->getClassName()).",
+					  site_image = ".$this->db->qstr($obj->getImage())."
 					  WHERE site_id = " . $obj->getsiteID();
 			$this->db->Execute($query);
 

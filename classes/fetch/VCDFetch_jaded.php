@@ -58,6 +58,8 @@ class VCDFetch_jaded extends VCDFetch {
 					
 		$obj = new adultObj();
 		$obj->setObjectID($this->getItemID());
+		$obj->addImage('VCD Front Cover', $this->getImagePath('frontcover'));
+		$obj->addImage('VCD Back Cover', $this->getImagePath('backcover'));
 				
 		foreach ($this->workerArray as $key => $data) {
 			

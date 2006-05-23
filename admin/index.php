@@ -507,7 +507,7 @@
 				if (isset($_POST['isFetchable']))
 					$fetchable = 1;
 				
-				$data = array("",$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname']);
+				$data = array("",$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname'], $_POST['imagename']);
 				$sObj = new sourceSiteObj($data);
 				$SETTINGSclass->addSourceSite($sObj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
@@ -520,7 +520,7 @@
 				if (isset($_POST['isFetchable']))
 					$fetchable = 1;
 					
-				$data = array($_POST['id'],$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname']);
+				$data = array($_POST['id'],$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname'], $_POST['imagename']);
 				$obj = new sourceSiteObj($data);
 				$SETTINGSclass->updateSourceSite($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";

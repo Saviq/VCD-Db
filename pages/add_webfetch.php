@@ -54,10 +54,8 @@ if (isset($_GET['fid'])) {
 	$fetchClass->fetchValues();
 	$obj = $fetchClass->getFetchedObject();
 	$obj->setSourceSite($sourceObj->getsiteID());
-	
+		
 	displayFetchedObject($obj);
-	
-	
 	
 	
 } else {
@@ -67,6 +65,7 @@ if (isset($_GET['fid'])) {
 	 	$fetchClass->fetchItemByID();
 	 	$fetchClass->fetchValues();
 	 	$obj = $fetchClass->getFetchedObject();
+	 	$obj->setSourceSite($sourceObj->getsiteID());
 	 	displayFetchedObject($obj);
 	} else {
 	 	$fetchClass->showSearchResults();	
@@ -79,7 +78,7 @@ function displayFetchedObject($fetchedObj) {
 		if (!$fetchedObj instanceof fetchedObj ) {
 			throw new Exception("Invalid fetched object.");
 		}
-		
+
 		
 		// Generic Fetched Object actions ..
 		if (strcmp($fetchedObj->getImage(), "") != 0) {
@@ -97,8 +96,8 @@ function displayFetchedObject($fetchedObj) {
 				
 				$newFilename ="x".$filename;
 				$im->save(TEMP_FOLDER.$newFilename, 'jpg');
-				//unset($im);
-				//fs_unlink($filename);
+				unset($im);
+				fs_unlink($filename);
 				$filename = $newFilename;
 			}
 			
@@ -106,24 +105,18 @@ function displayFetchedObject($fetchedObj) {
 			$fetchedObj->setImage($filename);	
 		}
 		
+		// Store the fetchedObject in session for later usage
+		$_SESSION['_fetchedObj'] = $fetchedObj;
 		
 		
 		if ($fetchedObj instanceof imdbObj ) {
 			
 			require_once('pages/confirm_movie.php');
-		
-		
+				
 		} elseif ($fetchedObj instanceof adultObj ) {
 		
-			
 			require_once('pages/confirm_adult.php');
-			
-			/*
-			print "<pre>";
-			print_r($fetchedObj)	;
-			print "</pre>";
-			*/
-				
+						
 		}
 		
 		

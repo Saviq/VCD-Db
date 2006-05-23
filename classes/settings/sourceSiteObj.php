@@ -25,6 +25,7 @@ class sourceSiteObj implements XMLable {
 		private $site_getCommand;
 		private $isFetchable;
 		private $site_classname;
+		private $site_image;
 	
 	/**
 	 * Object constructor
@@ -40,6 +41,7 @@ class sourceSiteObj implements XMLable {
 		$this->site_getCommand  = $dataArr[4];
 		$this->isFetchable 		= $dataArr[5];
 		$this->site_classname   = $dataArr[6];
+		$this->site_image		= $dataArr[7];
 	}
 	
 	/**
@@ -107,6 +109,24 @@ class sourceSiteObj implements XMLable {
 		return $this->site_classname;
 	}
 		
+	/**
+	 * Set the image/logo for this sourcesite
+	 *
+	 * @param string $strImage
+	 */
+	public function setImage($strImage) {
+		$this->site_image = $strImage;
+	}
+	
+	/**
+	 * Get the image/logo associated with this sourcesite.
+	 *
+	 * @return string
+	 */
+	public function getImage() {
+		return $this->site_image;
+	}
+	
 		
 	/**
 	 * Get the XML representation of the object

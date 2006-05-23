@@ -170,11 +170,11 @@ switch ($CURRENT_PAGE) {
 							require_once('pages/add_webfetch.php');
 						}
 						
-						if (strcmp($source, "imdb") == 0) {
+						if (strcmp($source, "moviefetch") == 0) {
 							require_once('pages/add_imdbfetch.php');
 						}
 						
-						if (strcmp($source, "dvdempire") == 0) {
+						if (strcmp($source, "adultmoviefetch") == 0) {
 							require_once('pages/add_empirefetch.php');
 						}
 						
