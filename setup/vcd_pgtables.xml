@@ -110,10 +110,10 @@
 		</field>
 		<field name="site_getCommand" type="C" size="100"/>
 		<field name="site_isFetchable" type="I">
-		<field name="site_classname" type="C" size="20"/>
-		<field name="site_image" type="C" size="50"/>
 			<NOTNULL/>
 		</field>
+		<field name="site_classname" type="C" size="20"/>
+		<field name="site_image" type="C" size="50"/>
 	</table>
 	<table name="vcd_Users">
 		<field name="user_id" type="I" size="10">
