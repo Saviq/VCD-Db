@@ -592,10 +592,10 @@
 		<descr>Source Sites</descr>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (1,'Internet Movie Database','imdb','http://www.imdb.com','http://www.imdb.com/title/tt#',1, 'VCDFetch_imdb','imdb.gif')</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (2,'Adult DVD Empire','DVDempire','http://www.adultdvdempire.com','http://www.adultdvdempire.com/Exec/v1_item.asp?item_id=#',1,'VCDFetch_dvdempire','dvdempire.gif')</query>
-		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (3,'Internet Adult Film Database','iafd','http://www.iafd.com/',null,0)</query>
-		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (4,'Jaded Video','jaded','http://jadedvideo.com',null,0)</query>
-		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (5,'CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0)</query>
-		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES (6,'Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0)</query>
+		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (3,'Internet Adult Film Database','iafd','http://www.iafd.com/',null,0,null,null)</query>
+		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (4,'Jaded Video','jaded','http://jadedvideo.com','http://jadedvideo.com/search_result.asp?product_id=#',1,'VCDFetch_jaded','jaded.gif')</query>
+		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (5,'CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0,null,null)</query>
+		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (6,'Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0,null,null)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (7,'Yahoo Movies','yahoo','http://movies.yahoo.com/','http://movies.yahoo.com/movie/#/details',1,'VCDFetch_yahoo', 'yahoo.gif')</query>
 
 		<descr>System Metadata Types</descr>
