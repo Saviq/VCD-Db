@@ -18,7 +18,7 @@ CREATE TABLE vcd_RssFeeds ( feed_id INTEGER NOT NULL, user_id INTEGER NOT NULL, 
 CREATE TABLE vcd_Screenshots ( vcd_id INTEGER NOT NULL, PRIMARY KEY (vcd_id) )
 CREATE TABLE vcd_Sessions ( session_id VARCHAR(50) NOT NULL, session_user_id INTEGER NOT NULL, session_start INTEGER NOT NULL, session_ip VARCHAR(15) NOT NULL )
 CREATE TABLE vcd_Settings ( settings_id INTEGER NOT NULL, settings_key VARCHAR(50) NOT NULL, settings_value VARCHAR(250), settings_description VARCHAR(250), isProtected DECIMAL(1), settings_type VARCHAR(20), PRIMARY KEY (settings_id) )
-CREATE TABLE vcd_SourceSites ( site_id INTEGER NOT NULL, site_name VARCHAR(50) NOT NULL, site_alias VARCHAR(50), site_homepage VARCHAR(80) NOT NULL, site_getCommand VARCHAR(100), site_isFetchable DECIMAL(1) NOT NULL, PRIMARY KEY (site_id) )
+CREATE TABLE vcd_SourceSites ( site_id INTEGER NOT NULL, site_name VARCHAR(50) NOT NULL, site_alias VARCHAR(50), site_homepage VARCHAR(80) NOT NULL, site_getCommand VARCHAR(100), site_isFetchable DECIMAL(1) NOT NULL, site_classname VARCHAR(20), site_image VARCHAR(50), PRIMARY KEY (site_id) )
 CREATE TABLE vcd_UserLoans ( loan_id INTEGER NOT NULL, vcd_id INTEGER NOT NULL, owner_id INTEGER NOT NULL, borrower_id INTEGER NOT NULL, date_out DATE NOT NULL, date_in DATE, PRIMARY KEY (loan_id) )
 CREATE TABLE vcd_UserProperties ( property_id INTEGER NOT NULL, property_name VARCHAR(50) NOT NULL, property_description VARCHAR(80), PRIMARY KEY (property_id) )
 CREATE TABLE vcd_UserRoles ( role_id INTEGER NOT NULL, role_name VARCHAR(50) NOT NULL, role_description VARCHAR(100), PRIMARY KEY (role_id) )

@@ -60,11 +60,10 @@ if ($movie->isAdult()) {
 				<td><?= $movie->getNumCopies() ?></td>
 			</tr>
 			<tr>
-				<td colspan="2">
+				<td><?= drawSourceSiteLogo($movie->getSourceSiteID(), $movie->getExternalID()); ?></td>
+				<td>
 				<?
-					if (isset($imdb)) {
-						$imdb->printImageLink(); $imdb->drawRating();
-					}
+					if (isset($imdb)) {$imdb->drawRating();}
 				?>
 				</td>
 			</tr>

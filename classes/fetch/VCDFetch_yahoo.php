@@ -237,17 +237,9 @@ class VCDFetch_yahoo extends VCDFetch {
 
 		$results = parent::generateSimpleSearchResults($regx,1,2);
 		
-		
-		
-
 		parent::generateSearchSelection($results);
 		
-		/*
-		print "<pre>";
-		print_r($results);
-		print "</pre>";
-		*/
-					
+							
 	}
 	
 	

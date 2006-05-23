@@ -40,9 +40,9 @@
 	 * @param array $dataArr
 	 * @return imdbObj
 	 */
-	function imdbObj($dataArr = null) {
+	public function imdbObj($dataArr = null) {
 		if (is_array($dataArr)) {
-			$this->imdb 		= $dataArr[0];
+			$this->objectID		= $dataArr[0];
 			$this->title		= $dataArr[1];
 			$this->alt_title1	= $dataArr[2];
 			$this->alt_title2	= $dataArr[3];
@@ -225,7 +225,7 @@
 	 * @return string
 	 */
 	public function getIMDB() {
-		return $this->imdb;
+		return $this->objectID;
 	}
 
 	/**
@@ -234,7 +234,7 @@
 	 * @param string $strIMDB
 	 */
 	public function setIMDB($strIMDB) {
-		$this->imdb = $strIMDB;
+		$this->objectID = $strIMDB;
 	}
 
 

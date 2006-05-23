@@ -314,6 +314,8 @@ CREATE TABLE `vcd_SourceSites` (
   `site_homepage` varchar(80) NOT NULL default '',
   `site_getCommand` varchar(100) default NULL,
   `site_isFetchable` tinyint(4) NOT NULL default '0',
+  `site_classname` varchar(20) default NULL,
+  `site_image` varchar(50) default NULL,
   PRIMARY KEY  (`site_id`)
 )  ;
 

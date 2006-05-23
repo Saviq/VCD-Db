@@ -369,7 +369,9 @@ CREATE TABLE [dbo].[vcd_SourceSites] (
         [site_alias] [varchar] (50) NULL ,
         [site_homepage] [varchar] (80) NOT NULL ,
         [site_getCommand] [varchar] (100) NULL ,
-        [site_isFetchable] [bit] NOT NULL
+        [site_isFetchable] [bit] NOT NULL,
+        [site_classname] [varchar] (20) NULL ,
+        [site_image] [varchar] (50) NULL 
 ) ON [PRIMARY]
 
 

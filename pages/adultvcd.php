@@ -104,25 +104,7 @@ $cd_id = $_GET['vcd_id'];
 
 			?>
 			<tr>
-				<td colspan="2">
-				<?
-					if (isset($imdb)) {
-						$imdb->printImageLink();
-						print "<br/>";
-						$imdb->drawRating();
-					}
-
-					// Check for adultdvdempire link
-					if (strcmp($movie->getExternalID(), "" != 0) && is_numeric($movie->getSourceSiteID())) {
-						$sObj = $SETTINGSClass->getSourceSiteByID($movie->getSourceSiteID());
-						if (strcmp($sObj->getAlias(), 'DVDempire') == 0) {
-							$url = str_replace("#", $movie->getExternalID(), $sObj->getCommand());
-							print "<a href=\"".$url."\" target=\"_new\"><img src=\"images/dvdempire.gif\" class=\"imgx\" alt=\"Adult DVD Empire\" border=\"0\"/></a>";
-						}
-					}
-
-				?>
-				</td>
+				<td colspan="2"><?= drawSourceSiteLogo($movie->getSourceSiteID(), $movie->getExternalID()); ?></td>
 			</tr>
 			</table>
 

@@ -154,20 +154,10 @@ class VCDFetch_jaded extends VCDFetch {
 		
 		$this->setMaxSearchResults(50);
 		$regx = 'PRODUCT_ID=([0-9]{1,6})">([^<]*)</a></td>';
-		//$regx = 'PRODUCT_ID=69750">([^<]*)</a>';
 
 		$results = parent::generateSimpleSearchResults($regx,1,2);
 		
-		
-		
-
 		parent::generateSearchSelection($results);
-		
-		/*
-		print "<pre>";
-		print_r($results);
-		print "</pre>";
-		*/
 					
 	}
 	

@@ -1391,4 +1391,20 @@ function getFetchClasses($bShowAdult = false) {
 } 
 
 
+function drawSourceSiteLogo($sourceSiteID, $external_id) {
+	if (is_numeric($sourceSiteID) && strcmp($external_id,"") != 0) {
+		$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
+		$SourceSiteObj = $SettingsClass->getSourceSiteByID($sourceSiteID);	
+		if ($SourceSiteObj instanceof sourceSiteObj ) {
+			$image = "images/logos/".$SourceSiteObj->getImage();
+			$link = str_replace("#", $external_id, $SourceSiteObj->getCommand());
+			$html = "<a href=\"%s\" target=\"_new\"><img src=\"%s\" border=\"0\"/></a>";
+			$imgstring = sprintf($html, $link, $image);
+			return $imgstring;
+		}
+	}
+	
+}
+
+
 ?>

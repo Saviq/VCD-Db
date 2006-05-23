@@ -348,9 +348,13 @@ switch ($form) {
 
 
 
-	/* Add a movie to the database from the IMDB form */
+	/* Add a movie to the database from the web-fetch form */
 	case 'moviefetch':
 
+		// Get the fetchedObj from session and unset it from session
+		$fetchedObj = $_SESSION['_fetchedObj'];
+		unset($_SESSION['_fetchedObj']);
+		
 		// Create the basic CD obj
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
 		$vcd = new vcdObj($basic);
@@ -394,7 +398,7 @@ switch ($form) {
 
 
 		// Set the source site
-		$sourceSiteObj = $SETTINGSClass->getSourceSiteByAlias('imdb');
+		$sourceSiteObj = $SETTINGSClass->getSourceSiteByID($fetchedObj->getSourceSiteID());
 		if ($sourceSiteObj instanceof sourceSiteObj ) {
 			$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['imdb']);
 		}
@@ -524,9 +528,7 @@ switch ($form) {
 
 						// Fetch the image from the sourceSite
 						$path = $fetchedObj->getImageLocation($image_type);
-												
 						$image_name = VCDUtils::grabImage($path);
-						print $path . "<br>";
 
 						$cover = new cdcoverObj();
 						$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");

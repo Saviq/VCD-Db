@@ -110,6 +110,8 @@
 		</field>
 		<field name="site_getCommand" type="C" size="100"/>
 		<field name="site_isFetchable" type="I">
+		<field name="site_classname" type="C" size="20"/>
+		<field name="site_image" type="C" size="50"/>
 			<NOTNULL/>
 		</field>
 	</table>
@@ -437,7 +439,7 @@
 		</field>
 	</table>
 	<table name="vcd_MetaDataTypes">
-		<field name="type_id" type="I">
+		<field name="type_id" type="I" size="10">
 			<KEY/>
 			<AUTOINCREMENT/>
 			<UNIQUE/>

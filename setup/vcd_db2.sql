@@ -156,7 +156,9 @@ CREATE TABLE vcd_SourceSites (
         site_alias varchar (50)  ,
         site_homepage varchar (80) NOT NULL ,
         site_getCommand varchar (100)  ,
-        site_isFetchable SMALLINT NOT NULL
+        site_isFetchable SMALLINT NOT NULL,
+        site_classname varchar (20)  ,
+        site_image varchar (50) 
 ) 
 GO
 

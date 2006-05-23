@@ -13,7 +13,6 @@
 ?>
 <? 
 include_once('classes/includes.php');
-include_once('classes/external/Image_Toolbox.class.php');
 
 
 if (!VCDUtils::isLoggedIn()) {
