@@ -590,6 +590,20 @@ INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VA
 INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (16, 'dvdaudio', 'DVD Audio streams', 0);
 INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (17, 'dvdsubs', 'DVD subtitles', 0);
 INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (18, 'nfo', 'NFO Files', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (19, 'lastfetch', 'Last used fetch class', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (20, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (21, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (22, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (23, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (24, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (25, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (26, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (27, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (28, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (29, 'reserved', '', 0);
+INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (30, 'reserved', '', 0);
+
+
 
 -- <descr>XML Frontpage feeds</descr>
 INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url) VALUES (0, 'Adult DVD Empire - Bestsellers All Sex', 'http://adultdvdempire.com/Data_Include/RSS_Feeds/rss_adult_dvd_video_best_26986.xml');
