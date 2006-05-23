@@ -40,22 +40,3 @@
 </table>
 </form>
 </ul>
-
-<? 
-	
-	if (VCDUtils::showAdultContent()) {
-?>
-
-<h2>E) <?=$language->show('ADD_DVDEMPIRE')?></h2>
-<ul>
-<form action="./index.php?page=private&o=add&source=dvdempire" method="post" name="empire" id="empire">
-<table cellspacing="1" cellpadding="1" class="plain">
-<tr>
-	<td nowrap><?=$language->show('ADD_IMDBTITLE')?>:</td>
-	<td><input type="text" name="name" class="input" size="20"/>&nbsp;<input type="submit" value="<?=$language->show('SEARCH')?>" class="buttontext"/></td>
-</tr>
-
-</table>
-</form>
-</ul>
-<? } ?>
