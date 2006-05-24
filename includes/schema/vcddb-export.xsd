@@ -49,7 +49,7 @@
 	<xs:element name="imdb_id" type="xs:string"/>
 	<xs:element name="mediatype" type="xs:string"/>
 	<xs:element name="mediatype_id" type="xs:byte"/>
-	<xs:element name="record_id" type="xs:byte"/>
+	<xs:element name="record_id" type="xs:int"/>
 	<xs:element name="date" type="xs:string"/>
 	<xs:element name="text" type="xs:string"/>
 	<xs:element name="isPrivate" type="xs:boolean"/>
