@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id$
@@ -644,7 +644,7 @@ abstract class VCDFetch {
 	 * @return string
 	 */
 	private function fetchCachedPage($url) {
-		$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+		$cacheFileName = md5($url);
 		$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
 
 		if(file_exists($cacheFileName)) {
@@ -663,7 +663,7 @@ abstract class VCDFetch {
 	 */
 	private function writeToCache($url) {
 		if (!is_null($this->fetchContents) && strlen($this->fetchContents) > 0) {
-			$cacheFileName = preg_replace("#([^a-z0-9]*)#", "", $url);
+			$cacheFileName = md5($url);
 			$cacheFileName = CACHE_FOLDER."{$this->siteID}-".$cacheFileName;
 			$fp = fopen($cacheFileName, "w");
 			fwrite($fp, $this->fetchContents);
