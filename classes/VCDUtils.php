@@ -427,11 +427,16 @@ class VCDUtils {
 	 *
 	 * @param string $filename | The filename to create
 	 * @param string $content | The stream to write to disk
+	 * @param  bool $append | Append to the file or not
 	 * @return bool
 	 */
-	static function write($filename, $content){
+	static function write($filename, $content, $append=false){
 			if(!empty($filename) && !empty($content)){
-				$fp = fopen($filename,"w");
+				if ($append) {
+					$fp = fopen($filename, "a");
+				} else {
+					$fp = fopen($filename,"w");
+				}
 				$b = fwrite($fp,$content);
 				fclose($fp);
 				if($b != -1){
