@@ -27,6 +27,7 @@ Added	- Director's name is now a link to search and a link to imdb is added.
 Fixed	- Preventing doubling media type in one movie.
 Added	- User can now add another MediaType through movie manager.
 Added   - User can now set the default view for category view
+Fixed	- Changed cached file names to md5 hashes
 
 
 0.981
