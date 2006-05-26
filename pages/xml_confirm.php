@@ -1,4 +1,17 @@
 <h1><?=$language->show('XML_CONFIRM')?></h1>
+
+
+<script>
+
+	function setXMLFileName() {
+		var filename = document.getElementById('filename').value;
+		framedoc = document.getElementById("xmlframe").contentWindow.document
+		framedoc.getElementById('filename').value = filename;
+		
+	}
+
+</script>
+
 <? 
 	if (!VCDUtils::isLoggedIn()) {
 		redirect();
@@ -13,10 +26,12 @@
 		
 		
 		// Clean the titles from session and memory
+		/*
 		session_unregister('xmlfilename');
 		unset($_SESSION['xmlfilename']);
 		session_unregister('xmldata');
 		unset($_SESSION['xmldata']);
+		*/
 	}
 
 	if (!is_array($xmltitles) || sizeof($xmltitles) == 0) {
@@ -30,7 +45,7 @@
 	<br/><br/>
 	<form name="xmlconfirm" method="post" action="exec_form.php?action=xmlconfirm" enctype="multipart/form-data">
 		<input type="submit" class="input" value="<?=$language->show('X_CONFIRM')?>" onclick="return checkXMLConfirm(this.form)"/>&nbsp; <input type="button" onclick="clearXML('<?=$xmlfile?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
-		<input type="hidden" name="filename" value="<?=$xmlfile?>"/>
+		<input type="hidden" id="filename" name="filename" value="<?=$xmlfile?>"/>
 	
 	</p>
 		
@@ -40,10 +55,10 @@
 	</p>
 	<p>
 		<input type="checkbox" name="xmlthumbs" onclick="showupload(this.form, 'thumbupload');" value="thumbnails" class="nof"/><?=$language->show('XML_THUMBNAILS')?>
-		<div id="thumbupload" style="padding-left:20px;visibility:hidden;display:none"><input type="file" name="xmlthumbfile"/></div>
+		<div id="thumbupload" style="padding-left:20px;visibility:hidden;display:none">
+		<iframe src="pages/xml_frame.php" id="xmlframe" name="xmlframe" frameborder="0" height="20"></iframe>
+		</div>
 	</p>
-	
-		
 	
 	
 	<p><span class="bold"><?=$language->show('XML_LIST')?></span></p>
@@ -59,6 +74,9 @@
 	</ul>
 	
 	<br/><br/>
+	<script>
+		setXMLFileName();
+	</script>
 	</form>
 	
 
