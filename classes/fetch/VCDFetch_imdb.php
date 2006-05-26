@@ -216,7 +216,7 @@ class VCDFetch_imdb extends VCDFetch {
 					} else {
 						// Plot not found, use the Tagline instead and use the old buffer again
 						$regExTagline = '#Tagline:</b>([^<]*)#';
-						$this->setContents($buffer);
+						$this->setContents($itemBuffer);
 						if ($this->getItem($regExTagline) == self::ITEM_OK ) {
 							$plotArr = $this->getFetchedItem();
 							$plotText = $plotArr[1];
