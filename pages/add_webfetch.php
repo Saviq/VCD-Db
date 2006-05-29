@@ -41,7 +41,7 @@ if (!($metaDefaultClass instanceof metadataObj && strcmp($metaDefaultClass->getM
 
 
 if (strcmp($sTitle, "") != 0) {
-	print "<h1>{$sourceObj->getName()} &gt;&gt; {$sTitle}</h1><br/>";
+	print "<h1>{$sourceObj->getName()} &gt;&gt; {$sTitle}</h1>";
 }
 
 
