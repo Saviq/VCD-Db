@@ -8,6 +8,10 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
+ * @author  Michał Sawicz <michal@sawicz.net>
+ * @package Kernel
+ * @subpackage WebFetch
+ * @version $Id$
  */
 
 ?><?
