@@ -597,6 +597,7 @@
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (5,'CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,0,null,null)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (6,'Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,0,null,null)</query>
 		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (7,'Yahoo Movies','yahoo','http://movies.yahoo.com/','http://movies.yahoo.com/movie/#/details',1,'VCDFetch_yahoo', 'yahoo.gif')</query>
+		<query>INSERT INTO vcd_SourceSites (site_id,site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES (8,'FilmWeb.pl','filmweb','http://filmweb.pl/','http://filmweb.pl/Film,id=#',1,'VCDFetch_filmweb', 'filmweb.gif')</query>
 
 		<descr>System Metadata Types</descr>
 		<query>INSERT INTO vcd_MetaDataTypes (type_id,type_name, type_description, owner_id) VALUES (1, 'languages', 'Excluded langugages', 0)</query>
