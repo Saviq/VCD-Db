@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage CDCover
  * @version $Id$
@@ -140,7 +140,7 @@
 		public function updateCover($cdcoverObj) {
 			$query = "UPDATE $this->TABLE_covers 
 					  SET cover_type_id = ".$cdcoverObj->getCoverTypeID().",
-					  cover_file_name = ".$this->db->qstr($cdcoverObj->getFilename()).",
+					  cover_filename = ".$this->db->qstr($cdcoverObj->getFilename()).",
 					  cover_file_size = ".$cdcoverObj->getFilesize().",
 					  user_id = ".$cdcoverObj->getOwnerId().",
 					  date_added = ".$this->db->DBDate(time())."
