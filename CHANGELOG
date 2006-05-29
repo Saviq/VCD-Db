@@ -28,7 +28,8 @@ Fixed	- Preventing doubling media type in one movie.
 Added	- User can now add another MediaType through movie manager.
 Added   - User can now set the default view for category view
 Fixed	- Changed cached file names to md5 hashes
-
+Added	- Filmweb.pl fetch class
+Fixed	- Misnamed table in cdcoverSQL.php
 
 0.981
 Fixed   - User can now create user specific metadata with the same name.
