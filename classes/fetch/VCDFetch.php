@@ -416,13 +416,15 @@ abstract class VCDFetch {
 				}
 				
 				fclose($fp);
-				$this->fetchContents = $site;		
+				$this->fetchContents = $site;
 			}
 		}
 		
 		if ($useCache) {
 			$this->writeToCache($url);
 		}
+
+		if (ereg('"text/html;charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site);
 		
 		return $results;
 		
@@ -596,8 +598,19 @@ abstract class VCDFetch {
 	protected function setSiteName($sitename) {
 		$this->siteID = $sitename;
 	}
-		
-		
+
+	protected function getSiteName() {
+		return($this->siteID);
+	}
+
+	protected function setID($id) {
+		$this->itemID = $id;
+	}
+
+	protected function getID() {
+		return($this->itemID);
+	}
+	
 	/**
 	 * Set the current Error Message
 	 *
@@ -649,7 +662,9 @@ abstract class VCDFetch {
 
 		if(file_exists($cacheFileName)) {
 			$this->isCached = true;
-			return (implode("", file($cacheFileName)));
+			$site = implode("", file($cacheFileName));
+			if (ereg('"text/html;charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) return(iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site));
+			else return($site);
 		} else {
 			return null;
 		}
