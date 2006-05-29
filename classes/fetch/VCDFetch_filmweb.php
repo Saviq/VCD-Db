@@ -85,6 +85,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		}
 
 		$obj = new imdbObj();
+		$obj->setIMDB($this->getItemID());
 
 		foreach ($this->workerArray as $key => $data) {
 
@@ -209,7 +210,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		if (is_null($this->getSearchRedirectUrl())) {
 			if(is_numeric($this->getID())) return $this->getID();
 			else {
-				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl");
+				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl", false);
 				if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 				else return null;
 			}
@@ -217,7 +218,7 @@ class VCDFetch_filmweb extends VCDFetch {
 			return $id[1];
 		} else {
 			ereg("http://([^/]+)(/.*)?", $this->getSearchRedirectUrl(), $redirect);
-			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl");
+			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl", false);
 			if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 			else return null;
 		}
