@@ -23,7 +23,7 @@
 $_ = array(
 
 'LANG_TYPE'		=> 'BG',
-'LANG_NAME'		=> 'Bulgarian UTF',
+'LANG_NAME'		=> 'Bulgarian',
 'LANG_CHARSET'		=> 'UTF-8',
 'MENU_MINE'		=> 'Меню',
 'MENU_SETTINGS'		=> 'Настройки',
