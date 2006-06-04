@@ -26,7 +26,7 @@ class VCDFetch_yahoo extends VCDFetch {
 		'cast' 		  => null,
 		'plot'		  => '<font face=arial size=-1>([^<]*)<br clear',
 		'director'	  => '&id=([0-9]{10})&cf=gen">([^<]*)</a></font>',
-		'poster'	  => '<img src=([^<]*) width="101"',
+		'poster'	  => 'http://us.movies1.yimg.com/movies.yahoo.com/images/([^<]*).jpg',
 		'country'	  => 'Produced in:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>',
 		'runtime' 	  => 'Running Time:</b></font></td>([^<]*)<td valign="top"><font face=arial size=-1>([^<]*)</font></td>'
 		);
@@ -84,7 +84,7 @@ class VCDFetch_yahoo extends VCDFetch {
 					break;
 					
 				case 'poster':
-					$poster = $arrData[0][1];
+					$poster = $arrData[0][0];
 					if (substr_count($poster, "npa.gif") == 0) {
 						$obj->setImage($poster);
 					}
