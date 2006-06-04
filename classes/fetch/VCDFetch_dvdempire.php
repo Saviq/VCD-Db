@@ -158,10 +158,9 @@ class VCDFetch_dvdempire extends VCDFetch {
 	public function showSearchResults() {
 		
 		$this->setMaxSearchResults(50);
-		$regx = 'item_id=([^"]+)">([^<]*)</a></b>';
+		$regx = 'item_id=([^"]+)">([^<]*)</a>';
 		$results = parent::generateSimpleSearchResults($regx, 1, 2);
-		
-				
+						
 		parent::generateSearchSelection($results);
 					
 	}
