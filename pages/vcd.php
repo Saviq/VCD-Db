@@ -306,7 +306,8 @@ if ($movie->isAdult()) {
 
 	<div id="imdblinks">
 	<?
-		if (isset($imdb)) {
+		$SourceSiteObj = $SETTINGSClass->getSourceSiteByID($movie->getSourceSiteID());
+		if (isset($imdb) && $SourceSiteObj instanceof sourceSiteObj && strcmp($SourceSiteObj->getAlias(), "imdb") == 0) {
 			display_imdbLinks($imdb->getIMDB());
 		}
 	?>
