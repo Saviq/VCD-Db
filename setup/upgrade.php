@@ -278,8 +278,8 @@ function addQueryCount() {}
 		 	 <b><?=DB_TYPE?></b> server <b><?=DB_HOST?></b>
 		 	 
 		 </li>
-		 <li><span style="color:red">Attention</span>: Only upgrade from VCD-db v.0973 is supported!</li>
-		 <li><span style="color:red">Attention</span>: Be sure to have completed the required <b>STEP 1</b> described in the <b><a title="File opens in new Window!" target="_new" href="../README">README</a></b></li>
+		 <li><span style="color:red">Attention</span>: Only upgrade from VCD-db v.098 and v.0981 is supported!</li>
+		 <li><span style="color:red">Attention</span>: Be sure to have completed the required <b>STEPS 1 to 4</b> described in the <b><a title="File opens in new Window!" target="_new" href="../README">README</a></b></li>
 		
 	</ul>
 	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.open('updateMeta.php');document.getElementById('upgrade').disabled=false;this.disabled=true" value="Update Metadata"/><br/>
