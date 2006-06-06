@@ -1608,7 +1608,17 @@ class vcd_settings implements ISettings {
 	public function deleteMetadata($metadata_id) {
 		try {
 	 		if (is_numeric($metadata_id)) {
-	 			$this->SQL->deleteMetadata($metadata_id);
+	 			
+	 			// Check if user has rights to delete this metadata ..
+	 			$metaDataObj = $this->SQL->getMetadataById($metadata_id);
+	 			if ($metaDataObj instanceof metadataObj ) {
+	 				if ($metaDataObj->getUserID() == VCDUtils::getUserID() ) {
+	 					$this->SQL->deleteMetadata($metadata_id);
+	 				} else {
+	 					throw new Exception("You do not have rights to delete this object.");
+	 				}
+	 			}
+	 			
 	 		} else {
 	 			throw new Exception('metadata_id must be numeric');
 	 		}
