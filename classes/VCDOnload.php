@@ -18,8 +18,6 @@
 	VCD Application OnLoad functions and commands
 */
 
-
-session_name("VCD");
 session_start();
 $start_time = VCDUtils::getmicrotime(true);
 
@@ -79,6 +77,7 @@ if (isset($_SESSION['vcdlang'])) {
 	$language->load($_SESSION['vcdlang']);
 
 } else {
+	
 	$language = new language();
 
 	// Has the user a selected language in cookie?
@@ -91,7 +90,6 @@ if (isset($_SESSION['vcdlang'])) {
 	}
 
 }
-
 
 if (isset($_POST)) {
 	if (isset($_POST['lang'])) {
