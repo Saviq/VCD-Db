@@ -39,54 +39,26 @@ Installation.
 Upgrading.
 
 
-Upgrading from 0.98
-	Open file "classes/VCDConstants.php" and copy your Database settings to an empty
-    text document.  Close the file VCDConstants.php and unzip the new release to same
-    location your existing VCD-db is in and overwrite all files.
-    Thats it ..  Don't forget to delete the SETUP folder.
-
-
-Upgrading from 0.973, 0.972 or 0.971
-	First thing first :) Backup your existing database and contents of your VCD-db folder (justin case)
-	Open the path to your vcd-db installation.
-    Open file "classes/VCDConstants.php" and copy your Database settings to an empty
-    text document.  Close the file VCDConstants.php and unzip the new release to same
-    location your existing VCD-db is in and overwrite all files.
-	
-	First of all you need to change the table structure of the table "vcd_MetaData".  Open up
-	your favorite SQL manager .. (phpMyAdmin, Enterprise Manager, pgAdmin III .. etc)
-	
-	STEP 1)	Add 1 new column AFTER the column "record_id",
-			The new column name is "mediatype_id" of type "int" 
-			
-	STEP 2) Open the installer in the vcddb/setup/ folder and select the UPGRADE button.
-			On the upgrade page, select "Update Metadata".
-			By doing so you are rebuilding the metadata, no data will be lost.
-			
-	STEP 3) Again open table "vcd_MetaData" and rename column "metadata_name" to "type_id"
-			and change the datatype to "int".
-
-	STEP 4) Verify that your "vcd_MetaData" table is as follows after the changes ...
-			metadata_id (int)
-			record_id (int)
-			mediatype_id (int)
-			user_id (int)
-			type_id (int)
-			metadata_value (varchar)
-			
-	STEP 5) Now the dull part is over and you can head back to the "Upgrade Page" and
-			click on the "Upgrade VCD-db" button.
-			
-			
-	Final Step for those running on Unix/Linux/Mac .. (If running on Windows you can skip this step)
-	The new folder "/vcddb/upload/nfo" needs to be CHMOD-ed 0777 so NFO files can be uploaded.
-				
-	Delete the "setup" folder and start using VCD-db again.			
+Upgrading from 0.98 or from 0.981
+	1) Back up your existing settings file (classes/VCDConstants.php)
+	2) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
+	3) Two new columns in table vcd_SourceSites need to be created.
+	   Create them after the site_isFetchable column.
+		   a) create column "site_classname", varchar(20), null=yes, default=null
+	   	   b) create column "site_image", varchar(50), null=yes, default=null
+	   	   	(If you are using mysql you can use the SQL statement below to make things easier) (copy the text without quotes)
+	   	   	"ALTER TABLE vcd_SourceSites ADD site_classname VARCHAR(20) NULL AFTER site_isFetchable;
+	   	   	 ALTER TABLE vcd_SourceSites ADD site_image VARCHAR(50) NULL AFTER site_classname;"
+	4) Edit the file "classes/VCDConstants.php" and update your database settings.  (You can take a look at the backed up file as a reference.)
+	5) Open browser and goto your VCD-db site, click the setup link and select upgrade.
+	6) When the upgrade process has reported success, delete the /setup folder.
+	7) Congrats, you have just finished updating VCD-db :)
 
    
 Upgrading from versions below ..
-  	You will have to d/l an older release such as VCD-db 0.973 from sourceforge.net and
+  	You will have to d/l an older release such as VCD-db 0.98 from sf.net/projects/vcddb and
   	upgrade from that version.  Then after that, upgrade again with latest version.
+  	Since VCD-db is still in beta stage, I'm not providing upgrade support for very old releases.
 
 
   
@@ -117,11 +89,11 @@ Application Notes:
 6) The VCD-db GUI client does not work with VCD-db installed on IIS servers at the moment, 
    this will be fixed in the future.
    
-7) When using PostgreSQL, make sure the encoding is set to Latin1 not Unicode
+7) When using PostgreSQL, make sure the database encoding is set to Latin1 not Unicode
 
 8) To use LDAP authentication instead of the internal DB authentication system, you must
    edit the file 'classes/VCDConstants.php' and set the appropriate values to match your
    Directory Server configuration.
 
 9) When LDAP is used for authentication (defined in the classes/VCDConstants.php) users can not register,
-   All they have to do is login with their LDAP account and then the user is created for them.
+   All they have to do is login with their LDAP account and then the account in automatically created for them.
