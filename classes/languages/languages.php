@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Language
  * @version $Id$
@@ -47,6 +47,7 @@ class language
 		$lang = DEFAULT_LANG;
 		$this->init();
 		$this->checkForRestrictions();
+		
 	}
 
 
@@ -325,7 +326,7 @@ class language
 					$strSelected = "selected=\"selected\"";
 				}
 
-				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>".htmlentities($lang)."</option>";
+				$html .= "<option value=\"".$this->avail_language_tags[$i]."\" $strSelected>".$lang."</option>";
 			}
 
 			$i++;
@@ -374,16 +375,17 @@ class language
 				array_push($this->avail_language_files, $filename[1]);
 			}
 		}
-
+		
 
 		// Language files are now known to the class ..
 		// Lets check out what languages we have
 
 		if (!$this->admin_mode) {
+						
 			foreach ($this->avail_language_files as $language_file) {
 
 				if (file_exists(LANGUAGE_FILE_ROOT.$language_file)) {
-
+					
 					if (is_readable(LANGUAGE_FILE_ROOT.$language_file)) {
 						require_once('./'.LANGUAGE_FILE_ROOT.$language_file);
 						$currLang = &$_;
@@ -395,6 +397,7 @@ class language
 					}
 				}
 			}
+
 		} else {
 			foreach ($this->avail_language_files as $language_file) {
 
@@ -411,6 +414,7 @@ class language
 					}
 				}
 			}
+			
 		}
 	}
 

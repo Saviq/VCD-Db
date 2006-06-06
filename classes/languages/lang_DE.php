@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -127,7 +127,7 @@ $_ = array(
 'M_ACTORS'       	  	=> 'Besetzung',
 'M_CATEGORY'         	=> 'Kategorie',
 'M_YEAR'         		=> 'Produktionsjahr',
-'M_COPIES'        	 	=> 'Kopiën',
+'M_COPIES'        	 	=> 'Kopiï¿½n',
 'M_FROM'          		=> 'Von',
 'M_TITLE'         	 	=> 'Titel',
 'M_ALTTITLE'          	=> 'Alternativer Titel',
@@ -235,7 +235,7 @@ $_ = array(
 
 /* Add movies */
 'ADD_INFO'          	=> 'Folgende Datenquellen stehen zur Verf&uuml;gung',
-'ADD_IMDB'          	=> 'Einen Film aus der Internet Movie Database IMDB ausw&auml;hlen',
+'ADD_IMDB'          	=> 'Einen Film aus der Web ausw&auml;hlen',
 'ADD_IMDBTITLE'       	=> 'Suchbegriff',
 'ADD_MANUAL'          	=> 'Daten manuell eingeben',
 'ADD_LISTED'          	=> 'Einen Film aus der lokalen Datenbank ausw&auml;hlen',
@@ -436,6 +436,8 @@ $_ = array(
 'X_SAVENEXT'		=> 'Sichern SpeicherNext??',
 'X_SAVE'		=> 'Speichern',
 'X_SEEN'		=> 'Gesehen',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website',
 'X_TOGGLE'				=> 'Toggle preview',
 'X_TOGGLE_ON'			=> 'on',
 'X_TOGGLE_OFF'			=> 'off'

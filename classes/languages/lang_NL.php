@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  HÃ¡kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -36,7 +36,7 @@ $_ = array(
 'MENU_ADDMOVIE'       	=> 'Film toevoegen',
 'MENU_LOANSYSTEM'      	=> 'Uitleen balie',
 'MENU_WISHLIST'       	=> 'Mijn verlanglijstje',
-'MENU_CATEGORIES'       => 'Film kategoriën',
+'MENU_CATEGORIES'       => 'Film kategoriÃ«n',
 'MENU_RSS'          	=> 'Mijn Rss Feeds',
 'MENU_CONTROLPANEL'     => 'VCD-db Admin',
 'MENU_REGISTER'       	=> 'Registreer',
@@ -124,7 +124,7 @@ $_ = array(
 'M_ACTORS'          	=> 'Bezetting',
 'M_CATEGORY'            => 'Kategorie',
 'M_YEAR'         		=> 'Productie jaar',
-'M_COPIES'         		=> 'Kopiën',
+'M_COPIES'         		=> 'KopiÃ«n',
 'M_FROM'          		=> 'Van',
 'M_TITLE'          		=> 'Titel',
 'M_ALTTITLE'          	=> 'Alternatieve titel',
@@ -136,7 +136,7 @@ $_ = array(
 'M_PLOT'          		=> 'Verhaallijn',
 'M_NOPLOT'         		=> 'Geen verhaallijn beschikbaar',
 'M_COVERS'          	=> 'CD Afbeeldingen',
-'M_AVAILABLE'          	=> 'Beschikbare kopiën',
+'M_AVAILABLE'          	=> 'Beschikbare kopiÃ«n',
 'M_MEDIA'         		=> 'Medium',
 'M_NUM'          		=> 'Num CD\'s',
 'M_DATE'          		=> 'Datum toegevoegd',
@@ -146,7 +146,7 @@ $_ = array(
 'M_DETAILS'         	=> 'Details over mijn kopie',
 'M_MEDIATYPE'           => 'Media type',
 'M_COMMENT'         	=> 'Commentaar',
-'M_PRIVATE'         	=> 'Markeer privé?',
+'M_PRIVATE'         	=> 'Markeer privÃ©?',
 'M_SCREENSHOTS'         => 'Screenshots',
 'M_NOSCREENS'           => 'Geen screenshots beschikbaar',
 'M_SHOW'         		=> 'Toon',
@@ -218,13 +218,13 @@ $_ = array(
 'MAN_IMDB'       	    => 'IMDB info',
 'MAN_EMPIRE'            => 'DVDEmpire info',
 'MAN_COPY'          	=> 'Mijn kopie',
-'MAN_COPIES'            => 'Mijn kopiën',
-'MAN_NOCOPY'            => 'Je hebt geen kopiën.',
+'MAN_COPIES'            => 'Mijn kopiÃ«n',
+'MAN_NOCOPY'            => 'Je hebt geen kopiÃ«n.',
 'MAN_1COPY'          	=> 'Kopie',
 'MAN_ADDACT'          	=> 'Acteurs toevoegen',
 'MAN_ADDTODB'           => 'Voeg nieuwe acteurs toe aan de DB',
 'MAN_SAVETODB'          => 'Schrijf naar DB',
-'MAN_SAVETODBNCD'       => 'Schrijf naar DB én film',
+'MAN_SAVETODBNCD'       => 'Schrijf naar DB Ã©n film',
 'MAN_INDB'          	=> 'Acteurs in DB',
 'MAN_SEL'         		=> 'Geselecteerde acteurs',
 'MAN_STARS' 			=> 'Stars',
@@ -233,15 +233,15 @@ $_ = array(
 
 /* Add movies */
 'ADD_INFO'          	=> 'Kies methode om nieuwe film toe te voegen',
-'ADD_IMDB'          	=> 'Haal gegevens van Internet Movie Database',
+'ADD_IMDB'          	=> 'Haal gegevens van Web',
 'ADD_IMDBTITLE'       	=> 'Geef criteria om te zoeken',
 'ADD_MANUAL'          	=> 'Handmatig invoeren',
 'ADD_LISTED'          	=> 'Voeg films toe die bij andere gebruiker reeds staan vermeld',
-'ADD_XML'          		=> 'Voeg films toe vanuit geëxporteerd XML-bestand',
+'ADD_XML'          		=> 'Voeg films toe vanuit geÃ«xporteerd XML-bestand',
 'ADD_XMLFILE'           => 'Selecteer XML-bestand om te importeren',
-'ADD_XMLNOTE'           => '(<u>Waarschuwing:</u> alleen XML-bestanden die werden geëxporteerd vanuit een andere VCD-db installatie
+'ADD_XMLNOTE'           => '(<u>Waarschuwing:</u> alleen XML-bestanden die werden geÃ«xporteerd vanuit een andere VCD-db installatie
                   kunnen worden gebruikt om je films hier te importeren. Je kunt je films exporteren
-                  vanuit de "Mijn films" sectie. Probeer handmatige aanpassingen van de geëxporteerde
+                  vanuit de "Mijn films" sectie. Probeer handmatige aanpassingen van de geÃ«xporteerde
                   XML-bestanden te vermijden.) ',
 'ADD_MAXFILESIZE'       => 'Max bestandsgrootte',
 'ADD_DVDEMPIRE'       	=> 'Haal gegevens van Adult DVD Empire (X-rated films)',
@@ -261,22 +261,22 @@ $_ = array(
                   Of kies afbreken om hier uit te stappen. ',
 'XML_INFO2'          	=> 'Als je thumbnails (posters) will meenemen met de films die je met deze keuze gaat
                   importeren in je XML-bestand, dan <b>MOET</b> je het thumbnails XML-bestand nu beschikbaar hebben!.<br/>
-                  Posters kunnen niet worden geïmporteerd nadat je gereed bent met importeren van je films vanuit het huidige XML-bestand.
+                  Posters kunnen niet worden geÃ¯mporteerd nadat je gereed bent met importeren van je films vanuit het huidige XML-bestand.
                   Als je reeds het XML-bestand hebt, check dan het veld hieronder en in de volgende stap na het importeren
                   van je films in ondertaande lijst, zal tevens aan je worden gevraagd om het thumbnails XML-bestand
                   opdat deze gegevens mee kunnen worden verwerkt.',
 'XML_THUMBNAILS'      	=> 'Voeg thumbnails toe vanuit mijn thumbnails XML-bestand',
 'XML_LIST'         		=> 'Volledige lijst van films, aangetroffen in XML-bestand',
 'XML_ERROR'         	=> 'Geen titels gevonden in XML-bestand.<br/>Bestand kan beschadigd zijn, of het is gewoon een leeg bestand.
-                     <br/>Zorg ervoor dat je <u>zeker</u> het XML-bestand kiest dat werd geëxporteerd vanuit VCD-db..',
+                     <br/>Zorg ervoor dat je <u>zeker</u> het XML-bestand kiest dat werd geÃ«xporteerd vanuit VCD-db..',
 'XML_RESULTS'         	=> 'XML upload resultaten.',
-'XML_RESULTS2'          => 'Dit zijn de resultaten van je XML import.<br/>In totaal werden %d films geïmporteerd.',
+'XML_RESULTS2'          => 'Dit zijn de resultaten van je XML import.<br/>In totaal werden %d films geÃ¯mporteerd.',
 
 
 /* Add from DVD Empire */
 'EM_INFO'         		=> 'Informatie van AdultDVDEmpire.com ....',
 'EM_DESC'         		=> 'DVDEmpire beschrijving',
-'EM_SUBCAT'         	=> 'Adult categorieën',
+'EM_SUBCAT'         	=> 'Adult categorieÃ«n',
 'EM_DETAILS'         	=> 'Adultdvdempire.com details',
 'EM_STARS'         		=> 'Pornstars',
 'EM_NOTICE'         	=> 'Acteurs met rode markering zijn op dit moment niet beschikbaar in de VCD-DB.
@@ -319,7 +319,7 @@ $_ = array(
 'RSS_ADD'         		=> 'Toevoegen nieuwe feed',
 'RSS_NOTE'        		=> 'Enter de <strong>excacte url</strong> van de VCD database van je vriend/kennis.<br/>
                   Indien RSS beschikbaar is op de site van je vriend/kennis, dan kun je  de
-                  feeds waarin je geïnteresseerd bent selecteren en weergeven op jouw pagina.',
+                  feeds waarin je geÃ¯nteresseerd bent selecteren en weergeven op jouw pagina.',
 'RSS_FETCH'        		=> 'Ophalen RSS Lijst',
 'RSS_NONE'         		=> 'Geen RSS feeds toegevoegd.',
 'RSS_FOUND'        		=> 'De volgende RSS feeds werden aangetroffen, selecteer the feeds om toe te voegen:',
@@ -442,6 +442,8 @@ $_ = array(
 'X_SAVENEXT'          => 'Opslaan en bewerk volgende',
 'X_SAVE'             => 'Opslaan',
 'X_SEEN'             => 'Gezien',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website',
 'X_TOGGLE'				=> 'Toggle preview',
 'X_TOGGLE_ON'			=> 'on',
 'X_TOGGLE_OFF'			=> 'off'

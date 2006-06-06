@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  HÃ¡kon Birgsson <konni@konni.com>
  * @package Language
  * @version $Id$
  */
@@ -17,7 +17,7 @@
 <?
 	/**
 		French language file
-		Thanks to Cédric FOURNIER for the translation
+		Thanks to CÃ©dric FOURNIER for the translation
 
 	*/
 
@@ -26,20 +26,20 @@ $_ = array(
 
 /* Language Identifier */
 'LANG_TYPE' 		 	 =>  'FRA',
-'LANG_NAME' 		 	 =>  'Français',
+'LANG_NAME' 		 	 =>  'FranÃ§ais',
 'LANG_CHARSET'			 =>  'iso-8859-1',
 
 /* Menu system */
 'MENU_MINE' 		 	 =>  'Menu',
-'MENU_SETTINGS' 		 =>  'Mes paramètres',
+'MENU_SETTINGS' 		 =>  'Mes paramÃ¨tres',
 'MENU_MOVIES' 		 	 =>  'Mes films',
 'MENU_ADDMOVIE' 		 =>  'Ajouter film',
-'MENU_LOANSYSTEM' 		 =>  'Gestions des prêts',
+'MENU_LOANSYSTEM' 		 =>  'Gestions des prÃªts',
 'MENU_WISHLIST' 		 =>  'Demandes',
-'MENU_CATEGORIES' 		 =>  'Catégories de films',
+'MENU_CATEGORIES' 		 =>  'CatÃ©gories de films',
 'MENU_RSS' 		 		 =>  'Mes flux RSS',
-'MENU_CONTROLPANEL' 	 =>  'Panneau de contrôle',
-'MENU_REGISTER' 		 =>  'Créer un compte',
+'MENU_CONTROLPANEL' 	 =>  'Panneau de contrÃ´le',
+'MENU_REGISTER' 		 =>  'CrÃ©er un compte',
 'MENU_LOGOUT' 		 	 =>  'Quitter',
 'MENU_SUBMIT' 			 =>  'Accepter',
 'MENU_TOPUSERS' 		 =>  'Utilisateurs',
@@ -50,7 +50,7 @@ $_ = array(
 'LOGIN' 				 =>  'Login',
 'LOGIN_USERNAME' 		 =>  'Nom d\'utilisateur',
 'LOGIN_PASSWORD' 		 =>  'mot de passe',
-'LOGIN_REMEMBER' 		 =>  'Mémoriser login',
+'LOGIN_REMEMBER' 		 =>  'MÃ©moriser login',
 'LOGIN_INFO' 		 	 =>  'Laisser cette case vide si vous ne voulez pas changer votre mot de passe',
 
 /* Register */
@@ -58,15 +58,15 @@ $_ = array(
 'REGISTER_FULLNAME' 	 =>  'Nom complet',
 'REGISTER_EMAIL' 		 =>  'Email',
 'REGISTER_AGAIN' 		 =>  'Re-taper le mot de passe',
-'REGISTER_DISABLED' 	 =>  'Désolé, l\'administrateur de ce site a désactivé l\'enregistrement',
-'REGISTER_OK' 		 	 =>  'Enregistrement terminé avec succès, vous pouvez maintenant vous connecter',
+'REGISTER_DISABLED' 	 =>  'DÃ©solÃ©, l\'administrateur de ce site a dÃ©sactivÃ© l\'enregistrement',
+'REGISTER_OK' 		 	 =>  'Enregistrement terminÃ© avec succÃ¨s, vous pouvez maintenant vous connecter',
 
 /* User Properties */
 'PRO_NOTIFY' 			=> 'Envoyer un email lors de l\'ajout d\'un nouveau film ?',
-'PRO_SHOW_ADULT' 		=> 'Voir le contenu réservé aux adultes sur le site ?',
+'PRO_SHOW_ADULT' 		=> 'Voir le contenu rÃ©servÃ© aux adultes sur le site ?',
 'PRO_RSS' 				=> 'Autoriser les flux RSS depuis ma liste de films ?',
-'PRO_WISHLIST'    		=> 'Autoriser les autres à voir ma liste de désidératas ?',
-'PRO_USE_INDEX'   		=> 'Utiliser le numéro d\'indice comme identifiant des média personnels',
+'PRO_WISHLIST'    		=> 'Autoriser les autres Ã  voir ma liste de dÃ©sidÃ©ratas ?',
+'PRO_USE_INDEX'   		=> 'Utiliser le numÃ©ro d\'indice comme identifiant des mÃ©dia personnels',
 'PRO_SEEN_LIST'  		=> 'Conserver un historiques des films que j\'ai vus',
 'PRO_PLAYOPTION' 		=> 'Autoriser l\'utilisation d\'un visualiseur',
 'PRO_NFO' 				=> 'Employez le dossier de NFO?',
@@ -87,10 +87,10 @@ $_ = array(
 'SEARCH' 				 =>  'Rechercher',
 'SEARCH_TITLE' 		 	 =>  'Par titre',
 'SEARCH_ACTOR' 		 	 =>  'Par acteur',
-'SEARCH_DIRECTOR' 		 =>  'Par réalisateur',
-'SEARCH_RESULTS' 		 =>  'Résultats',
-'SEARCH_EXTENDED' 		 =>  'Recherche détaillée',
-'SEARCH_NORESULT' 		 =>  'Aucun film trouvé',
+'SEARCH_DIRECTOR' 		 =>  'Par rÃ©alisateur',
+'SEARCH_RESULTS' 		 =>  'RÃ©sultats',
+'SEARCH_EXTENDED' 		 =>  'Recherche dÃ©taillÃ©e',
+'SEARCH_NORESULT' 		 =>  'Aucun film trouvÃ©',
 
 /* Movie categories*/
 'CAT_ACTION' 		 	 =>  'Action',
@@ -98,7 +98,7 @@ $_ = array(
 'CAT_ADVENTURE' 		 =>  'Aventure',
 'CAT_ANIMATION' 		 =>  'Animation',
 'CAT_ANIME' 			 =>  'Anime / Manga',
-'CAT_COMEDY' 			 =>  'Comédie',
+'CAT_COMEDY' 			 =>  'ComÃ©die',
 'CAT_CRIME' 		 	 =>  'Meurtres',
 'CAT_DOCUMENTARY' 		 =>  'Documentaire',
 'CAT_DRAMA' 		 	 =>  'Drame',
@@ -107,9 +107,9 @@ $_ = array(
 'CAT_FILMNOIR' 		 	 =>  'Film Noir',
 'CAT_HORROR' 		 	 =>  'Horreur',
 'CAT_JAMESBOND' 		 =>  'James Bond',
-'CAT_MUSICVIDEO' 		 =>  'Vidéo musicale',
+'CAT_MUSICVIDEO' 		 =>  'VidÃ©o musicale',
 'CAT_MUSICAL' 			 =>  'Musical',
-'CAT_MYSTERY' 		 	 =>  'Mystère',
+'CAT_MYSTERY' 		 	 =>  'MystÃ¨re',
 'CAT_ROMANCE' 		 	 =>  'Romance',
 'CAT_SCIFI' 		 	 =>  'Science Fiction',
 'CAT_SHORT' 		 	 =>  'Short',
@@ -122,48 +122,48 @@ $_ = array(
 /* Movie Listings */
 'M_MOVIE' 		 		 =>  'Film',
 'M_ACTORS' 				 =>  'Distribution',
-'M_CATEGORY' 			 =>  'Catégorie',
-'M_YEAR' 				 =>  'Année de production',
+'M_CATEGORY' 			 =>  'CatÃ©gorie',
+'M_YEAR' 				 =>  'AnnÃ©e de production',
 'M_COPIES' 				 =>  'Nombre de disques',
-'M_FROM' 				 =>  'Données de ',
+'M_FROM' 				 =>  'DonnÃ©es de ',
 'M_TITLE' 				 =>  'Titre',
 'M_ALTTITLE' 			 =>  'Autre titre',
 'M_GRADE' 				 =>  'Evaluation',
-'M_DIRECTOR' 			 =>  'Réalisateur',
+'M_DIRECTOR' 			 =>  'RÃ©alisateur',
 'M_COUNTRY' 			 =>  'Pays de production',
-'M_RUNTIME' 			 =>  'Durée',
+'M_RUNTIME' 			 =>  'DurÃ©e',
 'M_MINUTES' 			 =>  'minutes',
 'M_PLOT' 				 =>  'Description',
 'M_NOPLOT' 				 =>  'Pas de description disponible',
 'M_COVERS' 				 =>  'Jaquette',
 'M_AVAILABLE' 			 =>  'Nombre dispo',
-'M_MEDIA' 				 =>  'Média',
+'M_MEDIA' 				 =>  'MÃ©dia',
 'M_NUM' 		 		 =>  'Nb. disques',
 'M_DATE' 		 		 =>  'Date d\'ajout',
-'M_OWNER' 		 		 =>  'Propriétaire',
-'M_NOACTORS' 			 =>  'Aucun acteur n\'est enregistré pour ce film',
+'M_OWNER' 		 		 =>  'PropriÃ©taire',
+'M_NOACTORS' 			 =>  'Aucun acteur n\'est enregistrÃ© pour ce film',
 'M_INFO' 		 		 =>  'Informations sur le film',
 'M_DETAILS' 		 	 =>  'Details de ma version',
-'M_MEDIATYPE' 		 	 =>  'Média',
+'M_MEDIATYPE' 		 	 =>  'MÃ©dia',
 'M_COMMENT' 		 	 =>  'Commentaire',
-'M_PRIVATE' 		 	 =>  'Marquer comme privée ?',
-'M_SCREENSHOTS' 		 =>  'Copies d\'écrans',
-'M_NOSCREENS' 	 		 =>  'Pas de copie d\'écran disponible',
+'M_PRIVATE' 		 	 =>  'Marquer comme privÃ©e ?',
+'M_SCREENSHOTS' 		 =>  'Copies d\'Ã©crans',
+'M_NOSCREENS' 	 		 =>  'Pas de copie d\'Ã©cran disponible',
 'M_SHOW' 		 	 	 =>  'Voir',
 'M_HIDE' 		 		 =>  'Cacher',
 'M_CHANGE' 				 =>  'Changer les informations',
 'M_NOCOVERS' 			 =>  'Pas de jaquette disponible',
-'M_BYCAT' 				 =>  'Titres par catégories',
-'M_CURRCAT' 			 =>  'Catégorie',
+'M_BYCAT' 				 =>  'Titres par catÃ©gories',
+'M_CURRCAT' 			 =>  'CatÃ©gorie',
 'M_TEXTVIEW' 		 	 =>  'Format texte',
 'M_IMAGEVIEW' 			 =>  'Format images',
 'M_MINEONLY'		     =>  'Show only my movies',
 'M_SIMILAR'				 =>  'Similar movies',
-'M_MEDIAINDEX'			 =>  'Numéro d\'indice',
+'M_MEDIAINDEX'			 =>  'NumÃ©ro d\'indice',
 
 /* IMDB */
-'I_DETAILS' 		 	 =>  'Détails IMDB',
-'I_PLOT' 		 		 =>  'Afficher le résumé',
+'I_DETAILS' 		 	 =>  'DÃ©tails IMDB',
+'I_PLOT' 		 		 =>  'Afficher le rÃ©sumÃ©',
 'I_GALLERY' 		 	 =>  'Galerie de photos',
 'I_TRAILERS' 		 	 =>  'Bande-annonces',
 'I_LINKS' 		 	 	 =>  'Liens IMDB',
@@ -177,37 +177,37 @@ $_ = array(
 'DVD_SUBTITLES'			=> 'Subtitles',
 
 /* My Movies */
-'MY_EXPORT' 		 	 =>  'Exporter Données',
+'MY_EXPORT' 		 	 =>  'Exporter DonnÃ©es',
 'MY_EXCEL' 		 		 =>  'Exporter au format Excel',
 'MY_XML' 		 		 =>  'Exporter au format XML',
 'MY_XMLTHUMBS' 		 	 =>  'Exporter les vignettes au format XML',
 'MY_ACTIONS' 		 	 =>  'Mes actions',
-'MY_JOIN' 		 		 =>  'Fusion de données',
-'MY_JOINMOVIES' 		 =>  'Fusion de données des films',
-'MY_JOINSUSER' 			 =>  'Sélectionner l\'utilisateur',
-'MY_JOINSMEDIA' 		 =>  'Sélectionner le type de media',
-'MY_JOINSCAT' 		 	 =>  'Sélectionner la catégorie',
-'MY_JOINSTYPE' 		 	 =>  'Sélectionner une action',
-'MY_JOINSHOW' 		 	 =>  'Voir résultats',
-'MY_NORESULTS' 			 =>  'Pas de films trouvés',
-'MY_TEXTALL'			 =>  'Aperçu (Text)',
-'MY_PWALL' 		 		 =>  'Aperçu (Tous)',
-'MY_PWMOVIES' 			 =>  'Aperçu (Films)',
-'MY_PWTV' 		 		 =>  'Aperçu (Emissions TV)',
-'MY_PWBLUE' 		 	 =>  'Aperçu (Films Bleus)',
-'MY_J1' 		 		 =>  'Films que je possède, mais pas l\'utilisateur',
-'MY_J2' 		 		 =>  'Films que possède l\'utilisateur, mais pas moi',
-'MY_J3' 		 		 =>  'Films que nous possédons tous les deux',
+'MY_JOIN' 		 		 =>  'Fusion de donnÃ©es',
+'MY_JOINMOVIES' 		 =>  'Fusion de donnÃ©es des films',
+'MY_JOINSUSER' 			 =>  'SÃ©lectionner l\'utilisateur',
+'MY_JOINSMEDIA' 		 =>  'SÃ©lectionner le type de media',
+'MY_JOINSCAT' 		 	 =>  'SÃ©lectionner la catÃ©gorie',
+'MY_JOINSTYPE' 		 	 =>  'SÃ©lectionner une action',
+'MY_JOINSHOW' 		 	 =>  'Voir rÃ©sultats',
+'MY_NORESULTS' 			 =>  'Pas de films trouvÃ©s',
+'MY_TEXTALL'			 =>  'AperÃ§u (Text)',
+'MY_PWALL' 		 		 =>  'AperÃ§u (Tous)',
+'MY_PWMOVIES' 			 =>  'AperÃ§u (Films)',
+'MY_PWTV' 		 		 =>  'AperÃ§u (Emissions TV)',
+'MY_PWBLUE' 		 	 =>  'AperÃ§u (Films Bleus)',
+'MY_J1' 		 		 =>  'Films que je possÃ¨de, mais pas l\'utilisateur',
+'MY_J2' 		 		 =>  'Films que possÃ¨de l\'utilisateur, mais pas moi',
+'MY_J3' 		 		 =>  'Films que nous possÃ©dons tous les deux',
 'MY_OVERVIEW' 			 =>  'Vue d\'ensemble collection',
-'MY_INFO' 		 		 =>  'Sur cette page, vous trouverez tous mes films DVD. Sur la droite, se trouvent les actions que vous pouvez faire sur votre collection. Vous pouvez aussi exporter votre liste au format Excel(r) pour l\'imprimer, ou utiliser l\'export XML pour faire une sauvegarde ou pour échanger vos films avec d\'autres base de données VCD-db.',
-'MY_KEYS' 		 		 =>  'Editer les ID personnalisés',
+'MY_INFO' 		 		 =>  'Sur cette page, vous trouverez tous mes films DVD. Sur la droite, se trouvent les actions que vous pouvez faire sur votre collection. Vous pouvez aussi exporter votre liste au format Excel(r) pour l\'imprimer, ou utiliser l\'export XML pour faire une sauvegarde ou pour Ã©changer vos films avec d\'autres base de donnÃ©es VCD-db.',
+'MY_KEYS' 		 		 =>  'Editer les ID personnalisÃ©s',
 'MY_SEENLIST' 		 	 =>  'Editer la liste des films vus',
-'MY_HELPPICKER' 		 =>  'Sélectionner un film',
+'MY_HELPPICKER' 		 =>  'SÃ©lectionner un film',
 'MY_HELPPICKERINFO' 	 =>  'Vous ne savez pas quoi voir aujourd\'hui ?
-							  Laisser cette base de donnée choisir pour vous
-							  Vous pouvez aussi créer des filtres et les utiliser pour faciliter le choix de VCD-db.',
+							  Laisser cette base de donnÃ©e choisir pour vous
+							  Vous pouvez aussi crÃ©er des filtres et les utiliser pour faciliter le choix de VCD-db.',
 'MY_FIND' 				 =>  'Chercher un film',
-'MY_NOTSEEN' 			 =>  'Suggérer uniquement les films que je n\'ai pas vus',
+'MY_NOTSEEN' 			 =>  'SuggÃ©rer uniquement les films que je n\'ai pas vus',
 'MY_FRIENDS'		     => 'My friends who borrow CD\'s',
 
 
@@ -222,32 +222,32 @@ $_ = array(
 'MAN_NOCOPY' 		 	 =>  'Vous n\'avez pas de copies',
 'MAN_1COPY' 			 =>  'Copie',
 'MAN_ADDACT' 			 =>  'Ajouter acteur',
-'MAN_ADDTODB' 			 =>  'Ajouter de nouveau acteurs à la base',
+'MAN_ADDTODB' 			 =>  'Ajouter de nouveau acteurs Ã  la base',
 'MAN_SAVETODB' 			 =>  'Enregistrer dans la base',
 'MAN_SAVETODBNCD' 		 =>  'Enregistrer dans la base et dans le film',
 'MAN_INDB' 				 =>  'Acteurs dans la base',
-'MAN_SEL' 				 =>  'Sélectionner un acteur',
+'MAN_SEL' 				 =>  'SÃ©lectionner un acteur',
 'MAN_STARS' 			 =>  'Stars',
 'MAN_BROWSE'			 => 'Browse for file location',
 'MAN_ADDMEDIA'			 => 'Add...',
 
 /* Add movies */
-'ADD_INFO' 		 		 =>  'Sélectionner la méthode d\'ajout d\'un nouveau film',
-'ADD_IMDB' 		 		 =>  'Récupérer depuis internet',
-'ADD_IMDBTITLE' 		 =>  'Entrer le(s) mot(s) clé',
-'ADD_MANUAL' 			 =>  'Rentrer les données manuellement',
-'ADD_LISTED' 		 	 =>  'Ajouter des films déjà listés',
+'ADD_INFO' 		 		 =>  'SÃ©lectionner la mÃ©thode d\'ajout d\'un nouveau film',
+'ADD_IMDB' 		 		 =>  'RÃ©cupÃ©rer depuis internet',
+'ADD_IMDBTITLE' 		 =>  'Entrer le(s) mot(s) clÃ©',
+'ADD_MANUAL' 			 =>  'Rentrer les donnÃ©es manuellement',
+'ADD_LISTED' 		 	 =>  'Ajouter des films dÃ©jÃ  listÃ©s',
 'ADD_XML' 		 		 =>  'Ajouter des films depuis un fichier XML',
-'ADD_XMLFILE' 		 	 =>  'Sélectionner fichier XML ',
-'ADD_XMLNOTE' 		 	 =>  '(Veuillez noter que seuls des fichier XML venant d\'une autre application VCD-db peuvent servir à importer vous films. Vous pouvez exporter vos films depuis la section "Mes films". Il est fortement déconseillé de modifier le fichier XML exporté).',
+'ADD_XMLFILE' 		 	 =>  'SÃ©lectionner fichier XML ',
+'ADD_XMLNOTE' 		 	 =>  '(Veuillez noter que seuls des fichier XML venant d\'une autre application VCD-db peuvent servir Ã  importer vous films. Vous pouvez exporter vos films depuis la section "Mes films". Il est fortement dÃ©conseillÃ© de modifier le fichier XML exportÃ©).',
 'ADD_MAXFILESIZE' 		 =>  'Taille max.',
-'ADD_DVDEMPIRE' 		 =>  'Récupérer depuis DVD Empire (films X)',
-'ADD_LISTEDSTEP1' 		 =>  'Etape 1 Sélectionner les titres à ajouter à la liste.
-							  Vous pourrez choisir le média à l\'étape suivante.',
-'ADD_LISTEDSTEP2' 		 =>  'Etape 2 Sélectionner le média.',
-'ADD_INDB' 				 =>  'Films listés dans VCD-DB',
-'ADD_SELECTED' 		 	 =>  'Sélectionner les titres',
-'ADD_INFOLIST' 		 	 =>  'Double cliquez sur le titre pour le sélectionner ou utilisez les flèches.
+'ADD_DVDEMPIRE' 		 =>  'RÃ©cupÃ©rer depuis DVD Empire (films X)',
+'ADD_LISTEDSTEP1' 		 =>  'Etape 1 SÃ©lectionner les titres Ã  ajouter Ã  la liste.
+							  Vous pourrez choisir le mÃ©dia Ã  l\'Ã©tape suivante.',
+'ADD_LISTEDSTEP2' 		 =>  'Etape 2 SÃ©lectionner le mÃ©dia.',
+'ADD_INDB' 				 =>  'Films listÃ©s dans VCD-DB',
+'ADD_SELECTED' 		 	 =>  'SÃ©lectionner les titres',
+'ADD_INFOLIST' 		 	 =>  'Double cliquez sur le titre pour le sÃ©lectionner ou utilisez les flÃ¨ches.
 							  Vous pouvez utiliser le clavier pour une recherche rapide',
 'ADD_NOTITLES' 		 	 =>  'Aucun autre utilisateur n\'a ajouter de films',
 
@@ -259,52 +259,52 @@ $_ = array(
 'XML_CONTAINS' 		 	 =>  'Le fichier XML continent %d films.',
 'XML_INFO1' 			 =>  'Appuyez sur confirmer pour ajouter les informations du film et enregistrer la base.
 							  Ou sur Cancel pour annuler.',
-'XML_INFO2' 		 	 =>  'Si vous voulez inclure une vignette (poster) au film que vous importer via un fichier XML, vous devez avoir dès maintenant accès au fichier XML contenant les vignettes!
-							  Les posters ne peuvent être importés après la fin de l\'import depuis le fichier XML actuel. Si vous avez déjà le fichier XML des vignettes, cochez le champ ci-dessous, ainsi, après l\'import de vos films dans la liste ci-dessous, il vous sera demandé de choisir le fichier XML des vignettes.',
-'XML_THUMBNAILS' 		 =>  'Insérer des vignettes depuis un fichier XML ',
-'XML_LIST' 			 	 =>  'Liste complète des films présents dans le fichier XML.',
-'XML_ERROR' 		 	 =>  'Aucun titres trouvés dans le fichier XML.
-							  Le fichier est peut-être endommagéou simplement vide.
-							  Assurez vous d\'avoir choisi le bon fichier XML pour l\'import des données.',
-'XML_RESULTS' 		 	 =>  'Résultat d\'import XML.',
-'XML_RESULTS2' 		 	 =>  'Voici le résultat de votre import XML.
-							  Au total, %d films ont été récupérés.',
+'XML_INFO2' 		 	 =>  'Si vous voulez inclure une vignette (poster) au film que vous importer via un fichier XML, vous devez avoir dÃ¨s maintenant accÃ¨s au fichier XML contenant les vignettes!
+							  Les posters ne peuvent Ãªtre importÃ©s aprÃ¨s la fin de l\'import depuis le fichier XML actuel. Si vous avez dÃ©jÃ  le fichier XML des vignettes, cochez le champ ci-dessous, ainsi, aprÃ¨s l\'import de vos films dans la liste ci-dessous, il vous sera demandÃ© de choisir le fichier XML des vignettes.',
+'XML_THUMBNAILS' 		 =>  'InsÃ©rer des vignettes depuis un fichier XML ',
+'XML_LIST' 			 	 =>  'Liste complÃ¨te des films prÃ©sents dans le fichier XML.',
+'XML_ERROR' 		 	 =>  'Aucun titres trouvÃ©s dans le fichier XML.
+							  Le fichier est peut-Ãªtre endommagÃ©ou simplement vide.
+							  Assurez vous d\'avoir choisi le bon fichier XML pour l\'import des donnÃ©es.',
+'XML_RESULTS' 		 	 =>  'RÃ©sultat d\'import XML.',
+'XML_RESULTS2' 		 	 =>  'Voici le rÃ©sultat de votre import XML.
+							  Au total, %d films ont Ã©tÃ© rÃ©cupÃ©rÃ©s.',
 
 
 
 
 /* Add from DVD Empire */
 'EM_INFO' 		 		 =>  'Informations de AdultDVDEmpire.com ....',
-'EM_DESC' 		 		 =>  'Déscription DVDEmpire',
-'EM_SUBCAT' 		 	 =>  'Catégories Adultes',
-'EM_DETAILS' 		 	 =>  'Détails Adultdvdempire.com',
+'EM_DESC' 		 		 =>  'DÃ©scription DVDEmpire',
+'EM_SUBCAT' 		 	 =>  'CatÃ©gories Adultes',
+'EM_DETAILS' 		 	 =>  'DÃ©tails Adultdvdempire.com',
 'EM_STARS' 				 =>  'Pornstars',
-'EM_NOTICE' 			 =>  'Les acteurs marqués en rouge ne sont pas dans la base. Vous pouvez néanmoins choisir leur nom, et ils seront automatiquement ajoutés, et associés à ce film.',
-'EM_FETCH' 				 =>  'Récupérer aussi ',
+'EM_NOTICE' 			 =>  'Les acteurs marquÃ©s en rouge ne sont pas dans la base. Vous pouvez nÃ©anmoins choisir leur nom, et ils seront automatiquement ajoutÃ©s, et associÃ©s Ã  ce film.',
+'EM_FETCH' 				 =>  'RÃ©cupÃ©rer aussi ',
 
 
 
 /* Loan System */
-'LOAN_MOVIES' 			 =>  'Films à préter',
-'LOAN_TO' 		 		 =>  'Prêter le(s) film(s) à ',
+'LOAN_MOVIES' 			 =>  'Films Ã  prÃ©ter',
+'LOAN_TO' 		 		 =>  'PrÃªter le(s) film(s) Ã  ',
 'LOAN_ADDUSERS' 		 =>  'Ajouter des emprunteurs pour poursuivre',
 'LOAN_NEWUSER' 		 	 =>  'Nouvel emprunteur',
 'LOAN_REGISTERUSER' 	 =>  'Ajouter un nouvel emprunteur',
 'LOAN_NAME' 			 =>  'Nom',
-'LOAN_SELECT' 		 	 =>  'Sélectionner l\'emprunteur',
-'LOAN_MOVIELOANS' 		 =>  'Films prêtés ...',
+'LOAN_SELECT' 		 	 =>  'SÃ©lectionner l\'emprunteur',
+'LOAN_MOVIELOANS' 		 =>  'Films prÃªtÃ©s ...',
 'LOAN_REMINDER' 		 =>  'Envoyer un rappel',
-'LOAN_HISTORY' 		 	 =>  'Historique des prêts',
-'LOAN_HISTORY2' 		 =>  'Voir l\'historique des prêts',
+'LOAN_HISTORY' 		 	 =>  'Historique des prÃªts',
+'LOAN_HISTORY2' 		 =>  'Voir l\'historique des prÃªts',
 'LOAN_SINCE' 			 =>  'Depuis',
-'LOAN_TIME' 			 =>  'Temps écoulé',
+'LOAN_TIME' 			 =>  'Temps Ã©coulÃ©',
 'LOAN_RETURN' 			 =>  'Retour du film',
-'LOAN_SUCCESS' 			 =>  'Fichier prêté',
+'LOAN_SUCCESS' 			 =>  'Fichier prÃªtÃ©',
 'LOAN_OUT' 				 =>  'Pas encore rendu',
 'LOAN_DATEIN' 			 =>  'Date retour',
 'LOAN_DATEOUT' 			 =>  'Date sortie',
-'LOAN_PERIOD' 			 =>  'Période de prêt',
-'LOAN_BACK' 			 =>  'Retour à l\'index des prêts',
+'LOAN_PERIOD' 			 =>  'PÃ©riode de prÃªt',
+'LOAN_BACK' 			 =>  'Retour Ã  l\'index des prÃªts',
 'LOAN_DAY' 				 =>  'Jour',
 'LOAN_DAYS' 			 =>  'Jours',
 'LOAN_TODAY' 			 =>  'depuis maintenant',
@@ -318,20 +318,20 @@ $_ = array(
 'RSS_VIEW' 				 =>  'Voir le flux RSS',
 'RSS_ADD' 				 =>  'Ajouter un nouveau flux',
 'RSS_NOTE' 				 =>  'Entrer l\'adresse exacte du flux des autre bases VCD-db.
-							  Si les flux RSS sont autorisés dans les autre bases, choisissez le flux souhaité, et affichez le sur votre page d\'accueil.',
-'RSS_FETCH' 			 =>  'Récupérer la liste des RSS',
-'RSS_NONE' 				 =>  'Aucun flux RSS ajouté.',
-'RSS_FOUND' 			 =>  'Le(s) flux RSS suivant à(ont) été trouvé(s), sélectionnez selui souhaité :',
-'RSS_NOTFOUND' 			 =>  'Aucun flux trouvé à l\'adresse',
+							  Si les flux RSS sont autorisÃ©s dans les autre bases, choisissez le flux souhaitÃ©, et affichez le sur votre page d\'accueil.',
+'RSS_FETCH' 			 =>  'RÃ©cupÃ©rer la liste des RSS',
+'RSS_NONE' 				 =>  'Aucun flux RSS ajoutÃ©.',
+'RSS_FOUND' 			 =>  'Le(s) flux RSS suivant Ã (ont) Ã©tÃ© trouvÃ©(s), sÃ©lectionnez selui souhaitÃ© :',
+'RSS_NOTFOUND' 			 =>  'Aucun flux trouvÃ© Ã  l\'adresse',
 
 
 
 /* Wishlist */
-'W_ADD' 				 =>  'Ajouter à mes désidératas',
-'W_ONLIST' 				 =>  'Dans vos désidératas',
-'W_EMPTY' 				 =>  'Votre liste de désidératas est vide',
-'W_OWN' 				 =>  'Je possède un exemplaire de ce film',
-'W_NOTOWN' 				 =>  'Je ne possède pas ce film',
+'W_ADD' 				 =>  'Ajouter Ã  mes dÃ©sidÃ©ratas',
+'W_ONLIST' 				 =>  'Dans vos dÃ©sidÃ©ratas',
+'W_EMPTY' 				 =>  'Votre liste de dÃ©sidÃ©ratas est vide',
+'W_OWN' 				 =>  'Je possÃ¨de un exemplaire de ce film',
+'W_NOTOWN' 				 =>  'Je ne possÃ¨de pas ce film',
 
 
 /* Comments */
@@ -341,7 +341,7 @@ $_ = array(
 'C_TYPE' 				 =>  'Entrer ici votre commentaire',
 'C_YOUR' 				 =>  'Votre commentaire',
 'C_POST' 				 =>  'Valider commentaire',
-'C_ERROR' 				 =>  'Vous devez être enregistré pour ajouter un commentaire',
+'C_ERROR' 				 =>  'Vous devez Ãªtre enregistrÃ© pour ajouter un commentaire',
 
 
 /* Pornstars */
@@ -369,11 +369,11 @@ $_ = array(
 
 'MAIL_RETURNTOPIC'	     => 'Loan reminder',
 'MAIL_RETURNMOVIES1' 	 =>  '%s, je souhaite simplement te rappeler de me rendre un jour mes films.\n Tu a encore en ta possession les films suivants :\n \n',
-'MAIL_RETURNMOVIES2' 	 =>  '%s\nEst-il possible de me rendre au plus vite mes DVDs\n MERCI\n\n nb. Ceci est un courriel automatique envoyé par le système de base de données (http://childweb.free.fr/videos/index.php5)',
-'MAIL_NOTIFY' 			 =>  'De nouveau films on été ajoutésici pour en savoir plus ..
-							  nb. Ceci est un courriel automatique envoyé par le système de base de données (http://childweb.free.fr/videos/index.php5)',
+'MAIL_RETURNMOVIES2' 	 =>  '%s\nEst-il possible de me rendre au plus vite mes DVDs\n MERCI\n\n nb. Ceci est un courriel automatique envoyÃ© par le systÃ¨me de base de donnÃ©es (http://childweb.free.fr/videos/index.php5)',
+'MAIL_NOTIFY' 			 =>  'De nouveau films on Ã©tÃ© ajoutÃ©sici pour en savoir plus ..
+							  nb. Ceci est un courriel automatique envoyÃ© par le systÃ¨me de base de donnÃ©es (http://childweb.free.fr/videos/index.php5)',
 
-'MAIL_REGISTER' 		 =>  '%s, votre enregistrement à la base est terminé avec succès.\n\nVotre nom d\'utilisateur est %s et votre mot de passe est %s.\n\nVous avez la possibilité de changer de mot de passe après vous être connecté à la base.\nCliquez ici pour atteindre le site',
+'MAIL_REGISTER' 		 =>  '%s, votre enregistrement Ã  la base est terminÃ© avec succÃ¨s.\n\nVotre nom d\'utilisateur est %s et votre mot de passe est %s.\n\nVous avez la possibilitÃ© de changer de mot de passe aprÃ¨s vous Ãªtre connectÃ© Ã  la base.\nCliquez ici pour atteindre le site',
 
 
 
@@ -406,17 +406,17 @@ $_ = array(
 
 
 'X_CONTAINS' 			 =>  'Contenu',
-'X_GRADE' 		 		 =>  'Evaluation IMDB supérieure à',
+'X_GRADE' 		 		 =>  'Evaluation IMDB supÃ©rieure Ã ',
 'X_ANY' 				 =>  'n\'importe',
-'X_TRYAGAIN' 			 =>  'Ré-essayez',
+'X_TRYAGAIN' 			 =>  'RÃ©-essayez',
 'X_PROCEED' 			 =>  'Valider',
-'X_SELECT' 				 =>  'Séléctionner',
+'X_SELECT' 				 =>  'SÃ©lÃ©ctionner',
 'X_CONFIRM' 			 =>  'Confirmer',
 'X_CANCEL' 				 =>  'Annuler',
 'X_ATTENTION' 			 =>  'Attention !',
 'X_STATUS' 				 =>  'Status',
-'X_SUCCESS' 			 =>  'Succès',
-'X_FAILURE' 			 =>  'Problème',
+'X_SUCCESS' 			 =>  'SuccÃ¨s',
+'X_FAILURE' 			 =>  'ProblÃ¨me',
 'X_YES' 				 =>  'Oui',
 'X_NO' 					 =>  'Non',
 'X_SHOWMORE' 			 =>  'Voir plus',
@@ -428,17 +428,19 @@ $_ = array(
 'X_SAVEANDCLOSE' 		 =>  'Enregistrer et quitter',
 'X_CLOSE' 				 =>  'Quitter',
 'X_EDIT' 				 =>  'Editer',
-'X_RESULTS' 			 =>  'Résultats',
+'X_RESULTS' 			 =>  'RÃ©sultats',
 'X_LATESTMOVIES' 		 =>  'derniers films',
-'X_LATESTTV' 			 =>  'dernières émissions TV',
+'X_LATESTTV' 			 =>  'derniÃ¨res Ã©missions TV',
 'X_LATESTBLUE' 			 =>  'derniers films X',
 'X_MOVIES' 				 =>  'films',
-'X_NOCATS' 				 =>  'Pas de films ajoutés.',
+'X_NOCATS' 				 =>  'Pas de films ajoutÃ©s.',
 'X_NOUSERS' 			 =>  'Pas d\'utilisateurs actuellement',
-'X_KEY' 				 =>  'Clé',
-'X_SAVENEXT' 			 =>  'Enregistrer et éditer suivant',
+'X_KEY' 				 =>  'ClÃ©',
+'X_SAVENEXT' 			 =>  'Enregistrer et Ã©diter suivant',
 'X_SAVE' 		 		 =>  'Enregistrer',
 'X_SEEN' 			 	 =>  'Vu',
+'X_FOOTER'				=> 'Page Loaded in %s sec. (<i>%d Queries</i>) &nbsp; Copyright (c)',
+'X_FOOTER_LINK'			=> 'Check out the official VCD-db website',
 'X_TOGGLE'				=> 'Toggle preview',
 'X_TOGGLE_ON'			=> 'on',
 'X_TOGGLE_OFF'			=> 'off'
