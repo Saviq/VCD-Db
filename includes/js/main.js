@@ -1108,3 +1108,12 @@ function deleteNFO(metadata_id, cd_id) {
 		}
 	} catch (ex) {}
 }
+
+function deleteMeta(metadata_id, cd_id) {
+	try {
+		if (metadata_id > 0) {
+			url = '../exec_query.php?action=deletemeta&meta_id='+metadata_id+'&rid='+cd_id;
+			location.href = url;
+		}
+	} catch (ex) {}
+}
