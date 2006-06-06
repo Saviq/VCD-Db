@@ -35,187 +35,66 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 	$error_msg = "";
 	$goterror = false;
 		
-	switch (strtolower(DB_TYPE)) {
-		case 'mysql':
-			
-			$filename = "upgrade_mysql.sql";
-			if (fs_file_exists($filename)) {
-    			$fd = fopen($filename,'rb');
-				if (!$fd) {
-					$error_msg = "Could not open file " . $filename;
-					$goterror = true;
-					return;
-				}
-				
-				// Read the file 
-				$tables = file($filename);
-				foreach ($tables as $query_num => $query) {
-				  $conn->Execute($query);
-				}
-				
-				
-				
-			} else {
-				$goterror = true;
-				$error_msg = "Could not find file " . $filename;
-			}
-			
-		
-			break;
-			
-		case 'mssql':
-			
-			$filename = "upgrade_mssql.sql";
-			if (fs_file_exists($filename)) {
-    			$fd = fopen($filename,'rb');
-				if (!$fd) {
-					$error_msg = "Could not open file " . $filename;
-					$goterror = true;
-					return;
-				}
-				
-				// Read the file 
-				$sql = fread($fd, filesize($filename));
-				fclose($fd);
-				
-				if(!$conn->Execute($sql)) {
-					$error_msg = "Error inserting via sql script.";
-					$goterror = true;
-				}
-			} else {
-				$goterror = true;
-				$error_msg = "Could not find file " . $filename;
-			}
-		
-		
-		
-			break;
-			
-
-		case 'sqlite':
-			$filename = "upgrade_sqlite.sql";
-			if (fs_file_exists($filename)) {
-    			$fd = fopen($filename,'rb');
-				if (!$fd) {
-					$error_msg = "Could not open file " . $filename;
-					$goterror = true;
-					return;
-				}
-				
-				
-				// Read the file 
-				$tables = file($filename);
-				foreach ($tables as $query_num => $query) {
-				  $conn->Execute($query);
-				}
-				
-				
-				
-			} else {
-				$goterror = true;
-				$error_msg = "Could not find file " . $filename;
-			}
-		
-		
-		
-			break;
-			
-			
-		case 'postgres7':
-			
-			$filename = "upgrade_postgre.xml";
-    		$schema = new adoSchema( $conn );
-			$sql = $schema->ParseSchema( $filename );
-			$result = $schema->ExecuteSchema(null, false); 
-			
-			if ($result == 0) {
-				$error_msg = "ADOSchema failed while executing Postgres 7 schema";
-				$goterror = true;
-				return;
-			} elseif ($result == 1) {
-				$error_msg = "ADOSchema encountered errors while executing Postgres 7 schema";
-				$goterror = true;
-				return;
-			}
-		
-			break;
-			
-			
-		case 'db2':
-			$filename = "upgrade_db2.sql";
-			if (fs_file_exists($filename)) {
-    			$fd = fopen($filename,'rb');
-				if (!$fd) {
-					$error_msg = "Could not open file " . $filename;
-					$goterror = true;
-					return;
-				}
-				
-				// Read the file 
-				$sql = fread($fd, filesize($filename));
-				fclose($fd);
-				
-				if(!$conn->Execute($sql)) {
-					$error_msg = "Error inserting via sql script.";
-					$goterror = true;
-				}
-			} else {
-				$goterror = true;
-				$error_msg = "Could not find file " . $filename;
-			}	
-		
-		
-			break;
-			
-			
 	
-		default:
-			break;
-	}
+	// Check how many metadata types already exist
+	$query = "SELECT COUNT(*) FROM vcd_MetaDataTypes";
+	$iCount = $conn->GetOne($query);
 	
-	
-	// insert new updates
-	if (!$goterror) {
+	if ($iCount == 18) {
+		// Metadatatypes are untouched .. no need for extra work
 		
-		// Add the metadata
+		// Add the metadata if no previous metadata exists.
 		$arrQueries = array();
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('languages', 'Excluded langugages', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('logtypes', 'Log types', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontstats', 'Show frontpage statistics', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontbar', 'Show the latest movies on frontpage', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('default_role', 'The default role when user registered', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('player', 'The media player parameters', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('playerpath', 'The path to the media player', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontrss', 'RSS feeds for the frontpage', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('ignorelist', 'Users to ignore', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('mediaindex', 'Custom index for cd', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('filelocation', 'The media file location', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('seenlist', 'Item marked seen', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdregion', 'DVD Region list', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdformat', 'DVD Format', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdaspect', 'DVD Ascpect ratio', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdaudio', 'DVD Audio streams', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdsubs', 'DVD subtitles', 0)";
-		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('nfo', 'NFO File', 0)";
-
-
-		$error_msg = "Could not insert data.";
-		$goterror = false;
-	
-		// Metadata Definitions
-		foreach ($arrQueries as $sqlquery) {
-			try {
-				$conn->Execute($sqlquery);
-			} catch (Exception $e) {
-				$goterror = true;
+		$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('lastfetch', 'Last used fetch class', 0)";
+		for ($i=0;$i<11;$i++) {
+			$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('reserved', '', 0)";
+		}	
+		
+		
+		
+		
+		
+	} else {
+		// Metadata added by users ... we need to update all user defined metadata
+		$metaQuery = "SELECT type_id, type_name, type_description, owner_id FROM vcd_MetaDataTypes WHERE type_id > 18";
+		$rs = $conn->Execute($metaQuery);
+		
+		if ($rs && $rs->RecordCount() > 0) {
+			$arrExistingIDs = array();
+			$arrExistingMeta = array();
+			$arrExistingMeta = $rs->GetRows();
+			
+			foreach ($rs as $row) {
+				array_push($arrExistingIDs, $row[0]);
 			}
+			
+			print_r($arrExistingMeta);
 		}
 		
-		// Add the new Property To User
-		$propQuery = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO','Use NFO Files?')";
-		$conn->Execute($propQuery);
+		
 		
 	}
+	
+
+	
+
+
+	$error_msg = "Could not insert data.";
+	$goterror = false;
+
+	// Metadata Definitions
+	/*
+	foreach ($arrQueries as $sqlquery) {
+		try {
+			$conn->Execute($sqlquery);
+		} catch (Exception $e) {
+			$goterror = true;
+		}
+	}
+	*/
+		
+		
+
 }
 function addQueryCount() {}
 
@@ -282,8 +161,7 @@ function addQueryCount() {}
 		 <li><span style="color:red">Attention</span>: Be sure to have completed the required <b>STEPS 1 to 4</b> described in the <b><a title="File opens in new Window!" target="_new" href="../README">README</a></b></li>
 		
 	</ul>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="window.open('updateMeta.php');document.getElementById('upgrade').disabled=false;this.disabled=true" value="Update Metadata"/><br/>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" onclick="return upgradeCheck(this.form)" value="Upgrade VCD-db" id="upgrade" disabled="disabled"/>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" onclick="return upgradeCheck(this.form)" value="Upgrade VCD-db" id="upgrade"/>
 	</form>
 		
 	
