@@ -491,7 +491,7 @@
 <div id="content6" class="content">
 <div class="flow" align="left">
 <p>
-<table cellpadding="0" cellspacing="0" border="0">
+<table cellpadding="1" cellspacing="1" border="0">
 <?
 
 	// Since each copy can contain it's own metadata this gets a little tricky.
@@ -504,9 +504,10 @@
 
 
 		$iCounter = 0;
+		
 
 		foreach ($arrMyMediaTypes as $mediaTypeObj) {
-
+			$iMetaID = -1;
 			print "<tr><td colspan=\"2\" class=\"tblb\"><i>Meta: {$mediaTypeObj->getDetailedName()}</i></td></tr>";
 
 
@@ -518,16 +519,21 @@
 						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_MEDIAINDEX
 						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
 							$metaValue = $metadataObj->getMetadataValue();
+							$iMetaID = $metadataObj->getMetadataID();
 							break;
 						}
 					}
 				}
 
    				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX )."|".metadataTypeObj::SYS_MEDIAINDEX ."|".$mediaTypeObj->getmediaTypeID();
-
+				$delImage = "";
+				if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
+					$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".$language->show('X_DELETE')."\" title=\"".$language->show('X_DELETE')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
+				}
+   				
 	   			print "<tr>";
 	   			print "<td class=\"tblb\">Custom Index:</td>";
-	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/></td>";
+	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/>{$delImage}</td>";
 				print "</tr>";
 			 }
 
@@ -597,15 +603,22 @@
 							if ($metadataObj->getMetadataTypeID() === $metaDataTypeObj->getMetadataTypeID()
 							&& $metadataObj->getMediaTypeID() === $mediaTypeObj->getmediaTypeID()) {
 								$metaValue = $metadataObj->getMetadataValue();
+								$iMetaID = $metadataObj->getMetadataID();
 							}
 						}
 					}
 
 					$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
 
+					$delImage = "";
+						if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
+						$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".$language->show('X_DELETE')."\" title=\"".$language->show('X_DELETE')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
+					}
+					
+					
 					print "<tr>";
 					print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
-					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/></td>";
+					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/>{$delImage}</td>";
 					print "</tr>";
 				}
 			}
