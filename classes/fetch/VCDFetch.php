@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id$
@@ -424,6 +424,7 @@ abstract class VCDFetch {
 			$this->writeToCache($url);
 		}
 
+		$site = "";
 		if (ereg('"text/html;charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site);
 		
 		return $results;
