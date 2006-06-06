@@ -56,7 +56,7 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 		
 	} else {
 		// Metadata added by users ... we need to update all user defined metadata
-		$metaQuery = "SELECT type_id, type_name, type_description, owner_id FROM vcd_MetaDataTypes WHERE type_id > 18";
+		$metaQuery = "SELECT type_id, type_name, type_description, owner_id FROM vcd_MetaDataTypes WHERE type_id > 18 AND type_id < 31";
 		$rs = $conn->Execute($metaQuery);
 		
 		if ($rs && $rs->RecordCount() > 0) {
@@ -68,7 +68,50 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 				array_push($arrExistingIDs, $row[0]);
 			}
 			
-			print_r($arrExistingMeta);
+			// Update the medatatypes ...
+			$arrQueries = array();
+			for ($i=19;$i<=30;$i++) {
+				if ($i==19) {
+					if (in_array($i, $arrExistingIDs)) {
+						$arrQueries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'lastfetch', type_description = 'Last used fetch class', owner_id=0 WHERE type_id={$i}";
+					} else {
+						$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_id, type_name, type_description, owner_id) VALUES ({$i}, 'lastfetch', 'Last used fetch class', 0)";
+					}
+					
+				} else {
+				
+					if (in_array($i, $arrExistingIDs)) {
+						$arrQueries[] = $arrQueries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'reserved', type_description = '', owner_id=0 WHERE type_id={$i}";
+					} else {
+						$arrQueries[] = "INSERT INTO vcd_MetaDataTypes (type_id, type_name, type_description, owner_id) VALUES ({$i}, 'reserved', '', 0)";
+					}
+					
+				} 
+			}
+			
+			
+			for ($i=0;$i<sizeof($arrQueries);$i++) {
+				$conn->Execute($arrQueries[$i]);
+			}
+			
+			
+			// update the user defined metadata types ..
+			for($i=0;$i<sizeof($arrExistingMeta);$i++) {
+				if ($arrExistingMeta[$i]["owner_id"] > 0) {
+					
+					$query = "INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('".$arrExistingMeta[$i]["type_name"]."', '".$arrExistingMeta[$i]["type_description"]."', ".$arrExistingMeta[$i]["owner_id"].")";
+					$conn->Execute($query);
+					// Get the ID of the inserted item ..
+					$xquery = "SELECT type_id FROM vcd_MetaDataTypes WHERE (type_name = '".$arrExistingMeta[$i]["type_name"]."' AND owner_id = ".$arrExistingMeta[$i]["owner_id"].")";
+					$id = $conn->GetOne($xquery);
+					
+					$uquery = "UPDATE vcd_MetaData SET type_id = {$id} WHERE type_id = " . $arrExistingMeta[$i]["type_id"];
+					$conn->Execute($uquery);
+				}
+			}
+			
+											
+			
 		}
 		
 		
