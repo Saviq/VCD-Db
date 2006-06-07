@@ -11,6 +11,7 @@ Added   - LogViewer in "Control Panel" now includes paging.
 Fixed   - List view in "Control Panel" now renders like it should.
 Fixed   - Loan system Javascript bug in Mozilla/Firefox fixed.
 Changed - Brand new Fetch System to handle web fetches from remote web sites.
+Added   - Metadata can now be deleted in the "movie manager" window.
 	
 	|- Saviq
 Fixed	- Cover display fix - big images handling, better window fitting.
