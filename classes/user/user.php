@@ -49,6 +49,7 @@ class vcd_user implements IUser {
 	public static $PROPERTY_INDEX	 = "USE_INDEX";
 	public static $PROPERTY_PLAYMODE = "PLAYOPTION";
 	public static $PROPERTY_NFO		 = "NFO";
+	public static $PROPERTY_IMAGE 	 = "DEFAULT_IMAGE";
 	
 	
 	/**
