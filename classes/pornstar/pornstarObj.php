@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Pornstars
  * @version $Id$
@@ -207,7 +207,7 @@ if (!defined("PORNSTARIMAGE_PATH")) {
 		 */
 		public function getIAFD()	{
 			$tname = str_replace(" ", "", trim($this->name, ""));
-			$iafd = "http://www.iafd.com/person.asp?perfid=".$tname."&amp;Gender=f";
+			$iafd = "http://www.iafd.com/ramesearch.asp?searchtype=iafd-perf&searchstring=".$tname;
 			$link = "<a href=\"".$iafd."\" target=\"_new\" title=\"Internet Adult Film Database\">IAFD</a>";
 			return $link;
 		}
