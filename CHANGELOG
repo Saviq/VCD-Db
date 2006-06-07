@@ -1,5 +1,5 @@
 0.982
-	|- Konni
+	
 Fixed   - When user tries to add duplicate copy of movie and media type an exception is thrown instead of getting blank page.
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
@@ -12,8 +12,9 @@ Fixed   - List view in "Control Panel" now renders like it should.
 Fixed   - Loan system Javascript bug in Mozilla/Firefox fixed.
 Changed - Brand new Fetch System to handle web fetches from remote web sites.
 Added   - Metadata can now be deleted in the "movie manager" window.
-	
-	|- Saviq
+Added   - Added some pretty GL graphs under the "statistics" page
+Added   - New Language file from Rodrico Telles - Brazilian/Portuguese
+Added   - Fetch classes to fetch from imdb.com, adultdvdempire.com, yahoomovies.com, jadedvideo.com
 Fixed	- Cover display fix - big images handling, better window fitting.
 Fixed	- UTF titles got splitted characters sometimes.
 Fixed	- Trailing space from actor's name in movie view.
