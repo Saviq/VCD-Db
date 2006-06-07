@@ -69,7 +69,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		}
 
 
-		$extUrl = "http://".$this->fetchDomain.$this->fetchItemPath;
+		$extUrl = "http://".$this->servername.$this->itempath;
 		print "<ul>";
 		foreach ($arrSearchResults as $item) {
 			$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
