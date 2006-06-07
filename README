@@ -50,7 +50,7 @@ Upgrading from 0.98 or from 0.981
 	   	   	"ALTER TABLE vcd_SourceSites ADD site_classname VARCHAR(20) NULL AFTER site_isFetchable;
 	   	   	 ALTER TABLE vcd_SourceSites ADD site_image VARCHAR(50) NULL AFTER site_classname;"
 	4) Edit the file "classes/VCDConstants.php" and update your database settings.  (You can take a look at the backed up file as a reference.)
-	5) Open browser and goto your VCD-db site, click the setup link and select upgrade.
+	5) Open browser and goto your VCD-db site/setup and select upgrade. (host/vcddb/setup)
 	6) When the upgrade process has reported success, delete the /setup folder.
 	7) Congrats, you have just finished updating VCD-db :)
 
