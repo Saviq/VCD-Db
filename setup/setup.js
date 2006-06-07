@@ -192,7 +192,7 @@ function IsNumeric(strString)   {
 }
 
 function upgradeCheck(form) {
-	var msg = "Have you finished STEP 3 after you Updated Metadata ?";	
+	var msg = "Have you finished STEPS 1-4 in the upgrade instructions?";	
 	if (confirm(msg)) {
 		return true;
 	} else {
