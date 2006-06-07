@@ -507,6 +507,8 @@
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (6,'SEEN_LIST','Keep track of movies that I have seen?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (7,'PLAYOPTION','Use client playback options?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (8,'NFO','Use NFO Files?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_id,property_name,property_description) VALUES (9,'DEFAULT_IMAGE','Should Image View be default?')</query>
+
 
 		<descr>CD Cover Types</descr>
 		<query>INSERT INTO vcd_CoverTypes (cover_type_id,cover_type_name,cover_type_description) VALUES (1,'VCD Front Cover','Front cover for VCD and SVCD movies')</query>

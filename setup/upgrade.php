@@ -121,6 +121,10 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 	$arrSourceQuerys[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Yahoo Movies','yahoo','http://movies.yahoo.com/','http://movies.yahoo.com/movie/#/details',1,'VCDFetch_yahoo', 'yahoo.gif')";
 	$arrSourceQuerys[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('FilmWeb.pl','filmweb','http://filmweb.pl/','http://filmweb.pl/Film,id=#',1,'VCDFetch_filmweb', 'filmweb.gif')";
 	
+	// Finally add the new user property
+	$arrSourceQuerys[] = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('DEFAULT_IMAGE','Should Image View be default?')";
+
+	
 	foreach ($arrSourceQuerys as $sqlquery) {
 		try {
 			$conn->Execute($sqlquery);
