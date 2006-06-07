@@ -186,7 +186,7 @@
 </tr>
 <? if (!$vcd->isAdult()) { ?>
 <tr>
-	<td class="tblb">IMDB Id</td>
+	<td class="tblb">ID</td>
 	<td><input type="text" value="<? if ($bIMDB) print $imdb->getIMDB(); ?>" size="8" name="imdb" class="input"/></td>
 </tr>
 <? } else { ?>
