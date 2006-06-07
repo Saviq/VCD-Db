@@ -52,7 +52,7 @@
 				<td><input type="text" value="<?= $fetchedObj->getYear() ?>" name="year" class="input"/></td>
 			</tr>
 			<tr>
-				<td class="tblb" nowrap="nowrap">Empire ID:</td>
+				<td class="tblb" nowrap="nowrap">ID:</td>
 				<td><input type="text" value="<?= $fetchedObj->getObjectID() ?>" name="id" class="input" readonly/></td>
 			</tr>
 			<tr>
