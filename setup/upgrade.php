@@ -109,33 +109,28 @@ if (isset($_GET['a']) && strcmp($_GET['a'],"upgrade") == 0 ) {
 					$conn->Execute($uquery);
 				}
 			}
-			
-											
-			
 		}
-		
-		
-		
 	}
 	
 
+	// Then update / add new SourceSites
+	$arrSourceQuerys = array();
+	$arrSourceQuerys[] = "UPDATE vcd_SourceSites SET site_getCommand='http://www.imdb.com/title/tt#', site_isFetchable=1, site_classname='VCDFetch_imdb', site_image='imdb.gif' WHERE site_alias = 'imdb'";
+	$arrSourceQuerys[] = "UPDATE vcd_SourceSites SET site_getCommand='http://www.adultdvdempire.com/Exec/v1_item.asp?item_id=#', site_isFetchable=1, site_classname='VCDFetch_dvdempire', site_image='dvdempire.gif' WHERE site_alias = 'DVDempire'";
+	$arrSourceQuerys[] = "UPDATE vcd_SourceSites SET site_getCommand='http://jadedvideo.com/search_result.asp?product_id=#', site_isFetchable=1, site_classname='VCDFetch_jaded', site_image='jaded.gif' WHERE site_alias = 'jaded'";
+	$arrSourceQuerys[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Yahoo Movies','yahoo','http://movies.yahoo.com/','http://movies.yahoo.com/movie/#/details',1,'VCDFetch_yahoo', 'yahoo.gif')";
+	$arrSourceQuerys[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('FilmWeb.pl','filmweb','http://filmweb.pl/','http://filmweb.pl/Film,id=#',1,'VCDFetch_filmweb', 'filmweb.gif')";
 	
-
-
-	$error_msg = "Could not insert data.";
-	$goterror = false;
-
-	// Metadata Definitions
-	/*
-	foreach ($arrQueries as $sqlquery) {
+	foreach ($arrSourceQuerys as $sqlquery) {
 		try {
 			$conn->Execute($sqlquery);
 		} catch (Exception $e) {
 			$goterror = true;
 		}
 	}
-	*/
-		
+	
+	$error_msg = "Could not insert data.";
+	$goterror = false;
 		
 
 }
