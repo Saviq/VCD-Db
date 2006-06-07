@@ -8,7 +8,7 @@
 <input type="hidden" name="image" value="<?=$fetchedObj->getImage()?>"/>
 <table cellspacing="0" cellpadding="0" width="100%" border="0" class="displist">
 <tr>
-	<td class="header">IMDB <?=$language->show('M_INFO')?></td>
+	<td class="header"><?=$language->show('M_INFO')?></td>
 	<td class="header"><?=$language->show('M_DETAILS')?></td>
 </tr>
 <tr>
