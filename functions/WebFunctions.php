@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Functions
  * @subpackage Web
  * @version $Id$
@@ -1317,6 +1317,7 @@ function getLocalizedCategoryName($category_name) {
 
 function drawGraph($instructions) {
 	$qs = base64_decode($instructions);
+	$qs = utf8_decode(urldecode($qs));
 	$PG = new PowerGraphic($qs);
 	$PG->drawimg = false;
 	$PG->start();
