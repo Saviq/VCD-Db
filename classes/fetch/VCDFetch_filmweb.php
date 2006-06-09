@@ -104,7 +104,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 				case 'org_title':
 					$title = $arrData[1];
-					$obj->setAltTitle($title);
+					$obj->setAltTitle(trim($title));
 					break;
 
 				case 'year':
