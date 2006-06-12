@@ -14,18 +14,30 @@
  *
  */
 
-
+/**
+ * Class to handle file uploads in VCD-db.
+ * $_FILES array is processed at initialization.
+ *
+ */
 class VCDFileUpload {
 	
 	private $maxFileSize = 0;			// Max allowed filesize in bytes, 0 = no limit
 	private $overwrite = true;			// Overwrite existing file with same name or not ?
 	private $randomname	= false;		// Generate random file name or keep the original one.
 	private $fileperm = 0777;			// Unix style file permission number
+	private $arrRestrictions = array(); // Array of allowed mime types to upload.
 	
 	private $arrProcessesFiles = array();
 	
 	
-	public function __construct() {
+	/**
+	 * Object constructor
+	 *
+	 * @param array $arrExtensions | The Mime array to use for restrictions
+	 */
+	public function __construct($arrExtensions=null) {
+		if (!is_null($arrExtensions)) { $this->setFileTypeRestrictions($arrExtensions); }
+		
 		if($_FILES) {
 			foreach($_FILES as $fieldname => $fileObj) {
 				$this->processFile($fileObj, $fieldname);
@@ -33,14 +45,39 @@ class VCDFileUpload {
 		}
 	}
 	
+	/**
+	 * Process each uploaded file.
+	 *
+	 * @param $_FILE $fileObj | One item in PHP $_FILES array
+	 * @param string $fieldname | The HTML upload field name
+	 */
 	private function processFile($fileObj, $fieldname) {
 		$VCDUploadedFileObj = new VCDUploadedFile($fileObj, $fieldname);
 		$VCDUploadedFileObj->setFileParams($this->maxFileSize, $this->overwrite, $this->randomname, $this->fileperm);
+		$VCDUploadedFileObj->setFileRestrictions($this->arrRestrictions);
+	
+		
 		if (!(strcmp($VCDUploadedFileObj->getFileName(), "") == 0)) {
 			array_push($this->arrProcessesFiles, $VCDUploadedFileObj);	
 		}
 		
 	}
+	
+	
+	/**
+	 * Set MIME type restrictions on the uploaded files.
+	 * Uses the VCDUloadedFile::FILE_ Constants
+	 *
+	 * @param mixed $arrRestrictions | Can be array or string
+	 */
+	private function setFileTypeRestrictions($arrRestrictions) {
+		if (is_array($arrRestrictions)) {
+			$this->arrRestrictions = $arrRestrictions;
+		} elseif (strcmp($arrRestrictions, "") != 0) {
+			array_push($this->arrRestrictions, $arrRestrictions);
+		}
+	}
+	
 	
 	/**
 	 * Get specific file by the HTML upload field name.
@@ -128,23 +165,26 @@ class VCDUploadedFile {
 	private $bOverWrite ;
 	private $bUseRandomFileName;
 	private $strFilePermission;
+	private $arrRestrictions = array();
 	
 	
 	/* List of file extensions used by VCD-db */
-	CONST FILE_XML = "text/xml";
-	CONST FILE_GZ  = "application/octet-stream";
-	CONST FILE_JPG = "image/jpeg";
-	CONST FILE_GIF = "image/gif";
-	CONST FILE_NFO = "application/octet-stream";
-	CONST FILE_TXT = "text/plain";
+	CONST FILE_XML  = "text/xml";
+	CONST FILE_GZ   = "application/octet-stream";
+	CONST FILE_JPG  = "image/jpeg";
+	CONST FILE_JPEG = "image/pjpeg";
+	CONST FILE_GIF  = "image/gif";
+	CONST FILE_NFO  = "application/octet-stream";
+	CONST FILE_TXT  = "text/plain";
 	
 	private $arrExtension = array(
-		self::FILE_XML => 'xml',
-		self::FILE_GZ  => 'gz',
-		self::FILE_JPG => 'jpeg',
-		self::FILE_GIF => 'gif',
-		self::FILE_NFO => 'nfo',
-		self::FILE_TXT => 'txt'
+		self::FILE_XML  => 'xml',
+		self::FILE_GZ   => 'gz',
+		self::FILE_JPEG => 'pjpeg',
+		self::FILE_JPG  => 'jpg',
+		self::FILE_GIF  => 'gif',
+		self::FILE_NFO  => 'nfo',
+		self::FILE_TXT  => 'txt'
 	);
 	
 	
@@ -181,6 +221,17 @@ class VCDUploadedFile {
 		$this->bOverWrite = $replace;
 		$this->bUseRandomFileName = $useRandomFileName;
 		$this->strFilePermission = $filePermissions;
+	}
+	
+	/**
+	 * Set the MIME Type restrictions on the uploaded file.
+	 *
+	 * @param array $arrRestrictions
+	 */
+	public function setFileRestrictions($arrRestrictions) {
+		if (is_array($arrRestrictions)) {
+			$this->arrRestrictions = $arrRestrictions;
+		}
 	}
 	
 	/**
@@ -238,6 +289,11 @@ class VCDUploadedFile {
 	}
 	
 	
+	/**
+	 * Move the uploaded file to a specific folder
+	 *
+	 * @param string $strDestinationFolder
+	 */
 	public function move($strDestinationFolder) {
 		try {
 			
@@ -245,8 +301,8 @@ class VCDUploadedFile {
 				
 				$dst_file_name = ($this->bUseRandomFileName) ? $this->generateFileName() : $this->fixFileName($this->filename);
         		$full_destination_path = $strDestinationFolder."/".$dst_file_name;
-        		if(move_uploaded_file($this->filetmpname,$full_destination_path)) {
-            		$this->filelocation = $strDestinationFolder."/".$dst_file_name;
+        		if(@move_uploaded_file($this->filetmpname,$full_destination_path)) {
+            		$this->setFileLocation($strDestinationFolder."/".$dst_file_name);
         			@chmod ($this->filelocation, $this->strFilePermission);
             		
         		} else {
@@ -263,12 +319,43 @@ class VCDUploadedFile {
 	}
 	
 	
+	/**
+	 * Delete the file from file system.
+	 * Returns true if file could be deleted, otherwise false.
+	 *
+	 * @return bool
+	 */
+	public function delete() {
+		if (strcmp($this->filelocation, "") != 0) {
+			return @unlink($this->filelocation);
+		}
+		return true;
+	}
+	
 	
 	/** 
 	 * 	 Private functions below ..
 	 */
 	
    
+	/**
+	 * Set the relative file location on the file system on the webserver.
+	 *
+	 * @param string $strLocation
+	 */
+	private function setFileLocation($strLocation) {
+		$location = str_replace("//", "/", $strLocation);
+		$this->filelocation = $location;
+	}
+	
+	
+	/**
+	 * Check for upload conditions, such as file restrictions, size restrictions and folder location.
+	 * Returns true if no restriction is broken, otherwise an Exception is thrown.
+	 *
+	 * @param string $strDestinationFolder
+	 * @return bool
+	 */
 	private function checkUploadConditions($strDestinationFolder) {
 		try {
 			
@@ -278,9 +365,25 @@ class VCDUploadedFile {
 			}
 			
 			// Check if the file is of a legal extension
+			if (is_array($this->arrExtension) && sizeof($this->arrExtension) > 0) {
+				$isLegal = false;
+				foreach ($this->arrRestrictions as $index => $mimetype) {
+					if (strcmp(strtolower($this->getFileType()), strtolower($mimetype)) == 0) {
+						$isLegal = true;
+						break;
+					}
+				}
+				if (!$isLegal) {
+					throw new Exception("File type \"{$this->getFileType()}\" not allowed.");
+				}
+			}
+			
+			// Check for filesize Restrictions
+			if (is_numeric($this->iMaxFileSize) && ($this->iMaxFileSize > 0) && ($this->filesize > $this->iMaxFileSize)) {
+				throw new Exception("Filesize exceeds file size limit ({$this->toHumanFileSize($this->iMaxFileSize)}) ");
+			}
 			
 			
-		
 			
 			return true;
 			
@@ -327,6 +430,22 @@ class VCDUploadedFile {
 	    }
 	    return $string;
   	}
+  	
+  	
+  	/**
+  	 * Format size in bytes to more readable format.
+  	 *
+  	 * @param int $size | The filesize in bytes
+  	 * @return string
+  	 */
+  	private function toHumanFileSize($size) {
+	   if (is_numeric($size) && $size > 0) {
+	   		$filesizename = array(" Bytes", " kb", " MB", " GB", " TB", " PB", " EB", " ZB", " YB");
+	   		return round($size/pow(1024, ($i = floor(log($size, 1024)))), 2) . $filesizename[$i];
+	   } else {
+	   		return "0 Bytes";
+	   }
+	}
 	
 	
 }
