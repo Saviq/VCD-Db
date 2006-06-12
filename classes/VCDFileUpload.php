@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  *
@@ -23,7 +23,7 @@ class VCDFileUpload {
 	
 	private $maxFileSize = 0;			// Max allowed filesize in bytes, 0 = no limit
 	private $overwrite = true;			// Overwrite existing file with same name or not ?
-	private $randomname	= false;		// Generate random file name or keep the original one.
+	private $randomname	= true;			// Generate random file name or keep the original one.
 	private $fileperm = 0777;			// Unix style file permission number
 	private $arrRestrictions = array(); // Array of allowed mime types to upload.
 	
@@ -170,7 +170,7 @@ class VCDUploadedFile {
 	
 	/* List of file extensions used by VCD-db */
 	CONST FILE_XML  = "text/xml";
-	CONST FILE_GZ   = "application/octet-stream";
+	CONST FILE_TGZ  = "application/tgz";
 	CONST FILE_JPG  = "image/jpeg";
 	CONST FILE_JPEG = "image/pjpeg";
 	CONST FILE_GIF  = "image/gif";
@@ -179,7 +179,7 @@ class VCDUploadedFile {
 	
 	private $arrExtension = array(
 		self::FILE_XML  => 'xml',
-		self::FILE_GZ   => 'gz',
+		self::FILE_TGZ  => 'tgz',
 		self::FILE_JPEG => 'pjpeg',
 		self::FILE_JPG  => 'jpg',
 		self::FILE_GIF  => 'gif',
