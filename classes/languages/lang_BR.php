@@ -26,7 +26,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'BR',
 'LANG_NAME' 			=> 'Portuguese',
-'LANG_CHARSET'		 	=> 'iso-8859-1',
+'LANG_CHARSET'		 	=> 'UTF-8',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Meu menu',

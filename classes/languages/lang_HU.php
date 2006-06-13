@@ -28,7 +28,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'HU',
 'LANG_NAME' 			=> 'Magyar',
-'LANG_CHARSET'		 	=> 'iso-8859-2',
+'LANG_CHARSET'		 	=> 'UTF-8',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Saját menü',
