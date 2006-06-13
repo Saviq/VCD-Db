@@ -21,7 +21,7 @@
 
 <h2>D) <?=$language->show('ADD_XML')?></h2>
 <ul>
-<form action="exec_form.php?action=addfromxml" method="post" name="xml" enctype="multipart/form-data">
+<form action="./index.php?page=private&o=add&source=xml" method="post" name="xml" enctype="multipart/form-data">
 <input type="hidden" value="xml" name="xml">
 <input type="hidden" name="MAX_FILE_SIZE" value="10000000" />
 <table cellspacing="1" cellpadding="1" class="plain">
