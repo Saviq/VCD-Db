@@ -118,6 +118,7 @@ class VCDXMLImporter {
 				
 			   // Generate Objects from the XML file ...
 			   $movies = $xml->movie;
+			   			   
 			   $imported_movies = array();
 			   $adult_cat = $SETTINGSClass->getCategoryIDByName('adult');
 			   
@@ -142,8 +143,36 @@ class VCDXMLImporter {
 		
 		return $returnFilename;
 
-}
+	}
 
+	
+	/**
+	 * Get the number of movie entries in the XML file.
+	 *
+	 * @param string $strXmlFile | The XML file to load and read from.
+	 * @return int | The number of movie entries found in XML file.
+	 */
+	public static function getXmlMovieCount($strXmlFile) {
+		try {
+			
+			$file = TEMP_FOLDER.$strXmlFile;
+			if (!file_exists($file)) {
+				throw new Exception("Could not load file " . $file);
+			}
+			
+			$xml = simplexml_load_file($file);
+			$movieCount = count($xml->xpath("//movie")); 
+			if (is_numeric($movieCount)) {
+				return $movieCount;
+			} else {
+				return 0;
+			}
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 
 	public static function validateXMLThumbsImport() {
 	
@@ -204,9 +233,7 @@ class VCDXMLImporter {
 		throw new Exception("XML Document does not validate to the VCD-db Thumbnails XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-thumbnails.xsd'");
 	 }
 	 unset($dom);
-	   
-	   
-		
+	   		
 	 return str_replace(TEMP_FOLDER, "", $fileLocation);
    		
 	}
@@ -231,7 +258,11 @@ class VCDXMLImporter {
 		
 		
 		
-		$arr = array('name' => utf8_decode((string)$movie->title), 'status' => utf8_decode((string)$cache));
+		$arr = array(
+			'name' => utf8_decode((string)$movie->title), 
+			'status' => utf8_decode((string)$cache),
+			'thumb' => 'YES',
+			);
 			
 		
 		return $arr;
