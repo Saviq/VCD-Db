@@ -45,3 +45,20 @@ function setColour( a ) {
 	var theDiv = getRefToDivNest( this.id ); if( theDiv.style ) { theDiv = theDiv.style; }
 	theDiv.bgColor = a; theDiv.backgroundColor = a; theDiv.background = a;
 }
+
+function roundNumber(float,dec){
+	return Math.round(float*Math.pow(10,dec))/Math.pow(10,dec)
+}
+
+function tblAjaxUpdate(obj, iRemaining) {
+	oTitle 	= document.getElementById( "ajax_tit" );
+	oThumb 	= document.getElementById( "ajax_thu" );
+	oStatus 	= document.getElementById( "ajax_sta" );
+	oRemaining = document.getElementById( "ajax_rem" );
+	
+	oTitle.innerHTML = obj.name;
+	oThumb.innerHTML = obj.thumb;
+	oStatus.innerHTML = obj.status;
+	oRemaining.innerHTML = iRemaining;
+	
+}
