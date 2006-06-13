@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -18,12 +18,13 @@
 	
 	checkEnvironment();
 	require_once(dirname(__FILE__) . '/Connection.php');
+	
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
-
+	
 	/* Language Files */
 	require_once(dirname(__FILE__) . '/languages/languages.php');
-
+	
 	/* External Libraries */
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
 	require_once(dirname(__FILE__) . '/external/mail/smtp.php');
@@ -51,7 +52,7 @@
 	require_once(dirname(__FILE__) . '/../functions/WebFunctions.php');
 	require_once(dirname(__FILE__) . '/../functions/BackendFunctions.php');
 	require_once(dirname(__FILE__) . '/../functions/XMLFunctions.php');
-	
+
 	/* Core Classes */
 	require_once(dirname(__FILE__) . '/VCDUtils.php');
 	require_once(dirname(__FILE__) . '/VCDException.php');
@@ -60,11 +61,16 @@
 	require_once(dirname(__FILE__) . '/VCDOnload.php');
 	require_once(dirname(__FILE__) . '/VCDImage.php');
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
+	require_once(dirname(__FILE__) . '/VCDXMLImporter.php');
+	require_once(dirname(__FILE__) . '/VCDFileUpload.php');
 	require_once(dirname(__FILE__) . '/fetch/VCDFetch.php');
 	
 	
 	/* RSS */
 	require_once(dirname(__FILE__) . '/VCDRss.php');
+	
+	/* Ajax Loader */
+	require_once(dirname(__FILE__) . '/VCDAjaxLoader.php');
 
 
 	/* File system functions */
