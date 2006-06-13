@@ -113,7 +113,7 @@ if(is_array($fetchedObj->getCast(false))) {
 		
 		if (is_array($items)) {
 			$scat = $items[0];
-			$sid = $SettingsClass->getCategoryIDByName($scat);
+			$sid = $SettingsClass->getCategoryIDByName($scat, true);
 		} 
 		
 		// Get the localized category list
