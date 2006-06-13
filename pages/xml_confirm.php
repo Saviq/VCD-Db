@@ -4,36 +4,32 @@
         redirect();
     }
     
+    $xmlImportedFileName = "";
+    $xmlImportedThumbsFileName = "";
     
-    
-    // Check if this is from the right source
-    if (!isset($_SESSION['xmlfilename']) || !isset($_SESSION['xmldata'])) {
-        redirect();
+    // Check for the XML movie file name.
+    if (isset($_POST['xml_filename'])) {
+    	$xmlImportedFileName = $_POST['xml_filename'];
     } else {
-        $xmlfile = $_SESSION['xmlfilename'];
-        $xmltitles = $_SESSION['xmldata'];
-        
-        /*
-        // Clean the titles from session and memory
-        session_unregister('xmlfilename');
-        unset($_SESSION['xmlfilename']);
-        session_unregister('xmldata');
-        unset($_SESSION['xmldata']);
-        */
+    	$xmlImportedFileName = VCDXMLImporter::validateXMLMovieImport();
+    }
+    
+    if (strcmp($xmlImportedFileName, "") == 0) {
+    	redirect();
     }
     
     
-    $xmlMovieCount = VCDXMLImporter::getXmlMovieCount($xmlfile);
-    $hasThumbs = false;
-    $xmlthumbnailfile = "";
     
+    $xmlMovieCount = VCDXMLImporter::getXmlMovieCount($xmlImportedFileName);
+    $hasThumbs = false;
+        
     /** Check for uploaded thumbnails .. **/
     if (isset($_POST['thumbsupdate'])) {
     	try {
     
     		$filename = VCDXMLImporter::validateXMLThumbsImport();	
     		if (strcmp($filename, "") != 0) {
-    			$xmlthumbnailfile = $filename;
+    			$xmlImportedThumbsFileName = $filename;
     			$hasThumbs = true;
     		}
     		
@@ -50,7 +46,6 @@
 	<script type="text/javascript" src="includes/js/json.js"></script> 
     <script type="text/javascript" src="includes/js/ajax.js"></script> 
     <script type="text/javascript" src="includes/js/importer.js"></script> 
-    
     <script type="text/javascript"> 
       <?php echo $ajaxClient->getJavaScript(); ?> 
 
@@ -83,6 +78,7 @@
    	
 	<?
 	
+	$xmltitles = VCDXMLImporter::getXmlTitles($xmlImportedFileName);
     if (!is_array($xmltitles) || sizeof($xmltitles) == 0) {
         print "<p>".$language->show('XML_ERROR')."</p>";
         
@@ -93,12 +89,13 @@
     <br/><?=$language->show('XML_INFO1')?>
     <br/><br/>
     
-    <form name="xmlconfirm" method="post" action="">
+    
+    <form name="thumbupload" action="./?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
     &nbsp;&nbsp;&nbsp;<input type="button" class="input" value="<?=$language->show('X_CONFIRM')?>" onclick="doCall()"/>
-    &nbsp; <input type="button" onclick="clearXML('<?=$xmlfile?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
-    <input type="hidden" name="filename" id="xml_filename" value="<?=$xmlfile?>"/>
-    <input type="hidden" name="thumbfilename" id="xml_thumbfilename" value="<?=$xmlthumbnailfile?>"/>
-    </form>
+    &nbsp; <input type="button" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
+    <input type="hidden" name="xml_filename" id="xml_filename" value="<?=$xmlImportedFileName?>"/>
+    <input type="hidden" name="xml_thumbfilename" id="xml_thumbfilename" value="<?=$xmlImportedThumbsFileName?>"/>
+    
     
        
     <? if (!$hasThumbs) { ?> 
@@ -108,13 +105,15 @@
     	
         <br/><br/>
         
-        <form name="thumbupload" action="./?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
+        
     	&nbsp;&nbsp;&nbsp;<?=$language->show('XML_THUMBNAILS')?> &nbsp;  <input type="file" name="xmlthumbfile"/>
     	<input type="submit" value="<?=$language->show('X_UPDATE')?>" name="thumbsupdate" id="thumbsupdate"/>
-        </form>
+        
     </p>
     <? } ?>
         
+    </form>
+    
     <br>
     <br>
     <table cellspacing=1" cellpadding="1" id="tbjAjax" border="0" class="displist" width="650">

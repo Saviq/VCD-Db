@@ -15,9 +15,17 @@
  */
 
 class VCDXMLImporter {
-	
-	private $doc;
-	private $filename;
+		
+	/**
+	 * XSD to validate VCD-db XML Movie files.
+	 *
+	 */
+	CONST XSD_VCDDB_MOVIES = "includes/schema/vcddb-export.xsd";
+	/**
+	 * XSD to validate VCD-db XML Thumbnails files.
+	 *
+	 */
+	CONST XSD_VCDDB_THUMBS = "includes/schema/vcddb-thumbnails.xsd";
 	
 	
 	public function __construct() {
@@ -27,126 +35,6 @@ class VCDXMLImporter {
 	
 	
 	/**
- 	* Process user uploaded XML file containing exported movies from another vcd-db.
- 	* Validates the uploaded data, if XML file is in a TGZ file, the file is unzipped and
- 	* examined.  The uploaded XML file is then validated using the VCD-db XSD schema document.
-	* If XML document does not validate and error is thrown.
- 	*
-	* @param array $out_movietitles
- 	* @return string Returns the uploaded file name.
- 	*/
-
-	public static function validateXMLImport(&$out_movietitles) {
-
-	
-		$upload = new uploader();
-		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-		$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
-		
-		if($_FILES){
-		  foreach($_FILES as $key => $file){
-		  	
-		  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
-			$arrFileExt = array("xml" => "text/xml", "tgz" => "application/zip");
-			prepareUploader($upload, $file, $key, VSIZE_XML, $arrFileExt, $savePath);
-			$result = $upload->moveFileToDestination(); 
-		  }
-		}
-		
-		if($upload->succeed_files_track){
-		      $file_arr = $upload->succeed_files_track; 
-		      $upfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
-		      $returnFilename = $file_arr[0]['new_file_name'];
-				      
-		       /* 
-		       		Process the XML file
-		       */
-			   if (fs_file_exists($upfile)) {
-		    		
-			   			   	
-			   	
-			   		// Check if this is a compressed file ..
-			   		$filename = $file_arr[0]['file_name'];
-			   		if (strpos($filename, ".tgz")) {
-			   			// The file is a tar archive .. lets untar it ...
-			   			require_once('classes/external/compression/tar.php');
-			   			$zipfile = new tar();
-			   			if ($zipfile->openTAR($upfile)) {
-			   				if ($zipfile->numFiles != 1) {
-			   					throw new Exception('Only one XML file is allowed per Tar archive');
-			   				}
-			   				
-			   				
-			   				$tar_xmlfile = $zipfile->files[0]['file'];
-			   				$tar_xmlfilename = "movie_import.xml";
-			   				$returnFilename = $tar_xmlfilename;
-			   				
-			   				
-			   				// Write the contents to cache
-			   				VCDUtils::write(TEMP_FOLDER.$tar_xmlfilename, $tar_xmlfile);
-			   				$upfile = TEMP_FOLDER.$tar_xmlfilename;
-			   				
-			   				
-			   				
-			   			} else {
-			   				throw new Exception('The uploaded TAR file could not be opened.');
-			   			}
-			   		}
-			   		
-			   		
-			   				   	
-			   	
-			   		// First of all Validate the XML document so we can begin with avoiding
-			   		// errors when processing the file later with the VCDdb objects
-			   		
-			   		$xml = simplexml_load_file($upfile);
-			   		$dom = new domdocument();
-			   		$dom->load($upfile);
-			   		
-			   		$schema = 'includes/schema/vcddb-export.xsd';
-			   		
-			   		if (!@$dom->schemaValidate($schema)) {
-			   			throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
-			   		}
-			   		
-			   		
-			   } else {
-		    		throw new Exception("Failed to open the uploaded file.<break>Check file permissions on the upload folder.");
-			   }
-			
-			   		
-				
-			   // Generate Objects from the XML file ...
-			   $movies = $xml->movie;
-			   			   
-			   $imported_movies = array();
-			   $adult_cat = $SETTINGSClass->getCategoryIDByName('adult');
-			   
-			   if (sizeof($movies) == 0) {
-			   		throw new Exception("No movies found in the XML file.<br/>Make sure that you are uploading VCD-db generated XML file.");
-			   } else {
-			   		foreach ($movies as $item) {
-			   			if (strcmp($item->title, "") != 0) {
-			   				$title = utf8_decode((string)$item->title);
-				    		array_push($out_movietitles, $title);
-			   			}
-					}
-			   }
-			   
-			   unset($xml);
-				
-		
-		      
-		} else {
-			throw new Exception($upload->fail_files_track[0]['msg']);
-		}
-		
-		return $returnFilename;
-
-	}
-
-	
-	/**
 	 * Get the number of movie entries in the XML file.
 	 *
 	 * @param string $strXmlFile | The XML file to load and read from.
@@ -154,7 +42,6 @@ class VCDXMLImporter {
 	 */
 	public static function getXmlMovieCount($strXmlFile) {
 		try {
-			
 			$file = TEMP_FOLDER.$strXmlFile;
 			if (!file_exists($file)) {
 				throw new Exception("Could not load file " . $file);
@@ -173,7 +60,134 @@ class VCDXMLImporter {
 		}
 	}
 	
+	/**
+	 * Get the number of entries in the XML file.
+	 *
+	 * @param string $strXmlFile | The XML file to load and read from.
+	 * @return int | The number of cover entries found in the XML file.
+	 */
+	public static function getXmlThumbnailCount($strXmlFile) {
+		try {
+			
+			$file = TEMP_FOLDER.$strXmlFile;
+			if (!file_exists($file)) {
+				throw new Exception("Could not load file " . $file);
+			}
+			
+			$xml = simplexml_load_file($file);
+			$coverCount = count($xml->xpath("//cdcover")); 
+			if (is_numeric($coverCount)) {
+				return $coverCount;
+			} else {
+				return 0;
+			}
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	/**
+	 * Get the Movie Titles from the XML Movie file
+	 *
+	 * @param string $strXmlFile | The XML Movie file to read from.
+	 * @return array | Array of movie titles.
+	 */
+	public static function getXmlTitles($strXmlFile) {
+		try {
+		
+			$xml = simplexml_load_file(TEMP_FOLDER.$strXmlFile);
+			$movies = $xml->movie;
+			$arrMovies = array();
+			foreach ($movies as $movie) {
+				if ( strcmp((string)$movie->title, "") != 0 ) {
+					array_push($arrMovies, utf8_decode((string)$movie->title));
+				}
+			}
+			
+			return $arrMovies;
+			
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 
+	/**
+	 * Handle a XML Movie upload and import.
+	 *
+	 * @return string | The uploaded file name
+	 */
+	public static function validateXMLMovieImport() {
+		
+		// Set the allowed extensions for the upload
+		$arrExt = array(VCDUploadedFile::FILE_XML , VCDUploadedFile::FILE_TGZ );
+		$VCDUploader = new VCDFileUpload($arrExt);
+		
+		if ($VCDUploader->getFileCount() != 1) {
+			throw new Exception("No File was uploaded.");
+		}
+		
+		$fileObj = $VCDUploader->getFileAt(0);
+		// Move the file to the TEMP Folder
+		$fileObj->move(TEMP_FOLDER);
+		// Get the full path including filename after it has been moved
+		$fileLocation = $fileObj->getFileLocation();
+		    
+		 // Check if this is a compressed file ..
+   		$filename = $fileObj->getFileName();
+   		if (strpos($filename, ".tgz")) {
+   			// The file is a tar archive .. lets untar it ...
+   			require_once('classes/external/compression/tar.php');
+   			$zipfile = new tar();
+   			if ($zipfile->openTAR($fileLocation)) {
+   				if ($zipfile->numFiles != 1) {
+   					throw new Exception('Only one XML file is allowed per Tar archive');
+   				}
+   				
+   				$tar_xmlfile = $zipfile->files[0]['file'];
+   				$tar_xmlfilename = VCDUtils::generateUniqueId().".xml";
+   				
+   				// Write the contents to cache
+   				VCDUtils::write(TEMP_FOLDER.$tar_xmlfilename, $tar_xmlfile);
+   				$fileLocation = TEMP_FOLDER.$tar_xmlfilename;
+   				
+   				// delete the original Tar file
+   				$fileObj->delete();
+ 				
+   				
+   			} else {
+   				throw new Exception('The uploaded TAR file could not be opened.');
+   			}
+   		}
+		      
+		 
+   		/* Process the XML Thumbnail file */
+	    if (!fs_file_exists($fileLocation)) {
+	   		throw new Exception('Failed to open the Xml file.');
+	    }
+	
+	   		
+		 // Validate the document before processing it ..
+		 
+		 $dom = new domdocument();
+		 $dom->load($fileLocation);
+		 $schema = self::XSD_VCDDB_MOVIES;
+		 if (!@$dom->schemaValidate($schema)) {
+		 	throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
+		 }
+		 unset($dom);
+	   		
+	 	return str_replace(TEMP_FOLDER, "", $fileLocation);
+	}
+	
+
+	/**
+	 * Handle a XML Thumbnail upload and import.
+	 *
+	 * @return string | The name of the uploaded XML file.
+	 */
 	public static function validateXMLThumbsImport() {
 	
 		// Set the allowed extensions for the upload
@@ -219,84 +233,135 @@ class VCDXMLImporter {
 		      
 		 
    		/* Process the XML Thumbnail file */
-	   if (!fs_file_exists($fileLocation)) {
+	    if (!fs_file_exists($fileLocation)) {
 	   		throw new Exception('Failed to open the thumbnails file.');
-	   }
+	    }
 	
 	   		
-	 // Validate the document before processing it ..
-	 
-	 $dom = new domdocument();
-	 $dom->load($fileLocation);
-	 $schema = 'includes/schema/vcddb-thumbnails.xsd';
-	 if (!@$dom->schemaValidate($schema)) {
-		throw new Exception("XML Document does not validate to the VCD-db Thumbnails XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-thumbnails.xsd'");
-	 }
-	 unset($dom);
+		 // Validate the document before processing it ..
+		 
+		 $dom = new domdocument();
+		 $dom->load($fileLocation);
+		 $schema = self::XSD_VCDDB_THUMBS;
+		 if (!@$dom->schemaValidate($schema)) {
+			throw new Exception("XML Document does not validate to the VCD-db Thumbnails XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-thumbnails.xsd'");
+		 }
+		 unset($dom);
 	   		
-	 return str_replace(TEMP_FOLDER, "", $fileLocation);
+	 	return str_replace(TEMP_FOLDER, "", $fileLocation);
    		
 	}
 
-	
+
+	/**
+	 * Add a single movie from the $xmlfilename into database.
+	 *
+	 * @param string $xmlfilename | The XML Movie file to read from
+	 * @param int $index | The item index to read in the XML Movie file.
+	 * @param string $xmlthumbsfilename | The XML Thumbnail file to read from.
+	 * @return array | Status array containing status information.
+	 */
 	public function addMovie($xmlfilename, $index, $xmlthumbsfilename = null) {
+		try {
 		
-		
-		$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
-
-						
-		$movie = $xml->movie[$index];
-
-		$movie_id = (string)$movie->id;
-		
-		
-		$cache = "OK";
-		if (is_null($xmlthumbsfilename)) {
-			$xmlthumbnail = TEMP_FOLDER.$xmlthumbsfilename;
-			$cache = $this->getThumbnail($movie_id, $xmlthumbnail);
-		}
-		
-		
-		
-		$arr = array(
-			'name' => utf8_decode((string)$movie->title), 
-			'status' => utf8_decode((string)$cache),
-			'thumb' => 'YES',
-			);
+			$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
 			
-		
-		return $arr;
-		
-		//return utf8_decode((string)$movie->title);
-		
-		//$doc = new DOMDocument();
-		//$doc->loadXML($movie->asXML());
-		
-	}
-	
-	private function getThumbnail($vcd_id, $xmlfilename) {
-		
-		if (file_exists($xmlfilename) && is_file($xmlfilename)) {
-		
-			$xml = simplexml_load_file($xmlfilename);
+			$movie = $xml->movie[$index];
+			$movie_id = (string)$movie->id;
 			
-			$query = "//vcdthumbnails/cdcover/vcd_id[. = {$vcd_id}]";
-			$nodeList = $xml->xpath($query);
-			if (isset($nodeList)) {
-				$node = $nodeList[0];
-				$parent = $node->xpath('parent::node()');
-				if (isset($parent[0])) {
-					$cover = $parent[0];
-					return (string)$cover->filename;
-				}
-				
+			$cache = "NO";
+			
+			if (!is_null($xmlthumbsfilename)) {
+				$xmlthumbnail = TEMP_FOLDER.$xmlthumbsfilename;
+				$coverObj = $this->getThumbnail($movie_id, $xmlthumbnail);
+				$cache = $coverObj->getFilename();
 			}
-	
+			
+			
+			
+			$arr = array(
+				'name' => utf8_decode((string)$movie->title), 
+				'status' => utf8_decode((string)$cache),
+				'thumb' => 'YES',
+				);
+				
+			
+			return $arr;
+			
+			//return utf8_decode((string)$movie->title);
+			
+			//$doc = new DOMDocument();
+			//$doc->loadXML($movie->asXML());
+		
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 		
-		return "NO";
-		
 	}
+	
+	/**
+	 * Get the imported thumbnail as cdCoverObj is it exists, otherwise returns null.
+	 *
+	 * @param int $vcd_id | The MovieID to find the matching cover
+	 * @param string $xmlfilename | The XML file name of the cover file.
+	 * @return cdcoverObj
+	 */
+	private function getThumbnail($vcd_id, $xmlfilename) {
+		try {
+		
+			if (file_exists($xmlfilename) && is_file($xmlfilename)) {
+
+				$xml = simplexml_load_file($xmlfilename);
+				
+				$query = "//vcdthumbnails/cdcover/vcd_id[. = {$vcd_id}]";
+				$nodeList = $xml->xpath($query);
+				if (isset($nodeList)) {
+					$node = $nodeList[0];
+					$parent = $node->xpath('parent::node()');
+					if (isset($parent[0])) {
+						$cover = $parent[0];
+						return $this->createThumbnailObject($cover);
+					}
+				}
+			}
+			return null;
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	/**
+	 * Create a CDcoverObj from the XMLElement, returns null if cover is not Ok.
+	 *
+	 * @param SimpleXMLElement $element
+	 * @return cdcoverObj
+	 */
+	private function createThumbnailObject(SimpleXMLElement $element) {
+		try {
+
+			$filename = (string)$element->filename;
+			$data = (string)$element->data;
+			$ClassCovers = VCDClassFactory::getInstance('vcd_cdcover');
+			$cdCoverObj = null;
+			
+			// Check if the data is not null and then write the image to temp folder
+			if ((strlen($data) > 0) && VCDUtils::write(TEMP_FOLDER.$filename, base64_decode($data))) {
+				$cdCoverObj = new cdcoverObj();
+				$coverTypeObj = $ClassCovers->getCoverTypeByName("thumbnail");
+				$cdCoverObj->setCoverTypeID($coverTypeObj->getCoverTypeID());
+				$cdCoverObj->setCoverTypeName("Thumbnail");
+				$cdCoverObj->setFilename($filename);
+			}
+			
+			return $cdCoverObj;		
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
 	
 }
 
