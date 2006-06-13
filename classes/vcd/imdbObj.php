@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -212,7 +212,7 @@
 	 */
 	public function setGenre($strGenre) {
 		if (is_array($strGenre)) {
-			$this->genre = implode(",",$strGenre);
+			$this->genre = implode(", ",$strGenre);
 		} else {
 			$this->genre = $strGenre;	
 		}
