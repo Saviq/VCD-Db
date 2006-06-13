@@ -424,8 +424,7 @@ abstract class VCDFetch {
 			$this->writeToCache($url);
 		}
 
-		$site = "";
-		if (ereg('"text/html;charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site);
+		if (ereg('"text/html;charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
 		
 		return $results;
 		
