@@ -28,7 +28,7 @@ $_ = array(
 /* Language Identifier */
 'LANG_TYPE' 			=> 'BOS',
 'LANG_NAME' 			=> 'Bosnian',
-'LANG_CHARSET'		 	=> 'windows-1250',
+'LANG_CHARSET'		 	=> 'UTF-8',
 
 /* Menu system */
 'MENU_MINE' 			=> 'Moj meni',
