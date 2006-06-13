@@ -214,7 +214,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		if (is_null($this->getSearchRedirectUrl())) {
 			if(is_numeric($this->getID())) return $this->getID();
 			else {
-				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl", false);
+				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl");
 				if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 				else return null;
 			}
@@ -222,7 +222,7 @@ class VCDFetch_filmweb extends VCDFetch {
 			return $id[1];
 		} else {
 			ereg("http://([^/]+)(/.*)?", $this->getSearchRedirectUrl(), $redirect);
-			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl", false);
+			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl");
 			if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 			else return null;
 		}
