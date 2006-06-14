@@ -60,5 +60,19 @@ function tblAjaxUpdate(obj, iRemaining) {
 	oThumb.innerHTML = obj.thumb;
 	oStatus.innerHTML = obj.status;
 	oRemaining.innerHTML = iRemaining;
-	
+}
+
+function setBarColor(progBar, progress) {
+	colors = new Array("#00FF00", "#00CC00", "#009900", "#006600");
+	color = "#ffffff";
+	if (progress < 0.25) {
+		color = colors[0]; 
+	} else if (progress > 0.25 && progress < 0.5) {
+		color = colors[1]; 
+	} else if (progress > 0.5 && progress < 0.75) {
+		color = colors[2]; 
+	} else {
+		color = colors[3]; 
+	}
+	progBar.setCol(color); 
 }
