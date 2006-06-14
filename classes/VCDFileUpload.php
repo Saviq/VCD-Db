@@ -169,22 +169,24 @@ class VCDUploadedFile {
 	
 	
 	/* List of file extensions used by VCD-db */
-	CONST FILE_XML  = "text/xml";
-	CONST FILE_TGZ  = "application/tgz";
-	CONST FILE_JPG  = "image/jpeg";
-	CONST FILE_JPEG = "image/pjpeg";
-	CONST FILE_GIF  = "image/gif";
-	CONST FILE_NFO  = "application/octet-stream";
-	CONST FILE_TXT  = "text/plain";
-	
+	CONST FILE_XML  = "xml";
+	CONST FILE_TGZ  = "tgz";
+	CONST FILE_ZIP  = "zip";
+	CONST FILE_JPG  = "jpg";
+	CONST FILE_JPEG = "jpeg";
+	CONST FILE_GIF  = "gif";
+	CONST FILE_NFO  = "nfo";
+	CONST FILE_TXT  = "txt";
+		
 	private $arrExtension = array(
-		self::FILE_XML  => 'xml',
-		self::FILE_TGZ  => 'tgz',
-		self::FILE_JPEG => 'pjpeg',
-		self::FILE_JPG  => 'jpg',
-		self::FILE_GIF  => 'gif',
-		self::FILE_NFO  => 'nfo',
-		self::FILE_TXT  => 'txt'
+		self::FILE_XML  => 'text/xml',
+		self::FILE_TGZ  => 'application/x-gzip',
+		self::FILE_ZIP  => 'application/x-zip',
+		self::FILE_JPEG => 'image/pjpeg',
+		self::FILE_JPG  => 'image/jpg',
+		self::FILE_GIF  => 'image/gif',
+		self::FILE_NFO  => 'text/nfo',
+		self::FILE_TXT  => 'text/plain'
 	);
 	
 	
@@ -288,6 +290,20 @@ class VCDUploadedFile {
 		return $this->filelocation;
 	}
 	
+	/**
+	 * Get the current file extension
+	 *
+	 * @return string
+	 */
+	public function getFileExtenstion() {
+		ereg( ".*\.(.*)$", $this->filename, $regs );
+	    if (isset($regs[1])) {
+	    	return $regs[1];	
+	    } else {
+	    	return "";
+	    }
+	}
+	
 	
 	/**
 	 * Move the uploaded file to a specific folder
@@ -367,8 +383,9 @@ class VCDUploadedFile {
 			// Check if the file is of a legal extension
 			if (is_array($this->arrExtension) && sizeof($this->arrExtension) > 0) {
 				$isLegal = false;
-				foreach ($this->arrRestrictions as $index => $mimetype) {
-					if (strcmp(strtolower($this->getFileType()), strtolower($mimetype)) == 0) {
+				foreach ($this->arrRestrictions as $index => $extension) {
+					
+					if (strcmp(strtolower($this->getFileExtenstion()), strtolower($extension)) == 0) {
 						$isLegal = true;
 						break;
 					}
