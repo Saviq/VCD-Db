@@ -5,14 +5,14 @@
 	
 	$show_adult = false;
 	if (VCDUtils::isLoggedIn()) {
-		$show_adult =& $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
+		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
 	}
 	
 	if (VCDUtils::isLoggedIn() && $SETTINGSClass->getSettingsByKey('SITE_ADULT') && $show_adult && isset($_GET['view'])) {
 		$mode = $_GET['view'];
 		$active = false;
 		
-		$PORNClass = new vcd_pornstar();
+		$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 		if (strcmp($mode, 'active') == 0) {
 			$arrAlpha = $PORNClass->getPornstarsAlphabet(true);
 			$active = true;
