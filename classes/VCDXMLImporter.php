@@ -122,7 +122,7 @@ class VCDXMLImporter {
 	public static function validateXMLMovieImport() {
 		
 		// Set the allowed extensions for the upload
-		$arrExt = array(VCDUploadedFile::FILE_XML , VCDUploadedFile::FILE_TGZ );
+		$arrExt = array(VCDUploadedFile::FILE_XML , VCDUploadedFile::FILE_TGZ , VCDUploadedFile::FILE_ZIP );
 		$VCDUploader = new VCDFileUpload($arrExt);
 		
 		if ($VCDUploader->getFileCount() != 1) {
@@ -134,7 +134,8 @@ class VCDXMLImporter {
 		$fileObj->move(TEMP_FOLDER);
 		// Get the full path including filename after it has been moved
 		$fileLocation = $fileObj->getFileLocation();
-		    
+		
+				    
 		 // Check if this is a compressed file ..
    		$filename = $fileObj->getFileName();
    		if (strpos($filename, ".tgz")) {
@@ -160,8 +161,36 @@ class VCDXMLImporter {
    			} else {
    				throw new Exception('The uploaded TAR file could not be opened.');
    			}
+   		} elseif (strpos($filename, ".zip")) {
+   			
+   			require_once('classes/external/compression/pclzip.lib.php');
+		  	$archive = new PclZip($fileLocation);
+		  	
+		  	if (($list = $archive->listContent()) == 0) {
+   			 	die("Error : ".$zip->errorInfo(true));
+  			}
+  			
+  			print_r($list);
+  			die();
+		  	
+		  	if ($archive->extract(PCLZIP_OPT_PATH, TEMP_FOLDER) == 0) {
+    			die("Error : ".$archive->errorInfo(true));
+		  	}
+		  	
+		  	
+		  	/*
+		  	if ($archive->extract() == 0) {
+		  		throw new Exception("Error : ".$archive->errorInfo(true));
+			}
+			*/
+			
+			die('DONE');
+			
+			 
+			 
    		}
-		      
+
+   		
 		 
    		/* Process the XML Thumbnail file */
 	    if (!fs_file_exists($fileLocation)) {
@@ -265,25 +294,35 @@ class VCDXMLImporter {
 		try {
 		
 			$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
-			
 			$movie = $xml->movie[$index];
-			$movie_id = (string)$movie->id;
 			
-			$cache = "NO";
+			if (count($movie) == 1) {
 			
-			if (!is_null($xmlthumbsfilename)) {
-				$xmlthumbnail = TEMP_FOLDER.$xmlthumbsfilename;
-				$coverObj = $this->getThumbnail($movie_id, $xmlthumbnail);
-				$cache = $coverObj->getFilename();
+				$movie_id = (string)$movie->id;
+			
+				$cache = "NO";
+				$thumb = "NO";
+				
+				if (!is_null($xmlthumbsfilename)) {
+					$xmlthumbnail = TEMP_FOLDER.$xmlthumbsfilename;
+					$coverObj = $this->getThumbnail($movie_id, $xmlthumbnail);
+					if ($coverObj instanceof cdcoverObj ) {
+						$cache = $coverObj->getFilename();
+						$thumb = "YES";
+					}
+					
+				}
+					
+				
 			}
 			
 			
 			
+			
 			$arr = array(
-				'name' => utf8_decode((string)$movie->title), 
-				'status' => utf8_decode((string)$cache),
-				'thumb' => 'YES',
-				);
+				'name' => utf8_encode((string)$movie->title), 
+				'status' => utf8_encode($cache),
+				'thumb' => utf8_encode($thumb));
 				
 			
 			return $arr;
@@ -294,7 +333,7 @@ class VCDXMLImporter {
 			//$doc->loadXML($movie->asXML());
 		
 		} catch (Exception $ex) {
-			throw $ex;
+			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 		
 	}
@@ -316,6 +355,7 @@ class VCDXMLImporter {
 				$query = "//vcdthumbnails/cdcover/vcd_id[. = {$vcd_id}]";
 				$nodeList = $xml->xpath($query);
 				if (isset($nodeList)) {
+					if (!isset($nodeList[0])) { return null;}
 					$node = $nodeList[0];
 					$parent = $node->xpath('parent::node()');
 					if (isset($parent[0])) {
