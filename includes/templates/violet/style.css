@@ -569,7 +569,7 @@ html>body #l-col {
 
 #toplogo {
 	background-image: url(images/top_logo.gif);
-	cursor: hand;
+	cursor: pointer;
 	height: 77px;
 	left: 15px;
 	position: absolute;
