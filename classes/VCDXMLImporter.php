@@ -167,27 +167,22 @@ class VCDXMLImporter {
 		  	$archive = new PclZip($fileLocation);
 		  	
 		  	if (($list = $archive->listContent()) == 0) {
-   			 	die("Error : ".$zip->errorInfo(true));
+		  		throw new Exception("No files found in archive.<break>". $archive->errorInfo(true));
   			}
   			
-  			print_r($list);
-  			die();
-		  	
+  			if (sizeof($list) > 1) {
+  				throw new Exception("Only one file is allowed within the zip archive.");
+  			}
+  			
 		  	if ($archive->extract(PCLZIP_OPT_PATH, TEMP_FOLDER) == 0) {
-    			die("Error : ".$archive->errorInfo(true));
+		  		throw new Exception($archive->errorInfo(true));
 		  	}
 		  	
+		  	$fileLocation = TEMP_FOLDER.$list[0]['filename'];
 		  	
-		  	/*
-		  	if ($archive->extract() == 0) {
-		  		throw new Exception("Error : ".$archive->errorInfo(true));
-			}
-			*/
-			
-			die('DONE');
-			
-			 
-			 
+		  	
+		  	// delete the original Zip file
+   			$fileObj->delete();
    		}
 
    		
@@ -220,7 +215,7 @@ class VCDXMLImporter {
 	public static function validateXMLThumbsImport() {
 	
 		// Set the allowed extensions for the upload
-		$arrExt = array(VCDUploadedFile::FILE_XML , VCDUploadedFile::FILE_TGZ );
+		$arrExt = array(VCDUploadedFile::FILE_XML , VCDUploadedFile::FILE_TGZ, VCDUploadedFile::FILE_ZIP );
 		$VCDUploader = new VCDFileUpload($arrExt);
 		
 		if ($VCDUploader->getFileCount() != 1) {
@@ -258,6 +253,28 @@ class VCDXMLImporter {
    			} else {
    				throw new Exception('The uploaded TAR file could not be opened.');
    			}
+   		} elseif (strpos($filename, ".zip")) {
+   			
+   			require_once('classes/external/compression/pclzip.lib.php');
+		  	$archive = new PclZip($fileLocation);
+		  	
+		  	if (($list = $archive->listContent()) == 0) {
+		  		throw new Exception("No files found in archive.<break>". $archive->errorInfo(true));
+  			}
+  			
+  			if (sizeof($list) > 1) {
+  				throw new Exception("Only one file is allowed within the zip archive.");
+  			}
+  			
+		  	if ($archive->extract(PCLZIP_OPT_PATH, TEMP_FOLDER) == 0) {
+		  		throw new Exception($archive->errorInfo(true));
+		  	}
+		  	
+		  	$fileLocation = TEMP_FOLDER.$list[0]['filename'];
+		  	
+		  	
+		  	// delete the original Zip file
+   			$fileObj->delete();
    		}
 		      
 		 
@@ -289,6 +306,7 @@ class VCDXMLImporter {
 	 * @param int $index | The item index to read in the XML Movie file.
 	 * @param string $xmlthumbsfilename | The XML Thumbnail file to read from.
 	 * @return array | Status array containing status information.
+	 * @throws AjaxException
 	 */
 	public function addMovie($xmlfilename, $index, $xmlthumbsfilename = null) {
 		try {
@@ -299,7 +317,9 @@ class VCDXMLImporter {
 			if (count($movie) == 1) {
 			
 				$movie_id = (string)$movie->id;
-			
+				$vcdObj = $this->createMovieObject($movie);
+				
+				
 				$cache = "NO";
 				$thumb = "NO";
 				
@@ -309,6 +329,7 @@ class VCDXMLImporter {
 					if ($coverObj instanceof cdcoverObj ) {
 						$cache = $coverObj->getFilename();
 						$thumb = "YES";
+						$vcdObj->addCovers(array($coverObj));
 					}
 					
 				}
@@ -316,6 +337,8 @@ class VCDXMLImporter {
 				
 			}
 			
+			$ClassVcd = new vcd_movie();
+			$ClassVcd->addVcd($vcdObj);
 			
 			
 			
@@ -329,8 +352,6 @@ class VCDXMLImporter {
 			
 			//return utf8_decode((string)$movie->title);
 			
-			//$doc = new DOMDocument();
-			//$doc->loadXML($movie->asXML());
 		
 		} catch (Exception $ex) {
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
@@ -401,6 +422,187 @@ class VCDXMLImporter {
 		}
 	}
 	
+	
+	/**
+	 * Create a vcdObj from the XMLElement, returns bull if the vcdObj is not ok.
+	 *
+	 * @param SimpleXMLElement $element
+	 * @return vcdObj
+	 */
+	private function createMovieObject(SimpleXMLElement $element) {
+		try {
+		
+			$ClassSettings = VCDClassFactory::getInstance('vcd_settings');
+			$ClassPorn = VCDClassFactory::getInstance("vcd_pornstar");
+			$adult_cat = $ClassSettings->getCategoryIDByName('adult');
+		    
+			
+			
+   			// Create the basic CD obj
+			$basic = array('', utf8_decode((string)$element->title), (string)$element->category_id, (string)$element->year);
+			$vcd = new vcdObj($basic);
+			
+			// Add 1 instance
+			$mediaTypeObj = $ClassSettings->getMediaTypeByID((string)$element->mediatype_id);
+			if (is_null($mediaTypeObj)) {
+				
+				// Non existing media type .. at least not found by ID
+				// try a lookup by name
+				
+				$mediaTypeObj = $ClassSettings->getMediaTypeByName((string)$element->mediatype);
+				if (is_null($mediaTypeObj)) {
+					// Still no luck .. then lets create mediatype
+					$newMediaTypeObj = new mediaTypeObj(array('',(string)$element->mediatype,'','Created by XML importer.'));
+					$ClassSettings->addMediaType($newMediaTypeObj);
+					$mediaTypeObj = $ClassSettings->getMediaTypeByName((string)$element->mediatype);
+				}
+			}
+			
+			$vcd->addInstance($_SESSION['user'], $mediaTypeObj, (string)$element->cds, (string)$element->dateadded);
+			
+			
+			$movieCatObj = $ClassSettings->getMovieCategoryByID((string)$element->category_id);
+			if ($movieCatObj instanceof movieCategoryObj ) {
+				$vcd->setMovieCategory($movieCatObj);
+			} 		   			
+   			
+   			
+   			$source_id = '';
+   			
+   			if ($element->category_id == $adult_cat) {
+   				// Adult flick
+   				
+   				// Check if any pornstars are associated in the movie
+   				$pornstars = $element->pornstars->pornstar;
+   				
+   					   				
+   				if (isset($pornstars)) {
+   					foreach ($pornstars as $pornstar) {
+   						$starObj = null;
+   						$starObj = $ClassPorn->getPornstarByName((string)$pornstar->name);
+   						
+   						if ($starObj instanceof pornstarObj ) {
+   							$vcd->addPornstars($starObj);
+   						} else {
+   							// Star was not found in DB | create the entry
+   							$s = new pornstarObj(array('',(string)$pornstar->name, (string)$pornstar->homepage, ''));
+   							$vcd->addPornstars($ClassPorn->addPornstar($s));
+   						}
+   					}
+   				}
+   				
+   				
+   				
+   				// Set the studio if any
+   				$studio = $element->studio;
+   				if (sizeof($studio) > 0) {
+   					$studioObj = $ClassPorn->getStudioByName((string)$studio->name);
+   					if ($studioObj instanceof studioObj ) {
+   						$vcd->setStudioID($studioObj->getID());
+   					} else {
+   						$studioObj = new studioObj(array('', (string)$studio->name));
+   						$ClassPorn->addStudio($studioObj);
+   						
+   						// Find the just added studioObj
+   						$studioObj = $ClassPorn->getStudioByName((string)$studio->name);
+   						// And add it to the movie
+   						if ($studioObj instanceof studioObj ) {
+   							$vcd->setStudioID($studioObj->getID());
+   						}
+   						
+   					}
+   				}
+   				
+   				
+   				$sourceSiteObj = $ClassSettings->getSourceSiteByID($element->sourcesite_id);
+				if ($sourceSiteObj instanceof sourceSiteObj ) {
+					$source_id = $sourceSiteObj->getsiteID();		
+				}
+				
+				// Add the adult categories if any
+				$adult_categories = $element->adult_category->category;
+				if (!is_null($adult_categories) && sizeof($adult_categories > 0)) {
+					foreach ($adult_categories as $xmlcat) {
+						$catObj = new porncategoryObj(array((string)$xmlcat->id, (string)$xmlcat->name));
+						$vcd->addAdultCategory($catObj);
+					}
+				}
+   				
+   				
+   						   			
+   			} else {
+   				// Normal flick
+   				
+   				if (isset($element->imdb)) {
+   				
+   					$imdb = $element->imdb;
+   					
+	   				// Create the IMDB obj
+					$obj = new imdbObj();
+					$obj->setIMDB((string)$imdb->imdb_id);
+					$obj->setTitle(utf8_decode((string)$imdb->title));
+					$obj->setYear((string)$imdb->year);
+					$obj->setDirector((string)$imdb->director);
+					$obj->setGenre((string)$imdb->genre);
+					$obj->setRating((string)$imdb->rating);
+					$obj->setCast(utf8_decode(ereg_replace("\|",13,(string)$imdb->cast)));
+					$obj->setPlot((string)$imdb->plot);
+					$obj->setRuntime((string)$imdb->runtime);
+					$obj->setCountry((string)$imdb->country);
+					
+					// Add the imdbObj to the VCD
+					$vcd->setIMDB($obj);
+	   				
+	   				}
+	   				
+	   			$sourceSiteObj = $ClassSettings->getSourceSiteByID($element->sourcesite_id);
+				if ($sourceSiteObj instanceof sourceSiteObj ) {
+					$source_id = $sourceSiteObj->getsiteID();		
+				}
+				
+   			}
+
+   			$external_id = (string)$element->external_id;
+   			
+   			// Set the source site
+   			if ($source_id != '' && $external_id != '') {
+				$vcd->setSourceSite($source_id, $external_id);
+   			}
+			
+   			
+   			// Check for comments
+   			$comments = $element->comments->comment;
+   			if (isset($comments) && !is_null($comments)) {
+   				foreach ($comments as $xmlComment) {
+   					$commentData = array('', '', VCDUtils::getUserID(), (string)$xmlComment->date, utf8_decode((string)$xmlComment->text), (string)$xmlComment->isPrivate);
+   					$commentObj = new commentObj($commentData);
+   					$vcd->addComment($commentObj);
+   				}
+   			}
+   			
+   			
+   			// Check for metadata
+   			$metadata = $element->meta->metadata;
+   			if (isset($metadata) && !is_null($metadata)) {
+   				foreach ($metadata as $xmlMeta) {
+   					$metaArr = array('', '', VCDUtils::getUserID(),(string)$xmlMeta->type_name, (string)$xmlMeta->data, $mediaTypeObj->getmediaTypeID(), 
+   							  (string)$xmlMeta->type_id, (int)$xmlMeta->type_level, (string)$xmlMeta->type_desc);
+   					$metaObj = new metadataObj($metaArr);
+   					$vcd->addMetaData($metaObj);
+   				}
+   			}
+   			
+   			
+   			   			
+   			return $vcd;	
+		   		
+				
+			
+		
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
 	
 	
 }

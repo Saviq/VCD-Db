@@ -61,10 +61,7 @@
 	  	
 	  	barvalue = roundNumber((counter/numDocs),2);
 	  	myProgBar.setBar(barvalue);
-	  	//myProgBar.setCol('#ff0000'); //change the colour of the progress bar
-	  	if (counter == (numDocs/2) ) {
-	  		myProgBar.setCol('orange'); //change the colour of the progress bar
-	  	}
+	  	setBarColor(myProgBar, barvalue);
 	  	counter++; 	
 	  	
 	  	if (counter == numDocs) {
@@ -148,15 +145,7 @@
 	<tr>
 		<td colspan="4">
 		<script type="text/javascript" language="javascript1.2">
-			var myProgBar = new progressBar(
-			1,         //border thickness
-			'#000000', //border colour
-			'#a5f3b1', //background colour
-			'#043db2', //bar colour
-			642,       //width of bar (excluding border)
-			20,        //height of bar (excluding border)
-			1          //direction of progress: 1 = right, 2 = down, 3 = left, 4 = up
-		);
+			var myProgBar = new progressBar(1,'#000000','#ffffff','#043db2',642,20,1);
 		</script>
 		</td>
 	</tr>
