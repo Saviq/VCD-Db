@@ -11,7 +11,9 @@
     if (isset($_POST['xml_filename'])) {
     	$xmlImportedFileName = $_POST['xml_filename'];
     } else {
-    	$xmlImportedFileName = VCDXMLImporter::validateXMLMovieImport();
+    	try {
+    		$xmlImportedFileName = VCDXMLImporter::validateXMLMovieImport();
+    	} catch (Exception $ex) { VCDException::display($ex, true);}
     }
     
     if (strcmp($xmlImportedFileName, "") == 0) {
@@ -49,7 +51,7 @@
     <script type="text/javascript"> 
       <?php echo $ajaxClient->getJavaScript(); ?> 
 
-      var counter = 0;
+      var counter = 1;
       var numDocs = <?=$xmlMovieCount?>;
       var bContinue = true;
      
@@ -64,13 +66,27 @@
 	  		myProgBar.setCol('orange'); //change the colour of the progress bar
 	  	}
 	  	counter++; 	
+	  	
+	  	if (counter == numDocs) {
+	  		setTimeout("endCall()", 3000);	
+	  	}
   	 } 
       
+  	 function _doCall() {
+  	 	  document.getElementById('xmlClick').disabled=true;
+  	 	  document.getElementById('xmlCancel').disabled=true;
+  	 	  setTimeout("doCall()", 3000);
+  	 }
+  	 
+  	 function endCall() {
+  	 	alert('All done baby ' + counter);
+  	 }
+  	 
      function doCall() {
      	var xmlfile = document.getElementById('xml_filename').value;
       	var xmlthumbsfile = document.getElementById('xml_thumbfilename').value;
-      	for (i=0; i<=numDocs;i++) {
-      			x_VCDXMLImporter.addMovie(xmlfile, i, xmlthumbsfile, movie_cb); 	
+      	for (i=0; i<numDocs;i++) {
+			x_VCDXMLImporter.addMovie(xmlfile, i, xmlthumbsfile, movie_cb); 		
         }
       }
    
@@ -91,8 +107,8 @@
     
     
     <form name="thumbupload" action="./?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
-    &nbsp;&nbsp;&nbsp;<input type="button" class="input" value="<?=$language->show('X_CONFIRM')?>" onclick="doCall()"/>
-    &nbsp; <input type="button" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
+    &nbsp;&nbsp;&nbsp;<input type="button" class="input" id="xmlClick" value="<?=$language->show('X_CONFIRM')?>" onclick="_doCall()"/>
+    &nbsp; <input type="button" id="xmlCancel" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
     <input type="hidden" name="xml_filename" id="xml_filename" value="<?=$xmlImportedFileName?>"/>
     <input type="hidden" name="xml_thumbfilename" id="xml_thumbfilename" value="<?=$xmlImportedThumbsFileName?>"/>
     
