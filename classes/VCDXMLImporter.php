@@ -28,11 +28,6 @@ class VCDXMLImporter {
 	CONST XSD_VCDDB_THUMBS = "includes/schema/vcddb-thumbnails.xsd";
 	
 	
-	public function __construct() {
-		
-		
-	}
-	
 	
 	/**
 	 * Get the number of movie entries in the XML file.
@@ -313,44 +308,40 @@ class VCDXMLImporter {
 		
 			$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
 			$movie = $xml->movie[$index];
+			$status = "1";
+			$thumb = "0";
 			
 			if (count($movie) == 1) {
 			
 				$movie_id = (string)$movie->id;
 				$vcdObj = $this->createMovieObject($movie);
 				
-				
-				$cache = "NO";
-				$thumb = "NO";
-				
 				if (!is_null($xmlthumbsfilename)) {
 					$xmlthumbnail = TEMP_FOLDER.$xmlthumbsfilename;
 					$coverObj = $this->getThumbnail($movie_id, $xmlthumbnail);
 					if ($coverObj instanceof cdcoverObj ) {
-						$cache = $coverObj->getFilename();
-						$thumb = "YES";
+						$thumb = "1";
 						$vcdObj->addCovers(array($coverObj));
 					}
-					
 				}
 					
+			
+				// Delegate the vcdObj to the facade
+				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
+				$iResults = $ClassVcd->addVcd($vcdObj);
+				if (!is_numeric($iResults) || $iResults == -1) {
+					$status = "0";
+				}
 				
 			}
-			
-			$ClassVcd = new vcd_movie();
-			$ClassVcd->addVcd($vcdObj);
-			
 			
 			
 			$arr = array(
 				'name' => utf8_encode((string)$movie->title), 
-				'status' => utf8_encode($cache),
+				'status' => utf8_encode($status),
 				'thumb' => utf8_encode($thumb));
-				
 			
 			return $arr;
-			
-			//return utf8_decode((string)$movie->title);
 			
 		
 		} catch (Exception $ex) {
@@ -405,7 +396,7 @@ class VCDXMLImporter {
 			$data = (string)$element->data;
 			$ClassCovers = VCDClassFactory::getInstance('vcd_cdcover');
 			$cdCoverObj = null;
-			
+						
 			// Check if the data is not null and then write the image to temp folder
 			if ((strlen($data) > 0) && VCDUtils::write(TEMP_FOLDER.$filename, base64_decode($data))) {
 				$cdCoverObj = new cdcoverObj();
@@ -514,7 +505,7 @@ class VCDXMLImporter {
    				}
    				
    				
-   				$sourceSiteObj = $ClassSettings->getSourceSiteByID($element->sourcesite_id);
+   				$sourceSiteObj = $ClassSettings->getSourceSiteByID((string)$element->sourcesite_id);
 				if ($sourceSiteObj instanceof sourceSiteObj ) {
 					$source_id = $sourceSiteObj->getsiteID();		
 				}
@@ -555,7 +546,7 @@ class VCDXMLImporter {
 	   				
 	   				}
 	   				
-	   			$sourceSiteObj = $ClassSettings->getSourceSiteByID($element->sourcesite_id);
+	   			$sourceSiteObj = $ClassSettings->getSourceSiteByID((string)$element->sourcesite_id);
 				if ($sourceSiteObj instanceof sourceSiteObj ) {
 					$source_id = $sourceSiteObj->getsiteID();		
 				}
