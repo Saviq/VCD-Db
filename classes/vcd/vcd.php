@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -322,8 +322,7 @@ class vcd_movie implements IVcd  {
 
 				// Add the IMDB information to the IMDB table
 				if ($vcdObj->getIMDB() instanceof imdbObj) {
-					$image_name = $vcdObj->getIMDB()->getIMDB();
-
+					
 					// Just to be sure .. check for existing IMDB entry
 					if ($this->SQL->checkIMDBDuplicate($vcdObj->getIMDB()->getIMDB()) == 0) {
 						if (!$this->SQL->addIMDBInfo($vcdObj->getIMDB())) {
@@ -455,11 +454,13 @@ class vcd_movie implements IVcd  {
 					if (!$metadataObj->isSystemObj()) {
 						// Check if this metadataType exists ..
 						$mFound = false;
-						foreach ($arrUserMeta as $existingMetaObj) {
-							if (strcmp($existingMetaObj->getMetadataTypeName(),$metadataObj->getMetadataTypeName()) == 0) {
-								$metadataObj->setMetaDataTypeID($existingMetaObj->getMetadataTypeID());
-								$mFound = true;
-								break;
+						if (is_array($arrUserMeta) && sizeof($arrUserMeta) > 0) {
+							foreach ($arrUserMeta as $existingMetaObj) {
+								if (strcmp($existingMetaObj->getMetadataTypeName(),$metadataObj->getMetadataTypeName()) == 0) {
+									$metadataObj->setMetaDataTypeID($existingMetaObj->getMetadataTypeID());
+									$mFound = true;
+									break;
+								}
 							}
 						}
 						if (!$mFound) {
@@ -914,7 +915,7 @@ class vcd_movie implements IVcd  {
 	 */
 	public function getCategoryCount($category_id, $isAdult = false, $user_id = -1) {
 		if ($isAdult) {
-			//TODO úrfæra adult category count
+			//TODO ï¿½rfï¿½ra adult category count
 		} else {
 			return $this->SQL->getCategoryCount($category_id, $user_id);
 		}
