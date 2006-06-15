@@ -58,7 +58,6 @@
 	require_once(dirname(__FILE__) . '/VCDException.php');
 	require_once(dirname(__FILE__) . '/VCDLog.php');
 	require_once(dirname(__FILE__) . '/VCDAuthentication.php');
-	require_once(dirname(__FILE__) . '/VCDOnload.php');
 	require_once(dirname(__FILE__) . '/VCDImage.php');
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
 	require_once(dirname(__FILE__) . '/VCDXMLImporter.php');
@@ -69,16 +68,19 @@
 	/* RSS */
 	require_once(dirname(__FILE__) . '/VCDRss.php');
 	
-	/* Ajax Loader */
-	require_once(dirname(__FILE__) . '/VCDAjaxLoader.php');
-
-
 	/* File system functions */
 	if (strcmp(strtolower(VCDUtils::getOS()), "winnt") == 0) {
 		require_once(dirname(__FILE__) . '/external/fs_win32.php');
 	} else {
 		require_once(dirname(__FILE__) . '/external/fs_unix.php');
 	}
+	
+	
+	
+	/* VCD-db Bootstrappers - Ajax Loader */
+	require_once(dirname(__FILE__) . '/VCDOnload.php');
+	require_once(dirname(__FILE__) . '/VCDAjaxLoader.php');
+	
 	
 	/**
 	 * Check for current PHP Version and see if VCD-db can continue.
