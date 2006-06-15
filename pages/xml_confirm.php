@@ -72,6 +72,7 @@
   	 function _doCall() {
   	 	  document.getElementById('xmlClick').disabled=true;
   	 	  document.getElementById('xmlCancel').disabled=true;
+  	 	  show('tblAjax');
   	 	  setTimeout("doCall()", 3000);
   	 }
   	 
@@ -127,9 +128,9 @@
         
     </form>
     
-    <br>
-    <br>
-    <table cellspacing=1" cellpadding="1" id="tbjAjax" border="0" class="displist" width="650">
+    <br/>
+    <br/>
+    <table cellspacing="1" cellpadding="1" id="tblAjax" border="0" class="displist" width="650" style="display:none;visibility:hidden">
 	<tr>
 		<td nowrap="nowrap" width="60%">Title:</td>
 		<td>Thumbnail:</td>
