@@ -319,7 +319,7 @@
 	public function toXML() {
 
 			$xmlstr  = "<imdb>\n";
-			$xmlstr .= "<imdb_id>".$this->imdb."</imdb_id>\n";
+			$xmlstr .= "<imdb_id>".$this->getIMDB()."</imdb_id>\n";
 			$xmlstr .= "<title><![CDATA[".$this->title."]]></title>\n";
 			$xmlstr .= "<alt_title><![CDATA[".$this->alt_title1."]]></alt_title>\n";
 			$xmlstr .= "<image>".$this->image."</image>\n";
