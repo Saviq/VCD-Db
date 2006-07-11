@@ -351,7 +351,14 @@
 					if ($this->isActiveDirectory) {
 						$this->ldap_connection->Connect($this->ldap_host, $ADUsername, $password, $this->ldap_base);
 					} else {
-						$this->ldap_connection->Connect($this->ldap_host, $username, $password, $this->ldap_base);
+						// Typically OpenLDAP or Fedora Directory Server, even Novell.
+						try {
+							$this->ldap_connection->Connect($this->ldap_host, $username, $password, $this->ldap_base);
+						} catch (Exception $ex) {
+							// Bind failed .. try adding BASEDN with auth username
+							$uname = "cn={$username},{$this->ldap_base}";
+							$this->ldap_connection->Connect($this->ldap_host, $uname, $password, $this->ldap_base);
+						}
 					}
 					
 					
