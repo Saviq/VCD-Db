@@ -26,7 +26,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
-		'cast' 		=> '<td valign="top"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="top" nowrap="1"> .... </td><td valign="top">([^<]*)</td>',
+		'cast' 		=> '<td valign="middle"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="middle" nowrap="1"> .... </td><td valign="middle">([^<]*)</td>',
 		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
 		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
