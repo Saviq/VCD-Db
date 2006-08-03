@@ -5,6 +5,7 @@ Added	- All lang files now in UTF-8 - a fully international character encoding P
 Added	- Fetching now converts strings to proper encoding
 	| Konni
 Fixed   - Submitted checkbox data now works properly with magic_quotes enabled.
+Fixed	- IMDB fetch for the cast section updated.
 
 0.982
 	
