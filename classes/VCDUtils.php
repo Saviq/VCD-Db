@@ -696,8 +696,10 @@ class VCDUtils {
 		foreach($_GET as $k=>$v) {
 			$_GET[$k]=stripslashes($v);
 		}
+		
 		foreach($_POST as $k=>$v) {
-			$_POST[$k]=stripslashes($v);
+			if ( (!is_array($v)) )
+				$_POST[$k]=stripslashes($v);
 		}
 	}
 	
