@@ -6,6 +6,7 @@ Added	- Fetching now converts strings to proper encoding
 	| Konni
 Fixed   - Submitted checkbox data now works properly with magic_quotes enabled.
 Fixed	- IMDB fetch for the cast section updated.
+Fixed	- Fixed the LDAP authentication to work properly with OpenLDAP.
 
 0.982
 	
