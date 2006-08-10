@@ -2,12 +2,12 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2004 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Michał Sawicz <michal@sawicz.net>
  * @package Kernel
  * @subpackage WebFetch
@@ -20,7 +20,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected $regexArray = array(
 	'title'		=> '#div class=\"tyt\">([^<]+)(?:<span|<br)#',
 	'org_title' => '#class=\"styt\">([^(][^<]+)<\/span#',
-	'year'		=> '#\(([0-9]{4})\)<\/span>#',
+	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#solid Black;">[^"]+"([^"]+)" alt#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genre.id=[0-9]+\">([^<]+)</a>',
@@ -64,8 +64,8 @@ class VCDFetch_filmweb extends VCDFetch {
 		}
 
 		$testItem = $arrSearchResults[0];
-		if (!isset($testItem['id']) || !isset($testItem['title']))	{
-			throw new Exception('Results array must contain keys [id] and [title]');
+		if (!isset($testItem['id']) || !isset($testItem['title']) || !isset($testItem['year']))	{
+			throw new Exception('Results array must contain at least keys [id], [title] and [year]');
 		}
 
 
@@ -215,7 +215,7 @@ class VCDFetch_filmweb extends VCDFetch {
 			if(is_numeric($this->getID())) return $this->getID();
 			else {
 				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl", false);
-				if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
+				if (ereg("FilmUpdate,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 				else return null;
 			}
 		} elseif(ereg("id=([0-9]+)", $this->getSearchRedirectUrl(), $id)) {
@@ -223,7 +223,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		} else {
 			ereg("http://([^/]+)(/.*)?", $this->getSearchRedirectUrl(), $redirect);
 			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl", false);
-			if (ereg("Film,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
+			if (ereg("FilmUpdate,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
 			else return null;
 		}
 	}
