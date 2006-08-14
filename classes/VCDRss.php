@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -26,6 +26,7 @@ class VCDRss {
 	private $baseurl;
 
 	private $rss_version = "2.0";
+	private $rss_encoding = "UTF-8";
 
 	// Cache settings
 	private $use_cache = true;
@@ -58,7 +59,7 @@ class VCDRss {
 	 */
 	public function getRSSUsers() {
 		if (($this->user_rss) && (sizeof($this->rssUsers) > 0)) {
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<sitedata>";
 			$xml .= "<url>".$this->baseurl."</url>";
 			$xml .= "<rssusers>";
@@ -74,7 +75,7 @@ class VCDRss {
 			$xml .= "</sitedata>";
 			return $xml;
 		} else {
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<sitedata><error>No users sharing RSS feeds</error></sitedata>";
 			return $xml;
 		}
@@ -113,10 +114,10 @@ class VCDRss {
 	   		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	   		$builddate = date("r", time());
 
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
   			$xml .= "<channel>\n";
-    		$xml .= "<title>".$SETTINGSClass->getSettingsByKey('SITE_NAME')." (".$user_name.")</title>\n";
+    		$xml .= "<title>".htmlspecialchars($SETTINGSClass->getSettingsByKey('SITE_NAME'), ENT_QUOTES)." (".$user_name.")</title>\n";
     		$xml .= "<link>".$this->baseurl."</link>\n";
     		$xml .= "<description>VCD Database movie list</description>\n";
     		$xml .= "<language>en-us</language>\n";
@@ -159,7 +160,7 @@ class VCDRss {
 			return $xml;
 
 		} else {
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<sitedata><error>Invalid username</error></sitedata>";
 			return $xml;
 		}
@@ -201,12 +202,12 @@ class VCDRss {
 
 			$builddate = date("r", time());
 
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
   			$xml .= "<channel>\n";
-    		$xml .= "<title>".$SETTINGSClass->getSettingsByKey('SITE_NAME')."</title>\n";
+    		$xml .= "<title>".htmlspecialchars($SETTINGSClass->getSettingsByKey('SITE_NAME'),ENT_QUOTES)."</title>\n";
     		$xml .= "<link>".$this->baseurl."</link>\n";
-    		$xml .= "<description>VCD Database movie list</description>\n";
+    		$xml .= "<description>VCD Database Movie List</description>\n";
     		$xml .= "<language>en-us</language>\n";
     		$xml .= "<lastBuildDate>{$builddate}</lastBuildDate>\n";
     		$xml .= "<generator>VCD-db ".VCDDB_VERSION." ({$db_env})</generator>\n";
@@ -243,7 +244,7 @@ class VCDRss {
 			return $xml;
 
 		} else {
-			$xml = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n";
+			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<sitedata>";
 			$xml .= "<error>RSS disabled by administrator</error>";
 			$xml .= "</sitedata>";
