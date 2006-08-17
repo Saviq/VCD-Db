@@ -4,7 +4,7 @@ body {
 	background-color: White;
 	background-image: url(images/background3.gif);
 	color: #333333;
-	font-family: Verdana, Arial, Helvetica;
+	font-family: Verdana, Arial, Helvetica, sans;
 	font-size: 11px;
 }
 
