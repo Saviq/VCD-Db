@@ -474,7 +474,7 @@ function setDefaultRole($recordID) {
 }
 
 
-function drawLogBar($numrows, $offset) {
+function drawLogBar($numrows, $offset, $logfilter) {
 	print "<div align=\"right\" id=\"newObj\">";
 	
 	$backDisabled = "";
@@ -484,7 +484,7 @@ function drawLogBar($numrows, $offset) {
 	
 	
 	
-	$totalrows = VCDLog::getLogCount();
+	$totalrows = VCDLog::getLogCount($logfilter);
 	$rowsto = $offset + $numrows;
 	$rowsback = $offset - $numrows;
 	
@@ -499,10 +499,22 @@ function drawLogBar($numrows, $offset) {
 	
 	print $msg;
 	
-	$jsBack = "./?page=viewlog&offset=".$rowsback;
+	$filters = "<option value=\"-1\">Show All</option>";
+	for ($i=1; $i <= VCDLog::$numEventTypes; $i++) {
+		$selected = "";
+		if ($logfilter == $i) { $selected = " selected=\"selected\""; }
+		$filters .= "<option value=\"{$i}\" {$selected}>".VCDLog::getLogTypeDescription($i)."</option>";
+	}
+	
+	$filterdrop = "<select onchange=\"setLogFilter()\" id=\"filter\" name=\"filter\" title=\"Filter By ..\">{$filters}</select>";
+	print $filterdrop;
+	
+	print "&nbsp;";
+	
+	$jsBack = "./?page=viewlog&offset=".$rowsback."&filter_id=".$logfilter;
 	$btnBack = "<input type=\"button\" value=\"&lt;&lt;\" title=\"Previous entries\" {$backDisabled} onclick=\"location.href='{$jsBack}'\">";
 	
-	$jsForward = "./?page=viewlog&offset=".$rowsto;
+	$jsForward = "./?page=viewlog&offset=".$rowsto."&filter_id=".$logfilter;
 	$btnForward = "<input type=\"button\" value=\"&gt;&gt;\"  title=\"Next entries\" {$frontDisabled} onclick=\"location.href='{$jsForward}'\">";
 	
 	print $btnBack;
