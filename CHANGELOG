@@ -7,6 +7,10 @@ Added	- Fetching now converts strings to proper encoding
 Fixed   - Submitted checkbox data now works properly with magic_quotes enabled.
 Fixed	- IMDB fetch for the cast section updated.
 Fixed	- Fixed the LDAP authentication to work properly with OpenLDAP.
+Fixed   - RSS feed got broken id title contains illegal xml characters, they are now parsed and corrected for valid XML output.
+Fixed   - RSS feeds on frontpage with 0 items are not displayed.
+Added   - The Log Viewer on the "Admin Panel" now has the option to filter on specific event types.
+
 
 0.982
 	
