@@ -54,6 +54,16 @@ function clearBorder(obj) {
 	
 }
 
+function setLogFilter() {
+	var filterObj = document.getElementById('filter');
+	var filter_id = filterObj.options[filterObj.selectedIndex].value;
+	var url = "./?page=viewlog";
+	if (filter_id > 0) {
+		url += "&filter_id="+filter_id;
+	}
+	location.href = url;
+}
+
 function trOn(obj) {
 	obj.style.background = "#F6F6F6";
 }
