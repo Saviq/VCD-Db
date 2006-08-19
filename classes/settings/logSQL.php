@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @todo Implement the date interval SQL query in function getLogEntries()
@@ -60,23 +60,28 @@ class logSQL {
 		 * All LogEntries from database will be returned.
 		 * Returns array of LogEntries
 		 *
-		 * @param int $numrows
-		 * @param int $offset
+		 * @param int $numrows | Number of rows to fetch
+	 	 * @param int $offset | Start at offset ..
+	 	 * @param int $item_filter | Filter by specific event type
 		 * @return array
 		 */
-		public function getLogEntries($numrows = null, $offset = null) {
+		public function getLogEntries($numrows = null, $offset = null, $item_filter = null) {
 			try {
+				
+				$usefilter = "";
+				if (!is_null($item_filter) && is_numeric($item_filter)) {
+					$usefilter = "WHERE event_id = " . $item_filter;
+				}
 			
 				if (is_null($numrows) && is_null($offset)) {
-					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log ORDER BY event_date DESC";
+					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log {$usefilter} ORDER BY event_date DESC";
 					$rs = $this->db->Execute($query);
 				} else {
-					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log ORDER BY event_date DESC";
+					$query = "SELECT event_id, message, user_id, event_date, ip FROM $this->TABLE_log {$usefilter} ORDER BY event_date DESC";
 					$rs = $this->db->SelectLimit($query, $numrows, $offset);
 					
 				}
-				
-				
+									
 				
 				$arrLogEntries = array();
 				foreach ($rs as $row) {
@@ -112,12 +117,18 @@ class logSQL {
 		/**
 		 * Get the count of total logentries in database.
 		 *
+		 * @param int $item_filter | The Item Event to filter by
 		 * @return int
 		 */
-		public function getLogCount() {
+		public function getLogCount($item_filter = null) {
 			try {
-			
+							
 				$query = "SELECT COUNT(*) FROM $this->TABLE_log";
+				
+				if (!is_null($item_filter) && is_numeric($item_filter)) {
+					$query .= " WHERE event_id = " . $item_filter;
+				}
+				
 				return $this->db->getOne($query);
 			
 			} catch (Exception $ex) {

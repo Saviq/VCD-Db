@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -27,7 +27,16 @@ class VCDLog {
 	CONST EVENT_ERROR 	 = 2;
 	CONST EVENT_SOAPCALL = 3;
 	CONST EVENT_RSSCALL  = 4;
+	CONST EVENT_EMAILS	 = 5;
 		
+	
+	/**
+	 * Number of defined Constants
+	 *
+	 * @var int
+	 */
+	public static $numEventTypes = 5;
+	
 	
 	/**
 	 * Array of EVENT_TYPES to log.
@@ -41,13 +50,14 @@ class VCDLog {
 	 * Get all log entries.  Returns array of VCDLogEntry objects.
 	 * If $numrows and $offset are not specified, all entries are returned.
 	 *
-	 * @param int $numrows
-	 * @param int $offset
+	 * @param int $numrows | Number of rows to fetch
+	 * @param int $offset | Start at offset ..
+	 * @param int $item_filter | Filter by specific event type
 	 * @return array
 	 */
-	public static function getLogEntries($numrows = null, $offset = null) {
+	public static function getLogEntries($numrows = null, $offset = null, $item_filter = null) {
 		try {
-			return VCDClassFactory::getInstance('logSQL')->getLogEntries($numrows, $offset);
+			return VCDClassFactory::getInstance('logSQL')->getLogEntries($numrows, $offset, $item_filter);
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
@@ -115,13 +125,14 @@ class VCDLog {
 	/**
 	 * Get Count of Log entries.
 	 *
+	 * @param int $item_filter | The Item Event to filter by
 	 * @return int
 	 */
-	public static function getLogCount()
+	public static function getLogCount($item_filter = null)
 	{
 		try {
 			
-			return VCDClassFactory::getInstance('logSQL')->getLogCount();
+			return VCDClassFactory::getInstance('logSQL')->getLogCount($item_filter);
 		
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -170,6 +181,10 @@ class VCDLog {
 					
 				case VCDLog::EVENT_SOAPCALL:
 					return "SOAP Call";
+					break;
+				
+				case VCDLog::EVENT_EMAILS:
+					return "Sent Emails";
 					break;
 					
 				default:
