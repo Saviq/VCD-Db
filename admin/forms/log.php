@@ -24,6 +24,10 @@
 	<td>XML Rss calls</td>
 	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_RSSCALL ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_RSSCALL )) print "checked=\"checked\"" ?>></td>
 </tr>
+<tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
+	<td>Emails sent from VCD-db</td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_EMAILS ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_EMAILS )) print "checked=\"checked\"" ?>></td>
+</tr>
 </table>
 
 <p align="right">

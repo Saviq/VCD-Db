@@ -34,7 +34,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">		 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>VCD :: Admin console</title>
+<title>VCD-db :: Admin console</title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link rel="stylesheet" href="../includes/css/admin.css" type="text/css" media="all" />
 <script src="../includes/js/admin.js" type="text/javascript"></script>
@@ -44,7 +44,7 @@
 
 <table cellspacing=0 cellpadding=0 border=0 width="100%" align="center" id="admintable">
 <tr>
-	<td colspan="2" align="center" class="admintitle">VCD Admin web <? print str_replace("_"," ",$CURRENT_PAGE) ?></td>
+	<td colspan="2" align="center" class="admintitle">VCD-db Admin web <? print str_replace("_"," ",$CURRENT_PAGE) ?></td>
 </tr>
 <tr>
 	<td colspan="2">
@@ -891,9 +891,14 @@
 					$offset = $_GET['offset'];
 				}
 				
-				drawLogBar($numrows, $offset);
+				$logfilter = null;
+				if (isset($_GET['filter_id']) && is_numeric($_GET['filter_id']) && $_GET['filter_id'] > 0) {
+					$logfilter = $_GET['filter_id'];
+				}
 				
-				$arrLog = VCDLog::getLogEntries($numrows, $offset);
+				drawLogBar($numrows, $offset, $logfilter);
+				
+				$arrLog = VCDLog::getLogEntries($numrows, $offset, $logfilter);
 				$CLASSUser = new vcd_user();
 				
 				$arrAllUsers = $CLASSUser->getAllUsers();
@@ -918,7 +923,7 @@
 					printRow($strUserName);	
 					printRow(date("d/m/Y h:i:s", strtotime($obj->getDate())), "", true);
 										
-					print "<td valign=top onmouseover=\"return escape('<iframe src=iptodns.php?ip={$obj->getIP()} width=150 height=22></iframe>')\">{$obj->getIP()}</td>";
+					print "<td valign=top onmouseover=\"return escape('<iframe src=iptodns.php?ip={$obj->getIP()} width=250 height=22></iframe>')\">{$obj->getIP()}</td>";
 				
 					printTr(false);
 				}
