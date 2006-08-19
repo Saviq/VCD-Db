@@ -712,7 +712,9 @@ function ShowOneRSS($url, $showdescription = false) {
 	$rss->cp = VCDUtils::getCharSet();
 
     if ($rs = $rss->get($url)) {
-
+  	    	
+    	if ($rs['items_count'] <= 0) {  return; }
+    	
     	$title = $rs['title'];
     	if (strlen($title) > $maxtitlelen) {
     		$title = VCDUtils::shortenText($title, $maxtitlelen);
