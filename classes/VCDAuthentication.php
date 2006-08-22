@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -356,11 +356,16 @@
 							$this->ldap_connection->Connect($this->ldap_host, $username, $password, $this->ldap_base);
 						} catch (Exception $ex) {
 							// Bind failed .. try adding BASEDN with auth username
-							$uname = "cn={$username},{$this->ldap_base}";
-							$this->ldap_connection->Connect($this->ldap_host, $uname, $password, $this->ldap_base);
+							try {
+								$uname = "cn={$username},{$this->ldap_base}";
+								$this->ldap_connection->Connect($this->ldap_host, $uname, $password, $this->ldap_base);
+							} catch (Exception $ex) {
+								// Still not working .. finally try using uid for binding
+								$uname = "uid={$username},{$this->ldap_base}";
+								$this->ldap_connection->Connect($this->ldap_host, $uname, $password, $this->ldap_base);
+							}
 						}
 					}
-					
 					
 				} catch (Exception $ex) {
 					// Authentication failed, return null
