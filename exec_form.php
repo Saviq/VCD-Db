@@ -274,53 +274,44 @@ switch ($form) {
 		$vcd->addInstance($_SESSION['user'], $SETTINGSClass->getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
 		// if file was uploaded .. lets process it ..
 
-		$upload =& new uploader();
-		$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
-
-
-		if($_FILES){
-
-		  foreach($_FILES as $key => $file){
-
-		  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
-		  	$arrFileExt = array("jpg" => "image/pjpeg", "jpg" => "image/jpeg" ,"gif" => "image/gif");
-		  	prepareUploader($upload, $file, $key, VSIZE_THUMBS, $arrFileExt, $savePath);
-			$result = $upload->moveFileToDestination();
-
-		  }
-
-
-		  if($upload->succeed_files_track){
-	       	   $file_arr = $upload->succeed_files_track;
-	      	   $upfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
-	      	   $f_name = $file_arr[0]['new_file_name'];
-
-	      	   // Resize the thumbnail
-	      	   // Release the file hook
-	      	   	unset($upload);
-
-      	   		$im = new Image_Toolbox(TEMP_FOLDER.$f_name);
+		// Set the allowed extensions for the upload
+		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF);
+		$VCDUploader = new VCDFileUpload($arrExt);
+				
+		if ($VCDUploader->getFileCount() == 1) {
+			try {
+			
+				$fileObj = $VCDUploader->getFileAt(0);
+				
+				// Move the file to the TEMP Folder
+				$fileObj->move(TEMP_FOLDER);
+				// Get the full path including filename after it has been moved
+				$fileLocation = $fileObj->getFileLocation();
+				$fileExtension = $fileObj->getFileExtenstion();
+								
+	  	   		$im = new Image_Toolbox($fileLocation);
 				$im->newOutputSize(0,140);
-				$im->save(TEMP_FOLDER.$f_name, 'jpg');
-				unset($im);
-      	   		//fs_unlink(TEMP_FOLDER.$f_name);
-
-
+				$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
+				  	   		
+	
 			  	$cover = new cdcoverObj();
-
 				// Get a Thumbnail CoverTypeObj
 				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 				$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
 				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
 				$cover->setCoverTypeName("thumbnail");
-				$cover->setFilename($f_name);
+				$cover->setFilename($fileObj->getFileName());
 				$vcd->addCovers(array($cover));
-
-
-			} else {
-				if ($upload->fail_files_track[0]['error_type'] != 6) {
-		  		 	VCDException::display($upload->fail_files_track[0]['msg'],true);
-			  	}
+				
+				
+				// CleanUp
+				unset($im);
+				$fileObj->delete();
+				
+			
+			} catch (Exception $ex) {
+				VCDException::display($ex, true);
+				exit();
 			}
 		}
 
