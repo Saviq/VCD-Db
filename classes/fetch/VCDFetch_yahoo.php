@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id$
@@ -231,9 +231,8 @@ class VCDFetch_yahoo extends VCDFetch {
 
 	public function showSearchResults() {
 
-
 		$this->setMaxSearchResults(50);
-		$regx = 'd=hv&cf=info&id=([0-9]{10})">([^"]+)\(([0-9]{4})\)</a><br>';
+		$regx = 'movie/([0-9]{10})/info">([^"]+)\(([0-9]{4})\)</a><br>';
 
 		$results = parent::generateSimpleSearchResults($regx,1,2,3);
 
