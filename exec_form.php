@@ -892,33 +892,22 @@ switch ($form) {
 		}
 
 
+		
+		
+		
+		
+		// Set the allowed extensions for the upload
+		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF, VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
+		$VCDUploader = new VCDFileUpload($arrExt);
+				
+		if ($VCDUploader->getFileCount() > 0) {
+			
+			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 
-
-	    /*
-	    	Process uploaded images
-	    */
-	    $upload = new uploader();
-	    $path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
-
-		if($_FILES){
-		  foreach($_FILES as $key => $file){
-
-		  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
-		  	$arrFileExt = array("jpg" => "image/pjpeg", "jpg" => "image/jpeg", "nfo" => "text/nfo", "txt" => "text/txt");
-		  	prepareUploader($upload, $file, $key, VSIZE_COVERS, $arrFileExt, $savePath, false, true);
-			$result = $upload->moveFileToDestination(); // $result = bool (true/false). Succeed or not.
-		  }
-		}
-
-		if($upload->succeed_files_track){
-		      $file_arr = $upload->succeed_files_track;
-
-
-		      // Check which covertypes were uploaded and update them
-		      $COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
-		      foreach ($upload->succeed_files_track as $cfile) {
-
-		      		$cover_typeid = $cfile['field_name'];
+			for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
+			
+				$fileObj = $VCDUploader->getFileAt($i);
+				$cover_typeid = $fileObj->getHTMLFieldName();
 
 		      		// Check if this uploaded file is a NFO file ..
 		      		$nfostart = "meta|nfo";
@@ -926,30 +915,37 @@ switch ($form) {
 
 		      			// Yeap it's a NFO file
 		      			// Begin with moving the file to the NFO folder
-		      			if (fs_file_exists(TEMP_FOLDER.$cfile['new_file_name'])) {
+		      			if (fs_file_exists($fileObj->getFileLocation())) {
 
-		      				if (!fs_rename(TEMP_FOLDER.$cfile['new_file_name'], NFO_PATH . $cfile['new_file_name'])) {
-		      					VCDException::display("Could not move NFO file " . $$cfile['new_file_name'] . " to NFO folder!");
-		      					$errors = true;
-		      				} else {
-		      					// Everything is OK ... add the metadata
-								$entry = explode("|", $cover_typeid);
-								$metadataName = $entry[1];
-								$metadatatype_id = $entry[2];
-								$mediatype_id = $entry[3];
-
-								// Create the MetadataObject
-								$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $cfile['new_file_name']));
-								$obj->setMetaDataTypeID($metadatatype_id);
-								$obj->setMediaTypeID($mediatype_id);
-
-								// And save to DB
-								$SETTINGSClass->addMetadata($obj, true);
-
+		      				try {
+		      					
+			      				if (!$fileObj->move(NFO_PATH)) {
+			      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
+			      					$errors = true;
+			      				} else {
+			      					// Everything is OK ... add the metadata
+									$entry = explode("|", $cover_typeid);
+									$metadataName = $entry[1];
+									$metadatatype_id = $entry[2];
+									$mediatype_id = $entry[3];
+	
+									// Create the MetadataObject
+									$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
+									$obj->setMetaDataTypeID($metadatatype_id);
+									$obj->setMediaTypeID($mediatype_id);
+	
+									// And save to DB
+									$SETTINGSClass->addMetadata($obj, true);
+			      				}
+			      				
+		      				} catch (Exception $ex) {
+		      					VCDException::display($ex,true);
+		      					exit();
 		      				}
+			      				
 
 		      			} else {
-		      				VCDException::display("Could not find uploaded NFO file " . $$cfile['new_file_name']);
+		      				VCDException::display("Could not find uploaded NFO file " .$fileObj->getFileName());
 		      				$errors = true;
 		      			}
 
@@ -959,25 +955,24 @@ switch ($form) {
 		      		} else {
 		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
 
-			      		$imginfo = array('', $cd_id, $cfile['new_file_name'], $cfile['file_size'],
-			      							 VCDUtils::getUserID(), date(time()), $cover_typeid,
-			      							 $coverType->getCoverTypeName(), '');
+		      			try {
+		      				$fileObj->move(TEMP_FOLDER);
+		      			} catch (Exception $ex) {
+		      				VCDException::display($ex, true);
+		      				exit();
+		      			}
+		      						      			
+		      			
+			      		$imginfo = array('', $cd_id, $fileObj->getFileName(), $fileObj->getFileSize(), VCDUtils::getUserID(), 
+			      					date(time()), $cover_typeid, $coverType->getCoverTypeName(), '');
 			      		$cdcover = new cdcoverObj($imginfo);
 			      		$vcd->addCovers(array($cdcover));
 		      		}
-		      }
-		 }
-
-		if ($upload->fail_files_track) {
-			foreach ($upload->fail_files_track as $msg) {
-				if ($msg['error_type'] != 6) {
-					VCDException::display("Error with file ".$msg['file_name']."<break>". $msg['msg']);
-					$errors = true;
-				}
 			}
 		}
+		
 
-		unset($upload);
+		
 
 		$VCDClass->updateVcd($vcd);
 
