@@ -236,6 +236,37 @@ class VCDUploadedFile {
 		}
 	}
 	
+
+	/**
+	 * Set the maximimum filesize in bytes
+	 *
+	 * @param int $iSize | The size in bytes
+	 */
+	public function setMaxFileSize($iSize) {
+		if (is_numeric($iSize)) {
+			$this->iMaxFileSize = $iSize;	
+		}
+	}
+	
+	/**
+	 * Set the file name to be generated or not.
+	 *
+	 * @param bool $bUseRandom
+	 */
+	public function setRandomFileName($bUseRandom) {
+		$this->bUseRandomFileName = $bUseRandom;
+	}
+	
+	/**
+	 * Overwrite existing file with same name if it exists?
+	 *
+	 * @param bool $bOverWrite
+	 */
+	public function setOverWrite($bOverWrite) {
+		$this->bOverWrite = $bOverWrite;
+	}
+	
+	
 	/**
 	 * Get the HTML upload field name of the uploaded file
 	 *
@@ -320,10 +351,21 @@ class VCDUploadedFile {
 				
 				$dst_file_name = ($this->bUseRandomFileName) ? $this->generateFileName() : $this->fixFileName($this->filename);
         		$full_destination_path = $strDestinationFolder."/".$dst_file_name;
+        		
+        		// Check if overwrite is disabled and if file already exists ..
+        		if (!$this->bOverWrite && file_exists($full_destination_path)) {
+        			// it already exists .. we have to use generated file name
+        			$dst_file_name = $this->generateFileName();
+        			$full_destination_path = $strDestinationFolder."/".$dst_file_name;
+        			$this->filename = $dst_file_name;
+        		}
+        		
         		if(@move_uploaded_file($this->filetmpname,$full_destination_path)) {
             		$this->setFileLocation($strDestinationFolder."/".$dst_file_name);
         			@chmod ($this->filelocation, $this->strFilePermission);
-        			$this->filename = $dst_file_name;
+        			if ($this->bUseRandomFileName) {
+        				$this->filename = $dst_file_name;	
+        			}
         			return true;
             		
         		} else {
