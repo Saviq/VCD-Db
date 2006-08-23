@@ -306,9 +306,12 @@ class VCDUploadedFile {
 	
 	
 	/**
-	 * Move the uploaded file to a specific folder
+	 * Move the uploaded file to a specific folder.
+	 * If Move is successful functions returns true, otherwise false.
 	 *
 	 * @param string $strDestinationFolder
+	 * 
+	 * @return bool
 	 */
 	public function move($strDestinationFolder) {
 		try {
@@ -320,11 +323,14 @@ class VCDUploadedFile {
         		if(@move_uploaded_file($this->filetmpname,$full_destination_path)) {
             		$this->setFileLocation($strDestinationFolder."/".$dst_file_name);
         			@chmod ($this->filelocation, $this->strFilePermission);
+        			$this->filename = $dst_file_name;
+        			return true;
             		
         		} else {
         			throw new Exception("Unknown exception trying to move file {$this->filename}");
         		}
 				
+        		return false;
 				
 			}
 
