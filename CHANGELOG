@@ -3,6 +3,7 @@
 	| Saviq
 Added	- All lang files now in UTF-8 - a fully international character encoding PLEASE CHECK THE SPECIAL CHARS IN YOUR LANG FILES!
 Added	- Fetching now converts strings to proper encoding
+Fixed	- Category display in manager now localized
 	| Konni
 Fixed   - Submitted checkbox data now works properly with magic_quotes enabled.
 Fixed	- IMDB fetch for the cast section updated.
