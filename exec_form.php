@@ -1,15 +1,17 @@
 <?php
-/*
+/**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
+ * @author  Hákon Birgisson <konni@konni.com>
+ * @version $Id$
  */
- // $Id:
+
 ?>
 <?
 include_once("classes/includes.php");
@@ -192,11 +194,12 @@ switch ($form) {
 		break;
 
 	case 'addfromxml':
-		// call to XMLFunctions
+		
 		$movie_titles = array();
 
 		try {
-			$file_name = checkMovieImport($movie_titles);
+			//$file_name = checkMovieImport($movie_titles);
+			$file_name = VCDXMLImporter::validateXMLImport($movie_titles);
 		} catch (Exception $ex) {
 			VCDException::display($ex, true);
 		}
@@ -597,55 +600,46 @@ switch ($form) {
 			$pornstar->setBiography($pornstar_bio);
 
 
-			// if file was uploaded .. lets process it ..
-
-				$upload =& new uploader();
-				$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
-
-
-				if($_FILES){
-
-				  foreach($_FILES as $key => $file){
-
-				  	$savePath = $_SERVER["DOCUMENT_ROOT"]."".$path."upload/";
-		  			$arrFileExt = array("jpg" => "image/pjpeg", "jpg" => "image/jpeg" ,"gif" => "image/gif");
-		  			prepareUploader($upload, $file, $key, VSIZE_THUMBS, $arrFileExt, $savePath, false, false);
-					$result = $upload->moveFileToDestination(); // $result = bool (true/false). Succeed or not.
-
-				  }
-
-
-				  if($upload->succeed_files_track){
-			       	   $file_arr = $upload->succeed_files_track;
-			      	   $upfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
-			      	   $f_name = $upload->succeed_files_track[0]['file_name'];
-
-			      	   // Check if image should be resized
-			      	   if (isset($_POST['resize']) && $_POST['resize']) {
-
-			      	   		// Release the file hook
-			      	   		unset($upload);
-
-			      	   		$im = new Image_Toolbox(TEMP_FOLDER.$f_name);
-							$im->newOutputSize(0,200);
-							$im->save(PORNSTARIMAGE_PATH.$f_name, 'jpg');
-							unset($im);
-			      	   		fs_unlink(TEMP_FOLDER.$f_name);
-
-					  	} else {
-					  		fs_rename(TEMP_FOLDER.$f_name, PORNSTARIMAGE_PATH.$f_name);
-					  	}
-
-
-					  	$pornstar->setImageName($f_name);
-
-					} else {
-						if ($upload->fail_files_track[0]['error_type'] != 6) {
-				  		 	VCDException::display($upload->fail_files_track[0]['msg'],true);
-					  	}
-					}
+			// If file was uploaded .. lets process it ..
+			// Set the allowed extensions for the upload
+			$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF);
+			$VCDUploader = new VCDFileUpload($arrExt);
+					
+			if ($VCDUploader->getFileCount() == 1) {
+				try {
+				
+					$fileObj = $VCDUploader->getFileAt(0);
+					
+					// Move the file to the TEMP Folder
+					$fileObj->move(TEMP_FOLDER);
+					// Get the full path including filename after it has been moved
+					$fileLocation = $fileObj->getFileLocation();
+					$fileExtension = $fileObj->getFileExtenstion();
+									
+					// Check if image should be resized
+			      	if (isset($_POST['resize']) && $_POST['resize']) {
+			  	   		$im = new Image_Toolbox($fileLocation);
+						$im->newOutputSize(0,200);
+						$im->save(PORNSTARIMAGE_PATH.$fileObj->getFileName(), $fileExtension);
+						$fileObj->delete();
+			      	} else {
+			    		fs_rename($fileObj->getFileLocation(), PORNSTARIMAGE_PATH.$fileObj->getFileName());
+			      	}
+					
+			      	$pornstar->setImageName($fileObj->getFileName());
+			      	
+					// CleanUp
+					unset($im);
+					
+					
+				
+				} catch (Exception $ex) {
+					VCDException::display($ex, true);
+					exit();
 				}
+			}
 
+			      	   
 			$PORNClass->updatePornstar($pornstar);
 
 			if (isset($_POST['update'])) {
@@ -854,8 +848,6 @@ switch ($form) {
 	    	}
 
 	    	// Add / Update the DVD metadata
-	    	//print_r($arrDVDMeta);
-	    	//exit();
 	    	$SETTINGSClass->addMetadata($arrDVDMeta, true);
 
 
