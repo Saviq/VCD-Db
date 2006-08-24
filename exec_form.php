@@ -897,7 +897,8 @@ switch ($form) {
 		
 		
 		// Set the allowed extensions for the upload
-		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF, VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
+		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF, 
+						VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
 		$VCDUploader = new VCDFileUpload($arrExt);
 				
 		if ($VCDUploader->getFileCount() > 0) {
@@ -914,43 +915,36 @@ switch ($form) {
 		      		if (substr_count($cover_typeid, $nfostart) > 0)  {
 
 		      			// Yeap it's a NFO file
-		      			// Begin with moving the file to the NFO folder
-		      			if (fs_file_exists($fileObj->getFileLocation())) {
+	      				try {
+	      					
+	      					// Keep the original filename and do not overwrite
+	      					$fileObj->setRandomFileName(false);
+	      					$fileObj->setOverWrite(false);
+	      							      					
+		      				if (!$fileObj->move(NFO_PATH)) {
+		      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
+		      					$errors = true;
+		      				} else {
+		      					// Everything is OK ... add the metadata
+								$entry = explode("|", $cover_typeid);
+								$metadataName = $entry[1];
+								$metadatatype_id = $entry[2];
+								$mediatype_id = $entry[3];
 
-		      				try {
-		      					
-			      				if (!$fileObj->move(NFO_PATH)) {
-			      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
-			      					$errors = true;
-			      				} else {
-			      					// Everything is OK ... add the metadata
-									$entry = explode("|", $cover_typeid);
-									$metadataName = $entry[1];
-									$metadatatype_id = $entry[2];
-									$mediatype_id = $entry[3];
-	
-									// Create the MetadataObject
-									$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
-									$obj->setMetaDataTypeID($metadatatype_id);
-									$obj->setMediaTypeID($mediatype_id);
-	
-									// And save to DB
-									$SETTINGSClass->addMetadata($obj, true);
-			      				}
-			      				
-		      				} catch (Exception $ex) {
-		      					VCDException::display($ex,true);
-		      					exit();
+								// Create the MetadataObject
+								$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
+								$obj->setMetaDataTypeID($metadatatype_id);
+								$obj->setMediaTypeID($mediatype_id);
+
+								// And save to DB
+								$SETTINGSClass->addMetadata($obj, true);
 		      				}
+		      				
+	      				} catch (Exception $ex) {
+	      					VCDException::display($ex,true);
+	      					exit();
+	      				}
 			      				
-
-		      			} else {
-		      				VCDException::display("Could not find uploaded NFO file " .$fileObj->getFileName());
-		      				$errors = true;
-		      			}
-
-
-
 
 		      		} else {
 		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
