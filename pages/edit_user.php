@@ -115,7 +115,18 @@
 </table>
 </form>
 
-<h2><?= $language->show('SE_PAGELOOK'); ?></h2>
+
+
+
+
+
+
+
+
+
+<fieldset id="pagelook" title="<?= $language->show('SE_PAGELOOK'); ?>">
+<legend class="bold"><?= $language->show('SE_PAGELOOK'); ?></legend>
+
 <p style="padding:0px 0px 2px 2px">
 &nbsp;<?= $language->show('SE_PAGEMODE')?>
 <select name="template" onchange="switchTemplate(this.options[this.selectedIndex].value)"><?
@@ -137,6 +148,18 @@
 	?>
 </select>
 </p>
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+<br/>
 <?
 
 	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID($user->getUserID());
@@ -151,7 +174,10 @@
 
 
 	if (is_array($arrBorrowers) && sizeof($arrBorrowers) > 0) {
-		print "<h2>".$language->show('MY_FRIENDS')."</h2>";
+		print "<a name=\"borrower\"></a>";
+		print "<fieldset id=\"mainset\" title=".$language->show('MY_FRIENDS').">";
+		print "	<legend class=\"bold\">".$language->show('MY_FRIENDS')."</legend>";
+		//print "<h2>".$language->show('MY_FRIENDS')."</h2>";
 
 		print "<table cellpadding=\"1\" cellspacing=\"1\" width=\"100%\" border=\"0\">";
 		print "<tr><td>";
@@ -194,8 +220,19 @@
 	print "</tr></table>";
 
 ?>
+</fieldset>
 
-<h2><?=$language->show('RSS_TITLE')?></h2>
+
+
+
+
+
+
+
+
+<br/>
+<fieldset id="mainset" title="<?=$language->show('RSS_TITLE')?>">
+<legend class="bold"><?=$language->show('RSS_TITLE')?></legend>
 <?
 	$feeds = $SETTINGSClass->getRssFeedsByUserId($user->getUserID());
 	if (sizeof($feeds) > 0) {
@@ -219,8 +256,10 @@
 <p>
 <input type="button" value="<?=$language->show('RSS_ADD')?>" onclick="addFeed()"/>
 </p>
+</fieldset>
 
-<h2><?=$language->show('SE_CUSTOM')?></h2>
+<fieldset id="mainset" title="<?=$language->show('SE_CUSTOM')?>">
+<legend class="bold"><?=$language->show('SE_CUSTOM')?></legend>
 <?
 	// Check for current values
 	$uid = VCDUtils::getUserID();
@@ -301,7 +340,26 @@
 </tr>
 </table>
 </form>
+</fieldset>
 <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?
 	/*
 		We only display the ignore list if more than 1 active users
@@ -311,7 +369,9 @@
 	if (sizeof($CLASSUsers->getActiveUsers()) > 1) {
 ?>
 
-<h2><?=$language->show('IGN_LIST')?></h2>
+
+<fieldset id="mainset" title="<?=$language->show('IGN_LIST')?>">
+<legend class="bold"><?=$language->show('IGN_LIST')?></legend>
 <form name="ignore" method="post" action="exec_form.php?action=update_ignorelist">
 <input type="hidden" name="id_list" id="id_list"/>
 <?
@@ -357,11 +417,21 @@
 </tr>
 </table>
 </form>
+</fieldset>
 <br/>
-
 <? } ?>
 
-<h2><?=$language->show('META_MY')?></h2>
+
+
+
+
+
+
+
+
+
+<fieldset id="mainset" title="<?=$language->show('META_MY')?>">
+<legend class="bold"><?=$language->show('META_MY')?></legend>
 <?
 	$arrMyMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
 ?>
@@ -408,4 +478,5 @@
 
 
 </form>
+</fieldset>
 </br>
