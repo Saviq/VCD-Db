@@ -32,6 +32,16 @@
 }
 
 
+fieldset { margin:4px; }
+
+legend {
+  padding: 0.4em 0.5em;
+  font-size:90%;
+  text-align:right;
+}
+
+
+
 /* Properties for the Pornstar Entries */
 div#tipDiv {
   position:absolute; visibility:hidden; left:0; top:0; z-index:10000;
