@@ -576,3 +576,7 @@ html>body #l-col {
 	top: 5px;
 	width: 186px;
 }
+
+legend {
+	color:#A957D8;
+}
