@@ -524,3 +524,8 @@ li {
 .tblsmall td {
 	border-bottom: 1px #c0c0c0 solid;
 }
+
+legend {
+	color:#333333;
+	font-weight:bold;
+}
