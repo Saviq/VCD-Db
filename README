@@ -2,7 +2,7 @@ $Id$
 
 VCD-db README ($Date$)
 
-Installation.
+INSTALLATION
 
 1)  Unzip the VCD-db file on your webserver. 
 2)  You must have a database access. 
@@ -36,8 +36,7 @@ Installation.
     to prevent any further writing or modification to the file.
 
 
-Upgrading.
-
+UPGRADING
 
 Upgrading from 0.98 or from 0.981
 	1) Back up your existing settings file (classes/VCDConstants.php)
@@ -55,14 +54,14 @@ Upgrading from 0.98 or from 0.981
 	7) Congrats, you have just finished updating VCD-db :)
 
    
-Upgrading from versions below ..
+UPGRADING FROM OLDER VERSIONS
   	You will have to d/l an older release such as VCD-db 0.98 from sf.net/projects/vcddb and
   	upgrade from that version.  Then after that, upgrade again with latest version.
   	Since VCD-db is still in beta stage, I'm not providing upgrade support for very old releases.
 
 
   
-Installation Notes:
+INSTALLATION NOTES
 For the 99.9% of users, USE THE INSTALLER, use/read the following only if your are
 having troubles using the installer.
 Some people have reported problems when installing VCD-db on MySQL .. 
@@ -72,7 +71,7 @@ If you execute the SQL file instead of using the supplied installer you will nee
 manually update the file "classes/VCDConstants.php" with the correct DB parameters.
 The script created the user admin with the same password.
    
-Application Notes:
+APPLICATION NOTES
 1) You can change the template that VCD-db uses by modifying the "STYLE" constant in the VCDConstants.php
    file, for example try changing it to "includes/templates/exprm/" for a new look.
 
@@ -89,7 +88,8 @@ Application Notes:
 6) The VCD-db GUI client does not work with VCD-db installed on IIS servers at the moment, 
    this will be fixed in the future.
    
-7) When using PostgreSQL, make sure the database encoding is set to Latin1 not Unicode
+7) When using PostgreSQL, make sure the database encoding is not set to Unicode.
+   It has known to cause problems.
 
 8) To use LDAP authentication instead of the internal DB authentication system, you must
    edit the file 'classes/VCDConstants.php' and set the appropriate values to match your
@@ -97,3 +97,16 @@ Application Notes:
 
 9) When LDAP is used for authentication (defined in the classes/VCDConstants.php) users can not register,
    All they have to do is login with their LDAP account and then the account in automatically created for them.
+
+
+
+
+ACKNOWLEDGEMENTS
+----------------
+VCD-db uses the following code/code fragments
+ - ADOdb > Database Abstraction Library (BSD Licensed)
+ - Ajason > Ajax Library (GNU Licensed)
+ - Snoopy > HTTP Class (GNU Licensed)
+ - NuSOAP > Web Services Toolkit for PHP (GNU Licensed)
+ - Image_Toolbox > PHP image manipulation class (GNU Licensed)
+ - PowerGraphic > Graph Builder (No Licenese - Freeaware)
