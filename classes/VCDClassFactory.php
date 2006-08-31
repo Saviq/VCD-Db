@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hï¿½kon Birgsson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -60,11 +60,12 @@ final class VCDClassFactory {
 	public static function getInstance($instance_name) {
 		try {
 			if (class_exists($instance_name)) {
-				
+
 				// Check if class is cached in the factory
 				if (array_key_exists($instance_name, VCDClassFactory::$classArray)) {
 					return VCDClassFactory::$classArray[$instance_name];
 				}
+				
 				
 				$obj = new $instance_name;
 				VCDClassFactory::$classArray[$instance_name] = $obj;
@@ -76,6 +77,22 @@ final class VCDClassFactory {
 		} catch (Exception $e) {
 			VCDException::display($e);
 			die();
+		}
+	}
+	
+	/**
+	 * Put an object into the ClassFactory Cache
+	 *
+	 * @param object $obj | The object/class to store in the cache 
+	 * @param bool $replace | Replace object with existing key or not
+	 */
+	public static function put($obj, $replace = false) {
+		if (is_object($obj)) {
+			if ($replace) {
+				VCDClassFactory::$classArray[get_class($obj)] = $obj;
+			} else if (!array_key_exists(get_class($obj), VCDClassFactory::$classArray)) {
+				VCDClassFactory::$classArray[get_class($obj)] = $obj;
+			}
 		}
 	}
 	

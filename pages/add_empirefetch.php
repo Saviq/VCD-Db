@@ -120,10 +120,10 @@ if (isset($_GET['cache']) && $_GET['cache'] == 'off') {
 		$empire->search();
 		
 		if (!$empire->displayResults()) {
-			global $language;
-			print "<h1>".$language->show('MENU_ADDMOVIE')."</h1>";
-			print "<br/><ul><li>".$language->show('SEARCH_NORESULT')."</li>";
-			print "<li><a href=\"javascript:history.back(-1)\">".$language->show('X_TRYAGAIN')."</a></li></ul>";
+			;
+			print "<h1>".language::translate('MENU_ADDMOVIE')."</h1>";
+			print "<br/><ul><li>".language::translate('SEARCH_NORESULT')."</li>";
+			print "<li><a href=\"javascript:history.back(-1)\">".language::translate('X_TRYAGAIN')."</a></li></ul>";
 			
 		}
 		

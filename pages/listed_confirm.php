@@ -1,4 +1,4 @@
-<h1><?=$language->show('ADD_LISTED')?></h1>
+<h1><?=language::translate('ADD_LISTED')?></h1>
 <?
 	if (!isset($_SESSION['listed'])) {
 		redirect();
@@ -18,16 +18,16 @@
 ?>
 
 
-<p class="bold"><?=$language->show('ADD_LISTEDSTEP2')?></p>
+<p class="bold"><?=language::translate('ADD_LISTEDSTEP2')?></p>
 
 <br/>
 
 <form method="POST" action="./exec_form.php?action=listedconfirm">
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
 <tr>
-	<td class="header" width="80%"><?=$language->show('M_TITLE')?></td>
-	<td class="header" nowrap="nowrap"><?=$language->show('M_MEDIATYPE')?></td>
-	<td class="header" nowrap="nowrap"><?=$language->show('M_NUM')?></td>
+	<td class="header" width="80%"><?=language::translate('M_TITLE')?></td>
+	<td class="header" nowrap="nowrap"><?=language::translate('M_MEDIATYPE')?></td>
+	<td class="header" nowrap="nowrap"><?=language::translate('M_NUM')?></td>
 </tr>
 	<? 
 		$i = 0;
@@ -38,7 +38,7 @@
 			
 			print "<td>";
 			print "<select name=\"item_".$i."\" size=\"1\">";
-			print "<option value=\"null\">".$language->show('X_SELECT')."</option>";
+			print "<option value=\"null\">".language::translate('X_SELECT')."</option>";
 			foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
 				
 				print "<option value=\"".$movie->getId()."|".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
@@ -59,7 +59,7 @@
 </table>
 <p align="right" style="padding-right:85px;">
 	<input type="hidden" name="disccount" value="<?=$i?>"/>
-	<input type="submit" value="<?=$language->show('X_CONFIRM')?>" onclick="return confirmListed(this.form)"/>
+	<input type="submit" value="<?=language::translate('X_CONFIRM')?>" onclick="return confirmListed(this.form)"/>
 </p>
 
 </form>

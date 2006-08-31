@@ -25,7 +25,7 @@ if (sizeof($movies) > 0) {
 	
 	
 } else {
-	print "<h1>".$language->show('SEARCH')."</h1>";
+	print "<h1>".language::translate('SEARCH')."</h1>";
 	print "<ul><br/>Search returned no results </ul>";
 }
 

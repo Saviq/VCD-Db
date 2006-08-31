@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -228,21 +228,21 @@ class VCDUtils {
 		}
 
 
-		global $language;
+		;
 
 
 		if (floor($datediff/60/60/24) > 0) {
 			if (floor($datediff/60/60/24) == 1) {
-				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAY');
+				return floor($datediff/60/60/24) . " ". language::translate('LOAN_DAY');
 			} else {
-				return floor($datediff/60/60/24) . " ". $language->show('LOAN_DAYS');
+				return floor($datediff/60/60/24) . " ". language::translate('LOAN_DAYS');
 			}
 
 		} elseif (floor($datediff/60/60) > 0) {
-			return $language->show('LOAN_TODAY');
+			return language::translate('LOAN_TODAY');
 
 		} else {
-			return "1 " . $language->show('LOAN_DAY');
+			return "1 " . language::translate('LOAN_DAY');
 
 		}
 
@@ -257,8 +257,8 @@ class VCDUtils {
 	 * @return string
 	 */
 	static public function getCharSet() {
-		global $language;
-		$charset = $language->show('LANG_CHARSET');
+		;
+		$charset = language::translate('LANG_CHARSET');
 		if (strcmp($charset, "undefined") == 0) {
 			return "iso-8859-1";
 		} else {

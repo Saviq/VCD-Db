@@ -1,5 +1,5 @@
 <p>
-<?= $language->show('MY_HELPPICKERINFO'); ?>
+<?= language::translate('MY_HELPPICKERINFO'); ?>
 
 </p>
 <br/><br/>
@@ -7,10 +7,10 @@
 <form name="picker" method="POST" action="">
 <table cellpadding="1" cellspacing="1" width="100%" class="tblsmall">
 <tr>
-	<td><?= $language->show('MY_JOINSCAT') ?></td>
+	<td><?= language::translate('MY_JOINSCAT') ?></td>
 	<td><? 
 		print "<select name=\"category\" size=\"1\">";
-		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
+		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
 		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
 			print "<option value=\"".$categoryObj->getID()."\">".$categoryObj->getName(true)."</option>";
 		}
@@ -18,13 +18,13 @@
 </tr>
 <? if ($_SESSION['user']->getPropertyByKey(vcd_user::$PROPERTY_SEEN))  { ?>
 <tr>
-	<td><?=$language->show('MY_NOTSEEN')?></td>
+	<td><?=language::translate('MY_NOTSEEN')?></td>
 	<td><input type="checkbox" name="onlynotseen" value="1" class="nof"/></td>
 </tr>
 <? } ?>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="button" name="search" value="<?=$language->show('MY_FIND')?>" class="buttontext" onclick="showSuggestion(this.form)"/></td>
+	<td><input type="button" name="search" value="<?=language::translate('MY_FIND')?>" class="buttontext" onclick="showSuggestion(this.form)"/></td>
 </tr>
 </table>
 </form>

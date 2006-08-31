@@ -1,6 +1,6 @@
 <h2>Pornstars</h2>
 <? 
-	global $language;
+	;
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	$show_adult = false;

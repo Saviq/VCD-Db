@@ -16,6 +16,7 @@
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
+	VCDClassFactory::put($language, true);
 	
 	
 	$pornstar_id = $_GET['pornstar_id'];
@@ -34,6 +35,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US">
 <head>
 	<title>Manager | <?=$pornstar->getName()?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=<?=VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<style type="text/css" media="screen">
 		@import url(../includes/css/manager.css);
@@ -46,7 +48,7 @@
 <input type="hidden" name="star_id" value="<?=$pornstar->getId()?>"/>
 <table cellspacing="1" cellpadding="1" border="0" width="100%">
 <tr>
-	<td class="tblb"><?=$language->show('P_NAME')?>:</td>
+	<td class="tblb"><?=language::translate('P_NAME')?>:</td>
 	<td><input type="text" name="name" class="input" size="25" value="<?=$pornstar->getName() ?>"/></td>
 	<td rowspan="4" valign="top">
 	<? if (strlen($pornstar->getImageName()) > 3) {
@@ -57,7 +59,7 @@
 	</td></td>
 </tr>
 <tr>
-	<td class="tblb"><?=$language->show('P_WEB')?>:</td>
+	<td class="tblb"><?=language::translate('P_WEB')?>:</td>
 	<td><input type="text" name="www" class="input" size="25" value="<?=$pornstar->getHomepage()?>"/></td>
 </tr>
 <tr>
@@ -86,11 +88,11 @@
 <tr>
 	<td colspan="3" align="center">
 	<hr/>
-	<input type="submit" name="update" value="<?= $language->show('X_UPDATE')?>" class="buttontext">
+	<input type="submit" name="update" value="<?= language::translate('X_UPDATE')?>" class="buttontext">
 	&nbsp;
-	<input type="button" name="close" onclick="window.close()" value="<?=$language->show('X_CLOSE')?>" class="buttontext">
+	<input type="button" name="close" onclick="window.close()" value="<?=language::translate('X_CLOSE')?>" class="buttontext">
 	&nbsp;
-	<input type="submit" name="save" value="<?=$language->show('X_SAVEANDCLOSE')?>" class="buttontext">
+	<input type="submit" name="save" value="<?=language::translate('X_SAVEANDCLOSE')?>" class="buttontext">
 	<? if (strlen($pornstar->getImageName()) > 3)	{ ?>
 	&nbsp;
 	<input type="button" name="delimage" value="Delete image" class="buttontext" onClick="delpornstarImage(<?=$pornstar_id?>)">

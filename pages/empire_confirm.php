@@ -3,7 +3,7 @@
 	$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 ?>
 
-<h2><?=$language->show('EM_INFO')?></h2>
+<h2><?=language::translate('EM_INFO')?></h2>
 
 <?
 
@@ -23,11 +23,11 @@
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
 <tr>
 	<td valign="top" width="16%"><h2>Thumbnail</h2><? echo $picture ?></td>
-	<td valign="top" width="42%"><h2><?=$language->show('EM_DESC')?></h2>
+	<td valign="top" width="42%"><h2><?=language::translate('EM_DESC')?></h2>
 
 		<table cellspacing="1" cellpadding="1" border="0" width="100%">
 			<tr>
-				<td class="tblb"><?=$language->show('M_TITLE')?>:</td>
+				<td class="tblb"><?=language::translate('M_TITLE')?>:</td>
 				<td><input type="text" value="<?=$empire->getTitle() ?>" name="title" class="input" size="30"/></td>
 			</tr>
 			<tr>
@@ -46,7 +46,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="tblb"><?=$language->show('M_YEAR')?>:</td>
+				<td class="tblb"><?=language::translate('M_YEAR')?>:</td>
 				<td><input type="text" value="<?= $empire->getYear() ?>" name="year" class="input"/></td>
 			</tr>
 			<tr>
@@ -58,20 +58,20 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-				<span class="tblb"><?=$language->show('M_COMMENT')?></span>
+				<span class="tblb"><?=language::translate('M_COMMENT')?></span>
 				<textarea name="comment" cols="26" rows="4" class="input"></textarea>
 				<br/>
-				<?=$language->show('M_PRIVATE')?>: <input type="checkbox" class="nof" value="private" name="private"/>
+				<?=language::translate('M_PRIVATE')?>: <input type="checkbox" class="nof" value="private" name="private"/>
 
 				</td>
 			</tr>
 		</table>
 
 	 </td>
-	<td valign="top" width="42%"><h2><?=$language->show('M_DETAILS')?></h2>
+	<td valign="top" width="42%"><h2><?=language::translate('M_DETAILS')?></h2>
 		<table>
 		<tr>
-			<td class="tblb"><?=$language->show('M_CATEGORY')?>:</td>
+			<td class="tblb"><?=language::translate('M_CATEGORY')?>:</td>
 			<td><select name="category" class="plain">
 				<?
 					$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
@@ -83,11 +83,11 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="tblb"><?=$language->show('M_MEDIATYPE')?>:</td>
+			<td class="tblb"><?=language::translate('M_MEDIATYPE')?>:</td>
 			<td>
 			<?
 			print "<select name=\"mediatype\" size=\"1\" class=\"plain\">";
-			print "<option value=\"null\">".$language->show('X_SELECT')."</option>";
+			print "<option value=\"null\">".language::translate('X_SELECT')."</option>";
 			foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
 				print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 				if ($mediaTypeObj->getChildrenCount() > 0) {
@@ -101,15 +101,15 @@
 			</td>
 		</tr>
 		<tr>
-			<td class="tblb"><?=$language->show('M_NUM')?>:</td>
+			<td class="tblb"><?=language::translate('M_NUM')?>:</td>
 			<td>
-			<select name="cds" class="plain"><option value="null"><?=$language->show('X_SELECT')?></option>
+			<select name="cds" class="plain"><option value="null"><?=language::translate('X_SELECT')?></option>
 			<? for($i=1;$i<7;$i++){print "<option value=\"$i\">$i</option>";} ?>
 			</select>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" class="tblb"><?=$language->show('EM_SUBCAT')?>:<br/>
+			<td colspan="2" class="tblb"><?=language::translate('EM_SUBCAT')?>:<br/>
 			<input type="hidden" name="id_list" id="id_list"/>
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
@@ -146,13 +146,13 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="3"><h2><?=$language->show('EM_DETAILS')?></h2></td>
+	<td colspan="3"><h2><?=language::translate('EM_DETAILS')?></h2></td>
 </tr>
 <tr>
 	<td colspan="3">
 		<table cellspacing="1" cellpadding="1" border="0" width="100%">
 		<tr>
-			<td valign="top" width="50%"><h2><?=$language->show('EM_STARS')?></h2>
+			<td valign="top" width="50%"><h2><?=language::translate('EM_STARS')?></h2>
 			<ul>
 			<?
 
@@ -177,10 +177,10 @@
 			</ul>
 			</td>
 			<td valign="top" width="25%">
-			<h2><?=$language->show('X_ATTENTION')?></h2>
-			<?=$language->show('EM_NOTICE')?>
+			<h2><?=language::translate('X_ATTENTION')?></h2>
+			<?=language::translate('EM_NOTICE')?>
 			</td>
-			<td valign="top" width="25%"><h2><?=$language->show('EM_FETCH')?></h2>
+			<td valign="top" width="25%"><h2><?=language::translate('EM_FETCH')?></h2>
 			<input type="checkbox" name="imagefetch[]" value="VCD Front Cover" checked class="nof"/>Front Cover<br/>
 			<input type="checkbox" name="imagefetch[]" value="VCD Back Cover" checked class="nof"/>Back Cover<br/>
 			<?
@@ -203,7 +203,7 @@
 <tr>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="<?=$language->show('X_CONFIRM')?>" class="buttontext" onclick="return val_Empire(this.form)"/></td>
+	<td><input type="submit" value="<?=language::translate('X_CONFIRM')?>" class="buttontext" onclick="return val_Empire(this.form)"/></td>
 </tr>
 </table>
 </form>

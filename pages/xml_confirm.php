@@ -1,4 +1,4 @@
-<h1><?=$language->show('XML_CONFIRM')?></h1>
+<h1><?=language::translate('XML_CONFIRM')?></h1>
 <? 
     if (!VCDUtils::isLoggedIn()) {
         redirect();
@@ -94,19 +94,19 @@
 	
 	$xmltitles = VCDXMLImporter::getXmlTitles($xmlImportedFileName);
     if (!is_array($xmltitles) || sizeof($xmltitles) == 0) {
-        print "<p>".$language->show('XML_ERROR')."</p>";
+        print "<p>".language::translate('XML_ERROR')."</p>";
         
     } else {
     ?>
     
-    <p><span class="bold"><? printf($language->show('XML_CONTAINS'), sizeof($xmltitles))?></span>
-    <br/><?=$language->show('XML_INFO1')?>
+    <p><span class="bold"><? printf(language::translate('XML_CONTAINS'), sizeof($xmltitles))?></span>
+    <br/><?=language::translate('XML_INFO1')?>
     <br/><br/>
     
     
     <form name="thumbupload" action="./?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
-    &nbsp;&nbsp;&nbsp;<input type="button" class="input" id="xmlClick" value="<?=$language->show('X_CONFIRM')?>" onclick="_doCall()"/>
-    &nbsp; <input type="button" id="xmlCancel" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=$language->show('X_CANCEL')?>" class="input"/>
+    &nbsp;&nbsp;&nbsp;<input type="button" class="input" id="xmlClick" value="<?=language::translate('X_CONFIRM')?>" onclick="_doCall()"/>
+    &nbsp; <input type="button" id="xmlCancel" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=language::translate('X_CANCEL')?>" class="input"/>
     <input type="hidden" name="xml_filename" id="xml_filename" value="<?=$xmlImportedFileName?>"/>
     <input type="hidden" name="xml_thumbfilename" id="xml_thumbfilename" value="<?=$xmlImportedThumbsFileName?>"/>
     
@@ -114,14 +114,14 @@
        
     <? if (!$hasThumbs) { ?> 
     <p>
-        <span class="bold" style="color:red"><?=$language->show('X_ATTENTION')?></span><br/>
-        <?=$language->show('XML_INFO2')?>
+        <span class="bold" style="color:red"><?=language::translate('X_ATTENTION')?></span><br/>
+        <?=language::translate('XML_INFO2')?>
     	
         <br/><br/>
         
         
-    	&nbsp;&nbsp;&nbsp;<?=$language->show('XML_THUMBNAILS')?> &nbsp;  <input type="file" name="xmlthumbfile"/>
-    	<input type="submit" value="<?=$language->show('X_UPDATE')?>" name="thumbsupdate" id="thumbsupdate"/>
+    	&nbsp;&nbsp;&nbsp;<?=language::translate('XML_THUMBNAILS')?> &nbsp;  <input type="file" name="xmlthumbfile"/>
+    	<input type="submit" value="<?=language::translate('X_UPDATE')?>" name="thumbsupdate" id="thumbsupdate"/>
         
     </p>
     <? } ?>
@@ -155,7 +155,7 @@
 
     
     
-    <p><span class="bold"><?=$language->show('XML_LIST')?></span></p>
+    <p><span class="bold"><?=language::translate('XML_LIST')?></span></p>
     
     <ul>
     <?

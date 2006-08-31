@@ -186,25 +186,25 @@
 		static final function printLoginBox() {
 			
 			if (!VCDUtils::isLoggedIn()) {
-				global $language;
+				;
 			?>
-			<div class="topic"><?=$language->show('LOGIN')?></div>
+			<div class="topic"><?=language::translate('LOGIN')?></div>
    			<div class="forms">   
 			<form name="login" method="post" action="./authenticate.php">
 			<table cellspacing="0" cellpadding="0" border="0" width="100%">
 			<tr>
-				<td><?=$language->show('LOGIN_USERNAME')?>:<br/>
+				<td><?=language::translate('LOGIN_USERNAME')?>:<br/>
 				<input type="text" name="username" maxlength="50" class="dashed"/></td>
 			</tr>
 			<tr>
-				<td><?=$language->show('LOGIN_PASSWORD')?>:<br/>
+				<td><?=language::translate('LOGIN_PASSWORD')?>:<br/>
 				<input type="password" name="password" maxlength="50" class="dashed"/></td>
 			</tr>
 			<tr>
-				<td><?=$language->show('LOGIN_REMEMBER')?>: <input type ="checkbox" name="remember" value="1" class="nof"/></td>
+				<td><?=language::translate('LOGIN_REMEMBER')?>: <input type ="checkbox" name="remember" value="1" class="nof"/></td>
 			</tr>
 			<tr>
-				<td><input type="submit" value="<?=$language->show('X_CONFIRM')?>"/></td>
+				<td><input type="submit" value="<?=language::translate('X_CONFIRM')?>"/></td>
 			</tr>
 			</table>
 			</form>

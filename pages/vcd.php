@@ -1,7 +1,7 @@
 <?
 $cd_id = $_GET['vcd_id'];
 
-global $language;
+;
 $VCDClass = VCDClassFactory::getInstance("vcd_movie");
 $SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 $movie = $VCDClass->getVcdByID($cd_id);
@@ -19,8 +19,8 @@ if ($movie->isAdult()) {
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>
-	<td width="65%" class="header"><?= $language->show('M_MOVIE')?></td>
-	<td width="35%" class="header"><?= $language->show('M_ACTORS')?></td>
+	<td width="65%" class="header"><?= language::translate('M_MOVIE')?></td>
+	<td width="35%" class="header"><?= language::translate('M_ACTORS')?></td>
 </tr>
 <tr>
 	<td valign="top">
@@ -43,7 +43,7 @@ if ($movie->isAdult()) {
 				<td colspan="2"><strong><?= $movie->getTitle() ?></strong></td>
 			</tr>
 			<tr>
-				<td width="30%"><?= $language->show('M_CATEGORY')?>:</td>
+				<td width="30%"><?= language::translate('M_CATEGORY')?>:</td>
 				<td><?
 				$mObj = $movie->getCategory();
 				if (!is_null($mObj)) {
@@ -52,11 +52,11 @@ if ($movie->isAdult()) {
 				?></td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap"><?= $language->show('M_YEAR')?>:</td>
+				<td nowrap="nowrap"><?= language::translate('M_YEAR')?>:</td>
 				<td><?= $movie->getYear() ?></td>
 			</tr>
 			<tr>
-				<td><?= $language->show('M_COPIES')?>:</td>
+				<td><?= language::translate('M_COPIES')?>:</td>
 				<td><?= $movie->getNumCopies() ?></td>
 			</tr>
 			<tr>
@@ -70,9 +70,9 @@ if ($movie->isAdult()) {
 			<?
 				if (VCDUtils::isLoggedIn()) {
 					if ($SETTINGSClass->isOnWishList($movie->getID())) {
-						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= $language->show('W_ONLIST')?>)</a></td></tr><?
+						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= language::translate('W_ONLIST')?>)</a></td></tr><?
 					} else {
-						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= $language->show('W_ADD')?></a></td></tr><?
+						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= language::translate('W_ADD')?></a></td></tr><?
 					}
 
 				}
@@ -82,7 +82,7 @@ if ($movie->isAdult()) {
 			<?
 				if (VCDUtils::hasPermissionToChange($movie)) {
 					?>
-						<tr><td>&nbsp;</td><td><a href="#" onclick="loadManager(<?=$movie->getID()?>)"><?= $language->show('M_CHANGE')?></a></td></tr>
+						<tr><td>&nbsp;</td><td><a href="#" onclick="loadManager(<?=$movie->getID()?>)"><?= language::translate('M_CHANGE')?></a></td></tr>
 					<?
 				}
 
@@ -91,11 +91,11 @@ if ($movie->isAdult()) {
    					$arrList = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
    					print "<tr><td>&nbsp;</td><td>";
    					if (sizeof($arrList) == 1 && ($arrList[0]->getMetadataValue() == 1)) {
-				   		print "<a href=\"#\"><img src=\"images/mark_seen.gif\" alt=\"".$language->show('S_NOTSEENITCLICK')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 0)\"/></a>";
-				    	print $language->show('S_SEENIT');
+				   		print "<a href=\"#\"><img src=\"images/mark_seen.gif\" alt=\"".language::translate('S_NOTSEENITCLICK')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 0)\"/></a>";
+				    	print language::translate('S_SEENIT');
 				    } else {
-				    	print "<a href=\"#\"><img src=\"images/mark_unseen.gif\" alt=\"".$language->show('S_SEENITCLICK')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 1)\"/></a>";
-				    	print $language->show('S_NOTSEENIT');
+				    	print "<a href=\"#\"><img src=\"images/mark_unseen.gif\" alt=\"".language::translate('S_SEENITCLICK')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 1)\"/></a>";
+				    	print language::translate('S_NOTSEENIT');
 				    }
 				    print "</td></tr>";
 				}
@@ -108,56 +108,56 @@ if ($movie->isAdult()) {
 	</table>
 
 	<div id="imdbinfo">
-	<h2><?= $language->show('M_FROM')?> IMDB:</h2>
+	<h2><?= language::translate('M_FROM')?> IMDB:</h2>
 	<? if (isset($imdb)) { ?>
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="normal">
 	<tr>
-		<td><?= $language->show('M_TITLE')?></td>
+		<td><?= language::translate('M_TITLE')?></td>
 		<td><?=$imdb->getTitle() ?></td>
 	</tr>
 	<?
 		if (strcmp($imdb->getAltTitle(), "") != 0) {
 	?>
 	<tr>
-		<td valign="top"><?= $language->show('M_ALTTITLE')?></td>
+		<td valign="top"><?= language::translate('M_ALTTITLE')?></td>
 		<td><?=$imdb->getAltTitle() ?></td>
 	</tr>
 	<? } ?>
 	<tr>
-		<td>IMDB <?= $language->show('M_GRADE')?>:</td>
+		<td>IMDB <?= language::translate('M_GRADE')?>:</td>
 		<td><?=$imdb->getRating() ?></td>
 	</tr>
 	<tr>
-		<td><?= $language->show('M_DIRECTOR')?>:</td>
+		<td><?= language::translate('M_DIRECTOR')?>:</td>
 		<td><?=$imdb->getDirectorLink() ?></td>
 	</tr>
 	<tr>
-		<td nowrap="nowrap"><?= $language->show('M_COUNTRY')?>:</td>
+		<td nowrap="nowrap"><?= language::translate('M_COUNTRY')?>:</td>
 		<td><?=$imdb->getCountry() ?></td>
 	</tr>
 	<tr>
-		<td valign="top" nowrap="nowrap">IMDB <?= $language->show('M_CATEGORY')?>:</td>
+		<td valign="top" nowrap="nowrap">IMDB <?= language::translate('M_CATEGORY')?>:</td>
 		<td><?=parseCategoryList($imdb->getGenre()) ?></td>
 	</tr>
 	<tr>
-		<td><?= $language->show('M_RUNTIME')?>:</td>
-		<td><?=$imdb->getRuntime() ?> <?= $language->show('M_MINUTES')?></td>
+		<td><?= language::translate('M_RUNTIME')?>:</td>
+		<td><?=$imdb->getRuntime() ?> <?= language::translate('M_MINUTES')?></td>
 	</tr>
 	</table>
 
 
-	<? } else { print "<ul><li>".$language->show('I_NOT')."</li></ul>"; } ?>
+	<? } else { print "<ul><li>".language::translate('I_NOT')."</li></ul>"; } ?>
 	</div>
 
 
 	<div id="imdbplot">
 	<a name="plot"></a>
-	<h2><?= $language->show('M_PLOT')?>:</h2>
-	<? if (isset($imdb)) { showPlot($imdb->getPlot()); } else { print "<ul><li>".$language->show('M_NOPLOT')."</li></ul>"; }?>
+	<h2><?= language::translate('M_PLOT')?>:</h2>
+	<? if (isset($imdb)) { showPlot($imdb->getPlot()); } else { print "<ul><li>".language::translate('M_NOPLOT')."</li></ul>"; }?>
 	</div>
 
 	<div id="covers">
-	<h2><?= $language->show('M_COVERS')?></h2>
+	<h2><?= language::translate('M_COVERS')?></h2>
 	<?
 
 		$covers = $movie->getCovers();
@@ -175,7 +175,7 @@ if ($movie->isAdult()) {
 		}
 
 		if ($bNoCovers) {
-			print "<ul><li>".$language->show('M_NOCOVERS')."</li></ul>";
+			print "<ul><li>".language::translate('M_NOCOVERS')."</li></ul>";
 		} else {
 			print $strCoverHTML;
 		}
@@ -183,7 +183,7 @@ if ($movie->isAdult()) {
 	</div>
 
 	<div id="copies">
-	<h2><?= $language->show('M_AVAILABLE')?>:</h2>
+	<h2><?= language::translate('M_AVAILABLE')?>:</h2>
 
 	<?
 		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
@@ -205,10 +205,10 @@ if ($movie->isAdult()) {
 				$arrMyMediaTypes = $arrCopies['mediaTypes'];
 
 				print "<div id=\"metadata\">";
-				print "<h2>{$language->show('META_MY')}</h2>";
+				print "<h2>{language::translate('META_MY')}</h2>";
 
 				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-				print "<tr><td width=\"20%\">{$language->show('M_MEDIA')}</td><td>{$language->show('META_TYPE')}</td><td>{$language->show('META_VALUE')}</td></tr>";
+				print "<tr><td width=\"20%\">{language::translate('M_MEDIA')}</td><td>{language::translate('META_TYPE')}</td><td>{language::translate('META_VALUE')}</td></tr>";
 				foreach ($userMetaArr as $metadataObj) {
 					$mediaObj = $SETTINGSClass->getMediaTypeByID($metadataObj->getMediaTypeID());
 					if ($mediaObj instanceof mediaTypeObj && strcmp(trim($metadataObj->getMetadataValue()), "") != 0) {
@@ -232,26 +232,26 @@ if ($movie->isAdult()) {
 
 
 	<div id="comments">
-	<h2><?= $language->show('C_COMMENTS')?> (<a href="javascript:show('newcomment')"><?= $language->show('C_ADD')?></a>)</h2>
+	<h2><?= language::translate('C_COMMENTS')?> (<a href="javascript:show('newcomment')"><?= language::translate('C_ADD')?></a>)</h2>
 	</div>
 
 	<div id="newcomment" style="padding-left:15px;visibility:hidden;display:none">
 		<?  if(!VCDUtils::isLoggedIn()) {
-				print "<span class=\"bold\">". $language->show('C_ERROR')."</span>";
+				print "<span class=\"bold\">". language::translate('C_ERROR')."</span>";
 			} else { ?>
 
-		<span class="bold"><?= $language->show('C_TYPE')?>:</span>
+		<span class="bold"><?= language::translate('C_TYPE')?>:</span>
 		<form name="newcomment" method="POST" action="exec_form.php?action=addcomment">
 		<input type="hidden" name="vcd_id" value="<?=$movie->getID()?>"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 			<tr>
-				<td valign="top"><?= $language->show('C_YOUR')?>:</td>
+				<td valign="top"><?= language::translate('C_YOUR')?>:</td>
 				<td><textarea name="comment" rows="4" cols="30"></textarea></td>
 			</tr>
 			<tr>
-				<td><?= $language->show('M_PRIVATE')?>:</td>
+				<td><?= language::translate('M_PRIVATE')?>:</td>
 				<td><input type="checkbox" name="private" class="nof" value="private"/>
-				&nbsp;&nbsp;<input type="submit" value="<?=$language->show('C_POST')?>"/>
+				&nbsp;&nbsp;<input type="submit" value="<?=language::translate('C_POST')?>"/>
 				</td>
 			</tr>
 		</table>
@@ -263,7 +263,7 @@ if ($movie->isAdult()) {
 	<?
 		$commArr = $SETTINGSClass->getAllCommentsByVCD($movie->getID());
 		if (empty($commArr)) {
-			print "<ul><li>".$language->show('C_NONE')."</li></ul>";
+			print "<ul><li>".language::translate('C_NONE')."</li></ul>";
 		} else {
 			print "<ul>";
 			foreach ($commArr as $commObj) {
@@ -299,7 +299,7 @@ if ($movie->isAdult()) {
 	<?  if (isset($imdb)) {
 		print $imdb->getCast();
 	} else {
-		print $language->show('M_NOACTORS');
+		print language::translate('M_NOACTORS');
 	}
 	?>
 	</div>
@@ -318,9 +318,9 @@ if ($movie->isAdult()) {
 		$simArr = $VCDClass->getSimilarMovies($movie->getID());
 		if (is_array($simArr) && sizeof($simArr) > 0) {
 
-			print "<h2>".$language->show('M_SIMILAR')."</h2>";
+			print "<h2>".language::translate('M_SIMILAR')."</h2>";
 			print "<form name=\"sim\" action=\"get\"><select name=\"similar\" size=\"1\" onchange=\"goSimilar(this.form)\">";
-			evalDropdown($simArr, 0, true, $language->show('X_SELECT'));
+			evalDropdown($simArr, 0, true, language::translate('X_SELECT'));
 			print "</form>";
 		}
 

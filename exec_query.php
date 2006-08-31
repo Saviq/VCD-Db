@@ -1,7 +1,7 @@
 <?php
 /*
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ if (isset($_GET['action'])) {
 
 $reload_and_close = true;
 $SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-global $language;
+;
 
 switch ($form) {
 
@@ -48,7 +48,7 @@ switch ($form) {
 		
 		if ($obj instanceof borrowerObj ) {
 			$loanArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
-			if (VCDUtils::sendMail($obj->getEmail(), $language->show('MAIL_RETURNTOPIC'), createReminderEmailBody($obj->getName(), $loanArr), false)) {
+			if (VCDUtils::sendMail($obj->getEmail(), language::translate('MAIL_RETURNTOPIC'), createReminderEmailBody($obj->getName(), $loanArr), false)) {
 				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
 			} else {
 				VCDUtils::setMessage("(Failed to send mail)");

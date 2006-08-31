@@ -22,11 +22,11 @@
 	} else {
 	?>
 	
-	<p><span class="bold"><? printf($language->show('XML_RESULTS2'), sizeof($xmlResults)) ?></span></p>
+	<p><span class="bold"><? printf(language::translate('XML_RESULTS2'), sizeof($xmlResults)) ?></span></p>
 	<br/><br/>
 	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
 	<tr>
-		<td class="bold"><?=$language->show('X_STATUS')?></td><td class="bold"><?=$language->show('M_TITLE')?></td><td class="bold">Thumbnail</td>
+		<td class="bold"><?=language::translate('X_STATUS')?></td><td class="bold"><?=language::translate('M_TITLE')?></td><td class="bold">Thumbnail</td>
 	</tr>
 	<?
 		foreach ($xmlResults as $resultArr) {
@@ -35,15 +35,15 @@
 			$thumbs = $resultArr['thumb'];
 			
 			if ($status == 1) {
-				$strStatus = $language->show('X_SUCCESS');
+				$strStatus = language::translate('X_SUCCESS');
 			} else {
-				$strStatus = "<span style=\"color:red\">".$language->show('X_FAILURE')."</a>";
+				$strStatus = "<span style=\"color:red\">".language::translate('X_FAILURE')."</a>";
 			}
 			
 			if ($thumbs == 1) {
-				$strThumbs = $language->show('X_YES');
+				$strThumbs = language::translate('X_YES');
 			} else {
-				$strThumbs = $language->show('X_NO');
+				$strThumbs = language::translate('X_NO');
 			}
 			
 			print "<tr><td>".$strStatus."</td><td>".$title."</td><td>".$strThumbs."</td></tr>";

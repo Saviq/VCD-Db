@@ -1,4 +1,4 @@
-<h1><?=$language->show('SEARCH_EXTENDED')?></h1>
+<h1><?=language::translate('SEARCH_EXTENDED')?></h1>
 
 <? 
 	$s_title = "";
@@ -23,11 +23,11 @@
 <form name="advanced_search" method="post" action="./index.php?page=detailed_search&action=search">
 <table class="displist" cellpadding="1" cellspacing="0" width="100%">
 <tr>
-	<td width="40%"><?=$language->show('M_TITLE')?>  <?=$language->show('X_CONTAINS')?>:</td>
+	<td width="40%"><?=language::translate('M_TITLE')?>  <?=language::translate('X_CONTAINS')?>:</td>
 	<td><input type="text" name="title" value="<?=$s_title?>" /></td>
 </tr>
 <tr>
-	<td><?=$language->show('M_CATEGORY')?>:</td>
+	<td><?=language::translate('M_CATEGORY')?>:</td>
 	<td><? 
 	
 		$catObjArr = getLocalizedCategories($SETTINGSClass->getMovieCategoriesInUse());
@@ -37,7 +37,7 @@
 		
 	
 		print "<select name=\"category\" size=\"1\">";
-		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
+		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
 		foreach ($catObjArr as $categoryObj) {
 						
 			$sel = "";
@@ -51,10 +51,10 @@
 		print "</select>"; ?></td>
 </tr>
 <tr>
-	<td><?=$language->show('M_YEAR')?>:</td>
+	<td><?=language::translate('M_YEAR')?>:</td>
 	<td>
 		<select name="year"> 
-		<option value="null"><?=$language->show('X_ANY')?></option>
+		<option value="null"><?=language::translate('X_ANY')?></option>
 		<?
 		for ($i = date("Y"); $i > 1900; $i--) {
 			
@@ -70,10 +70,10 @@
 	</td>
 </tr>
 <tr>
-	<td><?=$language->show('M_MEDIA')?>:</td>
+	<td><?=language::translate('M_MEDIA')?>:</td>
 	<td><? 
 		print "<select name=\"mediatype\" size=\"1\">";
-		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
+		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
 		foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
 			
 			$sel = "";
@@ -97,12 +97,12 @@
 		print "</select>"; ?></td>
 </tr>
 <tr>
-	<td><?=$language->show('M_OWNER')?>:</td>
+	<td><?=language::translate('M_OWNER')?>:</td>
 	<td>
 	<? 
 		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
-		print "<option value=\"null\">".$language->show('X_ANY')."</option>";
+		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
 		foreach ($USERClass->getActiveUsers() as $userObj) {
 			
 			$sel = "";
@@ -117,10 +117,10 @@
 	</td>
 </tr>
 <tr>
-	<td><?=$language->show('X_GRADE')?>:</td>
+	<td><?=language::translate('X_GRADE')?>:</td>
 	<td>
 		<select name="grade">
-		<option value="null"><?=$language->show('X_ANY')?></option>
+		<option value="null"><?=language::translate('X_ANY')?></option>
 		<?
 			
 		for ($i = 1; $i < 10; $i+=0.5) {
@@ -138,7 +138,7 @@
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="<?=$language->show('SEARCH')?>" onclick="return checkAdvanced(this.form)"/></td>
+	<td><input type="submit" value="<?=language::translate('SEARCH')?>" onclick="return checkAdvanced(this.form)"/></td>
 </tr>
 </table>
 </form>
@@ -160,17 +160,17 @@
 			$resultArr = $VCDClass->advancedSearch($s_title, $s_category, $s_year, $s_mediatype, $s_owner, $s_grade);
 			
 			if (sizeof($resultArr) == 0) {
-				print "<p class=\"bold\">".$language->show('SEARCH_NORESULT').".</p>";
+				print "<p class=\"bold\">".language::translate('SEARCH_NORESULT').".</p>";
 			} else {
 			
 			?> 
 			<table cellspacing="1" cellpadding="1" border="0" class="displist" width="100%"> 
 			<tr>
-				<td class="header"><?=$language->show('M_TITLE')?></td>
-				<td class="header"><?=$language->show('M_CATEGORY')?></td>
-				<td class="header" nowrap="nowrap"><?=$language->show('M_YEAR')?></td>
-				<td class="header"><?=$language->show('M_MEDIA')?></td>
-				<td class="header"><?=$language->show('M_GRADE')?></td>
+				<td class="header"><?=language::translate('M_TITLE')?></td>
+				<td class="header"><?=language::translate('M_CATEGORY')?></td>
+				<td class="header" nowrap="nowrap"><?=language::translate('M_YEAR')?></td>
+				<td class="header"><?=language::translate('M_MEDIA')?></td>
+				<td class="header"><?=language::translate('M_GRADE')?></td>
 			</tr>
 			<?
 			foreach ($resultArr as $item) {

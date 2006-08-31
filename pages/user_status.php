@@ -94,12 +94,13 @@
 		if (isset($_SESSION['vcdlang'])) {
 			$language->load($_SESSION['vcdlang']);
 		}
+		VCDClassFactory::put($language, true);
 
 
 	?>
 
 		<br/><hr/>
-		<p align="center"><input onclick="window.close()" type="button" value="<?=$language->show('X_CLOSE')?>"/></p>
+		<p align="center"><input onclick="window.close()" type="button" value="<?=language::translate('X_CLOSE')?>"/></p>
 
 
 </body>

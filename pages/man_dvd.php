@@ -27,11 +27,11 @@
 <input type="hidden" id="sub_list" name="sub_list" value=""/>
 <table width="100%" cellpadding="1" cellspacing="1" border="0">
 <tr>
-	<td class="tblb"><?= $language->show('M_MEDIATYPE')?>:</td>
+	<td class="tblb"><?= language::translate('M_MEDIATYPE')?>:</td>
 	<td><? createDVDDropdown($arrCopies['mediaTypes'], $current_dvd); ?></td>
 </tr>
 <tr>
-	<td class="tblb"><?= $language->show('DVD_REGION')?>:</td>
+	<td class="tblb"><?= language::translate('DVD_REGION')?>:</td>
 	<td><select name="dvdregion" class="input">
 		<? foreach ($dvdObj->getRegionList() as $key => $value) {
 			if ($key == $dvd_region) {
@@ -46,7 +46,7 @@
 </tr>
 
 <tr>
-	<td class="tblb"><?= $language->show('DVD_FORMAT')?>:</td>
+	<td class="tblb"><?= language::translate('DVD_FORMAT')?>:</td>
 	<td><select name="dvdformat" class="input">
 		<? foreach ($dvdObj->getVideoFormats() as $key => $value) {
 			if ($key == $dvd_format) {
@@ -63,7 +63,7 @@
 </tr>
 
 <tr>
-	<td class="tblb"><?= $language->show('DVD_ASPECT')?>:</td>
+	<td class="tblb"><?= language::translate('DVD_ASPECT')?>:</td>
 	<td><select name="dvdaspect" class="input">
 		<? foreach ($dvdObj->getAspectRatios() as $key => $value) {
 			if ($key == $dvd_aspect) {
@@ -81,7 +81,7 @@
 </tr>
 
 <tr>
-	<td class="tblb" valign="top"><?= $language->show('DVD_AUDIO')?>:</td>
+	<td class="tblb" valign="top"><?= language::translate('DVD_AUDIO')?>:</td>
 	<td valign="top">
 
 	<table cellspacing="0" cellpadding="2" border="0">
@@ -120,7 +120,7 @@
 </tr>
 
 <tr>
-	<td class="tblb" valign="top"><?= $language->show('DVD_SUBTITLES')?>:</td>
+	<td class="tblb" valign="top"><?= language::translate('DVD_SUBTITLES')?>:</td>
 	<td valign="top">
 	<table cellspacing="0" cellpadding="2" border="0">
 			<tr>

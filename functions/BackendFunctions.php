@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Functions
  * @subpackage Backend
  * @version $Id$
@@ -192,12 +192,12 @@ function Decrypt($txt,$key)
  */
 function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
-	global $language;
-	$msg = sprintf($language->show('MAIL_RETURNMOVIES1'), $borrower_name);
+	;
+	$msg = sprintf(language::translate('MAIL_RETURNMOVIES1'), $borrower_name);
 	foreach ($arrLoanObj as $loanObj) {
-		$msg .= $loanObj->getCDTitle() . " - ".$language->show('LOAN_SINCE')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
+		$msg .= $loanObj->getCDTitle() . " - ".language::translate('LOAN_SINCE')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
 	}
-	$msg .= sprintf($language->show('MAIL_RETURNMOVIES2'), $_SESSION['user']->getFullname());
+	$msg .= sprintf(language::translate('MAIL_RETURNMOVIES2'), $_SESSION['user']->getFullname());
 	return $msg;
 
 }
@@ -211,13 +211,13 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
  */
 function createNotifyEmailBody(vcdObj $obj) {
 
-	global $language;
+	;
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$home = $SETTINGSClass->getSettingsByKey('SITE_HOME');
 
 	$msg = '';
 	$msg .= "<html><body>";
-	$msg .= sprintf($language->show('MAIL_NOTIFY'), $home, $obj->getID());
+	$msg .= sprintf(language::translate('MAIL_NOTIFY'), $home, $obj->getID());
 	$msg .= "</body></html>";
 	return $msg;
 }

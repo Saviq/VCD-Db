@@ -332,6 +332,7 @@ class VCDXMLImporter {
 				if (!is_numeric($iResults) || $iResults == -1) {
 					$status = "0";
 				}
+				//VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);
 				
 			}
 			
@@ -415,7 +416,7 @@ class VCDXMLImporter {
 	
 	
 	/**
-	 * Create a vcdObj from the XMLElement, returns bull if the vcdObj is not ok.
+	 * Create a vcdObj from the XMLElement, returns null if the vcdObj is not ok.
 	 *
 	 * @param SimpleXMLElement $element
 	 * @return vcdObj
@@ -596,6 +597,34 @@ class VCDXMLImporter {
 	}
 	
 	
+}
+
+
+class VCDXMLExporter {
+
+	CONST EXP_XML = 1;
+	CONST EXP_TGZ = 2;
+	CONST EXP_ZIP = 3;
+	CONST EXP_XLS = 4;
+	
+	
+	
+	public function exportMovies($iUserID, $expMethod) {
+		
+	}
+	
+	
+	public function exportThumbnails($iUserID, $expMethod) {
+	
+	}
+	
+	
+	private function generateFileName($prefix) {
+		$filename = "VCDdb-".$prefix.date("m.d.Y");
+		
+	}
+
+
 }
 
 

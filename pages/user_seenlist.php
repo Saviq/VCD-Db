@@ -46,9 +46,9 @@
 <form name="customkeys" method="post" action="./?page=private&o=movies&do=seenlist&batch=<?=$batch?>">
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="tblsmall">
 <tr>
-	<td class="bold" width="65%"><?=$language->show('M_TITLE')?></td>
-	<td class="bold"><?=$language->show('M_MEDIA')?></td>
-	<td class="bold" width="5%"><?=$language->show('X_SEEN')?></td>
+	<td class="bold" width="65%"><?=language::translate('M_TITLE')?></td>
+	<td class="bold"><?=language::translate('M_MEDIA')?></td>
+	<td class="bold" width="5%"><?=language::translate('X_SEEN')?></td>
 </tr>
 <? 
 
@@ -106,9 +106,9 @@ for ($j = $start; $j < $end; $j++) {
 	print "<select>";
 	
 	if ($currRecordCount < $numRecords) {
-		$savetext = $language->show('X_SAVE');
+		$savetext = language::translate('X_SAVE');
 	} else {
-		$savetext = $language->show('X_SAVENEXT'). " " . $numRecords;
+		$savetext = language::translate('X_SAVENEXT'). " " . $numRecords;
 	}
 	
 	print "</td><td colspan=\"2\" align=\"right\"><input type=\"submit\" class=\"inp\" name=\"save\" value=\"".$savetext."\"></td></tr>";

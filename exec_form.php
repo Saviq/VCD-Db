@@ -49,7 +49,7 @@ switch ($form) {
 		}
 		$SETTINGSClass->updateBorrower($borrowerObj);
 		VCDUtils::setMessage("(".$borrowerObj->getName()." has been updated)");
-		redirect('?page=private&o=settings');
+		redirect('?page=private&o=settings#borrower');
 		break;
 
 

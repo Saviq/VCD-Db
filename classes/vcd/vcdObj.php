@@ -1,14 +1,14 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -448,10 +448,10 @@
 		 */
 		public function displayCopies(&$arrMetaData= null) {
 			
-			global $language;
+			;
 					
 			print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-			print "<tr><td>".$language->show('M_MEDIA')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".$language->show('M_NUM')."</td><td>".$language->show('M_DATE')."</td><td>".$language->show('M_OWNER')."</td></tr>";
+			print "<tr><td>".language::translate('M_MEDIA')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".language::translate('M_NUM')."</td><td>".language::translate('M_DATE')."</td><td>".language::translate('M_OWNER')."</td></tr>";
 			for ($i = 0; $i < sizeof($this->ownersObjArr); $i++) {
 				$owner = $this->ownersObjArr[$i];
 				$media = $this->mediaTypeObjArr[$i];

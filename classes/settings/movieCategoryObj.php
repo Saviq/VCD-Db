@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2004 Konni - konni.com
+ * Copyright (C) 2003-2006 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,10 +50,10 @@ class movieCategoryObj implements XMLable {
 		 */
 		public function getName($localize=false){
 			if ($localize) {
-				global $language;
+				;
 				$map = getCategoryMapping();
-				if (isset($map[$this->category_name]) && $language->show($map[$this->category_name]) != "undefined")
-					return $language->show($map[$this->category_name]);
+				if (isset($map[$this->category_name]) && language::translate($map[$this->category_name]) != "undefined")
+					return language::translate($map[$this->category_name]);
 				else return $this->category_name;
         		} else return $this->category_name;
 		}

@@ -11,6 +11,7 @@
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
+	VCDClassFactory::put($language, true);
 
 
 
@@ -33,34 +34,34 @@
         "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><?=$language->show('PLAYER')?></title>
+	<title><?=language::translate('PLAYER')?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?=VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<script language="JavaScript" src="../includes/js/main.js" type="text/javascript"></script>
 
 </head>
 <body onload="window.focus()">
-<h2><?=$language->show('PLAYER')?></h2>
+<h2><?=language::translate('PLAYER')?></h2>
 
 <ul>
 
 	<form name="player" action="../exec_form.php?action=player" method="POST">
-	<?=$language->show('PLAYER_NOTE')?>
+	<?=language::translate('PLAYER_NOTE')?>
 	<br/><br/>
 	<table cellpadding="1" cellspacing="1">
 	<tr>
-		<td><?=$language->show('PLAYER_PATH')?>:</td>
+		<td><?=language::translate('PLAYER_PATH')?>:</td>
 		<td><input type="text" size="45" name="player" value="<?=$player?>" class="input" style="margin-bottom:4px"/>
 		<img src="../images/icon_folder.gif" border="0" align="absmiddle" title="Browse for file" onclick="filebrowse('player')"/></td>
 	</tr>
 	<tr>
-		<td><?=$language->show('PLAYER_PARAM')?>:</td>
+		<td><?=language::translate('PLAYER_PARAM')?>:</td>
 		<td><input type="text" size="50" name="params" value="<?=$path?>" class="input" style="margin-bottom:4px"/></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="right">
-		<input type="submit" value="<?=$language->show('X_UPDATE')?>" class="inp"/>
-		<input type="button" value="<?=$language->show('X_CLOSE')?>" class="inp" onclick="window.close()"/>
+		<input type="submit" value="<?=language::translate('X_UPDATE')?>" class="inp"/>
+		<input type="button" value="<?=language::translate('X_CLOSE')?>" class="inp" onclick="window.close()"/>
 		</td>
 	</tr>
 

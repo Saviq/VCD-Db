@@ -13,7 +13,7 @@
 	$movies = $VCDClass->getTopTenList(0, $arrExclude);
 	if (sizeof($movies) > 0) {
 		print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" class=\"list\">";
-		print "<tr><td class=\"header\">10 ".$language->show('X_LATESTMOVIES')."</td></tr>";
+		print "<tr><td class=\"header\">10 ".language::translate('X_LATESTMOVIES')."</td></tr>";
 		
 		foreach ($movies as $movie) {
 			echo "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\" title=\"".$movie->getTitle()."\">".  VCDUtils::shortenText($movie->getTitle(), $maxTitlelen) . "</a></td></tr>";
@@ -28,7 +28,7 @@
 		$movies = $VCDClass->getTopTenList($tv_category);
 		if (sizeof($movies) > 0) {
 			print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" class=\"list\">";
-			print "<tr><td class=\"header\">10 ".$language->show('X_LATESTTV')."</td></tr>";
+			print "<tr><td class=\"header\">10 ".language::translate('X_LATESTTV')."</td></tr>";
 			
 			foreach ($movies as $movie) {
 				echo "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\" title=\"".$movie->getTitle()."\">".  VCDUtils::shortenText($movie->getTitle(), $maxTitlelen) . "</a></td></tr>";
@@ -50,7 +50,7 @@
 			$movies = $VCDClass->getTopTenList($xx_category);
 			if (sizeof($movies) > 0) {
 				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" class=\"list\">";
-				print "<tr><td class=\"header\">10 ".$language->show('X_LATESTBLUE')."</td></tr>";
+				print "<tr><td class=\"header\">10 ".language::translate('X_LATESTBLUE')."</td></tr>";
 				
 				foreach ($movies as $movie) {
 					echo "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\" title=\"".$movie->getTitle()."\">".  VCDUtils::shortenText($movie->getTitle(), $maxTitlelen) . "</a></td></tr>";

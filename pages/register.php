@@ -1,6 +1,6 @@
 <? 
 	
-	global $language;
+	;
 	$USERClass = VCDClassFactory::getInstance("vcd_user");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$allow_registration = $SETTINGSClass->getSettingsByKey("ALLOW_REGISTRATION");
@@ -27,8 +27,8 @@
 		
 		if ($USERClass->addUser($userObj)) {
 			// Try to send mail to user with registration details.
-			$body = sprintf($language->show('MAIL_REGISTER'), $name, $username, $_POST['password'], $SETTINGSClass->getSettingsByKey('SITE_HOME'));
-			sendMail($email, "VCD-db " . $language->show('REGISTER_TITLE'), $body, true);	
+			$body = sprintf(language::translate('MAIL_REGISTER'), $name, $username, $_POST['password'], $SETTINGSClass->getSettingsByKey('SITE_HOME'));
+			sendMail($email, "VCD-db " . language::translate('REGISTER_TITLE'), $body, true);	
 		
 			// save the user in session
 			$_SESSION['new_user'] = $userObj;
@@ -39,10 +39,10 @@
 /* 
 	Display and process registration if allowed by sysadmin
 */
-print "<h1>".$language->show('REGISTER_TITLE')."</h1>";
+print "<h1>".language::translate('REGISTER_TITLE')."</h1>";
 
 if (!$allow_registration) {
-	print "<p>".$language->show('REGISTER_DISABLED')."</p>";
+	print "<p>".language::translate('REGISTER_DISABLED')."</p>";
 } else {
 
 ?>
@@ -50,23 +50,23 @@ if (!$allow_registration) {
 <form name="register" method="post" action="./index.php?page=register">
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>
-	<td width="45%"><?=$language->show('REGISTER_FULLNAME') ?> :</td>
+	<td width="45%"><?=language::translate('REGISTER_FULLNAME') ?> :</td>
 	<td><input type="text" name="name"/></td>
 </tr>
 <tr>
-	<td><?=$language->show('LOGIN_USERNAME') ?> :</td>
+	<td><?=language::translate('LOGIN_USERNAME') ?> :</td>
 	<td><input type="text" name="username"/></td>
 </tr>
 <tr>
-	<td><?=$language->show('REGISTER_EMAIL') ?> :</td>
+	<td><?=language::translate('REGISTER_EMAIL') ?> :</td>
 	<td><input type="text" name="email"/></td>
 </tr>
 <tr>
-	<td><?=$language->show('LOGIN_PASSWORD') ?> :</td>
+	<td><?=language::translate('LOGIN_PASSWORD') ?> :</td>
 	<td><input type="password" name="password"/></td>
 </tr>
 <tr>
-	<td><?=$language->show('REGISTER_AGAIN') ?> :</td>
+	<td><?=language::translate('REGISTER_AGAIN') ?> :</td>
 	<td><input type="password" name="password2"/></td>
 </tr>
 <? /* 
@@ -77,7 +77,7 @@ if (!$allow_registration) {
 		
 		// Check if translation for property exists
 		$langkey = "PRO_".$propertyObj->getpropertyName();
-		$description = $language->show($langkey);
+		$description = language::translate($langkey);
 		if (strcmp($description, "undefined") == 0) {
 			$description = $propertyObj->getpropertyDescription();
 		}
@@ -92,7 +92,7 @@ if (!$allow_registration) {
 ?>
 <tr>
 	<td></td>
-	<td><input type="submit" value="<?=$language->show('MENU_SUBMIT') ?>" onclick="return checkReg(this.form)"/></td>
+	<td><input type="submit" value="<?=language::translate('MENU_SUBMIT') ?>" onclick="return checkReg(this.form)"/></td>
 </tr>
 </table>
 </form>

@@ -10,6 +10,7 @@
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
+	VCDClassFactory::put($language, true);
 
 
 ?>
@@ -61,7 +62,7 @@
 					<td colspan="2"><h1><?=$movie->getTitle()?></h1></td>
 				</tr>
 				<tr>
-					<td width="20%" class="bold" nowrap="nowrap">&nbsp;<?= $language->show('M_CATEGORY')?>:</td>
+					<td width="20%" class="bold" nowrap="nowrap">&nbsp;<?= language::translate('M_CATEGORY')?>:</td>
 					<td><?
 					$mObj = $movie->getCategory();
 					if (!is_null($mObj)) {
@@ -70,11 +71,11 @@
 					?></td>
 				</tr>
 				<tr>
-					<td class="bold" nowrap="nowrap">&nbsp;<?= $language->show('M_YEAR')?>:</td>
+					<td class="bold" nowrap="nowrap">&nbsp;<?= language::translate('M_YEAR')?>:</td>
 					<td><?= $movie->getYear() ?></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="bold"><br/>&nbsp;<a href="../?page=cd&amp;vcd_id=<?=$movie->getID()?>" target="_top"><?=$language->show('X_SHOWMORE')?> &gt;&gt;</a></td>
+					<td colspan="2" class="bold"><br/>&nbsp;<a href="../?page=cd&amp;vcd_id=<?=$movie->getID()?>" target="_top"><?=language::translate('X_SHOWMORE')?> &gt;&gt;</a></td>
 				</tr>
 				</table>
 

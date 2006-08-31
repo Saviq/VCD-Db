@@ -60,14 +60,14 @@ if (isset($_GET['fid'])) {
 		
 	} elseif ($res == SEARCH_DONE) {
 		
-		print "<h1>".$language->show('ADD_IMDB')."</h1>";
+		print "<h1>".language::translate('ADD_IMDB')."</h1>";
 		
 		if ($im->gotResults()) {
 			
 			$im->showSearchResults();
 		} else {
-			print "<br/><ul><li>".$language->show('SEARCH_NORESULT')."</li>";
-			print "<li><a href=\"javascript:history.back(-1)\">".$language->show('X_TRYAGAIN')."</a></li></ul>";
+			print "<br/><ul><li>".language::translate('SEARCH_NORESULT')."</li>";
+			print "<li><a href=\"javascript:history.back(-1)\">".language::translate('X_TRYAGAIN')."</a></li></ul>";
 			
 		
 		}
