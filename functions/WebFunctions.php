@@ -987,7 +987,7 @@ function getLocalizedCategories($categoryObjArr = null) {
 
 	// Translate category names
 	$mapping = getCategoryMapping();
-	$altLang = $language->isUsingDefault();
+	$altLang = VCDClassFactory::getInstance('language')->isUsingDefault();
 	// Create translated category array
 	$arrCategories = array();
 	foreach ($categoryObjArr as $categoryObj) {
