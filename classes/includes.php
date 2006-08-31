@@ -29,7 +29,6 @@
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
 	require_once(dirname(__FILE__) . '/external/mail/smtp.php');
 	require_once(dirname(__FILE__) . '/external/excel/ExcelGen.php');
-	require_once(dirname(__FILE__) . '/external/uploader.php');
 	require_once(dirname(__FILE__) . '/external/lastRSS.php');
 	include_once(dirname(__FILE__) . '/external/Image_Toolbox.class.php');
 	
