@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -550,7 +550,7 @@ class VCDUtils {
 
 		while($it->valid()) {
 			$directory = $it->current();
-			if ($directory->isDir() && !$directory->isDot()) {
+			if ($directory->isDir() && !$directory->isDot() && (strcmp($directory->getFilename(), "CVS") != 0)) {
 				array_push($styles, $directory->getFilename());
 			}
 			$it->next();
