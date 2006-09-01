@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2006 Konni - konni.com
  * 
@@ -8,8 +8,9 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
+ * @author  Hákon Birgisson <konni@konni.com>
+ * @version $Id$
  */
- // $Id:
 ?>
 <?php 
 	include_once("classes/includes.php");
@@ -49,7 +50,7 @@
 			$Cookie->put("session_id", session_id());	
 			$Cookie->put("session_time", VCDUtils::getmicrotime());
 			$Cookie->put("session_uid", $user->getUserId());
-			$Cookie->put("language", $language->getLanguageTag());
+			$Cookie->put("language", VCDClassFactory::getInstance('language')->getLanguageTag());
 			$Cookie->set();
 		}
 			
@@ -72,7 +73,4 @@
 		redirect('./?page=badlogin'); /* Redirect browser */ 
 	}
 	
-	
-	
-
 ?>
