@@ -266,6 +266,7 @@ abstract class VCDFetch {
 	 * @param string $regex | The regular expression used to defined the item rules.
 	 * @param int $indexId | The index of the ID in the array created with $regex
 	 * @param int $indexTitle | The index of the TITLE in the array created with $regex
+	 * @param int $indexYear | The index of the YEAR in the array created with $regex
 	 * @return array
 	 */
 	protected function generateSimpleSearchResults($regex, $indexId=null, $indexTitle=null, $indexYear=null) {
@@ -277,11 +278,19 @@ abstract class VCDFetch {
 		}
 
 		$arrSearchResults = array();
+		
+		
 		for ($i = 0; $i < sizeof($results); $i++) {
 			if ($i > $this->searchMaxResults) { break; }
 
 			$searchItem = $results[$i];
-			array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => strip_tags($searchItem[$indexTitle]), 'year' => $searchItem[$indexYear]));
+			if (is_null($indexYear)) {
+				array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => strip_tags($searchItem[$indexTitle])));
+			} else {
+				array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => strip_tags($searchItem[$indexTitle]), 'year' => $searchItem[$indexYear]));
+			}
+			
+			
 		}
 
 		return $arrSearchResults;
