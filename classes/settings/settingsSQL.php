@@ -8,12 +8,11 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
  */
-
 ?>
 <?PHP
 
@@ -974,9 +973,7 @@
 		public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 			try {
 
-			$metaArr = array();
-			
-			
+						
 			if (is_numeric($mediatype_id) && is_numeric($record_id) && is_numeric($user_id) && strlen($metadata_name) == 0) {
 				$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
 						  m.mediatype_id, n.type_id, n.owner_id, n.type_description FROM $this->TABLE_metadata m
@@ -1013,7 +1010,8 @@
 				 		  AND n.type_name = " . $this->db->qstr($metadata_name) . " ORDER BY n.type_name";
 			}
 
-
+			
+			$metaArr = array();
 			$rs = $this->db->Execute($query);
 			if ($rs && $rs->RecordCount() > 0) {
 				foreach ($rs as $row) {
@@ -1021,7 +1019,7 @@
 					array_push($metaArr, $obj);
 				}
 			}
-
+			
 			return $metaArr;
 
 			} catch (Exception $e) {
