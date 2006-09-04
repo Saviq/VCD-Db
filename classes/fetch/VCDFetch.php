@@ -647,6 +647,22 @@ abstract class VCDFetch {
 		$this->isAdult = true;
 	}
 
+	
+	/**
+	 * Check if a remote file/image exists on the remote server.
+	 *
+	 * @param string $strUrl | The url string to check
+	 * @return bool
+	 */
+	protected function remote_file_exists($strUrl) {
+		$handle = @fopen($strUrl, "r");
+ 		if ($handle === false)
+  		return false;
+ 		fclose($handle);
+ 		return true;
+	}
+	
+	
 
 	/**
 	 *
