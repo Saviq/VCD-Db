@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id$
@@ -163,31 +163,55 @@ class VCDFetch_jaded extends VCDFetch {
 	
 	
 	/**
-	 * Get the Full HTTP image path for the asked for image on the DVDEmpire server.
+	 * Get the Full HTTP image path for the asked for image on the JadedVideo server.
 	 * Valid image types are thumbnail, frontcover, backcover.
 	 * All except screenshots return strings, screenshots returns an array of all screenshot images for that movie.
 	 *
 	 * @param string $image_type
 	 * @return mixed.
 	 */
-	private function getImagePath($image_type) {
+	private function getImagePath($image_type, $fallback = 0) {
 	
-		$folder = substr($this->getItemID(),0,3);
-				
+		if ($fallback == 0) {
+			$folder = substr($this->getItemID(),0,3);
+		} elseif ($fallback == 1) {
+			$folder = substr($this->getItemID(),0,2);
+		} elseif ($fallback == 2) {
+			$folder = substr($this->getItemID(),0,1);
+		} else {
+			return null;
+		}
+		
+						
 		switch ($image_type) {
 			case 'thumbnail':
-				$imagebase = "http://www.jadedvideo.com/images/".$folder."/thumbs/".$this->getItemID();
-				return $imagebase.".jpg";
+				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/thumbs/".$this->getItemID();
+				$fileurl = $imagebase.".jpg";
+				if ($this->remote_file_exists($fileurl)) {
+					return $fileurl;
+				} else {
+					return $this->getImagePath($image_type, $fallback+1);
+				}
 				break;
 				
 			case 'frontcover':
-				$imagebase = "http://www.jadedvideo.com/images/".$folder."/front/".$this->getItemID();
-				return $imagebase.".jpg";
+				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/front/".$this->getItemID();
+				$fileurl = $imagebase.".jpg";
+				if ($this->remote_file_exists($fileurl)) {
+					return $fileurl;
+				} else {
+					return $this->getImagePath($image_type, $fallback+1);
+				}
 				break;
 				
 			case 'backcover':
-				$imagebase = "http://www.jadedvideo.com/images/".$folder."/back/".$this->getItemID();
-				return $imagebase.".jpg";
+				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/back/".$this->getItemID();
+				$fileurl = $imagebase.".jpg";
+				if ($this->remote_file_exists($fileurl)) {
+					return $fileurl;
+				} else {
+					return $this->getImagePath($image_type, $fallback+1);
+				}
 				break;
 						
 			default:
@@ -196,6 +220,9 @@ class VCDFetch_jaded extends VCDFetch {
 		}
 	
 	}
+	
+	
+	
 	
 }
 
