@@ -32,7 +32,7 @@
 	
 	if (strcmp($_GET['mode'], "text") == 0) {
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"displist\">";
-		print "<tr><td class=\"bold\" width=\"50%\">{language::translate('M_TITLE')}</td><td class=\"bold\">{language::translate('M_CATEGORY')}</td><td class=\"bold\">{language::translate('M_YEAR')}</td><td class=\"bold\">{language::translate('M_MEDIA')}</td><td class=\"bold\">{language::translate('M_DATE')}</td></tr>";
+		print "<tr><td class=\"bold\" width=\"50%\">".language::translate('M_TITLE')."</td><td class=\"bold\">".language::translate('M_CATEGORY')."</td><td class=\"bold\">".language::translate('M_YEAR')."</td><td class=\"bold\">".language::translate('M_MEDIA')."</td><td class=\"bold\">".language::translate('M_DATE')."</td></tr>";
 		foreach ($arr as $vcdObj) {
 			print "<tr><td>{$vcdObj->getTitle()}</td><td nowrap=\"nowrap\">".$vcdObj->getCategory()->getName(true)."</td><td>{$vcdObj->getYear()}</td><td nowrap=\"nowrap\">{$vcdObj->showMediaTypes()}</td><td nowrap=\"nowrap\">{$vcdObj->getDateAdded()}</td></tr>";
 		}
