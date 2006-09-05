@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @package Functions
  * @subpackage Backend
  * @version $Id$
@@ -30,7 +30,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 
 	$smtp = VCDClassFactory::getInstance("smtp_class");
 
-	$content_type = "text/plain; charset=iso-8859-1";
+	$content_type = "text/plain; charset=UTF-8";
 
 	if ($use_html) {
 		$content_type = "text/html";
@@ -109,8 +109,17 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 			"Content-Type: $content_type",
 			"Date: ".strftime("%a, %d %b %Y %H:%M:%S %Z")
 		),
-		"$body.\n"))
-		return true;
+		"$body.\n")) {
+		
+		
+		// Check if we are supposed to log this event ..
+		if (VCDLog::isInLogList(VCDLog::EVENT_EMAILS )) {
+			VCDLog::addEntry(VCDLog::EVENT_EMAILS, "Mail to {$to}: subject: {$subject}");
+		}
+		
+			return true;
+		}
+		
 	else
 		return false;
 
@@ -460,65 +469,6 @@ function getCategoryResults($catArr, $dataArray) {
 	return $resultArr;
 }
 
-/**
- * Prepare the upload object and configure the object variables.
- *
- * @param uploader $uploadObj | The upload object
- * @param array $fileObj | An item entry from the $_FILES array
- * @param string $fieldname | The uploaded field name on the HTML form
- * @param float $maxFileSize | The maximum allowd file size in MB
- * @param array $arrExtensions | Array of extensions that the uploader will accept
- * @param string $destinationDirectory | The directory where the uploaded file should be moved to
- * @param bool $randomFilename | Generate random filename or use the uploaded file name
- * @param bool $replaceFile | Replace file with existing name if it exists.
- */
-function prepareUploader(&$uploadObj, $fileObj, $fieldname, $maxFileSize, $arrExtensions,
-	$destinationDirectory, $randomFilename = true, $replaceFile = true) {
-
-	try {
-		// Uploaded file name.
-		$uploadObj->set("name",$fileObj["name"]);
-
-		// Uploaded file type.
-		$uploadObj->set("type",$fileObj["type"]);
-
-		// Uploaded tmp file name.
-		$uploadObj->set("tmp_name",$fileObj["tmp_name"]);
-
-		// Uploaded file error.
-		$uploadObj->set("error",$fileObj["error"]);
-
-		// Uploaded file size.
-		$uploadObj->set("size",$fileObj["size"]);
-
-		// Uploaded file field name.
-		$uploadObj->set("fld_name", $fieldname);
-
-		// Max size allowed for uploaded file in bytes
-		// Convert from MB to bytes
-		$filesize = (int)((float)($maxFileSize)*1024*1024);
-		$uploadObj->set("max_file_size", $filesize);
-
-		// File permissions 0777 = All read/write - 0444 Read only after upload
-		$uploadObj->set("file_perm", 0777);
-
-		// Allowed extensions of uploaded files
-		$uploadObj->set("supported_extensions", $arrExtensions);
-
-		// Generate a unique name for uploaded file? bool(true/false).
-		$uploadObj->set("randon_name",$randomFilename);
-
-		// Replace existent files or not?
-		$uploadObj->set("replace",$replaceFile);
-
-		// Destination directory for uploaded files.
-		$uploadObj->set("dst_dir", $destinationDirectory);
-
-	} catch (Exception $ex) {
-		VCDException::display($ex);
-	}
-
-}
 
 /**
  * Increment the query counter in the Connection class.
