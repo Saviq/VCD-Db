@@ -205,10 +205,10 @@ if ($movie->isAdult()) {
 				$arrMyMediaTypes = $arrCopies['mediaTypes'];
 
 				print "<div id=\"metadata\">";
-				print "<h2>{language::translate('META_MY')}</h2>";
+				print "<h2>".language::translate('META_MY')."</h2>";
 
 				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-				print "<tr><td width=\"20%\">{language::translate('M_MEDIA')}</td><td>{language::translate('META_TYPE')}</td><td>{language::translate('META_VALUE')}</td></tr>";
+				print "<tr><td width=\"20%\">".language::translate('M_MEDIA')."</td><td>".language::translate('META_TYPE')."</td><td>".language::translate('META_VALUE')."</td></tr>";
 				foreach ($userMetaArr as $metadataObj) {
 					$mediaObj = $SETTINGSClass->getMediaTypeByID($metadataObj->getMediaTypeID());
 					if ($mediaObj instanceof mediaTypeObj && strcmp(trim($metadataObj->getMetadataValue()), "") != 0) {
