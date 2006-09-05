@@ -14,6 +14,7 @@ Added   - The Log Viewer on the "Admin Panel" now has the option to filter on sp
 Fixed   - Fixed the Yahoo fetch class, Yahoo movies changed their search results page.
 Updated - The Export/Import mechanism has been rewritten, the imported now used Ajax for more user friendly UI
 		  and the Exported filenames are now based on the date.
+Added   - Comments are now sanitized for HTML and script injections.		  
 
 0.982
 	
