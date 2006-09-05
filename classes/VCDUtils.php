@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgisson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -701,6 +701,22 @@ class VCDUtils {
 			if ( (!is_array($v)) )
 				$_POST[$k]=stripslashes($v);
 		}
+	}
+	
+	
+	/**
+	 * Strip html entities from text
+	 *
+	 * @param string $document | The polluted text
+	 * @return string | The sanitized text
+	 */
+	static function stripHTML($document){
+		$search = array('@<script[^>]*?>.*?</script>@si',   // Strip out javascript
+        	'@<[\/\!]*?[^<>]*?>@si',            			// Strip out HTML tags
+            '@<style[^>]*?>.*?</style>@siU',    			// Strip style tags properly
+            '@<![\s\S]*?--[ \t\n\r]*>@'        				// Strip multi-line comments including CDATA
+        );
+		return preg_replace($search, '', $document);
 	}
 	
 
