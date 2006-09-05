@@ -1,10 +1,7 @@
 0.983
-
-	| Saviq
-Added	- All lang files now in UTF-8 - a fully international character encoding PLEASE CHECK THE SPECIAL CHARS IN YOUR LANG FILES!
-Added	- Fetching now converts strings to proper encoding
-Fixed	- Category display in manager now localized
-	| Konni
+Added	- All lang files now in UTF-8 - a fully international character encoding.
+Added	- Fetching now converts strings to proper encoding.
+Fixed	- Category display in manager now localized.
 Fixed   - Submitted checkbox data now works properly with magic_quotes enabled.
 Fixed	- IMDB fetch for the cast section updated.
 Fixed	- Fixed the LDAP authentication to work properly with OpenLDAP.
@@ -15,9 +12,10 @@ Fixed   - Fixed the Yahoo fetch class, Yahoo movies changed their search results
 Updated - The Export/Import mechanism has been rewritten, the imported now used Ajax for more user friendly UI
 		  and the Exported filenames are now based on the date.
 Added   - Comments are now sanitized for HTML and script injections.		  
+Fixed   - VCD-db seems to work flawlessy now with php safe_mode = On and with open_basedir restrictions.
+Added   - Emails can now also be logged.
 
 0.982
-	
 Fixed   - When user tries to add duplicate copy of movie and media type an exception is thrown instead of getting blank page.
 Fixed   - POST actions fixed for IIS compatibility.
 Added   - Comments and Metadata are now included in the XML import/export process.
