@@ -38,6 +38,12 @@ INSTALLATION
 
 UPGRADING
 
+Upgrading from 0.982
+	1) Back up your existing settings file (classes/VCDConstants.php)
+	2) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
+	3) Edit the file "classes/VCDConstants.php" and update your database settings.  (You can take a look at the backed up file as a reference.)
+	4) Upgrade is complete .. Delete the /vcddb/setup folder and you are good to go.
+
 Upgrading from 0.98 or from 0.981
 	1) Back up your existing settings file (classes/VCDConstants.php)
 	2) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
