@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2006 Konni - konni.com
  *
@@ -8,11 +8,13 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
+ * @author  Hákon Birgisson <konni@konni.com>
+ * @version $Id$
  */
- // $Id:
 ?>
 <?
-require_once("classes/includes.php");
+define('ABSPATH', dirname(__FILE__).'/');
+require_once(ABSPATH.'classes/includes.php');
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
