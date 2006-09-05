@@ -99,7 +99,7 @@ switch ($form) {
 			if (isset($_POST['private'])) {
 				$is_private = 1;
 			}
-			$commObj = new commentObj(array('', $_POST['vcd_id'], VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $_POST['vcd_id'], VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 
 			if (strlen($_POST['comment']) > 0) {
 				$SETTINGSClass->addComment($commObj);
@@ -330,7 +330,7 @@ switch ($form) {
 				$is_private = 1;
 			}
 
-			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 			$SETTINGSClass->addComment($commObj);
 		}
 
@@ -408,7 +408,7 @@ switch ($form) {
 				$is_private = 1;
 			}
 
-			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
+			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 			$SETTINGSClass->addComment($commObj);
 		}
 
@@ -573,7 +573,7 @@ switch ($form) {
 					$is_private = 1;
 				}
 
-				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', $_POST['comment'], $is_private));
+				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 				$SETTINGSClass->addComment($commObj);
 			}
 
