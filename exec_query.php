@@ -96,133 +96,68 @@ switch ($form) {
 			
 			if (isset($_GET['filter']) && $_GET['filter'] == 'thumbs') {
 			
-				$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
-				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport(VCDUtils::getUserID());
-				
-				// This can take alot of time for many entries .. Give it 1000 secs
-				set_time_limit(1000);
-				
-				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
-				$xml .= "<vcdthumbnails>";
-				foreach ($arrCovers as $cdcover) {
-					$xml .= $cdcover->toXML();
-				}
-				$xml .= "</vcdthumbnails>";
-				
-												
-				$xmlFilename = CACHE_FOLDER.'thumbnails_export.xml';
-				$tarFilename = CACHE_FOLDER.'thumbnails_export.tgz';
-				$zipFilename = CACHE_FOLDER.'thumbnails_export.zip';
-				
-				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
-					require_once('classes/external/compression/tar.php');
-	
-					VCDUtils::write($xmlFilename, $xml);
-					$zipfile = new tar();
-					$zipfile->addFile($xmlFilename);
-					fs_unlink($xmlFilename);
+			try {
+					$exportAction = VCDXMLExporter::EXP_XML;
+					if (isset($_GET['c'])) {
+						$exportAction = $_GET['c'];	
+					}
 					
-					// Write the TAR file to disk
-					VCDUtils::write($tarFilename, $zipfile->toTarOutput("xmlthumbnails", true));
-					// Stream the file to browser
-					send_file($tarFilename);
-					// Delete the tar file from cache
-					fs_unlink($tarFilename);
-					exit();
-				
-				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
-					require_once('classes/external/compression/zip.php');
-					
-					$zipfile = new zipfile();
-					$zipfile->addFile($xml, "thumbnails_export.xml");
-					
-					// Write the zip file to cache folder
-					VCDUtils::write($zipFilename, $zipfile->file());
-					// Stream the file to browser
-					send_file($zipFilename);
-					// Delete the Zip file from cache
-					fs_unlink($zipFilename);
-					exit();
+					switch ($exportAction) {
+						case 'zip':
+							VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_ZIP);
+							exit();
+							break;
+							
+						case 'tar':
+							VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_TGZ );
+							exit();
+							break;
+							
+						default:
+							VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_XML );
+							exit();
+							break;
 						
-				
-				} else {
-					// Write the XML file to cache folder
-					VCDUtils::write($xmlFilename, $xml);
-					// Stream the file to browser
-					send_file($xmlFilename);
-					// Delete the XML file from cache
-					fs_unlink($xmlFilename);
-					exit();
+					}
 					
+				} catch (Exception $ex) {
+					VCDException::display($ex);
 				}
-				
-				exit();
 				
 				
 			} else {
 			
 				
-				
-				$xml = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>";
-				$xml .= "<vcdmovies>";
-				$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
-				$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);
-				foreach ($arrMovies as $vcdObj) {
-					$xml .= $vcdObj->toXML();
-				}
-				$xml .= "</vcdmovies>";
-				unset($arrMovies);
-				
-				
-				
-				$xmlFilename = CACHE_FOLDER.'movie_export.xml';
-				$tarFilename = CACHE_FOLDER.'movie_export.tgz';
-				$zipFilename = CACHE_FOLDER.'movie_export.zip';
-				
-				
-				if (isset($_GET['c']) && strcmp($_GET['c'], "tar") == 0) { 
-					require_once('classes/external/compression/tar.php');
-	
-					VCDUtils::write($xmlFilename, $xml);
-					$zipfile = new tar();
-					$zipfile->addFile($xmlFilename);
-					fs_unlink($xmlFilename);
+				try {
 					
-					// Write the TAR file to disk
-					VCDUtils::write($tarFilename, $zipfile->toTarOutput("movie_export", true));
-					// Stream the file to browser
-					send_file($tarFilename);
-					// Delete the tar file from cache
-					fs_unlink($tarFilename);
-					exit();
-				
-				} else if (isset($_GET['c']) && strcmp($_GET['c'], "zip") == 0) {
-					require_once('classes/external/compression/zip.php');
+					$exportAction = VCDXMLExporter::EXP_XML;
+					if (isset($_GET['c'])) {
+						$exportAction = $_GET['c'];	
+					}
 					
-					$zipfile = new zipfile();
-					$zipfile->addFile($xml, "movie_export.xml");
+					switch ($exportAction) {
+						case 'zip':
+							VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_ZIP);
+							exit();
+							break;
+							
+						case 'tar':
+							VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_TGZ );
+							exit();
+							break;
+							
+						default:
+							VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_XML );
+							exit();
+							break;
+						
+					}
 					
-					// Write the zip file to cache folder
-					VCDUtils::write($zipFilename, $zipfile->file());
-					// Stream the file to browser
-					send_file($zipFilename);
-					// Delete the Zip file from cache
-					fs_unlink($zipFilename);
-					exit();
-					
-				
-				} else {
-					// Write the XML file to cache folder
-					VCDUtils::write($xmlFilename, $xml);
-					// Stream the file to browser
-					send_file($xmlFilename);
-					// Delete the XML file from cache
-					fs_unlink($xmlFilename);
-					exit();
-					
+				} catch (Exception $ex) {
+					VCDException::display($ex);
 				}
 				
-				exit();	
+				
 			
 			}
 		}
