@@ -303,7 +303,7 @@ class VCDUtils {
 	static function grabImage($image_url, $uniqueID = true, $destination = TEMP_FOLDER) {
 
 	  // Cut some slack for slow connections, 15 secs per file.
-	  set_time_limit(15);
+	  @set_time_limit(30);
 
       $source = urldecode($image_url);
 
