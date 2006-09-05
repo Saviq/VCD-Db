@@ -607,20 +607,224 @@ class VCDXMLExporter {
 	CONST EXP_ZIP = 3;
 	CONST EXP_XLS = 4;
 	
+	CONST XML_ENCODING = "UTF-8";
 	
 	
-	public function exportMovies($iUserID, $expMethod) {
+	public static function exportMovies($expMethod, $iUserID = null) {
+		try {
+			
+			// Cut some (inifinite) slack ..
+			set_time_limit(0);
+			
+			
+			$xml = "<?xml version=\"1.0\" encoding=\"".self::XML_ENCODING."\" ?>";
+			$xml .= "<vcdmovies>";
+			
+			$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
+			if (!is_null($iUserID)) {
+				$arrMovies = $CLASSVcd->getAllVcdByUserId($iUserID, false);
+			} else {
+				$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);				
+			}
+								
+				
+			foreach ($arrMovies as $vcdObj) {
+					$xml .= $vcdObj->toXML();
+			}
+			$xml .= "</vcdmovies>";
+			unset($arrMovies);
+			
+			
+			// Generate XML filename
+			$XmlFilename = self::generateFileName('xml');
+			
+			// Select export routine ..
+			switch ($expMethod) {
+				case self::EXP_XML:
+					
+					// Write the XML file to cache folder
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$XmlFilename);
+					
+					// Delete the XML file from cache
+					fs_unlink(CACHE_FOLDER.$XmlFilename);
+				
+					break;
+					
+				case self::EXP_ZIP:
+					
+					require_once('external/compression/zip.php');
+					
+					// Generate Zip filename
+					$ZipFilename = self::generateFileName('zip');
+					
+					$zipfile = new zipfile();
+					$zipfile->addFile($xml, $XmlFilename);
+					
+					// Write the zip file to cache folder
+					VCDUtils::write(CACHE_FOLDER.$ZipFilename, $zipfile->file());
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$ZipFilename);
+					// Delete the Zip file from cache
+					fs_unlink(CACHE_FOLDER.$ZipFilename);
+
+					break;
+					
+					
+				case self::EXP_TGZ:
+					
+					require_once('external/compression/tar.php');
+	
+					// Generate Tar filename
+					$TarFilename = self::generateFileName('tgz');
+					
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					$zipfile = new tar();
+					$zipfile->addFile(CACHE_FOLDER.$XmlFilename);
+					fs_unlink(CACHE_FOLDER.$XmlFilename);
+					
+					// Write the TAR file to disk
+					VCDUtils::write(CACHE_FOLDER.$TarFilename, $zipfile->toTarOutput("movie_export", true));
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$TarFilename);
+					// Delete the tar file from cache
+					fs_unlink(CACHE_FOLDER.$TarFilename);
+					
+					break;				
+				
+				default:
+					throw new Exception('Undefined export method');
+					break;
+					
+					
+			}
+			
+			
+			
+		} catch (Exception $ex)	{
+			throw new VCDException($ex);			
+		}
 		
 	}
 	
 	
-	public function exportThumbnails($iUserID, $expMethod) {
+	public static function exportThumbnails($expMethod, $iUserID = null) {
+		
+		try {
+		
+		// Cut some (inifinite) slack ..
+			set_time_limit(0);
+			
+			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
+			if (is_null($iUserID)) {
+				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport(VCDUtils::getUserID());	
+			} else {
+				$arrCovers = $COVERClass->getAllThumbnailsForXMLExport($iUserID);
+			}
+			
+			
+			$xml = "<?xml version=\"1.0\" encoding=\"".self::XML_ENCODING."\" ?>";
+			$xml .= "<vcdthumbnails>";
+			foreach ($arrCovers as $cdcover) {
+				$xml .= $cdcover->toXML();
+			}
+			$xml .= "</vcdthumbnails>";
+			
+			
+			// Generate XML filename
+			$XmlFilename = self::generateThumbFileName('xml');
+			
+			// Select export routine ..
+			switch ($expMethod) {
+				case self::EXP_XML:
+					
+					// Write the XML file to cache folder
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$XmlFilename);
+					
+					// Delete the XML file from cache
+					fs_unlink(CACHE_FOLDER.$XmlFilename);
+				
+					break;
+					
+				case self::EXP_ZIP:
+					
+					require_once('external/compression/zip.php');
+					
+					// Generate Zip filename
+					$ZipFilename = self::generateThumbFileName('zip');
+					
+					$zipfile = new zipfile();
+					$zipfile->addFile($xml, $XmlFilename);
+					
+					// Write the zip file to cache folder
+					VCDUtils::write(CACHE_FOLDER.$ZipFilename, $zipfile->file());
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$ZipFilename);
+					// Delete the Zip file from cache
+					fs_unlink(CACHE_FOLDER.$ZipFilename);
+
+					break;
+					
+					
+				case self::EXP_TGZ:
+					
+					require_once('external/compression/tar.php');
 	
+					// Generate Tar filename
+					$TarFilename = self::generateThumbFileName('tgz');
+					
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					$zipfile = new tar();
+					$zipfile->addFile(CACHE_FOLDER.$XmlFilename);
+					fs_unlink(CACHE_FOLDER.$XmlFilename);
+					
+					// Write the TAR file to disk
+					VCDUtils::write(CACHE_FOLDER.$TarFilename, $zipfile->toTarOutput("thumbnail_export", true));
+					// Stream the file to browser
+					send_file(CACHE_FOLDER.$TarFilename);
+					// Delete the tar file from cache
+					fs_unlink(CACHE_FOLDER.$TarFilename);
+					
+					break;				
+				
+				default:
+					throw new Exception('Undefined export method');
+					break;
+					
+					
+			}
+			
+			
+			
+		} catch (Exception $ex)	{
+			throw new VCDException($ex);			
+		}
+		
 	}
 	
 	
-	private function generateFileName($prefix) {
-		$filename = "VCDdb-".$prefix.date("m.d.Y");
+	private static function generateFileName($extension) {
+		$filename = "VCDdb-Export-".date("d.m.Y").".".$extension;
+		return $filename;
+	}
+	
+	private static function generateThumbFileName($extension) {
+		$filename = "VCDdb-Thumbnails-".date("d.m.Y").".".$extension;
+		return $filename;
+	}
+
+	private static function tar($file) {
+		
+		
+	}
+	
+	private static function zip($file) {
+		
 		
 	}
 
