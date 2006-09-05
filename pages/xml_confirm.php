@@ -77,7 +77,7 @@
   	 }
   	 
   	 function endCall() {
-  	 	alert('All done baby ' + counter);
+  	 	alert('Import completed.');
   	 }
   	 
      function doCall() {
