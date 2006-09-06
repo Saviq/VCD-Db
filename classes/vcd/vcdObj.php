@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -523,7 +523,7 @@
 			
 			$xmlstr  = "<movie>\n";
 			$xmlstr .= "<id>".$this->id."</id>\n";
-			$xmlstr .= "<title><![CDATA[".$this->title."]]></title>\n";
+			$xmlstr .= "<title><![CDATA[".utf8_encode($this->title)."]]></title>\n";
 			$xmlstr .= "<category>".$this->moviecategoryobj->getName()."</category>\n";
 			$xmlstr .= "<category_id>".$this->moviecategoryobj->getID()."</category_id>\n";
 			$xmlstr .= "<year>".$this->year."</year>\n";

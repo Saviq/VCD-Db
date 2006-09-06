@@ -320,13 +320,13 @@
 
 			$xmlstr  = "<imdb>\n";
 			$xmlstr .= "<imdb_id>".$this->getIMDB()."</imdb_id>\n";
-			$xmlstr .= "<title><![CDATA[".$this->title."]]></title>\n";
-			$xmlstr .= "<alt_title><![CDATA[".$this->alt_title1."]]></alt_title>\n";
+			$xmlstr .= "<title><![CDATA[".utf8_encode($this->title)."]]></title>\n";
+			$xmlstr .= "<alt_title><![CDATA[".utf8_encode($this->alt_title1)."]]></alt_title>\n";
 			$xmlstr .= "<image>".$this->image."</image>\n";
 			$xmlstr .= "<year>".$this->year."</year>\n";
-			$xmlstr .= "<plot><![CDATA[".$this->plot."]]></plot>\n";
-			$xmlstr .= "<director><![CDATA[".$this->director."]]></director>\n";
-			$xmlstr .= "<cast><![CDATA[".$this->formatCastForXmlExport()."]]></cast>\n";
+			$xmlstr .= "<plot><![CDATA[".utf8_encode($this->plot)."]]></plot>\n";
+			$xmlstr .= "<director><![CDATA[".utf8_encode($this->director)."]]></director>\n";
+			$xmlstr .= "<cast><![CDATA[".utf8_encode( $this->formatCastForXmlExport() )."]]></cast>\n";
 			$xmlstr .= "<rating>".$this->rating."</rating>\n";
 			$xmlstr .= "<runtime>".$this->runtime."</runtime>\n";
 			$xmlstr .= "<country>".$this->country."</country>\n";
