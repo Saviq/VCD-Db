@@ -21,13 +21,13 @@ class VCDFetch_bush extends VCDFetch {
 	
 	protected $regexArray = array(
 		'title' 	  => 'class="sdTitle" nowrap="nowrap">([^<]*)</td>',
-		'year'  	  => '<th>Production Year:</th><td align="center">([^<]*)</td>',
+		'year'  	  => '<th>Production Year:</th>([^<]*)<td align="center">([^<]*)</td>',
 		'studio'	  => 'searchtype=Browse&Studio_ID=([0-9]{1,5})">([^<]*)</td>',
-		'genre'	 	  => 'CAT: <a href=search_result.asp?([^<]*)>([^<]*)</a><BR>',
+		'genre'	 	  => '_searchtype=Browse&Category_ID=([0-9]{1,5})">([^<]*)</a></li>',
 		'cast' 		  => 'PerformerTalent_ID=([0-9]{1,5})">([^<]*)</a></li>',
-		'thumbnail'	  => null
-		//'frontcover'  => null,
-		//'backcover'   => null
+		'thumbnail'	  => null,
+		'frontcover'  => null,
+		'backcover'   => null
 		);
 	
 			
@@ -72,10 +72,10 @@ class VCDFetch_bush extends VCDFetch {
 					break;
 				
 				case 'year':
-					print_r($arrData);
-					die();
-					$year = $arrData[3];
-					$obj->setYear($year);		
+					if (isset($arrData[2])) {
+						$year = $arrData[2];
+						$obj->setYear($year);		
+					}
 					break;
 					
 				case 'studio':
@@ -84,7 +84,6 @@ class VCDFetch_bush extends VCDFetch {
 					break;
 										
 				case 'thumbnail':
-										
 					$obj->setImage($arrData);
 					break;
 					
@@ -96,12 +95,13 @@ class VCDFetch_bush extends VCDFetch {
 					break;
 					
 				case 'cast':
-					if (isset($arrData[0][1])) {
-						$pornstars = explode(",", $arrData[0][1]);
-						foreach ($pornstars as $pornstar) {
-							$obj->addActor(ltrim($pornstar, "\."));
+				
+					foreach ($arrData as $itemArray) {
+						if (isset($itemArray[2])) {
+							$obj->addActor(trim($itemArray[2]));
 						}
 					}
+					
 					break;
 					
 							
@@ -176,20 +176,52 @@ class VCDFetch_bush extends VCDFetch {
 							
 		switch ($image_type) {
 			case 'thumbnail':
-				$img = "http://66.63.152.194/fif={$this->image_id}&obj=iip,1.0&wid=135&cvt=jpeg";
-				die($img);
-				return $img;
+				$img_url = "http://66.63.152.194/fif={$this->image_id}&obj=iip,1.0&wid=135&cvt=jpeg";
+												
+				$snoopy = new Snoopy();
+				$snoopy->fetch($img_url);
+				$image = $snoopy->results;
+				
+				$image_name = TEMP_FOLDER."bush-thumb-{$this->getItemID()}.jpg";
+				
+				VCDUtils::write($image_name, $image);
+				
+				$local_image = $this->getLocalAddress() . $image_name;
+				return $local_image;
+				
 				break;
 				
 			case 'frontcover':
-				$img = "http://66.63.152.194/fif={$this->image_id}&obj=iip,1.0&hei=520&cvt=jpeg";
-				return $img;
+				$img_url = "http://66.63.152.194/fif={$this->image_id}&obj=iip,1.0&hei=520&cvt=jpeg";
+				
+				$snoopy = new Snoopy();
+				$snoopy->fetch($img_url);
+				$image = $snoopy->results;
+				
+				$image_name = TEMP_FOLDER."bush-front-{$this->getItemID()}.jpg";
+				
+				VCDUtils::write($image_name, $image);
+				
+				$local_image = $this->getLocalAddress() . $image_name;
+				return $local_image;
+				
 				break;
 				
 			case 'backcover':
 				$backcover_id = str_replace('a', 'b', $this->image_id);
-				$img = "http://66.63.152.194/fif={$backcover_id}&obj=iip,1.0&hei=520&cvt=jpeg";
-				return $img;
+				$img_url = "http://66.63.152.194/fif={$backcover_id}&obj=iip,1.0&hei=520&cvt=jpeg";
+				
+				$snoopy = new Snoopy();
+				$snoopy->fetch($img_url);
+				$image = $snoopy->results;
+				
+				$image_name = TEMP_FOLDER."bush-back-{$this->getItemID()}.jpg";
+				
+				VCDUtils::write($image_name, $image);
+				
+				$local_image = $this->getLocalAddress() . $image_name;
+				return $local_image;
+				
 				break;
 						
 			default:
@@ -199,6 +231,22 @@ class VCDFetch_bush extends VCDFetch {
 	
 	}
 	
+	/**
+	 * Find the local legal Url to put the image to.
+	 *
+	 * @return string
+	 */
+	private function getLocalAddress(){
+		$fullPath = $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+		$dirPath = "http://" . substr($fullPath, 0, strpos($fullPath, "index.php"));
+		
+    	return $dirPath;
+	}
+	
+	/**
+	 * Find out the corrent image ID
+	 *
+	 */
 	private function discoverImageID() {
 		if (is_null($this->image_id)) {
 			$regx = 'var pictureSpecA = "[^"]*.fpx';
