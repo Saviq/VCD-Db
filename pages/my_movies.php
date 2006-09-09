@@ -71,8 +71,10 @@
 
 <? if (!isset($_GET['do'])) { ?>
 
-<h2><?= language::translate('MY_EXPORT') ?></h2>
-<table cellspacing="0" cellpadding="1" border="0" width="100%" class="displist">
+<fieldset id="pagelook" title="<?= language::translate('MY_EXPORT'); ?>">
+<legend class="bold"><?= language::translate('MY_EXPORT'); ?></legend>
+
+<table cellspacing="1" cellpadding="1" border="0" width="100%" class="displist">
 <tr>
 	<td width="4%"><img src="images/icon_xls.gif" border="0" alt="Excel" hspace="2"/></td>
 	<td width="4%">&nbsp;</td>
@@ -91,21 +93,17 @@
 	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml"><?= language::translate('MY_XMLTHUMBS') ?></a></td>
 </tr>
-<? 
-if (substr_count($_SERVER['HTTP_USER_AGENT'], "Windows") > 0) {
-	?> 
+<? if (substr_count($_SERVER['HTTP_USER_AGENT'], "Windows") > 0) { 	?> 
 <tr>
 	<td><img src="images/icon_cd.gif" border="0" alt="VCD-db Client" hspace="2"/></td>
 	<td>&nbsp;</td>
 	<td>&nbsp;</td>
 	<td><a href="images/VCDdb-Client-0.1.zip">VCD-db Client</a></td>
 </tr>
-	<?
-}
-print "</table>";
-
-} ?>
-
+<? } ?>
+</table>
+</fieldset>
+<? } ?>
 
 <? 
 	

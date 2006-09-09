@@ -1,5 +1,4 @@
 <?
-	;
 	$USERClass = VCDClassFactory::getInstance("vcd_user");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$user = $_SESSION['user'];
@@ -45,7 +44,8 @@
 ?>
 <form name="user" method="POST" action="./index.php?page=private&o=settings&action=update">
 <h1><?=language::translate('MENU_SETTINGS')?></h1>
-<table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
+<fieldset id="settings" title="<?= language::translate('MENU_SETTINGS'); ?>">
+<table width="100%" border="0" cellspacing="1" cellpadding="1" class="displist">
 <tr>
 	<td width="35%"><?=language::translate('REGISTER_FULLNAME')?>:</td>
 	<td><input type="text" name="name" value="<?=$user->getFullname()?>"/></td>
@@ -114,12 +114,8 @@
 </tr>
 </table>
 </form>
-
-
-
-
-
-
+</fieldset>
+<br/>
 
 
 
@@ -177,7 +173,6 @@
 		print "<a name=\"borrower\"></a>";
 		print "<fieldset id=\"mainset\" title=".language::translate('MY_FRIENDS').">";
 		print "	<legend class=\"bold\">".language::translate('MY_FRIENDS')."</legend>";
-		//print "<h2>".language::translate('MY_FRIENDS')."</h2>";
 
 		print "<table cellpadding=\"1\" cellspacing=\"1\" width=\"100%\" border=\"0\">";
 		print "<tr><td>";
@@ -257,6 +252,7 @@
 <input type="button" value="<?=language::translate('RSS_ADD')?>" onclick="addFeed()"/>
 </p>
 </fieldset>
+<br/>
 
 <fieldset id="mainset" title="<?=language::translate('SE_CUSTOM')?>">
 <legend class="bold"><?=language::translate('SE_CUSTOM')?></legend>

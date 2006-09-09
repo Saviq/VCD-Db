@@ -31,6 +31,16 @@
 	background-image: none;
 }
 
+.nof {
+	border: 0px;
+	background: none;
+	margin:0;
+}
+
+.forms .nof {
+	margin:3px;
+	vertical-align:middle;
+}
 
 fieldset { margin:4px; }
 
@@ -39,7 +49,6 @@ legend {
   font-size:90%;
   text-align:right;
 }
-
 
 
 /* Properties for the Pornstar Entries */
