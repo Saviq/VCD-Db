@@ -134,7 +134,7 @@
 	</xs:element>
 	<xs:element name="rating" type="xs:string" nillable="true"/>
 	<xs:element name="runtime" type="xs:string"/>
-	<xs:element name="sourcesite_id" type="xs:short" nillable="true"/>
+	<xs:element name="sourcesite_id" type="xs:string"/>
 	<xs:element name="studio">
 		<xs:complexType>
 			<xs:sequence>
@@ -156,34 +156,4 @@
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="year" type="xs:string"/>
-	<xs:element name="sourcesite">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element name="id" type="xs:short"/>
-				<xs:element name="name" type="xs:string"/>
-				<xs:element name="alias" type="xs:string"/>
-				<xs:element name="homepage" type="xs:string"/>
-				<xs:element name="command" type="xs:string"/>
-				<xs:element name="classname" type="xs:string"/>
-				<xs:element name="fetchable" type="xs:boolean"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="sourcesites">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="sourcesite" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-	</xs:element>
-	<xs:element name="vcddb">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="sourcesites"/>
-				<xs:element ref="vcdmovies"/>
-			</xs:sequence>
-			<xs:attribute name="appversion" use="required"/>
-			<xs:attribute name="created" use="required"/>
-		</xs:complexType>
-	</xs:element>
 </xs:schema>
