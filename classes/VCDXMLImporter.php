@@ -21,6 +21,8 @@ class VCDXMLImporter {
 	 *
 	 */
 	CONST XSD_VCDDB_MOVIES = "includes/schema/vcddb-export.xsd";
+	CONST XSD_VCDDB_MOVIES_LEGACY = "includes/schema/vcddb-export-legacy.xsd";
+	
 	/**
 	 * XSD to validate VCD-db XML Thumbnails files.
 	 *
@@ -618,21 +620,22 @@ class VCDXMLExporter {
 			
 			
 			$xml = "<?xml version=\"1.0\" encoding=\"".self::XML_ENCODING."\" ?>";
-			$xml .= "<vcdmovies>";
+			// Create the root XMLElement
+			$xml .= "<vcddb appversion=\"".VCDDB_VERSION."\" created=\"".date('c')."\">";
 			
-			$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
-			if (!is_null($iUserID)) {
-				$arrMovies = $CLASSVcd->getAllVcdByUserId($iUserID, false);
-			} else {
-				$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);				
-			}
-								
-				
-			foreach ($arrMovies as $vcdObj) {
-					$xml .= $vcdObj->toXML();
-			}
-			$xml .= "</vcdmovies>";
-			unset($arrMovies);
+			// Add the sourcesites XMLElements
+			$xml .= self::getXMLSourceSites();
+			
+			// Add the movies XMLElements
+			$xml .= self::getXMLMovies($iUserID);
+						
+			
+			// Close the root XMLElement
+			$xml .= "</vcddb>";
+			
+			
+			// Pretty print the XML
+			$xmlObj = simplexml_load_string($xml);
 			
 			
 			// Generate XML filename
@@ -643,7 +646,7 @@ class VCDXMLExporter {
 				case self::EXP_XML:
 					
 					// Write the XML file to cache folder
-					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xmlObj->asXML());
 					
 					// Stream the file to browser
 					send_file(CACHE_FOLDER.$XmlFilename);
@@ -714,8 +717,8 @@ class VCDXMLExporter {
 		
 		try {
 		
-		// Cut some (inifinite) slack ..
-			set_time_limit(0);
+			// Cut some (inifinite) slack ..
+			@set_time_limit(0);
 			
 			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 			if (is_null($iUserID)) {
@@ -804,6 +807,37 @@ class VCDXMLExporter {
 		} catch (Exception $ex)	{
 			throw new VCDException($ex);			
 		}
+		
+	}
+
+	
+	private static function getXMLSourceSites() {
+		$xml = "<sourcesites>";
+		
+		$CLASSSettings = new vcd_settings();
+		foreach($CLASSSettings->getSourceSites() as $sourceSiteObj) {
+			$xml .= $sourceSiteObj->toXML();
+		}
+		
+		$xml .= "</sourcesites>";
+		return $xml;
+	}
+	
+	
+	private static function getXMLMovies($iUserID = null) {
+		
+		$xml = "<vcdmovies>";
+		$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
+		if (!is_null($iUserID)) {
+			$arrMovies = $CLASSVcd->getAllVcdByUserId($iUserID, false);
+		} else {
+			$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);				
+		}
+						
+		foreach ($arrMovies as $vcdObj) { $xml .= $vcdObj->toXML();	}
+		$xml .= "</vcdmovies>";
+				
+		return $xml;
 		
 	}
 	
