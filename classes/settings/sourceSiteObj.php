@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -140,6 +140,7 @@ class sourceSiteObj implements XMLable {
 		$xmlstr .= "<alias>".$this->site_alias."</alias>\n";
 		$xmlstr .= "<homepage><![CDATA[".$this->site_homepage."]]></homepage>\n";
 		$xmlstr .= "<command><![CDATA[".$this->site_getCommand."]]></command>\n";
+		$xmlstr .= "<classname>".$this->site_classname."</classname>\n";
 		$xmlstr .= "<fetchable>".$this->isFetchable."</fetchable>\n";
 		$xmlstr .= "</sourcesite>\n";
 		return $xmlstr;
