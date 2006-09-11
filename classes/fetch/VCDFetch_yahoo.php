@@ -150,7 +150,10 @@ class VCDFetch_yahoo extends VCDFetch {
 							break;}
 
 						$result = $actor." .... " .$role;
-						array_push($arr, $result);
+						if (strcmp(trim($role), '@role') != 0) {
+							array_push($arr, $result);
+						}
+						
 					}
 					$obj->setCast($arr);
 					break;
