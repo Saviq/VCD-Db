@@ -29,7 +29,8 @@ class VCDXMLImporter {
 	 */
 	CONST XSD_VCDDB_THUMBS = "includes/schema/vcddb-thumbnails.xsd";
 	
-	
+	static private $isLegacy = false;
+		
 	
 	/**
 	 * Get the number of movie entries in the XML file.
@@ -41,11 +42,24 @@ class VCDXMLImporter {
 		try {
 			$file = TEMP_FOLDER.$strXmlFile;
 			if (!file_exists($file)) {
-				throw new Exception("Could not load file " . $file);
+				
+				// try without the TEMP_FOLDER
+				if (!file_exists($strXmlFile)) { 
+					throw new Exception("Could not load file " . $file);					
+				} else {
+					$file = $strXmlFile;
+				}
 			}
 			
 			$xml = simplexml_load_file($file);
-			$movieCount = count($xml->xpath("//movie")); 
+			
+			if (self::$isLegacy) {
+				$movieCount = count($xml->xpath("//movie")); 
+			} else {
+				$movieCount = count($xml->xpath("//vcdmovies/movie")); 
+			}
+			
+			
 			if (is_numeric($movieCount)) {
 				return $movieCount;
 			} else {
@@ -92,9 +106,15 @@ class VCDXMLImporter {
 	 */
 	public static function getXmlTitles($strXmlFile) {
 		try {
-		
+			
 			$xml = simplexml_load_file(TEMP_FOLDER.$strXmlFile);
-			$movies = $xml->movie;
+			
+			if (self::getVariable('islegacy') == 0) {
+				$movies = $xml->movie;
+			} else {
+				$movies = $xml->vcdmovies->movie;
+			}
+			
 			$arrMovies = array();
 			foreach ($movies as $movie) {
 				if ( strcmp((string)$movie->title, "") != 0 ) {
@@ -191,15 +211,25 @@ class VCDXMLImporter {
 	
 	   		
 		 // Validate the document before processing it ..
-		 
 		 $dom = new domdocument();
 		 $dom->load($fileLocation);
-		 $schema = self::XSD_VCDDB_MOVIES;
-		 if (!@$dom->schemaValidate($schema)) {
-		 	throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
+		 $isLegacy = 0;
+		 if (!@$dom->schemaValidate(self::XSD_VCDDB_MOVIES)) {
+		 	
+		 	// could be a legacy XML file ..
+		 	if (!@$dom->schemaValidate(self::XSD_VCDDB_MOVIES_LEGACY )) { 
+		 		throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
+		 	} else {
+		 		$isLegacy = 1;
+		 		self::$isLegacy = true;
+		 	}
+		 	
 		 }
-		 unset($dom);
-	   		
+		 	   		
+		 
+		// Set variables into the state container
+		self::setVariables(self::getXmlMovieCount($fileLocation), $fileLocation, $isLegacy);
+		 
 	 	return str_replace(TEMP_FOLDER, "", $fileLocation);
 	}
 	
@@ -326,7 +356,8 @@ class VCDXMLImporter {
 						$vcdObj->addCovers(array($coverObj));
 					}
 				}
-					
+				
+				VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);	
 			
 				// Delegate the vcdObj to the facade
 				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
@@ -334,8 +365,10 @@ class VCDXMLImporter {
 				if (!is_numeric($iResults) || $iResults == -1) {
 					$status = "0";
 				}
-				//VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);
 				
+				
+			} else {
+				throw new Exception("Array index out of bounds.");
 			}
 			
 			
@@ -348,6 +381,7 @@ class VCDXMLImporter {
 			
 		
 		} catch (Exception $ex) {
+			VCDUtils::write(TEMP_FOLDER."villa.txt", $ex->getTrace(), true);
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 		
@@ -599,6 +633,71 @@ class VCDXMLImporter {
 	}
 	
 	
+	
+		/**
+	 * Keep track of data during the import process since the Ajax calls are totally stateless.
+	 *
+	 * @param int $movieCount | Number of movie entries in the XML file
+	 * @param string $fileName | The XML filename
+	 * @param bool $isLegacy | Is the XML file a legacy file or of the new version
+	 */
+	private static function setVariables($movieCount, $fileName, $isLegacy) {
+		$arrData = array();
+		$arrData['moviecount'] = $movieCount;
+		$arrData['filename'] = $fileName;
+		$arrData['islegacy'] = $isLegacy;
+		
+		
+		$session_name = "importer".VCDUtils::getUserID();
+		$_SESSION[$session_name] = $arrData;
+	}
+	
+	/**
+	 * Get a variable from the state container
+	 *
+	 * @param sting $varName | The key to request
+	 * @return string | The returned value toString()
+	 */
+	private static function getVariable($varName) {
+		$session_name = "importer".VCDUtils::getUserID();
+		if (isset($_SESSION[$session_name])) {
+			
+			$arrData = $_SESSION[$session_name];
+			if (isset($arrData[$varName])) {
+				return (string)$arrData[$varName];
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	/**
+	 * Prepare the import
+	 *
+	 */
+	private static function beginImport() {
+	
+		
+		
+	}
+	
+	
+	/**
+	 * Cleanup after the import.
+	 *
+	 */
+	private static function endImport() {
+		
+		fs_unlink(TEMP_FOLDER.self::getVariable('filename'));
+		
+		
+		// finally kill the session
+		$session_name = "importer".VCDUtils::getUserID();
+		$_SESSION[$session_name] = null;
+	}
+	
+	
 }
 
 
@@ -664,7 +763,7 @@ class VCDXMLExporter {
 					$ZipFilename = self::generateFileName('zip');
 					
 					$zipfile = new zipfile();
-					$zipfile->addFile($xml, $XmlFilename);
+					$zipfile->addFile($xmlObj->asXML(), $XmlFilename);
 					
 					// Write the zip file to cache folder
 					VCDUtils::write(CACHE_FOLDER.$ZipFilename, $zipfile->file());
@@ -683,7 +782,7 @@ class VCDXMLExporter {
 					// Generate Tar filename
 					$TarFilename = self::generateFileName('tgz');
 					
-					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
+					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xmlObj->asXML());
 					$zipfile = new tar();
 					$zipfile->addFile(CACHE_FOLDER.$XmlFilename);
 					fs_unlink(CACHE_FOLDER.$XmlFilename);
@@ -811,6 +910,11 @@ class VCDXMLExporter {
 	}
 
 	
+	/**
+	 * Get the XML representation of all the SourceSiteObjects in VCD-db
+	 *
+	 * @return string | XML formatted string
+	 */
 	private static function getXMLSourceSites() {
 		$xml = "<sourcesites>";
 		
@@ -824,6 +928,13 @@ class VCDXMLExporter {
 	}
 	
 	
+	/**
+	 * Get the XML representation of the movie Objects.
+	 * if $iUserID is null, the movies for the logged in user are returned.
+	 *
+	 * @param int $iUserID | The owner of the movies
+	 * @return string | The XML formatted string
+	 */
 	private static function getXMLMovies($iUserID = null) {
 		
 		$xml = "<vcdmovies>";
@@ -842,25 +953,32 @@ class VCDXMLExporter {
 	}
 	
 	
+	/**
+	 * Generate a filename for the exported file
+	 *
+	 * @param string $extension | The extension of the file about to be exported
+	 * @return string
+	 */
 	private static function generateFileName($extension) {
 		$filename = "VCDdb-Export-".date("d.m.Y").".".$extension;
 		return $filename;
 	}
 	
+	/**
+	 * Generate a filename for the exported thumbnails file
+	 *
+	 * @param string $extension | The extension of the file about to be exported
+	 * @return string
+	 */
 	private static function generateThumbFileName($extension) {
 		$filename = "VCDdb-Thumbnails-".date("d.m.Y").".".$extension;
 		return $filename;
 	}
 
-	private static function tar($file) {
+
 		
-		
-	}
 	
-	private static function zip($file) {
-		
-		
-	}
+
 
 
 }
