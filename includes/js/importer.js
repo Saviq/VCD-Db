@@ -46,8 +46,8 @@ function setColour( a ) {
 	theDiv.bgColor = a; theDiv.backgroundColor = a; theDiv.background = a;
 }
 
-function roundNumber(float,dec){
-	return Math.round(float*Math.pow(10,dec))/Math.pow(10,dec)
+function roundNumber(fNum,dec){
+	return Math.round(fNum*Math.pow(10,dec))/Math.pow(10,dec);
 }
 
 function tblAjaxUpdate(obj, iRemaining) {
