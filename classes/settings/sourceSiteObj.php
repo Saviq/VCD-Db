@@ -45,6 +45,25 @@ class sourceSiteObj implements XMLable {
 	}
 	
 	/**
+	 * Populate object from XML Element
+	 *
+	 * @param SimpleXmlElement $xml
+	 * @return sourceSiteObj
+	 */
+	public static function __loadFromXML(SimpleXmlElement $xml) {
+		$id = (string)$xml->id;
+		$name = (string)$xml->name;
+		$alias = (string)$xml->alias;
+		$homepage = (string)$xml->homepage;
+		$command = (string)$xml->command;
+		$fetchable = (string)$xml->fetchable;
+		$classname = (string)$xml->classname;
+		
+		return new sourceSiteObj(array($id, $name, $alias, $homepage, $command, $fetchable, $classname, ""));
+		
+	}
+	
+	/**
 	 * Get the object ID
 	 *
 	 * @return int

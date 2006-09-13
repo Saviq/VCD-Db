@@ -209,7 +209,7 @@ class VCDXMLImporter {
 		 $dom = new domdocument();
 		 $dom->load($fileLocation);
 		 		 
-		 if (!$dom->schemaValidate(self::XSD_VCDDB_MOVIES)) {
+		 if (!@$dom->schemaValidate(self::XSD_VCDDB_MOVIES)) {
 		 	throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
 		 }
 
@@ -341,12 +341,18 @@ class VCDXMLImporter {
 			
 			
 			if ($index == 0) {
-				self::beginImport();
+				self::beginImport($xmlfilename);
 			}
 					
 		
 			$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
-			$movie = $xml->movie[$index];
+			if (strcmp(self::getVariable('islegacy'), "1") == 0) {
+				$movie = $xml->movie[$index];
+			} else {
+				$movie = $xml->vcdmovies->movie[$index];
+			}
+			
+			
 			$status = "1";
 			$thumb = "0";
 			
@@ -364,14 +370,14 @@ class VCDXMLImporter {
 					}
 				}
 				
-				VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);	
+				//VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);
 			
 				// Delegate the vcdObj to the facade
 				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
-				$iResults = $ClassVcd->addVcd($vcdObj);
+				/*$iResults = $ClassVcd->addVcd($vcdObj);
 				if (!is_numeric($iResults) || $iResults == -1) {
 					$status = "0";
-				}
+				}*/
 				
 				
 			} else {
@@ -384,7 +390,7 @@ class VCDXMLImporter {
 				'status' => utf8_encode($status),
 				'thumb' => utf8_encode($thumb));
 				
-			if ($index == self::getVariable('moviecount')) {
+			if ($index == (int)(self::getVariable('moviecount')-1)) {
 				self::endImport();
 			}
 			
@@ -392,7 +398,7 @@ class VCDXMLImporter {
 			
 		
 		} catch (Exception $ex) {
-			VCDUtils::write(TEMP_FOLDER."villa.txt", $ex->getTrace(), true);
+			VCDUtils::write(TEMP_FOLDER."villa.txt", print_r($ex->getTrace(), true), true);
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 		
@@ -690,10 +696,36 @@ class VCDXMLImporter {
 	 * Prepare the import
 	 *
 	 */
-	private static function beginImport() {
-	
+	private static function beginImport($xmlFilename) {
+		try {
 		
-		
+			$isLegacy = self::getVariable('islegacy');
+			// Prepare only if file is not XML legacy file
+			if (strcmp($isLegacy, "0") == 0) {
+			
+				$xmlDoc = simplexml_load_file(TEMP_FOLDER.$xmlFilename);
+				$sourceSites = $xmlDoc->sourcesites->sourcesite;
+				$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
+				foreach ($sourceSites as $sourceSiteXML) {
+					
+					$sourceSiteObj = sourceSiteObj::__loadFromXML($sourceSiteXML);
+					
+					// Check if this sourcesite exists ..
+					if (is_null($CLASSSettings->getSourceSiteByAlias($sourceSiteObj->getAlias()))) {
+						// Create the sourceSite since it was not found.
+						$CLASSSettings->addSourceSite($sourceSiteObj);
+					}
+					
+					//VCDUtils::write(TEMP_FOLDER."ssobj.txt", print_r($sourceSiteObj, true), true);
+					
+				}
+				unset($xmlDoc);
+			}
+			
+					
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
 	
 	
@@ -703,12 +735,16 @@ class VCDXMLImporter {
 	 */
 	private static function endImport() {
 		
-		fs_unlink(TEMP_FOLDER.self::getVariable('filename'));
-		
-		
-		// finally kill the session
-		$session_name = "importer".VCDUtils::getUserID();
-		$_SESSION[$session_name] = null;
+		try {
+			
+			fs_unlink(self::getVariable('filename'));
+			// finally kill the session
+			$session_name = "importer".VCDUtils::getUserID();
+			$_SESSION[$session_name] = null;
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
 	
 	
