@@ -53,13 +53,8 @@ class VCDXMLImporter {
 			
 			$xml = simplexml_load_file($file);
 			
-			if (self::$isLegacy) {
-				$movieCount = count($xml->xpath("//movie")); 
-			} else {
-				$movieCount = count($xml->xpath("//vcdmovies/movie")); 
-			}
-			
-			
+			$movieCount = count($xml->xpath("//vcdmovies/movie")); 
+						
 			if (is_numeric($movieCount)) {
 				return $movieCount;
 			} else {
@@ -109,7 +104,7 @@ class VCDXMLImporter {
 			
 			$xml = simplexml_load_file(TEMP_FOLDER.$strXmlFile);
 			
-			if (self::getVariable('islegacy') == 0) {
+			if (strcmp(self::getVariable('islegacy'), "1") == 0) {
 				$movies = $xml->movie;
 			} else {
 				$movies = $xml->vcdmovies->movie;
@@ -213,22 +208,28 @@ class VCDXMLImporter {
 		 // Validate the document before processing it ..
 		 $dom = new domdocument();
 		 $dom->load($fileLocation);
-		 $isLegacy = 0;
-		 if (!@$dom->schemaValidate(self::XSD_VCDDB_MOVIES)) {
-		 	
-		 	// could be a legacy XML file ..
-		 	if (!@$dom->schemaValidate(self::XSD_VCDDB_MOVIES_LEGACY )) { 
-		 		throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
-		 	} else {
-		 		$isLegacy = 1;
-		 		self::$isLegacy = true;
-		 	}
-		 	
+		 		 
+		 if (!$dom->schemaValidate(self::XSD_VCDDB_MOVIES)) {
+		 	throw new Exception("XML Document does not validate to the VCD-db XSD import schema.<break>Please fix the document or export a new one.<break>The schema can be found under '/includes/schema/vcddb-export.xsd'");
 		 }
-		 	   		
+
 		 
+		 // Check for Doc Version
+		 $appversion = null;
+		 $nodeList = $dom->getElementsByTagName('vcddb');
+		 if (count($nodeList) > 0) {
+		 	foreach ($nodeList as $node) {
+		 		$appversion = $node->getAttribute('appversion');
+		 	}
+		} 
+		
+		if (is_null($appversion)) {
+			self::$isLegacy = true;	
+		}
+	
+		
 		// Set variables into the state container
-		self::setVariables(self::getXmlMovieCount($fileLocation), $fileLocation, $isLegacy);
+		self::setVariables(self::getXmlMovieCount($fileLocation), $fileLocation, self::$isLegacy, $appversion);
 		 
 	 	return str_replace(TEMP_FOLDER, "", $fileLocation);
 	}
@@ -337,6 +338,12 @@ class VCDXMLImporter {
 	 */
 	public function addMovie($xmlfilename, $index, $xmlthumbsfilename = null) {
 		try {
+			
+			
+			if ($index == 0) {
+				self::beginImport();
+			}
+					
 		
 			$xml = simplexml_load_file(TEMP_FOLDER.$xmlfilename);
 			$movie = $xml->movie[$index];
@@ -376,6 +383,10 @@ class VCDXMLImporter {
 				'name' => utf8_encode((string)$movie->title), 
 				'status' => utf8_encode($status),
 				'thumb' => utf8_encode($thumb));
+				
+			if ($index == self::getVariable('moviecount')) {
+				self::endImport();
+			}
 			
 			return $arr;
 			
@@ -640,16 +651,19 @@ class VCDXMLImporter {
 	 * @param int $movieCount | Number of movie entries in the XML file
 	 * @param string $fileName | The XML filename
 	 * @param bool $isLegacy | Is the XML file a legacy file or of the new version
+	 * @param string $appversion | The VCD-db version of the exported file.
 	 */
-	private static function setVariables($movieCount, $fileName, $isLegacy) {
+	private static function setVariables($movieCount, $fileName, $isLegacy, $appversion=null) {
 		$arrData = array();
 		$arrData['moviecount'] = $movieCount;
 		$arrData['filename'] = $fileName;
-		$arrData['islegacy'] = $isLegacy;
+		$arrData['appversion'] = $appversion;
+		$arrData['islegacy'] = $isLegacy ? "1" : "0";
 		
 		
 		$session_name = "importer".VCDUtils::getUserID();
 		$_SESSION[$session_name] = $arrData;
+		
 	}
 	
 	/**
