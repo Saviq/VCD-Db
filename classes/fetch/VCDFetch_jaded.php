@@ -185,7 +185,7 @@ class VCDFetch_jaded extends VCDFetch {
 						
 		switch ($image_type) {
 			case 'thumbnail':
-				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/thumbs/".$this->getItemID();
+				$imagebase = "http://www.jadedvideo.com/imagesjaded/".$folder."/thumbs/".$this->getItemID();
 				$fileurl = $imagebase.".jpg";
 				if ($this->remote_file_exists($fileurl)) {
 					return $fileurl;
@@ -195,7 +195,7 @@ class VCDFetch_jaded extends VCDFetch {
 				break;
 				
 			case 'frontcover':
-				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/front/".$this->getItemID();
+				$imagebase = "http://www.jadedvideo.com/imagejaded/".$folder."/front/".$this->getItemID();
 				$fileurl = $imagebase.".jpg";
 				if ($this->remote_file_exists($fileurl)) {
 					return $fileurl;
@@ -205,7 +205,7 @@ class VCDFetch_jaded extends VCDFetch {
 				break;
 				
 			case 'backcover':
-				$imagebase = "http://www.jadedvideo.com/imagesusa/".$folder."/back/".$this->getItemID();
+				$imagebase = "http://www.jadedvideo.com/imagesjaded/".$folder."/back/".$this->getItemID();
 				$fileurl = $imagebase.".jpg";
 				if ($this->remote_file_exists($fileurl)) {
 					return $fileurl;
