@@ -356,7 +356,7 @@ class VCDXMLImporter {
 			$status = "1";
 			$thumb = "0";
 			
-			if (count($movie) == 1) {
+			if (count($movie) > 0) {
 			
 				$movie_id = (string)$movie->id;
 				$vcdObj = $this->createMovieObject($movie);
@@ -374,14 +374,14 @@ class VCDXMLImporter {
 			
 				// Delegate the vcdObj to the facade
 				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
-				/*$iResults = $ClassVcd->addVcd($vcdObj);
+				$iResults = $ClassVcd->addVcd($vcdObj);
 				if (!is_numeric($iResults) || $iResults == -1) {
 					$status = "0";
-				}*/
+				}
 				
 				
 			} else {
-				throw new Exception("Array index out of bounds.");
+				throw new Exception("Array index out of bounds [".$index."].");
 			}
 			
 			
