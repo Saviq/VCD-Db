@@ -21,7 +21,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'title'		=> '#div class=\"tyt\">([^<]+)(?:<span|<br)#',
 	'org_title' => '#class=\"styt\">([^(][^<]+)<\/span#',
 	'year'		=> '#\(([0-9]{4})\)#',
-	'poster'	=> '#solid Black;">[^"]+"([^"]+)" alt#',
+	'poster'	=> '#solid Black;">[^"]+"([^"]+)" rel=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genre.id=[0-9]+\">([^<]+)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
