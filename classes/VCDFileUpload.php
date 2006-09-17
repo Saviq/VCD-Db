@@ -493,6 +493,8 @@ class VCDUploadedFile {
 	       if(!ereg("([0-9A-Za-z_\.])",$string[$i]))
 	         $string[$i] = "_";
 	    }
+	    // If the file name was changed (fixed) we need to update the filename
+	    $this->filename = $string;
 	    return $string;
   	}
   	
