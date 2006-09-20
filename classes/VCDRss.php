@@ -235,7 +235,7 @@ class VCDRss {
 			// Check if we need to write the results to cache because the existing one was to old.
 			if ($usecache) {
 				$serialized = serialize($xml);
-				if ($f = fopen($cache_file, 'w')) {
+				if ($f = @fopen($cache_file, 'w')) {
 					fwrite ($f, $serialized, strlen($serialized));
 					fclose($f);
 				}
