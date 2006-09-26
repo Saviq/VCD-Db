@@ -195,7 +195,7 @@ class VCDFetch_jaded extends VCDFetch {
 				break;
 				
 			case 'frontcover':
-				$imagebase = "http://www.jadedvideo.com/imagejaded/".$folder."/front/".$this->getItemID();
+				$imagebase = "http://www.jadedvideo.com/imagesjaded/".$folder."/front/".$this->getItemID();
 				$fileurl = $imagebase.".jpg";
 				if ($this->remote_file_exists($fileurl)) {
 					return $fileurl;
