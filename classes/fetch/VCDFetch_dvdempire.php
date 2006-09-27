@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id$
@@ -185,10 +185,12 @@ class VCDFetch_dvdempire extends VCDFetch {
 				break;
 				
 			case 'frontcover':
+				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."a/".$this->getItemID();
 				return $imagebase."h.jpg";
 				break;
 				
 			case 'backcover':
+				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."a/".$this->getItemID();
 				return $imagebase."bh.jpg";
 				break;
 		
