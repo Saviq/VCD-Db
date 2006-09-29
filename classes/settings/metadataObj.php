@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -227,7 +227,11 @@ class metadataTypeObj {
 	
 	/* Additional system types */
 	CONST SYS_LASTFETCH	   = 19;
-	CONST SYS_RESERVED01   = 20;
+	CONST SYS_DEFAULTDVD   = 20;
+	
+	
+	
+	/* Reserved for later use  */
 	CONST SYS_RESERVED02   = 21;
 	CONST SYS_RESERVED03   = 22;
 	CONST SYS_RESERVED04   = 23;
@@ -379,7 +383,7 @@ class metadataTypeObj {
 			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
 			case self::SYS_NFO:	 	 	 return 'nfo';			 break;
 			case self::SYS_LASTFETCH:	 return 'lastfetch';	 break;
-			case self::SYS_RESERVED01 :	 return 'reserved';	     break;
+			case self::SYS_DEFAULTDVD :	 return 'defaultdvd';    break;
 			case self::SYS_RESERVED02 :	 return 'reserved';	     break;
 			case self::SYS_RESERVED03 :	 return 'reserved';	     break;
 			case self::SYS_RESERVED04 :	 return 'reserved';	     break;
