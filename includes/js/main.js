@@ -1117,3 +1117,128 @@ function deleteMeta(metadata_id, cd_id) {
 		}
 	} catch (ex) {}
 }
+
+
+/* Ajax based form functions */ 
+
+var currCountryName;
+var currCountryKey;
+
+function updateSubtitles( response )   { 
+  	obj = new Object(response);
+  	var img = new Image();
+  	img.src = obj;
+  	  	
+  	var html = '<ul>';
+  	
+  	var htmlfield = document.getElementById('dvdsubs');
+  	htmlfield.value += currCountryKey + '|';
+  	
+  	
+  	var subtitles = document.getElementById('subtitles');
+    var lis = subtitles.getElementsByTagName('LI');
+	for (i=0; i < lis.length; i++) {
+		lid = lis[i].id;
+		if (lid != currCountryKey) {
+			html += '<li id='+lid+'>' + lis[i].innerHTML + '</li>';
+		}
+		
+	}
+	
+	var iMaxlen = 10;
+	var lang = new String(currCountryName);
+	
+	if (lang.length > iMaxlen) {
+		var firstBracket = lang.indexOf('(');
+		var lastBracket = lang.indexOf(')');
+		if (firstBracket != -1 && lastBracket != -1) {
+			lang = lang.substring(0, firstBracket);
+		} else {
+			lang = lang.substring(0, iMaxlen) + '..';
+		}
+	}
+	
+	
+	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
+	html += "</ul>";
+	
+  	subtitles.innerHTML = html;
+}
+
+function removeSub(key) {
+	var subtitles = document.getElementById('subtitles');
+	var htmlfield = document.getElementById('dvdsubs');
+	htmlfield.value = '';
+  	
+    var lis = subtitles.getElementsByTagName('LI');
+    var lid = "";
+    var html = '<ul>';
+	for (i=0; i < lis.length; i++) {
+		lid = lis[i].id;
+		if (lid != key) {
+			html += '<li id=\"'+lid+'\">' + lis[i].innerHTML + '</li>';
+			htmlfield.value += lid + '|';
+		}
+	}
+	html += "</ul>";
+	subtitles.innerHTML = html;
+}
+
+function addSubtitle(form, source) {
+	var objList = document.getElementById(source);
+	var selectedItem = objList.selectedIndex;
+	if (selectedItem < 0) { return; }
+	var selectedText = objList.options[selectedItem].text;
+	var selectedValue = objList.options[selectedItem].value;
+	
+	currCountryName = selectedText;
+	currCountryKey = selectedValue;
+	
+	x_dvdObj.getCountryFlag(selectedValue, updateSubtitles);
+}
+
+function addAudio(form, source) {
+	var objList = document.getElementById(source);
+	var selectedItem = objList.selectedIndex;
+	if (selectedItem < 0) { return; }
+	var selectedText = objList.options[selectedItem].text;
+	var selectedValue = objList.options[selectedItem].value;
+	
+	var audio = document.getElementById('audio');
+	
+  	var htmlfield = document.getElementById('dvdaudio');
+  	htmlfield.value += selectedValue + '|';
+  	
+  	var html = '<ul>';
+    var lis = audio.getElementsByTagName('LI');
+	for (i=0; i < lis.length; i++) {
+		lid = lis[i].id;
+		if (lid != selectedValue) {
+			html += '<li class=audio id='+lid+' ondblclick=\"removeAudio(\''+lid+'\')\">' + lis[i].innerHTML + '</li>';
+		}
+	}
+		
+	html += '<li id='+selectedValue+' ondblclick=\"removeAudio(\''+selectedValue+'\')\">' +selectedText + '</li>';
+	html += "</ul>";
+	
+	audio.innerHTML = html;
+}
+
+function removeAudio(key) {
+	var audios = document.getElementById('audio');
+	var htmlfield = document.getElementById('dvdaudio');
+	htmlfield.value = '';
+  	
+    var lis = audios.getElementsByTagName('LI');
+    var lid = "";
+    var html = '<ul>';
+	for (i=0; i < lis.length; i++) {
+		lid = lis[i].id;
+		if (lid != key) {
+			html += '<li id=\"'+lid+'\" ondblclick=\"removeAudio(\''+lid+'\')\">' + lis[i].innerHTML + '</li>';
+			htmlfield.value += lid + '|';
+		}
+	}
+	html += "</ul>";
+	audios.innerHTML = html;
+}
