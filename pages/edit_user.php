@@ -1,3 +1,8 @@
+<script type="text/javascript" src="includes/js/json.js"></script> 
+<script type="text/javascript" src="includes/js/ajax.js"></script> 
+<script type="text/javascript"> 
+<?php echo $ajaxClient->getJavaScript(); ?> 
+</script>
 <?
 	$USERClass = VCDClassFactory::getInstance("vcd_user");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
@@ -341,11 +346,60 @@
 
 
 
-
-
-
-
-
+<form name="frmSubtitles" id="frmSubtitles" method="post" action="exec_form.php?action=update_dvdsettings">
+<a name="defaultdvd"></a>
+<fieldset id="dvdsettings"  name="defaultdvd">
+<legend class="bold">Default DVD settings</legend>
+<?
+	$dvdObj = new dvdObj();
+?>
+<table cellpadding="1" cellspacing="1" border="0" width="100%">
+<tr>
+	<td width="13%"><?= language::translate('DVD_FORMAT')?>:</td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getVideoFormats(), 'format', '', false); ?></td>
+</tr>
+<tr>
+	<td wrap="nowrap"><?= language::translate('DVD_ASPECT')?>:</td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getAspectRatios(), 'aspect', '', false); ?></td>
+</tr>
+<tr>
+	<td><?= language::translate('DVD_REGION')?>:</td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getRegionList(), 'region', '', false); ?></td>
+	
+</tr>
+<tr>
+	<td valign="top"><?= language::translate('DVD_AUDIO')?>:</td>
+	<td><select name="audioAvailable" id="audioAvailable" size="5" style="width:200px;" onDblClick="addAudio(this.form, 'audioAvailable')" class="input">
+			<?
+			foreach ($dvdObj->getAudioList() as $key => $value) {
+				print "<option value=\"{$key}\">{$value}</option>";
+			}
+			?>
+			</select>
+	</td>
+	<td width="60%"><div id="audio" style="height:80px";></td>
+</tr>
+<tr>
+	<td valign="top"><?= language::translate('DVD_SUBTITLES')?>:</td>
+	<td><select name="langAvailable" id="langAvailable" size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input">
+		<?
+		foreach ($dvdObj->getLanguageList() as $key => $value) {
+				print "<option value=\"{$key}\">{$value}</option>";
+		}
+		?>
+		</select>
+	</td>
+	<td><div id="subtitles" style="height:80px;margin-top:5px";></td>
+</tr>
+<tr>
+	<td colspan="3" align="right"><input type="submit" value="<?=language::translate('X_UPDATE')?>"/></td>
+</tr>
+</table>
+</fieldset>
+<input type="hidden" name="dvdaudio" id="dvdaudio"/>
+<input type="hidden" name="dvdsubs" id="dvdsubs"/>
+</form>
+<br/>
 
 
 
