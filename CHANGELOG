@@ -1,3 +1,10 @@
+0.984
+Added   - New fetch class, bushdvd.com (by request)
+Fixed   - Updateded the DVDEmpire class to handle the images urls on their servers.
+Fixed   - Updateded the Jaded class to handle the images urls on their servers.
+Added   - Added the ability to "My settings" to select Default DVD Settings
+Fixed   - Supressed the PHP Notice from fopen if access is denied in the VCD-db RSS feeds.
+
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
 Added	- Fetching now converts strings to proper encoding.
