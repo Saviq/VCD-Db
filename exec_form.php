@@ -183,6 +183,30 @@ switch ($form) {
 		break;
 
 
+	case 'update_dvdsettings':
+	
+		//print_r($_POST);
+	
+		$dvd['format'] = $_POST['format'];
+		$dvd['aspect'] = $_POST['aspect'];
+		$dvd['region'] = $_POST['region'];
+		if (isset($_POST['dvdaudio'])) {
+			$dvdaudio = array_unique(explode("|", $_POST['dvdaudio']));
+			$dvd['audio'] = implode('|', $dvdaudio);
+		}
+		if (isset($_POST['dvdsubs'])) {
+			$dvdsubs = array_unique(explode("|", $_POST['dvdsubs']));
+			$dvd['subs'] = implode('|', $dvdsubs);
+		}
+		
+		$data = serialize($dvd);
+
+		$obj = new metadataObj(array('', 0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD , $data));
+		$SETTINGSClass->addMetaData($obj);
+		redirect('?page=private&o=settings#defaultdvd');
+		break;
+		
+		
 	case 'update_ignorelist':
 		if (isset($_POST['id_list'])) {
 			// Save the ignore list to database
