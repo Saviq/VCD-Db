@@ -361,6 +361,37 @@ function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $tit
 }
 
 
+function evalDropdown2($arrObjects, $id, $selected_index = -1, $showtitle = true, $title = "") {
+
+	// Check for preliminaries ..
+	if (sizeof($arrObjects) == 0) {
+		return;
+	}
+
+	print "<select id=\"{$id}\" name=\"{$id}\" class=\"input\">";
+
+	// ok we are all set to display the dropdown
+	if ($showtitle) {
+		if ($title == "") {
+			print "<option value=\"null\">Select</option>";
+		} else {
+			print "<option value=\"null\">".$title."</option>";
+		}
+
+	}
+
+
+	foreach ($arrObjects as $key => $value) {
+		if ($selected_index == $value) {
+				print "<option value=\"".$key."\" selected>".$value."</option>";
+			} else {
+				print "<option value=\"".$key."\">".$value."</option>";
+			}
+	}
+	print "</select>";
+}
+
+
 
 /**
  * Enter description here...
