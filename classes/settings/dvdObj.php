@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -129,7 +129,7 @@ final class dvdObj {
 		'IW' => 'Hebrew',
 		'HI' => 'Hindi',
 		'HU' => 'Hungarian',
-		'IS' => 'Íslenska (Icelandic)',
+		'IS' => 'Ãslenska (Icelandic)',
 		'IN' => 'Indonesian',
 		'IA' => 'Interlingua',
 		'IE' => 'Interlingue',
@@ -228,8 +228,7 @@ final class dvdObj {
 	 * @var array
 	 */
 	private $defaultSubs = array(
-		'EN', 'DA', 'NO', 'CZ', 'PL', 'IS', 'ES', 
-		'PT', 'HU', 'NL', 'SV', 'DE', 'FR', 'IT', 'FI'
+		'EN', 'ES', 'FR'
 	);
 	
 	
