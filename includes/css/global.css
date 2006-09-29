@@ -62,3 +62,27 @@ div#tipDiv {
 /* These are used in the wrapTipContent function */
 div#tipDiv div.img { text-align:center }
 div#tipDiv div.msg { text-align:left; margin-top:4px }
+
+
+
+/* Default DVD settings */
+#subtitles ul {
+  float: left;
+  width: 360px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  list-style-image: none;
+}
+ 
+#subtitles li {
+  float: left;
+  width: 119px;
+  margin: 0;
+  padding: 0;
+  cursor:hand;
+} 
+
+#audio ul li  {
+	cursor:hand;
+}
