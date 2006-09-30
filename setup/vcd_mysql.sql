@@ -166,7 +166,7 @@ CREATE TABLE `vcd_MetaData` (
   `mediatype_id` int(11) NOT NULL default '0',
   `user_id` int(10) NOT NULL default '0',
   `type_id` int(11) NOT NULL default '0',
-  `metadata_value` varchar(150) NOT NULL default '',
+  `metadata_value` varchar(250) NOT NULL default '',
   PRIMARY KEY  (`metadata_id`)
 )  ;
 

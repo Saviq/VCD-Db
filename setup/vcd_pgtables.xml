@@ -434,7 +434,7 @@
 		<field name="type_id" type="I">
 			<NOTNULL/>
 		</field>
-		<field name="metadata_value" type="C" size="150">
+		<field name="metadata_value" type="C" size="250">
 			<NOTNULL/>
 		</field>
 	</table>

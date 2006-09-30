@@ -464,7 +464,7 @@ CREATE TABLE [vcd_MetaData] (
 	[mediatype_id] [int] NOT NULL ,
 	[user_id] [int] NOT NULL ,
 	[type_id] [int] NOT NULL ,
-	[metadata_value] [varchar] (150) NOT NULL
+	[metadata_value] [varchar] (250) NOT NULL
 ) ON [PRIMARY]
 
 CREATE TABLE [vcd_MetaDataTypes] (
