@@ -1132,7 +1132,7 @@ function updateSubtitles( response )   {
   	var html = '<ul>';
   	
   	var htmlfield = document.getElementById('dvdsubs');
-  	htmlfield.value += currCountryKey + '|';
+  	htmlfield.value += currCountryKey + '#';
   	
   	
   	var subtitles = document.getElementById('subtitles');
@@ -1177,7 +1177,7 @@ function removeSub(key) {
 		lid = lis[i].id;
 		if (lid != key) {
 			html += '<li id=\"'+lid+'\">' + lis[i].innerHTML + '</li>';
-			htmlfield.value += lid + '|';
+			htmlfield.value += lid + '#';
 		}
 	}
 	html += "</ul>";
@@ -1207,7 +1207,7 @@ function addAudio(form, source) {
 	var audio = document.getElementById('audio');
 	
   	var htmlfield = document.getElementById('dvdaudio');
-  	htmlfield.value += selectedValue + '|';
+  	htmlfield.value += selectedValue + '#';
   	
   	var html = '<ul>';
     var lis = audio.getElementsByTagName('LI');
@@ -1236,7 +1236,7 @@ function removeAudio(key) {
 		lid = lis[i].id;
 		if (lid != key) {
 			html += '<li id=\"'+lid+'\" ondblclick=\"removeAudio(\''+lid+'\')\">' + lis[i].innerHTML + '</li>';
-			htmlfield.value += lid + '|';
+			htmlfield.value += lid + '#';
 		}
 	}
 	html += "</ul>";
