@@ -250,7 +250,7 @@ CREATE TABLE vcd_MetaData (
         mediatype_id INTEGER NOT NULL,
         user_id INTEGER NOT NULL ,
         type_id INTEGER NOT NULL ,
-        metadata_value varchar (150) NOT NULL,
+        metadata_value varchar (250) NOT NULL,
         PRIMARY KEY(metadata_id)
 ) 
 GO
