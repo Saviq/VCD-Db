@@ -147,7 +147,7 @@
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdsubs', 'DVD subtitles', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('nfo', 'NFO File', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('lastfetch', 'Last used fetch class', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('reserved', '', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('defaultdvd', 'Default DVD settings', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('reserved', '', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('reserved', '', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('reserved', '', 0)</query>
