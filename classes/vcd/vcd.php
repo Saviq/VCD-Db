@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -1448,6 +1448,47 @@ class vcd_movie implements IVcd  {
 			VCDException::display($e);
 		}
 	}
+	
+	/**
+	 * Add Default DVD Settings if they are defined and if the selected mediaType 
+	 * is a DVD or a child of the DVD mediatype object.
+	 *
+	 * @param vcdObj $obj
+	 */
+	public function addDefaultDVDSettings(vcdObj &$obj) {
+		try {
+			
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+			$mediaTypeID = $obj->getInsertValueMediaTypeID();
+			
+			$dvdTypeObj = $SETTINGSClass->getMediaTypeByName('DVD');
+			if (is_numeric($mediaTypeID)) {
+				
+				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID()) {
+					// Yeap .... DVD based type	
+					$metaObjDVD = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
+					if (is_array($metaObjDvd) && sizeof($metaObjDvd) == 1) {
+						$dvdSettings = serialize($metaObjDvd[0]->getMetadataValue());
+						if (is_array($dvdSettings)) { 
+							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvdSettings['region']));
+							$obj->addMetaData($metaObj);
+							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT , $dvdSettings['format']));
+							$obj->addMetaData($metaObj);
+							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT , $dvdSettings['aspect']));
+							$obj->addMetaData($metaObj);
+							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO , $dvdSettings['audio']));
+							$obj->addMetaData($metaObj);
+							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS , $dvdSettings['subs']));
+							$obj->addMetaData($metaObj);
+						}
+					}
+				}
+			}
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}	
+	}
+
 
 
 	/*  Private functions */
@@ -1488,6 +1529,8 @@ class vcd_movie implements IVcd  {
 			throw new VCDException($e);
 		}
 	}
+	
+	
 
 
 
