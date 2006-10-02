@@ -185,18 +185,26 @@ switch ($form) {
 
 	case 'update_dvdsettings':
 	
-		//print_r($_POST);
-	
 		$dvd['format'] = $_POST['format'];
 		$dvd['aspect'] = $_POST['aspect'];
 		$dvd['region'] = $_POST['region'];
 		if (isset($_POST['dvdaudio'])) {
-			$dvdaudio = array_unique(explode("|", $_POST['dvdaudio']));
-			$dvd['audio'] = implode('|', $dvdaudio);
+			$dvdaudio = implode('#', array_unique(explode("#", $_POST['dvdaudio'])));
+			$dvd['audio'] = $dvdaudio;
+			if (strrpos($dvd['audio'], "#") == strlen($dvd['audio'])-1) {
+				$dvdaudio = substr($dvd['audio'], 0, strlen($dvd['audio'])-1);
+				$dvd['audio'] = $dvdaudio;
+			}
+			
 		}
 		if (isset($_POST['dvdsubs'])) {
-			$dvdsubs = array_unique(explode("|", $_POST['dvdsubs']));
-			$dvd['subs'] = implode('|', $dvdsubs);
+			$dvdsubs = implode('#', array_unique(explode("#", $_POST['dvdsubs'])));
+			$dvd['subs'] = $dvdsubs;
+			if (strrpos($dvd['subs'], "#") == strlen($dvd['subs'])-1) {
+				$dvdsubs = substr($dvd['subs'], 0, strlen($dvd['subs'])-1);
+				$dvd['subs'] = $dvdsubs;
+			}
+			
 		}
 		
 		$data = serialize($dvd);
@@ -421,6 +429,9 @@ switch ($form) {
 			$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['imdb']);
 		}
 
+		// Set the default DVD Settings
+		$VCDClass->addDefaultDVDSettings(&$vcd);
+		
 		// Forward the movie to the Business layer
 		$new_id = $VCDClass->addVcd($vcd);
 

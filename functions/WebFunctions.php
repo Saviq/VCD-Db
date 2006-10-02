@@ -382,8 +382,8 @@ function evalDropdown2($arrObjects, $id, $selected_index = -1, $showtitle = true
 
 
 	foreach ($arrObjects as $key => $value) {
-		if ($selected_index == $value) {
-				print "<option value=\"".$key."\" selected>".$value."</option>";
+		if ($selected_index == $key) {
+				print "<option value=\"".$key."\" selected=\"selected\">".$value."</option>";
 			} else {
 				print "<option value=\"".$key."\">".$value."</option>";
 			}

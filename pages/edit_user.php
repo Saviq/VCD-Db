@@ -352,19 +352,60 @@
 <legend class="bold">Default DVD settings</legend>
 <?
 	$dvdObj = new dvdObj();
+	// Get the default data from user.. if any 
+	$metaObjDvd = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
+	
+	$d_format = "";
+	$d_aspect = "";
+	$d_region = "";
+	$d_subs = "";
+	$d_audio = "";
+	$j_subs = "";
+	$j_audio = "";
+	if (is_array($metaObjDvd) && sizeof($metaObjDvd) == 1) {
+		$arrDvdData = unserialize($metaObjDvd[0]->getMetadataValue());
+		$d_format = $arrDvdData['format'];
+		$d_aspect = $arrDvdData['aspect'];
+		$d_region = $arrDvdData['region'];
+		$j_subs = $arrDvdData['subs'];
+		$j_audio = $arrDvdData['audio'];
+		$arrSubs = @explode("#", $arrDvdData['subs']);
+		$arrAudio = @explode("#", $arrDvdData['audio']);
+		if (is_array($arrSubs) && sizeof($arrSubs) > 0) {
+			$d_subs = "<ul>";
+			foreach ($arrSubs as $key) {
+				if (strlen($key) > 0) {
+					$img = $dvdObj->getCountryFlag($key);
+					$countryname = $dvdObj->getLanguage($key);
+					$d_subs .= "<li id=\"{$key}\"><img src=\"{$img}\" vspace='2' hspace='2' border='0' ondblclick=\"removeSub('{$key}')\" title=\"{$countryname}\" align='absmiddle'>".VCDUtils::shortenText($countryname, 10)."</li>";
+				}
+			}
+			$d_subs .= "</ul>";
+		}
+		if (is_array($arrAudio) && sizeof($arrAudio) > 0) {
+			$d_audio = "<ul>";
+			foreach ($arrAudio as $key) {
+				if (strlen($key) > 0) {
+					$audioname = $dvdObj->getAudio($key);
+					$d_audio .= "<li class=\"audio\" id=\"{$key}\" ondblclick=\"removeAudio('{$key}')\">{$audioname}</li>";
+				}
+			}
+		}
+			$d_audio .= "</ul>";
+		}
 ?>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
 	<td width="13%"><?= language::translate('DVD_FORMAT')?>:</td>
-	<td colspan="2"><? evalDropdown2($dvdObj->getVideoFormats(), 'format', '', false); ?></td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getVideoFormats(), 'format', $d_format, false); ?></td>
 </tr>
 <tr>
 	<td wrap="nowrap"><?= language::translate('DVD_ASPECT')?>:</td>
-	<td colspan="2"><? evalDropdown2($dvdObj->getAspectRatios(), 'aspect', '', false); ?></td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getAspectRatios(), 'aspect', $d_aspect, false); ?></td>
 </tr>
 <tr>
 	<td><?= language::translate('DVD_REGION')?>:</td>
-	<td colspan="2"><? evalDropdown2($dvdObj->getRegionList(), 'region', '', false); ?></td>
+	<td colspan="2"><? evalDropdown2($dvdObj->getRegionList(), 'region', $d_region, false); ?></td>
 	
 </tr>
 <tr>
@@ -377,7 +418,7 @@
 			?>
 			</select>
 	</td>
-	<td width="60%"><div id="audio" style="height:80px";></td>
+	<td width="60%"><div id="audio" style="height:80px";><?=$d_audio?></td>
 </tr>
 <tr>
 	<td valign="top"><?= language::translate('DVD_SUBTITLES')?>:</td>
@@ -389,15 +430,15 @@
 		?>
 		</select>
 	</td>
-	<td><div id="subtitles" style="height:80px;margin-top:5px";></td>
+	<td><div id="subtitles" style="height:80px;margin-top:5px";><?=$d_subs?></td>
 </tr>
 <tr>
 	<td colspan="3" align="right"><input type="submit" value="<?=language::translate('X_UPDATE')?>"/></td>
 </tr>
 </table>
 </fieldset>
-<input type="hidden" name="dvdaudio" id="dvdaudio"/>
-<input type="hidden" name="dvdsubs" id="dvdsubs"/>
+<input type="hidden" name="dvdaudio" id="dvdaudio" value="<?=$j_audio?>"/>
+<input type="hidden" name="dvdsubs" id="dvdsubs" value="<?=$j_subs?>"/>
 </form>
 <br/>
 
