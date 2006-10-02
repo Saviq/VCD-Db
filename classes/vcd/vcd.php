@@ -471,7 +471,7 @@ class vcd_movie implements IVcd  {
 							// Update the internal $arrUserMeta stack
 							$arrUserMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
 						}
-					}
+					} 
 					
 					$SETTINGSClass->addMetadata($metadataObj, true);
 				}
@@ -1461,29 +1461,37 @@ class vcd_movie implements IVcd  {
 			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			$mediaTypeID = $obj->getInsertValueMediaTypeID();
 			
+			
 			$dvdTypeObj = $SETTINGSClass->getMediaTypeByName('DVD');
 			if (is_numeric($mediaTypeID)) {
 				
 				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID()) {
 					// Yeap .... DVD based type	
-					$metaObjDVD = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
-					if (is_array($metaObjDvd) && sizeof($metaObjDvd) == 1) {
-						$dvdSettings = serialize($metaObjDvd[0]->getMetadataValue());
+					$dmetaObj = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
+					if (is_array($dmetaObj) && sizeof($dmetaObj) == 1) {
+						$dvdSettings = unserialize($dmetaObj[0]->getMetadataValue());
 						if (is_array($dvdSettings)) { 
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvdSettings['region']));
+							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT , $dvdSettings['format']));
+							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT , $dvdSettings['aspect']));
+							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO , $dvdSettings['audio']));
+							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS , $dvdSettings['subs']));
+							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
 						}
 					}
 				}
 			}
+
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}	
