@@ -1132,7 +1132,12 @@ function updateSubtitles( response )   {
   	var html = '<ul>';
   	
   	var htmlfield = document.getElementById('dvdsubs');
-  	htmlfield.value += currCountryKey + '#';
+  	if (htmlfield.value.length==0) {
+  		htmlfield.value += currCountryKey + '#';	
+  	} else {
+  		htmlfield.value += '#'+currCountryKey;
+  	}
+  	
   	
   	
   	var subtitles = document.getElementById('subtitles');
@@ -1207,7 +1212,12 @@ function addAudio(form, source) {
 	var audio = document.getElementById('audio');
 	
   	var htmlfield = document.getElementById('dvdaudio');
-  	htmlfield.value += selectedValue + '#';
+  	if (htmlfield.value.length==0) {
+  		htmlfield.value += selectedValue + '#';	  		
+  	} else {
+  		htmlfield.value += '#'+selectedValue;
+  	}
+  	
   	
   	var html = '<ul>';
     var lis = audio.getElementsByTagName('LI');
