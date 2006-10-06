@@ -8,8 +8,9 @@
 
 	$language = new language(true);
 	if (isset($_SESSION['vcdlang'])) {
-		$language->load($_SESSION['vcdlang']);	
+		$language->load($_SESSION['vcdlang']);
 	}
+	VCDClassFactory::put($language, true);
 	
 
 	$user = $_SESSION['user'];
