@@ -8,14 +8,14 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Core
  * @version $Id$
  */
 ?>
 <? 
 // All constants used by VCD-db will be placed here
-define("VCDDB_VERSION","0.983");                   		 // VCD-db version
+define("VCDDB_VERSION","0.984-CVS");                     // VCD-db version
 define("STYLE","includes/templates/default/");           // Path to current template
 define("TEMP_FOLDER","upload/");                         // Temp folder used by VCD-db
 define("CACHE_FOLDER","upload/cache/");                  // Fetch cache folder
@@ -52,4 +52,4 @@ define("VSIZE_THUMBS", 0.2);                              // Max Thumbnail files
 define("VSIZE_COVERS", 5);                                // Max Cover filesize
 define("VSIZE_XML", 20);                                  // Max Imported XML filesize
 define("VSIZE_XMLTHUMBS", 30);                            // Max imported XML Thumbnail filesize
-?>
+?> 
