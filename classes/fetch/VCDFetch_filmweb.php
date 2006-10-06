@@ -18,14 +18,14 @@
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
-	'title'		=> '#div class=\"tyt\">([^<]+)(?:<span|<br)#',
-	'org_title' => '#class=\"styt\">([^(][^<]+)<\/span#',
+	'title'		=> '#div id=\"filmTitle\">([^<]+)<#',
+	'org_title' 	=> '#span class=\"otherTitle\">([^<]+)<#',
 	'year'		=> '#\(([0-9]{4})\)#',
-	'poster'	=> '#solid Black;">[^"]+"([^"]+)" gemius=#',
+	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genre.id=[0-9]+\">([^<]+)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
-	'cast'		=> 'a class="n" title="[^>]+>([^<]+)</a>[^>]+>[^>]+>([^<]+)</td>',
+	'cast'		=> 'class="filmActor"[^>]+>([^<]+)</a>[^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)</div>',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country' 	=> 'country\.id=[0-9]+\">([^<]+)</a>',
 	'plot'		=> '#"justify">(.*?)</li>#'
@@ -48,7 +48,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function showSearchResults() {
-		$regx = "#<a title='([^\(]*?)(?: / ([^\(]*?))?(?: \(AKA (.*?)\))?[ ]*(?:\(I+\))?[ ]*\(([0-9]{4})\)(?:[ ]+\(([^\)]*)\))?' href=\"http://(?:(?:www\.filmweb\.pl/Film\?id=([0-9]+))|(?:([a-z0-9.]+)\.filmweb\.pl))\">#";
+		$regx = "#<a title='([^\(]*?(?:\([^\(]*?\))?)(?: / ([^\(]*?))?(?: \(AKA (.*?)\))?[ ]*(?:\(I+\))?[ ]*\(([0-9]{4})\)(?:[ ]+\(([^\)]*)\))?' href=\"http://(?:(?:www\.filmweb\.pl/Film\?id=([0-9]+))|(?:([a-z0-9.]+)\.filmweb\.pl))\">#";
 		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
 		$results = array();
 		foreach($searchArr as $searchItem) {
@@ -143,8 +143,8 @@ class VCDFetch_filmweb extends VCDFetch {
 					$arr = null;
 					$arr = array();
 					foreach ($arrData as $itemArr) {
-						$actor = $itemArr[1];
-						$role = $itemArr[2];
+						$actor = trim($itemArr[1]);
+						$role = trim(str_replace("&nbsp;", " ", $itemArr[2]));
 						$result = $actor.($role==""?"":" .... ".$role);
 						array_push($arr, $result);
 					}
