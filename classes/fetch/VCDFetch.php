@@ -246,7 +246,6 @@ abstract class VCDFetch {
 						break;
 					}
 				}
-
 				$SEARCH_RESULTS = self::SEARCH_EXACT;
 			}
 		}
@@ -405,7 +404,6 @@ abstract class VCDFetch {
 					$pport = 80;
 				}
 
-
 				$fp = @fsockopen($pserver, $pport);
 				if (!$fp) {
 					throw new Exception("Could not connect to host " . $host);
@@ -440,7 +438,14 @@ abstract class VCDFetch {
 
 	}
 
-
+	/**
+	 * This one allows forced direct match through special search phrase. 
+	 *
+	 * @param int $url
+	 */
+	protected function setSearchRedirectUrl($url) {
+		$this->searchRedirectUrl = $url;
+	}
 
 	/**
 	 * If search() returns SEARCH_EXACT, this function will return the url that was redirected to.
