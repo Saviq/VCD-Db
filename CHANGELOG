@@ -5,6 +5,7 @@ Fixed   - Updateded the Jaded class to handle the images urls on their servers.
 Added   - Added the ability to "My settings" to select Default DVD Settings
 Fixed   - Supressed the PHP Notice from fopen if access is denied in the VCD-db RSS feeds.
 Fixed	- Fixed	- Filmweb.pl fetching with new layout
+Added   - Upload folder statistics can now be viewed in the Control Panel.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
