@@ -527,81 +527,64 @@ function drawLogBar($numrows, $offset, $logfilter) {
 
 
 
-function listUploadFolders($directory = null) {
+function getFolderContent($folder) {
 	
-	
-	if (is_null($directory)) {
-		$it = new DirectoryIterator('../'.TEMP_FOLDER);
+	$info = array('folder' => str_replace('../', '', $folder), 'files' => 0, 'size' => 0, 'subfolders' => 0);
+
+	if (strcmp($info['folder'], 'upload/') == 0) {
+		$base = true;
 	} else {
-		$it = new DirectoryIterator($directory);
-	}
-	
-	
-	foreach(  $it as $file ) 
-	{
-		
-		if ($file->isDir() && !$file->isDot()) {
-			print "<i>".$file->getPathname() . "</i><br>\n";
-			listUploadFiles($file->getPathname());
+		$base = false;
+		if (substr_count($folder, 'albums') == 1 || substr_count($folder, 'generated') == 1) {
+			$info['folder'] = '&nbsp;&nbsp;&nbsp; - ' . $info['folder'];
+		} else {
+			$info['folder'] = '&nbsp; - ' . $info['folder'];
 		}
-
-		
-		/*
-		if( $file->getFilename()  == 'cvsclient.c' )   {
-	        echo "Checking properties for cvsclient.c\n";
-	        echo "File name = " . $file->getFilename() . "\n"; 
-	        echo "Path name = " . $file->getPathname() . "\n"; 
-	        echo "Permission = " . $file->getPerms() . "\n"; 
-	        echo "Inod = " . $file->getInode() . "\n"; 
-	        echo "Size = " . $file->getSize() . "\n"; 
-	        echo "Owner = " . $file->getOwner() . "\n"; 
-	        echo "Group = " . $file->getGroup() . "\n"; 
-	        echo "Atime = " . $file->getATime() . "\n"; 
-	        echo "Mtime = " . $file->getMTime() . "\n"; 
-	        echo "CTime = " . $file->getCTime() . "\n"; 
-	        echo "Type = " . $file->getType() . "\n"; 
-	        echo "Writable = " . $file->isWritable() . "\n"; 
-	        echo "Readable = " . $file->isReadable() . "\n"; 
-	        echo "Executable = " . $file->isExecutable() . "\n"; 
-	        echo "Is file = " . $file->isFile() . "\n"; 
-	        echo "Is directory = " . $file->isDir() . "\n"; 
-	        echo "Is link = " . $file->isLink() . "\n"; 
-	        echo "Is dot = " . $file->isDot() . "\n"; 
-	        echo "To string = " . $file->__toString() . "\n"; 
-	    }
-	    
-	    */
 	}
-}
-
-
-function listUploadFiles($directory) {
-	$it = new DirectoryIterator($directory);
-	print "<blockquote>";
-	$filecount = 0;
-	$foldercount = 0;
-	$foldersize = 0;
-	foreach(  $it as $file ) 
-	{
+	
+	
+	$files = 0;
+	$subfolders = 0;
+	$size = 0;
+	
+	$it = new DirectoryIterator($folder);
+	$arrSubFolders = array();
+	
+	foreach ($it as $file) {
 		if (!$file->isDir()) {
-			//print $file->getFileName() . "<br>\n";
-			$filecount++;
-			$foldersize += $file->getSize();
-		} else if (!$file->isDot()) {
-			$folder = $file->getPathname();
-			$foldercount++;
-			//die("Folder = " . $folder);
-			try {
-				listUploadFolders($folder);	
-			} catch (Exception $ex) {
-				print "<b>[$directory] Error reading " . $folder ."</b>{$ex->getMessage()}<br/>\n";
+			$files++;
+			$size += $file->getSize();
+		} else if ($file->isDir() && !$file->isDot()) {
+			array_push($arrSubFolders, $file->getPathname());
+			$subfolders++;
+		}
+	}
+	
+	if (!$base) {
+		while (sizeof($arrSubFolders) > 0) {
+			$it = new DirectoryIterator(array_pop($arrSubFolders));
+			foreach($it as $file) {
+				if (!$file->isDir()) {
+					$files++;
+					$size += $file->getSize();
+				} else if ($file->isDir() && !$file->isDot()) {
+					array_push($arrSubFolders, $file->getPathname());
+					$subfolders++;
+				}
 			}
 		}
-		
 	}
 	
-	print human_file_size($foldersize) . " in {$filecount} files and {$foldercount} sub-folders.<br>";
-	print "</blockquote>";
+	
+	$info['files'] = $files;
+	$info['size'] = $size;
+	$info['subfolders'] = $subfolders;
+	
+	
+	
+	
+	return $info;
+	
 }
 
 

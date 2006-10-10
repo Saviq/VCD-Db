@@ -1103,8 +1103,61 @@
 			if ($CURRENT_PAGE == "statistics") {
 				
 				print "<h1>Statistics</h1>";
+			
+					
+				$arrFolders = array(
+					'../upload/',
+					'../upload/cache/',
+					'../upload/covers/',
+					'../upload/pornstars/',
+					'../upload/screenshots/',
+					'../upload/screenshots/albums/',
+					'../upload/screenshots/generated/',
+					'../upload/thumbnails/',
+					'../upload/nfo/',
+				);
 				
-				listUploadFolders();				
+				$arrTotals = array('files' => 0, 'size' => 0, 'folders' => 0);
+				
+				
+				$header = array("Folder", "Files", "Size", "Sub-folders", "");
+				printTableOpen();
+				printRowHeader($header);
+				
+				foreach ($arrFolders as $folder) {
+					printTr();
+
+					$folderInfo = getFolderContent($folder);
+					
+					printRow($folderInfo['folder']);
+					printRow($folderInfo['files']);
+					printRow(human_file_size($folderInfo['size']));
+					printRow($folderInfo['subfolders']);
+					
+					printDeleteRow("'".$folder."'", $CURRENT_PAGE, "Delete files from directory?");
+					
+					printTr(false);
+					
+					if (strcmp($folder, '../upload/screenshots/') != 0) {
+						$arrTotals['files'] += $folderInfo['files'];
+						$arrTotals['size'] += $folderInfo['size'];
+						$arrTotals['folders'] += $folderInfo['subfolders'];	
+					}
+					
+					
+				}
+				
+				// Print the totals
+				printTr();
+				printRow('Total:', 'header');
+				printRow($arrTotals['files']);
+				printRow(human_file_size($arrTotals['size']));
+				printRow($arrTotals['folders']);
+				
+				printRow();
+				printTr(false);
+					
+				printTableClose();
 				
 				
 			}
