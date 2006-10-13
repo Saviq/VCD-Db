@@ -19,7 +19,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
 	'title'		=> '#div id=\"filmTitle\">([^<]+)<#',
-	'org_title' 	=> '#span class=\"otherTitle\">[^(]*\(AKA ([^)]+(:? \(I?\))?)\)#',
+	'org_title' => '#span class=\"otherTitle\">(?:[^(]*\(AKA ([^)]+(?: \(I?\))?)\)|([^<]+)</span)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
@@ -52,7 +52,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function showSearchResults() {
-		$regx = "#<a title='([^\(]*?(?: / ([^\(]*?))?(?: \(AKA (.*?)\))?[ ]*(?:\(I+\))?[ ]*\(([0-9]{4})\)(?:[ ]+\(([^\)]*)\))?' href=\"http://(?:(?:www\.filmweb\.pl/Film\?id=([0-9]+))|(?:([a-z0-9.]+)\.filmweb\.pl))\">#";
+		$regx = "#<a title='([^\(]*?(?: / ([^\(]*?))?(?: \(AKA (.*?)\))?[ ]*(?:\(I+\))?[ ]*)\(([0-9]{4})\)(?:[ ]+\(([^\)]*)\))?' href=\"http://(?:(?:www\.filmweb\.pl/Film\?id=([0-9]+))|(?:([a-z0-9.]+)\.filmweb\.pl))\">#";
 		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
 		$results = array();
 		foreach($searchArr as $searchItem) {
@@ -107,7 +107,8 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'org_title':
-					$title = VCDUtils::titleFormat($arrData[1]);
+					if(empty($arrData[2])) $title = VCDUtils::titleFormat($arrData[1]);
+					else $title = VCDUtils::titleFormat($arrData[2]);
 					$obj->setAltTitle(trim($title));
 					break;
 
