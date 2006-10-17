@@ -19,6 +19,7 @@ class VCDLanguage {
 	CONST PRIMARY_LANGINDEX = "includes/languages/languages.xml";
 	private $arrLanguages = array();
 	
+	private $primaryLanguage = null;
 	
 	function __construct() {
 	
@@ -48,11 +49,15 @@ class VCDLanguage {
 			*/
 			
 			
-			$keys = $this->arrLanguages[1]->getKeys();
+			$this->arrLanguages[1]->getKeys();
+			$this->primaryLanguage = $this->arrLanguages[1];
+						
 			
+			/*
 			foreach ($keys as $keyObj) {
 				print $keyObj->getKey() . " <br>";
 			}
+			*/
 			
 		
 		} catch (Exception $ex) {
@@ -62,6 +67,9 @@ class VCDLanguage {
 		}
 	}
 	
+	public function getLanguage() {
+		return $this->primaryLanguage;
+	}
 	
 	
 	
@@ -71,7 +79,7 @@ class VCDLanguage {
  * Container for a Language Translation object
  *
  */
-class _VCDLanguageItem {
+class _VCDLanguageItem implements ArrayAccess {
 	
 	CONST LANG_FILE_ROOT = "includes/languages/";
 	
@@ -168,6 +176,63 @@ class _VCDLanguageItem {
 	public function getAuthor() {
 		return $this->author;
 	}
+	
+		
+		
+		
+		
+		
+		/** 
+	 * Defined by ArrayAccess interface 
+	 * Set a value given it's key e.g. $A['title'] = 'foo'; 
+	 * @param mixed key (string or integer) 
+	 * @param mixed value 
+	 * @return void 
+	 */ 
+	 function offsetSet($key, $value) { 
+	   	throw new Exception("Language Keys are read only!");
+	 } 
+	
+	 /** 
+	 * Defined by ArrayAccess interface 
+	 * Return a value given it's key e.g. echo $A['title']; 
+	 * @param mixed key (string or integer) 
+	 * @return mixed value 
+	 */ 
+	 function offsetGet($key) { 
+	 	foreach ($this->keys as $keyObj) {
+	   		if (strcmp($keyObj->getID(), $key) == 0) {
+	   			return $keyObj->getKey();
+	   		}
+	   	}
+	   return null;	   
+	 } 
+	
+	 /** 
+	 * Defined by ArrayAccess interface 
+	 * Unset a value by it's key e.g. unset($A['title']); 
+	 * @param mixed key (string or integer) 
+	 * @return void 
+	 */ 
+	 function offsetUnset($key) { 
+		throw new Exception("Language Keys are read only!");
+	 } 
+	
+	 /** 
+	 * Defined by ArrayAccess interface 
+	 * Check value exists, given it's key e.g. isset($A['title']) 
+	 * @param mixed key (string or integer) 
+	 * @return boolean 
+	 */ 
+	 function offsetExists($offset) { 
+	   	foreach ($this->keys as $keyObj) {
+	   		if (strcmp($keyObj->getID(), $key) == 0) {
+	   			return true;
+	   		}
+	   	}
+	   return false;
+	 } 
+ 
 	
 }
 
