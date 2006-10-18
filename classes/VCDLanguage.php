@@ -17,60 +17,147 @@
 class VCDLanguage {
 
 	CONST PRIMARY_LANGINDEX = "includes/languages/languages.xml";
+	CONST FALLBACK_ID = "en_EN";
+	
 	private $arrLanguages = array();
 	
+	/**
+	 * The Primary _VCDLanguageItem to use translation from
+	 *
+	 * @var _VCDLanguageItem
+	 */
 	private $primaryLanguage = null;
 	
-	function __construct() {
+	private $test = array();
 	
+	/**
+	 * The Fallback language to use if translation from Primary is not found.
+	 * Only populated if needed.  Default English.
+	 *
+	 * @var _VCDLanguageItem
+	 */
+	private $fallbackLanguage = null;
+	
+	public function __construct() {
 		$this->init();
+		$this->load(self::FALLBACK_ID);
 		
+		foreach ($this->primaryLanguage->getKeys() as $obj) {
+			$this->test[$obj->getID()] = $obj->getKey();
+		}
 	}
 	
 	
 	private function init() {
 		try {
-
 			if (file_exists(self::PRIMARY_LANGINDEX )) {
-			
 				$xmlStream = simplexml_load_file(self::PRIMARY_LANGINDEX );
 								
 				foreach ($xmlStream->language as $node) {
 					array_push($this->arrLanguages, new _VCDLanguageItem($node));
 				}
-				
 			}
-			
-			
-			/*
-			foreach ($this->arrLanguages as $obj) {
-				print $obj->getName() . "<br>";
-			}
-			*/
-			
-			
-			$this->arrLanguages[1]->getKeys();
-			$this->primaryLanguage = $this->arrLanguages[1];
-						
-			
-			/*
-			foreach ($keys as $keyObj) {
-				print $keyObj->getKey() . " <br>";
-			}
-			*/
-			
 		
 		} catch (Exception $ex) {
-		
 			throw $ex;
-			
 		}
 	}
 	
-	public function getLanguage() {
-		return $this->primaryLanguage;
+	/**
+	 * Load a translation based on the parameter ID.
+	 * For example is_IS for Icelandic.
+	 *
+	 * @param string $strLanguageID
+	 */
+	public function load($strLanguageID) {
+		foreach($this->arrLanguages as $obj) {
+			if (strcmp($obj->getID(), $strLanguageID) == 0) {
+				$this->primaryLanguage = $obj;
+				$this->primaryLanguage->getKeys();
+				return;
+			}
+		}
+		
+		throw new Exception("Could not load language with ID " . $strLanguageID);
 	}
 	
+	/**
+	 * Get the translation for the requested key, if key is not found in the
+	 * Primary language object, translation is seeked from the fallback Language object.
+	 *
+	 * @param string $key | The Key for the language phrase
+	 * @return string | The translated phrase
+	 */
+	public function doTranslate($key) {
+		return $this->test[$key];
+		$strValue = $this->primaryLanguage[$key];
+		if (!is_null($strValue)) {
+			return $strValue;
+		} else {
+			return $this->fallbackTranslate($key);
+		}
+	}
+	
+	
+	/**
+	 * Print out the language selection HTML dropdown box.
+	 *
+	 * @return string
+	 */
+	public function printDropdownBox() {
+	
+		
+		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./index.php?\">";
+		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
+		foreach ($this->arrLanguages as $langObj) {
+			$strSelected = "";
+			if (strcmp($langObj->getID(), $this->primaryLanguage->getID()) == 0) {
+				$strSelected = " selected=\"selected\"";
+			}
+			$html .= "<option value=\"{$langObj->getID()}\"{$strSelected}>{$langObj->getName()}</option>";
+		}
+	
+		$html .= "</select></form></div>";
+		return $html;
+	}
+
+	
+	/**
+	 * Find translation for the current key
+	 *
+	 * @param string $key
+	 * @return string
+	 */
+	public static function translate($key) {
+		return VCDClassFactory::getInstance('VCDLanguage')->doTranslate($key);
+	}
+	
+
+	/**
+	 * Get the translated value from the fallback language, since it
+	 * was not found in the Primary translation object.
+	 * 
+	 * @param string $key | The key for the language phrase
+	 * @return The translated language phrase
+	 */
+	private function fallbackTranslate($key) {
+		if (!$this->fallbackLanguage instanceof _VCDLanguageItem) {
+			foreach($this->arrLanguages as $obj) {
+				if (strcmp($obj->getID(), self::FALLBACK_ID ) == 0) {
+					$this->fallbackLanguage = $obj;
+					$this->fallbackLanguage->getKeys();
+					break;
+				}
+			}
+		}
+		
+		$strValue = $this->fallbackLanguage[$key];
+		if (!is_null($strValue)) {
+			return $strValue;
+		} else {
+			return "undefined";
+		}
+	}
 	
 	
 }
@@ -122,7 +209,7 @@ class _VCDLanguageItem implements ArrayAccess {
 	/**
 	 * Get the language Keys for this language
 	 *
-	 * @return unknown
+	 * @return array
 	 */
 	public function getKeys() {
 		if (sizeof($this->keys) == 0) {
@@ -182,16 +269,16 @@ class _VCDLanguageItem implements ArrayAccess {
 		
 		
 		
-		/** 
+	 /** 
 	 * Defined by ArrayAccess interface 
 	 * Set a value given it's key e.g. $A['title'] = 'foo'; 
 	 * @param mixed key (string or integer) 
 	 * @param mixed value 
 	 * @return void 
 	 */ 
-	 function offsetSet($key, $value) { 
-	   	throw new Exception("Language Keys are read only!");
-	 } 
+	public function offsetSet($key, $value) { 
+		throw new Exception("Language Keys are read only!");
+	} 
 	
 	 /** 
 	 * Defined by ArrayAccess interface 
@@ -199,14 +286,14 @@ class _VCDLanguageItem implements ArrayAccess {
 	 * @param mixed key (string or integer) 
 	 * @return mixed value 
 	 */ 
-	 function offsetGet($key) { 
-	 	foreach ($this->keys as $keyObj) {
-	   		if (strcmp($keyObj->getID(), $key) == 0) {
-	   			return $keyObj->getKey();
-	   		}
-	   	}
-	   return null;	   
-	 } 
+	public function offsetGet($key) { 
+		foreach ($this->keys as $keyObj) {
+			if (strcmp($keyObj->getID(), $key) == 0) {
+				return $keyObj->getKey();
+			}
+		}
+		return null;
+	} 
 	
 	 /** 
 	 * Defined by ArrayAccess interface 
@@ -214,9 +301,9 @@ class _VCDLanguageItem implements ArrayAccess {
 	 * @param mixed key (string or integer) 
 	 * @return void 
 	 */ 
-	 function offsetUnset($key) { 
+	public function offsetUnset($key) { 
 		throw new Exception("Language Keys are read only!");
-	 } 
+	}
 	
 	 /** 
 	 * Defined by ArrayAccess interface 
@@ -224,14 +311,14 @@ class _VCDLanguageItem implements ArrayAccess {
 	 * @param mixed key (string or integer) 
 	 * @return boolean 
 	 */ 
-	 function offsetExists($offset) { 
-	   	foreach ($this->keys as $keyObj) {
-	   		if (strcmp($keyObj->getID(), $key) == 0) {
-	   			return true;
-	   		}
-	   	}
-	   return false;
-	 } 
+	public function offsetExists($offset) { 
+		foreach ($this->keys as $keyObj) {
+			if (strcmp($keyObj->getID(), $key) == 0) {
+				return true;
+			}
+		}
+		return false;
+	} 
  
 	
 }
@@ -241,7 +328,7 @@ class _VCDLanguageKey {
 	private $key;
 	
 	public function __construct(SimpleXMLElement $element) {
-		$this->id = $element['id'];
+		$this->id = (string)$element['id'];
 		$this->key = (string)$element;
 	}
 	
