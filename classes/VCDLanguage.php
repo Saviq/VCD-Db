@@ -15,10 +15,11 @@
 ?>
 <?
 class VCDLanguage {
-
-	CONST PRIMARY_LANGINDEX = "includes/languages/languages.xml";
+	
+	CONST PRIMARY_LANGINDEX = "languages.xml";
 	CONST FALLBACK_ID = "en_EN";
 	
+	public static $LANGUAGE_ROOT;
 	private $arrLanguages = array();
 	
 	/**
@@ -38,20 +39,36 @@ class VCDLanguage {
 	 */
 	private $fallbackLanguage = null;
 	
-	public function __construct() {
+	/**
+	 * Class Contructor.  Loads specified language if languageID is provided.
+	 * By default no language is loaded.
+	 *
+	 * @param string $strLanguageID | The ID of the language to load
+	 */
+	public function __construct($strLanguageID = null) {
+		$this->setFileRoot();
 		$this->init();
-		$this->load(self::FALLBACK_ID);
-		
+		if (!is_null($strLanguageID)) {
+			$this->load($strLanguageID);
+		}
+			
+		/*
 		foreach ($this->primaryLanguage->getKeys() as $obj) {
 			$this->test[$obj->getID()] = $obj->getKey();
 		}
+		*/
 	}
 	
 	
+	/**
+	 * Initialize the class, load the index file with available languages.
+	 *
+	 */
 	private function init() {
 		try {
-			if (file_exists(self::PRIMARY_LANGINDEX )) {
-				$xmlStream = simplexml_load_file(self::PRIMARY_LANGINDEX );
+			
+			if (file_exists(self::$LANGUAGE_ROOT.self::PRIMARY_LANGINDEX )) {
+				$xmlStream = simplexml_load_file(self::$LANGUAGE_ROOT.self::PRIMARY_LANGINDEX );
 								
 				foreach ($xmlStream->language as $node) {
 					array_push($this->arrLanguages, new _VCDLanguageItem($node));
@@ -61,6 +78,15 @@ class VCDLanguage {
 		} catch (Exception $ex) {
 			throw $ex;
 		}
+	}
+	
+	/**
+	 * Set the correct language file root
+	 *
+	 */
+	private function setFileRoot() {
+		$fileroot = str_replace('classes', '', dirname(__FILE__));
+		self::$LANGUAGE_ROOT = $fileroot.'includes'.DIRECTORY_SEPARATOR.'languages'.DIRECTORY_SEPARATOR;
 	}
 	
 	/**
@@ -89,7 +115,7 @@ class VCDLanguage {
 	 * @return string | The translated phrase
 	 */
 	public function doTranslate($key) {
-		return $this->test[$key];
+		//return $this->test[$key];
 		$strValue = $this->primaryLanguage[$key];
 		if (!is_null($strValue)) {
 			return $strValue;
@@ -192,7 +218,7 @@ class _VCDLanguageItem implements ArrayAccess {
 	 *
 	 */
 	private function loadKeys() {
-		$file = self::LANG_FILE_ROOT.$this->id.".xml";
+		$file = VCDLanguage::$LANGUAGE_ROOT.$this->id.".xml";
 		
 		if (file_exists($file)) {
 			
