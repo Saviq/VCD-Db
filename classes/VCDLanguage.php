@@ -98,8 +98,12 @@ class VCDLanguage {
 	public function load($strLanguageID) {
 		foreach($this->arrLanguages as $obj) {
 			if (strcmp($obj->getID(), $strLanguageID) == 0) {
-				$this->primaryLanguage = $obj;
+				$this->primaryLanguage = &$obj;
 				$this->primaryLanguage->getKeys();
+				
+				// Store the current selection in Session
+		  		$_SESSION['vcdlang'] = $strLanguageID;
+				
 				return;
 			}
 		}
@@ -124,6 +128,15 @@ class VCDLanguage {
 		}
 	}
 	
+	/**
+	 * Check if the primary language is English
+	 *
+	 * @return unknown
+	 */
+	public function isEnglish() {
+		return strcmp(self::PRIMARY_LANGINDEX, $this->primaryLanguage->getID() == 0);
+	}
+	
 	
 	/**
 	 * Print out the language selection HTML dropdown box.
@@ -131,7 +144,10 @@ class VCDLanguage {
 	 * @return string
 	 */
 	public function printDropdownBox() {
-	
+		
+		if (is_null($this->primaryLanguage)) {
+			$this->primaryLanguage = &$this->fallbackLanguage;
+		}
 		
 		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./index.php?\">";
 		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
@@ -142,9 +158,10 @@ class VCDLanguage {
 			}
 			$html .= "<option value=\"{$langObj->getID()}\"{$strSelected}>{$langObj->getName()}</option>";
 		}
-	
+			
 		$html .= "</select></form></div>";
 		return $html;
+		
 	}
 
 	
