@@ -6,6 +6,9 @@ Added   - Added the ability to "My settings" to select Default DVD Settings
 Fixed   - Supressed the PHP Notice from fopen if access is denied in the VCD-db RSS feeds.
 Fixed	- Fixed	- Filmweb.pl fetching with new layout
 Added   - Upload folder statistics can now be viewed in the Control Panel.
+Fixed   - Fixed wrong category entries in the statistics graphs.
+Fixed   - Mail messages are now UTF-8 encoded
+Changed - Language system totally rewritten, using XML files instead of PHP array includes.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
