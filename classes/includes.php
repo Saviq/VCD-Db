@@ -22,9 +22,6 @@
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 	
-	/* Language Files */
-	//require_once(dirname(__FILE__) . '/languages/languages.php');
-	
 	/* External Libraries */
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
 	require_once(dirname(__FILE__) . '/external/mail/smtp.php');
