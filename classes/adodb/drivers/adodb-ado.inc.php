@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -20,22 +20,22 @@ define("_ADODB_ADO_LAYER", 1 );
 
 	
 class ADODB_ado extends ADOConnection {
-	var $databaseType = "ado";	
-	var $_bindInputArray = false;
-	var $fmtDate = "'Y-m-d'";
-	var $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $dataProvider = "ado";	
-	var $hasAffectedRows = true;
-	var $adoParameterType = 201; // 201 = long varchar, 203=long wide varchar, 205 = long varbinary
-	var $_affectedRows = false;
-	var $_thisTransactions;
-	var $_cursor_type = 3; // 3=adOpenStatic,0=adOpenForwardOnly,1=adOpenKeyset,2=adOpenDynamic
-	var $_cursor_location = 3; // 2=adUseServer, 3 = adUseClient;
-	var $_lock_type = -1;
-	var $_execute_option = -1;
-	var $poorAffectedRows = true; 
-	var $charPage;
+	public $databaseType = "ado";	
+	public $_bindInputArray = false;
+	public $fmtDate = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $dataProvider = "ado";	
+	public $hasAffectedRows = true;
+	public $adoParameterType = 201; // 201 = long varchar, 203=long wide varchar, 205 = long varbinary
+	public $_affectedRows = false;
+	public $_thisTransactions;
+	public $_cursor_type = 3; // 3=adOpenStatic,0=adOpenForwardOnly,1=adOpenKeyset,2=adOpenDynamic
+	public $_cursor_location = 3; // 2=adUseServer, 3 = adUseClient;
+	public $_lock_type = -1;
+	public $_execute_option = -1;
+	public $poorAffectedRows = true; 
+	public $charPage;
 		
 	function ADODB_ado() 
 	{ 	
@@ -263,6 +263,7 @@ class ADODB_ado extends ADOConnection {
 		$this->transCnt += 1;
 		return true;
 	}
+	
 	function CommitTrans($ok=true) 
 	{ 
 		if (!$ok) return $this->RollbackTrans();
@@ -283,7 +284,9 @@ class ADODB_ado extends ADOConnection {
 
 	function ErrorMsg() 
 	{
+		if (!$this->_connectionID) return "No connection established";
 		$errc = $this->_connectionID->Errors;
+		if (!$errc) return "No Errors object found";
 		if ($errc->Count == 0) return '';
 		$err = $errc->Item($errc->Count-1);
 		return $err->Description;
@@ -314,13 +317,13 @@ class ADODB_ado extends ADOConnection {
 
 class ADORecordSet_ado extends ADORecordSet {	
 	
-	var $bind = false;
-	var $databaseType = "ado";	
-	var $dataProvider = "ado";	
-	var $_tarr = false; // caches the types
-	var $_flds; // and field objects
-	var $canSeek = true;
-  	var $hideErrors = true;
+	public $bind = false;
+	public $databaseType = "ado";	
+	public $dataProvider = "ado";	
+	public $_tarr = false; // caches the types
+	public $_flds; // and field objects
+	public $canSeek = true;
+  	public $hideErrors = true;
 		  
 	function ADORecordSet_ado($id,$mode=false)
 	{

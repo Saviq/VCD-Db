@@ -1,7 +1,7 @@
 <?php
 
 /**
-  V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -15,13 +15,13 @@ if (!defined('ADODB_DIR')) die();
 
 class ADODB2_postgres extends ADODB_DataDict {
 	
-	var $databaseType = 'postgres';
-	var $seqField = false;
-	var $seqPrefix = 'SEQ_';
-	var $addCol = ' ADD COLUMN';
-	var $quote = '"';
-	var $renameTable = 'ALTER TABLE %s RENAME TO %s'; // at least since 7.1
-	var $dropTable = 'DROP TABLE %s CASCADE';
+	public $databaseType = 'postgres';
+	public $seqField = false;
+	public $seqPrefix = 'SEQ_';
+	public $addCol = ' ADD COLUMN';
+	public $quote = '"';
+	public $renameTable = 'ALTER TABLE %s RENAME TO %s'; // at least since 7.1
+	public $dropTable = 'DROP TABLE %s CASCADE';
 	
 	function MetaType($t,$len=-1,$fieldobj=false)
 	{
@@ -356,6 +356,16 @@ CREATE [ UNIQUE ] INDEX index_name ON table
 		$sql[] = $s;
 		
 		return $sql;
+	}
+	
+	function _GetSize($ftype, $ty, $fsize, $fprec)
+	{
+		if (strlen($fsize) && $ty != 'X' && $ty != 'B' && $ty  != 'I' && strpos($ftype,'(') === false) {
+			$ftype .= "(".$fsize;
+			if (strlen($fprec)) $ftype .= ",".$fprec;
+			$ftype .= ')';
+		}
+		return $ftype;
 	}
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 /*
-  V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence. See License.txt.
@@ -15,23 +15,23 @@ if (!defined('ADODB_DIR')) die();
 define("_ADODB_ODBTP_LAYER", 2 );
 
 class ADODB_odbtp extends ADOConnection{
-	var $databaseType = "odbtp";
-	var $dataProvider = "odbtp";
-	var $fmtDate = "'Y-m-d'";
-	var $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $odbc_driver = 0;
-	var $hasAffectedRows = true;
-	var $hasInsertID = false;
-	var $hasGenID = true;
-	var $hasMoveFirst = true;
+	public $databaseType = "odbtp";
+	public $dataProvider = "odbtp";
+	public $fmtDate = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $odbc_driver = 0;
+	public $hasAffectedRows = true;
+	public $hasInsertID = false;
+	public $hasGenID = true;
+	public $hasMoveFirst = true;
 
-	var $_genSeqSQL = "create table %s (seq_name char(30) not null unique , seq_value integer not null)";
-	var $_dropSeqSQL = "delete from adodb_seq where seq_name = '%s'";
-	var $_bindInputArray = false;
-	var $_useUnicodeSQL = false;
-	var $_canPrepareSP = false;
-	var $_dontPoolDBC = true;
+	public $_genSeqSQL = "create table %s (seq_name char(30) not null unique , seq_value integer not null)";
+	public $_dropSeqSQL = "delete from adodb_seq where seq_name = '%s'";
+	public $_bindInputArray = false;
+	public $_useUnicodeSQL = false;
+	public $_canPrepareSP = false;
+	public $_dontPoolDBC = true;
 
 	function ADODB_odbtp()
 	{
@@ -150,6 +150,8 @@ class ADODB_odbtp extends ADOConnection{
     function _connect($HostOrInterface, $UserOrDSN='', $argPassword='', $argDatabase='')
 	{
 		$this->_connectionID = @odbtp_connect($HostOrInterface,$UserOrDSN,$argPassword,$argDatabase);
+		odbtp_convert_datetime($this->_connectionID,true);
+		
 		if ($this->_connectionID === false) {
 			$this->_errorMsg = $this->ErrorMsg() ;
 			return false;
@@ -312,6 +314,7 @@ class ADODB_odbtp extends ADOConnection{
 			$false = false;
 			return $false;
 		}
+		$retarr = array();
 		while (!$rs->EOF) {
 			//print_r($rs->fields);
 			if (strtoupper($rs->fields[2]) == $table) {
@@ -326,7 +329,7 @@ class ADODB_odbtp extends ADOConnection{
  					$fld->default_value = $rs->fields[12];
 				}
 				$retarr[strtoupper($fld->name)] = $fld;
-			} else if (sizeof($retarr)>0)
+			} else if (!empty($retarr))
 				break;
 			$rs->MoveNext();
 		}
@@ -459,7 +462,7 @@ class ADODB_odbtp extends ADOConnection{
 		$db->Execute($stmt);
 
 		@param $stmt Statement returned by Prepare() or PrepareSP().
-		@param $var PHP variable to bind to. Can set to null (for isNull support).
+		@param $public PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in odbtp.
 		@param [$maxLen] Holds an maximum length of the variable.
@@ -518,6 +521,8 @@ class ADODB_odbtp extends ADOConnection{
 
 	function _query($sql,$inputarr=false)
 	{
+	global $php_errormsg;
+	
  		if ($inputarr) {
 			if (is_array($sql)) {
 				$stmtid = $sql[1];
@@ -561,8 +566,8 @@ class ADODB_odbtp extends ADOConnection{
 
 class ADORecordSet_odbtp extends ADORecordSet {
 
-	var $databaseType = 'odbtp';
-	var $canSeek = true;
+	public $databaseType = 'odbtp';
+	public $canSeek = true;
 
 	function ADORecordSet_odbtp($queryID,$mode=false)
 	{
@@ -679,7 +684,7 @@ class ADORecordSet_odbtp extends ADORecordSet {
 
 class ADORecordSet_odbtp_mssql extends ADORecordSet_odbtp {
 
-	var $databaseType = 'odbtp_mssql';
+	public $databaseType = 'odbtp_mssql';
 
 	function ADORecordSet_odbtp_mssql($id,$mode=false)
 	{
@@ -689,7 +694,7 @@ class ADORecordSet_odbtp_mssql extends ADORecordSet_odbtp {
 
 class ADORecordSet_odbtp_access extends ADORecordSet_odbtp {
 
-	var $databaseType = 'odbtp_access';
+	public $databaseType = 'odbtp_access';
 
 	function ADORecordSet_odbtp_access($id,$mode=false)
 	{
@@ -699,7 +704,7 @@ class ADORecordSet_odbtp_access extends ADORecordSet_odbtp {
 
 class ADORecordSet_odbtp_vfp extends ADORecordSet_odbtp {
 
-	var $databaseType = 'odbtp_vfp';
+	public $databaseType = 'odbtp_vfp';
 
 	function ADORecordSet_odbtp_vfp($id,$mode=false)
 	{
@@ -709,7 +714,7 @@ class ADORecordSet_odbtp_vfp extends ADORecordSet_odbtp {
 
 class ADORecordSet_odbtp_oci8 extends ADORecordSet_odbtp {
 
-	var $databaseType = 'odbtp_oci8';
+	public $databaseType = 'odbtp_oci8';
 
 	function ADORecordSet_odbtp_oci8($id,$mode=false)
 	{
@@ -719,7 +724,7 @@ class ADORecordSet_odbtp_oci8 extends ADORecordSet_odbtp {
 
 class ADORecordSet_odbtp_sybase extends ADORecordSet_odbtp {
 
-	var $databaseType = 'odbtp_sybase';
+	public $databaseType = 'odbtp_sybase';
 
 	function ADORecordSet_odbtp_sybase($id,$mode=false)
 	{

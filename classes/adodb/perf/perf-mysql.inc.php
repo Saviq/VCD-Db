@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. See License.txt. 
@@ -17,9 +17,9 @@ if (!defined('ADODB_DIR')) die();
 
 class perf_mysql extends adodb_perf{
 	
-	var $tablesSQL = 'show table status';
+	public $tablesSQL = 'show table status';
 	
-	var $createTableSQL = "CREATE TABLE adodb_logsql (
+	public $createTableSQL = "CREATE TABLE adodb_logsql (
 		  created datetime NOT NULL,
 		  sql0 varchar(250) NOT NULL,
 		  sql1 text NOT NULL,
@@ -28,7 +28,7 @@ class perf_mysql extends adodb_perf{
 		  timer decimal(16,6) NOT NULL
 		)";
 		
-	var $settings = array(
+	public $settings = array(
 	'Ratios',
 		'MyISAM cache hit ratio' => array('RATIO',
 			'=GetKeyHitRatio',
@@ -282,8 +282,8 @@ class perf_mysql extends adodb_perf{
 	}
 	
     // start hack 
-    var $optimizeTableLow = 'CHECK TABLE %s FAST QUICK';
-    var $optimizeTableHigh = 'OPTIMIZE TABLE %s';
+    public $optimizeTableLow = 'CHECK TABLE %s FAST QUICK';
+    public $optimizeTableHigh = 'OPTIMIZE TABLE %s';
     
     /** 
      * @see adodb_perf#optimizeTable

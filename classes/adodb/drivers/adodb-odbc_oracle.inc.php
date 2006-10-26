@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -19,17 +19,17 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
  
 class  ADODB_odbc_oracle extends ADODB_odbc {	
-	var $databaseType = 'odbc_oracle';
- 	var $replaceQuote = "''"; // string to use to replace quotes
-	var $concat_operator='||';
-	var $fmtDate = "'Y-m-d 00:00:00'"; 
-	var $fmtTimeStamp = "'Y-m-d h:i:sA'";
-	var $metaTablesSQL = 'select table_name from cat';
-	var $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
-	var $sysDate = "TRUNC(SYSDATE)";
-	var $sysTimeStamp = 'SYSDATE';
+	public $databaseType = 'odbc_oracle';
+ 	public $replaceQuote = "''"; // string to use to replace quotes
+	public $concat_operator='||';
+	public $fmtDate = "'Y-m-d 00:00:00'"; 
+	public $fmtTimeStamp = "'Y-m-d h:i:sA'";
+	public $metaTablesSQL = 'select table_name from cat';
+	public $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
+	public $sysDate = "TRUNC(SYSDATE)";
+	public $sysTimeStamp = 'SYSDATE';
 	
-	//var $_bindInputArray = false;
+	//public $_bindInputArray = false;
 	
 	function ADODB_odbc_oracle()
 	{
@@ -52,7 +52,8 @@ class  ADODB_odbc_oracle extends ADODB_odbc {
 	
 	function &MetaColumns($table) 
 	{
-		
+	global $ADODB_FETCH_MODE;
+	
 		$rs = $this->Execute(sprintf($this->metaColumnsSQL,strtoupper($table)));
 		if ($rs === false) {	
 			$false = false;
@@ -104,7 +105,7 @@ class  ADODB_odbc_oracle extends ADODB_odbc {
  
 class  ADORecordSet_odbc_oracle extends ADORecordSet_odbc {	
 	
-	var $databaseType = 'odbc_oracle';
+	public $databaseType = 'odbc_oracle';
 	
 	function ADORecordSet_odbc_oracle($id,$mode=false)
 	{

@@ -1,7 +1,7 @@
 <?php
 
 /**
-  V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -12,10 +12,10 @@
 
 class ADODB2_firebird extends ADODB_DataDict {
 	
-	var $databaseType = 'firebird';
-	var $seqField = false;
-	var $seqPrefix = 'gen_';
-	var $blobSize = 40000;	
+	public $databaseType = 'firebird';
+	public $seqField = false;
+	public $seqPrefix = 'gen_';
+	public $blobSize = 40000;	
  	
  	function ActualType($meta)
 	{

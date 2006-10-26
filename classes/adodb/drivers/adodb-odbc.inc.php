@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim#natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -20,24 +20,24 @@ if (!defined('ADODB_DIR')) die();
 
 
 class ADODB_odbc extends ADOConnection {
-	var $databaseType = "odbc";	
-	var $fmtDate = "'Y-m-d'";
-	var $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $dataProvider = "odbc";
-	var $hasAffectedRows = true;
-	var $binmode = ODBC_BINMODE_RETURN;
-	var $useFetchArray = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
+	public $databaseType = "odbc";	
+	public $fmtDate = "'Y-m-d'";
+	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $dataProvider = "odbc";
+	public $hasAffectedRows = true;
+	public $binmode = ODBC_BINMODE_RETURN;
+	public $useFetchArray = false; // setting this to true will make array elements in FETCH_ASSOC mode case-sensitive
 								// breaking backward-compat
-	//var $longreadlen = 8000; // default number of chars to return for a Blob/Long field
-	var $_bindInputArray = false;	
-	var $curmode = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
-	var $_genSeqSQL = "create table %s (id integer)";
-	var $_autocommit = true;
-	var $_haserrorfunctions = true;
-	var $_has_stupid_odbc_fetch_api_change = true;
-	var $_lastAffectedRows = 0;
-	var $uCaseTables = true; // for meta* functions, uppercase table names
+	//public $longreadlen = 8000; // default number of chars to return for a Blob/Long field
+	public $_bindInputArray = false;	
+	public $curmode = SQL_CUR_USE_DRIVER; // See sqlext.h, SQL_CUR_DEFAULT == SQL_CUR_USE_DRIVER == 2L
+	public $_genSeqSQL = "create table %s (id integer)";
+	public $_autocommit = true;
+	public $_haserrorfunctions = true;
+	public $_has_stupid_odbc_fetch_api_change = true;
+	public $_lastAffectedRows = 0;
+	public $uCaseTables = true; // for meta* functions, uppercase table names
 	
 	function ADODB_odbc() 
 	{ 	
@@ -127,7 +127,7 @@ class ADODB_odbc extends ADOConnection {
 		return $this->Execute("insert into $seqname values($start)");
 	}
 	
-	var $_dropSeqSQL = 'drop table %s';
+	public $_dropSeqSQL = 'drop table %s';
 	function DropSequence($seqname)
 	{
 		if (empty($this->_dropSeqSQL)) return false;
@@ -590,11 +590,11 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/odbc/htm/od
 
 class ADORecordSet_odbc extends ADORecordSet {	
 	
-	var $bind = false;
-	var $databaseType = "odbc";		
-	var $dataProvider = "odbc";
-	var $useFetchArray;
-	var $_has_stupid_odbc_fetch_api_change;
+	public $bind = false;
+	public $databaseType = "odbc";		
+	public $dataProvider = "odbc";
+	public $useFetchArray;
+	public $_has_stupid_odbc_fetch_api_change;
 	
 	function ADORecordSet_odbc($id,$mode=false)
 	{

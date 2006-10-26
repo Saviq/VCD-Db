@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. See License.txt. 
@@ -19,14 +19,14 @@ if (!defined('_ADODB_ODBC_LAYER')) {
  	define('_ADODB_ACCESS',1);
 
 class  ADODB_access extends ADODB_odbc {	
-	var $databaseType = 'access';
-	var $hasTop = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
-	var $fmtDate = "#Y-m-d#";
-	var $fmtTimeStamp = "#Y-m-d h:i:sA#"; // note not comma
-	var $_bindInputArray = false; // strangely enough, setting to true does not work reliably
-	var $sysDate = "FORMAT(NOW,'yyyy-mm-dd')";
-	var $sysTimeStamp = 'NOW';
-	var $hasTransactions = false;
+	public $databaseType = 'access';
+	public $hasTop = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+	public $fmtDate = "#Y-m-d#";
+	public $fmtTimeStamp = "#Y-m-d h:i:sA#"; // note not comma
+	public $_bindInputArray = false; // strangely enough, setting to true does not work reliably
+	public $sysDate = "FORMAT(NOW,'yyyy-mm-dd')";
+	public $sysTimeStamp = 'NOW';
+	public $hasTransactions = false;
 	
 	function ADODB_access()
 	{
@@ -75,7 +75,7 @@ class  ADODB_access extends ADODB_odbc {
  
 class  ADORecordSet_access extends ADORecordSet_odbc {	
 	
-	var $databaseType = "access";		
+	public $databaseType = "access";		
 	
 	function ADORecordSet_access($id,$mode=false)
 	{

@@ -1,6 +1,6 @@
 <?php
 /*
-  V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim#natsoft.com.my). All rights reserved.
+  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
    Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -24,21 +24,21 @@ if (!defined('LDAP_ASSOC')) {
 }
 
 class ADODB_ldap extends ADOConnection {
-    var $databaseType = 'ldap';
-	var $dataProvider = 'ldap';
+    public $databaseType = 'ldap';
+	public $dataProvider = 'ldap';
 	
 	# Connection information
-    var $username = false;
-    var $password = false;
+    public $username = false;
+    public $password = false;
     
     # Used during searches
-    var $filter;
-    var $dn;
-	var $version;
-	var $port = 389;
+    public $filter;
+    public $dn;
+	public $version;
+	public $port = 389;
 
 	# Options configuration information
-	var $LDAP_CONNECT_OPTIONS;
+	public $LDAP_CONNECT_OPTIONS;
 
 	function ADODB_ldap() 
 	{		
@@ -70,10 +70,10 @@ class ADODB_ldap extends ADOConnection {
 		}
 		
 		if ($username) {
-		    $bind = @ldap_bind( $this->_connectionID, $username, $password );
+		    $bind = ldap_bind( $this->_connectionID, $username, $password );
 		} else {
 			$username = 'anonymous';
-		    $bind = @ldap_bind( $this->_connectionID );		
+		    $bind = ldap_bind( $this->_connectionID );		
 		}
 		
 		if (!$bind) {
@@ -269,9 +269,9 @@ class ADODB_ldap extends ADOConnection {
 
 class ADORecordSet_ldap extends ADORecordSet{	
 	
-	var $databaseType = "ldap";
-	var $canSeek = false;
-	var $_entryID; /* keeps track of the entry resource identifier */
+	public $databaseType = "ldap";
+	public $canSeek = false;
+	public $_entryID; /* keeps track of the entry resource identifier */
 	
 	function ADORecordSet_ldap($queryID,$mode=false) 
 	{

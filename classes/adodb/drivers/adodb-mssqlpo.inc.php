@@ -1,6 +1,6 @@
 <?php
 /**
-* @version V4.66 28 Sept 2005 (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+* @version V4.93 10 Oct 2006 (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
 * Released under both BSD license and Lesser GPL library license.
 * Whenever there is any discrepancy between the two licenses,
 * the BSD license will take precedence.
@@ -25,8 +25,8 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR.'/drivers/adodb-mssql.inc.php');
 
 class ADODB_mssqlpo extends ADODB_mssql {
-	var $databaseType = "mssqlpo";
-	var $concat_operator = '||'; 
+	public $databaseType = "mssqlpo";
+	public $concat_operator = '||'; 
 	
 	function ADODB_mssqlpo()
 	{
@@ -53,7 +53,7 @@ class ADODB_mssqlpo extends ADODB_mssql {
 }
 
 class ADORecordset_mssqlpo extends ADORecordset_mssql {
-	var $databaseType = "mssqlpo";
+	public $databaseType = "mssqlpo";
 	function ADORecordset_mssqlpo($id,$mode=false)
 	{
 		$this->ADORecordset_mssql($id,$mode);

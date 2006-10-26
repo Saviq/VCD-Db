@@ -1,6 +1,6 @@
 <?php
 /*
- @version V4.66 28 Sept 2005 (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+ @version V4.93 10 Oct 2006 (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
  Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -15,13 +15,13 @@ if (! defined("_ADODB_FBSQL_LAYER")) {
  define("_ADODB_FBSQL_LAYER", 1 );
 
 class ADODB_fbsql extends ADOConnection {
-	var $databaseType = 'fbsql';
-	var $hasInsertID = true;
-	var $hasAffectedRows = true;	
-	var $metaTablesSQL = "SHOW TABLES";	
-	var $metaColumnsSQL = "SHOW COLUMNS FROM %s";
-	var $fmtTimeStamp = "'Y-m-d H:i:s'";
-	var $hasLimit = false;
+	public $databaseType = 'fbsql';
+	public $hasInsertID = true;
+	public $hasAffectedRows = true;	
+	public $metaTablesSQL = "SHOW TABLES";	
+	public $metaColumnsSQL = "SHOW COLUMNS FROM %s";
+	public $fmtTimeStamp = "'Y-m-d H:i:s'";
+	public $hasLimit = false;
 	
 	function ADODB_fbsql() 
 	{			
@@ -159,8 +159,8 @@ class ADODB_fbsql extends ADOConnection {
 
 class ADORecordSet_fbsql extends ADORecordSet{	
 	
-	var $databaseType = "fbsql";
-	var $canSeek = true;
+	public $databaseType = "fbsql";
+	public $canSeek = true;
 	
 	function ADORecordSet_fbsql($queryID,$mode=false) 
 	{

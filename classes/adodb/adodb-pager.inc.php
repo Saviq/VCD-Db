@@ -1,7 +1,7 @@
 <?php
 
 /*
-	V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+	V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
 	  Released under both BSD license and Lesser GPL library license. 
 	  Whenever there is any discrepancy between the two licenses, 
 	  the BSD license will take precedence. 
@@ -22,29 +22,29 @@
 
 */
 class ADODB_Pager {
-	var $id; 	// unique id for pager (defaults to 'adodb')
-	var $db; 	// ADODB connection object
-	var $sql; 	// sql used
-	var $rs;	// recordset generated
-	var $curr_page;	// current page number before Render() called, calculated in constructor
-	var $rows;		// number of rows per page
-    var $linksPerPage=10; // number of links per page in navigation bar
-    var $showPageLinks; 
+	public $id; 	// unique id for pager (defaults to 'adodb')
+	public $db; 	// ADODB connection object
+	public $sql; 	// sql used
+	public $rs;	// recordset generated
+	public $curr_page;	// current page number before Render() called, calculated in constructor
+	public $rows;		// number of rows per page
+    public $linksPerPage=10; // number of links per page in navigation bar
+    public $showPageLinks; 
 
-	var $gridAttributes = 'width=100% border=1 bgcolor=white';
+	public $gridAttributes = 'width=100% border=1 bgcolor=white';
 	
 	// Localize text strings here
-	var $first = '<code>|&lt;</code>';
-	var $prev = '<code>&lt;&lt;</code>';
-	var $next = '<code>>></code>';
-	var $last = '<code>>|</code>';
-	var $moreLinks = '...';
-	var $startLinks = '...';
-	var $gridHeader = false;
-	var $htmlSpecialChars = true;
-	var $page = 'Page';
-	var $linkSelectedColor = 'red';
-	var $cache = 0;  #secs to cache with CachePageExecute()
+	public $first = '<code>|&lt;</code>';
+	public $prev = '<code>&lt;&lt;</code>';
+	public $next = '<code>>></code>';
+	public $last = '<code>>|</code>';
+	public $moreLinks = '...';
+	public $startLinks = '...';
+	public $gridHeader = false;
+	public $htmlSpecialChars = true;
+	public $page = 'Page';
+	public $linkSelectedColor = 'red';
+	public $cache = 0;  #secs to cache with CachePageExecute()
 	
 	//----------------------------------------------
 	// constructor
@@ -60,7 +60,7 @@ class ADODB_Pager {
 	global $PHP_SELF;
 	
 		$curr_page = $id.'_curr_page';
-		if (empty($PHP_SELF)) $PHP_SELF = $_SERVER['PHP_SELF'];
+		if (empty($PHP_SELF)) $PHP_SELF = htmlspecialchars($_SERVER['PHP_SELF']); // htmlspecialchars() to prevent XSS attacks
 		
 		$this->sql = $sql;
 		$this->id = $id;
@@ -70,7 +70,7 @@ class ADODB_Pager {
 		$next_page = $id.'_next_page';	
 		
 		if (isset($_GET[$next_page])) {
-			$_SESSION[$curr_page] = $_GET[$next_page];
+			$_SESSION[$curr_page] = (integer) $_GET[$next_page];
 		}
 		if (empty($_SESSION[$curr_page])) $_SESSION[$curr_page] = 1; ## at first page
 		
@@ -265,10 +265,11 @@ class ADODB_Pager {
 		
 		$grid = $this->RenderGrid();
 		$footer = $this->RenderPageCount();
-		$rs->Close();
-		$this->rs = false;
 		
 		$this->RenderLayout($header,$grid,$footer);
+		
+		$rs->Close();
+		$this->rs = false;
 	}
 	
 	//------------------------------------------------------

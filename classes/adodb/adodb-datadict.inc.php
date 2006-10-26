@@ -1,7 +1,7 @@
 <?php
 
 /**
-  V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -61,6 +61,7 @@ function Lens_ParseArgs($args,$endstmtchar=',',$tokenchars='_.-')
 	$tokens[$stmtno] = array();
 	$max = strlen($args);
 	$quoted = false;
+	$tokarr = array();
 	
 	while ($pos < $max) {
 		$ch = substr($args,$pos,1);
@@ -161,23 +162,23 @@ function Lens_ParseArgs($args,$endstmtchar=',',$tokenchars='_.-')
 
 
 class ADODB_DataDict {
-	var $connection;
-	var $debug = false;
-	var $dropTable = 'DROP TABLE %s';
-	var $renameTable = 'RENAME TABLE %s TO %s'; 
-	var $dropIndex = 'DROP INDEX %s';
-	var $addCol = ' ADD';
-	var $alterCol = ' ALTER COLUMN';
-	var $dropCol = ' DROP COLUMN';
-	var $renameColumn = 'ALTER TABLE %s RENAME COLUMN %s TO %s';	// table, old-column, new-column, column-definitions (not used by default)
-	var $nameRegex = '\w';
-	var $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
-	var $schema = false;
-	var $serverInfo = array();
-	var $autoIncrement = false;
-	var $dataProvider;
-	var $invalidResizeTypes4 = array('CLOB','BLOB','TEXT','DATE','TIME'); // for changetablesql
-	var $blobSize = 100; 	/// any varchar/char field this size or greater is treated as a blob
+	public $connection;
+	public $debug = false;
+	public $dropTable = 'DROP TABLE %s';
+	public $renameTable = 'RENAME TABLE %s TO %s'; 
+	public $dropIndex = 'DROP INDEX %s';
+	public $addCol = ' ADD';
+	public $alterCol = ' ALTER COLUMN';
+	public $dropCol = ' DROP COLUMN';
+	public $renameColumn = 'ALTER TABLE %s RENAME COLUMN %s TO %s';	// table, old-column, new-column, column-definitions (not used by default)
+	public $nameRegex = '\w';
+	public $nameRegexBrackets = 'a-zA-Z0-9_\(\)';
+	public $schema = false;
+	public $serverInfo = array();
+	public $autoIncrement = false;
+	public $dataProvider;
+	public $invalidResizeTypes4 = array('CLOB','BLOB','TEXT','DATE','TIME'); // for changetablesql
+	public $blobSize = 100; 	/// any varchar/char field this size or greater is treated as a blob
 							/// in other words, we use a text area for editting.
 	
 	function GetCommentSQL($table,$col)

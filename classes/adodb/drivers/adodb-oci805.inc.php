@@ -1,6 +1,6 @@
 <?php
 /** 
- * @version V4.66 28 Sept 2005 (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+ * @version V4.93 10 Oct 2006 (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
  * Released under both BSD license and Lesser GPL library license. 
  * Whenever there is any discrepancy between the two licenses, 
  * the BSD license will take precedence. 
@@ -18,8 +18,8 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR.'/drivers/adodb-oci8.inc.php');
 
 class ADODB_oci805 extends ADODB_oci8 {
-	var $databaseType = "oci805";	
-	var $connectSID = true;
+	public $databaseType = "oci805";	
+	public $connectSID = true;
 	
 	function ADODB_oci805() 
 	{
@@ -50,7 +50,7 @@ class ADODB_oci805 extends ADODB_oci8 {
 }
 
 class ADORecordset_oci805 extends ADORecordset_oci8 {	
-	var $databaseType = "oci805";
+	public $databaseType = "oci805";
 	function ADORecordset_oci805($id,$mode=false)
 	{
 		$this->ADORecordset_oci8($id,$mode);

@@ -17,6 +17,20 @@
  * @package axmls
  * @tutorial getting_started.pkg
  */
+ 
+function _file_get_contents($file) 
+{
+ 	if (function_exists('file_get_contents')) return file_get_contents($file);
+	
+	$f = fopen($file,'r');
+	if (!$f) return '';
+	$t = '';
+	
+	while ($s = fread($f,100000)) $t .= $s;
+	fclose($f);
+	return $t;
+}
+
 
 /**
 * Debug on or off
@@ -92,12 +106,12 @@ if( !defined( '_ADODB_LAYER' ) ) {
 class dbObject {
 	
 	/**
-	* var object Parent
+	* public object Parent
 	*/
 	public $parent;
 	
 	/**
-	* var string current element
+	* public string current element
 	*/
 	public $currentElement;
 	
@@ -135,7 +149,7 @@ class dbObject {
 		
 	}
 	
-	function create(&$xmls) {
+	function create() {
 		return array();
 	}
 	
@@ -192,38 +206,38 @@ class dbObject {
 class dbTable extends dbObject {
 	
 	/**
-	* @var string Table name
+	* @public string Table name
 	*/
 	public $name;
 	
 	/**
-	* @var array Field specifier: Meta-information about each field
+	* @public array Field specifier: Meta-information about each field
 	*/
 	public $fields = array();
 	
 	/**
-	* @var array List of table indexes.
+	* @public array List of table indexes.
 	*/
 	public $indexes = array();
 	
 	/**
-	* @var array Table options: Table-level options
+	* @public array Table options: Table-level options
 	*/
 	public $opts = array();
 	
 	/**
-	* @var string Field index: Keeps track of which field is currently being processed
+	* @public string Field index: Keeps track of which field is currently being processed
 	*/
 	public $current_field;
 	
 	/**
-	* @var boolean Mark table for destruction
+	* @public boolean Mark table for destruction
 	* @access private
 	*/
 	public $drop_table;
 	
 	/**
-	* @var boolean Mark field for destruction (not yet implemented)
+	* @public boolean Mark field for destruction (not yet implemented)
 	* @access private
 	*/
 	public $drop_field = array();
@@ -350,7 +364,7 @@ class dbTable extends dbObject {
 	*/
 	function &addIndex( $attributes ) {
 		$name = strtoupper( $attributes['NAME'] );
-		$this->indexes[$name] = new dbIndex( $this, $attributes );
+		$this->indexes[$name] =& new dbIndex( $this, $attributes );
 		return $this->indexes[$name];
 	}
 	
@@ -362,7 +376,7 @@ class dbTable extends dbObject {
 	*/
 	function &addData( $attributes ) {
 		if( !isset( $this->data ) ) {
-			$this->data = new dbData( $this, $attributes );
+			$this->data =& new dbData( $this, $attributes );
 		}
 		return $this->data;
 	}
@@ -598,22 +612,22 @@ class dbTable extends dbObject {
 class dbIndex extends dbObject {
 	
 	/**
-	* @var string	Index name
+	* @public string	Index name
 	*/
 	public $name;
 	
 	/**
-	* @var array	Index options: Index-level options
+	* @public array	Index options: Index-level options
 	*/
 	public $opts = array();
 	
 	/**
-	* @var array	Indexed fields: Table columns included in this index
+	* @public array	Indexed fields: Table columns included in this index
 	*/
 	public $columns = array();
 	
 	/**
-	* @var boolean Mark index for destruction
+	* @public boolean Mark index for destruction
 	* @access private
 	*/
 	public $drop = FALSE;
@@ -921,9 +935,10 @@ class dbData extends dbObject {
 			// check that no required columns are missing
 			if( count( $fields ) < $table_field_count ) {
 				foreach( $table_fields as $field ) {
-					if( ( in_array( 'NOTNULL', $field['OPTS'] ) || in_array( 'KEY', $field['OPTS'] ) ) && !in_array( 'AUTOINCREMENT', $field['OPTS'] ) ) {
-						continue(2);
-					}
+					if (isset( $field['OPTS'] ))
+						if( ( in_array( 'NOTNULL', $field['OPTS'] ) || in_array( 'KEY', $field['OPTS'] ) ) && !in_array( 'AUTOINCREMENT', $field['OPTS'] ) ) {
+							continue(2);
+						}
 				}
 			}
 			
@@ -943,22 +958,22 @@ class dbData extends dbObject {
 class dbQuerySet extends dbObject {
 	
 	/**
-	* @var array	List of SQL queries
+	* @public array	List of SQL queries
 	*/
 	public $queries = array();
 	
 	/**
-	* @var string	String used to build of a query line by line
+	* @public string	String used to build of a query line by line
 	*/
 	public $query;
 	
 	/**
-	* @var string	Query prefix key
+	* @public string	Query prefix key
 	*/
 	public $prefixKey = '';
 	
 	/**
-	* @var boolean	Auto prefix enable (TRUE)
+	* @public boolean	Auto prefix enable (TRUE)
 	*/
 	public $prefixMethod = 'AUTO';
 	
@@ -1201,77 +1216,77 @@ class dbQuerySet extends dbObject {
 class adoSchema {
 	
 	/**
-	* @var array	Array containing SQL queries to generate all objects
+	* @public array	Array containing SQL queries to generate all objects
 	* @access private
 	*/
 	public $sqlArray;
 	
 	/**
-	* @var object	ADOdb connection object
+	* @public object	ADOdb connection object
 	* @access private
 	*/
 	public $db;
 	
 	/**
-	* @var object	ADOdb Data Dictionary
+	* @public object	ADOdb Data Dictionary
 	* @access private
 	*/
 	public $dict;
 	
 	/**
-	* @var string Current XML element
+	* @public string Current XML element
 	* @access private
 	*/
 	public $currentElement = '';
 	
 	/**
-	* @var string If set (to 'ALTER' or 'REPLACE'), upgrade an existing database
+	* @public string If set (to 'ALTER' or 'REPLACE'), upgrade an existing database
 	* @access private
 	*/
 	public $upgrade = '';
 	
 	/**
-	* @var string Optional object prefix
+	* @public string Optional object prefix
 	* @access private
 	*/
 	public $objectPrefix = '';
 	
 	/**
-	* @var long	Original Magic Quotes Runtime value
+	* @public long	Original Magic Quotes Runtime value
 	* @access private
 	*/
 	public $mgq;
 	
 	/**
-	* @var long	System debug
+	* @public long	System debug
 	* @access private
 	*/
 	public $debug;
 	
 	/**
-	* @var string Regular expression to find schema version
+	* @public string Regular expression to find schema version
 	* @access private
 	*/
 	public $versionRegex = '/<schema.*?( version="([^"]*)")?.*?>/';
 	
 	/**
-	* @var string Current schema version
+	* @public string Current schema version
 	* @access private
 	*/
 	public $schemaVersion;
 	
 	/**
-	* @var int	Success of last Schema execution
+	* @public int	Success of last Schema execution
 	*/
 	public $success;
 	
 	/**
-	* @var bool	Execute SQL inline as it is generated
+	* @public bool	Execute SQL inline as it is generated
 	*/
 	public $executeInline;
 	
 	/**
-	* @var bool	Continue SQL execution if errors occur
+	* @public bool	Continue SQL execution if errors occur
 	*/
 	public $continueOnError;
 	
@@ -1428,6 +1443,10 @@ class adoSchema {
 		
 		if ( $returnSchema )
 		{
+			$xmlstring = '';
+			while( $data = fread( $fp, 100000 ) ) {
+				$xmlstring .= $data;
+			}
 			return $xmlstring;
 		}
 		
@@ -1571,6 +1590,7 @@ class adoSchema {
 	* @return array Array of SQL statements or FALSE if an error occurs
 	*/
 	function PrintSQL( $format = 'NONE' ) {
+		$sqlArray = null;
 		return $this->getSQL( $format, $sqlArray );
 	}
 	
@@ -1701,6 +1721,13 @@ class adoSchema {
 		return $result;
 	}
 	
+	// compat for pre-4.3 - jlim
+	function _file_get_contents($path)
+	{
+		if (function_exists('file_get_contents')) return file_get_contents($path);
+		return join('',file($path));
+	}
+	
 	/**
 	* Converts an XML schema file to the specified DTD version.
 	*
@@ -1729,7 +1756,7 @@ class adoSchema {
 		}
 		
 		if( $version == $newVersion ) {
-			$result = file_get_contents( $filename );
+			$result = _file_get_contents( $filename );
 			
 			// remove unicode BOM if present
 			if( substr( $result, 0, 3 ) == sprintf( '%c%c%c', 239, 187, 191 ) ) {
@@ -1768,7 +1795,7 @@ class adoSchema {
 					return FALSE;
 				}
 				
-				$schema = file_get_contents( $schema );
+				$schema = _file_get_contents( $schema );
 				break;
 			case 'string':
 			default:
@@ -1779,7 +1806,7 @@ class adoSchema {
 		
 		$arguments = array (
 			'/_xml' => $schema,
-			'/_xsl' => file_get_contents( $xsl_file )
+			'/_xsl' => _file_get_contents( $xsl_file )
 		);
 		
 		// create an XSLT processor

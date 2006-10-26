@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -18,7 +18,8 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR."/drivers/adodb-ibase.inc.php");
 
 class ADODB_borland_ibase extends ADODB_ibase {
-	var $databaseType = "borland_ibase";	
+	public $databaseType = "borland_ibase";	
+	
 	
 	function ADODB_borland_ibase()
 	{
@@ -81,7 +82,7 @@ class ADODB_borland_ibase extends ADODB_ibase {
 
 class  ADORecordSet_borland_ibase extends ADORecordSet_ibase {	
 	
-	var $databaseType = "borland_ibase";		
+	public $databaseType = "borland_ibase";		
 	
 	function ADORecordSet_borland_ibase($id,$mode=false)
 	{

@@ -1,6 +1,6 @@
 <?php
 /*
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -16,16 +16,16 @@ V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights res
 if (!defined('ADODB_DIR')) die();
 
 class ADODB_oracle extends ADOConnection {
-	var $databaseType = "oracle";
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $concat_operator='||';
-	var $_curs;
-	var $_initdate = true; // init date to YYYY-MM-DD
-	var $metaTablesSQL = 'select table_name from cat';	
-	var $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
-	var $sysDate = "TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')";
-	var $sysTimeStamp = 'SYSDATE';
-	var $connectSID = true;
+	public $databaseType = "oracle";
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $concat_operator='||';
+	public $_curs;
+	public $_initdate = true; // init date to YYYY-MM-DD
+	public $metaTablesSQL = 'select table_name from cat';	
+	public $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
+	public $sysDate = "TO_DATE(TO_CHAR(SYSDATE,'YYYY-MM-DD'),'YYYY-MM-DD')";
+	public $sysTimeStamp = 'SYSDATE';
+	public $connectSID = true;
 	
 	function ADODB_oracle() 
 	{
@@ -45,6 +45,24 @@ class ADODB_oracle extends ADOConnection {
 		if (is_string($ts)) $d = ADORecordSet::UnixTimeStamp($ts);
 		return 'TO_DATE('.adodb_date($this->fmtTimeStamp,$ts).",'RRRR-MM-DD, HH:MI:SS AM')";
 	}
+	
+	
+	function BindDate($d)
+	{
+		$d = ADOConnection::DBDate($d);
+		if (strncmp($d,"'",1)) return $d;
+		
+		return substr($d,1,strlen($d)-2);
+	}
+	
+	function BindTimeStamp($d)
+	{
+		$d = ADOConnection::DBTimeStamp($d);
+		if (strncmp($d,"'",1)) return $d;
+		
+		return substr($d,1,strlen($d)-2);
+	}
+	
 
 	
 	function BeginTrans()
@@ -194,8 +212,8 @@ class ADODB_oracle extends ADOConnection {
 
 class ADORecordset_oracle extends ADORecordSet {
 
-	var $databaseType = "oracle";
-	var $bind = false;
+	public $databaseType = "oracle";
+	public $bind = false;
 
 	function ADORecordset_oracle($queryID,$mode=false)
 	{

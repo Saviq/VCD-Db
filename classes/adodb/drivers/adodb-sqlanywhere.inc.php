@@ -1,6 +1,6 @@
 <?php
 /* 
-version V4.66 28 Sept 2005 (c) 2000-2005  John Lim (jlim@natsoft.com.my).  All rights
+version V4.93 10 Oct 2006 (c) 2000-2006  John Lim (jlim#natsoft.com.my).  All rights
 reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
@@ -19,7 +19,7 @@ Set tabs to 4 for best viewing.
 
 		$dbconn->create_blobvar($blobVarName);
 
-	  b) load blob var from file.  $filename must be complete path
+	  b) load blob public from file.  $filename must be complete path
 
 	  $dbcon->load_blobvar_from_file($blobVarName, $filename);
 
@@ -53,8 +53,8 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')){
  define('ADODB_SYBASE_SQLANYWHERE',1);
 
  class ADODB_sqlanywhere extends ADODB_odbc {
-  	var $databaseType = "sqlanywhere";	
-	var $hasInsertID = true;
+  	public $databaseType = "sqlanywhere";	
+	public $hasInsertID = true;
 	
 	function ADODB_sqlanywhere()
 	{
@@ -154,7 +154,7 @@ if (!defined('ADODB_SYBASE_SQLANYWHERE')){
 
  class  ADORecordSet_sqlanywhere extends ADORecordSet_odbc {	
 
-  var $databaseType = "sqlanywhere";		
+  public $databaseType = "sqlanywhere";		
 
  function ADORecordSet_sqlanywhere($id,$mode=false)
  {

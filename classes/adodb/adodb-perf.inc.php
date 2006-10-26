@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. See License.txt. 
@@ -16,7 +16,7 @@ V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights res
   
 */
 
-if (!defined(ADODB_DIR)) include_once(dirname(__FILE__).'/adodb.inc.php');
+if (!defined('ADODB_DIR')) include_once(dirname(__FILE__).'/adodb.inc.php');
 include_once(ADODB_DIR.'/tohtml.inc.php');
 
 define( 'ADODB_OPT_HIGH', 2);
@@ -62,16 +62,28 @@ function adodb_microtime()
 }
 
 /* sql code timing */
-function& adodb_log_sql(&$conn,$sql,$inputarr)
+function& adodb_log_sql(&$connx,$sql,$inputarr)
 {
-	
     $perf_table = adodb_perf::table();
-	$conn->fnExecute = false;
+	$connx->fnExecute = false;
 	$t0 = microtime();
-	$rs =& $conn->Execute($sql,$inputarr);
+	$rs =& $connx->Execute($sql,$inputarr);
 	$t1 = microtime();
 
-	if (!empty($conn->_logsql)) {
+	if (!empty($connx->_logsql) && (empty($connx->_logsqlErrors) || !$rs)) {
+	global $ADODB_LOG_CONN;
+	
+		if (!empty($ADODB_LOG_CONN)) {
+			$conn = &$ADODB_LOG_CONN;
+			if ($conn->databaseType != $connx->databaseType)
+				$prefix = '/*dbx='.$connx->databaseType .'*/ ';
+			else
+				$prefix = '';
+		} else {
+			$conn =& $connx;
+			$prefix = '';
+		}
+		
 		$conn->_logsql = false; // disable logsql error simulation
 		$dbT = $conn->databaseType;
 		
@@ -84,8 +96,8 @@ function& adodb_log_sql(&$conn,$sql,$inputarr)
 		$time = $a1 - $a0;
 	
 		if (!$rs) {
-			$errM = $conn->ErrorMsg();
-			$errN = $conn->ErrorNo();
+			$errM = $connx->ErrorMsg();
+			$errN = $connx->ErrorNo();
 			$conn->lastInsID = 0;
 			$tracer = substr('ERROR: '.htmlspecialchars($errM),0,250);
 		} else {
@@ -126,6 +138,7 @@ function& adodb_log_sql(&$conn,$sql,$inputarr)
 		}
 		
 		if (is_array($sql)) $sql = $sql[0];
+		if ($prefix) $sql = $prefix.$sql;
 		$arr = array('b'=>strlen($sql).'.'.crc32($sql),
 					'c'=>substr($sql,0,3900), 'd'=>$params,'e'=>$tracer,'f'=>adodb_round($time,6));
 		//var_dump($arr);
@@ -136,7 +149,7 @@ function& adodb_log_sql(&$conn,$sql,$inputarr)
 		if (empty($d)) $d = date("'Y-m-d H:i:s'");
 		if ($conn->dataProvider == 'oci8' && $dbT != 'oci8po') {
 			$isql = "insert into $perf_table values($d,:b,:c,:d,:e,:f)";
-		} else if ($dbT == 'odbc_mssql' || $dbT == 'informix') {
+		} else if ($dbT == 'odbc_mssql' || $dbT == 'informix' || strncmp($dbT,'odbtp',4)==0) {
 			$timer = $arr['f'];
 			if ($dbT == 'informix') $sql2 = substr($sql2,0,230);
 
@@ -149,9 +162,9 @@ function& adodb_log_sql(&$conn,$sql,$inputarr)
 			if ($dbT == 'informix') $isql = str_replace(chr(10),' ',$isql);
 			$arr = false;
 		} else {
+			if ($dbT == 'db2') $arr['f'] = (float) $arr['f'];
 			$isql = "insert into $perf_table (created,sql0,sql1,params,tracer,timer) values( $d,?,?,?,?,?)";
 		}
-
 		$ok = $conn->Execute($isql,$arr);
 		$conn->debug = $saved;
 		
@@ -177,10 +190,10 @@ function& adodb_log_sql(&$conn,$sql,$inputarr)
 				$conn->_logsql = false;
 			}
 		}
-		$conn->_errorMsg = $errM;
-		$conn->_errorCode = $errN;
+		$connx->_errorMsg = $errM;
+		$connx->_errorCode = $errN;
 	} 
-	$conn->fnExecute = 'adodb_log_sql';
+	$connx->fnExecute = 'adodb_log_sql';
 	return $rs;
 }
 
@@ -200,18 +213,18 @@ Each database parameter element in the array is itself an array consisting of:
 */
 
 class adodb_perf {
-	var $conn;
-	var $color = '#F0F0F0';
-	var $table = '<table border=1 bgcolor=white>';
-	var $titles = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
-	var $warnRatio = 90;
-	var $tablesSQL = false;
-	var $cliFormat = "%32s => %s \r\n";
-	var $sql1 = 'sql1';  // used for casting sql1 to text for mssql
-	var $explain = true;
-	var $helpurl = "<a href=http://phplens.com/adodb/reference.functions.fnexecute.and.fncacheexecute.properties.html#logsql>LogSQL help</a>";
-	var $createTableSQL = false;
-	var $maxLength = 2000;
+	public $conn;
+	public $color = '#F0F0F0';
+	public $table = '<table border=1 bgcolor=white>';
+	public $titles = '<tr><td><b>Parameter</b></td><td><b>Value</b></td><td><b>Description</b></td></tr>';
+	public $warnRatio = 90;
+	public $tablesSQL = false;
+	public $cliFormat = "%32s => %s \r\n";
+	public $sql1 = 'sql1';  // used for casting sql1 to text for mssql
+	public $explain = true;
+	public $helpurl = "<a href=http://phplens.com/adodb/reference.functions.fnexecute.and.fncacheexecute.properties.html#logsql>LogSQL help</a>";
+	public $createTableSQL = false;
+	public $maxLength = 2000;
 	
     // Sets the tablename to be used            
     function table($newtable = false)
@@ -314,7 +327,7 @@ Committed_AS:   348732 kB
 	/*
 		Remember that this is client load, not db server load!
 	*/
-	var $_lastLoad;
+	public $_lastLoad;
 	function CPULoad()
 	{
 		$info = $this->_CPULoad();
@@ -588,7 +601,7 @@ Committed_AS:   348732 kB
 			
 			$rs = $this->conn->Execute($sql1);
 			
-			if (isset($savem)) $this->SetFetchMode($savem);
+			if (isset($savem)) $this->conn->SetFetchMode($savem);
 			$ADODB_FETCH_MODE = $save;
 			if ($rs) {
 				while (!$rs->EOF) {
@@ -860,8 +873,10 @@ Committed_AS:   348732 kB
 	{
 		if (!$this->createTableSQL) return false;
 		
+		$table = $this->table();
+		$sql = str_replace('adodb_logsql',$table,$this->createTableSQL);
 		$savelog = $this->conn->LogSQL(false);
-		$ok = $this->conn->Execute($this->createTableSQL);
+		$ok = $this->conn->Execute($sql);
 		$this->conn->LogSQL($savelog);
 		return ($ok) ? true : false;
 	}
@@ -949,7 +964,7 @@ Committed_AS:   348732 kB
 		return $arr;
 	}
 	
-	function undomq(&$m) 
+	function undomq($m) 
 	{
 	if (get_magic_quotes_gpc()) {
 		// undo the damage

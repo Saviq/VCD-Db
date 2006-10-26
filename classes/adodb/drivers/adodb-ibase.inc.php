@@ -1,6 +1,6 @@
 <?php
 /*
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.  
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.  
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -27,32 +27,32 @@ V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights res
 if (!defined('ADODB_DIR')) die();
 
 class ADODB_ibase extends ADOConnection {
-	var $databaseType = "ibase";
-	var $dataProvider = "ibase";
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $ibase_datefmt = '%Y-%m-%d'; // For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
-	var $fmtDate = "'Y-m-d'";
-	var $ibase_timestampfmt = "%Y-%m-%d %H:%M:%S";
-	var $ibase_timefmt = "%H:%M:%S";
-	var $fmtTimeStamp = "'Y-m-d, H:i:s'";
-	var $concat_operator='||';
-	var $_transactionID;
-	var $metaTablesSQL = "select rdb\$relation_name from rdb\$relations where rdb\$relation_name not like 'RDB\$%'";
+	public $databaseType = "ibase";
+	public $dataProvider = "ibase";
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $ibase_datefmt = '%Y-%m-%d'; // For hours,mins,secs change to '%Y-%m-%d %H:%M:%S';
+	public $fmtDate = "'Y-m-d'";
+	public $ibase_timestampfmt = "%Y-%m-%d %H:%M:%S";
+	public $ibase_timefmt = "%H:%M:%S";
+	public $fmtTimeStamp = "'Y-m-d, H:i:s'";
+	public $concat_operator='||';
+	public $_transactionID;
+	public $metaTablesSQL = "select rdb\$relation_name from rdb\$relations where rdb\$relation_name not like 'RDB\$%'";
 	//OPN STUFF start
-	var $metaColumnsSQL = "select a.rdb\$field_name, a.rdb\$null_flag, a.rdb\$default_source, b.rdb\$field_length, b.rdb\$field_scale, b.rdb\$field_sub_type, b.rdb\$field_precision, b.rdb\$field_type from rdb\$relation_fields a, rdb\$fields b where a.rdb\$field_source = b.rdb\$field_name and a.rdb\$relation_name = '%s' order by a.rdb\$field_position asc";
+	public $metaColumnsSQL = "select a.rdb\$field_name, a.rdb\$null_flag, a.rdb\$default_source, b.rdb\$field_length, b.rdb\$field_scale, b.rdb\$field_sub_type, b.rdb\$field_precision, b.rdb\$field_type from rdb\$relation_fields a, rdb\$fields b where a.rdb\$field_source = b.rdb\$field_name and a.rdb\$relation_name = '%s' order by a.rdb\$field_position asc";
 	//OPN STUFF end
-	var $ibasetrans;
-	var $hasGenID = true;
-	var $_bindInputArray = true;
-	var $buffers = 0;
-	var $dialect = 1;
-	var $sysDate = "cast('TODAY' as timestamp)";
-	var $sysTimeStamp = "cast('NOW' as timestamp)";
-	var $ansiOuter = true;
-	var $hasAffectedRows = false;
-	var $poorAffectedRows = true;
-	var $blobEncodeType = 'C';
-	var $role = false;
+	public $ibasetrans;
+	public $hasGenID = true;
+	public $_bindInputArray = true;
+	public $buffers = 0;
+	public $dialect = 1;
+	public $sysDate = "cast('TODAY' as timestamp)";
+	public $sysTimeStamp = "CURRENT_TIMESTAMP"; //"cast('NOW' as timestamp)";
+	public $ansiOuter = true;
+	public $hasAffectedRows = false;
+	public $poorAffectedRows = true;
+	public $blobEncodeType = 'C';
+	public $role = false;
 	
 	function ADODB_ibase() 
 	{
@@ -215,7 +215,7 @@ class ADODB_ibase extends ADOConnection {
             return $false;
         }
         
-        $indexes = array ();
+        $indexes = array();
 		while ($row = $rs->FetchRow()) {
 			$index = $row[0];
              if (!isset($indexes[$index])) {
@@ -225,7 +225,7 @@ class ADODB_ibase extends ADOConnection {
                              'columns' => array()
                      );
              }
-			$sql = "SELECT * FROM RDB\$INDEX_SEGMENTS WHERE RDB\$INDEX_NAME = '".$name."' ORDER BY RDB\$FIELD_POSITION ASC";
+			$sql = "SELECT * FROM RDB\$INDEX_SEGMENTS WHERE RDB\$INDEX_NAME = '".$index."' ORDER BY RDB\$FIELD_POSITION ASC";
 			$rs1 = $this->Execute($sql);
             while ($row1 = $rs1->FetchRow()) {
              	$indexes[$index]['columns'][$row1[2]] = $row1[1];
@@ -556,9 +556,9 @@ class ADODB_ibase extends ADOConnection {
 	
 	// old blobdecode function
 	// still used to auto-decode all blob's
-	function _BlobDecode( $blob ) 
+	function _BlobDecode_old( $blob ) 
 	{
-		$blobid = ibase_blob_open( $blob );
+		$blobid = ibase_blob_open($this->_connectionID, $blob );
 		$realblob = ibase_blob_get( $blobid,$this->maxblobsize); // 2nd param is max size of blob -- Kevin Boillet <kevinboillet@yahoo.fr>
 		while($string = ibase_blob_get($blobid, 8192)){ 
 			$realblob .= $string; 
@@ -567,6 +567,32 @@ class ADODB_ibase extends ADOConnection {
 
 		return( $realblob );
 	} 
+	
+	function _BlobDecode( $blob ) 
+    {
+        if  (ADODB_PHPVER >= 0x5000) {
+            $blob_data = ibase_blob_info($this->_connectionID, $blob );
+            $blobid = ibase_blob_open($this->_connectionID, $blob );
+        } else {
+
+            $blob_data = ibase_blob_info( $blob );
+            $blobid = ibase_blob_open( $blob );
+        }
+
+        if( $blob_data[0] > $this->maxblobsize ) {
+
+            $realblob = ibase_blob_get($blobid, $this->maxblobsize);
+
+            while($string = ibase_blob_get($blobid, 8192)){
+                $realblob .= $string; 
+            }
+        } else {
+            $realblob = ibase_blob_get($blobid, $blob_data[0]);
+        }
+
+        ibase_blob_close( $blobid );
+        return( $realblob );
+	}
 	
 	function UpdateBlobFile($table,$column,$path,$where,$blobtype='BLOB') 
 	{ 
@@ -700,9 +726,9 @@ class ADODB_ibase extends ADOConnection {
 class ADORecordset_ibase extends ADORecordSet
 {
 
-	var $databaseType = "ibase";
-	var $bind=false;
-	var $_cacheType;
+	public $databaseType = "ibase";
+	public $bind=false;
+	public $_cacheType;
 	
 	function ADORecordset_ibase($id,$mode=false)
 	{

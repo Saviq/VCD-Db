@@ -1,6 +1,6 @@
 <?php
 /*
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -17,11 +17,11 @@ if (! defined("_ADODB_PROXY_LAYER")) {
 	 include(ADODB_DIR."/drivers/adodb-csv.inc.php");
 	 
 	class ADODB_proxy extends ADODB_csv {
-		var $databaseType = 'proxy';
-		var $databaseProvider = 'csv';
+		public $databaseType = 'proxy';
+		public $databaseProvider = 'csv';
 	}
 	class ADORecordset_proxy extends ADORecordset_csv {
-	var $databaseType = "proxy";		
+	public $databaseType = "proxy";		
 	
 		function ADORecordset_proxy($id,$mode=false) 
 		{

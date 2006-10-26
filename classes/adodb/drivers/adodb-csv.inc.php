@@ -1,6 +1,6 @@
 <?php
 /*
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -24,17 +24,17 @@ if (! defined("_ADODB_CSV_LAYER")) {
 include_once(ADODB_DIR.'/adodb-csvlib.inc.php');
  
 class ADODB_csv extends ADOConnection {
-	var $databaseType = 'csv';
-	var $databaseProvider = 'csv';
-	var $hasInsertID = true;
-	var $hasAffectedRows = true;	
-	var $fmtTimeStamp = "'Y-m-d H:i:s'";
-	var $_affectedrows=0;
-	var $_insertid=0;
-	var $_url;
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $hasTransactions = false;
-	var $_errorNo = false;
+	public $databaseType = 'csv';
+	public $databaseProvider = 'csv';
+	public $hasInsertID = true;
+	public $hasAffectedRows = true;	
+	public $fmtTimeStamp = "'Y-m-d H:i:s'";
+	public $_affectedrows=0;
+	public $_insertid=0;
+	public $_url;
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $hasTransactions = false;
+	public $_errorNo = false;
 	
 	function ADODB_csv() 
 	{		

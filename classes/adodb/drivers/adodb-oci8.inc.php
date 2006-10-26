@@ -1,7 +1,7 @@
 <?php
 /*
 
-  version V4.66 28 Sept 2005 (c) 2000-2005 John Lim. All rights reserved.
+  version V4.93 10 Oct 2006 (c) 2000-2006 John Lim. All rights reserved.
 
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
@@ -53,40 +53,41 @@ function oci_lob_desc($type) {
 }
 
 class ADODB_oci8 extends ADOConnection {
-	var $databaseType = 'oci8';
-	var $dataProvider = 'oci8';
-	var $replaceQuote = "''"; // string to use to replace quotes
-	var $concat_operator='||';
-	var $sysDate = "TRUNC(SYSDATE)";
-	var $sysTimeStamp = 'SYSDATE';
-	var $metaDatabasesSQL = "SELECT USERNAME FROM ALL_USERS WHERE USERNAME NOT IN ('SYS','SYSTEM','DBSNMP','OUTLN') ORDER BY 1";
-	var $_stmt;
-	var $_commit = OCI_COMMIT_ON_SUCCESS;
-	var $_initdate = true; // init date to YYYY-MM-DD
-	var $metaTablesSQL = "select table_name,table_type from cat where table_type in ('TABLE','VIEW')";
-	var $metaColumnsSQL = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
-	var $_bindInputArray = true;
-	var $hasGenID = true;
-	var $_genIDSQL = "SELECT (%s.nextval) FROM DUAL";
-	var $_genSeqSQL = "CREATE SEQUENCE %s START WITH %s";
-	var $_dropSeqSQL = "DROP SEQUENCE %s";
-	var $hasAffectedRows = true;
-	var $random = "abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)";
-	var $noNullStrings = false;
-	var $connectSID = false;
-	var $_bind = false;
-	var $_hasOCIFetchStatement = false;
-	var $_getarray = false; // currently not working
-	var $leftOuter = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
-	var $session_sharing_force_blob = false; // alter session on updateblob if set to true 
-	var $firstrows = true; // enable first rows optimization on SelectLimit()
-	var $selectOffsetAlg1 = 100; // when to use 1st algorithm of selectlimit.
-	var $NLS_DATE_FORMAT = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
- 	var $useDBDateFormatForTextInput=false;
-	var $datetime = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
-	var $_refLOBs = array();
+	public $databaseType = 'oci8';
+	public $dataProvider = 'oci8';
+	public $replaceQuote = "''"; // string to use to replace quotes
+	public $concat_operator='||';
+	public $sysDate = "TRUNC(SYSDATE)";
+	public $sysTimeStamp = 'SYSDATE';
+	public $metaDatabasesSQL = "SELECT USERNAME FROM ALL_USERS WHERE USERNAME NOT IN ('SYS','SYSTEM','DBSNMP','OUTLN') ORDER BY 1";
+	public $_stmt;
+	public $_commit = OCI_COMMIT_ON_SUCCESS;
+	public $_initdate = true; // init date to YYYY-MM-DD
+	public $metaTablesSQL = "select table_name,table_type from cat where table_type in ('TABLE','VIEW') and table_name not like 'BIN\$%'"; // bin$ tables are recycle bin tables
+	public $metaColumnsSQL = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
+	public $_bindInputArray = true;
+	public $hasGenID = true;
+	public $_genIDSQL = "SELECT (%s.nextval) FROM DUAL";
+	public $_genSeqSQL = "CREATE SEQUENCE %s START WITH %s";
+	public $_dropSeqSQL = "DROP SEQUENCE %s";
+	public $hasAffectedRows = true;
+	public $random = "abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)";
+	public $noNullStrings = false;
+	public $connectSID = false;
+	public $_bind = false;
+	public $_nestedSQL = true;
+	public $_hasOCIFetchStatement = false;
+	public $_getarray = false; // currently not working
+	public $leftOuter = '';  // oracle wierdness, $col = $value (+) for LEFT OUTER, $col (+)= $value for RIGHT OUTER
+	public $session_sharing_force_blob = false; // alter session on updateblob if set to true 
+	public $firstrows = true; // enable first rows optimization on SelectLimit()
+	public $selectOffsetAlg1 = 100; // when to use 1st algorithm of selectlimit.
+	public $NLS_DATE_FORMAT = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
+ 	public $useDBDateFormatForTextInput=false;
+	public $datetime = false; // MetaType('DATE') returns 'D' (datetime==false) or 'T' (datetime == true)
+	public $_refLOBs = array();
 	
-	// var $ansiOuter = true; // if oracle9
+	// public $ansiOuter = true; // if oracle9
     
 	function ADODB_oci8() 
 	{
@@ -118,8 +119,8 @@ class ADODB_oci8 extends ADOConnection {
 	   		$fld->type = $rs->fields[1];
 	   		$fld->max_length = $rs->fields[2];
 			$fld->scale = $rs->fields[3];
-			if ($rs->fields[1] == 'NUMBER' && $rs->fields[3] == 0) {
-				$fld->type ='INT';
+			if ($rs->fields[1] == 'NUMBER') {
+				if ($rs->fields[3] == 0) $fld->type = 'INT';
 	     		$fld->max_length = $rs->fields[4];
 	    	}	
 		   	$fld->not_null = (strncmp($rs->fields[5], 'NOT',3) === 0);
@@ -195,7 +196,7 @@ NATSOFT.DOMAIN =
 				   	$argHostname=$argHostinfo[0];
 					$argHostport=$argHostinfo[1];
 			 	} else {
-					$argHostport="1521";
+					$argHostport = empty($this->port)?  "1521" : $this->port;
 	   			}
 				
 				if ($this->connectSID) {
@@ -278,6 +279,21 @@ NATSOFT.DOMAIN =
 		return "TO_DATE(".adodb_date($this->fmtDate,$d).",'".$this->NLS_DATE_FORMAT."')";
 	}
 
+	function BindDate($d)
+	{
+		$d = ADOConnection::DBDate($d);
+		if (strncmp($d,"'",1)) return $d;
+		
+		return substr($d,1,strlen($d)-2);
+	}
+	
+	function BindTimeStamp($d)
+	{
+		$d = ADOConnection::DBTimeStamp($d);
+		if (strncmp($d,"'",1)) return $d;
+		
+		return substr($d,1,strlen($d)-2);
+	}
 	
 	// format and return date string in database timestamp format
 	function DBTimeStamp($ts)
@@ -298,7 +314,7 @@ NATSOFT.DOMAIN =
 		if ($mask) {
 			$save = $this->metaTablesSQL;
 			$mask = $this->qstr(strtoupper($mask));
-			$this->metaTablesSQL .= " AND table_name like $mask";
+			$this->metaTablesSQL .= " AND upper(table_name) like $mask";
 		}
 		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
 		
@@ -381,6 +397,8 @@ NATSOFT.DOMAIN =
 		$this->transCnt += 1;
 		$this->autoCommit = false;
 		$this->_commit = OCI_DEFAULT;
+		
+		if ($this->_transmode) $this->Execute("SET TRANSACTION ".$this->_transmode);
 		return true;
 	}
 	
@@ -502,6 +520,10 @@ NATSOFT.DOMAIN =
 				
 			case 'l':
 				$s .= 'DAY';
+				break;
+				
+			 case 'W':
+				$s .= 'WW';
 				break;
 				
 			default:
@@ -633,7 +655,7 @@ NATSOFT.DOMAIN =
 	* Usage:
 	* Store BLOBs and CLOBs
 	*
-	* Example: to store $var in a blob
+	* Example: to store $public in a blob
 	*
 	*	$conn->Execute('insert into TABLE (id,ablob) values(12,empty_blob())');
 	*	$conn->UpdateBlob('TABLE', 'ablob', $varHoldingBlob, 'ID=12', 'BLOB');
@@ -681,7 +703,7 @@ NATSOFT.DOMAIN =
 	}
 	
 	/**
-	* Usage:  store file pointed to by $var in a blob
+	* Usage:  store file pointed to by $public in a blob
 	*/
 	function UpdateBlobFile($table,$column,$val,$where,$blobtype='BLOB')
 	{
@@ -793,6 +815,7 @@ NATSOFT.DOMAIN =
 	
 		if (is_array($stmt) && sizeof($stmt) >= 5) {
 			$hasref = true;
+			$ignoreCur = false;
 			$this->Parameter($stmt, $ignoreCur, $cursorName, false, -1, OCI_B_CURSOR);
 			if ($params) {
 				foreach($params as $k => $v) {
@@ -865,12 +888,12 @@ NATSOFT.DOMAIN =
 			$tmp = &$this->_refLOBs[$numlob]['LOB'];
 	        $rez = OCIBindByName($stmt[1], ":".$name, $tmp, -1, $type);
 			if ($this->debug) {
-				ADOConnection::outp("<b>Bind</b>: descriptor has been allocated, var (".$name.") binded");
+				ADOConnection::outp("<b>Bind</b>: descriptor has been allocated, public (".$name.") binded");
 			}
 			
 			// if type is input then write data to lob now
 			if ($isOutput == false) {
-				$var = $this->BlobEncode($var);
+				$public = $this->BlobEncode($var);
 				$tmp->WriteTemporary($var);
 				$this->_refLOBs[$numlob]['VAR'] = &$var;
 				if ($this->debug) {
@@ -904,7 +927,7 @@ NATSOFT.DOMAIN =
 		$db->Execute($stmt);
 		
 		@param $stmt Statement returned by Prepare() or PrepareSP().
-		@param $var PHP variable to bind to
+		@param $public PHP variable to bind to
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in oci8.
 		@param [$maxLen] Holds an maximum length of the variable.
@@ -1184,11 +1207,11 @@ SELECT /*+ RULE */ distinct b.column_name
 
 class ADORecordset_oci8 extends ADORecordSet {
 
-	var $databaseType = 'oci8';
-	var $bind=false;
-	var $_fieldobjs;
+	public $databaseType = 'oci8';
+	public $bind=false;
+	public $_fieldobjs;
 	
-	//var $_arr = false;
+	//public $_arr = false;
 		
 	function ADORecordset_oci8($queryID,$mode=false)
 	{

@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.66 28 Sept 2005  (c) 2000-2005 John Lim (jlim@natsoft.com.my). All rights reserved.
+V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -22,14 +22,14 @@ if (!defined('ADODB_SAPDB')){
 define('ADODB_SAPDB',1);
 
 class ADODB_SAPDB extends ADODB_odbc {
-	var $databaseType = "sapdb";	
-	var $concat_operator = '||';
-	var $sysDate = 'DATE';
-	var $sysTimeStamp = 'TIMESTAMP';
-	var $fmtDate = "'Y-m-d'";	/// used by DBDate() as the default date format used by the database
-	var $fmtTimeStamp = "'Y-m-d H:i:s'"; /// used by DBTimeStamp as the default timestamp fmt.
-	var $hasInsertId = true;
-	var $_bindInputArray = true;
+	public $databaseType = "sapdb";	
+	public $concat_operator = '||';
+	public $sysDate = 'DATE';
+	public $sysTimeStamp = 'TIMESTAMP';
+	public $fmtDate = "'Y-m-d'";	/// used by DBDate() as the default date format used by the database
+	public $fmtTimeStamp = "'Y-m-d H:i:s'"; /// used by DBTimeStamp as the default timestamp fmt.
+	public $hasInsertId = true;
+	public $_bindInputArray = true;
 	
 	function ADODB_SAPDB()
 	{
@@ -172,7 +172,7 @@ class ADODB_SAPDB extends ADODB_odbc {
 
 class  ADORecordSet_sapdb extends ADORecordSet_odbc {	
 	
-	var $databaseType = "sapdb";		
+	public $databaseType = "sapdb";		
 	
 	function ADORecordSet_sapdb($id,$mode=false)
 	{
