@@ -265,7 +265,7 @@
 					printRow($item['filename']);
 					printRow($item['num']);
 					
-					if (in_array($item['id'], $arrAvailableLangs)) {
+					if (!$ClassLanguage->isRestricted() || in_array($item['id'], $arrAvailableLangs)) {
 						printRow("<input type=\"checkbox\" name=\"languages[]\" value=\"{$item['id']}\" checked=\"checked\"/>");
 					} else {
 						printRow("<input type=\"checkbox\" name=\"languages[]\" value=\"{$item['id']}\"/>");

@@ -210,8 +210,15 @@ class VCDLanguage {
 			}
 		}
 		
-		
-		throw new Exception("Could not load language with ID " . $strLanguageID);
+		// English not available in the list .. then force en_EN include
+		try {
+			$this->primaryLanguage = new _VCDLanguageItem($this->createDefaultElement());
+			$this->primaryLanguage->getKeys();
+			$this->fallbackLanguage = &$this->primaryLanguage;
+			$_SESSION['vcdlang'] = self::FALLBACK_ID;
+		} catch (Exception $ex) {
+			throw new Exception("Could not load language with ID " . $strLanguageID);
+		}
 	}
 	
 	/**
@@ -222,7 +229,6 @@ class VCDLanguage {
 	 * @return string | The translated phrase
 	 */
 	public function doTranslate($key) {
-		//return $this->test[$key];
 		$strValue = $this->primaryLanguage[$key];
 		if (!is_null($strValue)) {
 			return $strValue;
@@ -313,16 +319,25 @@ class VCDLanguage {
 	 * @return The translated language phrase
 	 */
 	private function fallbackTranslate($key) {
+		$bIsloaded = false;
 		if (!$this->fallbackLanguage instanceof _VCDLanguageItem) {
 			foreach($this->arrLanguages as $obj) {
 				if (strcmp($obj->getID(), self::FALLBACK_ID ) == 0) {
 					$this->fallbackLanguage = $obj;
 					$this->fallbackLanguage->getKeys();
+					$bIsloaded = true;
 					break;
 				}
 			}
 		}
 		
+		if (!$bIsloaded) {
+			// If fallbacklanguge could not be loaded .. then force the load
+			$this->fallbackLanguage = new _VCDLanguageItem($this->createDefaultElement());
+			$this->fallbackLanguage->getKeys();
+		}
+		
+				
 		$strValue = $this->fallbackLanguage[$key];
 		if (!is_null($strValue)) {
 			return $strValue;
@@ -331,6 +346,12 @@ class VCDLanguage {
 		}
 	}
 	
+	
+	private function createDefaultElement() {
+		$xmlElement = "<language id=\"en_EN\" charset=\"UTF-8\"><name>English</name>";
+		$xmlElement .= "<native>English</native><author>Konni</author></language>";
+		return simplexml_load_string($xmlElement);
+	}
 	
 	/**
 	 * Search folder for files with certain extensions defined in the $fileregex parameter.
@@ -349,7 +370,7 @@ class VCDLanguage {
 	   	$all = opendir($location);
 	   	while ($file = readdir($all)) {
 	       	if (is_dir($location.'/'.$file) and $file <> ".." and $file <> ".") {
-	         	$subdir_matches = $this->findfile($location.'/'.$file,$fileregex);
+	         	$subdir_matches = $this->findfiles($location.'/'.$file,$fileregex);
 	         	$matchedfiles = array_merge($matchedfiles,$subdir_matches);
 	         	unset($file);
 	       	}
