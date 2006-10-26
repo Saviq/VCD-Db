@@ -38,15 +38,15 @@ if ($dbCompatible) {
 
 <form name="discjoin" method="post" action="./?page=private&amp;o=movies&amp;do=diff&amp;show=results">
 <span class="bold" style="padding-left:7px">
-	<?= language::translate('MY_JOINMOVIES') ?>
+	<?= VCDLanguage::translate('mymovies.joinmovies') ?>
 </span>
 <table cellspacing="0" cellpadding="0" border="0" width="100%" class="list">
 <tr>
-	<td>1) <?= language::translate('MY_JOINSUSER') ?></td>
+	<td>1) <?= VCDLanguage::translate('mymovies.joinsuser') ?></td>
 	<td><? 
 		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
-		print "<option value=\"null\">".language::translate('X_SELECT')."</option>";
+		print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
 		foreach ($USERClass->getActiveUsers() as $userObj) {
 			
 			$sel = "";
@@ -60,10 +60,10 @@ if ($dbCompatible) {
 	?></td>
 </tr>
 <tr>
-	<td>2) <?= language::translate('MY_JOINSMEDIA') ?></td>
+	<td>2) <?= VCDLanguage::translate('mymovies.joinsmedia') ?></td>
 	<td><? 
 		print "<select name=\"mediatype\" size=\"1\">";
-		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
+		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
 		foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
 			
 			$sel = "";
@@ -87,10 +87,10 @@ if ($dbCompatible) {
 		print "</select>"; ?></td>
 </tr>
 <tr>
-	<td>3) <?= language::translate('MY_JOINSCAT') ?></td>
+	<td>3) <?= VCDLanguage::translate('mymovies.joinscat') ?></td>
 	<td><? 
 		print "<select name=\"category\" size=\"1\">";
-		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
+		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
 		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
 			
 			$sel = "";
@@ -104,20 +104,20 @@ if ($dbCompatible) {
 		print "</select>"; ?></td>
 </tr>
 <tr>
-	<td>4) <?= language::translate('MY_JOINSTYPE') ?></td>
+	<td>4) <?= VCDLanguage::translate('mymovies.joinstype') ?></td>
 	<td>
 	<select name="method">
-		<option value="null"><?=language::translate('X_SELECT')?></option>
-		<option value="1" <?if ($s_meth == 1) { print "selected";}?>><?=language::translate('MY_J1')?></option>
-		<option value="2" <?if ($s_meth == 2) { print "selected";}?>><?=language::translate('MY_J2')?></option>
-		<option value="3" <?if ($s_meth == 3) { print "selected";}?>><?=language::translate('MY_J3')?></option>
+		<option value="null"><?=VCDLanguage::translate('misc.select')?></option>
+		<option value="1" <?if ($s_meth == 1) { print "selected";}?>><?=VCDLanguage::translate('mymovies.j1')?></option>
+		<option value="2" <?if ($s_meth == 2) { print "selected";}?>><?=VCDLanguage::translate('mymovies.j2')?></option>
+		<option value="3" <?if ($s_meth == 3) { print "selected";}?>><?=VCDLanguage::translate('mymovies.j3')?></option>
 	</select>
 	
 	</td>
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="<?=language::translate('MY_JOINSHOW')?>"/></td>
+	<td><input type="submit" value="<?=VCDLanguage::translate('mymovies.joinshow')?>"/></td>
 </tr>
 </table>
 </form>

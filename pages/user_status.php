@@ -8,7 +8,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>VCD Gallery</title>
+<title>VCD-db</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?=VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<script src="../includes/js/main.js" type="text/javascript"></script>
@@ -90,7 +90,7 @@
 		print "</tr>";
 
 		print "</table>";
-		$language = new language(true);
+		$language = new VCDLanguage();
 		if (isset($_SESSION['vcdlang'])) {
 			$language->load($_SESSION['vcdlang']);
 		}
@@ -100,7 +100,7 @@
 	?>
 
 		<br/><hr/>
-		<p align="center"><input onclick="window.close()" type="button" value="<?=language::translate('X_CLOSE')?>"/></p>
+		<p align="center"><input onclick="window.close()" type="button" value="<?=VCDLanguage::translate('misc.close')?>"/></p>
 
 
 </body>

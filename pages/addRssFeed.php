@@ -6,7 +6,7 @@
 		exit();
 	}
 
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -22,14 +22,14 @@
         "http://www.w3.org/TR/2000/REC-xhtml1-20000126/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title><?=language::translate('RSS_ADD')?></title>
+	<title><?=VCDLanguage::translate('rss.add')?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?=VCDUtils::getCharSet()?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?=STYLE?>style.css"/>
 	<script language="JavaScript" src="../includes/js/main.js" type="text/javascript"></script>
 
 </head>
 <body onload="window.focus()">
-<h2><?=language::translate('RSS')?></h2>
+<h2><?=VCDLanguage::translate('rss.rss')?></h2>
 
 <ul>
 
@@ -46,11 +46,11 @@
 	} else {
 	?>
 	<form name="rss" action="addRssFeed.php?action=fetch" method="POST">
-	<?=language::translate('RSS_NOTE')?>
+	<?=VCDLanguage::translate('rss.note')?>
 	<p>
 
-	<input type="text" size="30" name="feedurl" value="http://" class="input">&nbsp;
-	<input type="submit" value="<?=language::translate('RSS_FETCH')?>" class="inp">
+	<input type="text" size="30" name="feedurl" value="http://" class="input"/>&nbsp;
+	<input type="submit" value="<?=VCDLanguage::translate('rss.fetch')?>" class="inp"/>
 
 	</p>
 	</form>

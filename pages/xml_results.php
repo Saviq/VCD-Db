@@ -22,11 +22,11 @@
 	} else {
 	?>
 	
-	<p><span class="bold"><? printf(language::translate('XML_RESULTS2'), sizeof($xmlResults)) ?></span></p>
+	<p><span class="bold"><? printf(VCDLanguage::translate('xml.results2'), sizeof($xmlResults)) ?></span></p>
 	<br/><br/>
 	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
 	<tr>
-		<td class="bold"><?=language::translate('X_STATUS')?></td><td class="bold"><?=language::translate('M_TITLE')?></td><td class="bold">Thumbnail</td>
+		<td class="bold"><?=VCDLanguage::translate('misc.status')?></td><td class="bold"><?=VCDLanguage::translate('movie.title')?></td><td class="bold">Thumbnail</td>
 	</tr>
 	<?
 		foreach ($xmlResults as $resultArr) {
@@ -35,15 +35,15 @@
 			$thumbs = $resultArr['thumb'];
 			
 			if ($status == 1) {
-				$strStatus = language::translate('X_SUCCESS');
+				$strStatus = VCDLanguage::translate('misc.success');
 			} else {
-				$strStatus = "<span style=\"color:red\">".language::translate('X_FAILURE')."</a>";
+				$strStatus = "<span style=\"color:red\">".VCDLanguage::translate('misc.failure')."</a>";
 			}
 			
 			if ($thumbs == 1) {
-				$strThumbs = language::translate('X_YES');
+				$strThumbs = VCDLanguage::translate('misc.yes');
 			} else {
-				$strThumbs = language::translate('X_NO');
+				$strThumbs = VCDLanguage::translate('misc.no');
 			}
 			
 			print "<tr><td>".$strStatus."</td><td>".$title."</td><td>".$strThumbs."</td></tr>";

@@ -12,9 +12,9 @@
 	$imagemode = false;
 	if (isset($_GET['viewmode'])) {
 		$imagemode = true;
-		$viewbar = "(<a href=\"./?page=".$CURRENT_PAGE."&amp;studio_id=".$cat_id."\">".language::translate('M_TEXTVIEW')."</a> / ".language::translate('M_IMAGEVIEW').")";		
+		$viewbar = "(<a href=\"./?page=".$CURRENT_PAGE."&amp;studio_id=".$cat_id."\">".VCDLanguage::translate('movie.textview')."</a> / ".VCDLanguage::translate('movie.imageview').")";		
 	} else {
-		$viewbar = "(".language::translate('M_TEXTVIEW')." / <a href=\"./?page=".$CURRENT_PAGE."&amp;studio_id=".$cat_id."&amp;viewmode=img\">".language::translate('M_IMAGEVIEW')."</a>)";
+		$viewbar = "(".VCDLanguage::translate('movie.textview')." / <a href=\"./?page=".$CURRENT_PAGE."&amp;studio_id=".$cat_id."&amp;viewmode=img\">".VCDLanguage::translate('movie.imageview')."</a>)";
 	}
 	
 	
@@ -65,7 +65,7 @@
 		if (!$imagemode) {
 			
 			print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" class=\"displist\">";
-			print "<tr><td class=\"header\">".language::translate('M_TITLE')."</td><td class=\"header\" nowrap=\"nowrap\">".language::translate('M_YEAR')."</td><td class=\"header\">Screens</td></tr>";
+			print "<tr><td class=\"header\">".VCDLanguage::translate('movie.title')."</td><td class=\"header\" nowrap=\"nowrap\">".VCDLanguage::translate('movie.year')."</td><td class=\"header\">Screens</td></tr>";
 				
 			foreach ($movies as $movie) {
 				

@@ -1,6 +1,4 @@
 <?
-
-
 	$CLASSSettings = VCDClassFactory::getInstance("vcd_settings");
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 
@@ -12,15 +10,13 @@
 
 ?>
 
-<h1><?=language::translate('MENU_STATISTICS')?></h1>
-
+<h1><?=VCDLanguage::translate('menu.statistics')?></h1>
 
 <?
 
-
 	// Translate category names
 	$mapping = getCategoryMapping();
-	$altLang = VCDClassFactory::getInstance('language')->isUsingDefault();
+	$altLang = VCDClassFactory::getInstance('VCDLanguage')->isEnglish();
 	$statimg = "<a href=\"./?page=private&amp;o=stats&amp;view=gfx\"><img src=\"images/graph.gif\" border=\"0\" vspace=\"0\"/></a>";
 
 	
@@ -33,8 +29,8 @@
 		$type = 5;
 		
 		$PG = new PowerGraphic();
-		$PG->title = language::translate('M_CATEGORY');
-		$PG->axis_x = language::translate('M_CATEGORY');
+		$PG->title = VCDLanguage::translate('movie.category');
+		$PG->axis_x = VCDLanguage::translate('movie.category');
 		$PG->axis_y = "Nr";
 		$PG->skin = $skin;
 		$PG->type  = $type;
@@ -54,9 +50,9 @@
 		
 		print "<br>";
 		
-		
-		$PG->title = language::translate('M_MEDIA');
-		$PG->axis_x = language::translate('M_MEDIA');
+		$PG = new PowerGraphic();
+		$PG->title = VCDLanguage::translate('movie.media');
+		$PG->axis_x = VCDLanguage::translate('movie.media');
 		$PG->axis_y = "Nr";
 		$PG->skin = $skin;
 		$PG->type  = $type;
@@ -76,9 +72,9 @@
 		
 		print "<br>";
 		
-		
-		$PG->title = language::translate('M_YEAR');
-		$PG->axis_x = language::translate('M_YEAR');
+		$PG = new PowerGraphic();
+		$PG->title = VCDLanguage::translate('movie.year');
+		$PG->axis_x = VCDLanguage::translate('movie.year');
 		$PG->axis_y = "Nr";
 		$PG->skin = $skin;
 		$PG->type  = $type;
@@ -110,11 +106,11 @@
 		$multiplier = 96/$highest;
 	
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"list\">";
-		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".language::translate('M_CATEGORY')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
+		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".VCDLanguage::translate('movie.category')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 		foreach ($arrCats as $subArr) {
 			$category = $CLASSSettings->getMovieCategoryByID($subArr[0])->getName(true);
 			if (!$altLang && key_exists($category, $mapping)) {
-				$category = language::translate($mapping[$category]);
+				$category = VCDLanguage::translate($mapping[$category]);
 			}
 	
 			$num = $subArr[1];
@@ -136,7 +132,7 @@
 		$highest = round((($arrMedia[0][1]/$moviecount)*100),1);
 		$multiplier = 96/$highest;
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"list\">";
-		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".language::translate('M_MEDIA')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
+		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".VCDLanguage::translate('movie.media')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 		foreach ($arrMedia as $subArr) {
 	
 			$media = $CLASSSettings->getMediaTypeByID($subArr[0])->getDetailedName();
@@ -159,7 +155,7 @@
 		$multiplier = 96/$highest;
 	
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"list\">";
-		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\" nowrap=\"nowrap\">".language::translate('M_YEAR')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
+		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\" nowrap=\"nowrap\">".VCDLanguage::translate('movie.year')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 		foreach ($arrYears as $subArr) {
 			$year= $subArr[0];
 			$num = $subArr[1];

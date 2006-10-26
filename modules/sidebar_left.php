@@ -12,7 +12,7 @@ if (VCDUtils::isLoggedIn()) {
 
 <? display_toggle(); ?>
 
-<div class="topic"><?=language::translate('MENU_TOPUSERS')?></div>
+<div class="topic"><?=VCDLanguage::translate('menu.topusers')?></div>
 <? display_topusers() ?>
 
 <? display_adultmenu() ?>

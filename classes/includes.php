@@ -23,7 +23,7 @@
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 	
 	/* Language Files */
-	require_once(dirname(__FILE__) . '/languages/languages.php');
+	//require_once(dirname(__FILE__) . '/languages/languages.php');
 	
 	/* External Libraries */
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
@@ -56,6 +56,7 @@
 	require_once(dirname(__FILE__) . '/VCDUtils.php');
 	require_once(dirname(__FILE__) . '/VCDException.php');
 	require_once(dirname(__FILE__) . '/VCDLog.php');
+	require_once(dirname(__FILE__) . '/VCDLanguage.php');
 	require_once(dirname(__FILE__) . '/VCDAuthentication.php');
 	require_once(dirname(__FILE__) . '/VCDImage.php');
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');

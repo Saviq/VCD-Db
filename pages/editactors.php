@@ -6,7 +6,7 @@
 		exit();
 	}
 
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -81,10 +81,10 @@
 <form method="post" name="choiceForm" action="editactors.php?update">
 <input type="hidden" value="<?=$vcd->getID()?>" name="movie_id"/>
 <input type="hidden" value="addthenew" value="0"/>
-&nbsp;<strong><?=language::translate('MAN_ADDTODB')?></strong><br/>
+&nbsp;<strong><?=VCDLanguage::translate('manager.addtodb')?></strong><br/>
 &nbsp;<input type="text" class="input" name="newstar"/>&nbsp;
-<input type="submit" name="updatename" value="<?=language::translate('MAN_SAVETODB')?>" class="buttontext" title="<?=language::translate('MAN_SAVETODB')?>"/>&nbsp;
-<input type="submit" name="updateboth" value="<?=language::translate('MAN_SAVETODBNCD')?>" class="buttontext" title="<?=language::translate('MAN_SAVETODBNCD')?>"/><br/>
+<input type="submit" name="updatename" value="<?=VCDLanguage::translate('manager.savetodb')?>" class="buttontext" title="<?=VCDLanguage::translate('manager.savetodb')?>"/>&nbsp;
+<input type="submit" name="updateboth" value="<?=VCDLanguage::translate('manager.savetodbncd')?>" class="buttontext" title="<?=VCDLanguage::translate('manager.savetodbncd')?>"/><br/>
 <hr/>
 <? 
 	$pornstarArr = $PORNClass->getAllPornstars();
@@ -93,7 +93,7 @@
 		<table cellspacing="0" cellpadding="2" border="0" width="95%">
 		<tr>
 		<td>
-		&nbsp;<strong><?=language::translate('MAN_INDB')?></strong>
+		&nbsp;<strong><?=VCDLanguage::translate('manager.indb')?></strong>
 		<INPUT TYPE="hidden" NAME="keys" VALUE=""/>
 		<select name="available" size=15 style="width:180px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
 		<?
@@ -108,10 +108,10 @@
 			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');clr();" class="input" style="margin-bottom:5px;"/><br/>
 			<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 		</td>
-		<td><strong><?=language::translate('MAN_SEL')?></strong>
+		<td><strong><?=VCDLanguage::translate('manager.sel')?></strong>
 			<select multiple name="choiceBox" onclick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
 			<br/><br/>
-			<input type="submit" onClick="checkFieldsRaw(this.form,'choiceBox','id_list')" value="<?=language::translate('X_SAVEANDCLOSE')?>" name="update" class="buttontext"/>
+			<input type="submit" onClick="checkFieldsRaw(this.form,'choiceBox','id_list')" value="<?=VCDLanguage::translate('misc.saveandclose')?>" name="update" class="buttontext"/>
 		</td>			
 		</tr>
 		</table>

@@ -1,16 +1,15 @@
 <p>
-<?= language::translate('MY_HELPPICKERINFO'); ?>
-
+<?= VCDLanguage::translate('mymovies.helppickerinfo'); ?>
 </p>
 <br/><br/>
 <div style="padding-left:10px">
 <form name="picker" method="POST" action="">
 <table cellpadding="1" cellspacing="1" width="100%" class="tblsmall">
 <tr>
-	<td><?= language::translate('MY_JOINSCAT') ?></td>
+	<td><?= VCDLanguage::translate('mymovies.joinscat') ?></td>
 	<td><? 
 		print "<select name=\"category\" size=\"1\">";
-		print "<option value=\"null\">".language::translate('X_ANY')."</option>";
+		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
 		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
 			print "<option value=\"".$categoryObj->getID()."\">".$categoryObj->getName(true)."</option>";
 		}
@@ -18,13 +17,13 @@
 </tr>
 <? if ($_SESSION['user']->getPropertyByKey(vcd_user::$PROPERTY_SEEN))  { ?>
 <tr>
-	<td><?=language::translate('MY_NOTSEEN')?></td>
+	<td><?=VCDLanguage::translate('mymovies.notseen')?></td>
 	<td><input type="checkbox" name="onlynotseen" value="1" class="nof"/></td>
 </tr>
 <? } ?>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="button" name="search" value="<?=language::translate('MY_FIND')?>" class="buttontext" onclick="showSuggestion(this.form)"/></td>
+	<td><input type="button" name="search" value="<?=VCDLanguage::translate('mymovies.find')?>" class="buttontext" onclick="showSuggestion(this.form)"/></td>
 </tr>
 </table>
 </form>

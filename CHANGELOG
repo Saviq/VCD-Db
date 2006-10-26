@@ -9,6 +9,7 @@ Added   - Upload folder statistics can now be viewed in the Control Panel.
 Fixed   - Fixed wrong category entries in the statistics graphs.
 Fixed   - Mail messages are now UTF-8 encoded
 Changed - Language system totally rewritten, using XML files instead of PHP array includes.
+Updated - Updated graphics for the rating stars and the country flags (thanks to famfamfam.com)
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.

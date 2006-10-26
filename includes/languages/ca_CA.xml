@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: konni -->
+<language>
+	<id>ca_CA</id>
+	<name>Catalan</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type"> CAT
+</string>
+		<string id="language.name"> Català
+</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine"> Menú
+</string>
+		<string id="menu.settings"> Configuració
+</string>
+		<string id="menu.movies"> Pelis
+</string>
+		<string id="menu.addmovie"> Afegir Peli
+</string>
+		<string id="menu.loansystem"> Prestecs
+</string>
+		<string id="menu.wishlist"> La meva 'Wishlist'
+</string>
+		<string id="menu.categories"> Categories
+</string>
+		<string id="menu.rss"> Els meus RSS Feeds
+</string>
+		<string id="menu.controlpanel"> Control Panel
+</string>
+		<string id="menu.register"> Registre
+</string>
+		<string id="menu.logout"> Desconnectar
+</string>
+		<string id="menu.submit"> Enviar
+</string>
+		<string id="menu.topusers"> Usuaris
+</string>
+		<string id="menu.wishlistpublic"> Altres 'Wishlists'
+</string>
+		<string id="menu.statistics"> Estadístiques
+</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login"> Accés
+</string>
+		<string id="login.username"> Nom
+</string>
+		<string id="login.password"> Clau
+</string>
+		<string id="login.remember"> Recordar-ho
+</string>
+		<string id="login.info"> Deixa-ho en blanc si &lt;b&gt;no&lt;/b&gt; vols canviar la teva clau
+</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title"> Registre
+</string>
+		<string id="register.fullname"> Nom complert
+</string>
+		<string id="register.email"> Email
+</string>
+		<string id="register.again"> Clau un altre cop
+</string>
+		<string id="register.disabled"> Ooops!. Ho sento, però l'administrador ha deshabilitat el registre de moment
+</string>
+		<string id="register.ok"> Registre complert. Ja pots accedir a VCD-db.
+</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify"> Enviar-me un email quan s'afegeixi una nova peli?
+</string>
+		<string id="userproperties.show_adult"> Show adult content on the site?
+</string>
+		<string id="userproperties.rss"> Permetre RSS feed de la meva llista de pelis?
+</string>
+		<string id="userproperties.wishlist"> Permetre als altres veure la meva 'Wishlist' ?
+</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.showstat"> Veure estadístiques
+</string>
+		<string id="usersettings.showside"> Veure noves pelis in sidebar
+</string>
+		<string id="usersettings.selectrss"> Seleccionar RSS feeds
+</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search"> Recerca
+</string>
+		<string id="search.title"> Per títol
+</string>
+		<string id="search.actor"> Per actor
+</string>
+		<string id="search.director"> Per director
+</string>
+		<string id="search.results"> Resultats
+</string>
+		<string id="search.extended"> Recerca detallada
+</string>
+		<string id="search.noresult"> No s'ha trobat res
+</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action"> Acció
+</string>
+		<string id="category.adult"> Adult
+</string>
+		<string id="category.adventure"> Aventures
+</string>
+		<string id="category.animation"> Animació
+</string>
+		<string id="category.anime"> Anime / Manga
+</string>
+		<string id="category.comedy"> Comedia
+</string>
+		<string id="category.crime"> Crim
+</string>
+		<string id="category.documentary"> Documental
+</string>
+		<string id="category.drama"> Drama
+</string>
+		<string id="category.family"> Infantil
+</string>
+		<string id="category.fantasy"> Curt
+</string>
+		<string id="category.filmnoir"> Negre
+</string>
+		<string id="category.horror"> Terror
+</string>
+		<string id="category.jamesbond"> James Bond
+</string>
+		<string id="category.musicvideo"> Music Video
+</string>
+		<string id="category.musical"> Musical
+</string>
+		<string id="category.mystery"> Misteri
+</string>
+		<string id="category.romance"> Romantica
+</string>
+		<string id="category.scifi"> Ciència Ficció
+</string>
+		<string id="category.short"> Animació (Curt)
+</string>
+		<string id="category.thriller"> Thriller
+</string>
+		<string id="category.tvshows"> Serie TV
+</string>
+		<string id="category.war"> Bèl.lica
+</string>
+		<string id="category.western"> Western
+</string>
+		<string id="category.xrated"> X-Rated
+</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie"> La Peli
+</string>
+		<string id="movie.actors"> Crèdits
+</string>
+		<string id="movie.category"> Categoria
+</string>
+		<string id="movie.year"> Any de produció
+</string>
+		<string id="movie.copies"> Copies
+</string>
+		<string id="movie.from"> De
+</string>
+		<string id="movie.title"> Títol
+</string>
+		<string id="movie.alttitle"> Títol alternatiu
+</string>
+		<string id="movie.grade"> Puntuació
+</string>
+		<string id="movie.director"> Director
+</string>
+		<string id="movie.country"> Pais
+</string>
+		<string id="movie.runtime"> Durada
+</string>
+		<string id="movie.minutes"> minuts
+</string>
+		<string id="movie.plot"> Plot
+</string>
+		<string id="movie.covers"> Posters
+</string>
+		<string id="movie.available"> Copies disponibles
+</string>
+		<string id="movie.media"> Format
+</string>
+		<string id="movie.num"> Nº CD's/Cintes
+</string>
+		<string id="movie.date"> Data d'alta
+</string>
+		<string id="movie.owner"> Llista
+</string>
+		<string id="movie.mediatype"> Format
+</string>
+		<string id="movie.comment"> Comentari
+</string>
+		<string id="movie.show"> Veure
+</string>
+		<string id="movie.hide"> Amagar
+</string>
+		<string id="movie.change"> Editar informació
+</string>
+		<string id="movie.nocovers"> No hi ha caràtules disponibles
+</string>
+		<string id="movie.bycat"> Títols per categoria
+</string>
+		<string id="movie.currcat"> Categoria actual
+</string>
+		<string id="movie.textview"> Veure text
+</string>
+		<string id="movie.imageview"> Veure imatges
+</string>
+		<string id="movie.mineonly"> Només les meves pelis
+</string>
+		<string id="movie.similar"> Pelis semblants
+</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details"> Detalls IMDB
+</string>
+		<string id="imdb.not"> No hi ha informació IMDB
+</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export"> Exportar dades
+</string>
+		<string id="mymovies.excel"> Exportar a Excel
+</string>
+		<string id="mymovies.xml"> Exportar a XML
+</string>
+		<string id="mymovies.xmlthumbs"> Export thumbnails as XML
+</string>
+		<string id="mymovies.join"> Disc join
+</string>
+		<string id="mymovies.joinmovies"> Disc join movies
+</string>
+		<string id="mymovies.joinsuser"> Selecciona usuari
+</string>
+		<string id="mymovies.joinsmedia"> Selecciona format
+</string>
+		<string id="mymovies.joinscat"> Selecciona categoria
+</string>
+		<string id="mymovies.joinstype"> Select acció
+</string>
+		<string id="mymovies.joinshow"> Veure resultats
+</string>
+		<string id="mymovies.noresults"> Recerca sense resultats
+</string>
+		<string id="mymovies.seenlist"> Editar llista de vistes
+</string>
+		<string id="mymovies.helppicker"> Escollir una peli per veure
+</string>
+		<string id="mymovies.find"> Buscar una peli
+</string>
+		<string id="mymovies.notseen"> Suggerir només pelis per veure
+</string>
+		<string id="mymovies.friends"> My friends who borrow CD's
+</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic"> Informació bàsica
+</string>
+		<string id="manager.imdb"> Informació IMDB
+</string>
+		<string id="manager.empire"> Informació DVDEmpire
+</string>
+		<string id="manager.1copy"> Copia
+</string>
+		<string id="manager.addact"> Afegir actors
+</string>
+		<string id="manager.addtodb"> Afegir nou actors a la llista
+</string>
+		<string id="manager.savetodb"> Grabar a la llista
+</string>
+		<string id="manager.savetodbncd"> Grabar a la llista i la peli
+</string>
+		<string id="manager.indb"> Actors a la llista
+</string>
+		<string id="manager.sel"> Actores sel.leccionats
+</string>
+		<string id="manager.stars"> Estrelles
+</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies"> Pelis per deixar
+</string>
+		<string id="loan.to"> Deixar pelis a
+</string>
+		<string id="loan.addusers"> Afegir al menys un usuari per continuar
+</string>
+		<string id="loan.newuser"> Afegir
+</string>
+		<string id="loan.registeruser"> Afegeix un nou beleficiari
+</string>
+		<string id="loan.name"> Nom
+</string>
+		<string id="loan.select"> Selecciona a qui
+</string>
+		<string id="loan.movieloans"> Pelis deixades ...
+</string>
+		<string id="loan.reminder"> Enviar recordatori
+</string>
+		<string id="loan.history"> Historial
+</string>
+		<string id="loan.history2"> Veure historial
+</string>
+		<string id="loan.since"> Desde
+</string>
+		<string id="loan.time"> Temps
+</string>
+		<string id="loan.return"> Tornar copia
+</string>
+		<string id="loan.success"> Pelis tornades
+</string>
+		<string id="loan.out">  --  
+</string>
+		<string id="loan.datein"> Date tornada
+</string>
+		<string id="loan.dateout"> Date prestec
+</string>
+		<string id="loan.period"> Periode
+</string>
+		<string id="loan.back"> Back to loan index
+</string>
+		<string id="loan.day"> dia
+</string>
+		<string id="loan.days"> dies
+</string>
+		<string id="loan.today"> desde avui
+</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments"> Comentaris
+</string>
+		<string id="comments.add"> Escriure un comentari
+</string>
+		<string id="comments.none"> No hi ha comentaris
+</string>
+		<string id="comments.type"> Escriu en el teu nou coementari
+</string>
+		<string id="comments.your"> El teu comentari
+</string>
+		<string id="comments.post"> Deixar comentari
+</string>
+		<string id="comments.error"> Has de connetar-te per deixar un comentari
+</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add"> Afegir a la meva 'wishlist'
+</string>
+		<string id="wishlist.onlist"> A la teva 'wishlist'
+</string>
+		<string id="wishlist.empty"> La teva 'wistlist' està buida
+</string>
+		<string id="wishlist.own"> Tinc una copia d'aquesta peli
+</string>
+		<string id="wishlist.notown"> No tinc cap copia d'aquesta peli
+</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name"> Nom
+</string>
+		<string id="pornstar.web"> Web
+</string>
+		<string id="pornstar.moviecount"> Nº de pelis
+</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit"> Vista
+</string>
+		<string id="seen.notseenit"> Per veure
+</string>
+		<string id="seen.seenitclick"> Clica per marcarla com a vista
+</string>
+		<string id="seen.notseenitclick"> Clica per desmarcarla com a vista
+</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.tryagain"> Prova un altre cop
+</string>
+		<string id="misc.proceed"> Proceed
+</string>
+		<string id="misc.select"> Selecciona
+</string>
+		<string id="misc.confirm"> Confirmar
+</string>
+		<string id="misc.cancel"> Cancel.lar
+</string>
+		<string id="misc.attention"> Attention!
+</string>
+		<string id="misc.saveandclose"> Gravar i tancar
+</string>
+		<string id="misc.close"> Tancar
+</string>
+		<string id="misc.edit"> Editar
+</string>
+		<string id="misc.results"> Resultats
+</string>
+		<string id="misc.latestmovies"> últimes pelis
+</string>
+		<string id="misc.latesttv"> últimes series TV
+</string>
+		<string id="misc.nousers"> No hi ha usuaris actius
+</string>
+		<string id="misc.key"> Key
+</string>
+		<string id="misc.savenext"> Gravar i editar la propera
+</string>
+		<string id="misc.save"> Gravar
+</string>
+		<string id="misc.seen"> Vista</string>
+	</strings>
+</language>

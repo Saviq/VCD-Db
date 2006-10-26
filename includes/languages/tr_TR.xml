@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Preudomme -->
+<language>
+	<id>tr_TR</id>
+	<name>Turkish</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">TR</string>
+		<string id="language.name">Türkçe</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Menüm</string>
+		<string id="menu.settings">Ayarlarım</string>
+		<string id="menu.movies">Filmlerim</string>
+		<string id="menu.addmovie">Yeni film ekle</string>
+		<string id="menu.loansystem">Ödünç Sistemi</string>
+		<string id="menu.wishlist">İstek Listem</string>
+		<string id="menu.categories">Film Kategorileri</string>
+		<string id="menu.rss">Rss Yayınlarım</string>
+		<string id="menu.controlpanel">Kontrol Paneli</string>
+		<string id="menu.register">Kayıt</string>
+		<string id="menu.logout">Çıkış</string>
+		<string id="menu.submit">Gönder</string>
+		<string id="menu.topusers">Sıkı Kullanıcılar</string>
+		<string id="menu.wishlistpublic">Diğer istek listeleri</string>
+		<string id="menu.statistics">İstatistikler</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Giriş</string>
+		<string id="login.username">Kullanıcı adı</string>
+		<string id="login.password">Şifre</string>
+		<string id="login.remember">Beni hatırla</string>
+		<string id="login.info">Şifrenizi değiştirmek &lt;b&gt;istemiyorsanız&lt;/b&gt; boş bırakınız</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Kayıt</string>
+		<string id="register.fullname">Tam Adınız</string>
+		<string id="register.email">E-posta</string>
+		<string id="register.again">Şifre tekrar</string>
+		<string id="register.disabled">Üzgünüm, site yöneticisi şu an için kayıtları durdurmuş</string>
+		<string id="register.ok">Kayıt başarılı, şimdi DVD Rafına oturum açabilirsiniz.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Yeni film eklendiğinde bana e-posta gönder</string>
+		<string id="userproperties.show_adult">Sitede yetişkin içerik gösterilsin</string>
+		<string id="userproperties.rss">Film listemden RSS yayınına izin ver</string>
+		<string id="userproperties.wishlist">Diğer kişiler istek listemi görebilsin</string>
+		<string id="userproperties.use_index">Use index number fields for custom media ID's?</string>
+		<string id="userproperties.seen_list">İzlediğim filmlerin kaydını tut</string>
+		<string id="userproperties.playoption">Film oynatma seçeneklerini kullan</string>
+		<string id="userproperties.nfo">NFO dosyaları kullanılsın</string>
+		<string id="userproperties.default_image">Resim Görüntüsü varsayılan olarak ayarlansın</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Oynatıcı ayarları</string>
+		<string id="usersettings.ownfeed">Bana ait yayınları görüntüle</string>
+		<string id="usersettings.custom">Giriş sayfamı özelleştir</string>
+		<string id="usersettings.showstat">İstatistikleri göster</string>
+		<string id="usersettings.showside">Yeni filmleri yan tarafta göster</string>
+		<string id="usersettings.selectrss">RSS yayını seçin</string>
+		<string id="usersettings.pagelook">Web düzeni</string>
+		<string id="usersettings.pagemode">Varsayılan temayı seçin:</string>
+		<string id="usersettings.updated">Kullanıcı bilgisi güncellendi</string>
+		<string id="usersettings.update_failed">Güncelleme başarısız</string>
+		<string id="usersettings.list">Yoksay Listesi</string>
+		<string id="usersettings.desc">Aşağıdaki kullanıcılara ait tüm filmleri görmezden gel (yoksay):</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Arama</string>
+		<string id="search.title">Film adı</string>
+		<string id="search.actor">Oyuncu</string>
+		<string id="search.director">Yönetmen</string>
+		<string id="search.results">Arama sonuçları</string>
+		<string id="search.extended">Detaylı arama</string>
+		<string id="search.noresult">Sonuç bulunamadı</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Aksiyon</string>
+		<string id="category.adult">Yetişkin</string>
+		<string id="category.adventure">Macera</string>
+		<string id="category.animation">Animasyon / Çizgi</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Komedi</string>
+		<string id="category.crime">Polisiye</string>
+		<string id="category.documentary">Dökümanter</string>
+		<string id="category.drama">Drama</string>
+		<string id="category.family">Aile</string>
+		<string id="category.fantasy">Fantastik</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Korku / Gerilim</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Müzik Video</string>
+		<string id="category.musical">Müzikal</string>
+		<string id="category.mystery">Gizem</string>
+		<string id="category.romance">Romantik</string>
+		<string id="category.scifi">Bilim-kurgu</string>
+		<string id="category.short">Kısa film</string>
+		<string id="category.thriller">Thriller</string>
+		<string id="category.tvshows">TV Şovu</string>
+		<string id="category.war">Savaş</string>
+		<string id="category.western">Western</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Film</string>
+		<string id="movie.actors">Oyuncular</string>
+		<string id="movie.category">Kategori</string>
+		<string id="movie.year">Yıl</string>
+		<string id="movie.copies">Kopya sayısı</string>
+		<string id="movie.from">From</string>
+		<string id="movie.title">Ad</string>
+		<string id="movie.alttitle">Diğer Ad</string>
+		<string id="movie.grade">Puanı</string>
+		<string id="movie.director">Yönetmen</string>
+		<string id="movie.country">Ülke</string>
+		<string id="movie.runtime">Süre</string>
+		<string id="movie.minutes">dakika</string>
+		<string id="movie.plot">Özet</string>
+		<string id="movie.noplot">Özet yok</string>
+		<string id="movie.covers">Resim</string>
+		<string id="movie.available">Eldeki kopyalar</string>
+		<string id="movie.media">Medya</string>
+		<string id="movie.num">CD Sayısı</string>
+		<string id="movie.date">Eklenme tarihi</string>
+		<string id="movie.owner">Sahibi</string>
+		<string id="movie.noactors">Aktör yok</string>
+		<string id="movie.info">Film bilgisi</string>
+		<string id="movie.details">Bendeki kopyanın detayları</string>
+		<string id="movie.mediatype">Medya tipi</string>
+		<string id="movie.comment">Yorum</string>
+		<string id="movie.private">Özel olarak işaretle?</string>
+		<string id="movie.screenshots">Ekran görüntüleri</string>
+		<string id="movie.noscreens">Ekran görüntüsü yok</string>
+		<string id="movie.show">Göster</string>
+		<string id="movie.hide">Gizle</string>
+		<string id="movie.change">Bilgileri değiştir</string>
+		<string id="movie.nocovers">CD Kapağı yok</string>
+		<string id="movie.bycat">Kategoriye göre başlıklar</string>
+		<string id="movie.currcat">Geçerli kategori</string>
+		<string id="movie.textview">Metin görünümü</string>
+		<string id="movie.imageview">Resim görünümü</string>
+		<string id="movie.mineonly">Sadece bana ait filmleri göster</string>
+		<string id="movie.similar">Benzer filmler</string>
+		<string id="movie.mediaindex">Medya Endeksi</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB Detayları</string>
+		<string id="imdb.plot">Özet</string>
+		<string id="imdb.gallery">Foto-Galeri</string>
+		<string id="imdb.trailers">Fragmanlar</string>
+		<string id="imdb.links">IMDB Bağlantıları</string>
+		<string id="imdb.not">IMDB bilgisi yok</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Bölge</string>
+		<string id="dvd.format">Format</string>
+		<string id="dvd.aspect">Görüntü Oranı</string>
+		<string id="dvd.audio">Ses</string>
+		<string id="dvd.subtitles">Altyazı</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Dışa veri  aktar</string>
+		<string id="mymovies.excel">Excel olarak aktar</string>
+		<string id="mymovies.xml">XML olarak aktar</string>
+		<string id="mymovies.xmlthumbs">Küçük resimleri (thumbnail) XML olarak aktar</string>
+		<string id="mymovies.actions">İşlemlerim</string>
+		<string id="mymovies.join">Disk birleştir</string>
+		<string id="mymovies.joinmovies">Film disklerini birleştir</string>
+		<string id="mymovies.joinsuser">Kullanıcı seç</string>
+		<string id="mymovies.joinsmedia">Medya tipi seç</string>
+		<string id="mymovies.joinscat">Kategori seç</string>
+		<string id="mymovies.joinstype">İşlem seç</string>
+		<string id="mymovies.joinshow">Sonuçları göster</string>
+		<string id="mymovies.noresults">Sonuç bulunamadı</string>
+		<string id="mymovies.textall">Önizleme (Metin modu)</string>
+		<string id="mymovies.pwall">Önizleme (Tümü)</string>
+		<string id="mymovies.pwmovies">Önizleme (Filmler)</string>
+		<string id="mymovies.pwtv">Önizleme (Tv Programları)</string>
+		<string id="mymovies.pwblue">Önizleme (Blue filmleri)</string>
+		<string id="mymovies.j1">Bende olan, kullanıcıda olmayan filmler</string>
+		<string id="mymovies.j2">Bende olmayan, kullanıcıda olan filmler</string>
+		<string id="mymovies.j3">İimizde de olan filmler</string>
+		<string id="mymovies.overview">Koleksiyon önizleme</string>
+		<string id="mymovies.info">Bu sayfada filmleriniz hakkında tüm bilgilere erişebilirsiniz.
+							Sağ tarafta film koleksiyonunuzda yapabileceğiniz işlemler bulunmaktadır.
+							Ayrıca film listenizi çıktı almak için Excel'e aktarabilir veya çeşitli aktarma
+							metodlarını kullanarak yedek alabilir veya başka bir sisteme (aynı uygulamayı çalıştıran)
+							koleksiyonunuzu taşıyabilirsiniz.</string>
+		<string id="mymovies.keys">Özel ID'leri Düzenle</string>
+		<string id="mymovies.seenlist">İzlediklerimi Düzenle</string>
+		<string id="mymovies.helppicker">İzlemek için bir film seç</string>
+		<string id="mymovies.helppickerinfo">Bu gece ne seyretsem mi diyorsunuz?&lt;br/&gt;DVD Rafı sizin için bir film bulsun.&lt;br/&gt;
+							DVD Rafı'nın önerilerini filtreler oluşturarak yönetebilirsiniz.</string>
+		<string id="mymovies.find">Film Bul</string>
+		<string id="mymovies.notseen">Sadece izlemediğim filmlerden öner</string>
+		<string id="mymovies.friends">Ödünç film alan arkadaşlarım</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Temel bilgi</string>
+		<string id="manager.imdb">IMDB</string>
+		<string id="manager.empire">DVDEmpire bilgi</string>
+		<string id="manager.copy">Benim kopyam</string>
+		<string id="manager.copies">Benim kopyalarım</string>
+		<string id="manager.nocopy">Hiç kopyanız yok</string>
+		<string id="manager.1copy">Kopya</string>
+		<string id="manager.addact">Oyuncu ekle</string>
+		<string id="manager.addtodb">Veritabanına yeni oyuncu ekle</string>
+		<string id="manager.savetodb">Veritabanına kaydet</string>
+		<string id="manager.savetodbncd">Veri tabanına ve filme kaydet</string>
+		<string id="manager.indb">Veritabanındaki oyuncular</string>
+		<string id="manager.sel">Seçilen oyuncular</string>
+		<string id="manager.stars">Yıldız</string>
+		<string id="manager.browse">Dosya konumuna gözat</string>
+		<string id="manager.addmedia">Ekle...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Yeni film ekleme yöntemini seçin</string>
+		<string id="addmovie.imdb">Internet Movie Database'den Al</string>
+		<string id="addmovie.imdbtitle">Aranacak anahtar kelimelei gir</string>
+		<string id="addmovie.manual">Bilgileri elle gir</string>
+		<string id="addmovie.listed">Zaten listelenmiş filmleri ekle</string>
+		<string id="addmovie.xml">Add movies from exported XML file</string>
+		<string id="addmovie.xmlfile">İçe aktarılacak XML dosyasını seçin</string>
+		<string id="addmovie.xmlnote">(DVD Rafı bir VCD-db uygulamasıdır. Sadece bu sistemlere uygun XML dosyaları içeri aktarma için kullanılabilir. Filmlerinizi &quot;Filmlerim&quot; bölümünden dışa aktarabilirsiniz. Dışa aktarılmış XML doyalarını elle düzenlemekten kaçınınız.) </string>
+		<string id="addmovie.maxfilesize">Maks dosya boyutu</string>
+		<string id="addmovie.dvdempire">Adult DVD Empire'dan Al (yetişkin filmler)</string>
+		<string id="addmovie.listedstep1">Adım 1&lt;br/&gt;Listenize eklemek istediğiniz başlıkları seçin.&lt;br/&gt;Sonraki adımda medya tipini seçebilirsiniz.</string>
+		<string id="addmovie.listedstep2">Adım 2.&lt;br/&gt;Uygun medya tipini seçin.</string>
+		<string id="addmovie.indb">DVD Rafı'ndaki Filmler</string>
+		<string id="addmovie.selected">Seçili filmler</string>
+		<string id="addmovie.infolist">Filmi seçmek için başlığa tıklayın veya okları kullanın.&lt;br/&gt;Başlıklara kolayca erişmek için klavyenizi kullanabilirsiniz.</string>
+		<string id="addmovie.notitles">Başka hiç bir kullanıcı DVD Rafı'na film eklememiş</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">XML yüklemesini Onayla</string>
+		<string id="xml.contains">XML dosyasında %d adet film var.</string>
+		<string id="xml.info1">Filmleri veritabanına eklemek için 'Onayla' butonuna tıklayın.&lt;br/&gt;
+							Vazgeçmek için iptal butonuna tıklayın. </string>
+		<string id="xml.info2">Film posterlerini (küçük resimler/thumbnail) de XML dosyasındaki filmlerle beraber içe aktarmak istiyorsanız, resimler için XML dosyası &lt;b&gt;ŞİMDİ&lt;/b&gt; hazır olmalıdır!&lt;br/&gt;
+							Posterler filmlerin XML dosyasından aktarımı bittikten sonra otomatik olarak içe aktarılamaz.
+							Eğer resimler için bir XML dosyanız varsa şimdi kontrol edin; bir sonraki adımda resimlere ait XML dosyası sizden istenecektir. </string>
+		<string id="xml.thumbnails">Resimler XML dosyasından resim posterleri ekle </string>
+		<string id="xml.list">XML dosyasında bulunan filmlerin tam listesi.</string>
+		<string id="xml.error">XML dosyasında film bulunamadı.&lt;br/&gt;Dosya bozuk ya da boş olabilir.
+			   				&lt;br/&gt;DVD Rafı sisteminden dışa aktarılmış bir XML dosyası kullandığınızdan emin olun...</string>
+		<string id="xml.results">XML yükleme sonuçları.</string>
+		<string id="xml.results2">XML yükleme sonuçlarınız gösterilmektedir.&lt;br/&gt;Toplam %d film içe aktarıldı.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">AdultDVDEmpire.com Bilgi....</string>
+		<string id="dvdempire.desc">DVDEmpire açıklama</string>
+		<string id="dvdempire.subcat">Yetişkin kategoriler</string>
+		<string id="dvdempire.details">Adultdvdempire.com detayları</string>
+		<string id="dvdempire.stars">Porno yıldızları</string>
+		<string id="dvdempire.notice">Kırmızı ile işaretlenmiş oyuncular DVD Rafı'ında kayıtlı değiller.
+							İsimlerini işaretleyerek otomatik olarak DVD Rafı'na ekleyebilir ve bu filmle ilişkilendirebilirsiniz.</string>
+		<string id="dvdempire.fetch">Bunu da Al</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Ödünç verilecek filmler</string>
+		<string id="loan.to">Filmleri ödünç ver</string>
+		<string id="loan.addusers">Devam etmek için ödünç alınacak kullanıcı ekleyin</string>
+		<string id="loan.newuser">Yeni Kişi</string>
+		<string id="loan.registeruser">Yeni kişi ekle</string>
+		<string id="loan.name">Ad</string>
+		<string id="loan.select">Kişi seç</string>
+		<string id="loan.movieloans">Ödünç verilmiş filmler ...</string>
+		<string id="loan.reminder">Hatırlatma gönder</string>
+		<string id="loan.history">Ödünç Geçmişi</string>
+		<string id="loan.history2">Ödünç geçmişini gör</string>
+		<string id="loan.since">Başlangıç tarihi</string>
+		<string id="loan.time">Geçen süre</string>
+		<string id="loan.return">Geri al</string>
+		<string id="loan.success">Movies successfully loaned</string>
+		<string id="loan.out">Geri dönmedi</string>
+		<string id="loan.datein">Giriş tarihi</string>
+		<string id="loan.dateout">Çıkış tarihi</string>
+		<string id="loan.period">Ödünç süresi</string>
+		<string id="loan.back">Ödünç endeksine dön</string>
+		<string id="loan.day">gün</string>
+		<string id="loan.days">gün</string>
+		<string id="loan.today">bugün verildi</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS Feeds</string>
+		<string id="rss.title">RSS feeds from my friends VCD-DB sites</string>
+		<string id="rss.site">RSS Site feed</string>
+		<string id="rss.user">RSS User feed</string>
+		<string id="rss.view">View RSS feed</string>
+		<string id="rss.add">Add new feed</string>
+		<string id="rss.note">Enter the &lt;strong&gt;excact url&lt;/strong&gt; of your friends VCD database.&lt;br/&gt;
+							If RSS is enabled on your friends site you can pick out the
+							feeds that you are interested in and display it on your page.</string>
+		<string id="rss.fetch">Fetch RSS List</string>
+		<string id="rss.none">No RSS feeds have been added.</string>
+		<string id="rss.found">The following RSS feeds were found, select the feeds you want to add:</string>
+		<string id="rss.notfound">No feeds found at location</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Yorumlar</string>
+		<string id="comments.add">Yorum ekle</string>
+		<string id="comments.none">Hiç yorum yok</string>
+		<string id="comments.type">Yorumunuzu yazınız</string>
+		<string id="comments.your">Yorumunuz</string>
+		<string id="comments.post">Yorumu gönder</string>
+		<string id="comments.error">You have be logged in to post a comment</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">İstek listeme ekle</string>
+		<string id="wishlist.onlist">İstek listenizdekiler</string>
+		<string id="wishlist.empty">İstek listeniz boş</string>
+		<string id="wishlist.own">Bu filmden bende var</string>
+		<string id="wishlist.notown">Bu filmden bende yok</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Name</string>
+		<string id="pornstar.web">Website</string>
+		<string id="pornstar.moviecount">Movie count</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Bu filmi izledim</string>
+		<string id="seen.notseenit">Bu filmi izlemedim</string>
+		<string id="seen.seenitclick">İzlenmiş olarak işaretlemek için tıklayın</string>
+		<string id="seen.notseenitclick">İzlenmemiş olarak işaretlemek için tıklayın</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Günlük Rapor</string>
+		<string id="statistics.top_movies">Veritabanındaki Film Sayısı</string>
+		<string id="statistics.top_cats">Popüler Kategoriler</string>
+		<string id="statistics.top_act">En aktif kategorier</string>
+		<string id="statistics.top_covers">Veritabanındaki kapak resimleri</string>
+		<string id="statistics.total">Toplam</string>
+		<string id="statistics.today">Bugün eklenenler</string>
+		<string id="statistics.week">Son 7 günde eklenenler</string>
+		<string id="statistics.month">Son 30 günde eklenenler</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Ödünç hatırlatıcısı</string>
+		<string id="mail.returnmovies1">%s, sana ödünç verdiğim filmleri geri getirmen için hatırlatmak istedim.\n
+							Ödünç verdiğim filmlerin listesi aşağıda :\n\n</string>
+		<string id="mail.returnmovies2">Lütfen en kısa zamanda geri getirebilirsen sevinirim\n Hoşçakal %s \n\n
+							nb. bu e-posta DVD Rafı sisteminden size otomatik olarak gönderilmiştir (http://localhost/dvd)</string>
+		<string id="mail.notify">&lt;strong&gt;DVD Rafı'na yeni bir film eklendi&lt;/strong&gt;&lt;br/&gt;
+							 Detayları görmek için &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;buraya&lt;/a&gt; tıklayın..
+							 &lt;p&gt;nb. bu e-posta DVD Rafı sisteminden size otomatik olarak gönderilmiştir (http://localhost/dvd)&lt;/p&gt;</string>
+		<string id="mail.register">%s, DVD Rafı üyelik kaydınız yapıldı.&lt;br&gt;&lt;br&gt;Kullanıcı adınız : %s &lt;br&gt;Şifreniz : %s.&lt;br&gt;&lt;br&gt;Giriş yaptıktan sonra şifrenizi arzu ettiğiniz şekilde değiştirebilirsiniz.&lt;br&gt;
+							DVD Rafı'na ulaşmak için &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;buraya&lt;/a&gt; tıklayın.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Veri Bilgilerim (metadata)</string>
+		<string id="metadata.name">Ad</string>
+		<string id="metadata.desc">Tanım</string>
+		<string id="metadata.type">Veri tipi</string>
+		<string id="metadata.value">Veri değeri</string>
+		<string id="metadata.none">Veri bilgisi yok.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Oynatıcı</string>
+		<string id="player.path">Yol</string>
+		<string id="player.param">Parametreler</string>
+		<string id="player.note">Bilgisayarınızdaki film oynatıcısının tam adresini giriniz.
+							Oynatıcınız komut satırından parametre alabiliyor olmalıdır, mesela Windows için BSPlayer veya Linux için MPlayer.&lt;br/&gt;Ücretsiz BSPlayer indirmek için &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;butaya&lt;/a&gt;, MPlayer için &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;buraya&lt;/a&gt; tıklayın.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">içinde geçen</string>
+		<string id="misc.grade">IMDB puanı bundan fazla olan</string>
+		<string id="misc.any">Hepsi</string>
+		<string id="misc.tryagain">Tekrar dene</string>
+		<string id="misc.proceed">Devam</string>
+		<string id="misc.select">Seç</string>
+		<string id="misc.confirm">Onayla</string>
+		<string id="misc.cancel">Vazgeç</string>
+		<string id="misc.attention">Dikkat!</string>
+		<string id="misc.status">Durum</string>
+		<string id="misc.success">Başarılı</string>
+		<string id="misc.failure">Başarısız</string>
+		<string id="misc.yes">Evet</string>
+		<string id="misc.no">Hayır</string>
+		<string id="misc.showmore">Tamamını göster</string>
+		<string id="misc.showless">Kısıtlı göster</string>
+		<string id="misc.new">Yeni</string>
+		<string id="misc.change">değiştir</string>
+		<string id="misc.delete">sil</string>
+		<string id="misc.update">Güncelle</string>
+		<string id="misc.saveandclose">Kaydet ve kapat</string>
+		<string id="misc.close">Kapat</string>
+		<string id="misc.edit">Düzenle</string>
+		<string id="misc.results">Sonuçlar</string>
+		<string id="misc.latestmovies">son eklenen film</string>
+		<string id="misc.latesttv">son eklenen TV programı</string>
+		<string id="misc.latestblue">son eklenen X-rated</string>
+		<string id="misc.movies">film</string>
+		<string id="misc.nocats">Hiç film eklenmemiş.</string>
+		<string id="misc.nousers">Aktif kullanıcı yok</string>
+		<string id="misc.key">Anahtar</string>
+		<string id="misc.savenext">Kaydet ve sonrakini düzenle</string>
+		<string id="misc.save">Kaydet</string>
+		<string id="misc.seen">İzlendi</string>
+		<string id="misc.footer">Sayfa yükleme süresi %s sn. (&lt;i&gt;%d Sorgu&lt;/i&gt;) &amp;nbsp; powered by</string>
+		<string id="misc.footer_link">Check out the official VCD-db website</string>
+		<string id="misc.toggle">Özet bilgi</string>
+		<string id="misc.toggle_on">açık</string>
+		<string id="misc.toggle_off">kapalı</string>
+	</strings>
+</language>

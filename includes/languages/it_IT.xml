@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: konni -->
+<language>
+	<id>it_IT</id>
+	<name>Italiano</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">ITA
+</string>
+		<string id="language.name">Italiano
+</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Il mio menu
+</string>
+		<string id="menu.settings">Preferenze
+</string>
+		<string id="menu.movies">I miei film
+</string>
+		<string id="menu.addmovie">Aggiungi un film
+</string>
+		<string id="menu.loansystem">Prestiti
+</string>
+		<string id="menu.categories">Categorie di film
+</string>
+		<string id="menu.controlpanel">Pannello di controllo
+</string>
+		<string id="menu.register">Registrati
+</string>
+		<string id="menu.logout">Esci
+</string>
+		<string id="menu.submit">Invia
+</string>
+		<string id="menu.statistics">Statistiche
+</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Login
+</string>
+		<string id="login.remember">Ricordamelo
+</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Ricerca
+</string>
+		<string id="search.title">Per titolo
+</string>
+		<string id="search.actor">Per attore
+</string>
+		<string id="search.director">Per regista
+</string>
+		<string id="search.results">Risultati della ricerca
+</string>
+		<string id="search.extended">Ricerca dettagliata
+</string>
+		<string id="search.noresult">Search returned no results
+</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Azione
+</string>
+		<string id="category.adult">Adulti
+</string>
+		<string id="category.adventure">Avventura
+</string>
+		<string id="category.animation">Animazione
+</string>
+		<string id="category.anime">Anime / Manga
+</string>
+		<string id="category.comedy">Commedia
+</string>
+		<string id="category.crime">Crimine
+</string>
+		<string id="category.documentary">Documentari
+</string>
+		<string id="category.drama">Drama
+</string>
+		<string id="category.family">Famiglia
+</string>
+		<string id="category.fantasy">Fantasy
+</string>
+		<string id="category.filmnoir">Film Noir
+</string>
+		<string id="category.horror">Orrore
+</string>
+		<string id="category.jamesbond">James Bond
+</string>
+		<string id="category.musicvideo">Music Video
+</string>
+		<string id="category.musical">Musicale
+</string>
+		<string id="category.mystery">Mistero
+</string>
+		<string id="category.romance">Romance
+</string>
+		<string id="category.scifi">Sci-Fi
+</string>
+		<string id="category.short">Short
+</string>
+		<string id="category.thriller">Thiller
+</string>
+		<string id="category.tvshows">TV Shows
+</string>
+		<string id="category.war">Guerra
+</string>
+		<string id="category.western">Western
+</string>
+		<string id="category.xrated">X-Rated
+</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Il Film
+</string>
+		<string id="movie.actors">Cast
+</string>
+		<string id="movie.category">Categoria
+</string>
+		<string id="movie.year">Anno di produzione
+</string>
+		<string id="movie.copies">Copie
+</string>
+		<string id="movie.from">Da
+</string>
+		<string id="movie.title">Titolo
+</string>
+		<string id="movie.alttitle">Titolo alternativo
+</string>
+		<string id="movie.grade">Voto
+</string>
+		<string id="movie.director">Regista
+</string>
+		<string id="movie.country">Paese di produzione
+</string>
+		<string id="movie.runtime">Durata
+</string>
+		<string id="movie.minutes">min.
+</string>
+		<string id="movie.covers">Copertine
+</string>
+		<string id="movie.available">Copie disponibili
+</string>
+		<string id="movie.media">Supporto
+</string>
+		<string id="movie.num">Numero CD
+</string>
+		<string id="movie.date">Data di inserimento
+</string>
+		<string id="movie.owner">Proprietario
+</string>
+		<string id="movie.comment">Commento
+</string>
+		<string id="movie.private">Rendi privato
+</string>
+		<string id="movie.screenshots">Miniatura
+</string>
+		<string id="movie.noscreens">Nessuna miniatura disponibile
+</string>
+		<string id="movie.show">Mostra
+</string>
+		<string id="movie.hide">Nascondi
+</string>
+		<string id="movie.change">Cambia le informazioni
+</string>
+		<string id="movie.nocovers">Nessuna copertina CD disponibile
+</string>
+		<string id="movie.bycat">Titoli per categoria
+</string>
+		<string id="movie.currcat">Categoria corrente
+</string>
+		<string id="movie.textview">Vista Testuale
+</string>
+		<string id="movie.imageview">Vista Immagini
+</string>
+		<string id="movie.mineonly">Mostra solo i miei film
+</string>
+		<string id="movie.similar">Film simili
+</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">Dettagli IMDB
+</string>
+		<string id="imdb.plot">Plot Summary
+</string>
+		<string id="imdb.gallery">Galleria fotografica
+</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Esporta Dati
+</string>
+		<string id="mymovies.excel">Esporta in Excel
+</string>
+		<string id="mymovies.xml">Esporta in XML
+</string>
+		<string id="mymovies.xmlthumbs">Esporta miniature in XML
+</string>
+		<string id="mymovies.joinsuser">Selezione Utente
+</string>
+		<string id="mymovies.joinsmedia">Seleziona il tipo di supporto
+</string>
+		<string id="mymovies.joinscat">Seleziona categoria
+</string>
+		<string id="mymovies.find">Cerca un film
+</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Informazioni di base
+</string>
+		<string id="manager.imdb">IMDB info
+</string>
+		<string id="manager.empire">DVDEmpire info
+</string>
+		<string id="manager.copy">La mia copia
+</string>
+		<string id="manager.copies">Le mie copie
+</string>
+		<string id="manager.nocopy">Non hai copie disponibili
+</string>
+		<string id="manager.1copy">Copie
+</string>
+		<string id="manager.addact">Aggiungi un attore
+</string>
+		<string id="manager.addtodb">Aggiungi nuovo attore nel DB
+</string>
+		<string id="manager.savetodb">Salva nel DB
+</string>
+		<string id="manager.sel">Attori selezionati
+</string>
+		<string id="manager.stars">Stelle
+</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Seleziona il modo per aggiungere nuovi film
+</string>
+		<string id="addmovie.imdb">Cerca da un Internet Movie Database</string>
+		<string id="addmovie.imdbtitle">Inserisci la parola per cercare
+</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.history">Storico dei prestiti
+</string>
+		<string id="loan.history2">Vedi lo storico dei prestiti
+</string>
+		<string id="loan.since">Da
+</string>
+		<string id="loan.success">Film prestato
+</string>
+		<string id="loan.out">Not returned
+</string>
+		<string id="loan.datein">Data ingresso
+</string>
+		<string id="loan.dateout">Data Uscita
+</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.add">Invia un commento
+</string>
+		<string id="comments.none">Nessun commento presente
+</string>
+		<string id="comments.your">I tuoi commenti
+</string>
+		<string id="comments.post">Post comment
+</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Aggiungi ai preferiti
+</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">L'ho gia visto
+</string>
+		<string id="seen.notseenit">Non l'ho ancora visto
+</string>
+		<string id="seen.seenitclick">Clikka per marcare come VISTO
+</string>
+		<string id="seen.notseenitclick">Clikka per marcare come NON VISTO
+</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">contiene
+</string>
+		<string id="misc.grade">IMDB rating more than
+</string>
+		<string id="misc.any">Tutti
+</string>
+		<string id="misc.tryagain">Prova ancora
+</string>
+		<string id="misc.proceed">Procedi
+</string>
+		<string id="misc.select">Seleziona
+</string>
+		<string id="misc.confirm">Conferma
+</string>
+		<string id="misc.cancel">Cancella
+</string>
+		<string id="misc.attention">Attenzione!
+</string>
+		<string id="misc.status">Stato
+</string>
+		<string id="misc.yes">Si
+</string>
+		<string id="misc.no">No
+</string>
+		<string id="misc.new">Nuovo
+</string>
+		<string id="misc.change">modifica
+</string>
+		<string id="misc.delete">cancella
+</string>
+		<string id="misc.update">Aggiorna
+</string>
+		<string id="misc.saveandclose">Salva e Chiudi
+</string>
+		<string id="misc.close">Chiudi
+</string>
+		<string id="misc.edit">Modifica</string>
+	</strings>
+</language>

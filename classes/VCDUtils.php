@@ -233,16 +233,16 @@ class VCDUtils {
 
 		if (floor($datediff/60/60/24) > 0) {
 			if (floor($datediff/60/60/24) == 1) {
-				return floor($datediff/60/60/24) . " ". language::translate('LOAN_DAY');
+				return floor($datediff/60/60/24) . " ". VCDLanguage::translate('loan.day');
 			} else {
-				return floor($datediff/60/60/24) . " ". language::translate('LOAN_DAYS');
+				return floor($datediff/60/60/24) . " ". VCDLanguage::translate('loan.days');
 			}
 
 		} elseif (floor($datediff/60/60) > 0) {
-			return language::translate('LOAN_TODAY');
+			return VCDLanguage::translate('loan.day');
 
 		} else {
-			return "1 " . language::translate('LOAN_DAY');
+			return "1 " . VCDLanguage::translate('loan.days');
 
 		}
 
@@ -257,8 +257,8 @@ class VCDUtils {
 	 * @return string
 	 */
 	static public function getCharSet() {
-		;
-		$charset = language::translate('LANG_CHARSET');
+		return "UTF-8";
+		$charset = VCDLanguage::translate('language.charset');
 		if (strcmp($charset, "undefined") == 0) {
 			return "iso-8859-1";
 		} else {

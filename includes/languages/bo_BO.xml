@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Neven Randic -->
+<language>
+	<id>bo_BO</id>
+	<name>Bosnian</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">BOS</string>
+		<string id="language.name">Bosnian</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Moj meni</string>
+		<string id="menu.settings">Moje postavke</string>
+		<string id="menu.movies">Moji filmovi</string>
+		<string id="menu.addmovie">Dodaj novi film</string>
+		<string id="menu.loansystem">Sistem posuðivanja</string>
+		<string id="menu.wishlist">Moje želje</string>
+		<string id="menu.categories">Kategorije filmova</string>
+		<string id="menu.rss">Moji RSS izvori</string>
+		<string id="menu.controlpanel">Control Panel</string>
+		<string id="menu.register">Registrovanje</string>
+		<string id="menu.logout">Odjava</string>
+		<string id="menu.submit">Submit</string>
+		<string id="menu.topusers">Èesti korisnici</string>
+		<string id="menu.wishlistpublic">Želje drugih...</string>
+		<string id="menu.statistics">Statistika</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Prijava</string>
+		<string id="login.username">Korisnièko ime</string>
+		<string id="login.password">Lozinka</string>
+		<string id="login.remember">Zapamti!</string>
+		<string id="login.info">Ostavi prazno ako &lt;b&gt;ne&lt;/b&gt; želiš da mijenjaš svoju lozinku</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Registrovanje</string>
+		<string id="register.fullname">Ime i prezime</string>
+		<string id="register.email">E-mail</string>
+		<string id="register.again">Ponvi lozinku</string>
+		<string id="register.disabled">Žalim, administrator je privremeno iskljuèio registrovanje</string>
+		<string id="register.ok">Uspješno ste se registrovali. Sad se možete prijaviti na VCD-db.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Pošalji mi e-mail kad se pojavi novi film?</string>
+		<string id="userproperties.show_adult">Prikaži sadržaj za odrasle na stranici?</string>
+		<string id="userproperties.rss">Dopusti RSS izvore s moje liste filmova?</string>
+		<string id="userproperties.wishlist">Dopusti drugima da vide moje želje?</string>
+		<string id="userproperties.use_index">Koristi broj indeksa kao vlastitu numeraciju medija?</string>
+		<string id="userproperties.seen_list">Vodi raèuna o filmovima koje sam odgledao?</string>
+		<string id="userproperties.playoption">Koristi vlastite postavke za </string>
+		<string id="userproperties.nfo">Koristi NFO?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Postavke sviraèa (Player)</string>
+		<string id="usersettings.ownfeed">Pregledaj moj vlastiti izvor (feed)</string>
+		<string id="usersettings.custom">Prilagodi moju poèetnu stranicu</string>
+		<string id="usersettings.showstat">Prikaži statistiku</string>
+		<string id="usersettings.showside">Prikaži nove filmove u boènom meniju</string>
+		<string id="usersettings.selectrss">Odaberi RSS izvor</string>
+		<string id="usersettings.updated">User information updated</string>
+		<string id="usersettings.update_failed">Failed to update</string>
+		<string id="usersettings.list">Ignore List</string>
+		<string id="usersettings.desc">Ignore all movies from the following users:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Pretraga</string>
+		<string id="search.title">Po naslovu</string>
+		<string id="search.actor">Po glumcu</string>
+		<string id="search.director">Po režiseru</string>
+		<string id="search.results">Rezultati pretrage</string>
+		<string id="search.extended">Detaljna pretraga</string>
+		<string id="search.noresult">Vaša pretraga nije dala rezultate</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Akcija</string>
+		<string id="category.adult">Filmovi za odrasle</string>
+		<string id="category.adventure">Avantura</string>
+		<string id="category.animation">Crtani</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Komedija</string>
+		<string id="category.crime">Krimiæ</string>
+		<string id="category.documentary">Dokumentarni</string>
+		<string id="category.drama">Drama</string>
+		<string id="category.family">Porodièni</string>
+		<string id="category.fantasy">Fantazija</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Horor</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Muzièki - video</string>
+		<string id="category.musical">Mjuzikl</string>
+		<string id="category.mystery">Film misterije</string>
+		<string id="category.romance">Romantièni</string>
+		<string id="category.scifi">SF</string>
+		<string id="category.short">Kratki</string>
+		<string id="category.thriller">Triler</string>
+		<string id="category.tvshows">TV Show</string>
+		<string id="category.war">Ratni</string>
+		<string id="category.western">Vestern</string>
+		<string id="category.xrated">X-Oznaèeni</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Film</string>
+		<string id="movie.actors">Glumci</string>
+		<string id="movie.category">Kategorija</string>
+		<string id="movie.year">Godina produkcije</string>
+		<string id="movie.copies">Kopije</string>
+		<string id="movie.from">Od</string>
+		<string id="movie.title">Naslov</string>
+		<string id="movie.alttitle">Alternativni naslov</string>
+		<string id="movie.grade">Ocjena</string>
+		<string id="movie.director">Režiser</string>
+		<string id="movie.country">Zemlja produkcije</string>
+		<string id="movie.runtime">Trajanje filma</string>
+		<string id="movie.minutes">minuta</string>
+		<string id="movie.plot">Zaplet</string>
+		<string id="movie.noplot">Zaplet nije dostupan</string>
+		<string id="movie.covers">CD omoti</string>
+		<string id="movie.available">Dostipne kopije</string>
+		<string id="movie.media">Medij</string>
+		<string id="movie.num">Broj CD-ova</string>
+		<string id="movie.date">Datum kad je film unesen</string>
+		<string id="movie.owner">Vlasnik</string>
+		<string id="movie.noactors">Lista glumaca nije dostupna</string>
+		<string id="movie.info">Podaci o filmu</string>
+		<string id="movie.details">Detalji o mojoj kopiji</string>
+		<string id="movie.mediatype">Tip medija</string>
+		<string id="movie.comment">Komentar</string>
+		<string id="movie.private">Oznaèi kao privatno ?</string>
+		<string id="movie.screenshots">Scene</string>
+		<string id="movie.noscreens">Scene nisu dostupne</string>
+		<string id="movie.show">Prikaži</string>
+		<string id="movie.hide">Sakrij</string>
+		<string id="movie.change">Promijeni podatke</string>
+		<string id="movie.nocovers">CD omot nije dostupan</string>
+		<string id="movie.bycat">Naslovi po kategoriji</string>
+		<string id="movie.currcat">Trenutna kategorija</string>
+		<string id="movie.textview">Tekstualni pregled</string>
+		<string id="movie.imageview">Slikovni pregled</string>
+		<string id="movie.mineonly">Prikaži samo moje filmove</string>
+		<string id="movie.similar">Slièni filmovi</string>
+		<string id="movie.mediaindex">Indeks medija</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB detalji</string>
+		<string id="imdb.plot">Zaplet</string>
+		<string id="imdb.gallery">Galerija slika</string>
+		<string id="imdb.trailers">Trailers</string>
+		<string id="imdb.links">IMDB linkovi</string>
+		<string id="imdb.not">IMDB informacija nije dostupna</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Region</string>
+		<string id="dvd.format">Format</string>
+		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.audio">Audio</string>
+		<string id="dvd.subtitles">Subtitles</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Eksortuj podatke</string>
+		<string id="mymovies.excel">Eksportuj kao Excel fajl</string>
+		<string id="mymovies.xml">Eksportuj kao XML fajl</string>
+		<string id="mymovies.xmlthumbs">Eksportuj slièice kao XML fajl</string>
+		<string id="mymovies.actions">Moje akcije</string>
+		<string id="mymovies.join">Pridruživanje diskova</string>
+		<string id="mymovies.joinmovies">Pridruživanje film diskova</string>
+		<string id="mymovies.joinsuser">Odabveri korisnika</string>
+		<string id="mymovies.joinsmedia">Odaberi tip medija</string>
+		<string id="mymovies.joinscat">Odaberi kategoriju</string>
+		<string id="mymovies.joinstype">Odaberi akciju</string>
+		<string id="mymovies.joinshow">Prikaži rezultat</string>
+		<string id="mymovies.noresults">Upit nije vratio rezultate</string>
+		<string id="mymovies.textall">Pregled svih (Textmode)</string>
+		<string id="mymovies.pwall">Pregled svih video podataka za štampanje</string>
+		<string id="mymovies.pwmovies">Pregled svih filmova za štampanje</string>
+		<string id="mymovies.pwtv">Pregled svih TV šoua za štampanje</string>
+		<string id="mymovies.pwblue">Pregled svih X rejting filmova za štampanje</string>
+		<string id="mymovies.j1">Filmovi koje ja imam, ali ne i drugi korisnik</string>
+		<string id="mymovies.j2">Filmovi koje drugi korisnik ima, ali ne i ja</string>
+		<string id="mymovies.j3">Filmovi koje obojica imamo</string>
+		<string id="mymovies.overview">Pregled kolekcije</string>
+		<string id="mymovies.info">Na ovoj stranici možete pronaæi sve o mojim filmovima.&lt;br/&gt;Desno se nalaze akcije koje možete izvršiti na vašoj filmskoj kolekciji.&lt;br/&gt;Takoðer, možete eksportovati vašu listu kao excel fajl ili koristiti XML izvozne funklcije za pravljenje sigurnosnih kopija ili da pomjerite vašu kolekciju filmova iz jedne VCD-db baze u drugu.</string>
+		<string id="mymovies.keys">Promijeni vlastitu numeraciju</string>
+		<string id="mymovies.seenlist">Mijenjal listu pregledanih filmova</string>
+		<string id="mymovies.helppicker">Odaberi film za gledanje</string>
+		<string id="mymovies.helppickerinfo">Ne znate šta gledati veèeras?&lt;br/&gt;Neka VCD-db odabere film za vas.&lt;br/&gt;Opcionalno možete postaviti filtere da bi suzili podruèje za prijedlog VCD-db-a.</string>
+		<string id="mymovies.find">Pronaði film</string>
+		<string id="mymovies.notseen">Predloži samo filmove koje nisam gledao</string>
+		<string id="mymovies.friends">Moji prijatelji koji posuðuju filmove</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Osnovne informacije</string>
+		<string id="manager.imdb">IMDB informacije</string>
+		<string id="manager.empire">DVDEmpire informacije</string>
+		<string id="manager.copy">Moja kopija</string>
+		<string id="manager.copies">Moje kopije</string>
+		<string id="manager.nocopy">Nemaš vlastitih kopija</string>
+		<string id="manager.1copy">Kopija</string>
+		<string id="manager.addact">Dodaj glumca</string>
+		<string id="manager.addtodb">Dodaj novog glumca u bazu</string>
+		<string id="manager.savetodb">Snimi u bazu</string>
+		<string id="manager.savetodbncd">Snimi u bazu DB i film</string>
+		<string id="manager.indb">Glumci u bazi</string>
+		<string id="manager.sel">Oznaèeni glumci</string>
+		<string id="manager.stars">Zvijezde</string>
+		<string id="manager.browse">Odaberi lokaciju za fajlove</string>
+		<string id="manager.addmedia">Add...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Odaberi metod za dodavanje novih filmova</string>
+		<string id="addmovie.imdb">Dobavi podatke</string>
+		<string id="addmovie.imdbtitle">Unesi kljuène rijeæi za pretragu po</string>
+		<string id="addmovie.manual">Unesi podatke manuelno</string>
+		<string id="addmovie.listed">Dodaj film koji je veæ izlistan</string>
+		<string id="addmovie.xml">Dodaj film iz eksportovanog XML fajla</string>
+		<string id="addmovie.xmlfile">Odaberi XML fajl za import podataka</string>
+		<string id="addmovie.xmlnote">(Napomena: Samo XML fajlovi koji su eksportovani iz druge VCD-db baze se mogu koristiti za import vaših filmova. Filmove možete eksportovati iz sekcije &quot;Moji filmovi&quot;. Izbjegavajte mmanuelno mijenjanje exportovanih XML files.)</string>
+		<string id="addmovie.maxfilesize">Max. velièina</string>
+		<string id="addmovie.dvdempire">Dobavi podatje sa Adult DVD Empire (X-rated filmovi)</string>
+		<string id="addmovie.listedstep1">Korak 1&lt;br/&gt;Oznaèite naslove koje želite da dodate na svoju listu.&lt;br/&gt;Tip medija možete oznaèiti u slijedeæem koraku.</string>
+		<string id="addmovie.listedstep2">Korak 2.&lt;br/&gt;Odaberi odgovarajuèi tip medija.</string>
+		<string id="addmovie.indb">Filmovi u VCD-DB</string>
+		<string id="addmovie.selected">Oznaèeni naslovi</string>
+		<string id="addmovie.infolist">Dvo-klikni na naslov da ga oznaèiš ili koristi kurzore.&lt;br/&gt;Možete koristiti tastaturu da brzo pronaðete naslove.</string>
+		<string id="addmovie.notitles">Drugi korisnici nisu dodavali filmove u VCD-db</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Potvrdi XML upload</string>
+		<string id="xml.contains">XML fajl sadrži %d filmova.</string>
+		<string id="xml.info1">Odaberi Potvrda da importujem i snimim filmove u bazu.&lt;br/&gt;Ili odaberi Otkaži da prekineš radnju.</string>
+		<string id="xml.info2">Ukoliko želite da ukljuèite slièice (postere) sa filmovima koje želite da importujete u vašem XML fajlu, slièice &lt;b&gt;MORAJU&lt;/b&gt; imati XML fijl prilikom importa!.&lt;br/&gt;Posteri ne mogu biti importovani nakon što ste završili importovanje filmova iz trenutnog XML fajla.&lt;br/&gt;&lt;br/&gt;Ukoliko imate XML fajl s slièicama dostupan sada, provjerite polje za unos (dole) i u slijedeæem koraku nakon što importujete filmove iz liste, od vas æe se tražiti da importujete XML fajl s slièicama, takoðer.</string>
+		<string id="xml.thumbnails">Dodaj slièice iz XML fajla s slièicama </string>
+		<string id="xml.list">Puna lista filmova iz XML fajla.</string>
+		<string id="xml.error">Nije pronaðen ni jedan naslov u XML fajlu.&lt;br/&gt;Možda je fajl ošteæen ili jednostavno prazan.&lt;br/&gt;&lt;br/&gt;Provjerite da li koristite XML fajl koji je eksportovan iz VCD-db...</string>
+		<string id="xml.results">XML upload rezultati.</string>
+		<string id="xml.results2">Rezultati vašeg XML importa.&lt;br/&gt;Ukupno je %d filmova dodano u bazu.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Information sa AdultDVDEmpire.com ....</string>
+		<string id="dvdempire.desc">DVDEmpire opis</string>
+		<string id="dvdempire.subcat">Podkategorija</string>
+		<string id="dvdempire.details">Adultdvdempire.com detalji</string>
+		<string id="dvdempire.stars">Porno zvijezde</string>
+		<string id="dvdempire.notice">Glumci oznaèeni crvenom bojom se ne nalaze u VCD-DB bazi.&lt;br/&gt;Ali možete oznaèiti njihova imena i oni æe se automatski dodati u VCD-db bazu i asocirati s ovim filmom.</string>
+		<string id="dvdempire.fetch">Takoðer dobavi</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Filmovi za posuðivanje</string>
+		<string id="loan.to">Posudi film...</string>
+		<string id="loan.addusers">Dodaj korisnike kojima posuðuješ da bi nastavio</string>
+		<string id="loan.newuser">Novi korisnik</string>
+		<string id="loan.registeruser">Dodaj novog korisnika</string>
+		<string id="loan.name">Ime</string>
+		<string id="loan.select">Odaberi korisnika</string>
+		<string id="loan.movieloans">Posuðeni filmovi ...</string>
+		<string id="loan.reminder">Pošalji napomenu</string>
+		<string id="loan.history">Istorija posuðivanja</string>
+		<string id="loan.history2">Pregledaj istoriju posuðivanja</string>
+		<string id="loan.since">Posuðeno do</string>
+		<string id="loan.time">Posuðeno vrijeme</string>
+		<string id="loan.return">Oznaèi kao vraæeno</string>
+		<string id="loan.success">Filmovi posuðeni (uspješno)</string>
+		<string id="loan.out">Nisu vraèeni</string>
+		<string id="loan.datein">Datum posuðivanja</string>
+		<string id="loan.dateout">Datum vraèanja</string>
+		<string id="loan.period">Period posuðivanja</string>
+		<string id="loan.back">Nazad na indeks posuðivanja</string>
+		<string id="loan.day">dan</string>
+		<string id="loan.days">dana</string>
+		<string id="loan.today">od danas</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS izvori</string>
+		<string id="rss.title">RSS izvori s VCD-DB stranica mojih prijatelja</string>
+		<string id="rss.site">RSS izvor stranice</string>
+		<string id="rss.user">RSS izvor korisnika</string>
+		<string id="rss.view">Pregledaj RSS izvor</string>
+		<string id="rss.add">Dodaj novi izvor</string>
+		<string id="rss.note">Unesi &lt;strong&gt;taèan url&lt;/strong&gt; VCD baze vašeg prijatelja.&lt;br/&gt;Ako je RSS ukljuèen na sajtu vašeg prijatelja možete odabrati pojedini izvor za koji ste zainteresovani i prikazati ga na stranici.</string>
+		<string id="rss.fetch">Dobavi RSS izvore</string>
+		<string id="rss.none">RSS izvori su dodani.</string>
+		<string id="rss.found">Slijedeæi RSS izvori su dodani, oznaèite one koje želite dodati:</string>
+		<string id="rss.notfound">RSS izvori nisu pronaðeni na lokaciji</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Komentari</string>
+		<string id="comments.add">Dodaj novi komentar</string>
+		<string id="comments.none">Nema komentara</string>
+		<string id="comments.type">Unesi svoj komentar</string>
+		<string id="comments.your">Vaš komentar</string>
+		<string id="comments.post">Objavi komentar</string>
+		<string id="comments.error">Morate biti prijavljeni da bi mogli komentarisati</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Dodaj u moju listu želja</string>
+		<string id="wishlist.onlist">Na vašoj listi želja</string>
+		<string id="wishlist.empty">Vaša lista želja je prazna</string>
+		<string id="wishlist.own">Posjedujem kopiju ovog filma</string>
+		<string id="wishlist.notown">Ne posjedujem kopiju ovog filma</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Ime</string>
+		<string id="pornstar.web">Web stranica</string>
+		<string id="pornstar.moviecount">Broj snimljenih filmova</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Ovaj film sam gledao</string>
+		<string id="seen.notseenit">Ovaj film nisam gledao</string>
+		<string id="seen.seenitclick">Klikni da oznaèiš film da je gledan</string>
+		<string id="seen.notseenitclick">Klikni da oznaèiš film da nije gledan</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Today's Report</string>
+		<string id="statistics.top_movies">Movies in database</string>
+		<string id="statistics.top_cats">Top categories</string>
+		<string id="statistics.top_act">Most active categories</string>
+		<string id="statistics.top_covers">Covers in database</string>
+		<string id="statistics.total">Total</string>
+		<string id="statistics.today">Added today</string>
+		<string id="statistics.week">Added in last 7 days</string>
+		<string id="statistics.month">Added in last 30 days</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returnmovies1">%s, samo želim da te podsjetim da vratiš moje filmove.&lt;br/&gt;Kod tebe su slijedeæi filmovi:&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Molim te da ih vratiš što prije moguæe&lt;br/&gt;Pozdrav %s&lt;br/&gt;&lt;br/&gt;nb. ovo je automatska poruka od VCD-db sistema (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;Novi film je dodan u VCD-db&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;Klikni &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;ovdje&lt;/a&gt; da bi vidio više ...&lt;br/&gt;&lt;p&gt;nb. ovo je automatska poruka od VCD-db sistema (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.register">%s, registracija na VCD-db je uspješna.&lt;br/&gt;&lt;br/&gt;Vaše korisnièko ime je %s i vaša lozinka je %s.&lt;br/&gt;&lt;br/&gt;Uvijek možete promijeniti vašu lozinku, nakon što se prijavite na stranicu.&lt;br/&gt;Kliknite &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;ovdje&lt;/a&gt; da odete na VCD-db stranicu.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">My Metadata</string>
+		<string id="metadata.name">Name</string>
+		<string id="metadata.desc">Description</string>
+		<string id="metadata.type">Meta type</string>
+		<string id="metadata.value">Meta value</string>
+		<string id="metadata.none">No Metadata exists.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Sviraè (Player)</string>
+		<string id="player.path">Put (Path)</string>
+		<string id="player.param">Parametri</string>
+		<string id="player.note">Unesite puni put do vašeg put do vašeg sviraèa za filmove (movie player) na vašem disku.  Vaš sviraè mora biti u moguènosti da prihvati parametre s komandne linije poput BSPlayer-a za Win32 ili MPlayer-a za Linux.&lt;br/&gt;Možete downloadovati BSPlayer besplatno &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;ovdje&lt;/a&gt; i MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;ovdje&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">sadrži</string>
+		<string id="misc.grade">IMDB rejting viši od</string>
+		<string id="misc.any">Bilo koji</string>
+		<string id="misc.tryagain">probaj ponovo</string>
+		<string id="misc.proceed">Proslijedi</string>
+		<string id="misc.select">Oznaèi</string>
+		<string id="misc.confirm">Potvrdi</string>
+		<string id="misc.cancel">Otkaži</string>
+		<string id="misc.attention">Pažnja!</string>
+		<string id="misc.status">Status</string>
+		<string id="misc.success">Uspijeh!</string>
+		<string id="misc.failure">Greška</string>
+		<string id="misc.yes">Da</string>
+		<string id="misc.no">Ne</string>
+		<string id="misc.showmore">Prikaži više</string>
+		<string id="misc.showless">Prikaži manje</string>
+		<string id="misc.new">Novi</string>
+		<string id="misc.change">mijenjaj</string>
+		<string id="misc.delete">obriši</string>
+		<string id="misc.update">Obnovi</string>
+		<string id="misc.saveandclose">Snimi i zatvori</string>
+		<string id="misc.close">Zatvori</string>
+		<string id="misc.edit">Edituj</string>
+		<string id="misc.results">Rezultati</string>
+		<string id="misc.latestmovies">zadnji filmovi</string>
+		<string id="misc.latesttv">zadnje TV emisije</string>
+		<string id="misc.latestblue">zadnji X-rated</string>
+		<string id="misc.movies">filmovi</string>
+		<string id="misc.nocats">Filmovi nisu dodavani.</string>
+		<string id="misc.nousers">Nema aktivnih korisnika</string>
+		<string id="misc.key">Kljuè</string>
+		<string id="misc.savenext">Snimi i edituj slijedeæi</string>
+		<string id="misc.save">Snimi</string>
+		<string id="misc.seen">Odgledan</string>
+		<string id="misc.footer">Page Loaded in %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Check out the official VCD-db website</string>
+		<string id="misc.toggle">Toggle preview</string>
+		<string id="misc.toggle_on">on</string>
+		<string id="misc.toggle_off">off</string>
+	</strings>
+</language>

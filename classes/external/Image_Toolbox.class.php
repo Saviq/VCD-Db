@@ -414,7 +414,7 @@ class Image_Toolbox {
             	$this->_img['operator']['color'] = 0;
 			}
 		} elseif ($argc == 1 && is_string($args[0])) {
-			//bild aus datei laden. width und height original gr”sse
+			//bild aus datei laden. width und height original grï¿½sse
 			$this->_img['operator'] = $this->_loadFile($args[0]);
 			$this->_img['operator']['indexedcolors'] = imagecolorstotal($this->_img['operator']['resource']);
 			$this->_img['operator']['color'] = -1;

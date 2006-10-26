@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Hákon Birgisson -->
+<language>
+	<id>is_IS</id>
+	<name>Icelandic</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">IS</string>
+		<string id="language.name">Íslenska</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Mín valmynd</string>
+		<string id="menu.settings">Mínar stillingar</string>
+		<string id="menu.movies">Mínar myndir</string>
+		<string id="menu.addmovie">Bæta við mynd</string>
+		<string id="menu.loansystem">Lánakerfið</string>
+		<string id="menu.wishlist">Óskalistinn</string>
+		<string id="menu.categories">Flokkar mynda</string>
+		<string id="menu.rss">RSS straumar</string>
+		<string id="menu.controlpanel">Stjórnborð</string>
+		<string id="menu.register">Nýskráning</string>
+		<string id="menu.logout">Útskráning</string>
+		<string id="menu.submit">Staðfesta</string>
+		<string id="menu.topusers">Top notendur</string>
+		<string id="menu.wishlistpublic">Óskalisti annara</string>
+		<string id="menu.statistics">Tölfræði</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Innskráning</string>
+		<string id="login.username">Notandi</string>
+		<string id="login.password">Lykilorð</string>
+		<string id="login.remember">Mundu mig</string>
+		<string id="login.info">Hafðu þetta tómt ef þú vilt &lt;b&gt;ekki&lt;/b&gt; breyta lykilorðinu þínu</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Nýskráning</string>
+		<string id="register.fullname">Fullt nafn</string>
+		<string id="register.email">Netfang</string>
+		<string id="register.again">Lykilorð aftur</string>
+		<string id="register.disabled">Þvi miður, kerfisstjóri leyfir ekki nýskráningar eins og er</string>
+		<string id="register.ok">Skráning heppnaðist, þú getur núna skráð þig inn.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Senda mér póst þegar að ný mynd er skráð?</string>
+		<string id="userproperties.show_adult">Sýna fullorðins efni?</string>
+		<string id="userproperties.rss">Leyfa RSS straum frá mínum lista?</string>
+		<string id="userproperties.wishlist">Leyfa öðrum að sjá óskalistann minn?</string>
+		<string id="userproperties.use_index">Nota sér auðkenni fyrir myndir?</string>
+		<string id="userproperties.seen_list">Halda utan um myndir sem ég hef séð?</string>
+		<string id="userproperties.playoption">Nota afspilun frá VCD-db?</string>
+		<string id="userproperties.nfo">Nota NFO skjöl?</string>
+		<string id="userproperties.default_image">Á myndasýn að vera sjálfgefin?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Stilla spilara</string>
+		<string id="usersettings.ownfeed">Skoða minn XML straum</string>
+		<string id="usersettings.custom">Stilla forsíðu</string>
+		<string id="usersettings.showstat">Sýna tölfræði</string>
+		<string id="usersettings.showside">Sýna nýjar myndir í hægri valmynd</string>
+		<string id="usersettings.selectrss">Veldu RSS strauma</string>
+		<string id="usersettings.pagelook">Útlit vefs</string>
+		<string id="usersettings.pagemode">Veldu sjálfgefið sniðmát:</string>
+		<string id="usersettings.updated">User information updated</string>
+		<string id="usersettings.update_failed">Failed to update</string>
+		<string id="usersettings.list">Útilokunar listi</string>
+		<string id="usersettings.desc">Ekki birta myndir frá eftirfarandi notendum:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Leita</string>
+		<string id="search.title">Eftir titli</string>
+		<string id="search.actor">Eftir leikara</string>
+		<string id="search.director">Eftir leikstjóra</string>
+		<string id="search.results">Leitarniðurstöður</string>
+		<string id="search.extended">Ítarleg leit</string>
+		<string id="search.noresult">Leit skilaði engum niðurstöðum</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Spennumyndir</string>
+		<string id="category.adult">Erótískar</string>
+		<string id="category.adventure">Ævintýramyndir</string>
+		<string id="category.animation">Teiknimyndir</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Gamanmyndir</string>
+		<string id="category.crime">Sakamálamyndir</string>
+		<string id="category.documentary">Heimildarmyndir</string>
+		<string id="category.drama">Drama</string>
+		<string id="category.family">Fjöldskyldumyndir</string>
+		<string id="category.fantasy">Fantasía</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Hryllingsmyndir</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Tónlistarmyndbönd</string>
+		<string id="category.musical">Söngvamyndir</string>
+		<string id="category.mystery">Ráðgáta</string>
+		<string id="category.romance">Rómantik</string>
+		<string id="category.scifi">Vísindarskáldsaga</string>
+		<string id="category.short">Stuttmyndir</string>
+		<string id="category.thriller">Þriller</string>
+		<string id="category.tvshows">Sjónvarpsþættir</string>
+		<string id="category.war">Stríðsmyndir</string>
+		<string id="category.western">Vestrar</string>
+		<string id="category.xrated">Ljósbláar</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Um myndina</string>
+		<string id="movie.actors">Leikarar</string>
+		<string id="movie.category">Flokkur</string>
+		<string id="movie.year">Framleiðsluár</string>
+		<string id="movie.copies">Eintök til</string>
+		<string id="movie.from">Frá</string>
+		<string id="movie.title">Titill</string>
+		<string id="movie.alttitle">Aukatitill</string>
+		<string id="movie.grade">Einkunn</string>
+		<string id="movie.director">Leikstjóri</string>
+		<string id="movie.country">Framleiðsluland</string>
+		<string id="movie.runtime">Lengd</string>
+		<string id="movie.minutes">mín.</string>
+		<string id="movie.plot">Söguþráður</string>
+		<string id="movie.noplot">Enginn söguþráður til</string>
+		<string id="movie.covers">CD Covers</string>
+		<string id="movie.available">Eintök til</string>
+		<string id="movie.media">Myndgæði</string>
+		<string id="movie.num">Fjöldi diska</string>
+		<string id="movie.date">Dags</string>
+		<string id="movie.owner">Eigandi</string>
+		<string id="movie.noactors">Engir leikarar skráðir</string>
+		<string id="movie.info">Nánari upplýsingar</string>
+		<string id="movie.details">Upplýsingar um mitt eintak</string>
+		<string id="movie.mediatype">Myndgæði</string>
+		<string id="movie.comment">Athugasemd</string>
+		<string id="movie.private">Merkja prívat?</string>
+		<string id="movie.screenshots">Skjámyndir</string>
+		<string id="movie.noscreens">Engar skjámyndir eru til</string>
+		<string id="movie.show">Sýna</string>
+		<string id="movie.hide">Fela</string>
+		<string id="movie.change">Breyta upplýsingum</string>
+		<string id="movie.nocovers">Enginn CD-Cover eru til</string>
+		<string id="movie.bycat">Titlar eftir flokki</string>
+		<string id="movie.currcat">Valinn flokkur</string>
+		<string id="movie.textview">Textasýn</string>
+		<string id="movie.imageview">Myndasýn</string>
+		<string id="movie.mineonly">Sýna bara mínar myndir</string>
+		<string id="movie.similar">Svipaðir titlar</string>
+		<string id="movie.mediaindex">Auðkenni</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB Lýsing</string>
+		<string id="imdb.plot">Söguþráður</string>
+		<string id="imdb.gallery">Myndasafn</string>
+		<string id="imdb.trailers">Myndbands brot</string>
+		<string id="imdb.links">IMDB Tenglar</string>
+		<string id="imdb.not">Engar IMDB upplýsingar tiltækar</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Svæði</string>
+		<string id="dvd.format">Tegund</string>
+		<string id="dvd.aspect">Kóðun</string>
+		<string id="dvd.audio">Hljóðrás</string>
+		<string id="dvd.subtitles">Textar</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Flytja út gögn</string>
+		<string id="mymovies.excel">Flytja listann út í Excel</string>
+		<string id="mymovies.xml">Flytja listann út sem XML</string>
+		<string id="mymovies.xmlthumbs">Flytja thumbnails út sem XML</string>
+		<string id="mymovies.actions">Mínar aðgerðir</string>
+		<string id="mymovies.join">Samkeyrslur</string>
+		<string id="mymovies.joinmovies">Samkeyrslur á myndum</string>
+		<string id="mymovies.joinsuser">Veldu notanda</string>
+		<string id="mymovies.joinsmedia">Veldu myndgæði</string>
+		<string id="mymovies.joinscat">Veldu yfirflokk</string>
+		<string id="mymovies.joinstype">Veldu tegund keyrslu</string>
+		<string id="mymovies.joinshow">Sýna niðurstöður</string>
+		<string id="mymovies.noresults">Keyrsla skilaði engum niðurstöðum</string>
+		<string id="mymovies.textall">Prentsýn (textasýn)</string>
+		<string id="mymovies.pwall">Prentsýn allra mynda</string>
+		<string id="mymovies.pwmovies">Prentsýn kvikmynda</string>
+		<string id="mymovies.pwtv">Prentsýn þátta</string>
+		<string id="mymovies.pwblue">Prentsýn erótískra mynda</string>
+		<string id="mymovies.j1">Myndir sem ég á en notandi ekki</string>
+		<string id="mymovies.j2">Myndir sem notandi á en ég ekki</string>
+		<string id="mymovies.j3">Myndir sem báðir eiga</string>
+		<string id="mymovies.overview">Yfirlit mynda</string>
+		<string id="mymovies.info">Á þessari síðu er allt að finna um mínar myndir.&lt;br/&gt;Til hægri eru mögulegar aðgerðir sem snúa að þínum myndum.&lt;br/&gt;Einnig geturu hérna flutt út gögn á Excel formi til útprentunar eða notað XML útflutningsmöguleikana til að færa allar þínar myndir í heilu lagi frá einum VCD-db gagnagrunni til annars.</string>
+		<string id="mymovies.keys">Stilla lykla</string>
+		<string id="mymovies.seenlist">Stilla séðar myndir</string>
+		<string id="mymovies.helppicker">Finna mynd fyrir kvöldið</string>
+		<string id="mymovies.helppickerinfo">Veistu ekki hvað þú átt að glápa á?&lt;br/&gt;Leyfðu VCD-db að finna mynd fyrir þig.&lt;br/&gt;&lt;br/&gt;Þú getur stillt skorður ef þú vilt til að þrengja úrtakið fyrir VCD-db.</string>
+		<string id="mymovies.find">Finna mynd</string>
+		<string id="mymovies.notseen">Stinga bara uppá myndum sem ég hef ekki séð</string>
+		<string id="mymovies.friends">Mínir lánþegar</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Grunnupplýsingar</string>
+		<string id="manager.imdb">IMDB upplýsingar</string>
+		<string id="manager.empire">Empire upplýsingar</string>
+		<string id="manager.copy">Mitt eintak</string>
+		<string id="manager.copies">Mín eintök</string>
+		<string id="manager.nocopy">Þú átt engin eintök</string>
+		<string id="manager.1copy">Eintak</string>
+		<string id="manager.addact">Bæta við leikurum</string>
+		<string id="manager.addtodb">Bæta við nýjum leikara í grunninn</string>
+		<string id="manager.savetodb">Vista í db</string>
+		<string id="manager.savetodbncd">Vista í db og mynd</string>
+		<string id="manager.indb">Leikarar í gagnagrunni</string>
+		<string id="manager.sel">Valdir leikarar</string>
+		<string id="manager.stars">Stjörnur</string>
+		<string id="manager.browse">Velja skjal</string>
+		<string id="manager.addmedia">Bæta við ..</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Veldu einn af eftirfarandi möguleikum til að skrá inn nýja mynd</string>
+		<string id="addmovie.imdb">Sækja beint frá vefnum</string>
+		<string id="addmovie.imdbtitle">Sláðu inn titil til að leita eftir</string>
+		<string id="addmovie.manual">Slá inn handvirkt</string>
+		<string id="addmovie.listed">Bæta við myndum sem er nú þegar skráðar</string>
+		<string id="addmovie.xml">Hlaða inn úr XML skjali</string>
+		<string id="addmovie.xmlfile">Skjal til að hlaða inn</string>
+		<string id="addmovie.xmlnote">(Athugið, aðeins XML skjöl sem hafa verið flutt út með VCD-DB geta verið notuð til aðtflytja inn myndir. Þú getur flutt út myndir í XML form undir &quot;Mínar myndir&quot;. Forðist að breyta XML skjölum frá VCD-DB handvirkt.) </string>
+		<string id="addmovie.maxfilesize">Hámarks skrárstærð</string>
+		<string id="addmovie.dvdempire">Sækja beint frá adultdvdempire.com (bláar myndir)</string>
+		<string id="addmovie.listedstep1">Skref 1.&lt;br/&gt;Veldu myndir sem ú vilt bæta við á listann þinn.&lt;br/&gt;Í næsta skrefi velur þú myndgæði.</string>
+		<string id="addmovie.listedstep2">Skref 2. &lt;br/&gt;Veldu rétt myndgæði</string>
+		<string id="addmovie.indb">Myndir í grunni</string>
+		<string id="addmovie.selected">Valdir titlar</string>
+		<string id="addmovie.infolist">Tvísmelltu á mynd til að færa yfir, eða notaðu örina.&lt;br/&gt;Hægt er að nota lyklaborðið í valmyndinni vinstra megin til að flýta fyrir að finna ákveðna mynd.</string>
+		<string id="addmovie.notitles">Enginn annar notandi hefur skráð myndir í grunninn.</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Staðfesta XML innflutning</string>
+		<string id="xml.contains">XML skjal inniheldur %d myndir.</string>
+		<string id="xml.info1">Ýttu á staðfesta til að lesa inn myndir og vista í grunninn.&lt;br/&gt;Eða ýttu á &quot;Hætta við&quot; til að hætta við.</string>
+		<string id="xml.info2">Ef þú vilt að thumbnail myndir fylgi með innflutningi myndanna sem þú ert að flytja inn úr XML skjalinu,&lt;br/&gt;&lt;b&gt;verður&lt;/b&gt; þú að eiga XML thumbnails skjalið tilbúið líka núna.&lt;br/&gt;&lt;br/&gt;Thumbnails geta ekki verið sjálfkrafa fluttir inn nema núna.&lt;br/&gt;Ef þú ert nú þegar með XML thumbnails skjalið, ýttu þá á tékkboxið hér fyrir neðan og finndu XML skjalið sem á að fylgja með myndunum þínum. &lt;br/&gt;Þá munu myndir verða fluttar inn með viðkomandi titlum.</string>
+		<string id="xml.thumbnails">Flytja inn thumbnails frá XML skjali</string>
+		<string id="xml.list">Eftirfarandi titlar fundust í XML skjalinu.</string>
+		<string id="xml.error">Engar myndir fundust í XML skjalinu.nSkjal gæti verið tómt eða skemmt.&lt;br/&gt;Gangtu úr skugga um að þú sért að nota XML skjal sem var flutt úr VCD-db ..</string>
+		<string id="xml.results">Niðurstöður XML innflutnings.</string>
+		<string id="xml.results2">Hér eru niðustöður XML innflutnings.&lt;br/&gt;Samtals %d myndir voru vistaðar í grunninn.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Upplýsingar frá adultdvdempire.com um myndina ....</string>
+		<string id="dvdempire.desc">DVDEmpire lýsing</string>
+		<string id="dvdempire.subcat">Undirflokkar</string>
+		<string id="dvdempire.details">Nánari upplýsingar frá Adultdvdempire.com</string>
+		<string id="dvdempire.stars">Leikarar</string>
+		<string id="dvdempire.notice">Leikarar merktir með rauðu fundust ekki í grunninum.&lt;br/&gt;En það er hægt að haka við þá ef þú vilt bæta þeim við í grunninn og tengja við þessa mynd.</string>
+		<string id="dvdempire.fetch">Sækja aukalega</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Myndir til láns</string>
+		<string id="loan.to">Lána myndir til</string>
+		<string id="loan.addusers">Byrjaðu á að búa til lánþega</string>
+		<string id="loan.newuser">Nýr lánþegi</string>
+		<string id="loan.registeruser">Bæta við lánþega</string>
+		<string id="loan.name">Nafn</string>
+		<string id="loan.select">Veldu lánþega</string>
+		<string id="loan.movieloans">Myndir í láni ...</string>
+		<string id="loan.reminder">Senda áminningu</string>
+		<string id="loan.history">Lánasaga</string>
+		<string id="loan.history2">Sjá lánasögu</string>
+		<string id="loan.since">Síðan</string>
+		<string id="loan.time">Tími siðan</string>
+		<string id="loan.return">Skila eintaki</string>
+		<string id="loan.success">Myndir hafa verið settar í lán</string>
+		<string id="loan.out">Óskilað</string>
+		<string id="loan.datein">Dags inn</string>
+		<string id="loan.dateout">Dags út</string>
+		<string id="loan.period">Lánstími</string>
+		<string id="loan.back">Aftur á lánayfirlit</string>
+		<string id="loan.day">dagur</string>
+		<string id="loan.days">dagar</string>
+		<string id="loan.today">frá í dag</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS Straumar</string>
+		<string id="rss.title">RSS straumar frá öðrum VCD-DB félögum</string>
+		<string id="rss.site">RSS Vef straumur</string>
+		<string id="rss.user">RSS Notanda straumur</string>
+		<string id="rss.view">Skoða RSS straum</string>
+		<string id="rss.add">Bæta við RSS straum</string>
+		<string id="rss.note">Sláðu inn &lt;strong&gt;nákvæma slóð&lt;/strong&gt; á VCD-db til að tengjast.&lt;br/&gt;Ef RSS straumur er virkjaður á viðkomandi slóð geturu valið úr RSS straumum til að birta á síðunni þinni.</string>
+		<string id="rss.fetch">Sækja RSS Lista</string>
+		<string id="rss.none">Engir RSS straumar hafa verið skilgreindir.</string>
+		<string id="rss.found">Eftirfarandi RSS straumar fundust, veldu þá sem þú vilt birta:</string>
+		<string id="rss.notfound">Engar straumar fundust á slóðinni</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Athugasemdir</string>
+		<string id="comments.add">Skrá athugasemd</string>
+		<string id="comments.none">Engar athugasemdir hafa verið sendar inn</string>
+		<string id="comments.type">Sláðu inn athugasemd</string>
+		<string id="comments.your">Þín athugasemd</string>
+		<string id="comments.post">Senda athugasemd</string>
+		<string id="comments.error">Skráðu þig inn áður en þú sendir inn athugasemd</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Setja á óskalistann</string>
+		<string id="wishlist.onlist">Er á óskalistanum</string>
+		<string id="wishlist.empty">Óskalistinn þinn er tómur</string>
+		<string id="wishlist.own">Ég á eintak af þessari mynd</string>
+		<string id="wishlist.notown">Ég á ekki eintak af þessari mynd</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Nafn</string>
+		<string id="pornstar.web">Vefsíða</string>
+		<string id="pornstar.moviecount">Fjöldi mynda</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Búinn að sjá hana</string>
+		<string id="seen.notseenit">Eftir að sjá hana</string>
+		<string id="seen.seenitclick">Smelltu til að merkja sem séða</string>
+		<string id="seen.notseenitclick">Smelltu til að merkja mynd óséða</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Dagsskýrslan</string>
+		<string id="statistics.top_movies">Myndir í gagnagrunni</string>
+		<string id="statistics.top_cats">Topp flokkar</string>
+		<string id="statistics.top_act">Mest aktívu flokkarnir</string>
+		<string id="statistics.top_covers">Cover í grunni</string>
+		<string id="statistics.total">Samtals</string>
+		<string id="statistics.today">Bætt við í dag</string>
+		<string id="statistics.week">Bætt við síðustu vikuna</string>
+		<string id="statistics.month">Bætt við síðasta mánuðinn</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Áminning um skil</string>
+		<string id="mail.returnmovies1">%s, vill minna þig á að skila myndunum mínum.&lt;br/&gt;Þú ert með eftirtalda diska í láni:&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Vinsamlegast skilið diskunum sem fyrst.&lt;br/&gt;Kveðjur %s &lt;br/&gt;&lt;br/&gt;ps. þetta er sjálfvirkur póstur frá VCD-db kerfinu (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;Ný mynd hefur verið skráð í grunninn&lt;/strong&gt;&lt;br/&gt;Smelltu &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;hér&lt;/a&gt; til að kíkja á málið&lt;br/&gt;&lt;br/&gt;ps. þetta er sjálfvirkur póstur frá VCD kerfinu.</string>
+		<string id="mail.register">%s, skráning þín tókst í VCD-db kerfið.&lt;br/&gt;Notandanafnið þitt er %s og lykilorðið þitt er %s.&lt;br/&gt;Þú getur síðan skipt um lykilorð eftir að þú hefur skráð þig inn.&lt;br/&gt;&lt;br/&gt;VCD-db vefurinn er síðan &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;hér&lt;/a&gt;.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Mín aukagildi</string>
+		<string id="metadata.name">Lykill</string>
+		<string id="metadata.desc">Lýsing</string>
+		<string id="metadata.type">Tegund</string>
+		<string id="metadata.value">Gildi</string>
+		<string id="metadata.none">Engin aukagildi skráð.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Spilari</string>
+		<string id="player.path">Slóði</string>
+		<string id="player.param">Færibreytur</string>
+		<string id="player.note">Sláðu inn fullan slóða á spilara forritið þitt.&lt;br/&gt;Spilarinn verður að geta tekið inn færibreytur á skjöl eins og td. BSPlayer fyrir Windows eða MPlayer fyrir Linux.&lt;br/&gt;Þú getur náð í BS spilarann frítt &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;hérna&lt;/a&gt; og MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;hérna&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">inniheldur</string>
+		<string id="misc.grade">IMDB einkunn meira en</string>
+		<string id="misc.any">Allt</string>
+		<string id="misc.tryagain">Reyndu aftur</string>
+		<string id="misc.proceed">Áfram</string>
+		<string id="misc.select">Veldu</string>
+		<string id="misc.confirm">Staðfesta</string>
+		<string id="misc.cancel">Hætta við</string>
+		<string id="misc.attention">Athugið!</string>
+		<string id="misc.status">Staða</string>
+		<string id="misc.success">Tókst</string>
+		<string id="misc.failure">Mistókst</string>
+		<string id="misc.yes">Já</string>
+		<string id="misc.no">Nei</string>
+		<string id="misc.showmore">Sýna meira</string>
+		<string id="misc.showless">Sýna minna</string>
+		<string id="misc.new">Nýtt</string>
+		<string id="misc.change">breyta</string>
+		<string id="misc.delete">eyða</string>
+		<string id="misc.update">Uppfæra</string>
+		<string id="misc.saveandclose">Vista og loka</string>
+		<string id="misc.close">Loka</string>
+		<string id="misc.edit">Breyta</string>
+		<string id="misc.results">Niðurstöður</string>
+		<string id="misc.latestmovies">nýjustu myndirnar</string>
+		<string id="misc.latesttv">nýjustu þættirnir</string>
+		<string id="misc.latestblue">nýjustu XXX</string>
+		<string id="misc.movies">myndir</string>
+		<string id="misc.nocats">Engar myndir til í grunni.</string>
+		<string id="misc.nousers">Engir virkir notendur</string>
+		<string id="misc.key">Lykill</string>
+		<string id="misc.savenext">Vista og breyta næstu</string>
+		<string id="misc.save">Vista</string>
+		<string id="misc.seen">Séð</string>
+		<string id="misc.footer">Síða hlaðin á %s sek. (&lt;i&gt;%d Fyrirspurnir&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Kíktu á vef VCD-db</string>
+		<string id="misc.toggle">Breyta forsýn</string>
+		<string id="misc.toggle_on">Á</string>
+		<string id="misc.toggle_off">Af</string>
+	</strings>
+</language>

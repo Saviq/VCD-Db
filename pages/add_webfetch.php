@@ -78,7 +78,7 @@ function displayFetchedObject($fetchedObj) {
 		if (!$fetchedObj instanceof fetchedObj ) {
 			throw new Exception("Invalid fetched object.");
 		}
-
+		
 		
 		// Generic Fetched Object actions ..
 		if (strcmp($fetchedObj->getImage(), "") != 0) {

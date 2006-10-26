@@ -11,7 +11,7 @@
 		$onload = ";window.opener.location.reload();";
 	}
 
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -117,15 +117,15 @@
 <div class="tabs">
 <table cellpadding=0 cellspacing=0 border=0 style="width:100%; height:100%">
 	<tr>
-		<td id=tab1 class="tab tabActive" height=18><?=language::translate('MAN_BASIC')?></td>
+		<td id=tab1 class="tab tabActive" height=18><?=VCDLanguage::translate('manager.basic')?></td>
 		<td id=tab2 class=tab>
 		<? if ($vcd->isAdult()) {
-			echo language::translate('MAN_EMPIRE');
+			echo VCDLanguage::translate('manager.empire');
 				} else {
-			echo language::translate('MAN_IMDB');
+			echo VCDLanguage::translate('manager.imdb');
 		} ?>
 		</td>
-		<td id=tab3 class=tab><?=language::translate('M_ACTORS')?></td>
+		<td id=tab3 class=tab><?=VCDLanguage::translate('movie.actors')?></td>
 		<td id=tab4 class=tab>Covers</td>
 		<? if ($showDVDSpecs) { ?> <td id=tab5 class=tab>DVD</td> <? } ?>
 		<? if ($userMetadata) {?> <td id=tab6 class=tab>Meta</td> <? } ?>
@@ -157,11 +157,11 @@
 	<td><?= $vcd->getId() ?></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_TITLE')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.title')?>:</td>
 	<td><input type="text" name="title" class="input" value="<?= $vcd->getTitle() ?>" size="40"/></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_CATEGORY')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.category')?>:</td>
 	<td>
 		<select name="category" class="input">
 		<? 	evalDropdown($SETTINGSClass->getAllMovieCategories(),$vcd->getCategoryID()); ?>
@@ -169,7 +169,7 @@
 	</td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_YEAR')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.year')?>:</td>
 	<td>
 		<select name="year" class="input" size="1">
 			<?
@@ -192,11 +192,11 @@
 </tr>
 <? } else { ?>
 <tr>
-	<td class="tblb"><?=language::translate('M_SCREENSHOTS')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.screenshots')?>:</td>
 	<td>
 	<select name="screenshots" class="input" size="1">
-		<option value="0"><?=language::translate('X_NO')?></option>
-		<option value="1" <? if ($VCDClass->getScreenshots($vcd->getID())) {echo "selected";} ?>><?=language::translate('X_YES')?></option>
+		<option value="0"><?=VCDLanguage::translate('misc.no')?></option>
+		<option value="1" <? if ($VCDClass->getScreenshots($vcd->getID())) {echo "selected";} ?>><?=VCDLanguage::translate('misc.yes')?></option>
 	</select>
 	</td>
 </tr>
@@ -207,11 +207,11 @@
 
 
 	if (sizeof($arrCopies) == 0) {
-		print "<tr><td colspan=\"2\"><hr/>".language::translate('MAN_NOCOPY')."</td></tr>";
+		print "<tr><td colspan=\"2\"><hr/>".VCDLanguage::translate('manager.nocopy')."</td></tr>";
 	} elseif (sizeof($arrMediaTypes) == 1) {
-		print "<tr><td colspan=\"2\"><hr/><strong>".language::translate('MAN_COPY')."</strong></td></tr>";
+		print "<tr><td colspan=\"2\"><hr/><strong>".VCDLanguage::translate('manager.copy')."</strong></td></tr>";
 	} else {
-		print "<tr><td colspan=\"2\"><hr/><strong>".language::translate('MAN_COPIES')."</strong></td></tr>";
+		print "<tr><td colspan=\"2\"><hr/><strong>".VCDLanguage::translate('manager.copies')."</strong></td></tr>";
 	}
 
 
@@ -221,7 +221,7 @@
 	<td colspan="2" valign="top">
 	<!-- Begin instance table -->
 	<table cellspacing="1" cellpadding="1" border="0" width="100%">
-	<tr><td><?=language::translate('MAN_1COPY')?></td><td><?=language::translate('M_MEDIATYPE')?></td><td><?=language::translate('M_NUM')?></td><td>&nbsp;</td></tr>
+	<tr><td><?=VCDLanguage::translate('manager.1copy')?></td><td><?=VCDLanguage::translate('movie.mediatype')?></td><td><?=VCDLanguage::translate('movie.num')?></td><td>&nbsp;</td></tr>
 	<?
 		$allMediaTypes =  $SETTINGSClass->getAllMediatypes();
 
@@ -274,7 +274,7 @@
 		}
 		print "<tr><td>".($i +1)."</td><td>";
 		print "<select name=\"userMediaType_".$i."\" size=\"1\" class=\"input\">";
-		print "<option value=\"null\" selected>".language::translate('MAN_ADDMEDIA')."</option>";
+		print "<option value=\"null\" selected>".VCDLanguage::translate('manager.addmedia')."</option>";
 		foreach ($allMediaTypes as $mediaTypeObj) {
 			print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 			if ($mediaTypeObj->getChildrenCount() > 0) {
@@ -335,7 +335,7 @@
 	</td>
 </tr>
 <tr>
-	<td class="tblb" valign="top" colspan="2"><?=language::translate('EM_SUBCAT')?>:<br/>
+	<td class="tblb" valign="top" colspan="2"><?=VCDLanguage::translate('dvdempire.subcat')?>:<br/>
 	<input type="hidden" name="id_list" id="id_list">
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
@@ -376,35 +376,35 @@
 	<? } else {  ?>
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
-	<td class="tblb" valign="top"><?=language::translate('M_TITLE')?>:</td>
+	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.title')?>:</td>
 	<td><input type="text" name="imdbtitle" class="input" value="<? if ($bIMDB) echo $imdb->getTitle() ?>" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top"><?=language::translate('M_ALTTITLE')?>:</td>
+	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.alttitle')?>:</td>
 	<td><input type="text" name="imdbalttitle" class="input" value="<? if ($bIMDB) echo $imdb->getAltTitle() ?>" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_GRADE')?>:</td>
-	<td><input type="text" name="imdbgrade" class="input" value="<? if ($bIMDB) echo $imdb->getRating() ?>" size="3"/> <?=language::translate('MAN_STARS')?></td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.grade')?>:</td>
+	<td><input type="text" name="imdbgrade" class="input" value="<? if ($bIMDB) echo $imdb->getRating() ?>" size="3"/> <?=VCDLanguage::translate('manager.stars')?></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_RUNTIME')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.runtime')?>:</td>
 	<td><input type="text" name="imdbruntime" class="input" value="<? if ($bIMDB) echo $imdb->getRunTime() ?>" size="3"/> min.</td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_DIRECTOR')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.director')?>:</td>
 	<td><input type="text" name="imdbdirector" class="input" value="<? if ($bIMDB) echo $imdb->getDirector() ?>" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('M_COUNTRY')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('movie.country')?>:</td>
 	<td><input type="text" name="imdbcountries" class="input" value="<? if ($bIMDB) echo $imdb->getCountry() ?>" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top">IMDB <?=language::translate('M_CATEGORY')?>:</td>
+	<td class="tblb" valign="top">IMDB <?=VCDLanguage::translate('movie.category')?>:</td>
 	<td><input type="text" name="imdbcategories" class="input" value="<? if ($bIMDB) echo $imdb->getGenre() ?>" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top"><?=language::translate('M_PLOT')?>:</td>
+	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.plot')?>:</td>
 	<td><textarea cols="40" rows="5" name="plot" class="input"><? if ($bIMDB) echo $imdb->getPlot() ?></textarea></td>
 </tr>
 </table>
@@ -416,7 +416,7 @@
 <div class="flow" align="left">
 <p>
 <? if($vcd->isAdult()) { ?>
-<div align="right"><input type="button" value="<?=language::translate('MAN_ADDACT')?>" class="buttontext" title="<?=language::translate('MAN_ADDACT')?>" onClick="addActors(<?=$vcd->getID()?>)"/></div>
+<div align="right"><input type="button" value="<?=VCDLanguage::translate('manager.addact')?>" class="buttontext" title="<?=VCDLanguage::translate('manager.addact')?>" onClick="addActors(<?=$vcd->getID()?>)"/></div>
 <? } ?>
 <?
 	if ($vcd->isAdult()) {
@@ -434,7 +434,7 @@
 				}
 			echo "</table>";
 		} else {
-			language::translate('M_NOACTORS');
+			VCDLanguage::translate('movie.noactors');
 		}
 		unset($ArrayPornstars);
 
@@ -529,7 +529,7 @@
    				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX )."|".metadataTypeObj::SYS_MEDIAINDEX ."|".$mediaTypeObj->getmediaTypeID();
 				$delImage = "";
 				if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
-					$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".language::translate('X_DELETE')."\" title=\"".language::translate('X_DELETE')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
+					$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
 				}
    				
 	   			print "<tr>";
@@ -613,7 +613,7 @@
 
 					$delImage = "";
 						if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
-						$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".language::translate('X_DELETE')."\" title=\"".language::translate('X_DELETE')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
+						$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
 					}
 					
 					
@@ -651,13 +651,13 @@
 
 
 		<? if ($vcd->isAdult()) { ?>
-			<input type="submit" name="update" id="update" value="<?=language::translate('X_UPDATE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
-			<input type="submit" name="submit" id="submit" value="<?=language::translate('X_SAVEANDCLOSE')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
+			<input type="submit" name="update" id="update" value="<?=VCDLanguage::translate('misc.update')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
+			<input type="submit" name="submit" id="submit" value="<?=VCDLanguage::translate('misc.saveandclose')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
 		<? } else { ?>
-			<input type="submit" name="update" id="update" value="<?=language::translate('X_UPDATE')?>" class="buttontext" <?=$dvdCheck2?>/>
-			<input type="submit" name="submit" id="submit" value="<?=language::translate('X_SAVEANDCLOSE')?>" class="buttontext" <?=$dvdCheck2?>/>
+			<input type="submit" name="update" id="update" value="<?=VCDLanguage::translate('misc.update')?>" class="buttontext" <?=$dvdCheck2?>/>
+			<input type="submit" name="submit" id="submit" value="<?=VCDLanguage::translate('misc.saveandclose')?>" class="buttontext" <?=$dvdCheck2?>/>
 		<? } ?>
-		<input type="button" name="close" value="<?=language::translate('X_CLOSE')?>" class="buttontext" onClick="window.close()"/>
+		<input type="button" name="close" value="<?=VCDLanguage::translate('misc.close')?>" class="buttontext" onClick="window.close()"/>
 
 </div>
 </form>

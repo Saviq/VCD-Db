@@ -4,7 +4,7 @@
 		exit();
 	}	
 
-	print "<h1>" . language::translate('MENU_WISHLISTPUBLIC') . "</h1>";
+	print "<h1>" . VCDLanguage::translate('menu.wishlistpublic') . "</h1>";
 	
 	// Get all available wishlists except for my own.
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
@@ -24,10 +24,10 @@
 						print "<ol style=\"margin-top:0px\">";
 						foreach ($currList as $item) {
 							$css = "red";
-							$title = language::translate('W_NOTOWN');
+							$title = VCDLanguage::translate('wishlist.notown');
 							if ($item['mine'] == 1) {
 								$css = "green";
-								$title = language::translate('W_OWN');
+								$title = VCDLanguage::translate('wishlist.own');
 							}
 							print "<li class=\"".$css."\" title=\"".$title."\"><a href=\"./?page=cd&amp;vcd_id=".$item['id']."\">".$item['title']."</a></li>";
 						}

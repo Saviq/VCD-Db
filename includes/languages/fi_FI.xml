@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Lari Majamäki -->
+<language>
+	<id>fi_FI</id>
+	<name>Suomi</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">FI</string>
+		<string id="language.name">Suomi</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Oma valikko</string>
+		<string id="menu.settings">Omat asetukset</string>
+		<string id="menu.movies">Omat elokuvat</string>
+		<string id="menu.addmovie">Lisää uusi elokuva</string>
+		<string id="menu.loansystem">Lainausjärjestelmä</string>
+		<string id="menu.wishlist">Oma toivelista</string>
+		<string id="menu.categories">Elokuvakategoriat</string>
+		<string id="menu.rss">Omat RSS syötteet</string>
+		<string id="menu.controlpanel">Ohjauspaneeli</string>
+		<string id="menu.register">Rekisteröidy</string>
+		<string id="menu.logout">Kirjaudu ulos</string>
+		<string id="menu.submit">Lähetä</string>
+		<string id="menu.topusers">Käyttäjätilastot</string>
+		<string id="menu.wishlistpublic">Toisten toivelistat</string>
+		<string id="menu.statistics">Tilastot</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Kirjaudu</string>
+		<string id="login.username">Käyttäjätunnus</string>
+		<string id="login.password">Salasana</string>
+		<string id="login.remember">Muista minut</string>
+		<string id="login.info">Jätä tämä tyhjäksi jos &lt;b&gt;et&lt;/b&gt; halua vaihtaa salasanaa</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Rekisteröityminen</string>
+		<string id="register.fullname">Koko nimi</string>
+		<string id="register.email">Sähköposti</string>
+		<string id="register.again">Salasana uudelleen</string>
+		<string id="register.disabled">Tällä hetkellä rekisteröinti ei ole mahdollista. Ota yhteys järjestelmänvalvojaan.</string>
+		<string id="register.ok">Rekisteröinti onnistui, voit nyt kirjautua sisään tietokantaan.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Lähetä minulle sähköpostia kun tietokantaan on lisätty uusi elokuva?</string>
+		<string id="userproperties.show_adult">Näytä aikuisviihdemateriaali sivustolla?</string>
+		<string id="userproperties.rss">Salli RSS syöte omasta elokuvalistastani?</string>
+		<string id="userproperties.wishlist">Salli muiden näkevän toivelistani</string>
+		<string id="userproperties.use_index">Käytä indeksinumerokenttiä tallenteiden omalle numeroinnille</string>
+		<string id="userproperties.seen_list">Pidä kirjaa elokuvista jotka olen nähnyt</string>
+		<string id="userproperties.playoption">Käytä soittimen toistoasetuksia</string>
+		<string id="userproperties.nfo">Salli NFO tiedosto?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Soittimen asetukset</string>
+		<string id="usersettings.ownfeed">Tarkastele omaa syötettä</string>
+		<string id="usersettings.custom">Muokkaa omaa aloitussivua</string>
+		<string id="usersettings.showstat">Näytä tilastot</string>
+		<string id="usersettings.showside">Näytä uudet elokuvat sivuvalikossa</string>
+		<string id="usersettings.selectrss">Valitse RSS syötteet</string>
+		<string id="usersettings.pagelook">Sivun layout</string>
+		<string id="usersettings.pagemode">Valitse sivun oletuspohja:</string>
+		<string id="usersettings.updated">User information updated</string>
+		<string id="usersettings.update_failed">Failed to update</string>
+		<string id="usersettings.list">Lista käyttäjistä joita ei huomioida</string>
+		<string id="usersettings.desc">Älä näytä seuraavien käyttäjien elokuvia:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Etsi</string>
+		<string id="search.title">Elokuvan nimi</string>
+		<string id="search.actor">Näyttelijä</string>
+		<string id="search.director">Ohjaaja</string>
+		<string id="search.results">Haun tulokset</string>
+		<string id="search.extended">Tarkennettu haku</string>
+		<string id="search.noresult">Haussa ei löytynyt yhtään tulosta</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Toiminta</string>
+		<string id="category.adult">Aikuisviihde</string>
+		<string id="category.adventure">Seikkailu</string>
+		<string id="category.animation">Animaatio</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Komedia</string>
+		<string id="category.crime">Rikos</string>
+		<string id="category.documentary">Dokumentti</string>
+		<string id="category.drama">Draama</string>
+		<string id="category.family">Perhe</string>
+		<string id="category.fantasy">Fantasia</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Kauhu</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Musiikkivideo</string>
+		<string id="category.musical">Musikaali</string>
+		<string id="category.mystery">Mysteeri</string>
+		<string id="category.romance">Romantiikka</string>
+		<string id="category.scifi">Sci-fi</string>
+		<string id="category.short">Lyhytelokuva</string>
+		<string id="category.thriller">Trilleri</string>
+		<string id="category.tvshows">TV Show</string>
+		<string id="category.war">Sota</string>
+		<string id="category.western">Western</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Elokuva</string>
+		<string id="movie.actors">Näyttelijät</string>
+		<string id="movie.category">Kategoria</string>
+		<string id="movie.year">Tuotantovuosi</string>
+		<string id="movie.copies">Kopiot</string>
+		<string id="movie.from">Tietoja</string>
+		<string id="movie.title">Elokuvan nimi</string>
+		<string id="movie.alttitle">Alt. nimi</string>
+		<string id="movie.grade">Arvosana</string>
+		<string id="movie.director">Ohjaaja</string>
+		<string id="movie.country">Tuotantomaa</string>
+		<string id="movie.runtime">Kesto</string>
+		<string id="movie.minutes">minuuttia</string>
+		<string id="movie.plot">Juoni</string>
+		<string id="movie.noplot">Juonta ei saatavilla</string>
+		<string id="movie.covers">DVD kannet</string>
+		<string id="movie.available">Saatavissa olevat kopiot</string>
+		<string id="movie.media">Media</string>
+		<string id="movie.num">Lukumäärä</string>
+		<string id="movie.date">Lisäyspäivämäärä</string>
+		<string id="movie.owner">Omistaja</string>
+		<string id="movie.noactors">Näyttelijälistaa ei saatavilla</string>
+		<string id="movie.info">Elokuvan tietoja</string>
+		<string id="movie.details">Lisätietoja kopiostani</string>
+		<string id="movie.mediatype">Mediatyyppi</string>
+		<string id="movie.comment">Kommentti</string>
+		<string id="movie.private">Merkitse yksityiseksi</string>
+		<string id="movie.screenshots">Kuvakaappauksia</string>
+		<string id="movie.noscreens">Kuvakaappauksia ei saatavilla</string>
+		<string id="movie.show">Näytä</string>
+		<string id="movie.hide">Piilota</string>
+		<string id="movie.change">Muuta tietoja</string>
+		<string id="movie.nocovers">DVD kansia ei saatavilla</string>
+		<string id="movie.bycat">Elokuvan nimet kategoriassa</string>
+		<string id="movie.currcat">Valittu kategoria</string>
+		<string id="movie.textview">Tekstinäkymä</string>
+		<string id="movie.imageview">Kuvanäkymä</string>
+		<string id="movie.mineonly">Näytä vain omat elokuvat</string>
+		<string id="movie.similar">Samankaltaiset elokuvat</string>
+		<string id="movie.mediaindex">Media Index</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB lisätiedot</string>
+		<string id="imdb.plot">Juonen yhteenveto</string>
+		<string id="imdb.gallery">Kuvagalleria</string>
+		<string id="imdb.trailers">Trailerit</string>
+		<string id="imdb.links">IMDB Linkit</string>
+		<string id="imdb.not">IMDB tietoja ei saatavilla</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Aluekoodi</string>
+		<string id="dvd.format">DVD-formaatti</string>
+		<string id="dvd.aspect">Kuvasuhde</string>
+		<string id="dvd.audio">Ääniraita</string>
+		<string id="dvd.subtitles">Tekstitys</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Vie tiedot</string>
+		<string id="mymovies.excel">Vie tiedot Excel muodossa</string>
+		<string id="mymovies.xml">Vie tiedot XML muodossa</string>
+		<string id="mymovies.xmlthumbs">Vie thumbnailit XML muodossa</string>
+		<string id="mymovies.actions">Minun toiminnat</string>
+		<string id="mymovies.join">Disc join</string>
+		<string id="mymovies.joinmovies">Disc join movies</string>
+		<string id="mymovies.joinsuser">Valitse käyttäjä</string>
+		<string id="mymovies.joinsmedia">Valitse mediatyyppi</string>
+		<string id="mymovies.joinscat">Valitse kategoria</string>
+		<string id="mymovies.joinstype">Valitse toiminto</string>
+		<string id="mymovies.joinshow">Näytä tulokset</string>
+		<string id="mymovies.noresults">Kysely ei tuottanut yhtään tulosta</string>
+		<string id="mymovies.textall">Tulostusnäkymä (Text)</string>
+		<string id="mymovies.pwall">Tulostusnäkymä (kaikki)</string>
+		<string id="mymovies.pwmovies">Tulostusnäkymä (elokuvat)</string>
+		<string id="mymovies.pwtv">Tulostusnäkymä (TV showt)</string>
+		<string id="mymovies.pwblue">Tulostusnäkymä (Blue movies)</string>
+		<string id="mymovies.j1">Elokuvat jotka minulla on mutta käyttäjällä ei</string>
+		<string id="mymovies.j2">Elokuvat jotka ovat käyttäjällä mutta ei minulla</string>
+		<string id="mymovies.j3">Elokuvat jotka ovat molemmilla</string>
+		<string id="mymovies.overview">Kokoelman yhteenveto</string>
+		<string id="mymovies.info">Tältä sivulta löydät kaikki tiedot omista elokuvistasi.&lt;br/&gt;Oikealla on lueteltu toimet joita voit tehdä elokuvakokoelmallesi.&lt;br/&gt;Voit mm. viedä elokuvalistan tulostusta varten Exceliin.  XML viennillä voit varmuuskopioida tai siirtää dataa toiseen VCD-db tietokantaan.</string>
+		<string id="mymovies.keys">Muokkaa ID:tä</string>
+		<string id="mymovies.seenlist">Muokkaa nähtyjen elokuvien listaa</string>
+		<string id="mymovies.helppicker">Valitse katseltava elokuva</string>
+		<string id="mymovies.helppickerinfo">Mitä katsoisit tänään?&lt;br/&gt;Anna VCD-db:n auttaa sinua löytämään sopiva elokuva.&lt;br/&gt;&lt;br/&gt;Halutessasi voit tehdä rajauksia elokuvien hakuun.</string>
+		<string id="mymovies.find">Etsi elokuva</string>
+		<string id="mymovies.notseen">Ehdota vain elokuvia joita en ole nähnyt</string>
+		<string id="mymovies.friends">Ystäväni jotka lainaavat elokuvia</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Perustiedot</string>
+		<string id="manager.imdb">IMDB info</string>
+		<string id="manager.empire">DVDEmpire info</string>
+		<string id="manager.copy">Kopioni</string>
+		<string id="manager.copies">Omat kopiot</string>
+		<string id="manager.nocopy">Sinulla ei ole kopioita</string>
+		<string id="manager.1copy">Kopio</string>
+		<string id="manager.addact">Lisää näyttelijöitä</string>
+		<string id="manager.addtodb">Lisää uusia näyttelijöitä tietokantaan</string>
+		<string id="manager.savetodb">Tallenna tietokantaan</string>
+		<string id="manager.savetodbncd">Tallenna tietokantaan</string>
+		<string id="manager.indb">Tietokannassa olevat näyttelijät</string>
+		<string id="manager.sel">Valitut näyttelijät</string>
+		<string id="manager.stars">Tähdet</string>
+		<string id="manager.browse">Selaa...</string>
+		<string id="manager.addmedia">Add...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Valitse menetelmä jolla lisäät uuden elokuvan</string>
+		<string id="addmovie.imdb">Nouda tiedot</string>
+		<string id="addmovie.imdbtitle">Syötä hakusana</string>
+		<string id="addmovie.manual">Lisää tiedot käsin</string>
+		<string id="addmovie.listed">Lisää elokuvia jotka on jo listattu</string>
+		<string id="addmovie.xml">Lisää elokuvia XML tiedostosta</string>
+		<string id="addmovie.xmlfile">Valitse tuotava XML tiedosto</string>
+		<string id="addmovie.xmlnote">(Huomaa, että XML-tiedostoja joita on viety toisesta VCD-db sovelluksesta voidaan käyttää tässä uusien elokuvien viemiseen tietokantaan.&lt;br/&gt;Voit viedä elokuvasi XML-tiedostoon &quot;Omat elokuvat&quot; valikon kautta. Vältä viedyn XML-tiedoston muokkausta käsin.)</string>
+		<string id="addmovie.maxfilesize">Maksimikoko</string>
+		<string id="addmovie.dvdempire">Hae tiedot Adult DVD Empire:stä (X-rated films)</string>
+		<string id="addmovie.listedstep1">Vaihe 1&lt;br/&gt;Valitse elokuvat jotka haluat lisätä omaan listaasi.&lt;br/&gt;Mediatyypin voit valita seuraavassa vaiheessa</string>
+		<string id="addmovie.listedstep2">Vaihe 2.&lt;br/&gt;Valitse sopiva mediatyyppi.</string>
+		<string id="addmovie.indb">Elokuvat jotka ovat jo tietokannassa</string>
+		<string id="addmovie.selected">Valitut elokuvat</string>
+		<string id="addmovie.infolist">Kaksoisklikkaa elokuvan nimeä tai käytä nuolia.&lt;br/&gt;Voit käyttää näppäimistöä elokuvien pikahakuun.</string>
+		<string id="addmovie.notitles">Kukaan muu käyttäjä ei ole lisännyt elokuvia tietokantaan.</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Vahvista XML tiedoston lataaminen serverille</string>
+		<string id="xml.contains">XML tiedosto sisältää %d elokuvaa.</string>
+		<string id="xml.info1">Paina vahvista-nappia käsitelläksesi elokuvat ja tallentaaksesi ne tietokantaan.&lt;br/&gt;</string>
+		<string id="xml.info2">Jos haluat sisällyttää thumbnailit (julisteet) elokuviin joita olet tuomassa XML tiedostosta, niin sinulla &lt;b&gt;TÄYTYY&lt;/b&gt; olla thumbnail XML-tiedosto saatavilla tässä vaiheessa!&lt;br/&gt;&lt;br/&gt;Julisteita ei voi tuoda erikseen sen jälkeen kun olet tuonut elokuvat tästä XML tiedostosta.  &lt;br/&gt;&lt;br/&gt;Jos sinulla on olemassa thumbnail XML-tiedosto, niin tarkista alla oleva kenttä.&lt;br/&gt;&lt;br/&gt;Seuraavassa vaiheessa elokuvien tuonnin jälkeen, sinua pyydetään antamaan thumbnail XML-tiedosto käsittelyä varten.</string>
+		<string id="xml.thumbnails">Lisää thumbnailit omasta thumbnail XML tiedostosta </string>
+		<string id="xml.list">Lista elokuvista jotka löytyivät XML tiedostosta.</string>
+		<string id="xml.error">XML tiedostosta ei löytynyt yhtään elokuvaa.&lt;br/&gt;Tiedosto voi olla vahingoittunut tai tyhjä.&lt;br/&gt;&lt;br/&gt;Varmista, että käytät XML tiedostoa, joka on alunperin viety VCD-db:stä...</string>
+		<string id="xml.results">XML upload tulokset.</string>
+		<string id="xml.results2">Tässä XML tuonnin tulokset.&lt;br/&gt;Yhteensä tuotiin %d elokuvaa.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Tiedot AdultDVDEmpire.com:sta....</string>
+		<string id="dvdempire.desc">DVDEmpire kuvaus</string>
+		<string id="dvdempire.subcat">Adult kategoriat</string>
+		<string id="dvdempire.details">Adultdvdempire.com lisätiedot</string>
+		<string id="dvdempire.stars">Pornotähdet</string>
+		<string id="dvdempire.notice">Punaisella merkattuja näyttelijöitä ei ole tällä hetkellä VCD-db:ssä.&lt;br/&gt;&lt;br/&gt;Voit tarkistaa heidän nimensä jolloin ne lisätää automaattisesti VCD-db:hen ja yhdistetään tähän elokuvaan.</string>
+		<string id="dvdempire.fetch">Hae myös</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Lainattavat elokuvat</string>
+		<string id="loan.to">Lainaa elokuvat henkilölle</string>
+		<string id="loan.addusers">Lisää käyttäjiä jatkaaksesi</string>
+		<string id="loan.newuser">Uusi lainaaja</string>
+		<string id="loan.registeruser">Lisää uusi lainaaja</string>
+		<string id="loan.name">Nimi</string>
+		<string id="loan.select">Valitse lainaaja</string>
+		<string id="loan.movieloans">Lainatut elokuvat ...</string>
+		<string id="loan.reminder">Lähetä muistutus</string>
+		<string id="loan.history">Lainahistoria</string>
+		<string id="loan.history2">Tarkastele lainahistoriaa</string>
+		<string id="loan.since">Alkoi</string>
+		<string id="loan.time">Pvm lähtien</string>
+		<string id="loan.return">Palauta elokuva</string>
+		<string id="loan.success">Elokuvat onnistuneesti lainattu</string>
+		<string id="loan.out">Ei palautettu</string>
+		<string id="loan.datein">Palautettu</string>
+		<string id="loan.dateout">Lainassa</string>
+		<string id="loan.period">Laina-aika</string>
+		<string id="loan.back">Palaa lainahakuun</string>
+		<string id="loan.day">päivä</string>
+		<string id="loan.days">päivää</string>
+		<string id="loan.today">tästä päivästä lähtien</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS Syötteet</string>
+		<string id="rss.title">RSS syötteet kaverieni VCD-DB sivustoilta</string>
+		<string id="rss.site">RSS Sivuston syöte</string>
+		<string id="rss.user">RSS Käyttäjän syöte</string>
+		<string id="rss.view">Näytä RSS syöte</string>
+		<string id="rss.add">Lisää uusi syöte</string>
+		<string id="rss.note">Syötä VCD-db:n &lt;strong&gt;tarkka URL osoite&lt;/strong&gt;.&lt;br/&gt;&lt;br/&gt;Jos RSS syötteet ovat sallittuja kohdesivulla, voit valita ne syötteet jotka haluat omalle sivullesi.</string>
+		<string id="rss.fetch">Hae RSS lista</string>
+		<string id="rss.none">RSS syötteitä ei ole lisätty.</string>
+		<string id="rss.found">Seuraavat RSS syötteet löydettiin, valitse ne syötteet jotka haluat lisätä:</string>
+		<string id="rss.notfound">Ei syötteitä kohteessa</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Kommentit</string>
+		<string id="comments.add">Lähetä uusi kommentti</string>
+		<string id="comments.none">Yhtään kommenttia ei ole lähetetty</string>
+		<string id="comments.type">Syötä uusi kommentti</string>
+		<string id="comments.your">Kommenttisi</string>
+		<string id="comments.post">Lähetä kommentti</string>
+		<string id="comments.error">Sinun pitää kirjautua sisään lähettääksesi kommentin</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Lisää toivelistaani</string>
+		<string id="wishlist.onlist">On your wishlist</string>
+		<string id="wishlist.empty">Toivelistasi on tyhjä</string>
+		<string id="wishlist.own">Omistan kopion tästä elokuvasta</string>
+		<string id="wishlist.notown">En omista kopiota tästä elokuvasta</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Nimi</string>
+		<string id="pornstar.web">Verkkosivu</string>
+		<string id="pornstar.moviecount">Elokuvalaskuri</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Olen nähnyt elokuvan</string>
+		<string id="seen.notseenit">En ole nähnyt elokuvaa</string>
+		<string id="seen.seenitclick">Klikkaa tätä merkataksesi nähdyksi</string>
+		<string id="seen.notseenitclick">Klikkaa tätä merkataksesi näkemättömäksi</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Lainan muistutus </string>
+		<string id="mail.returnmovies1">%s, haluaisin, että palautat vuokraamasi elokuvat ;).&lt;br/&gt;Sinulla on edelleen seuraavat leffat vuokrassa:&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Palautatko pian&lt;br/&gt;Terveisin %s&lt;br/&gt;&lt;br/&gt;Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://vcddb.konni.com/)</string>
+		<string id="mail.notify">&lt;strong&gt;Uusi elokuva on lisätty DVD tietokantaan!&lt;/strong&gt;&lt;br/&gt;Klikkaa &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;tätä&lt;/a&gt; nähdäksesi lisää...&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://vcddb.konni.com&lt;/p&gt;</string>
+		<string id="mail.register">%s, rekisteröinti järjestelmään onnistui.&lt;br/&gt;&lt;br/&gt;Käyttäjänimesi on %s ja salasanasi on %s.&lt;br/&gt;&lt;br/&gt;Voit vaihtaa salasanaasi kun olet kirjautunut sisään.&lt;br/&gt;Klikkaa &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;tästä&lt;/a&gt; siirtyeksäsi DVD tietokantaan.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Oma metadata</string>
+		<string id="metadata.name">Nimi</string>
+		<string id="metadata.desc">Kuvaus</string>
+		<string id="metadata.type">Metadatan tyyppi</string>
+		<string id="metadata.value">Metadatan arvo</string>
+		<string id="metadata.none">Metadataa ei ole</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Soitin</string>
+		<string id="player.path">Polku</string>
+		<string id="player.param">Parametrit</string>
+		<string id="player.note">Syötä soittimen polku. Soittimesi pitää tukea komentoriviltä annettuja parametrejä.&lt;br/&gt;Sellaisia soittimia ovat esimerkiksi BSPlayer Windowsille ja MPlayer Linuxille.&lt;br/&gt;&lt;br/&gt;BSPlayerin voit ladata ilmaiseksi &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;täältä&lt;/a&gt; ja MPlayerin &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;täältä&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">sisältää</string>
+		<string id="misc.grade">IMDB arviointi enemmän kuin</string>
+		<string id="misc.any">Mikä tahansa</string>
+		<string id="misc.tryagain">Yritä uudelleen</string>
+		<string id="misc.proceed">Jatka</string>
+		<string id="misc.select">Valitse</string>
+		<string id="misc.confirm">Vahvista</string>
+		<string id="misc.cancel">Peruuta</string>
+		<string id="misc.attention">Huom!</string>
+		<string id="misc.status">Tila</string>
+		<string id="misc.success">Onnistui</string>
+		<string id="misc.failure">Epäonnistui</string>
+		<string id="misc.yes">Kyllä</string>
+		<string id="misc.no">Ei</string>
+		<string id="misc.showmore">Näytä lisää</string>
+		<string id="misc.showless">Näytä vähemmän</string>
+		<string id="misc.new">Uusi</string>
+		<string id="misc.change">muuta</string>
+		<string id="misc.delete">poista</string>
+		<string id="misc.update">Päivitä</string>
+		<string id="misc.saveandclose">Tallenna ja sulje</string>
+		<string id="misc.close">Sulje</string>
+		<string id="misc.edit">Muokkaa</string>
+		<string id="misc.results">Results</string>
+		<string id="misc.latestmovies">viimeisintä elokuvaa</string>
+		<string id="misc.latesttv">viimeisimmät TV showt</string>
+		<string id="misc.latestblue">viimeisimmät X-rated</string>
+		<string id="misc.movies">elokuvat</string>
+		<string id="misc.nocats">Elokuvia ei ole lisätty.</string>
+		<string id="misc.nousers">Ei aktiivisia käyttäjiä</string>
+		<string id="misc.key">Key</string>
+		<string id="misc.savenext">Talleta ja muokkaa seuraavaa</string>
+		<string id="misc.save">Talleta</string>
+		<string id="misc.seen">Nähty</string>
+	</strings>
+</language>

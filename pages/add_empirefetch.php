@@ -121,9 +121,9 @@ if (isset($_GET['cache']) && $_GET['cache'] == 'off') {
 		
 		if (!$empire->displayResults()) {
 			;
-			print "<h1>".language::translate('MENU_ADDMOVIE')."</h1>";
-			print "<br/><ul><li>".language::translate('SEARCH_NORESULT')."</li>";
-			print "<li><a href=\"javascript:history.back(-1)\">".language::translate('X_TRYAGAIN')."</a></li></ul>";
+			print "<h1>".VCDLanguage::translate('menu.addmovie')."</h1>";
+			print "<br/><ul><li>".VCDLanguage::translate('search.noresult')."</li>";
+			print "<li><a href=\"javascript:history.back(-1)\">".VCDLanguage::translate('misc.tryagain')."</a></li></ul>";
 			
 		}
 		

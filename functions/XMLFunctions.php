@@ -23,8 +23,6 @@
  */
 function showAvailableFeeds($url) {
 
-	;
-	
 	// Flush errors .. 
 	error_reporting(0);
 	
@@ -43,12 +41,12 @@ function showAvailableFeeds($url) {
 	
 	if ($xml && isset($xml->error)) {
 		print $xml->error;
-		print "<br/><a href=\"./addrssfeed.php\">".language::translate('X_TRYAGAIN')."</a>";
+		print "<br/><a href=\"./addrssfeed.php\">".VCDLanguage::translate('misc.tryagain')."</a>";
 		return;
 	}
 	if (!$xml) {
 		print "No feeds found at location " . $user_url;
-		print "<br/><a href=\"javascript:history.back(-1)\">".language::translate('X_TRYAGAIN')."</a>";
+		print "<br/><a href=\"javascript:history.back(-1)\">".VCDLanguage::translate('misc.tryagain')."</a>";
 		return;
 	} 
 	
@@ -61,13 +59,13 @@ function showAvailableFeeds($url) {
 	
 	
 	print "<form name=\"feeds\" method=\"post\" action=\"../exec_form.php?action=addfeed\">";
-	print "<strong>".language::translate('RSS_FOUND')."</strong><br/>";
+	print "<strong>".VCDLanguage::translate('rss.found')."</strong><br/>";
 	
 	
 	print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\">";
-	print "<tr><td colspan=\"2\"><strong>".language::translate('RSS_SITE')."</strong></td></tr>";
+	print "<tr><td colspan=\"2\"><strong>".VCDLanguage::translate('rss.site')."</strong></td></tr>";
 	print "<tr><td><input type=\"checkbox\" class=\"nof\" value=\"".utf8_decode($title)."|".$sitefeed."\" name=\"feeds[]\"></td><td>" . utf8_decode($title) . "</td></tr>";		
-	print "<tr><td colspan=\"2\"><strong>".language::translate('RSS_USER')."</strong></td></tr>";
+	print "<tr><td colspan=\"2\"><strong>".VCDLanguage::translate('rss.user')."</strong></td></tr>";
 	$usersfeeds = $xml_users->rssusers->user;
 	foreach ($usersfeeds as $user_feed) {
 		print "<tr><td><input name=\"feeds[]\" type=\"checkbox\" class=\"nof\" value=\"".utf8_decode($user_feed->fullname)."|".$user_feed->rsspath."\"></td><td>". utf8_decode($user_feed->fullname) . "</td></tr>";

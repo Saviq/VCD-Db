@@ -474,6 +474,13 @@ function setDefaultRole($recordID) {
 }
 
 
+/**
+ * Print the Log UI
+ *
+ * @param int $numrows | Number of rows to show
+ * @param int $offset | The offset to start at
+ * @param string $logfilter | The log filter to use
+ */
 function drawLogBar($numrows, $offset, $logfilter) {
 	print "<div align=\"right\" id=\"newObj\">";
 	
@@ -526,7 +533,12 @@ function drawLogBar($numrows, $offset, $logfilter) {
 }
 
 
-
+/**
+ * Iterate through the upload/ folders and display a summary of it's content
+ *
+ * @param string $folder | The base folder to start at
+ * @return array | Assoc array containg the data about the folder
+ */
 function getFolderContent($folder) {
 	
 	$info = array('folder' => str_replace('../', '', $folder), 'files' => 0, 'size' => 0, 'subfolders' => 0);

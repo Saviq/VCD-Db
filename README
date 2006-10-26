@@ -2,6 +2,7 @@ $Id$
 
 VCD-db README ($Date$)
 
+
 INSTALLATION
 
 1)  Unzip the VCD-db file on your webserver. 
@@ -115,4 +116,4 @@ VCD-db uses the following code/code fragments
  - Snoopy > HTTP Class (GNU Licensed)
  - NuSOAP > Web Services Toolkit for PHP (GNU Licensed)
  - Image_Toolbox > PHP image manipulation class (GNU Licensed)
- - PowerGraphic > Graph Builder (No Licenese - Freeaware)
+ - PowerGraphic > Graph Builder (No Licenese - Freeaware)>>>>>>> 1.11

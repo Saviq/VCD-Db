@@ -5,7 +5,7 @@
 		print "<script>self.close();</script>";
 		exit();
 	}
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -21,20 +21,20 @@
 	<script src="../includes/js/main.js" type="text/javascript"></script>
 </head>
 <body onload="window.focus()">
-<h2><?=language::translate('LOAN_REGISTERUSER')?></h2>
+<h2><?=VCDLanguage::translate('loan.registeruser')?></h2>
 <form name="borrower" action="../exec_form.php?action=borrower" method="post" onsubmit="return submitBorrower(this)">
 <table cellspacing="1" cellpadding="1" border="0" class="plain">
 <tr>
-	<td><?=language::translate('LOAN_NAME')?>:</td>
+	<td><?=VCDLanguage::translate('loan.name')?>:</td>
 	<td><input type="text" name="borrower_name"/></td>
 </tr>
 <tr>
-	<td><?=language::translate('REGISTER_EMAIL')?>:</td>
+	<td><?=VCDLanguage::translate('register.email')?>:</td>
 	<td><input type="text" name="borrower_email"/></td>
 </tr>
 <tr>
 	<td></td>
-	<td><input type="submit" value="<?=language::translate('X_CONFIRM')?>" id="vista" onclick="return val_borrower(this.form)"/></td>
+	<td><input type="submit" value="<?=VCDLanguage::translate('misc.confirm')?>" id="vista" onclick="return val_borrower(this.form)"/></td>
 </tr>
 </table>
 </form>

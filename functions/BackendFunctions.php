@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgisson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Functions
  * @subpackage Backend
  * @version $Id$
@@ -33,7 +33,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 	$content_type = "text/plain; charset=UTF-8";
 
 	if ($use_html) {
-		$content_type = "text/html";
+		$content_type = "text/html; charset=UTF-8";
 	}
 
 
@@ -96,7 +96,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 	/* Set to the authetication password */
 	$smtp->password = $SETTINGSClass->getSettingsByKey('SMTP_PASS');
 
-
+	
 	if($smtp->SendMessage(
 		$from,
 		array(
@@ -202,11 +202,11 @@ function Decrypt($txt,$key)
 function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
 	;
-	$msg = sprintf(language::translate('MAIL_RETURNMOVIES1'), $borrower_name);
+	$msg = sprintf(VCDLanguage::translate('mail.returnmovies1'), $borrower_name);
 	foreach ($arrLoanObj as $loanObj) {
-		$msg .= $loanObj->getCDTitle() . " - ".language::translate('LOAN_SINCE')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
+		$msg .= $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
 	}
-	$msg .= sprintf(language::translate('MAIL_RETURNMOVIES2'), $_SESSION['user']->getFullname());
+	$msg .= sprintf(VCDLanguage::translate('mail.returnmovies2'), $_SESSION['user']->getFullname());
 	return $msg;
 
 }
@@ -226,7 +226,7 @@ function createNotifyEmailBody(vcdObj $obj) {
 
 	$msg = '';
 	$msg .= "<html><body>";
-	$msg .= sprintf(language::translate('MAIL_NOTIFY'), $home, $obj->getID());
+	$msg .= sprintf(VCDLanguage::translate('mail.notify'), $home, $obj->getID());
 	$msg .= "</body></html>";
 	return $msg;
 }

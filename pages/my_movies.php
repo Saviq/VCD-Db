@@ -1,8 +1,8 @@
 
 <table cellpadding="0" cellspacing="0" width="100%" border="0">
 <tr>
-	<td width="70%"><h1><?= language::translate('MENU_MOVIES') ?></h1></td>
-	<td><h1><?= language::translate('MY_ACTIONS') ?></h1></td>
+	<td width="70%"><h1><?= VCDLanguage::translate('menu.movies') ?></h1></td>
+	<td><h1><?= VCDLanguage::translate('mymovies.actions') ?></h1></td>
 </tr>
 <tr>
 	<td valign="top">
@@ -31,7 +31,7 @@
 			default:
 				?>
 			<p>
-				<?= language::translate('MY_INFO') ?>
+				<?= VCDLanguage::translate('mymovies.info') ?>
 			</p>
 				<?
 			
@@ -45,21 +45,21 @@
 	<td valign="top">
 	<!-- User menu -->
 	<ul>
-		<li><a href="./?page=private&o=movies&do=diff"><?= language::translate('MY_JOIN') ?></a></li>
-		<li><a href="#" onclick="showUserStatus()"><?= language::translate('MY_OVERVIEW') ?></a></li>
+		<li><a href="./?page=private&o=movies&do=diff"><?= VCDLanguage::translate('mymovies.join') ?></a></li>
+		<li><a href="#" onclick="showUserStatus()"><?= VCDLanguage::translate('mymovies.overview') ?></a></li>
 		<? if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  { ?>
-		<li><a href="./?page=private&o=movies&do=customkeys"><?= language::translate('MY_KEYS') ?></a></li>
+		<li><a href="./?page=private&o=movies&do=customkeys"><?= VCDLanguage::translate('mymovies.keys') ?></a></li>
 		<? } ?>
 		<? if ($_SESSION['user']->getPropertyByKey('SEEN_LIST'))  { ?>
-		<li><a href="./?page=private&o=movies&do=seenlist"><?= language::translate('MY_SEENLIST') ?></a></li>
+		<li><a href="./?page=private&o=movies&do=seenlist"><?= VCDLanguage::translate('mymovies.seenlist') ?></a></li>
 		<? } ?>
-		<li><a href="./?page=private&o=movies&do=picker"><?= language::translate('MY_HELPPICKER') ?></a></li>
+		<li><a href="./?page=private&o=movies&do=picker"><?= VCDLanguage::translate('mymovies.helppicker') ?></a></li>
 		<br/><br/>
-		<li><a href="#" onclick="printView('text')"><?= language::translate('MY_TEXTALL') ?></a></li>
-		<li><a href="#" onclick="printView('all')"><?= language::translate('MY_PWALL') ?></a></li>
-		<li><a href="#" onclick="printView('movies')"><?= language::translate('MY_PWMOVIES') ?></a></li>
-		<li><a href="#" onclick="printView('tv')"><?= language::translate('MY_PWTV') ?></a></li>
-		<li><a href="#" onclick="printView('blue')"><?= language::translate('MY_PWBLUE') ?></a></li>
+		<li><a href="#" onclick="printView('text')"><?= VCDLanguage::translate('mymovies.textall') ?></a></li>
+		<li><a href="#" onclick="printView('all')"><?= VCDLanguage::translate('mymovies.pwall') ?></a></li>
+		<li><a href="#" onclick="printView('movies')"><?= VCDLanguage::translate('mymovies.pwmovies') ?></a></li>
+		<li><a href="#" onclick="printView('tv')"><?= VCDLanguage::translate('mymovies.pwtv') ?></a></li>
+		<li><a href="#" onclick="printView('blue')"><?= VCDLanguage::translate('mymovies.pwblue') ?></a></li>
 
 	</ul>
 	
@@ -71,27 +71,27 @@
 
 <? if (!isset($_GET['do'])) { ?>
 
-<fieldset id="pagelook" title="<?= language::translate('MY_EXPORT'); ?>">
-<legend class="bold"><?= language::translate('MY_EXPORT'); ?></legend>
+<fieldset id="pagelook" title="<?= VCDLanguage::translate('mymovies.export'); ?>">
+<legend class="bold"><?= VCDLanguage::translate('mymovies.export'); ?></legend>
 
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="displist">
 <tr>
 	<td width="4%"><img src="images/icon_xls.gif" border="0" alt="Excel" hspace="2"/></td>
 	<td width="4%">&nbsp;</td>
 	<td width="4%">&nbsp;</td>
-	<td><a href="./exec_query.php?action=export&amp;type=excel"><?= language::translate('MY_EXCEL') ?></a> <br/></td>
+	<td><a href="./exec_query.php?action=export&amp;type=excel"><?= VCDLanguage::translate('mymovies.excel') ?></a> <br/></td>
 </tr>
 <tr>
 	<td><a href="./exec_query.php?action=export&amp;type=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;type=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
-	<td><a href="./exec_query.php?action=export&amp;type=xml"><?= language::translate('MY_XML') ?></a></td>
+	<td><a href="./exec_query.php?action=export&amp;type=xml"><?= VCDLanguage::translate('mymovies.xml') ?></a></td>
 </tr>
 <tr>
 	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
-	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml"><?= language::translate('MY_XMLTHUMBS') ?></a></td>
+	<td><a href="./exec_query.php?action=export&amp;filter=thumbs&amp;type=xml"><?= VCDLanguage::translate('mymovies.xmlthumbs') ?></a></td>
 </tr>
 <? if (substr_count($_SERVER['HTTP_USER_AGENT'], "Windows") > 0) { 	?> 
 <tr>
@@ -108,12 +108,12 @@
 <? 
 	
 	if (isset($_GET['show']) && $_GET['show'] == 'results') {
-		print "<h2>".language::translate('X_RESULTS')."</h2>";
+		print "<h2>".VCDLanguage::translate('misc.results')."</h2>";
 		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
 		$results = $VCDClass->crossJoin($s_owner, $s_mediatype, $s_category, $s_meth);	
 		
 		if (sizeof($results) == 0) {
-			print "<p class=\"bold\">".language::translate('MY_NORESULTS')."</p>";
+			print "<p class=\"bold\">".VCDLanguage::translate('mymovies.noresults')."</p>";
 		} else {
 			if ($s_meth == 2) {
 				$movCounter = 1;

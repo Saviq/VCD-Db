@@ -5,7 +5,7 @@
 		print "<script>self.close();</script>";
 		exit();
 	}
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -30,16 +30,16 @@
 	<script src="../includes/js/main.js" type="text/javascript"></script>
 </head>
 <body onload="window.focus()">
-<h2><?=language::translate('MAN_BROWSE')?></h2>
+<h2><?=VCDLanguage::translate('manager.browse')?></h2>
 <form name="browse" action="" method="POST" onsubmit="return false">
 <table cellspacing="1" cellpadding="1" border="0" class="plain">
 <tr>
-	<td><?=language::translate('PLAYER_PATH')?>:</td>
+	<td><?=VCDLanguage::translate('player.path')?>:</td>
 	<td><input size="40" type="file" name="filename"/></td>
 </tr>
 <tr>
 	<td></td>
-	<td align="right"><input type="submit" value="<?=language::translate('X_SAVE')?>" onclick="<?=$jsaction?>"/></td>
+	<td align="right"><input type="submit" value="<?=VCDLanguage::translate('misc.save')?>" onclick="<?=$jsaction?>"/></td>
 </tr>
 </table>
 </form>

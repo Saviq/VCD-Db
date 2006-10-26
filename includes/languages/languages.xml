@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<languages>
+	<language id="bo_BO" charset="UTF-8">
+		<name>Bosnian</name>
+		<native></native>
+		<author>Neven Randic</author>
+	</language>
+	<language id="pt_BR" charset="UTF-8">
+		<name>Brazilian Portuguese</name>
+		<native></native>
+		<author>Rodrigo P. Telles</author>
+	</language>
+	<language id="bg_BG" charset="UTF-8">
+		<name>Bulgarian</name>
+		<native></native>
+		<author>Cuci</author>
+	</language>
+	<language id="ca_CA" charset="UTF-8">
+		<name>Catalan</name>
+		<native></native>
+		<author>konni</author>
+	</language>
+	<language id="dk_DK" charset="UTF-8">
+		<name>Dansk</name>
+		<native></native>
+		<author>Gundelach</author>
+	</language>
+	<language id="de_DE" charset="UTF-8">
+		<name>Deutsch</name>
+		<native></native>
+		<author>Stefan Schackmann</author>
+	</language>
+	<language id="en_EN" charset="UTF-8">
+		<name>English</name>
+		<native></native>
+		<author>Hákon Birgisson</author>
+	</language>
+	<language id="fr_FR" charset="UTF-8">
+		<name>French</name>
+		<native></native>
+		<author>Cédric Fournier</author>
+	</language>
+	<language id="is_IS" charset="UTF-8">
+		<name>Icelandic</name>
+		<native></native>
+		<author>Hákon Birgisson</author>
+	</language>
+	<language id="it_IT" charset="UTF-8">
+		<name>Italiano</name>
+		<native></native>
+		<author>konni</author>
+	</language>
+	<language id="hu_HU" charset="UTF-8">
+		<name>Magyar</name>
+		<native></native>
+		<author>MiszterX</author>
+	</language>
+	<language id="nl_NL" charset="UTF-8">
+		<name>Nederlands</name>
+		<native></native>
+		<author>Ikerstges</author>
+	</language>
+	<language id="no_NO" charset="UTF-8">
+		<name>Norwegian</name>
+		<native></native>
+		<author>Jørn Odberg</author>
+	</language>
+	<language id="pl_PL" charset="UTF-8">
+		<name>Polski</name>
+		<native></native>
+		<author>Michal Sawicz</author>
+	</language>
+	<language id="pt_PT" charset="UTF-8">
+		<name>Portuguese</name>
+		<native></native>
+		<author>konni</author>
+	</language>
+	<language id="si_SI" charset="UTF-8">
+		<name>Slovenian</name>
+		<native></native>
+		<author>konni</author>
+	</language>
+	<language id="es_ES" charset="UTF-8">
+		<name>Spanish</name>
+		<native></native>
+		<author>Marcos Acebes</author>
+	</language>
+	<language id="fi_FI" charset="UTF-8">
+		<name>Suomi</name>
+		<native></native>
+		<author>Lari Majamäki</author>
+	</language>
+	<language id="se_SE" charset="UTF-8">
+		<name>Svenska</name>
+		<native></native>
+		<author>CyberScream</author>
+	</language>
+	<language id="tr_TR" charset="UTF-8">
+		<name>Turkish</name>
+		<native></native>
+		<author>Preudomme</author>
+	</language>
+</languages>

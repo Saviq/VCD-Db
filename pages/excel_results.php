@@ -22,11 +22,11 @@
 	} else {
 	?>
 	
-	<p><span class="bold"><? printf(language::translate('EXCEL_RESULTS2'), sizeof($excelResults)) ?></span></p>
+	<p><span class="bold"><? printf(VCDLanguage::translate('EXCEL_RESULTS2'), sizeof($excelResults)) ?></span></p>
 	<br/><br/>
 	<table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
 	<tr>
-		<td class="bold"><?=language::translate('X_STATUS')?></td><td class="bold"><?=language::translate('M_TITLE')?></td><td class="bold">Media Index</td>
+		<td class="bold"><?=VCDLanguage::translate('X_STATUS')?></td><td class="bold"><?=VCDLanguage::translate('M_TITLE')?></td><td class="bold">Media Index</td>
 	</tr>
 	<?
 		foreach ($excelResults as $resultArr) {
@@ -35,15 +35,15 @@
 			$mediaindex = $resultArr['mediaindex'];
 			
 			if ($status == 1) {
-				$strStatus = language::translate('X_SUCCESS');
+				$strStatus = VCDLanguage::translate('X_SUCCESS');
 			} else {
-				$strStatus = "<span style=\"color:red\">".language::translate('X_FAILURE')."</a>";
+				$strStatus = "<span style=\"color:red\">".VCDLanguage::translate('X_FAILURE')."</a>";
 			}
 			
 			if ($mediaindex > 0) {
 				$strIndex = $mediaindex;
 			} else {
-				$strIndex = language::translate('X_NO');
+				$strIndex = VCDLanguage::translate('X_NO');
 			}
 			
 			print "<tr><td>".$strStatus."</td><td>".$title."</td><td>".$strIndex."</td></tr>";

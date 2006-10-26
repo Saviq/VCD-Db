@@ -50,7 +50,7 @@
 			$Cookie->put("session_id", session_id());	
 			$Cookie->put("session_time", VCDUtils::getmicrotime());
 			$Cookie->put("session_uid", $user->getUserId());
-			$Cookie->put("language", VCDClassFactory::getInstance('language')->getLanguageTag());
+			$Cookie->put("language", $_SESSION['vcdlang']);
 			$Cookie->set();
 		}
 			

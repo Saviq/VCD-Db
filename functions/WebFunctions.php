@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Functions
  * @subpackage Web
  * @version $Id$
@@ -22,67 +22,62 @@
  */
 function display_topmenu() {
 
-	;
-	
-
 	if (VCDUtils::isLoggedIn()) {
 		$user = $_SESSION['user'];
 		echo "<a href=\"./?page=private&o=settings\">".$user->getFullname()."</a> ";
 
 		if ($user->isAdmin()) {
-			?>| <a href="#" onclick="openAdminConsole()"><?=language::translate('MENU_CONTROLPANEL')?></a><?
+			?>| <a href="#" onclick="openAdminConsole()"><?=VCDLanguage::translate('menu.controlpanel')?></a><?
 		}
 
-		?> | <a href="./?do=logout"><?=language::translate('MENU_LOGOUT')?></a> <?
+		?> | <a href="./?do=logout"><?=VCDLanguage::translate('menu.logout')?></a> <?
 
 	} elseif (LDAP_AUTH == 0) {
-		?><a href="./?page=register"><?=language::translate('MENU_REGISTER')?></a> <?
+		?><a href="./?page=register"><?=VCDLanguage::translate('menu.register')?></a> <?
 	}
 
-	?>| <a href="./?page=detailed_search"><?=language::translate('SEARCH_EXTENDED')?></a> |<?
+	?>| <a href="./?page=detailed_search"><?=VCDLanguage::translate('search.extended')?></a> |<?
 
 }
 
 /**
- * Enter description here...
+ * Display the user links on the sidebar
  *
  */
 function display_userlinks() {
-	;
 
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	$rssLink = "";
 	if (sizeof($SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
-		$rssLink = "<span class=\"nav\"><a href=\"./?page=private&o=rss\" class=\"navx\">".language::translate('MENU_RSS')."</a></span>";
+		$rssLink = "<span class=\"nav\"><a href=\"./?page=private&o=rss\" class=\"navx\">".VCDLanguage::translate('menu.rss')."</a></span>";
 	}
 	?>
-	<div class="topic"><?=language::translate('MENU_MINE')?></div>
-	<span class="nav"><a href="./?page=private&amp;o=settings" class="navx"><?=language::translate('MENU_SETTINGS')?></a></span>
+	<div class="topic"><?=VCDLanguage::translate('menu.mine')?></div>
+	<span class="nav"><a href="./?page=private&amp;o=settings" class="navx"><?=VCDLanguage::translate('menu.settings')?></a></span>
 	<? if (strcmp($_SESSION['user']->getRoleName(), 'Viewer') != 0) { ?>
-	<span class="nav"><a href="./?page=private&amp;o=movies" class="navx"><?=language::translate('MENU_MOVIES')?></a></span>
-	<span class="nav"><a href="./?page=private&amp;o=new" class="navx"><?=language::translate('MENU_ADDMOVIE')?></a></span>
-	<span class="nav"><a href="./?page=private&amp;o=loans" class="navx"><?=language::translate('MENU_LOANSYSTEM')?></a></span>
+	<span class="nav"><a href="./?page=private&amp;o=movies" class="navx"><?=VCDLanguage::translate('menu.movies')?></a></span>
+	<span class="nav"><a href="./?page=private&amp;o=new" class="navx"><?=VCDLanguage::translate('menu.addmovie')?></a></span>
+	<span class="nav"><a href="./?page=private&amp;o=loans" class="navx"><?=VCDLanguage::translate('menu.loansystem')?></a></span>
 	<? }
 	// Check for shared wishlists and if so .. display the "others wishlist link"
 		if ($SETTINGSClass->isPublicWishLists(VCDUtils::getUserID())) {
-		?><span class="nav"><a href="./?page=private&amp;o=publicwishlist" class="navx"><?=language::translate('MENU_WISHLISTPUBLIC')?></a></span><?
+		?><span class="nav"><a href="./?page=private&amp;o=publicwishlist" class="navx"><?=VCDLanguage::translate('menu.wishlistpublic')?></a></span><?
 	}
 	?>
-	<span class="nav"><a href="./?page=private&amp;o=wishlist" class="navx"><?=language::translate('MENU_WISHLIST')?></a></span>
+	<span class="nav"><a href="./?page=private&amp;o=wishlist" class="navx"><?=VCDLanguage::translate('menu.wishlist')?></a></span>
 	<? if ($CLASSVcd->getMovieCount(VCDUtils::getUserID()) > 0)  {?>
-	<span class="nav"><a href="./?page=private&amp;o=stats" class="navx"><?=language::translate('MENU_STATISTICS')?></a></span>
+	<span class="nav"><a href="./?page=private&amp;o=stats" class="navx"><?=VCDLanguage::translate('menu.statistics')?></a></span>
 	<? } ?>
 	<?=$rssLink?>
 	<?
 }
 
 /**
- * Enter description here...
+ * Display the Porstar selection menu on the left sidebar
  *
  */
 function display_adultmenu() {
-	;
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 
 	$show_adult = false;
@@ -103,36 +98,34 @@ function display_adultmenu() {
 }
 
 /**
- * Enter description here...
+ * Draw the IMDB links for the movie page
  *
- * @param unknown $imdb_id
+ * @param string $imdb_id | The IMDB ID
  */
 function display_imdbLinks($imdb_id) {
-	;
 
-	print "<h2>".language::translate('I_LINKS')."</h2>";
+	print "<h2>".VCDLanguage::translate('imdb.links')."</h2>";
 	print "<ul>";
-	print "<li><a href=\"http://www.imdb.com/Title?".$imdb_id."\" target=\"new\">".language::translate('I_DETAILS')."</a></li>";
-	print "<li><a href=\"http://www.imdb.com/Plot?".$imdb_id."\" target=\"new\">".language::translate('I_PLOT')."</a></li>";
-	print "<li><a href=\"http://www.imdb.com/Gallery?".$imdb_id."\" target=\"new\">".language::translate('I_GALLERY')."</a></li>";
-	print "<li><a href=\"http://www.imdb.com/Trailers?".$imdb_id."\" target=\"new\">".language::translate('I_TRAILERS')."</a></li>";
+	print "<li><a href=\"http://www.imdb.com/Title?".$imdb_id."\" target=\"new\">".VCDLanguage::translate('imdb.details')."</a></li>";
+	print "<li><a href=\"http://www.imdb.com/Plot?".$imdb_id."\" target=\"new\">".VCDLanguage::translate('imdb.plot')."</a></li>";
+	print "<li><a href=\"http://www.imdb.com/Gallery?".$imdb_id."\" target=\"new\">".VCDLanguage::translate('imdb.gallery')."</a></li>";
+	print "<li><a href=\"http://www.imdb.com/Trailers?".$imdb_id."\" target=\"new\">".VCDLanguage::translate('imdb.trailers')."</a></li>";
 	print "</ul>";
 }
 
 
 /**
- * Enter description here...
+ * Print the hide/show actions for the fronpage latest lists
  *
  */
 function display_toggle() {
 	global $CURRENT_PAGE;
-	;
 	if ($CURRENT_PAGE == "") {
 	?>
 
-	<div class="topic"><?=language::translate('X_TOGGLE')?></div>
+	<div class="topic"><?=VCDLanguage::translate('misc.toggle')?></div>
 	<div class="forms" align="center">
-	<a href="javascript:show('r-col')">[<?=language::translate('X_TOGGLE_ON')?>]</a>-<a href="javascript:hide('r-col')">[<?=language::translate('X_TOGGLE_OFF')?>]</a>
+	<a href="javascript:show('r-col')">[<?=VCDLanguage::translate('misc.toggle_on')?>]</a>-<a href="javascript:hide('r-col')">[<?=VCDLanguage::translate('misc.toggle_off')?>]</a>
 	</div>
 
 
@@ -140,11 +133,11 @@ function display_toggle() {
 }
 
 /**
- * Enter description here...
+ * Display the top users list
  *
  */
 function display_topusers() {
-	;
+	
 	$USERClass = VCDClassFactory::getInstance('vcd_user');
 	$list = $USERClass->getUserTopList();
 	if (sizeof($list) > 0) {
@@ -158,18 +151,17 @@ function display_topusers() {
 		print "</ul>";
 		unset($list);
 	} else {
-		print "<ul><li>".language::translate('X_NOUSERS')."</li></ul>";
+		print "<ul><li>".VCDLanguage::translate('misc.nousers')."</li></ul>";
 	}
 }
 
 /**
- * Enter description here...
+ * Show the list of movie categories, localized if available.
  *
  */
 function display_moviecategories() {
-	;
-
-	?>	<div class="topic"><?=language::translate('MENU_CATEGORIES')?></div> 	<?
+	
+	?>	<div class="topic"><?=VCDLanguage::translate('menu.categories')?></div> 	<?
 
 
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
@@ -201,7 +193,7 @@ function display_moviecategories() {
 			}
 		}
 	} else {
-		print "<ul><li>".language::translate('X_NOCATS')."</li></ul>";
+		print "<ul><li>".VCDLanguage::translate('misc.nocats')."</li></ul>";
 	}
 
 
@@ -279,8 +271,6 @@ function hidelayer($layername) {
  */
 function display_search() {
 
-	;
-
 	// Check for last search method
 	$lastkey = "";
 	if (isset($_SESSION['searchkey'])) {
@@ -288,13 +278,13 @@ function display_search() {
 	}
 
 	?>
-	<div class="topic"><?=language::translate('SEARCH')?></div>
+	<div class="topic"><?=VCDLanguage::translate('search.search')?></div>
 	<div class="forms">
 	<form action="search.php" method="get">
-	<input type="text" name="searchstring" class="dashed" style="width:78px;"/>&nbsp;<input type="submit" value="<?=language::translate('SEARCH')?>" class="buttontext"/><br/>
-	<input type="radio" name="by" value="title" <? if ($lastkey == '' || $lastkey == 'title') {print "checked=\"checked\"";} ?> class="nof"/><?=language::translate('SEARCH_TITLE')?><br/>
-	<input type="radio" name="by" value="actor" <? if ($lastkey == 'actor') {print "checked=\"checked\"";} ?> class="nof"/><?=language::translate('SEARCH_ACTOR')?><br/>
-	<input type="radio" name="by" value="director" <? if ($lastkey == 'director') {print "checked=\"checked\"";} ?> class="nof"/><?=language::translate('SEARCH_DIRECTOR')?><br/>
+	<input type="text" name="searchstring" class="dashed" style="width:78px;"/>&nbsp;<input type="submit" value="<?=VCDLanguage::translate('search.search')?>" class="buttontext"/><br/>
+	<input type="radio" name="by" value="title" <? if ($lastkey == '' || $lastkey == 'title') {print "checked=\"checked\"";} ?> class="nof"/><?=VCDLanguage::translate('search.title')?><br/>
+	<input type="radio" name="by" value="actor" <? if ($lastkey == 'actor') {print "checked=\"checked\"";} ?> class="nof"/><?=VCDLanguage::translate('search.actor')?><br/>
+	<input type="radio" name="by" value="director" <? if ($lastkey == 'director') {print "checked=\"checked\"";} ?> class="nof"/><?=VCDLanguage::translate('search.director')?><br/>
 	</form>
 	</div>
 <?
@@ -401,7 +391,6 @@ function evalDropdown2($arrObjects, $id, $selected_index = -1, $showtitle = true
  * @param unknown $movie_id
  */
 function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
-		;
 		?>
 		<td>
 			<a href="javascript:jumpTo('<?=$pornstar_name ?>','excalibur')"><img src="../images/excalibur.gif" border="0"/></a>
@@ -416,10 +405,10 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 			<a href="javascript:jumpTo('<?=$pornstar_name ?>','eurobabe')"><img src="../images/eurobabe.gif" border="0" alt="Search eurobabeindex.com for <?=$pornstar_name ?>"/></a>
 		</td>
 		<td>
-			<a href="javascript:changePornstar(<?=$pornstar_id ?>)">[<?=language::translate('X_CHANGE')?>]</a>
+			<a href="javascript:changePornstar(<?=$pornstar_id ?>)">[<?=VCDLanguage::translate('misc.change')?>]</a>
 		</td>
 		<td>
-			&nbsp;&nbsp;<a href="#" onClick="del_actor(<?=$pornstar_id ?>,<?=$movie_id?>)">[<?=language::translate('X_DELETE')?>]</a>
+			&nbsp;&nbsp;<a href="#" onClick="del_actor(<?=$pornstar_id ?>,<?=$movie_id?>)">[<?=VCDLanguage::translate('misc.delete')?>]</a>
 		</td>
 		<?
 
@@ -430,33 +419,33 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
  *
  * @return unknown
  */
-function 	getCategoryMapping() {
+function getCategoryMapping() {
 	$mapping = array(
-		'Action' 		=> 'CAT_ACTION',
-		'Adult' 		=> 'CAT_ADULT',
-		'Adventure' 	=> 'CAT_ADVENTURE',
-		'Animation' 	=> 'CAT_ANIMATION',
-		'Anime / Manga' => 'CAT_ANIME',
-		'Comedy' 		=> 'CAT_COMEDY',
-		'Crime' 		=> 'CAT_CRIME',
-		'Documentary' 	=> 'CAT_DOCUMENTARY',
-		'Drama' 		=> 'CAT_DRAMA',
-		'Family' 		=> 'CAT_FAMILY',
-		'Fantasy' 		=> 'CAT_FANTASY',
-		'Film-Noir' 	=> 'CAT_FILMNOIR',
-		'Horror' 		=> 'CAT_HORROR',
-		'James Bond' 	=> 'CAT_JAMESBOND',
-		'Music Video' 	=> 'CAT_MUSICVIDEO',
-		'Musical' 		=> 'CAT_MUSICAL',
-		'Mystery' 		=> 'CAT_MYSTERY',
-		'Romance' 		=> 'CAT_ROMANCE',
-		'Sci-Fi' 		=> 'CAT_SCIFI',
-		'Short' 		=> 'CAT_SHORT',
-		'Thriller' 		=> 'CAT_THRILLER',
-		'Tv Shows' 		=> 'CAT_TVSHOWS',
-		'War' 			=> 'CAT_WAR',
-		'Western' 		=> 'CAT_WESTERN',
-		'X-Rated' 		=> 'CAT_XRATED'
+		'Action' 		=> 'category.action',
+		'Adult' 		=> 'category.adult',
+		'Adventure' 	=> 'category.adventure',
+		'Animation' 	=> 'category.animation',
+		'Anime / Manga' => 'category.anime',
+		'Comedy' 		=> 'category.comedy',
+		'Crime' 		=> 'category.crime',
+		'Documentary' 	=> 'category.documentary',
+		'Drama' 		=> 'category.drama',
+		'Family' 		=> 'category.family',
+		'Fantasy' 		=> 'category.fantasy',
+		'Film-Noir' 	=> 'category.filmnoir',
+		'Horror' 		=> 'category.horror',
+		'James Bond' 	=> 'category.jamesbond',
+		'Music Video' 	=> 'category.musicvideo',
+		'Musical' 		=> 'category.musical',
+		'Mystery' 		=> 'category.mystery',
+		'Romance' 		=> 'category.romance',
+		'Sci-Fi' 		=> 'category.scifi',
+		'Short' 		=> 'category.short',
+		'Thriller' 		=> 'category.thriller',
+		'Tv Shows' 		=> 'category.tvshows',
+		'War' 			=> 'category.war',
+		'Western' 		=> 'category.western',
+		'X-Rated' 		=> 'category.xrated'
 	);
 	return $mapping;
 }
@@ -470,7 +459,6 @@ function 	getCategoryMapping() {
  */
 function parseCategoryList($strList) {
 
-	;
 
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$categories = $SETTINGSClass->getAllMovieCategories();
@@ -649,16 +637,14 @@ function aSortBySecondIndex($multiArray, $secondIndex) {
  */
 function showPlot($strPlot) {
 
-	;
-
 	$showLen = 280;
 	$plot = ereg_replace(13,"<br/>",$strPlot);
 	$len = strlen($plot);
 	if ($len > $showLen) {
 		$first = substr($plot, 0, $showLen);
-		print "<div style=\"padding-right:20px\" id=\"first\">".$first." ...<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('first');show('rest')\">".language::translate('X_SHOWMORE')." &gt;&gt;</a></div>";
+		print "<div style=\"padding-right:20px\" id=\"first\">".$first." ...<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('first');show('rest')\">".VCDLanguage::translate('misc.showmore')." &gt;&gt;</a></div>";
 		print "<div id=\"rest\" style=\"visibility:hidden;display:none;\">".$plot."
-				<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('rest');show('first')\">&lt;&lt; ".language::translate('X_SHOWLESS')."</a>";
+				<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('rest');show('first')\">&lt;&lt; ".VCDLanguage::translate('misc.showless')."</a>";
 
 	} else {
 		print $plot;
@@ -812,8 +798,6 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$statObj = $SETTINGSClass->getStatsObj();
 
-	;
-
 	if (strcmp($style, "statsTable") == 0) {
 		$header = "stata";
 	?>
@@ -822,33 +806,33 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	<img src="images/logotest.gif" width="187" align="middle" height="118" alt="" border="0"/>
 	<br/>
 	<? } ?>
-	<?=language::translate('STAT_TITLE');?>
+	<?=VCDLanguage::translate('statistics.title');?>
 	</h3>
 	<? }  else {$header = "header";} ?>
 	<div align="center">
 	<table cellspacing="1" cellpadding="1" border="0" class="<?=$style?>" style="width:<?=$width?>px">
 	<tr>
-		<td class="<?=$header?>" colspan="2"><?=language::translate('STAT_TOP_MOVIES')?></td>
+		<td class="<?=$header?>" colspan="2"><?=VCDLanguage::translate('statistics.top_movies')?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_TOTAL')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.total')?></td>
 		<td align="right"><?=$statObj->getMovieCount()?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_TODAY')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.today')?></td>
 		<td align="right"><?=$statObj->getMovieTodayCount()?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_WEEK')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.week')?></td>
 		<td align="right"><?=$statObj->getMovieWeeklyCount()?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_MONTH')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.month')?></td>
 		<td align="right"><?=$statObj->getMovieMonthlyCount()?></td>
 	</tr>
 
 	<tr>
-		<td class="<?=$header?>" colspan="2"><?=language::translate('STAT_TOP_CATS')?></td>
+		<td class="<?=$header?>" colspan="2"><?=VCDLanguage::translate('statistics.top_cats')?></td>
 	</tr>
 	<?
 		foreach ($statObj->getBiggestCats() as $catObj) {
@@ -860,7 +844,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	?>
 
 	<tr>
-		<td class="<?=$header?>" colspan="2"><?=language::translate('STAT_TOP_ACT')?></td>
+		<td class="<?=$header?>" colspan="2"><?=VCDLanguage::translate('statistics.top_act')?></td>
 	</tr>
 	<?
 		foreach ($statObj->getBiggestMonhtlyCats() as $catObj) {
@@ -872,18 +856,18 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	?>
 
 	<tr>
-		<td colspan="2" class="<?=$header?>"><?=language::translate('STAT_TOP_COVERS')?></td>
+		<td colspan="2" class="<?=$header?>"><?=VCDLanguage::translate('statistics.top_covers')?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_TOTAL')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.total')?></td>
 		<td align="right"><?=$statObj->getTotalCoverCount()?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_WEEK')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.week')?></td>
 		<td align="right"><?=$statObj->getWeeklyCoverCount()?></td>
 	</tr>
 	<tr>
-		<td align="left"><?=language::translate('STAT_MONTH')?></td>
+		<td align="left"><?=VCDLanguage::translate('statistics.month')?></td>
 		<td align="right"><?=$statObj->getMonthlyCoverCount()?></td>
 	</tr>
 	</table>
@@ -1006,8 +990,7 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
  * @return unknown
  */
 function getLocalizedCategories($categoryObjArr = null) {
-	;
-
+	
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 
 
@@ -1018,7 +1001,6 @@ function getLocalizedCategories($categoryObjArr = null) {
 
 	// Translate category names
 	$mapping = getCategoryMapping();
-	$altLang = VCDClassFactory::getInstance('language')->isUsingDefault();
 	// Create translated category array
 	$arrCategories = array();
 	foreach ($categoryObjArr as $categoryObj) {
@@ -1030,69 +1012,6 @@ function getLocalizedCategories($categoryObjArr = null) {
 
 }
 
-
-// Check if mod_rewrite is enabled and call for page parsing on contents if it is.
-/**
- * Enter description here...
- *
- */
-function start_mrw() {
-	if (defined("MOD_REWRITE") && (strcmp(MOD_REWRITE, "1") == 0)) {
-		ob_start("doRewrite");
-	}
-}
-
-// Flush buffer if mod_rewrite is enabled
-/**
- * Enter description here...
- *
- */
-function end_mrw() {
-	if (defined("MOD_REWRITE") && (strcmp(MOD_REWRITE, "1") == 0)) {
-		ob_end_flush();
-	}
-}
-
-/**
- * Enter description here...
- *
- * @param unknown $buffer
- * @return unknown
- */
-function doRewrite($buffer) {
-
-  $root = substr($_SERVER['PHP_SELF'], 0, strpos($_SERVER['PHP_SELF'], "index.php"));
-
-  $arrDefault = array(
-  		//STYLE."style.css",
-    	"./?page=category&amp;category_id=",
-    	"./?page=adultcategory&amp;category_id=",
-    	"./?page=adultcategory&amp;studio_id=",
-    	"./?page=cd&amp;vcd_id=",
-    	"./?page=pornstar&amp;pornstar_id=",
-    	"images/",
-    	"upload",
-    	"includes",
-    	"./?"
-
-
-  );
-
-  $arrRewrite = array(
-  		//$root.STYLE."style.css",
-  		$root."cat/",
-  		$root."xcat/",
-  		$root."studio/",
-  		$root."cd/",
-  		$root."pornstar/",
-  		$root."images/",
-  		$root."upload",
-  		$root."includes",
-  		$root."?",
-  );
-
-  return str_replace($arrDefault, $arrRewrite, $buffer);
-}
 
 
 function human_file_size($size)
@@ -1183,8 +1102,6 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 
 function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 
-	;
-
 	// First get all available owners and mediatypes
 	$arrData = $vcdObj->getInstanceArray();
 	if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
@@ -1246,23 +1163,23 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 					?>
 					<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
 					<tr>
-						<td nowrap="nowrap" width="15%"><?= language::translate('DVD_REGION')?>:</td>
+						<td nowrap="nowrap" width="15%"><?= VCDLanguage::translate('dvd.region')?>:</td>
 						<td><?= $dvd_region ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap"><?= language::translate('DVD_FORMAT')?>:</td>
+						<td nowrap="nowrap"><?= VCDLanguage::translate('dvd.format')?>:</td>
 						<td><?= $dvd_format ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap"><?= language::translate('DVD_ASPECT')?>:</td>
+						<td nowrap="nowrap"><?= VCDLanguage::translate('dvd.aspect')?>:</td>
 						<td><?= $dvd_aspect?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap" valign="top"><?= language::translate('DVD_AUDIO')?>:</td>
+						<td nowrap="nowrap" valign="top"><?= VCDLanguage::translate('dvd.audio')?>:</td>
 						<td valign="top"><?= $dvd_audio ?></td>
 					</tr>
 					<tr>
-						<td nowrap="nowrap" valign="top"><?= language::translate('DVD_SUBTITLES')?>:</td>
+						<td nowrap="nowrap" valign="top"><?= VCDLanguage::translate('dvd.subtitles')?>:</td>
 						<td valign="top"><?= $dvd_subs ?></td>
 					</tr>
 					</table>
@@ -1335,8 +1252,7 @@ function getLocalizedCategoryName($category_name) {
 	if (key_exists($category_name, $baseMap)) {
 
 		$baseKey = $baseMap[$category_name];
-		;
-		$translatedKey = language::translate($baseKey);
+		$translatedKey = VCDLanguage::translate($baseKey);
 		$notfound = "undefined";
 		if (strcmp($translatedKey, strtolower($notfound)) == 0) {
 			return $category_name;

@@ -172,7 +172,7 @@
 	<xs:element name="sourcesites">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="sourcesite" maxOccurs="unbounded"/>
+				<xs:element ref="sourcesite" maxOccurs="unbounded" minOccurs="1"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

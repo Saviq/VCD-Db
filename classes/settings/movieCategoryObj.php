@@ -50,10 +50,9 @@ class movieCategoryObj implements XMLable {
 		 */
 		public function getName($localize=false){
 			if ($localize) {
-				;
 				$map = getCategoryMapping();
-				if (isset($map[$this->category_name]) && language::translate($map[$this->category_name]) != "undefined")
-					return language::translate($map[$this->category_name]);
+				if (isset($map[$this->category_name]) && VCDLanguage::translate($map[$this->category_name]) != "undefined")
+					return VCDLanguage::translate($map[$this->category_name]);
 				else return $this->category_name;
         		} else return $this->category_name;
 		}

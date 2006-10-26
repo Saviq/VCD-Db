@@ -1,0 +1,624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: konni -->
+<language>
+	<id>si_SI</id>
+	<name>Slovenian</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type"> SI
+</string>
+		<string id="language.name"> SLO
+</string>
+		<string id="language.charset"> windows-1250
+</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine"> Menu
+</string>
+		<string id="menu.settings"> Nastavitve
+</string>
+		<string id="menu.movies"> Katalog
+</string>
+		<string id="menu.addmovie"> Dodaj film
+</string>
+		<string id="menu.loansystem"> Izposoja
+</string>
+		<string id="menu.wishlist"> Prihajajoèi
+</string>
+		<string id="menu.categories"> Žanri
+</string>
+		<string id="menu.rss"> RSS pladenj
+</string>
+		<string id="menu.controlpanel"> Kontrolna plošèa
+</string>
+		<string id="menu.register"> Registracija
+</string>
+		<string id="menu.logout"> Odjava
+</string>
+		<string id="menu.submit"> Potrdi
+</string>
+		<string id="menu.topusers"> Naj uporabniki
+</string>
+		<string id="menu.wishlistpublic"> Želje
+</string>
+		<string id="menu.statistics"> Statistika
+</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login"> Prijava
+</string>
+		<string id="login.username"> Uporabnik
+</string>
+		<string id="login.password"> Geslo
+</string>
+		<string id="login.remember"> Zapomni me
+</string>
+		<string id="login.info"> Pusti prazno, èe &lt;b&gt;ne&lt;/b&gt; želiš spremeniti gesla
+</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title"> Registracija
+</string>
+		<string id="register.fullname"> Polno ime
+</string>
+		<string id="register.email"> Email
+</string>
+		<string id="register.again"> Ponovi geslo
+</string>
+		<string id="register.disabled"> Oprosti, Administrator je trenutno onemogoèil registracijo
+</string>
+		<string id="register.ok"> Registracija je bila uspešna, sedaj se lahko prijaviš v sistem.
+</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify"> Pošlji sporoèilo ko je vpisan nov film?
+</string>
+		<string id="userproperties.show_adult"> Prikaži porno filme na strani?
+</string>
+		<string id="userproperties.rss"> Dovoli RSS pladenj na moji strani?
+</string>
+		<string id="userproperties.wishlist"> Dovoli drugim, da vidijo moje prihajajoèe filme?
+</string>
+		<string id="userproperties.use_index"> Uporabi polje index številke za navadne ID medije?
+</string>
+		<string id="userproperties.seen_list"> Beleži seznam filmov katere sem že videl?
+</string>
+		<string id="userproperties.playoption"> Uporabi možnost predvajanja clienta?
+</string>
+		<string id="userproperties.nfo"> Omogoèi NFO datoteke?
+</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player"> Nastavitve predvajalnika
+</string>
+		<string id="usersettings.ownfeed"> Poglej moj pladenj
+</string>
+		<string id="usersettings.custom"> Spremeni mojo prvo stran
+</string>
+		<string id="usersettings.showstat"> Prikaži statistiko
+</string>
+		<string id="usersettings.showside"> Prikaži nove filme v stranki koloni
+</string>
+		<string id="usersettings.selectrss"> Izberi RSS pladnje
+</string>
+		<string id="usersettings.pagelook"> Oblika strani
+</string>
+		<string id="usersettings.pagemode"> Izberi privzeto obleko strani:
+</string>
+		<string id="usersettings.list"> Seznam prezretih filmov
+</string>
+		<string id="usersettings.desc"> Prezri vse filme od naslednjih uporabnikov:
+</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search"> Išèi
+</string>
+		<string id="search.title"> Po naslovu
+</string>
+		<string id="search.actor"> Po igralcu
+</string>
+		<string id="search.director"> Po režiserju
+</string>
+		<string id="search.results"> Iskani rezultati
+</string>
+		<string id="search.extended"> Napredno iskanje
+</string>
+		<string id="search.noresult"> Ne najdem nobenega vnosa
+</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action"> Akcija
+</string>
+		<string id="category.adult"> Porno
+</string>
+		<string id="category.adventure"> Avantura
+</string>
+		<string id="category.animation"> Animacoija
+</string>
+		<string id="category.anime"> Anime
+</string>
+		<string id="category.comedy"> Komedija
+</string>
+		<string id="category.crime"> Kriminalka
+</string>
+		<string id="category.documentary"> Dokumentarec
+</string>
+		<string id="category.drama"> Drama
+</string>
+		<string id="category.family"> Družinski
+</string>
+		<string id="category.fantasy"> Fantazija
+</string>
+		<string id="category.filmnoir"> Film
+</string>
+		<string id="category.horror"> Grozljivka
+</string>
+		<string id="category.jamesbond"> James Bond
+</string>
+		<string id="category.musicvideo"> Glasbeni
+</string>
+		<string id="category.musical"> Muzikal
+</string>
+		<string id="category.mystery"> Skrivnostni
+</string>
+		<string id="category.romance"> Romantièni
+</string>
+		<string id="category.scifi"> Z.Fantastika
+</string>
+		<string id="category.short"> Kratki
+</string>
+		<string id="category.thriller"> Triler
+</string>
+		<string id="category.tvshows"> TV oddaja
+</string>
+		<string id="category.war"> Vojni
+</string>
+		<string id="category.western"> Vestern
+</string>
+		<string id="category.xrated"> Porno
+</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie"> Film
+</string>
+		<string id="movie.actors"> Vloge
+</string>
+		<string id="movie.category"> Žanri
+</string>
+		<string id="movie.year"> Leto izida
+</string>
+		<string id="movie.copies"> Kopij
+</string>
+		<string id="movie.from"> Od
+</string>
+		<string id="movie.title"> Naslov
+</string>
+		<string id="movie.alttitle"> Podnaslov
+</string>
+		<string id="movie.grade"> Ocena
+</string>
+		<string id="movie.director"> Režiser
+</string>
+		<string id="movie.country"> Kraj dogajanja
+</string>
+		<string id="movie.runtime"> Èas
+</string>
+		<string id="movie.minutes"> minut
+</string>
+		<string id="movie.plot"> Opis
+</string>
+		<string id="movie.noplot"> Ni opisa
+</string>
+		<string id="movie.covers"> Foto
+</string>
+		<string id="movie.available"> Dobavljivost
+</string>
+		<string id="movie.media"> Medij
+</string>
+		<string id="movie.num"> Št. diskov
+</string>
+		<string id="movie.date"> Datum vnosa
+</string>
+		<string id="movie.owner"> Lastnik
+</string>
+		<string id="movie.noactors"> Seznam igralcev ni dosegljiv
+</string>
+		<string id="movie.info"> Informacije filma
+</string>
+		<string id="movie.details"> Podrobnosti na moji kopiji
+</string>
+		<string id="movie.mediatype"> Tip medija
+</string>
+		<string id="movie.comment"> Komentar
+</string>
+		<string id="movie.private"> Oznaèi zasebno?
+</string>
+		<string id="movie.screenshots"> Slike iz filma
+</string>
+		<string id="movie.noscreens"> Slik iz filma ni v bazi
+</string>
+		<string id="movie.show"> Pokaži
+</string>
+		<string id="movie.hide"> Skrij
+</string>
+		<string id="movie.change"> Spremeni informacije
+</string>
+		<string id="movie.nocovers"> Za ta film ni ovtika
+</string>
+		<string id="movie.bycat"> Naslovi po kategoriji
+</string>
+		<string id="movie.currcat"> Trenutna kategorija
+</string>
+		<string id="movie.textview"> Pogled teksta
+</string>
+		<string id="movie.imageview"> Pogled slik
+</string>
+		<string id="movie.mineonly"> Prikaži samo moje filme
+</string>
+		<string id="movie.similar"> Podobni filmi
+</string>
+		<string id="movie.mediaindex"> Zaèetek seznama
+</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details"> IMDB podrobnosti
+</string>
+		<string id="imdb.plot"> Povzetek vsebine
+</string>
+		<string id="imdb.gallery"> Foto galerija
+</string>
+		<string id="imdb.trailers"> Filmèek
+</string>
+		<string id="imdb.links"> IMDB povezave
+</string>
+		<string id="imdb.not"> Ne najdem IMDB informacije
+</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region"> Regija
+</string>
+		<string id="dvd.format"> Format
+</string>
+		<string id="dvd.aspect"> Zaslon
+</string>
+		<string id="dvd.audio"> Avdio
+</string>
+		<string id="dvd.subtitles"> Podnapisi
+</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export"> Izvozi podatke
+</string>
+		<string id="mymovies.excel"> V Excel
+</string>
+		<string id="mymovies.xml"> V XML
+</string>
+		<string id="mymovies.xmlthumbs"> Izvozi slièice v XML
+</string>
+		<string id="mymovies.actions"> Moje akcije
+</string>
+		<string id="mymovies.join"> Združitev diska
+</string>
+		<string id="mymovies.joinmovies"> Združitev diskov filma
+</string>
+		<string id="mymovies.joinsuser"> Izberi uporabnika
+</string>
+		<string id="mymovies.joinsmedia"> Izberi tip medija
+</string>
+		<string id="mymovies.joinscat"> Izberi kategorijo
+</string>
+		<string id="mymovies.joinstype"> Izberi akcijo
+</string>
+		<string id="mymovies.joinshow"> Prikaži rezultate
+</string>
+		<string id="mymovies.noresults"> Povpraševanje brez zadetkov
+</string>
+		<string id="mymovies.textall"> Tiskanje (Tekstovni naèin)
+</string>
+		<string id="mymovies.pwall"> Tiskanje (VSe)
+</string>
+		<string id="mymovies.pwmovies"> Tiskanje (Filmi)
+</string>
+		<string id="mymovies.pwtv"> Tiskanje (Tv oddaje)
+</string>
+		<string id="mymovies.pwblue"> Tiskanje (Modri filmi)
+</string>
+		<string id="mymovies.j1"> Filmi ki jih imam, uporabniki pa ne
+</string>
+		<string id="mymovies.j2"> Filmi ki jih imajo uporabniki jaz pa ne
+</string>
+		<string id="mymovies.j3"> Filmi ki jih imamo oboji
+</string>
+		<string id="mymovies.overview"> Pregled kolekcije
+</string>
+		<string id="mymovies.info"> Na tej strani najdete vse filme v naši bazi.
+</string>
+		<string id="mymovies.keys"> Uredi navadne ID-je
+</string>
+		<string id="mymovies.seenlist"> Uredi seznam prihajajoèih
+</string>
+		<string id="mymovies.helppicker"> Izberi film za ogled
+</string>
+		<string id="mymovies.helppickerinfo"> Ne veš kaj bi danes gledal?&lt;br/&gt;Naj vam sistem sam pomaga.&lt;br/&gt;Po možnosti si lahko nastavite filtre in jih pozneje tudi uporabite za izbiro filmov.
+</string>
+		<string id="mymovies.find"> Najdi film
+</string>
+		<string id="mymovies.notseen"> Priporoèaj samo filme, katere še nisem gledal
+</string>
+		<string id="mymovies.friends"> Ostali ki so si film izposodili
+</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic"> Splošne informacije
+</string>
+		<string id="manager.imdb"> IMDB info
+</string>
+		<string id="manager.empire"> DVDEmpire info
+</string>
+		<string id="manager.copy"> Moja kopija
+</string>
+		<string id="manager.copies"> Moje kopije
+</string>
+		<string id="manager.nocopy"> Nimaš kopij
+</string>
+		<string id="manager.1copy"> Kopija
+</string>
+		<string id="manager.addact"> Dodaj igralca
+</string>
+		<string id="manager.addtodb"> Dodaj novega igralva v bazo
+</string>
+		<string id="manager.savetodb"> Shrani v bazo
+</string>
+		<string id="manager.savetodbncd"> Shrani v bazo in film
+</string>
+		<string id="manager.indb"> Igralci v bazi
+</string>
+		<string id="manager.sel"> Izbrani igralci
+</string>
+		<string id="manager.stars"> Zvezde
+</string>
+		<string id="manager.browse"> Brskaj za lokacijo datoteke
+</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info"> Izberi metodo vnosa novega filma
+</string>
+		<string id="addmovie.imdb"> Prevzemi iz Internetne baze filmov
+</string>
+		<string id="addmovie.imdbtitle"> Vpiši iskano besedo
+</string>
+		<string id="addmovie.manual"> Roèno vpiši podatke
+</string>
+		<string id="addmovie.listed"> Dodaj filme že vpisane
+</string>
+		<string id="addmovie.xml"> Dodaj filme iz izvožene XML datoeke
+</string>
+		<string id="addmovie.xmlfile"> Izberi XML datoteko za uvoz
+</string>
+		<string id="addmovie.xmlnote"> (Prosim pazi, samo XML datoeke katere so bile izvožene iz našega sistema, so lahko uporabljene za uvoz v bazo. Filme lahko izvoziš iz &quot;Filmi&quot; menija. Zaradi pravilnosti delovanja ne obdeluj roèno datoteke XML.) 
+</string>
+		<string id="addmovie.maxfilesize"> Max velikost datoteke
+</string>
+		<string id="addmovie.dvdempire"> Prevzemi podatke iz Adult DVD Empire (Porno filmi)
+</string>
+		<string id="addmovie.listedstep1"> Korak 1&lt;br/&gt;Izberi naslove filmov za vnos v bazo.&lt;br/&gt;Tip medija izbereš v naslednjem koraku.
+</string>
+		<string id="addmovie.listedstep2"> Step 2.&lt;br/&gt;Izberi pripadajoèo obliko medija.
+</string>
+		<string id="addmovie.indb"> Filmi v bazi
+</string>
+		<string id="addmovie.selected"> Izbrani naslovi
+</string>
+		<string id="addmovie.infolist"> Dvakrat klikni na naslov za izbiro filma ali uporabi tipke.&lt;br/&gt;Za hitrejše iskanje lahko uporabiš tipkovnico.
+</string>
+		<string id="addmovie.notitles"> Noben uporabnik ni vpisal filmov v bazo
+</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm"> Potrdi nalaganje XML datoteke
+</string>
+		<string id="xml.contains"> XML datoteka vsebuje %d filmov.
+</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss"> RSS pladenj
+</string>
+		<string id="rss.title"> RSS pladnji ostalih
+</string>
+		<string id="rss.site"> RSS pladenj strani
+</string>
+		<string id="rss.user"> RSS pladenj uporbnika
+</string>
+		<string id="rss.view"> Poglej RSS pladenj
+</string>
+		<string id="rss.add"> Dodaj nov pladenj
+</string>
+		<string id="rss.note"> Vpiši &lt;strong&gt;toèen URL&lt;/strong&gt; VCD baze.&lt;br/&gt;Èe je RSS omogoèen na gostiteljivi strani, lahko vzameš pladenj in ga prikazuješ na tvoji spletni strani.
+</string>
+		<string id="rss.fetch"> Prevzemi RSS seznam
+</string>
+		<string id="rss.none"> RSS pladenj ni bil dodan.
+</string>
+		<string id="rss.found"> Naslednji RSS pladnji so bili najdeni, izberi pladnje, ki jih želiš dodati:
+</string>
+		<string id="rss.notfound"> Na lokaciji ni najdenih pladnjev
+</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments"> Komentarji
+</string>
+		<string id="comments.add"> Vpiši nov komentar
+</string>
+		<string id="comments.none"> Komentarjev še ni bilo vpisanih
+</string>
+		<string id="comments.type"> Vpiši tvoj komentar
+</string>
+		<string id="comments.your"> Tvoj komentar
+</string>
+		<string id="comments.post"> Potrdi komentar
+</string>
+		<string id="comments.error"> Za vpis komentarja moraš biti prijavljen
+</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add"> Dodaj med prihajajoèe
+</string>
+		<string id="wishlist.onlist"> Na seznamu prihajajoèih
+</string>
+		<string id="wishlist.empty"> Seznam je prazen
+</string>
+		<string id="wishlist.own"> I own a copy of this movie
+</string>
+		<string id="wishlist.notown"> I do not own a copy of this movie
+</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name"> Ime
+</string>
+		<string id="pornstar.web"> Spletna stran
+</string>
+		<string id="pornstar.moviecount"> Število filmov
+</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit"> Že pogledal
+</string>
+		<string id="seen.notseenit"> Še ne pogledal
+</string>
+		<string id="seen.seenitclick"> Klikni za potrditev ogleda
+</string>
+		<string id="seen.notseenitclick"> Klikni za potrditev neogleda
+</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic"> Opomnik izposoje
+</string>
+		<string id="mail.returnmovies1"> %s, samo bi opozorili, da nam vrneš izposojene filme.</string>
+		<string id="mail.returnmovies2"> Prosim vrni filme takoj!</string>
+		<string id="mail.notify"> &lt;strong&gt;Nov film je bil vnešen v bazo&lt;/strong&gt;&lt;br/&gt;
+</string>
+		<string id="mail.register"> %s, registracija v sistem DVD seznam je bila uspešna.&lt;br&gt;&lt;br&gt;Tvoje uporabniško ime: %s in tvoje geslo: 
+</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my"> Moja Metadata
+</string>
+		<string id="metadata.name"> Ime
+</string>
+		<string id="metadata.desc"> Opis
+</string>
+		<string id="metadata.type"> Meta tip
+</string>
+		<string id="metadata.value"> Meta vrednost
+</string>
+		<string id="metadata.none"> Ni Metadata podatka.
+</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player"> Predvajalnik
+</string>
+		<string id="player.path"> Pot
+</string>
+		<string id="player.param"> Parametri
+</string>
+		<string id="player.note"> Vpiši polno pot do predvajalnika na tvojem disku.
+</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains"> vsebuje
+</string>
+		<string id="misc.grade"> IMDB ocena veè kot
+</string>
+		<string id="misc.any"> Katerikoli
+</string>
+		<string id="misc.tryagain"> Poskusi znova
+</string>
+		<string id="misc.proceed"> Nadaljuj
+</string>
+		<string id="misc.select"> Izberi
+</string>
+		<string id="misc.confirm"> Potrdi
+</string>
+		<string id="misc.cancel"> Preklièi
+</string>
+		<string id="misc.attention"> Opozorilo!
+</string>
+		<string id="misc.status"> Status
+</string>
+		<string id="misc.success"> Uspešno
+</string>
+		<string id="misc.failure"> Neuspešno
+</string>
+		<string id="misc.yes"> Da
+</string>
+		<string id="misc.no"> Ne
+</string>
+		<string id="misc.showmore"> Pokaži veè
+</string>
+		<string id="misc.showless"> Pokaži manj
+</string>
+		<string id="misc.new"> Nov
+</string>
+		<string id="misc.change"> spremeni
+</string>
+		<string id="misc.delete"> briši
+</string>
+		<string id="misc.update"> Posodobi
+</string>
+		<string id="misc.saveandclose"> Shrani in zapri
+</string>
+		<string id="misc.close"> Zapri
+</string>
+		<string id="misc.edit"> Uredi
+</string>
+		<string id="misc.results"> Rezulati
+</string>
+		<string id="misc.latestmovies"> Novi filmi
+</string>
+		<string id="misc.latesttv"> Nove TV oddaje
+</string>
+		<string id="misc.latestblue"> Novi neopredeljeni
+</string>
+		<string id="misc.movies"> filmi
+</string>
+		<string id="misc.nocats"> Ni bilo dodanih filmov.
+</string>
+		<string id="misc.nousers"> Ni aktivnih uporabnikov
+</string>
+		<string id="misc.key"> Kljuè
+</string>
+		<string id="misc.savenext"> Shrani in uredi naslednjega
+</string>
+		<string id="misc.save"> Shrani
+</string>
+		<string id="misc.seen"> Pogledan</string>
+	</strings>
+</language>

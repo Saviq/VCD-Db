@@ -33,9 +33,9 @@ var messages = new Array();
 			<td valign="top" width="170"><? $pornstarObj->showImage(); ?><br/>
 			<div align="center"><strong><?= $pornstarObj->getIAFD() ?></strong></div></td>
 			<td valign="top" style="padding-left:3px;text-indent:0px">
-				<strong><?=language::translate('P_NAME')?>:</strong> <?= $pornstarObj->getName() ?><br/>
-				<strong><?=language::translate('P_WEB')?>:</strong> <?= $pornstarObj->getHomepage() ?><br/>
-				<strong><?=language::translate('P_MOVIECOUNT')?>:</strong> <? echo $pornstarObj->getMovieCount() ?><br/><br/>
+				<strong><?=VCDLanguage::translate('pornstar.name')?>:</strong> <?= $pornstarObj->getName() ?><br/>
+				<strong><?=VCDLanguage::translate('pornstar.web')?>:</strong> <?= $pornstarObj->getHomepage() ?><br/>
+				<strong><?=VCDLanguage::translate('pornstar.moviecount')?>:</strong> <? echo $pornstarObj->getMovieCount() ?><br/><br/>
 				<?
 					if ($pornstarObj->getMovieCount() > 0) {
 						$i = 0;

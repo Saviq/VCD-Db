@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -72,16 +72,16 @@ if (isset($_GET['page'])) {
 }
 
 if (isset($_SESSION['vcdlang'])) {
-	$language = new language();
+	$language = new VCDLanguage();
 	$language->load($_SESSION['vcdlang']);
 	VCDClassFactory::put($language);
 } else {
-	$language = new language();
+	$language = new VCDLanguage();
 
 	// Has the user a selected language in cookie?
 	SiteCookie::extract('vcd_cookie');
 	if (isset($_COOKIE['language'])) {
-		if ($language instanceof language ) {
+		if ($language instanceof VCDLanguage ) {
 			$language->load($_COOKIE['language']);
 		}
 
@@ -93,7 +93,6 @@ if (isset($_SESSION['vcdlang'])) {
 if (isset($_POST)) {
 	if (isset($_POST['lang'])) {
 
-		;
 		$lang_tag = $_POST['lang'];
 		$language->load($lang_tag);
 

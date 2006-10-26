@@ -12,7 +12,7 @@
 	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
-	$language = new language(true);
+	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
 		$language->load($_SESSION['vcdlang']);
 	}
@@ -48,7 +48,7 @@
 <input type="hidden" name="star_id" value="<?=$pornstar->getId()?>"/>
 <table cellspacing="1" cellpadding="1" border="0" width="100%">
 <tr>
-	<td class="tblb"><?=language::translate('P_NAME')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('pornstar.name')?>:</td>
 	<td><input type="text" name="name" class="input" size="25" value="<?=$pornstar->getName() ?>"/></td>
 	<td rowspan="4" valign="top">
 	<? if (strlen($pornstar->getImageName()) > 3) {
@@ -59,7 +59,7 @@
 	</td></td>
 </tr>
 <tr>
-	<td class="tblb"><?=language::translate('P_WEB')?>:</td>
+	<td class="tblb"><?=VCDLanguage::translate('pornstar.web')?>:</td>
 	<td><input type="text" name="www" class="input" size="25" value="<?=$pornstar->getHomepage()?>"/></td>
 </tr>
 <tr>
@@ -88,11 +88,11 @@
 <tr>
 	<td colspan="3" align="center">
 	<hr/>
-	<input type="submit" name="update" value="<?= language::translate('X_UPDATE')?>" class="buttontext">
+	<input type="submit" name="update" value="<?= VCDLanguage::translate('misc.update')?>" class="buttontext">
 	&nbsp;
-	<input type="button" name="close" onclick="window.close()" value="<?=language::translate('X_CLOSE')?>" class="buttontext">
+	<input type="button" name="close" onclick="window.close()" value="<?=VCDLanguage::translate('misc.close')?>" class="buttontext">
 	&nbsp;
-	<input type="submit" name="save" value="<?=language::translate('X_SAVEANDCLOSE')?>" class="buttontext">
+	<input type="submit" name="save" value="<?=VCDLanguage::translate('misc.saveandcose')?>" class="buttontext">
 	<? if (strlen($pornstar->getImageName()) > 3)	{ ?>
 	&nbsp;
 	<input type="button" name="delimage" value="Delete image" class="buttontext" onClick="delpornstarImage(<?=$pornstar_id?>)">

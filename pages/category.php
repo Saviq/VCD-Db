@@ -28,10 +28,10 @@ if(VCDUtils::isLoggedIn()) {
 if (isset($_GET['viewmode']) || (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'], 'image') == 0)) {
 	$imagemode = true;
 	$js = "viewMode({$cat_id}, 'text', {$batch})";
-	$viewbar = "(<a href=\"#\" onclick=\"{$js}\">".language::translate('M_TEXTVIEW')."</a> / ".language::translate('M_IMAGEVIEW').")";
+	$viewbar = "(<a href=\"#\" onclick=\"{$js}\">".VCDLanguage::translate('movie.textview')."</a> / ".VCDLanguage::translate('movie.imageview').")";
 } else {
 	$js = "viewMode({$cat_id}, 'image', {$batch})";
-	$viewbar = "(".language::translate('M_TEXTVIEW')." / <a href=\"#\" onclick=\"{$js}\">".language::translate('M_IMAGEVIEW')."</a>)";
+	$viewbar = "(".VCDLanguage::translate('movie.textview')." / <a href=\"#\" onclick=\"{$js}\">".VCDLanguage::translate('movie.imageview')."</a>)";
 }
 
 $showmine = false;
@@ -42,7 +42,7 @@ if (isset($_SESSION['mine']) && $_SESSION['mine'] == true) {
 }
 
 if (VCDUtils::isLoggedIn()) {
-	$viewbar .= "&nbsp; | <input type=\"checkbox\" class=\"nof\" onclick=\"showonlymine(".$cat_id.")\" ".$checked."/>".language::translate('M_MINEONLY')."";
+	$viewbar .= "&nbsp; | <input type=\"checkbox\" class=\"nof\" onclick=\"showonlymine(".$cat_id.")\" ".$checked."/>".VCDLanguage::translate('movie.mineonly')."";
 }
 
 
@@ -60,7 +60,7 @@ if ($showmine && VCDUtils::isLoggedIn()) {
 
 
 ?>
-<h1><?=language::translate('M_BYCAT')?></h1>
+<h1><?=VCDLanguage::translate('movie.bycat')?></h1>
 <?
 
 if (sizeof($movies) > 0 || $showmine) {
@@ -82,8 +82,8 @@ if (sizeof($movies) > 0 || $showmine) {
 	}
 
 
-	print "&nbsp;<span class=\"bold\">".language::translate('M_CURRCAT')."</span>&nbsp;";
-	print "&nbsp; (".$categoryCount." ".language::translate('X_MOVIES').") ".$viewbar."";
+	print "&nbsp;<span class=\"bold\">".VCDLanguage::translate('movie.currcat')."</span>&nbsp;";
+	print "&nbsp; (".$categoryCount." ".VCDLanguage::translate('misc.movies').") ".$viewbar."";
 
 
 	pager($categoryCount, $batch, $suburl);
@@ -91,7 +91,7 @@ if (sizeof($movies) > 0 || $showmine) {
 	if (!$imagemode) {
 
 		print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\" class=\"displist\">";
-		print "<tr><td class=\"header\">".language::translate('M_TITLE')."</td><td nowrap=\"nowrap\" class=\"header\">".language::translate('M_YEAR')."</td><td class=\"header\" nowrap=\"nowrap\">".language::translate('M_MEDIATYPE')."</td></tr>";
+		print "<tr><td class=\"header\">".VCDLanguage::translate('movie.title')."</td><td nowrap=\"nowrap\" class=\"header\">".VCDLanguage::translate('movie.year')."</td><td class=\"header\" nowrap=\"nowrap\">".VCDLanguage::translate('movie.mediatype')."</td></tr>";
 		foreach ($movies as $movie) {
 			print "<tr>
 					   <td width=\"70%\"><a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\">".$movie->getTitle()."</a></td>

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: CyberScream -->
+<language>
+	<id>se_SE</id>
+	<name>Svenska</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">SE</string>
+		<string id="language.name">Swedish</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Meny</string>
+		<string id="menu.settings">Mina Inställningar</string>
+		<string id="menu.movies">Mina Filmer	</string>
+		<string id="menu.addmovie">Lägg till Film</string>
+		<string id="menu.loansystem">Lånesystem</string>
+		<string id="menu.wishlist">Min Önskelista</string>
+		<string id="menu.categories">Kategorier</string>
+		<string id="menu.rss">Egna RSS Streams</string>
+		<string id="menu.controlpanel">Kontroll Panel</string>
+		<string id="menu.register">Registrera</string>
+		<string id="menu.logout">Logga Ut</string>
+		<string id="menu.submit">Genomför</string>
+		<string id="menu.topusers">Topp Användare</string>
+		<string id="menu.wishlistpublic">Andras Önskelista</string>
+		<string id="menu.statistics">Statistik</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Logga In</string>
+		<string id="login.username">Användarnamn</string>
+		<string id="login.password">Lösenord</string>
+		<string id="login.remember">Kom ihåg mig</string>
+		<string id="login.info">Lämna detta fält tomt om du &lt;b&gt;inte&lt;/b&gt; vill ändra ditt lösenord</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Registrera</string>
+		<string id="register.fullname">Fullständigt Namn</string>
+		<string id="register.email">E-Post</string>
+		<string id="register.again">Verifiera Lösenordet</string>
+		<string id="register.disabled">Vi beklagar men Administratören har avaktiverat nyregistreringar för tillfället</string>
+		<string id="register.ok">Registreringen Lyckades, du kan nu logga in.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Skicka E-post när en ny film har satts till i systemet ?</string>
+		<string id="userproperties.show_adult">Visa Erotiskt innehåll på sidan ?</string>
+		<string id="userproperties.rss">Tillåt RSS stream från min Filmlista ?</string>
+		<string id="userproperties.wishlist">Tillåt andra att se min Önskelista ?</string>
+		<string id="userproperties.use_index">Använd index nummerfält för egengjorda media ID's ?</string>
+		<string id="userproperties.seen_list">Håll reda på vilka filmer jag har sett ?</string>
+		<string id="userproperties.playoption">Använd egen film uppspelare ?</string>
+		<string id="userproperties.nfo">Använd NFO filer ?</string>
+		<string id="userproperties.default_image">Ska Bildvisning användas som Standard ?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Uppspelnings inställningar</string>
+		<string id="usersettings.ownfeed">Visa din egen RSS stream</string>
+		<string id="usersettings.custom">Ändra min Förstasida</string>
+		<string id="usersettings.showstat">Visa statistik</string>
+		<string id="usersettings.showside">Visa nya filmer i sidofältet</string>
+		<string id="usersettings.selectrss">Välj RSS Streams</string>
+		<string id="usersettings.pagelook">Tema</string>
+		<string id="usersettings.pagemode">Välj standard tema: </string>
+		<string id="usersettings.updated">Användarinformation Uppdaterad</string>
+		<string id="usersettings.update_failed">Misslyckad Uppdatering</string>
+		<string id="usersettings.list">Ignoreringslista</string>
+		<string id="usersettings.desc">Ignorera alla Filmer från följande användare:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Sök</string>
+		<string id="search.title">På Titel</string>
+		<string id="search.actor">På Skådespelare</string>
+		<string id="search.director">På Regissör</string>
+		<string id="search.results">Sökresultat</string>
+		<string id="search.extended">Detaljerad Sökning</string>
+		<string id="search.noresult">Sökningen hittade ingen träff</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Action</string>
+		<string id="category.adult">Erotik</string>
+		<string id="category.adventure">Äventyr</string>
+		<string id="category.animation">Tecknat</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Komedi</string>
+		<string id="category.crime">Brott</string>
+		<string id="category.documentary">Documentär</string>
+		<string id="category.drama">Drama</string>
+		<string id="category.family">Familj</string>
+		<string id="category.fantasy">Fantasi</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Skräck</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Musik Video</string>
+		<string id="category.musical">Musik</string>
+		<string id="category.mystery">Gåtfull</string>
+		<string id="category.romance">Romantik</string>
+		<string id="category.scifi">Sci-Fi</string>
+		<string id="category.short">Kort</string>
+		<string id="category.thriller">Triller</string>
+		<string id="category.tvshows">TV Episoder</string>
+		<string id="category.war">Krig</string>
+		<string id="category.western">Western</string>
+		<string id="category.xrated">X-Klassad</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Film</string>
+		<string id="movie.actors">Skådespelare</string>
+		<string id="movie.category">Kategori</string>
+		<string id="movie.year">Produktions år</string>
+		<string id="movie.copies">Antal</string>
+		<string id="movie.from">Från</string>
+		<string id="movie.title">Titel</string>
+		<string id="movie.alttitle">Alternativ titel</string>
+		<string id="movie.grade">Klassificering</string>
+		<string id="movie.director">Regissör</string>
+		<string id="movie.country">Produktions Land</string>
+		<string id="movie.runtime">Längd</string>
+		<string id="movie.minutes">minuter</string>
+		<string id="movie.plot">Handling</string>
+		<string id="movie.noplot">Ingen Handling tillgänglig</string>
+		<string id="movie.covers">DVD Omslag</string>
+		<string id="movie.available">Tillgängligt antal</string>
+		<string id="movie.media">Mediatyp</string>
+		<string id="movie.num">DVD's</string>
+		<string id="movie.date">Inlagd</string>
+		<string id="movie.owner">Ägare</string>
+		<string id="movie.noactors">Ingen skådespelarlista tillgänglig</string>
+		<string id="movie.info">Film information</string>
+		<string id="movie.details">Detaljer min kopia</string>
+		<string id="movie.mediatype">Media typ</string>
+		<string id="movie.comment">Kommentar</string>
+		<string id="movie.private">Markera Privat ?</string>
+		<string id="movie.screenshots">Bildarkiv</string>
+		<string id="movie.noscreens">Inget Bildarkiv tillgängligt</string>
+		<string id="movie.show">Visa</string>
+		<string id="movie.hide">Göm</string>
+		<string id="movie.change">Ändra Information</string>
+		<string id="movie.nocovers">Inga DVD Omslag tillgängliga</string>
+		<string id="movie.bycat">Titlar Sorterat på Kategori</string>
+		<string id="movie.currcat">Aktuell Kategori</string>
+		<string id="movie.textview">Text Visning</string>
+		<string id="movie.imageview">Bild Visning</string>
+		<string id="movie.mineonly">Visa endast Mina filmer</string>
+		<string id="movie.similar">Liknande Filmer</string>
+		<string id="movie.mediaindex">Media Indexering</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB Detaljer</string>
+		<string id="imdb.plot">Handling</string>
+		<string id="imdb.gallery">Foto Galleri</string>
+		<string id="imdb.trailers">Trailers</string>
+		<string id="imdb.links">IMDB Länkar</string>
+		<string id="imdb.not">Ingen IMDB information tillgänglig</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Region</string>
+		<string id="dvd.format">Format</string>
+		<string id="dvd.aspect">Bildformat</string>
+		<string id="dvd.audio">Ljud</string>
+		<string id="dvd.subtitles">Undertexter</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Exportera data</string>
+		<string id="mymovies.excel">Exportera som Excel</string>
+		<string id="mymovies.xml">Exportera som XML</string>
+		<string id="mymovies.xmlthumbs">Exportera Tumnaglar som XML</string>
+		<string id="mymovies.actions">Mina Val</string>
+		<string id="mymovies.join">Slå ihop Filmer</string>
+		<string id="mymovies.joinmovies">Slå ihop Filmer</string>
+		<string id="mymovies.joinsuser">Välj Användare</string>
+		<string id="mymovies.joinsmedia">Välj Mediatyp</string>
+		<string id="mymovies.joinscat">Välj Kategori</string>
+		<string id="mymovies.joinstype">Välj Vilkor</string>
+		<string id="mymovies.joinshow">Visa Resultat</string>
+		<string id="mymovies.noresults">Resultatet fick inga träffar</string>
+		<string id="mymovies.textall">Utskriftsvy (Textläge)</string>
+		<string id="mymovies.pwall">Utskriftsvy (Alla)</string>
+		<string id="mymovies.pwmovies">Utskriftsvy (Filmer)</string>
+		<string id="mymovies.pwtv">Utskriftsvy (TV Episoder)</string>
+		<string id="mymovies.pwblue">Utskriftsvy (Erotik Filmer)</string>
+		<string id="mymovies.j1">Filmer jag har men den andra Användaren saknar</string>
+		<string id="mymovies.j2">Filmer den andra Användaren har men Jag saknar</string>
+		<string id="mymovies.j3">Filmer vi båda har</string>
+		<string id="mymovies.overview">Databasöversikt</string>
+		<string id="mymovies.info">På denna sida kan du hitta all information om dina filmer.
+							Till höger hittar du länkar som du kan använda.
+							Du kan också exportera din lista som Excel för utskrift eller använda XML
+							exporteraren för säkerhetskopiering eller för att flytta alla dina filmer
+							till en annan VCD-db databas.</string>
+		<string id="mymovies.keys">Ändra Egna ID's</string>
+		<string id="mymovies.seenlist">Ändra din &quot;Har Sett&quot; lista</string>
+		<string id="mymovies.helppicker">Välj en Film att se</string>
+		<string id="mymovies.helppickerinfo">Vet du inte vilken film du vill se idag ?&lt;br/&gt;Låt databasen hjälpa dig att hitta en film.&lt;br/&gt;
+							Du kan om du vill använda en filtrering och använda den för att hitta en film baserad på dina villkor.
+						    .</string>
+		<string id="mymovies.find">Sök en Film</string>
+		<string id="mymovies.notseen">Föreslå endast filmer jag inte sett.</string>
+		<string id="mymovies.friends">Mina Vänner som Lånar Filmer</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Allmän Information</string>
+		<string id="manager.imdb">IMDB Information</string>
+		<string id="manager.empire">DVDEmpire Information</string>
+		<string id="manager.copy">Mina Kopia</string>
+		<string id="manager.copies">Mina Kopior</string>
+		<string id="manager.nocopy">Du har inga kopior</string>
+		<string id="manager.1copy">Kopia</string>
+		<string id="manager.addact">Lägg till Skådespelare</string>
+		<string id="manager.addtodb">Lägg till nya Skådespelare i databasen</string>
+		<string id="manager.savetodb">Spara till Databasen</string>
+		<string id="manager.savetodbncd">Spara till Databasen och Filmen</string>
+		<string id="manager.indb">Skådespelare i Databasen</string>
+		<string id="manager.sel">Valda Skådespelare</string>
+		<string id="manager.stars">Stjärnor</string>
+		<string id="manager.browse">Bläddra</string>
+		<string id="manager.addmedia">Lägg Till...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Välj sätt för att lägga till en film</string>
+		<string id="addmovie.imdb">Hämta information från Internet Movie Database</string>
+		<string id="addmovie.imdbtitle">Skriv text att leta efter</string>
+		<string id="addmovie.manual">Skriv informationen manuellt</string>
+		<string id="addmovie.listed">Lägg till filmer som redan finns listade</string>
+		<string id="addmovie.xml">Lägg till filmer från exporterad XML fil</string>
+		<string id="addmovie.xmlfile">Välj XML fil att importera</string>
+		<string id="addmovie.xmlnote">(Observera att, bara XML filer som har blivit exporterade från en annan VCD-db databas
+							kan användas för att importera dina filmer. Du kan exportera dina filmer först från &quot;Mina Filmer&quot;
+							sektionen. Undvik helst att editera den exporterade XML filen manuellt.) </string>
+		<string id="addmovie.maxfilesize">Största Filstorlek</string>
+		<string id="addmovie.dvdempire">Hämta information från Adult DVD Empire (Erotiska Filmer)</string>
+		<string id="addmovie.listedstep1">Steg 1&lt;br/&gt;Välj den Film du vill lägga till.&lt;br/&gt;Du kan välja media typ i nästa steg.</string>
+		<string id="addmovie.listedstep2">Steg 2.&lt;br/&gt;Välj den passande media typen.</string>
+		<string id="addmovie.indb">Filmer i Databasen</string>
+		<string id="addmovie.selected">Valda Titlar</string>
+		<string id="addmovie.infolist">Dubbelklicka på namnet för att välja eller använd piltangenterna.&lt;br/&gt;Du kan använda tangentbordet för att
+							snabbt hitta rätt film.</string>
+		<string id="addmovie.notitles">Ingen annan användare är registrerad</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Bekräfta XML uppladdning</string>
+		<string id="xml.contains">XML filen innehåller %d filmer.</string>
+		<string id="xml.info1">Tryck verkställ för att hantera filmerna och spara dem till databasen.&lt;br/&gt;
+							Eller tryck avbryt för att ångra. </string>
+		<string id="xml.info2">Om du vill inkludera tumnaglar (posters) för filmerna i filen du tänker importera
+							så &lt;b&gt;MÅSTE&lt;/b&gt; du ha XML filen med tumnaglarna tillgänglig nu !.&lt;br/&gt;
+							Tumnaglar kan INTE bli importerade efter att du är klar med importeringen av XML filen för filmerna.
+							Om du redan har XML filen som innehåller tumnaglarna markera då fältet nedan och fortsätt till nästa steg
+							efter importeringen av dina filmer i fältet nedan, kommer du att bli tillfrågad att skicka XML filen innehållande tumnaglarna. </string>
+		<string id="xml.thumbnails">Lägg till tumnaglarna från min XML fil</string>
+		<string id="xml.list">Fullständig lista över filmer hittade i XML filen.</string>
+		<string id="xml.error">Inga filmer hittades i XML filen.&lt;br/&gt;Filen kan vara förstörd eller tom.
+			   				&lt;br/&gt;Försäkra dig om att du använder en XML fil som är exporterad från VCD-db...</string>
+		<string id="xml.results">XML uppladdnings resultat.</string>
+		<string id="xml.results2">Här är resultatet från din XML importering.&lt;br/&gt;Totalt %d filmer blev importerade.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Information från AdultDVDEmpire.com ....</string>
+		<string id="dvdempire.desc">DVDEmpire Beskrivning</string>
+		<string id="dvdempire.subcat">Erotiska Kategorier</string>
+		<string id="dvdempire.details">Adultdvdempire.com Detaljer</string>
+		<string id="dvdempire.stars">Erotiska Stjärnor</string>
+		<string id="dvdempire.notice">Skådespelare som är märkta med rött finns inte i databasen.
+							Men du kan markera deras namn så sätts dom automatiskt in i databasen
+						    och blir associerade med denna film.</string>
+		<string id="dvdempire.fetch">Hämta också</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Filmer att låna</string>
+		<string id="loan.to">Låna ut filmer till</string>
+		<string id="loan.addusers">Lägg till lånekonto och fortsätt</string>
+		<string id="loan.newuser">Nytt lånekonto</string>
+		<string id="loan.registeruser">Lägg till lånekonto</string>
+		<string id="loan.name">Namn</string>
+		<string id="loan.select">Välj låntagare</string>
+		<string id="loan.movieloans">Utlånade filmer ...</string>
+		<string id="loan.reminder">Skicka Påminnelse</string>
+		<string id="loan.history">Lånehistorik</string>
+		<string id="loan.history2">Se på lånehistorik</string>
+		<string id="loan.since">Sedan</string>
+		<string id="loan.time">Tid Sedan</string>
+		<string id="loan.return">Återlämna Film</string>
+		<string id="loan.success">Lyckad utlåning</string>
+		<string id="loan.out">Inte återlämnad</string>
+		<string id="loan.datein">Datum in</string>
+		<string id="loan.dateout">Datum ut</string>
+		<string id="loan.period">Låneperiod</string>
+		<string id="loan.back">Tillbaka till lånesidan</string>
+		<string id="loan.day">dag</string>
+		<string id="loan.days">dagar</string>
+		<string id="loan.today">från idag</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS stream</string>
+		<string id="rss.title">RSS stream från mina vänners VCD-DB databaser</string>
+		<string id="rss.site">RSS Site streams</string>
+		<string id="rss.user">RSS Användarstreams</string>
+		<string id="rss.view">Visa RSS stream</string>
+		<string id="rss.add">Lägg till ny stream</string>
+		<string id="rss.note">Skriv in den &lt;strong&gt;exacta länken&lt;/strong&gt; till din väns databas.&lt;br/&gt;
+							Om RSS Stream är aktiverat på din väns sida kan du välja ut den stream som
+							är intressant för dig att visa på din egen sida.</string>
+		<string id="rss.fetch">Hämta RSS lista</string>
+		<string id="rss.none">Ingen RSS stream har lagts till.</string>
+		<string id="rss.found">Dessa RSS streams hittades, välj den stream du vill sätta till:</string>
+		<string id="rss.notfound">Inga RSS stream hittades på den länken</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Kommentarer</string>
+		<string id="comments.add">Posta ny kommentar</string>
+		<string id="comments.none">Inga kommentarer har blivit postade</string>
+		<string id="comments.type">Skriv in din kommentar</string>
+		<string id="comments.your">Din kommentar</string>
+		<string id="comments.post">Posta kommentar</string>
+		<string id="comments.error">Du måste vara Inloggad för att posta en kommentar</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Lägg till på min Önskelista</string>
+		<string id="wishlist.onlist">Finns på din Önskelista</string>
+		<string id="wishlist.empty">Din Önskelista är tom</string>
+		<string id="wishlist.own">Du har redan denna film</string>
+		<string id="wishlist.notown">Du har inte denna film</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Namn</string>
+		<string id="pornstar.web">Hemsida</string>
+		<string id="pornstar.moviecount">Antal filmer</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Jag har sett denna film</string>
+		<string id="seen.notseenit">Jag har Inte sett denna film</string>
+		<string id="seen.seenitclick">Klicka för att markera som sedd</string>
+		<string id="seen.notseenitclick">Klicka för att markera som osedd</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Dagens Raport</string>
+		<string id="statistics.top_movies">Filmer i Databasen</string>
+		<string id="statistics.top_cats">Topp Kategorier</string>
+		<string id="statistics.top_act">Mest Aktiva Kategorier</string>
+		<string id="statistics.top_covers">DVD Omslag i Databasen</string>
+		<string id="statistics.total">Totalt</string>
+		<string id="statistics.today">Inlagt Idag</string>
+		<string id="statistics.week">Senaste 7 dagarna</string>
+		<string id="statistics.month">Senaste 30 dagarna</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Påminnelse om lånad film</string>
+		<string id="mail.returnmovies1">%s, Jag vill bara påminna dig om att jag vill ha tillbaka min(a) film(er).
+							Du har fortfarande följande filmer lånade:</string>
+		<string id="mail.returnmovies2">Var snäll och returnera dessa filmer så fort som möjligt, Tack på föhand %s
+							Detta är ett automatiskt e-postmeddelande genererat från &lt;a href=&quot;http://vcddb.konni.com&quot;&gt;VCD-db&lt;/a&gt;</string>
+		<string id="mail.notify">&lt;strong&gt;Ny film har blivit tillsatt i VCD-db&lt;/strong&gt;&lt;br/&gt;
+							 Klicka &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;här&lt;/a&gt; för att se mera ..
+							 &lt;p&gt;Detta är ett automatiskt e-postmeddelande genererat från &lt;a href=&quot;http://vcddb.konni.com)&quot;&gt;VCD-db&lt;/a&gt;&lt;/p&gt;</string>
+		<string id="mail.register">%s, registreringen på VCD-db lyckades.&lt;br&gt;&lt;br&gt;Ditt användarnamn är %s och ditt lösenord är %s.&lt;br&gt;&lt;br&gt;Du kan alltid ändra ditt lösenord efter att du har loggat in.&lt;br&gt;
+							Klicka &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;här&lt;/a&gt; för att gå till VCD-db websidan.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Min Metadata</string>
+		<string id="metadata.name">Namn</string>
+		<string id="metadata.desc">Beskrivning</string>
+		<string id="metadata.type">Meta typ</string>
+		<string id="metadata.value">Meta värde</string>
+		<string id="metadata.none">Ingen Metadata finns.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Spelare</string>
+		<string id="player.path">Sökväg</string>
+		<string id="player.param">Parametrar</string>
+		<string id="player.note">Fyll i den fullständiga sökvägen till din film spelare på din hårddisk.
+							Din spelare måste kunna ta emot parametrar som kommandorad såsom
+							BSPlayer för Win32 eller MPlayer för Linux.&lt;br/&gt;Du kan tanka hem BSPlayer gratis
+							&lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;här&lt;/a&gt;
+							och MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;här&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">innehåller</string>
+		<string id="misc.grade">IMDB klassificering mera än</string>
+		<string id="misc.any">vilken som helst</string>
+		<string id="misc.tryagain">Pröva igen</string>
+		<string id="misc.proceed">Fortsätt</string>
+		<string id="misc.select">Välj</string>
+		<string id="misc.confirm">Bekräfta</string>
+		<string id="misc.cancel">Avbryt</string>
+		<string id="misc.attention">Observera!</string>
+		<string id="misc.status">Status</string>
+		<string id="misc.success">Lyckades</string>
+		<string id="misc.failure">Misslyckades</string>
+		<string id="misc.yes">Ja</string>
+		<string id="misc.no">Nej</string>
+		<string id="misc.showmore">Visa mera</string>
+		<string id="misc.showless">Visa mindre</string>
+		<string id="misc.new">Ny</string>
+		<string id="misc.change">ändra</string>
+		<string id="misc.delete">radera</string>
+		<string id="misc.update">Uppdatera</string>
+		<string id="misc.saveandclose">Spara och Stäng</string>
+		<string id="misc.close">Stäng</string>
+		<string id="misc.edit">Ändra</string>
+		<string id="misc.results">Resultat</string>
+		<string id="misc.latestmovies">senaste filmerna</string>
+		<string id="misc.latesttv">senaste TV episoderna</string>
+		<string id="misc.latestblue">senaste erotikfilmerna</string>
+		<string id="misc.movies">filmer</string>
+		<string id="misc.nocats">Inga filmer har blivit tillsatta.</string>
+		<string id="misc.nousers">Inga aktiva användare</string>
+		<string id="misc.key">Nyckel</string>
+		<string id="misc.savenext">Spara och ändra följande</string>
+		<string id="misc.save">Spara</string>
+		<string id="misc.seen">Sedd</string>
+		<string id="misc.footer">Sidan laddades på %s sekunder. (&lt;i&gt;%d Förfrågningar&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Kolla den officiella VCD-db hemsidan</string>
+		<string id="misc.toggle">Byt visningsläge</string>
+		<string id="misc.toggle_on">på</string>
+		<string id="misc.toggle_off">av</string>
+	</strings>
+</language>

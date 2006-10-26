@@ -451,7 +451,7 @@
 			;
 					
 			print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-			print "<tr><td>".language::translate('M_MEDIA')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".language::translate('M_NUM')."</td><td>".language::translate('M_DATE')."</td><td>".language::translate('M_OWNER')."</td></tr>";
+			print "<tr><td>".VCDLanguage::translate('movie.media')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".VCDLanguage::translate('movie.num')."</td><td>".VCDLanguage::translate('movie.date')."</td><td>".VCDLanguage::translate('movie.owner')."</td></tr>";
 			for ($i = 0; $i < sizeof($this->ownersObjArr); $i++) {
 				$owner = $this->ownersObjArr[$i];
 				$media = $this->mediaTypeObjArr[$i];

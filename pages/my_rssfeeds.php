@@ -11,7 +11,7 @@
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID());
 
-	print "<h1>".language::translate('MENU_RSS')."</h1>";
+	print "<h1>".VCDLanguage::translate('menu.rss')."</h1>";
 	
 	foreach ($arrFeeds as $rssfeed) {
 		showFeed($rssfeed['name'], $rssfeed['url']);

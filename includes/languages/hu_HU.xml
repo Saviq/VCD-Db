@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: MiszterX -->
+<language>
+	<id>hu_HU</id>
+	<name>Magyar</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">HU</string>
+		<string id="language.name">Magyar</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Saját menü</string>
+		<string id="menu.settings">Saját Beáálításaim</string>
+		<string id="menu.movies">Saját filmjeim</string>
+		<string id="menu.addmovie">Új film hozzáadása</string>
+		<string id="menu.loansystem">Kölcsönadó rendszer</string>
+		<string id="menu.wishlist">Saját Kívánságlistám</string>
+		<string id="menu.categories">Film Kategóriák</string>
+		<string id="menu.rss">Saját Rss Feeds</string>
+		<string id="menu.controlpanel">Vezérlõpult</string>
+		<string id="menu.register">Regisztráció</string>
+		<string id="menu.logout">Kilépés</string>
+		<string id="menu.submit">Elküld</string>
+		<string id="menu.topusers">Top felhasználók</string>
+		<string id="menu.wishlistpublic">Mások kívánságlistája</string>
+		<string id="menu.statistics">Statisztikák</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Belépés</string>
+		<string id="login.username">Felhasználó név</string>
+		<string id="login.password">Password</string>
+		<string id="login.remember">Emlékezz rám</string>
+		<string id="login.info">Hagyd ezt a mezõt üresen ha &lt;b&gt;nem&lt;/b&gt; akarod a passwordödet megváltoztatni.</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Regisztráció</string>
+		<string id="register.fullname">Teljes név</string>
+		<string id="register.email">Email</string>
+		<string id="register.again">Password újra</string>
+		<string id="register.disabled">Bocsi, Az administrátor kikapcsolta a regisztrációt most.</string>
+		<string id="register.ok">Regisztráció sikers volt, most be tudsz lépni a VCD-dbbe.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Küldjön nekem egy email, ha új filme került hozzáadásra?</string>
+		<string id="userproperties.show_adult">Mutassa a felnõtt tartalmat is az oldalon?</string>
+		<string id="userproperties.rss">Engedjéjezem a RSS feed a saját filmjistámról?</string>
+		<string id="userproperties.wishlist">Engedéjezem másoknak, hogy láthassák az én kívánságlistámat ?</string>
+		<string id="userproperties.use_index">Használjon index szám mezõt a médiák azonosítójának</string>
+		<string id="userproperties.seen_list">Tartsd meg ezt a filmet, hogy láthassam</string>
+		<string id="userproperties.playoption">Use client playback options</string>
+		<string id="userproperties.nfo">Enable NFO files?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Lejátszó beállítások</string>
+		<string id="usersettings.ownfeed">Saját feed megtekintése</string>
+		<string id="usersettings.custom">Customize my frontpage</string>
+		<string id="usersettings.showstat">Mutasd a statisztikákat</string>
+		<string id="usersettings.showside">Mutassa az új filmeket a sidebar-ban</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Search</string>
+		<string id="search.title">Cím szerint</string>
+		<string id="search.actor">Színész szerint</string>
+		<string id="search.director">Rendezõ szerint</string>
+		<string id="search.results">Értékeléses keresés</string>
+		<string id="search.extended">Részletes keresés</string>
+		<string id="search.noresult">A keresesés eredménytelen volt</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Akció</string>
+		<string id="category.adult">Felnõtt</string>
+		<string id="category.adventure">Kaland</string>
+		<string id="category.animation">Animációs</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Vígjáték</string>
+		<string id="category.crime">Krimi</string>
+		<string id="category.documentary">Documentum</string>
+		<string id="category.drama">Dráma</string>
+		<string id="category.family">Családi</string>
+		<string id="category.fantasy">Fantasy</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Horror</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Zenei Video</string>
+		<string id="category.musical">Musical</string>
+		<string id="category.mystery">Mystery</string>
+		<string id="category.romance">Romantikus</string>
+		<string id="category.scifi">Sci-Fi</string>
+		<string id="category.short">Rövid</string>
+		<string id="category.thriller">Thiller</string>
+		<string id="category.tvshows">TV Shows</string>
+		<string id="category.war">Háborús</string>
+		<string id="category.western">Western</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">A Film</string>
+		<string id="movie.actors">Szereplõk</string>
+		<string id="movie.category">Kategória</string>
+		<string id="movie.year">Kiadás éve</string>
+		<string id="movie.copies">Másolatok</string>
+		<string id="movie.from">Származás</string>
+		<string id="movie.title">Cím</string>
+		<string id="movie.alttitle">Másik cím</string>
+		<string id="movie.grade">Értékelés</string>
+		<string id="movie.director">Rendezõ</string>
+		<string id="movie.country">Megjelenési Ország</string>
+		<string id="movie.runtime">Runtime</string>
+		<string id="movie.minutes">perc</string>
+		<string id="movie.plot">Cselekmény</string>
+		<string id="movie.noplot">Nem áll rendelkezésre összegzõ cselekmény</string>
+		<string id="movie.covers">Borító</string>
+		<string id="movie.available">Rendelkezésre álló másolatok</string>
+		<string id="movie.media">Médium</string>
+		<string id="movie.num">Darab CD'k</string>
+		<string id="movie.date">Hozzáadás dátumad</string>
+		<string id="movie.owner">Birtokos</string>
+		<string id="movie.noactors">Nem található színész</string>
+		<string id="movie.info">Film információ</string>
+		<string id="movie.details">Részletes másolatokDetails on my copy</string>
+		<string id="movie.mediatype">Media típusa</string>
+		<string id="movie.comment">Hozzászólás</string>
+		<string id="movie.private">Privát film (más nem láthatja)?</string>
+		<string id="movie.screenshots">Képernyõkép</string>
+		<string id="movie.noscreens">Nincs képernyõkép</string>
+		<string id="movie.show">Mutasd</string>
+		<string id="movie.hide">Rejtsd el</string>
+		<string id="movie.change">Információ megváltoztatása</string>
+		<string id="movie.nocovers">Nincs CD-borító</string>
+		<string id="movie.bycat">Kategória címek</string>
+		<string id="movie.currcat">Jelenlegi kategórai</string>
+		<string id="movie.textview">Szöveges nézet</string>
+		<string id="movie.imageview">Képes nézet</string>
+		<string id="movie.mineonly">Csak az én filmjeimet mutasd</string>
+		<string id="movie.similar">Similar filmek</string>
+		<string id="movie.mediaindex">Médiák index</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB részletek</string>
+		<string id="imdb.plot">Cselekmény összegzés</string>
+		<string id="imdb.gallery">Fotó Gallériar</string>
+		<string id="imdb.trailers">Elõzetesek</string>
+		<string id="imdb.links">IMDB Linkek</string>
+		<string id="imdb.not">Nincs IMDB információ errõl</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Region</string>
+		<string id="dvd.format">Format</string>
+		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.audio">Audio</string>
+		<string id="dvd.subtitles">Subtitles</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Adatok exportálása</string>
+		<string id="mymovies.excel">Export Excel dokumentumként</string>
+		<string id="mymovies.xml">Export XML dokumentumként</string>
+		<string id="mymovies.xmlthumbs">Export thumbnails XMLként</string>
+		<string id="mymovies.actions">Lehetõségeim</string>
+		<string id="mymovies.join">Disc join</string>
+		<string id="mymovies.joinmovies">Disc join movies</string>
+		<string id="mymovies.joinsuser">Felhasználó választás</string>
+		<string id="mymovies.joinsmedia">Media típus választás</string>
+		<string id="mymovies.joinscat">Kategória választás</string>
+		<string id="mymovies.joinstype">Lehetõség választása</string>
+		<string id="mymovies.joinshow">Mutasd a találatokat</string>
+		<string id="mymovies.noresults">Nincs találat</string>
+		<string id="mymovies.textall">Mutasd (Text)</string>
+		<string id="mymovies.pwall">Mutasd (Mind)</string>
+		<string id="mymovies.pwmovies">Mutasd (Filmeket)</string>
+		<string id="mymovies.pwtv">Mutasd (Tv Showkat)</string>
+		<string id="mymovies.pwblue">Mutasd (&quot;Kék&quot; filmeket)</string>
+		<string id="mymovies.overview">Kollekció áttekintése</string>
+		<string id="mymovies.info">Ezen az oldalon megtalálhatsz minden információt a filmjeimrõl.&lt;br/&gt;&lt;br/&gt;To the right are actions you can run on your movie collection.&lt;br/&gt;You can also export your list as Excel for printing or use the XML export functions for backup or to move all your collection data from one VCD-db to another.</string>
+		<string id="mymovies.keys">Egyedi azonosító szerkesztése</string>
+		<string id="mymovies.seenlist">Megnézett filmek kezelése</string>
+		<string id="mymovies.helppicker">Dobj egy filmet amit megnézzek</string>
+		<string id="mymovies.helppickerinfo">Nem tudod mit kéne nézni este?&lt;br/&gt;Használd a Filmtárat, hogy segítsen a keresésben.&lt;br/&gt;Be tudsz állítani különbözõ szõrõket ami alapján javasol egy filmet a Filmtár.</string>
+		<string id="mymovies.find">Megtalálni egy filmet</string>
+		<string id="mymovies.notseen">Csak olyan filmeket javasolj amiket még nem láttam</string>
+		<string id="mymovies.friends">Barátaim akik CD-ket kértek kölcsön tõllem</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Alap információ</string>
+		<string id="manager.imdb">IMDB infó</string>
+		<string id="manager.empire">DVDEmpire infó</string>
+		<string id="manager.copy">Másolatom</string>
+		<string id="manager.copies">Másolataim</string>
+		<string id="manager.nocopy">Nincs másolatod</string>
+		<string id="manager.1copy">Másol</string>
+		<string id="manager.addact">Színész hozzáadása</string>
+		<string id="manager.addtodb">Új színész hozzáadása az adatbázishoz</string>
+		<string id="manager.savetodb">Mentés adatbázisba</string>
+		<string id="manager.savetodbncd">Mentés adatbázisba és filmbe</string>
+		<string id="manager.indb">A színész az adatbázisban</string>
+		<string id="manager.sel">Színész kiválasztása</string>
+		<string id="manager.stars">Csillagok</string>
+		<string id="manager.browse">Tallózd a file elérhetõségét</string>
+		<string id="manager.addmedia">Add...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Választ ki a módot a film hozzáadásához</string>
+		<string id="addmovie.imdb">Lekérni a web</string>
+		<string id="addmovie.imdbtitle">Kulcsszó megadása kereséshez</string>
+		<string id="addmovie.manual">Adat megadása kézzel</string>
+		<string id="addmovie.listed">A film már benne van a listában</string>
+		<string id="addmovie.xml">FIlm hozzáadása exportált XML file-bõl</string>
+		<string id="addmovie.xmlfile">Válaszd ki az XML file-t az importáláshoz</string>
+		<string id="addmovie.maxfilesize">Max fileméret</string>
+		<string id="addmovie.dvdempire">Lekérés az Adult DVD Empire-tõl (X-rated filmek)</string>
+		<string id="addmovie.selected">Kiválasztott címek</string>
+		<string id="addmovie.notitles">Nincs másik felhasználónak ez a film hozzáadva a Filmtárba</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Az XML feltötlését igazolása</string>
+		<string id="xml.contains">XML file  %d filmeket tartalmazza.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Információk AdultDVDEmpire.com-tól ....</string>
+		<string id="dvdempire.desc">DVDEmpire leírása</string>
+		<string id="dvdempire.subcat">Adult kategóriák</string>
+		<string id="dvdempire.details">Adultdvdempire.com details</string>
+		<string id="dvdempire.stars">Pornócsillagok</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Filmek kölcsönzésre</string>
+		<string id="loan.to">Kölcsönadom a filmet neki</string>
+		<string id="loan.addusers">Adj néhány kölcsönzõ felhasználót hogy folytathasd</string>
+		<string id="loan.newuser">Új kölcsönzõ</string>
+		<string id="loan.registeruser">Újkölcsönzõ hozzáadása</string>
+		<string id="loan.name">Neve</string>
+		<string id="loan.select">Kölcsönzõ kiválasztása</string>
+		<string id="loan.movieloans">Kölcsönzendõ filmek ...</string>
+		<string id="loan.reminder">Küldj emlékeztetést</string>
+		<string id="loan.history">Kölcsönzési napló</string>
+		<string id="loan.history2">Kölcsönzési napló megtekintése</string>
+		<string id="loan.since">Tõl</string>
+		<string id="loan.time">Idõpontól</string>
+		<string id="loan.return">Visszaadva a másolat</string>
+		<string id="loan.success">A film kölcsönzése jóváhagyva</string>
+		<string id="loan.out">Nincs visszahozva</string>
+		<string id="loan.datein">Visszahozva</string>
+		<string id="loan.dateout">Kiadva</string>
+		<string id="loan.period">Loan period</string>
+		<string id="loan.back">Back to loan index</string>
+		<string id="loan.day">nap</string>
+		<string id="loan.days">napok</string>
+		<string id="loan.today">mától</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Hozzászólások</string>
+		<string id="comments.add">Új hozzászólás hozzáadáasa</string>
+		<string id="comments.none">Nincs hozzászólás</string>
+		<string id="comments.type">Írj egy új hozzászólást</string>
+		<string id="comments.your">A te hozzászólásod</string>
+		<string id="comments.post">Post comment</string>
+		<string id="comments.error">Be kell jelentkezned hogy kommentálhass</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Hozzáadás a Kívánságlistámhoz</string>
+		<string id="wishlist.onlist">A saját kívánságlistádon</string>
+		<string id="wishlist.empty">A kívánságlistád üres</string>
+		<string id="wishlist.own">Már van másolatom errõl a filmrõl</string>
+		<string id="wishlist.notown">Nem rendelkezem másolattal errõl a filmrõl</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Név</string>
+		<string id="pornstar.web">Website</string>
+		<string id="pornstar.moviecount">Film számláló</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Már láttam</string>
+		<string id="seen.notseenit">Még nem láttam </string>
+		<string id="seen.seenitclick">Már láttam-ra állításhoz klikk</string>
+		<string id="seen.notseenitclick">Még nemláttam-ra állításhoz klikk</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returnmovies1">%s, csak emlékeztetni szeretnélek hogy vissza kell hoznod a filmem.&lt;br/&gt;You still have the following movies :&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Kérlek hozd vissza amilyen gyorsan csak tudod a lemezeim&lt;br/&gt;Üdvözlettel %s&lt;br/&gt;&lt;br/&gt;ui. Ez egy autómatikus e-mail küldõ rendszer</string>
+		<string id="mail.notify">&lt;strong&gt;Új film lett hozzáadva a Filmtárhoz&lt;/strong&gt;&lt;br/&gt;Klikk &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;ide&lt;/a&gt;, hogy megnézhesd ..&lt;br/&gt;&lt;p&gt;ui. Ez egy autómatikus e-mail küldo rendszer&lt;/p&gt;</string>
+		<string id="mail.register">%s, regisztrációd a filmtárhoz megtörtént.&lt;br/&gt;&lt;br/&gt;A felhasználó neved:%s és a passwordöd: %s.&lt;br/&gt;&lt;br/&gt;nBármikor megváltoztathatod a jelszavad, hogy bejelentkeztél.&lt;br/&gt;Klikk &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;ide&lt;/a&gt; a Filmtárhoz.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Lejátszó</string>
+		<string id="player.path">Elérési útvonal</string>
+		<string id="player.param">Paraméterek</string>
+		<string id="player.note">Add meg a teljes elérési útvonalát a filmenk a merevlemezeden.  A lejátszódnak képesnek kell lennie az paraméterek átadására, ilyen például BSPlayer Win32-re vagy  MPlayer Linux-ra. YLetöltheted a BSPlayer-t ingyen &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;innen&lt;/a&gt; és a MPlayer-t &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;innen&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">tartalmak</string>
+		<string id="misc.grade">IMDB értékelés alapján vagy jobb</string>
+		<string id="misc.any">Más</string>
+		<string id="misc.tryagain">Próbáld újra</string>
+		<string id="misc.proceed">Végrehajtva</string>
+		<string id="misc.select">kiválaszt</string>
+		<string id="misc.confirm">Jóváhagy</string>
+		<string id="misc.cancel">Mégse</string>
+		<string id="misc.attention">FIGYELEM!</string>
+		<string id="misc.status">Státusz</string>
+		<string id="misc.success">Kész</string>
+		<string id="misc.failure">Hiba</string>
+		<string id="misc.yes">Igen</string>
+		<string id="misc.no">Nem</string>
+		<string id="misc.showmore">Mutass többet</string>
+		<string id="misc.showless">Mutass kevesebbet</string>
+		<string id="misc.new">Új</string>
+		<string id="misc.change">megváltoztat</string>
+		<string id="misc.delete">töröl</string>
+		<string id="misc.update">Frissít</string>
+		<string id="misc.saveandclose">Ment és bezár</string>
+		<string id="misc.close">Bezár</string>
+		<string id="misc.edit">Szerkeszt</string>
+		<string id="misc.results">Találatok</string>
+		<string id="misc.latestmovies">Utolsó filmek</string>
+		<string id="misc.latesttv">Utolsó TV mûsorok</string>
+		<string id="misc.latestblue">utolsó X-rated</string>
+		<string id="misc.movies">filmek</string>
+		<string id="misc.nocats">Nincs film hozzáadva.</string>
+		<string id="misc.nousers">Nincs aktív felhasználó</string>
+		<string id="misc.key">kulcs</string>
+		<string id="misc.savenext">Mentés és szerkeszt a következõt</string>
+		<string id="misc.save">Mentés</string>
+		<string id="misc.seen">Megnézve</string>
+	</strings>
+</language>
