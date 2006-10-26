@@ -17,6 +17,7 @@
 class VCDLanguage {
 	
 	CONST PRIMARY_LANGINDEX = "languages.xml";
+	CONST USERSET_LANGINDEX = "upload/languages.xml";
 	CONST FALLBACK_ID = "en_EN";
 	
 	public static $LANGUAGE_ROOT;
@@ -28,9 +29,9 @@ class VCDLanguage {
 	 * @var _VCDLanguageItem
 	 */
 	private $primaryLanguage = null;
+	private $isRestricted = false;
 	
-	private $test = array();
-	
+		
 	/**
 	 * The Fallback language to use if translation from Primary is not found.
 	 * Only populated if needed.  Default English.
@@ -51,12 +52,6 @@ class VCDLanguage {
 		if (!is_null($strLanguageID)) {
 			$this->load($strLanguageID);
 		}
-			
-		/*
-		foreach ($this->primaryLanguage->getKeys() as $obj) {
-			$this->test[$obj->getID()] = $obj->getKey();
-		}
-		*/
 	}
 	
 	
@@ -67,6 +62,13 @@ class VCDLanguage {
 	private function init() {
 		try {
 			
+					
+			// Check if a restricted language subset should be used ..
+			if ($this->loadResticted()) {
+				return;
+			}
+				
+			// Nope .. no restrictions defined, using the defaults
 			if (file_exists(self::$LANGUAGE_ROOT.self::PRIMARY_LANGINDEX )) {
 				$xmlStream = simplexml_load_file(self::$LANGUAGE_ROOT.self::PRIMARY_LANGINDEX );
 								
@@ -78,6 +80,95 @@ class VCDLanguage {
 		} catch (Exception $ex) {
 			throw $ex;
 		}
+	}
+	
+	/**
+	 * Try to load languages based on restrictions if any ..
+	 * Returns true if restrictions were found, otherwise false.
+	 *
+	 * @return bool
+	 */
+	private function loadResticted() {
+		try {
+			
+			$fileroot = str_replace('classes', '', dirname(__FILE__));
+			if (file_exists($fileroot.self::USERSET_LANGINDEX)) {
+				$xmlStream = simplexml_load_file($fileroot.self::USERSET_LANGINDEX);
+				foreach ($xmlStream->language as $node) {
+					array_push($this->arrLanguages, new _VCDLanguageItem($node));
+				}
+				$this->isRestricted = true;
+				return true;
+			} else {
+				return false;
+			}
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	/**
+	 * Get all the languages loaded within the class,
+	 * returns array of _VCDLanguageItem
+	 *
+	 * @return array
+	 */
+	public function getAllLanguages() {
+		return $this->arrLanguages;
+	}
+	
+	/**
+	 * Set restrictions on what languages to display
+	 *
+	 * @param array $arrRestrictionIDs | Array of language ID's
+	 */
+	public function setRestrictions($arrRestrictionIDs) {
+		
+		try {
+		
+			$newRestrictions = array();
+			foreach($this->getTranslationFiles() as $transObj) {
+				if (in_array($transObj['id'], $arrRestrictionIDs)) {
+					array_push($newRestrictions, $transObj);
+				}
+			}
+			
+			if (sizeof($newRestrictions) < 1) {
+				throw new Exception('At least 1 language must be defined.');
+			}
+			
+			
+			$strXML  = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+			$strXML .= "<languages>";
+			foreach($newRestrictions as $transObj) {
+				$strXML .= "\t<language id=\"{$transObj['id']}\" charset=\"{$transObj['charset']}\">\n";
+				$strXML .= "\t\t<name>{$transObj['name']}</name>\n";
+				$strXML .= "\t\t<native/>\n";
+				$strXML .= "\t\t<author/>\n";
+				$strXML .= "\t</language>\n";
+			}
+			$strXML .= "</languages>";
+			
+			
+			$xmlObj = simplexml_load_string($strXML);
+			$xmlFile = str_replace('classes', '', dirname(__FILE__)).self::USERSET_LANGINDEX;
+			$xmlObj->asXML($xmlFile);
+			
+
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+
+	}
+	
+	/**
+	 * Check if the language system is running in restriction mode
+	 *
+	 * @return bool
+	 */
+	public function isRestricted() {
+		return $this->isRestricted;
 	}
 	
 	/**
@@ -107,6 +198,18 @@ class VCDLanguage {
 				return;
 			}
 		}
+		
+		// Language not found .. try to load the default one ..
+		foreach($this->arrLanguages as $obj) {
+			if (strcmp($obj->getID(), self::FALLBACK_ID) == 0) {
+				$this->primaryLanguage = &$obj;
+				$this->primaryLanguage->getKeys();
+				// Store the current selection in Session
+		  		$_SESSION['vcdlang'] = self::FALLBACK_ID;
+				return;
+			}
+		}
+		
 		
 		throw new Exception("Could not load language with ID " . $strLanguageID);
 	}
@@ -163,6 +266,32 @@ class VCDLanguage {
 		return $html;
 		
 	}
+	
+	/**
+	 * Get information about all the translations residing in /includes/languages
+	 * Returns array of array's with index [id,filename,name,charset,num]
+	 *
+	 * @return array
+	 */
+	public function getTranslationFiles() {
+		$arrFiles = $this->findfiles(self::$LANGUAGE_ROOT,'/\.(xml)$/');
+		$arrLangs = array();
+		foreach ($arrFiles as $file) {
+			$xmlFile = @simplexml_load_file($file);
+			if (is_object($xmlFile) && strcmp(basename($file), "languages.xml") != 0) {
+				$item = array(
+					'id' 		=> (string)$xmlFile->id,
+					'filename'	=> basename($file),
+					'name'		=> (string)$xmlFile->name,
+					'charset'	=> (string)$xmlFile->charset,
+					'num'		=> count($xmlFile->strings->string)
+				);
+				array_push($arrLangs, $item);
+			}
+		}
+		
+		return $arrLangs;
+	}
 
 	
 	/**
@@ -203,6 +332,41 @@ class VCDLanguage {
 	}
 	
 	
+	/**
+	 * Search folder for files with certain extensions defined in the $fileregex parameter.
+	 *
+	 * @param string $location | The file location to seek
+	 * @param string $fileregex | The regual expression to search by
+	 * @return array
+	 */
+	private function findfiles($location='',$fileregex='') {
+   		if (!$location or !is_dir($location) or !$fileregex) {
+       		return false;
+   		}
+
+		$matchedfiles = array();
+
+	   	$all = opendir($location);
+	   	while ($file = readdir($all)) {
+	       	if (is_dir($location.'/'.$file) and $file <> ".." and $file <> ".") {
+	         	$subdir_matches = $this->findfile($location.'/'.$file,$fileregex);
+	         	$matchedfiles = array_merge($matchedfiles,$subdir_matches);
+	         	unset($file);
+	       	}
+	       	elseif (!is_dir($location.'/'.$file)) {
+	         	if (preg_match($fileregex,$file)) {
+	             	array_push($matchedfiles,$location.'/'.$file);
+	         	}
+		       }
+	   		}
+	   	   closedir($all);
+		   unset($all);
+		   sort($matchedfiles);
+	       return $matchedfiles;
+ 	}
+
+	
+	
 }
 
 /**
@@ -218,9 +382,15 @@ class _VCDLanguageItem implements ArrayAccess {
 	private $name;
 	private $native_name;
 	private $author;
+	private $filename;
 
 	private $keys = array();
 	
+	/**
+	 * Function constructor, gets a single SimpleXMLElement from the language.xml index file.
+	 *
+	 * @param SimpleXMLElement $element
+	 */
 	public function __construct(SimpleXMLElement $element) {
 		$this->id = (string)$element['id'];
 		$this->charset = (string)$element['charset'];
@@ -228,7 +398,7 @@ class _VCDLanguageItem implements ArrayAccess {
 		$this->native_name = (string)$element->native;
 		$this->author = (string)$element->author;
 	}
-	
+		
 	
 	/**
 	 * Load the language keys from the XML file
@@ -307,7 +477,23 @@ class _VCDLanguageItem implements ArrayAccess {
 		return $this->author;
 	}
 	
-		
+	/**
+	 * Set the Obj filename
+	 *
+	 * @param string $strFileName
+	 */
+	public function setFileName($strFileName) {
+		$this->filename = $strFileName;
+	}
+	
+	/**
+	 * Get the filename of the Xml file
+	 *
+	 * @return string
+	 */
+	public function getFileName() {
+		return $this->filename;
+	}
 		
 		
 		
