@@ -1164,7 +1164,7 @@ function updateSubtitles( response )   {
 	}
 	
 	
-	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
+	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' height='12' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
 	html += "</ul>";
 	
   	subtitles.innerHTML = html;
