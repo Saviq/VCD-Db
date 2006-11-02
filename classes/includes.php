@@ -14,11 +14,15 @@
  */
 ?>
 <?
-	require_once(dirname(__FILE__) . '/VCDConstants.php');
+	// Define the current VCD-db version revision
+	define("VCDDB_VERSION","0.984-CVS");
+	if (!defined('VCDDB_BASE')) {
+		define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)).DIRECTORY_SEPARATOR);
+	}
 	
 	checkEnvironment();
-	require_once(dirname(__FILE__) . '/Connection.php');
 	
+	require_once(dirname(__FILE__) . '/Connection.php');
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 	
@@ -45,9 +49,9 @@
 	require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
 
 	/* Common Functions*/
-	require_once(dirname(__FILE__) . '/../functions/WebFunctions.php');
-	require_once(dirname(__FILE__) . '/../functions/BackendFunctions.php');
-	require_once(dirname(__FILE__) . '/../functions/XMLFunctions.php');
+	require_once(VCDDB_BASE . 'functions/WebFunctions.php');
+	require_once(VCDDB_BASE . 'functions/BackendFunctions.php');
+	require_once(VCDDB_BASE . 'functions/XMLFunctions.php');
 
 	/* Core Classes */
 	require_once(dirname(__FILE__) . '/VCDUtils.php');
