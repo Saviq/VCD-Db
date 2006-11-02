@@ -1,5 +1,5 @@
 <?php
-require_once("classes/includes.php");
+require_once(dirname(__FILE__).'/config.php');
 if (isset($_GET['o'])) {
 	require_once('classes/external/powergraph.php');
 	drawGraph($_GET['o']);

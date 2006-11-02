@@ -11,10 +11,9 @@
  * @author  Hákon Birgisson <konni@konni.com>
  * @version $Id$
  */
-
 ?>
 <?
-include_once("classes/includes.php");
+require_once(dirname(__FILE__).'/config.php');
 
 if (!VCDUtils::isLoggedIn()) {
 	die("Unauthorized Access");
@@ -430,7 +429,8 @@ switch ($form) {
 		}
 
 		// Set the default DVD Settings
-		$VCDClass->addDefaultDVDSettings(&$vcd);
+		$VCDClass->addDefaultDVDSettings($vcd);
+		
 		
 		// Forward the movie to the Business layer
 		$new_id = $VCDClass->addVcd($vcd);
