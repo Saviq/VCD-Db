@@ -14,7 +14,8 @@
  */
 
 /** Define the VCD-db root folder **/
-define('VCDDB_BASE', dirname(__FILE__));
+define('VCDDB_BASE', dirname(__FILE__).DIRECTORY_SEPARATOR);
+require_once(VCDDB_BASE.'classes/includes.php');
 
 
 /***
