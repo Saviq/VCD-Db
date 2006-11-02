@@ -13,10 +13,13 @@
  * @since V. 0.984
  */
 
+/** Define the VCD-db root folder **/
+define('VCDDB_BASE', dirname(__FILE__));
+
+
 /***
 	This is the main configuration file for VCD-db.
 	This file replaces the legacy file 'classes/VCDConstants.php'
-	
 ***/
 
 /** 
