@@ -1,0 +1,176 @@
+body {
+	/*background-color: #FF6600; */
+	background-color: #cfcfcf; 
+	font-family:Georgia,"Times New Roman",Times,serif;
+}
+
+a, a:visited {
+	text-decoration:none;
+	color:#90B000;
+}
+
+#statusheader {
+	font-size: 22px;
+}
+
+#maintbl {
+	background-color: #fff;
+	border: 1px solid #cfcfcf;
+}
+
+#maintbl #topcell {
+	background-image: url(img/topbg.gif);
+	height: 84px;
+	background-repeat: repeat-x;
+}
+
+#message {
+	font-size:30px;
+	text-indent: 20px;
+	color:#fff;
+}
+
+#maintbl #maincell {
+	padding-top:10px;
+}
+
+#message {
+	width: 80%
+}
+
+#logo {
+	margin: 0;	
+
+}
+
+#maintbl #menucell {
+	padding-top:10px;
+}
+
+ol#menu {
+	background-color: transparent;
+	width:260px;
+	padding: 0px 0px 0px 10px;
+	list-style: none;
+}
+
+ol#menu li {
+	line-height: 25px;
+	font-size: 16px;
+	font-weight: bold;
+	color:#999999;
+	margin-bottom: 3px;
+	background-color: #D1D1D1;
+	padding-left:25px;
+}
+
+ol#menu li.finished {
+	background-color: #D2E783;
+	color: #90B000;
+}
+
+ol#menu li.active {
+	background-color: transparent;
+	color: #F26300;
+}
+
+.hidden {
+	display:none;
+	visibility:hidden;
+}
+
+.list {
+
+}
+.list td {
+	vertical-align: top;
+}
+
+.list ul {
+	margin: 2px;
+	padding: 0px 0px 0px 20px;
+	list-style: none;
+}
+
+.header {
+	font-weight:bold;
+}
+
+
+.info {
+	border: 1px dashed #90B000;
+	background-color: #cfcfcf;
+	padding: 8px;
+	color: #fff;
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.goodinfo {
+	border: 1px dashed #c0c0c0;
+	padding: 8px;
+	background-color: #D2E783;
+	color: #90B000;
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+	visibility: hidden;
+	display: none;
+}
+
+.badinfo {
+	border: 1px dashed red;
+	padding: 8px;
+	background-color: #c0c0c0;
+	color: red;
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+	visibility: hidden;
+	display: none;
+}
+
+.badinfo a, .badinfo a:visited {
+	color: black;
+}
+
+#process {
+	visibility: hidden;
+}
+
+.success {
+	color: Green;
+}
+
+.failure {
+	color: Red;
+}
+
+fieldset{
+	background-color:#eee;
+	border:1px solid #666;
+	padding:.5em;
+}
+
+legend {
+	color: #F26300;
+	font-weight: bolder;
+}
+
+* html fieldset{
+position: relative;
+padding-top:.5em;
+margin-top:1em;
+}
+
+* html fieldset{
+margin-top:1em;
+padding-top:1em;
+}
+
+* html legend{
+position: absolute;
+top:-.5em;
+left:.5em;
+}
