@@ -13,7 +13,7 @@
  */
 ?>
 <?php 
-	include_once("classes/includes.php");
+	require_once(dirname(__FILE__).'/config.php');
 
 	if (!isset($_POST['username']) || !isset($_POST['password'])) {
 		redirect(); /* Redirect browser - Bad request */ 
