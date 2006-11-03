@@ -13,10 +13,6 @@
  * @since V. 0.984
  */
 
-/** Define the VCD-db root folder **/
-define('VCDDB_BASE', dirname(__FILE__));
-
-
 /***
 	This is the main configuration file for VCD-db.
 	This file replaces the legacy file 'classes/VCDConstants.php'
@@ -125,7 +121,4 @@ define("VSIZE_XMLTHUMBS", 	30);
 **/
 define("STYLE",			"includes/templates/default/");
 define("RSS_CACHE_TIME",	7200);
-
-/** Include the bootstrapper **/
-require_once(VCDDB_BASE.'/classes/includes.php');
 ?>
