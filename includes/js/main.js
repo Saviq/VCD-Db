@@ -1213,7 +1213,7 @@ function addAudio(form, source) {
 	
   	var htmlfield = document.getElementById('dvdaudio');
   	if (htmlfield.value.length==0) {
-  		htmlfield.value += selectedValue + '#';	  		
+  		htmlfield.value += selectedValue;
   	} else {
   		htmlfield.value += '#'+selectedValue;
   	}
