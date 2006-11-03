@@ -69,7 +69,7 @@ if ($movie->isAdult()) {
 			<?
 				if (VCDUtils::isLoggedIn()) {
 					if ($SETTINGSClass->isOnWishList($movie->getID())) {
-						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= VCDLanguage::translate('wishlist.online')?>)</a></td></tr><?
+						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= VCDLanguage::translate('wishlist.onlist')?>)</a></td></tr><?
 					} else {
 						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= VCDLanguage::translate('wishlist.add')?></a></td></tr><?
 					}
