@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(__FILE__).'/config.php');
+require_once(dirname(__FILE__).'/classes/includes.php');
 if (isset($_GET['o'])) {
-	require_once('classes/external/powergraph.php');
+	require_once(VCDDB_BASE.'/classes/external/powergraph.php');
 	drawGraph($_GET['o']);
 	exit();
 }

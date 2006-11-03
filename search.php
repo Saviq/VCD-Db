@@ -8,12 +8,12 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  Hï¿½kon Birgisson <konni@konni.com>
  * @version $Id$
  */
 ?>
 <?
-require_once(dirname(__FILE__).'/config.php');
+require_once(dirname(__FILE__).'/classes/includes.php');
 
 if (isset($_GET['searchstring']) && isset($_GET['by'])) {
 	$search_string = $_GET['searchstring'];
