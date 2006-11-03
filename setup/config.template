@@ -14,8 +14,7 @@
  */
 
 /** Define the VCD-db root folder **/
-define('VCDDB_BASE', dirname(__FILE__).DIRECTORY_SEPARATOR);
-require_once(VCDDB_BASE.'classes/includes.php');
+define('VCDDB_BASE', dirname(__FILE__));
 
 
 /***
@@ -126,4 +125,7 @@ define("VSIZE_XMLTHUMBS", 	30);
 **/
 define("STYLE",			"includes/templates/default/");
 define("RSS_CACHE_TIME",	7200);
+
+/** Include the bootstrapper **/
+require_once(VCDDB_BASE.'/classes/includes.php');
 ?>
