@@ -16,9 +16,15 @@
 <?
 	// Define the current VCD-db version revision
 	define("VCDDB_VERSION","0.984-CVS");
-	if (!defined('VCDDB_BASE')) {
-		define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)).DIRECTORY_SEPARATOR);
+	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
+	if (file_exists(VCDDB_BASE.'/config.php')) {
+		require_once(VCDDB_BASE.'/config.php');
+	} else {
+		header("Location: setup/index.php"); 
+		exit();
 	}
+
+	
 	
 	checkEnvironment();
 	
@@ -49,9 +55,9 @@
 	require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
 
 	/* Common Functions*/
-	require_once(VCDDB_BASE . 'functions/WebFunctions.php');
-	require_once(VCDDB_BASE . 'functions/BackendFunctions.php');
-	require_once(VCDDB_BASE . 'functions/XMLFunctions.php');
+	require_once(VCDDB_BASE . '/functions/WebFunctions.php');
+	require_once(VCDDB_BASE . '/functions/BackendFunctions.php');
+	require_once(VCDDB_BASE . '/functions/XMLFunctions.php');
 
 	/* Core Classes */
 	require_once(dirname(__FILE__) . '/VCDUtils.php');
