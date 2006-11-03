@@ -1133,7 +1133,7 @@ function updateSubtitles( response )   {
   	
   	var htmlfield = document.getElementById('dvdsubs');
   	if (htmlfield.value.length==0) {
-  		htmlfield.value += currCountryKey + '#';	
+  		htmlfield.value += currCountryKey;
   	} else {
   		htmlfield.value += '#'+currCountryKey;
   	}
