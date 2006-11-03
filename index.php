@@ -23,8 +23,8 @@ require_once(dirname(__FILE__).'/classes/includes.php');
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 	<link rel="stylesheet" type="text/css" href="<?= VCDUtils::getStyle()?>" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
-	<?= VCDUtils::getAlternateLink() ?>
 	<script src="includes/js/main.js" type="text/javascript"></script>
+	<?= VCDUtils::getAlternateLink() ?>
 </head>
 <body>
 
