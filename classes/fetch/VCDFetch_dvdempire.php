@@ -185,12 +185,12 @@ class VCDFetch_dvdempire extends VCDFetch {
 				break;
 				
 			case 'frontcover':
-				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."a/".$this->getItemID();
+				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 				return $imagebase."h.jpg";
 				break;
 				
 			case 'backcover':
-				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."a/".$this->getItemID();
+				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 				return $imagebase."bh.jpg";
 				break;
 		
