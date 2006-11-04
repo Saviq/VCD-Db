@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage CDCover
  * @version $Id$
@@ -16,8 +16,7 @@
  
 ?>
 <?php
-
-require_once("cdcoverObj.php");
+require_once(dirname(__FILE__).'/cdcoverObj.php');
 
 class vcd_cdcover implements ICdcover {
 	

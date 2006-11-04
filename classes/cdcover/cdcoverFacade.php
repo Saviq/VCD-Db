@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage CDCover
  * @version $Id$
@@ -16,8 +16,8 @@
  
 ?>
 <?PHP
-	require_once("cdcover.php");
-	require_once("cdcoverSQL.php");
+require_once(dirname(__FILE__).'/cdcover.php');
+require_once(dirname(__FILE__).'/cdcoverSQL.php');
 	
 
 	interface ICdcover {
@@ -41,10 +41,5 @@
 		public function getCDcoverTypesOnMediaType($mediaType_id);
 		
 		public function getAllThumbnailsForXMLExport($user_id);
-			
-	
-	}
-
-
-
+}
 ?>
