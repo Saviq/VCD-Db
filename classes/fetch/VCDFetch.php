@@ -16,7 +16,7 @@
 
 ?>
 <?
-require_once(dirname(__FILE__) . '/../external/snoopy/Snoopy.class.php');
+require_once(VCDDB_BASE.'/classes/external/snoopy/Snoopy.class.php');
 
 if (!defined('CACHE_FOLDER')) {
 	define("CACHE_FOLDER","upload/cache/");
