@@ -30,7 +30,7 @@
 		 * @param bool $save_session
 		 * @return userObj
 		 */
-		static final function authenticate($username, $password, $save_session = false) {
+		public static final function authenticate($username, $password, $save_session = false) {
 			
 			
 			// Check if we are authenticating to LDAP or DB
@@ -83,7 +83,7 @@
 		 * so we can log him in.
 		 *
 		 */
-		static final function checkCookie() {
+		public static final function checkCookie() {
 			
 			
 			try {
@@ -101,7 +101,10 @@
 					
 					//Update users cookie
 					SiteCookie::extract("vcd_cookie");
-					$sess_lang = $_COOKIE['language'];
+					if (isset($_COOKIE['language'])) {
+						$sess_lang = $_COOKIE['language'];	
+					}
+					
 					
 					$Cookie = new SiteCookie("vcd_cookie");
 					$Cookie->clear();
@@ -157,7 +160,7 @@
 		 *
 		 * @return bool
 		 */
-		static final function isAdmin() {
+		public static final function isAdmin() {
 			if (isset($_SESSION['user']))  {
 			
 				$u = $_SESSION['user'];
@@ -183,10 +186,9 @@
 		 * Print the HTML for the login box.
 		 *
 		 */
-		static final function printLoginBox() {
+		public static final function printLoginBox() {
 			
 			if (!VCDUtils::isLoggedIn()) {
-				;
 			?>
 			<div class="topic"><?=VCDLanguage::translate('login.login')?></div>
    			<div class="forms">   
