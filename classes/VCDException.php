@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
  */
@@ -22,7 +22,7 @@
 		 *
 		 * @param Exception $exception
 		 */
-		function __construct() { 
+		public function __construct() { 
 			parent::__construct();
    		} 
 
