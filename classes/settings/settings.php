@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -17,16 +17,16 @@
 ?>
 <?
 
-require_once("settingsObj.php");
-require_once("sourceSiteObj.php");
-require_once("mediaTypeObj.php");
-require_once("movieCategoryObj.php");
-require_once("borrowerObj.php");
-require_once("loanObj.php");
-require_once("commentObj.php");
-require_once("statisticsObj.php");
-require_once("metadataObj.php");
-require_once("dvdObj.php");
+require_once(dirname(__FILE__).'/settingsObj.php');
+require_once(dirname(__FILE__).'/sourceSiteObj.php');
+require_once(dirname(__FILE__).'/mediaTypeObj.php');
+require_once(dirname(__FILE__).'/movieCategoryObj.php');
+require_once(dirname(__FILE__).'/borrowerObj.php');
+require_once(dirname(__FILE__).'/loanObj.php');
+require_once(dirname(__FILE__).'/commentObj.php');
+require_once(dirname(__FILE__).'/statisticsObj.php');
+require_once(dirname(__FILE__).'/metadataObj.php');
+require_once(dirname(__FILE__).'/dvdObj.php');
 
 class vcd_settings implements ISettings {
 
