@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage User
  * @version $Id$
@@ -16,20 +16,20 @@
  
 ?>
 <? 
-	require_once("userRoleObj.php");
-	require_once("userPropertiesObj.php");
+require_once(dirname(__FILE__).'/userRoleObj.php');
+require_once(dirname(__FILE__).'/userPropertiesObj.php');
 
-	class userObj extends userRoleObj implements XMLable { 
-		
-		private $user_id;
-		private $username;
-		private $password;
-		private $fullname;
-		private $email;
-		private $isDeleted;
-		private $dateCreated;
-		private $userPropertiesArr = array();
-		private $isDirectoryUser = false;
+class userObj extends userRoleObj implements XMLable { 
+	
+	private $user_id;
+	private $username;
+	private $password;
+	private $fullname;
+	private $email;
+	private $isDeleted;
+	private $dateCreated;
+	private $userPropertiesArr = array();
+	private $isDirectoryUser = false;
 		
 	
 	/**
