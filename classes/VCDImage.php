@@ -30,7 +30,7 @@
 	vcdimage.php is used to display the image ..
 */
 
-require_once('cdcover/imageSQL.php');
+require_once(dirname(__FILE__).'/cdcover/imageSQL.php');
 
 class VCDImage {
 	

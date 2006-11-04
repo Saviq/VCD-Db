@@ -14,7 +14,7 @@
  */
 ?>
 <?
-require_once('settings/logSQL.php');
+require_once(dirname(__FILE__).'/settings/logSQL.php');
 
 
 /**
