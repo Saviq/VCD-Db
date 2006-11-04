@@ -156,8 +156,8 @@ class Installer {
 				/* System check stuff .. */
 				
 				case 'phpversion':
-					$results['results'] = "Installed v. " . phpversion();
-					if (phpversion() > 5.0) {
+					$results['results'] = "Installed v. " . PHP_VERSION;
+					if (PHP_VERSION >= 5) {
 						$results['status'] = 1;
 					}
 					break;
