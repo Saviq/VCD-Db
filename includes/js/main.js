@@ -1182,7 +1182,12 @@ function removeSub(key) {
 		lid = lis[i].id;
 		if (lid != key) {
 			html += '<li id=\"'+lid+'\">' + lis[i].innerHTML + '</li>';
-			htmlfield.value += lid + '#';
+			if (htmlfield.value == '') {
+				htmlfield.value = lid ;	
+			} else {
+				htmlfield.value += '#' + lid ;
+			}
+			
 		}
 	}
 	html += "</ul>";
@@ -1246,7 +1251,12 @@ function removeAudio(key) {
 		lid = lis[i].id;
 		if (lid != key) {
 			html += '<li id=\"'+lid+'\" ondblclick=\"removeAudio(\''+lid+'\')\">' + lis[i].innerHTML + '</li>';
-			htmlfield.value += lid + '#';
+			if (htmlfield.value == '') {
+				htmlfield.value = lid;
+			} else {
+				htmlfield.value += '#' + lid;
+			}
+			
 		}
 	}
 	html += "</ul>";
