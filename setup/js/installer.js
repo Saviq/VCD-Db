@@ -48,6 +48,7 @@ function Installer()  {
 	this.dataPopulated = false;
 	this.configSaved = false;
 	this.adminSaved = false;
+	this.processbar = null;
 	
 	this.Continue = function() {
 		
@@ -129,6 +130,7 @@ function Installer()  {
 				this.toggleCursor();
 				dbSettings = Array(this.dbhost, this.dbusername, this.dbpassword, this.dbname, this.dbtype);
 				x_Installer.executeCheck('createtables', dbSettings, this.handleCheckResults);
+							
 				return false;
 				break;
 				
@@ -140,7 +142,14 @@ function Installer()  {
 				this.hideLayer('populateError');
 				document.getElementById('populateservererror').innerHTML = '';
 				dbSettings = Array(this.dbhost, this.dbusername, this.dbpassword, this.dbname, this.dbtype);
+				
+				// Start the progressbar call as well
+				x_Installer.executeCheck('recordcount', dbSettings, this.handleCheckResults);
+				
 				x_Installer.executeCheck('populatedata', dbSettings, this.handleCheckResults);
+				
+				
+				
 				return false;
 				break;
 				
@@ -368,6 +377,10 @@ function Installer()  {
 		}
 	};
 	
+	this.setProgressBar = function(obj) {
+		this.processbar = obj;
+	};
+	
 	this.doCheck = function(iCheckNum) {
 		var results = x_Installer.executeCheck(this.checklist[iCheckNum], this.handleCheckResults);
 		
@@ -411,6 +424,24 @@ function Installer()  {
 				}				
 			
 				break;
+				
+			case 'recordcount':
+				updateInterval = 3000;
+				if (!Installer.dataPopulated && Installer.processbar != null && objResults.status == 1) {
+					barvalue = roundNumber(objResults.results, 2);
+				  	Installer.processbar.setBar(barvalue);
+				  	setBarColor(Installer.processbar, barvalue);
+				  	// Recall in the given interval ..
+				  	dbSettings = Array(Installer.dbhost, Installer.dbusername, Installer.dbpassword, Installer.dbname, Installer.dbtype);
+				  	x_Installer.executeCheck('recordcount', dbSettings, Installer.handleCheckResults);
+				} else if (Installer.dataPopulated) {
+					Installer.processbar.setBar(100);
+				  	setBarColor(Installer.processbar, 100);
+				}
+		
+			
+				break;
+				
 			
 			case 'populatedata':
 				objButton.disabled = false;
@@ -429,8 +460,6 @@ function Installer()  {
 					
 					
 				}
-				
-				
 			
 				break;
 			

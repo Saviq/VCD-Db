@@ -29,6 +29,7 @@ class Installer {
 	private static $XMLAdultData = 'data/adultdata.xml';
 	
 	private static $template = 'config.template';
+	private static $totalRecordCount = 3348;
 	
 	
 	/**
@@ -46,6 +47,19 @@ class Installer {
 			$results = array('check' => $checkType, 'status' => 0, 'results' => '');
 			
 			switch ($checkType) {
+				
+				case 'recordcount':
+					try {
+						$count = self::getCurrentRecordCount($args);
+						$results['status'] = 1;	
+						$results['results'] = $count/self::$totalRecordCount;
+					} catch (Exception $ex) {
+						$results['status'] = 0;	
+						$count = -1;
+					}
+					
+					
+					break;
 				
 				case 'createadmin':
 						
@@ -186,7 +200,8 @@ class Installer {
 					
 				case 'permissions':
 					$arrFolders = array('upload/', 'upload/cache/', 'upload/covers/',
-    						'upload/pornstars/', 'upload/thumbnails/', 'upload/nfo/');
+    						'upload/pornstars/', 'upload/thumbnails/', 'upload/nfo/',
+    						'upload/screenshots/albums/', 'upload/screenshots/generated');
     				$arrBadFolders = array();
 			    	$bUpload = true;
 			    	foreach ($arrFolders as $folder) {
@@ -271,6 +286,56 @@ class Installer {
 		}
 	}
 	
+	
+	/**
+	 * Get the number of records in database
+	 *
+	 * @param array $arrSettings | The array containing the connection settings
+	 * @return int
+	 */
+	private static function getCurrentRecordCount($arrSettings) {
+		try {
+			
+			if (!is_array($arrSettings)) {
+				throw new Exception('Missing connection arguments.');
+			}
+			
+			$host = $arrSettings[0];
+			$user = $arrSettings[1];
+			$pass = $arrSettings[2];
+			$name = $arrSettings[3];
+			$type = $arrSettings[4];
+		
+			
+			$db = ADONewConnection( $type );
+			switch ($type) {
+				case 'db2':
+					$db->Connect($name, $user, $pass, $host);	
+					break;
+					
+				case 'sqlite':
+					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
+					break;
+			
+				default:
+					$db->Connect($host, $user, $pass, $name);
+					break;
+			}
+			
+			
+			$tables = $db->MetaTables('TABLES');
+			$count = 0;
+			foreach ($tables as $num => $table) {
+				$count += $db->GetOne("SELECT COUNT(*) FROM " . $table);
+			}
+	
+			return $count;   		
+			
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
 	
 	
 	/**

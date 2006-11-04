@@ -23,6 +23,7 @@
 	<script type="text/javascript" src="js/json.js"></script> 
 	<script type="text/javascript" src="js/ajax.js"></script> 
 	<script type="text/javascript" src="js/installer.js"></script>
+	<script type="text/javascript" src="js/progbar.js"></script> 
 	
 	<script>
 	var Installer = new Installer();
@@ -83,6 +84,7 @@
 			chmod 0777 upload/screenshots/albums<br/>
 			chmod 0777 upload/screenshots/generated<br/>
 			chmod 0777 upload/thumbnails<br/>
+			chmod 0777 upload/nfo<br/>
 			</blockquote>
 			
 			</li>
@@ -273,6 +275,11 @@
 			This process can take from several seconds up to minutes, depending on server hardware and/or connection speed 
 			between the webserver and the database server.
 		
+			<br/><br/>
+			<script type="text/javascript" language="javascript1.2">
+				barObj = new progressBar(1,'#000000','#ffffff','#043db2',550,20,1);
+				Installer.setProgressBar(barObj);
+			</script>
 			
 			<br/><br/>
 			<div id="populatesuccess" class="goodinfo">
