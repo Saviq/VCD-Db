@@ -162,14 +162,6 @@ switch ($CURRENT_PAGE) {
 							require_once(VCDDB_BASE.'/pages/add_webfetch.php');
 						}
 						
-						if (strcmp($source, "moviefetch") == 0) {
-							require_once(VCDDB_BASE.'/pages/add_imdbfetch.php');
-						}
-						
-						if (strcmp($source, "adultmoviefetch") == 0) {
-							require_once(VCDDB_BASE.'/pages/add_empirefetch.php');
-						}
-						
 						if (strcmp($source, "xmlresults") == 0) {
 							require_once(VCDDB_BASE.'/pages/xml_results.php');
 						}
