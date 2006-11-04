@@ -655,6 +655,10 @@ function Installer()  {
 			this.doFocus('dbhost');
 		}
 		
+		if (iPage == 6) {
+			this.doFocus('vcd_fullname');
+		}
+		
 		
 		
 	}

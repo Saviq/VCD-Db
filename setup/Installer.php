@@ -721,6 +721,12 @@ class Installer {
 				
 			}
 			
+			// Add the SITE_ROOT and SITE_HOME values ..
+			$query = "UPDATE vcd_Settings SET settings_value = {$db->Quote(self::getUrl())} WHERE settings_key = 'SITE_HOME'";
+			$db->Execute($query);
+			$query = "UPDATE vcd_Settings SET settings_value = {$db->Quote(self::getRelativeUrl())} WHERE settings_key = 'SITE_ROOT'";
+			$db->Execute($query);
+			
 			
 			// Then read the config file template and write with the used based values.
 			$configtemplate = file_get_contents(self::$template);
@@ -741,6 +747,28 @@ class Installer {
 		}
 	}
 	
+	
+	/**
+	 * Get the full url of VCD-db
+	 *
+	 * @return string
+	 */
+	private static function getUrl() {
+		$prefix = (empty($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == "off" ? 'http' : 'https') . "://";
+		$fullurl = $prefix.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
+		return substr($fullurl, 0, strpos($fullurl, "setup")); 
+	}
+
+	/**
+	 * Get the relative url within the domain name
+	 *
+	 * @return string
+	 */
+	private static function getRelativeUrl() {
+		$path = $_SERVER['PHP_SELF'];
+		$pos = strpos($path, "setup");
+		return substr($path, 0, $pos); 
+	}
 	
 	/**
 	 * Create the admin account in database.

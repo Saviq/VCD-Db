@@ -394,7 +394,7 @@
 		</fieldset>
 		
 		<br/>
-		<fieldset  title="The LDAP server settings are optional!">
+		<fieldset title="The LDAP server settings are optional!">
 			<legend>LDAP settings</legend>
 			<table cellspacing="1" cellpadding="1" border="0" width="600" class="list">
 			<tr>
