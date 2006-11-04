@@ -1,6 +1,4 @@
 <? 
-	
-	;
 	$USERClass = VCDClassFactory::getInstance("vcd_user");
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$allow_registration = $SETTINGSClass->getSettingsByKey("ALLOW_REGISTRATION");
