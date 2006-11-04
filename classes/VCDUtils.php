@@ -228,9 +228,6 @@ class VCDUtils {
 		}
 
 
-		;
-
-
 		if (floor($datediff/60/60/24) > 0) {
 			if (floor($datediff/60/60/24) == 1) {
 				return floor($datediff/60/60/24) . " ". VCDLanguage::translate('loan.day');
@@ -589,8 +586,7 @@ class VCDUtils {
 		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 		$showRSS = $SETTINGSClass->getSettingsByKey('RSS_SITE');
 		if ($showRSS) {
-			$uri = $SETTINGSClass->getSettingsByKey('SITE_HOME');
-			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=\"".$uri."rss\" />";
+			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=rss/>";
 		}
 
 	}
