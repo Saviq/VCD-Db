@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  H�kon Birgisson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -18,14 +18,14 @@
 <?php
 
 class sourceSiteObj implements XMLable {
-		private $site_id;
-		private $site_name;
-		private $site_alias;
-		private $site_homepage;
-		private $site_getCommand;
-		private $isFetchable;
-		private $site_classname;
-		private $site_image;
+	private $site_id;
+	private $site_name;
+	private $site_alias;
+	private $site_homepage;
+	private $site_getCommand;
+	private $isFetchable;
+	private $site_classname;
+	private $site_image;
 	
 	/**
 	 * Object constructor

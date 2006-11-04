@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -16,17 +16,16 @@
  
 ?>
 <?php
-
 class loanObj {
-		private $loan_id;
-		private $cd_id;
-		private $cd_title;
-		private $date_in;
-		private $date_out;
-		/**
-		 * @var borrowerObj
-		 */
-		private $borroweObj;
+	private $loan_id;
+	private $cd_id;
+	private $cd_title;
+	private $date_in;
+	private $date_out;
+	/**
+	 * @var borrowerObj
+	 */
+	private $borroweObj;
 
 		
 	
@@ -149,10 +148,6 @@ class loanObj {
 		}
 	}
 	
-
-	
-
-
 
 }
 

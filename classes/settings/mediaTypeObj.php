@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Settings
  * @version $Id$
@@ -18,11 +18,11 @@
 <?php
 
 class mediaTypeObj implements XMLable {
-		private $media_type_id;
-		private $media_type_name;
-		private $parent_id;
-		private $media_type_description;
-		private $children = array();
+	private $media_type_id;
+	private $media_type_name;
+	private $parent_id;
+	private $media_type_description;
+	private $children = array();
 		
 	
 	/**
