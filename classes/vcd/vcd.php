@@ -37,9 +37,9 @@ class vcd_movie implements IVcd  {
 	private $searchMethods = array('title', 'actor', 'director');
 	
 
-   public function __construct() {
-	 	$this->SQL = new vcdSQL();
-   }
+	public function __construct() {
+		$this->SQL = new vcdSQL();
+	}
 
 
 
@@ -1463,9 +1463,12 @@ class vcd_movie implements IVcd  {
 			
 			
 			$dvdTypeObj = $SETTINGSClass->getMediaTypeByName('DVD');
+			$dvdrTypeObj = $SETTINGSClass->getMediaTypeByName('DVD-R');
+			
 			if (is_numeric($mediaTypeID)) {
 				
-				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID()) {
+				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID() 
+						|| $mediaTypeID == $dvdrTypeObj->getmediaTypeID() || $mediaTypeID == $dvdrTypeObj->getParentID()) {
 					// Yeap .... DVD based type	
 					$dmetaObj = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
 					if (is_array($dmetaObj) && sizeof($dmetaObj) == 1) {
@@ -1538,9 +1541,7 @@ class vcd_movie implements IVcd  {
 		}
 	}
 	
-	
-
-
-
 
 }
+
+?>

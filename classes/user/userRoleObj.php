@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage User
  * @version $Id$
@@ -18,10 +18,11 @@
 <?php
 
 class userRoleObj implements XMLable {
-		protected $role_id;
-		protected $role_name;
-		protected $role_description;
 	
+	protected $role_id;
+	protected $role_name;
+	protected $role_description;
+
 	/**
 	 * Class constructor
 	 *

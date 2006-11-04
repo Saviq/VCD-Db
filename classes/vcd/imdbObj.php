@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgsson <konni@konni.com>
+ * @author  Hákon Birgsson <konni@konni.com>
  * @package Kernel
  * @subpackage Vcd
  * @version $Id$
@@ -21,7 +21,7 @@
 	Container for the IMDB data on the current movie.
 */
 
-	class imdbObj extends fetchedObj implements XMLable {
+class imdbObj extends fetchedObj implements XMLable {
 
 	private $imdb;
 	private $alt_title1;
@@ -40,7 +40,7 @@
 	 * @param array $dataArr
 	 * @return imdbObj
 	 */
-	public function imdbObj($dataArr = null) {
+	public function __construct($dataArr = null) {
 		if (is_array($dataArr)) {
 			$this->objectID		= $dataArr[0];
 			$this->title		= $dataArr[1];
