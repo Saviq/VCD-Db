@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage Pornstars
  * @version $Id$
@@ -16,9 +16,9 @@
  ?>
 <? 
 
-require_once("pornstarObj.php");
-require_once('studioObj.php');
-require_once('porncategoryObj.php');
+require_once(dirname(__FILE__).'/pornstarObj.php');
+require_once(dirname(__FILE__).'/studioObj.php');
+require_once(dirname(__FILE__).'/porncategoryObj.php');
 
 class vcd_pornstar implements IPornstar {
 	
