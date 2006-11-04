@@ -534,7 +534,7 @@ class Installer {
 			
 			
 			// Give it some time ... 10 minutes for really bad hardware and/or slow connections
-			set_time_limit(60*10);
+			@set_time_limit(60*10);
 			
 			
 			// Get connection parameters
@@ -643,7 +643,7 @@ class Installer {
 			
 			
 			// Give it some time ... 2 minutes for really bad hardware and/or slow connections
-			set_time_limit(60*2);
+			@set_time_limit(60*2);
 			
 			
 			// Get connection parameters
@@ -786,7 +786,7 @@ class Installer {
 			}
 			
 			// Give it some time ... 2 minutes for really bad hardware and/or slow connections
-			set_time_limit(60*2);
+			@set_time_limit(60*2);
 			
 			// Get connection parameters
 			$host = $arrSettings[0];
