@@ -27,7 +27,6 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 
-
 	$smtp = VCDClassFactory::getInstance("smtp_class");
 
 	$content_type = "text/plain; charset=UTF-8";
@@ -51,7 +50,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 		 * DNS that may be queried from your network.
 		 */
 		$_NAMESERVERS=array();
-		include("classes/external/mail/getmxrr.php");
+		include(VCDDB_BASE.'/classes/external/mail/getmxrr.php');
 
 
 	}
@@ -201,7 +200,6 @@ function Decrypt($txt,$key)
  */
 function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
-	;
 	$msg = sprintf(VCDLanguage::translate('mail.returnmovies1'), $borrower_name);
 	foreach ($arrLoanObj as $loanObj) {
 		$msg .= $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
@@ -220,7 +218,6 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
  */
 function createNotifyEmailBody(vcdObj $obj) {
 
-	;
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$home = $SETTINGSClass->getSettingsByKey('SITE_HOME');
 
@@ -298,156 +295,6 @@ function generateExcel() {
 
 	//stream Excel for user to download or show on browser
 	$excel->SendFile();
-}
-
-/**
-	Process user uploaded Excel file containing movies
-*/
-
-function checkExcelImport(&$out_movietitles) {
-
-	$upload = new uploader();
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$path = $SETTINGSClass->getSettingsByKey('SITE_ROOT');
-
-	if($_FILES){
-		foreach($_FILES as $key => $file){
-			$upload->set("name",$file["name"]); // Uploaded file name.
-			$upload->set("type",$file["type"]); // Uploaded file type.
-			$upload->set("tmp_name",$file["tmp_name"]); // Uploaded tmp file name.
-			$upload->set("error",$file["error"]); // Uploaded file error.
-			$upload->set("size",$file["size"]); // Uploaded file size.
-			$upload->set("fld_name",$key); // Uploaded file field name.
-			$upload->set("max_file_size",10192000); // Max size allowed for uploaded file in bytes =  ~10 MB.
-			$upload->set("supported_extensions",array("xls" => "application/vnd.ms-excel")); // Allowed extensions and types for uploaded file.
-			$upload->set("randon_name",true); // Generate a unique name for uploaded file? bool(true/false).
-			$upload->set("replace",true); // Replace existent files or not? bool(true/false).
-			$upload->set("dst_dir",$_SERVER["DOCUMENT_ROOT"]."".$path."upload/"); // Destination directory for uploaded files.
-			$result = $upload->moveFileToDestination(); // $result = bool (true/false). Succeed or not.
-		}
-	}
-
-	if($upload->succeed_files_track) {
-		$file_arr = $upload->succeed_files_track;
-		$upfile = $file_arr[0]['destination_directory'].$file_arr[0]['new_file_name'];
-
-		/*
-			Process the Excel file
-		*/
-
-		if (fs_file_exists($upfile)) {
-			require_once('classes/external/excel/reader.php');
-			$data = new Spreadsheet_Excel_Reader();
-			$data->read($upfile);
-
-			// Generate Objects from the Excel file ...
-			$imported_movies = array();
-
-			if ($data->sheets[0]['numRows'] < 3 || $data->sheets[0]['numCols'] < 5) {
-				VCDException::display("No movies found in the Excel file.");
-				return false;
-			} else if ($data->sheets[0]['cells'][2][1] != 'Title') {
-				VCDException::display('Bad format');
-				return false;
-			} else {
-				for ($i = 3; $i <= $data->sheets[0]['numRows']; $i++) {
-					array_push($out_movietitles, $data->sheets[0]['cells'][$i][1]);
-				}
-			}
-		} else {
-			VCDException::display('Failed to open the uploaded file');
-			return false;
-		}
-	} else {
-		VCDException::display('Error uploading file');
-		return false;
-	}
-
-	return $file_arr[0]['new_file_name'];
-}
-
-/**
- * Enter description here...
- *
- * @param unknown_type $upfile
- */
-function processExcelMovies($upfile) {
-
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-
-	if (fs_file_exists($upfile)) {
-		require_once('classes/external/excel/reader.php');
-		$data = new Spreadsheet_Excel_Reader();
-		$data->read($upfile);
-	} else {
-		VCDException::display('Failed to open the uploaded file<break> for the movies');
-	}
-
-	// GenerateObjects from the Excel file ...
-	$imported_movies = array();
-
-	// Create the results display array
-	$results_array = array();
-
-	for ($i = 3; $i <= $data->sheets[0]['numRows']; $i++) {
-		// Create the basic CD obj
-		$basic = array('',
-				(string)$data->sheets[0]['cells'][$i][1],
-				$SETTINGSClass->getCategoryIDByName((string)$data->sheets[0]['cells'][$i][2]),
-				(string)$data->sheets[0]['cells'][$i][4]);
-		$vcd = new vcdObj($basic);
-
-		// Add 1 instance
-		$mediaTypeObj = $SETTINGSClass->getMediaTypeByName((string)$data->sheets[0]['cells'][$i][3]);
-
-		if ($mediaTypeObj) {
-			$vcd->addInstance($_SESSION['user'], $mediaTypeObj, 1, time());
-
-			try {
-				$new_vcdid = $VCDClass->addVcd($vcd);
-				if (is_numeric($new_vcdid) && $new_vcdid > 0) {
-					$mediaindex = $data->sheets[0]['cells'][$i][5];
-
-					if ($mediaindex) {
-						$SETTINGSClass->addMetadata(new metadataObj(array('', $new_vcdid, VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX , $mediaindex)));
-					} else {
-						$mediaindex = 0;
-					}
-
-					$itemresult = array('status' => 1, 'title' => $vcd->getTitle(), 'mediaindex' => $mediaindex);
-				} else {
-					$itemresult = array('status' => 0, 'title' => $vcd->getTitle(), 'mediaindex' => 0);
-				}
-			} catch (Exception $e) {
-				$itemresult = array('status' => 0, 'title' => $vcd->getTitle(), 'mediaindex' => 0);
-			}
-
-			array_push($results_array, $itemresult);
-		} else {
-			array_push($resuls_array, array('status' => 0, 'title' => $vcd->getTitle(), 'mediaindex' => 0));
-		}
-	}
-
-	/*foreach ($imported_movies as $cdobj) {
-		try {
-			$new_vcdid = $VCDClass->addVcd($cdobj);
-			if (is_numeric($new_vcdid) && $new_vcdid > 0) {
-				$itemresult = array('status' => 1, 'title' => $cdobj->getTitle(), 'thumb' => $cdobj->getCoverCount());
-			} else {
-				$itemresult = array('status' => 0, 'title' => $cdobj->getTitle(), 'thumb' => 0);
-			}
-		} catch (Exception $e) {
-			$itemresult = array('status' => 0, 'title' => $cdobj->getTitle(), 'thumb' => 0);
-		}
-
-		array_push($results_array, $itemresult);
-	}*/
-
-	fs_unlink($upfile);
-
-	$_SESSION['excelresults'] = $results_array;
-	redirect('?page=private&o=add&source=excelresults');
 }
 
 /**
