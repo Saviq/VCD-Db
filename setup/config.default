@@ -46,10 +46,10 @@ define("DB_CATALOG", 		"db.catalog");
 	LDAP_AD			Is the target directory server a Microsoft Active Directory server ?
 	AD_DOMAIN		If server is an Active Directory server, Windows Domain name must be specified.
 **/
-define("LDAP_AUTH",		"1");
+define("LDAP_AUTH",		0);
 define("LDAP_HOST", 		"");
 define("LDAP_BASEDN", 		"");
-define("LDAP_AD", 		"0");
+define("LDAP_AD", 		0);
 define("AD_DOMAIN", 		"");
 
 
@@ -63,7 +63,7 @@ define("AD_DOMAIN", 		"");
 	PROXY_URL		The IP or hostname of the proxy server
 	PROXY_PORT		The port number to use on your proxy server, usually 8080
 **/
-define("USE_PROXY",  		"0");
+define("USE_PROXY",  		0);
 define("PROXY_URL",  		"");
 define("PROXY_PORT", 		"8080");
 
