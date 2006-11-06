@@ -32,7 +32,6 @@ if (isset($_GET['action'])) {
 
 $reload_and_close = true;
 $SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-;
 
 switch ($form) {
 
@@ -398,8 +397,8 @@ switch ($form) {
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head><title>VCD Gallery</title>
-	<link rel="stylesheet" type="text/css" href="<?=STYLE?>style.css"/>
+<head><title>VCD-db</title>
+	<link rel="stylesheet" type="text/css" href="includes/templates/default/style.css"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
 <body <?if ($reload_and_close) { reloadandclose(); } ?>>

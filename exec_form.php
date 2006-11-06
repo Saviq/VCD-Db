@@ -73,9 +73,7 @@ switch ($form) {
 				$SETTINGSClass->addMetaDataType($obj);
 			}
 
-
 			header("Location: ".$_SERVER['HTTP_REFERER']."");
-
 		}
 
 		break;
@@ -134,7 +132,6 @@ switch ($form) {
 
 
 	case 'listedconfirm':
-
 		$VCDClass = new vcd_movie();
 
 		if (isset($_POST['disccount'])) {
@@ -153,7 +150,6 @@ switch ($form) {
 		break;
 
 	case 'edit_frontpage':
-
 		if (isset($_POST['stats']) && strcmp($_POST['stats'], "yes") == 0) {
 			// User wants to see statistics
 			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTSTATS , 1));
@@ -246,60 +242,7 @@ switch ($form) {
 
 		break;
 
-	/* Actually insert the XML data */
-	case 'xmlconfirm':
-		$filename = "";
-		if (isset($_POST['filename'])) {
-			$filename = $_POST['filename'];
-			$use_covers = false;
-
-			$fullpath = TEMP_FOLDER.$filename;
-			if (!fs_is_dir($fullpath) && fs_file_exists($fullpath)) {
-
-				if (isset($_POST['xmlthumbs'])) {
-					$use_covers = true;
-				}
-
-				// Process the file
-				try {
-					processXMLMovies($fullpath, $use_covers);
-				} catch (Exception $ex) {
-					VCDException::display($ex, true);
-				}
-
-			} else {
-				VCDException::display('Could not open file ' . $fullpath, true);
-			}
-		}
-		break;
-
-	case 'addfromexcel':
-		$movie_titles = array();
-		$file_name = checkExcelImport($movie_titles);
-
-		if ($file_name) {
-			$_SESSION['exceldata'] = $movie_titles;
-			$_SESSION['excelfilename'] = $file_name;
-			redirect('?page=private&o=add&source=excel');
-		} else {
-			redirect('?page=private&o=new');
-		}
-		break;
-
-	/* Actually insert the Excel data */
-	case 'excelconfirm':
-		$filename = "";
-		if (isset($_POST['filename'])) {
-			$filename = $_POST['filename'];
-
-			$fullpath = TEMP_FOLDER.$filename;
-			if (!fs_is_dir($fullpath) && fs_file_exists($fullpath)) {
-				// Process the file
-				processExcelMovies($fullpath);
-			}
-		}
-		break;
-
+	
 	case 'add_manually':
 		// Create the basic CD obj
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
@@ -1035,8 +978,8 @@ switch ($form) {
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head><title>VCD Gallery</title>
-	<link rel="stylesheet" type="text/css" href="<?=STYLE?>style.css"/>
+<head><title>VCD-db</title>
+	<link rel="stylesheet" type="text/css" href="includes/templates/default/style.css"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
 <body <?if ($reload_and_close) { reloadandclose(); } ?>>
