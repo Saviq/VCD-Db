@@ -1059,7 +1059,7 @@ class vcd_settings implements ISettings {
 
 				$body = createNotifyEmailBody($vcdObj);
 
-				VCDUtils::sendMail($arrEmails, 'New entry in the VCD DB', $body, true);
+				VCDUtils::sendMail($arrEmails, 'New entry in VCD-db', $body, true);
 
 			}
 
