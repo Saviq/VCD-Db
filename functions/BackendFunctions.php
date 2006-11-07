@@ -211,8 +211,9 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
 	$msg = sprintf(VCDLanguage::translate('mail.returnmovies1'), $borrower_name);
 	foreach ($arrLoanObj as $loanObj) {
-		$msg .= $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date("d/m/Y", $loanObj->getDateOut()) . "\n\n";
+		$msg .= "<br>" . $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date("d/m/Y", $loanObj->getDateOut());
 	}
+	$msg .= "<br><br>";
 	$msg .= sprintf(VCDLanguage::translate('mail.returnmovies2'), $_SESSION['user']->getFullname());
 	return $msg;
 
