@@ -48,7 +48,7 @@ switch ($form) {
 		
 		if ($obj instanceof borrowerObj ) {
 			$loanArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
-			if (VCDUtils::sendMail($obj->getEmail(), VCDLanguage::translate('mail.returntopic'), createReminderEmailBody($obj->getName(), $loanArr), false)) {
+			if (VCDUtils::sendMail($obj->getEmail(), VCDLanguage::translate('mail.returntopic'), createReminderEmailBody($obj->getName(), $loanArr), true)) {
 				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
 			} else {
 				VCDUtils::setMessage("(Failed to send mail)");
