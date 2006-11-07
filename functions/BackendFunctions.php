@@ -29,10 +29,19 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 
 	$smtp = VCDClassFactory::getInstance("smtp_class");
 
-	$content_type = "text/plain; charset=UTF-8";
+	$content_type = "text/plain; charset=\"utf-8\"";
 
 	if ($use_html) {
-		$content_type = "text/html; charset=UTF-8";
+		$content_type = "text/html; charset=\"utf-8\"";
+		
+		// Add the html tags for header and body ...
+		$html .= "<html><head>";
+		$html .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
+		$html .= "<title>VCD-db notification</title></head><body>";
+		$html .= str_replace('<br/>', '<br>', $body);
+		$html .= "</body></html>";
+		$body = $html;
+		
 	}
 
 
@@ -220,11 +229,10 @@ function createNotifyEmailBody(vcdObj $obj) {
 
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$home = $SETTINGSClass->getSettingsByKey('SITE_HOME');
+	$home = substr($home, 0, (strlen($home)-1));
 
 	$msg = '';
-	$msg .= "<html><body>";
 	$msg .= sprintf(VCDLanguage::translate('mail.notify'), $home, $obj->getID());
-	$msg .= "</body></html>";
 	return $msg;
 }
 
