@@ -11,6 +11,11 @@ Fixed   - Mail messages are now UTF-8 encoded
 Changed - Language system totally rewritten, using XML files instead of PHP array includes.
 Updated - Updated graphics for the rating stars and the country flags (thanks to famfamfam.com)
 Updaded - Updated ADO-db to V.4.93, and removed unneeded ADO-db files.
+Updated - Updated the NuSOAP libraries to V. 0.72
+Fixed   - Covers stored on HD are now delivered to the VCD-db client.
+Updated - The installer for VCD-db was rewritten.
+Updated - Alot of internal code cleanup, and removal of no longer required code/files.
+Fixed   - Mail messages are now all sent as HTML, should render the same in all clients.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
