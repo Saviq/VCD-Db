@@ -6405,7 +6405,7 @@ class soap_parser extends nusoap_base {
 * @version  $Id$
 * @access   public
 */
-class soapclient extends nusoap_base  {
+class nusoapclient extends nusoap_base  {
 
 	public $username = '';
 	public $password = '';
@@ -6472,7 +6472,7 @@ class soapclient extends nusoap_base  {
 	* @param	integer $response_timeout set the response timeout
 	* @access   public
 	*/
-	function soapclient($endpoint,$wsdl = false,$proxyhost = false,$proxyport = false,$proxyusername = false, $proxypassword = false, $timeout = 0, $response_timeout = 30){
+	function nusoapclient($endpoint,$wsdl = false,$proxyhost = false,$proxyport = false,$proxyusername = false, $proxypassword = false, $timeout = 0, $response_timeout = 30){
 		parent::nusoap_base();
 		$this->endpoint = $endpoint;
 		$this->proxyhost = $proxyhost;
