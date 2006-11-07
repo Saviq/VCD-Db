@@ -403,7 +403,7 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 			return base64_encode($vcdImage->getImageStream($this->image_id));
 		} else {
 
-			$filepath = THUMBNAIL_PATH.$this->filename;
+			$filepath = VCDDB_BASE.'/'.THUMBNAIL_PATH.$this->filename;
 
 			if (fs_file_exists($filepath)) {
 
