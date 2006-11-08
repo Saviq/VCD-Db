@@ -1363,7 +1363,7 @@ class vcdSQL {
 		
 		
 		// Check for all public comments and users private if user is logged in
-		if (!is_null($title)) {
+		if (!is_null($title) && (!is_numeric($owner) && !is_numeric($mediatype) && !is_numeric($category) && !is_numeric($year))) {
 			if (VCDUtils::isLoggedIn()) {
 				$user_id = VCDUtils::getUserID();
 				$query .= "OR ((c.comment LIKE {$this->db->qstr($title)} AND isPrivate = 0) OR (c.comment LIKE {$this->db->qstr($title)} AND c.user_id = {$user_id}))";
