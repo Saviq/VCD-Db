@@ -1312,6 +1312,8 @@ class vcdSQL {
 		$query .= "LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON s.vcd_id = v.vcd_id ";
 
 		$query .= "LEFT OUTER JOIN $this->TABLE_imdb AS i ON i.imdb = s.external_id ";
+		
+		$query .= "LEFT OUTER JOIN $this->TABLE_comments AS c ON c.vcd_id = v.vcd_id ";
 
 
 		$bCon = false;
@@ -1358,10 +1360,20 @@ class vcdSQL {
 			}
 		}
 
+		
+		
+		// Check for all public comments and users private if user is logged in
+		if (!is_null($title)) {
+			if (VCDUtils::isLoggedIn()) {
+				$user_id = VCDUtils::getUserID();
+				$query .= "OR ((c.comment LIKE {$this->db->qstr($title)} AND isPrivate = 0) OR (c.comment LIKE {$this->db->qstr($title)} AND c.user_id = {$user_id}))";
+			} else {
+				$query .= "OR (c.comment LIKE {$this->db->qstr($title)} AND isPrivate = 0) ";
+			}
+		}
+		
+	
 		$query .= " ORDER BY v.title";
-
-
-
 
 		$results = array();
 

@@ -16,8 +16,8 @@ Fixed   - Covers stored on HD are now delivered to the VCD-db client.
 Updated - The installer for VCD-db was rewritten.
 Updated - Alot of internal code cleanup, and removal of no longer required code/files.
 Fixed   - Mail messages are now all sent as HTML, should render the same in all clients.
-Fixed   - Fixed wrong IMDB link in RSS feeds.
 Changed - Added new Role for adult users and increased isolation of adult content.
+Updated - The advanced search now also seached within user comments on movies.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
