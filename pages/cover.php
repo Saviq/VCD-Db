@@ -9,7 +9,7 @@
 <HTML>
 <HEAD>
 <TITLE>-&lt;::Cover::&gt;-</TITLE>
-<style type="text/css" media="all">@import url("../includes/templates/default/css/style.css");</style>
+<style type="text/css" media="all">@import url("../includes/templates/default/style.css");</style>
 <SCRIPT>
 var ns4 = (document.layers);
 var ie4 = (document.all && !document.getElementById);
