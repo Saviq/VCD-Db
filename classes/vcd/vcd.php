@@ -286,10 +286,11 @@ class vcd_movie implements IVcd  {
 	 * On success the newly created vcd objects id is returned, otherwise -1
 	 * Or an Exception will be thrown
 	 *
-	 * @param vcdObj $vcdObj
+	 * @param vcdObj $vcdObj | The vcdObj to add
+	 * @param  bool $notify | Send notification emails or not
 	 * @return int
 	 */
-	public function addVcd(vcdObj $vcdObj) {
+	public function addVcd(vcdObj $vcdObj, $notify = true) {
 		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 
 		try {
@@ -423,8 +424,8 @@ class vcd_movie implements IVcd  {
 				// in other words .. does this exact copy already belong to him ?
 				if ($this->checkDuplicateEntry($vcdObj->getInsertValueUserID(),$exisisting_id, $vcdObj->getInsertValueMediaTypeID())) {
 					// Return from function, nothing more to do ..
-					VCDException::display("You have already added this movie, in same format.", true);
-					exit();
+					//VCDException::display("You have already added this movie, in same format.", true);
+					throw new Exception('You have already added this movie, in same format.');
 				}
 
 				if (!$this->SQL->addVcdInstance($vcdObj)) {
@@ -479,15 +480,17 @@ class vcd_movie implements IVcd  {
 			
 
 			// Check if people wan't to be notified of the new entry
-			$SETTINGSClass->notifyOfNewEntry($vcdObj);
+			if ($notify) {
+				$SETTINGSClass->notifyOfNewEntry($vcdObj);
+			}
 
 
 			return $cd_id;
 
 
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -542,7 +545,7 @@ class vcd_movie implements IVcd  {
 					$PORNClass->addPornstarToMovie($pornstarObj->getID(), $vcdObj->getID());
 				}
 			} else {
-				VCDException::display("VCD ID must be set before linking stars to Movie");
+				throw new Exception('VCD ID must be set before linking stars to Movie');
 			}
 
 			// Link movie to adult categories
@@ -605,7 +608,7 @@ class vcd_movie implements IVcd  {
 							$cdcoverObj->setFilename($newname);
 
 						} else {
-							VCDException::display('Trying to move an image that does not exist!');
+							throw new Exception('Trying to move an image that does not exist!');
 						}
 
 					}
@@ -617,7 +620,7 @@ class vcd_movie implements IVcd  {
 			}
 
 		} catch (Exception $e) {
-			VCDException::display($e);
+			throw $e;
 		}
 
 	}
