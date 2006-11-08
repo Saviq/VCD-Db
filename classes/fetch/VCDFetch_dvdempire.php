@@ -177,7 +177,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 	private function getImagePath($image_type) {
 	
 		$folder = substr($this->getItemID(),0,1);
-		$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
+		$imagebase = "http://images2.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 		
 		switch ($image_type) {
 			case 'thumbnail':
@@ -185,18 +185,18 @@ class VCDFetch_dvdempire extends VCDFetch {
 				break;
 				
 			case 'frontcover':
-				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
+				$imagebase = "http://images2.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 				return $imagebase."h.jpg";
 				break;
 				
 			case 'backcover':
-				$imagebase = "http://images.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
+				$imagebase = "http://images2.dvdempire.com/res/movies/".$folder."/".$this->getItemID();
 				return $imagebase."bh.jpg";
 				break;
 		
 			case 'screenshots':
 				// Return array of all screenshots
-				$screenbase = "http://images.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
+				$screenbase = "http://images2.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
 				$screens = array();
 				for($i = 1; $i <= 40 ; $i++) {
 					$path = $screenbase."_".$i."l.jpg";
