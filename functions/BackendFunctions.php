@@ -35,6 +35,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 		$content_type = "text/html; charset=\"utf-8\"";
 		
 		// Add the html tags for header and body ...
+		$html = '';
 		$html .= "<html><head>";
 		$html .= "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">";
 		$html .= "<title>VCD-db notification</title></head><body>";
