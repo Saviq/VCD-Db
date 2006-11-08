@@ -18,6 +18,7 @@ Updated - Alot of internal code cleanup, and removal of no longer required code/
 Fixed   - Mail messages are now all sent as HTML, should render the same in all clients.
 Changed - Added new Role for adult users and increased isolation of adult content.
 Updated - The advanced search now also seached within user comments on movies.
+Fixed   - Fixed some glitches in the XML importer.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
