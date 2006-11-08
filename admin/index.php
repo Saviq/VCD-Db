@@ -195,7 +195,7 @@
 				printRow($userObj->getUsername());
 				printRow($userObj->getEmail());	
 				printRow($userObj->getRoleName());
-				printRow(substr($userObj->getDateCreated(),0,10));
+				printRow(date("d.m.Y",strtotime($userObj->getDateCreated())));
 				
 				printCustomRow($userObj->getUserID(),$CURRENT_PAGE,"icon_user_purple","Change user role","changeRole");
 				printCustomRow($userObj->getUserID(),$CURRENT_PAGE,"icon_change_pass","Reset password","changePassword");
