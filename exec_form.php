@@ -294,7 +294,11 @@ switch ($form) {
 
 
 		// Forward the movie to the Business layer
-		$new_id = $VCDClass->addVcd($vcd);
+		try {
+			$new_id = $VCDClass->addVcd($vcd);
+		} catch (Exception $ex) {
+			VCDException::display($ex, true);
+		}
 
 
 		// Insert the user comments if any ..
@@ -376,7 +380,11 @@ switch ($form) {
 		
 		
 		// Forward the movie to the Business layer
-		$new_id = $VCDClass->addVcd($vcd);
+		try {
+			$new_id = $VCDClass->addVcd($vcd);
+		} catch (Exception $ex) {
+			VCDException::display($ex, true);
+		}
 
 
 		// Insert the user comments if any ..
@@ -520,7 +528,11 @@ switch ($form) {
 
 
 			// Forward the movie to the Business layer
-			$new_id = $VCDClass->addVcd($vcd);
+			try {
+				$new_id = $VCDClass->addVcd($vcd);
+			} catch (Exception $ex) {
+				VCDException::display($ex, true);
+			}
 
 			// Was I supposed to grab some screenshots ?
 			if (sizeof($screenFiles) > 0) {
@@ -765,7 +777,11 @@ switch ($form) {
 	     		} else $double = false;
 	     		if (!$double) {
 	     			// Added media...
-					$VCDClass->addVcdToUser(VCDUtils::getUserID(), $cd_id, $postedMediaType, $postedCDCount);
+	     			try {
+						$VCDClass->addVcdToUser(VCDUtils::getUserID(), $cd_id, $postedMediaType, $postedCDCount);
+					} catch (Exception $ex) {
+						VCDException::display($ex, true);
+					}
 	     		}
 	     	}
 	     }
