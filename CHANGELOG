@@ -19,6 +19,7 @@ Fixed   - Mail messages are now all sent as HTML, should render the same in all 
 Changed - Added new Role for adult users and increased isolation of adult content.
 Updated - The advanced search now also seached within user comments on movies.
 Fixed   - Fixed some glitches in the XML importer.
+Updated - Updated the imagepaths in the DVDEmpire fetch class after they changed their image server.
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
