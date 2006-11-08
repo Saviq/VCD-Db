@@ -222,12 +222,6 @@ input, select, textarea {
 
 /* Misc Site objects */
 
-#lang {
-	position: absolute;
-	top: 74px;
-	left: 740px;
-	color: White;
-}
 
 
 #pager {

@@ -1,3 +1,15 @@
+#lang {
+	position: relative;
+	color: White;
+	z-index: 1;
+	bottom: 22px;
+	left: 108px;
+}
+
+#lang .inp {
+	width: 100px;
+}
+
 .dvdetails {
 	display:none;
 	visibility:hidden;
@@ -38,7 +50,7 @@
 }
 
 .forms .nof {
-	margin:3px;
+	margin:1px;
 	vertical-align:middle;
 }
 
