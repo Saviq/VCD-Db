@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @subpackage User
  * @version $Id$
@@ -16,7 +16,7 @@
  
 ?>
 <? 
-require_once("userObj.php");
+require_once(dirname(__FILE__).'/userObj.php');
 
 class vcd_user implements IUser {
 	
@@ -675,7 +675,19 @@ class vcd_user implements IUser {
 				throw new Exception("Property ID must be an Identifier");
 			}			
 			
-			return $this->SQL->getUsersByPropertyID($property_id);
+			$arrUsers = $this->SQL->getUsersByPropertyID($property_id);
+			
+			/* Since we found our user, lets get his extended properties */
+			foreach($arrUsers as $userObj) {
+				$propIDarr = $this->SQL->getPropertyIDsOnUser($userObj->getUserID());
+				if (!is_null($propIDarr)) {
+					foreach ($propIDarr as $propID) {
+						$userObj->addProperty($this->getPropertyById($propID));
+					}
+				}	
+			}
+		
+			return $arrUsers;
 		
 			
 		} catch (Exception $e) {
@@ -751,12 +763,12 @@ class vcd_user implements IUser {
 			
 			// Else set the "user" a default role and return that roleObj.
 			foreach ($this->getAllUserRoles() as $role) {
-				if (strcmp(strtolower($role->getRoleName()), strtolower("user")) == 0) {
+				if (strcmp(strtolower($role->getRoleName()), strtolower("adult user")) == 0) {
 					return $role;
 				}
 			}
 			
-			throw new Exception("Default userrole not found!");
+			throw new Exception("Default User Role not found!");
 			
 		} catch (Exception $e) {
 			VCDException::display($e);

@@ -169,23 +169,39 @@ class Installer {
 						$gdinfo = gd_info();
 						$gdversion = $gdinfo['GD Version'];
 						$results['results'] = "GD Lib => {$gdversion} ";
-    		
+					} else {
+						$results['results'] = "No GD libraries installed!";
 					}
 					break;
 					
 				case 'simplexml':
 					$results['status'] = (int)function_exists('simplexml_load_file');
-					$results['results'] = "SimpleXML enabled";
+					if (function_exists('simplexml_load_file')) {
+						$results['results'] = "SimpleXML enabled";	
+					} else {
+						$results['results'] = "SimpleXML NOT enabled";
+					}
+					
 					break;
 					
 				case 'session':
-					$results['status'] = (int)function_exists('session_id');;
-					$results['results'] = "Sessions enabled";
+					$results['status'] = (int)function_exists('session_id');
+					if (function_exists('session_id')) {
+						$results['results'] = "Sessions enabled";	
+					} else {
+						$results['results'] = "Sessions are NOT enabled";
+					}
+					
 					break;
 					
 				case 'shorttags':
 					$results['status'] = (int)ini_get('short_open_tag');
-					$results['results'] = "Short open tags enabled";
+					if (ini_get('short_open_tag')) {
+						$results['results'] = "Short open tags enabled";	
+					} else {
+						$results['results'] = "Short open tags are NOT enabled";
+					}
+					
 					break;
 					
 				case 'urlfopen':
@@ -195,7 +211,12 @@ class Installer {
 					
 				case 'fileupload':
 					$results['status'] = (int)ini_get('file_uploads');
-					$results['results'] = "File uploads enabled";
+					if (ini_get('file_uploads')) {
+						$results['results'] = "File uploads enabled";	
+					} else {
+						$results['results'] = "File uploads are NOT enabled";
+					}
+					
 					break;
 					
 				case 'permissions':

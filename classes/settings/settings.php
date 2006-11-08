@@ -1053,6 +1053,9 @@ class vcd_settings implements ISettings {
 			if (is_array($notifyUsers) && sizeof($notifyUsers) > 0) {
 				$arrEmails = array();
 				foreach ($notifyUsers as $userObj) {
+					// If the movie is an adult film .. only notify those with adult enabled ..
+					if ($vcdObj->isAdult() && !(bool)$userObj->getPropertyByKey('SHOW_ADULT')) {continue;}
+					
 					array_push($arrEmails, $userObj->getEmail());
 				}
 				unset($notifyUsers);
@@ -1417,7 +1420,7 @@ class vcd_settings implements ISettings {
 		try {
 
 			$obj = $this->SQL->getStatsObj();
-			$maxRecords = 5;
+			$maxRecords = 6;
 			$arrAllCats = $obj->getBiggestCats();
 			$arrMonCats = $obj->getBiggestMonhtlyCats();
 			$obj->resetCategories();

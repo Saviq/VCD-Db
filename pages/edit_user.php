@@ -89,8 +89,8 @@
 			$viewfeed = "  <a href=\"#\" onclick=\"adjustPlayer()\">(".VCDLanguage::translate('usersettings.player').")</a>";
 		}
 
-		if ($propertyObj->getpropertyName() == 'SHOW_ADULT' && !$show_adult) {
-
+		if ($propertyObj->getpropertyName() == 'SHOW_ADULT' && !VCDUtils::showAdultContent(true)) {
+			// Do nothing ..
 		} else {
 
 			if ($user->getPropertyByKey($propertyObj->getpropertyName())) {
@@ -152,15 +152,6 @@
 </fieldset>
 
 
-
-
-
-
-
-
-
-
-<br/>
 <?
 
 	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID($user->getUserID());
@@ -175,7 +166,7 @@
 
 
 	if (is_array($arrBorrowers) && sizeof($arrBorrowers) > 0) {
-		print "<a name=\"borrower\"></a>";
+		print "<br/><a name=\"borrower\"></a>";
 		print "<fieldset id=\"mainset\" title=".VCDLanguage::translate('mymovies.friends').">";
 		print "	<legend class=\"bold\">".VCDLanguage::translate('mymovies.friends')."</legend>";
 
@@ -198,10 +189,10 @@
 
 		print "&nbsp;<input type=\"button\" value=\"".VCDLanguage::translate('misc.edit')."\" onclick=\"changeBorrower(this.form)\">";
 		print "<img src=\"images/icon_del.gif\" hspace=\"4\" alt=\"\" align=\"absmiddle\" onclick=\"deleteBorrower(this.form)\" border=\"0\"/></form>";
-
+		print "</td>";
 	}
 
-	print "</td>";
+	
 
 	if ($bEdit && ($currObj instanceof borrowerObj)) {
 
@@ -216,11 +207,11 @@
 		print "</td>";
 	}
 
-
-	print "</tr></table>";
-
+	if (is_array($arrBorrowers) && sizeof($arrBorrowers) > 0) {
+		print "</tr></table></fieldset>";	
+	}
 ?>
-</fieldset>
+
 
 
 

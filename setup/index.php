@@ -1,4 +1,4 @@
-<?
+<?php
 	require_once('Installer.php');
 	// Create Ajax class instance
 	$ajax = new Ajax(); 
@@ -90,6 +90,7 @@
 			</li>
 			<li>
 			5) Now you are all set and ready to install. Press Continue to proceed.<br/>
+			<b>Attention!</b> If you reload the page, you will reset the installation process!
 			</li>
 
 				

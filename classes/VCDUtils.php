@@ -135,20 +135,30 @@ class VCDUtils {
 
 	/**
 	 * Check weither adult content should be displayed or not.
+	 * To return true all of the following requirements must be met ..
+	 * 1) User must be logged in
+	 * 2) SITE_ADULT must be enabled in the control panel
+	 * 3) User must belong to the Administrator role or the Adult User role
+	 * 4) User must have enabled adult content in the "My settings page"
 	 *
 	 * @return bool
 	 */
-	static function showAdultContent() {
+	static function showAdultContent($skipUserPrefs=false) {
 		if (!VCDUtils::isLoggedIn()) {
 			return false;
 		}
-		
+
+		$user = $_SESSION['user'];	
 		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-		$showAdult = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
-		$curruser = &$_SESSION['user'];
-		return ($showAdult && $curruser->getPropertyByKey('SHOW_ADULT'));
+		$siteEnabled = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
+		$userEnabled = $user->getPropertyByKey('SHOW_ADULT');
+		$roleEnabled = $user->isAdult();
+		if ($skipUserPrefs) {
+			return ($siteEnabled && $roleEnabled);		
+		} else {
+			return ($siteEnabled && $userEnabled && $roleEnabled);			
+		}
 		
-	
 	}
 	
 	

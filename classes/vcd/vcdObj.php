@@ -495,14 +495,8 @@ class vcdObj extends cdObj implements XMLable {
 		if (isset($this->external_id)) {
 			$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
 			$sObj = $SettingsClass->getSourceSiteByID($this->source_id);
-			if ($sObj->getsiteID() == 1) {
-				// Add "tt" for IMDB id's
-				$external_link = str_replace('#', "tt".$this->external_id, $sObj->getCommand());
-			} else {
-				$external_link = str_replace('#', $this->external_id, $sObj->getCommand());
-			}
 			
-			$link = $external_link;
+			$link = str_replace('#', $this->external_id, $sObj->getCommand());
 		}
 		
 		$currOwner = $this->ownersObjArr[0];

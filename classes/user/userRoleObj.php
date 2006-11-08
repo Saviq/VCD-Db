@@ -82,6 +82,21 @@ class userRoleObj implements XMLable {
 			return false;
 		}
 	}
+	
+	/**
+	 * Check if user is in a role that has permissions to view adult material.
+	 *
+	 * @return bool
+	 */
+	public function isAdult() {
+		if ($this->isAdmin()) {
+			return true;
+		}
+		if (strcmp($this->role_name,"Adult User") == 0) { 
+			return true;
+		}
+		return false;
+	}
 			
 	/**
 	 * Get the XML representation of the object

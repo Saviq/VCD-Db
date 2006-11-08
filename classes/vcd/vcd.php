@@ -1219,14 +1219,7 @@ class vcd_movie implements IVcd  {
 			
 			
 			// are adult categories in use ? and if so does user want to see them ?
-			$showadult = false;
-
-			if (isset($_SESSION['user'])) {
-				$curruser = &$_SESSION['user'];
-				if ($curruser->getPropertyByKey('SHOW_ADULT')) {
-					$showadult = true;
-				}
-			}
+			$showadult = VCDUtils::showAdultContent();
 
 			$resultArr =  $this->SQL->search($keyword, $method, $showadult);
 

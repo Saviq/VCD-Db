@@ -78,23 +78,16 @@ function display_userlinks() {
  *
  */
 function display_adultmenu() {
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
-	$show_adult = false;
-	if (VCDUtils::isLoggedIn()) {
-		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
-	}
-	if (VCDUtils::isLoggedIn() && $SETTINGSClass->getSettingsByKey('SITE_ADULT') && $show_adult) {
+	
+	if (VCDUtils::showAdultContent()) {
 		?>
 		<div class="topic">Pornstars</div>
 		<ul>
 		<li><a href="./?page=pornstars&amp;view=all">View all</a></li>
 		<li><a href="./?page=pornstars&amp;view=active">View active</a></li>
 		</ul>
-
 		<?
 	}
-
 }
 
 /**
@@ -167,12 +160,8 @@ function display_moviecategories() {
 	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$categories = $SETTINGSClass->getMovieCategoriesInUse();
 	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
-	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT') && VCDUtils::isLoggedIn();
-	if (VCDUtils::isLoggedIn()) {
-		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
-	}
-
-
+	$show_adult = VCDUtils::showAdultContent();
+	
 	$curr_catid = -1;
 	if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
 		$curr_catid = $_GET['category_id'];
@@ -797,6 +786,8 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 
 	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$statObj = $SETTINGSClass->getStatsObj();
+	$adultCatID = $SETTINGSClass->getCategoryIDByName('adult');
+	$showAdult = VCDUtils::showAdultContent();
 
 	if (strcmp($style, "statsTable") == 0) {
 		$header = "stata";
@@ -836,6 +827,8 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	</tr>
 	<?
 		foreach ($statObj->getBiggestCats() as $catObj) {
+			if ($catObj->getID() == $adultCatID && !$showAdult) {continue;}
+			
 			print "<tr>";
 				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName(true)."</a></td>";
 				print "<td align=\"right\">".$catObj->getCategoryCount()."</td>";
@@ -848,6 +841,7 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 	</tr>
 	<?
 		foreach ($statObj->getBiggestMonhtlyCats() as $catObj) {
+			if ($catObj->getID() == $adultCatID && !$showAdult) {continue;}
 			print "<tr>";
 				print "<td align=\"left\"><a href=\"./?page=category&amp;category_id=".$catObj->getID()."\">".$catObj->getName(true)."</a></td>";
 				print "<td align=\"right\">".$catObj->getCategoryCount()."</td>";

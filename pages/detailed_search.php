@@ -31,11 +31,9 @@
 	<td><? 
 	
 		$catObjArr = getLocalizedCategories($SETTINGSClass->getMovieCategoriesInUse());
+		$adultCatID = $SETTINGSClass->getCategoryIDByName('adult');
+		$adultEnabled = VCDUtils::showAdultContent();
 		
-		//$catObjArr = $SETTINGSClass->getMovieCategoriesInUse();
-		
-		
-	
 		print "<select name=\"category\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
 		foreach ($catObjArr as $categoryObj) {
@@ -45,8 +43,10 @@
 				$sel = " selected";
 			}
 				
+			if ($adultCatID == $categoryObj['id'] && !$adultEnabled) {continue;}
 			
 			print "<option value=\"".$categoryObj['id']."\" ".$sel.">".$categoryObj['name']."</option>";
+			
 		}
 		print "</select>"; ?></td>
 </tr>

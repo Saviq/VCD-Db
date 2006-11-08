@@ -22,7 +22,9 @@
 		<descr>User Roles</descr>
 		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Administrator','Site administration')</query>
 		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('User','Normal Site User')</query>
+		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Adult User','User with Adult options enabled')</query>
 		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Viewer','Browsing privileges')</query>
+		
 
 		<descr>User Properties</descr>
 		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('SHOW_ADULT','Show adult content on the site ?')</query>
