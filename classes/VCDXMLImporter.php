@@ -379,7 +379,7 @@ class VCDXMLImporter {
 				// Delegate the vcdObj to the facade
 				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
 				try {
-					$iResults = $ClassVcd->addVcd($vcdObj);
+					$iResults = $ClassVcd->addVcd($vcdObj, false);
 				} catch (Exception $vex) {
 					VCDUtils::write(TEMP_FOLDER."import_errors.txt", $vex->getMessage(). '\n', true);
 					$status = "0";
