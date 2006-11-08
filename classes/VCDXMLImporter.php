@@ -13,6 +13,12 @@
  * @version $Id$
  *
  */
+error_reporting(E_ERROR);
+// Include the compression libs ..
+require_once(dirname(__FILE__) . '/external/compression/tar.php');
+require_once(dirname(__FILE__) . '/external/compression/zip.php');
+require_once(dirname(__FILE__) . '/external/compression/pclzip.lib.php');
+
 
 class VCDXMLImporter {
 		
@@ -152,7 +158,7 @@ class VCDXMLImporter {
    		$filename = $fileObj->getFileName();
    		if (strpos($filename, ".tgz")) {
    			// The file is a tar archive .. lets untar it ...
-   			require_once('classes/external/compression/tar.php');
+   			
    			$zipfile = new tar();
    			if ($zipfile->openTAR($fileLocation)) {
    				if ($zipfile->numFiles != 1) {
@@ -175,7 +181,7 @@ class VCDXMLImporter {
    			}
    		} elseif (strpos($filename, ".zip")) {
    			
-   			require_once('classes/external/compression/pclzip.lib.php');
+   			
 		  	$archive = new PclZip($fileLocation);
 		  	
 		  	if (($list = $archive->listContent()) == 0) {
@@ -260,7 +266,7 @@ class VCDXMLImporter {
    		$filename = $fileObj->getFileName();
    		if (strpos($filename, ".tgz")) {
    			// The file is a tar archive .. lets untar it ...
-   			require_once('classes/external/compression/tar.php');
+   			
    			$zipfile = new tar();
    			if ($zipfile->openTAR($fileLocation)) {
    				if ($zipfile->numFiles != 1) {
@@ -283,7 +289,7 @@ class VCDXMLImporter {
    			}
    		} elseif (strpos($filename, ".zip")) {
    			
-   			require_once('classes/external/compression/pclzip.lib.php');
+   			
 		  	$archive = new PclZip($fileLocation);
 		  	
 		  	if (($list = $archive->listContent()) == 0) {
@@ -369,12 +375,16 @@ class VCDXMLImporter {
 						$vcdObj->addCovers(array($coverObj));
 					}
 				}
-				
-				//VCDUtils::write(TEMP_FOLDER."results.txt", print_r($vcdObj, true), true);
 			
 				// Delegate the vcdObj to the facade
 				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
-				$iResults = $ClassVcd->addVcd($vcdObj);
+				try {
+					$iResults = $ClassVcd->addVcd($vcdObj);
+				} catch (Exception $vex) {
+					VCDUtils::write(TEMP_FOLDER."import_errors.txt", $vex->getMessage(). '\n', true);
+					$status = "0";
+				}
+				
 				if (!is_numeric($iResults) || $iResults == -1) {
 					$status = "0";
 				}
@@ -398,7 +408,6 @@ class VCDXMLImporter {
 			
 		
 		} catch (Exception $ex) {
-			VCDUtils::write(TEMP_FOLDER."villa.txt", print_r($ex->getTrace(), true), true);
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 		
@@ -807,8 +816,7 @@ class VCDXMLExporter {
 					
 				case self::EXP_ZIP:
 					
-					require_once('external/compression/zip.php');
-					
+										
 					// Generate Zip filename
 					$ZipFilename = self::generateFileName('zip');
 					
@@ -827,8 +835,7 @@ class VCDXMLExporter {
 					
 				case self::EXP_TGZ:
 					
-					require_once('external/compression/tar.php');
-	
+						
 					// Generate Tar filename
 					$TarFilename = self::generateFileName('tgz');
 					
@@ -905,8 +912,7 @@ class VCDXMLExporter {
 					
 				case self::EXP_ZIP:
 					
-					require_once('external/compression/zip.php');
-					
+										
 					// Generate Zip filename
 					$ZipFilename = self::generateThumbFileName('zip');
 					
@@ -925,8 +931,7 @@ class VCDXMLExporter {
 					
 				case self::EXP_TGZ:
 					
-					require_once('external/compression/tar.php');
-	
+						
 					// Generate Tar filename
 					$TarFilename = self::generateThumbFileName('tgz');
 					
