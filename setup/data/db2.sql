@@ -239,7 +239,9 @@ CREATE TABLE vcd_RssFeeds (
         feed_id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1, NO CACHE), 
         user_id INTEGER NOT NULL ,
         feed_name varchar (60) NOT NULL ,
-        feed_url varchar (150) NOT NULL,
+        feed_url varchar (150) NOT NULL ,
+        isadult SMALLINT,
+        issite SMALLINT,
         PRIMARY KEY(feed_id)
 ) 
 GO

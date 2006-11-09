@@ -455,6 +455,8 @@
 		<field name="feed_url" type="C" size="150">
 			<NOTNULL/>
 		</field>
+		<field name="isAdult" type="L"></field>
+		<field name="isSite" type="L"></field>
 	</table>
 	<table name="vcd_MetaData">
 		<field name="metadata_id" type="I" size="10">

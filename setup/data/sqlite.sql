@@ -14,7 +14,7 @@ CREATE TABLE vcd_PornCategories ( category_id INTEGER NOT NULL, category_name VA
 CREATE TABLE vcd_PornStudios ( studio_id INTEGER NOT NULL, studio_name VARCHAR(250), PRIMARY KEY (studio_id) )
 CREATE TABLE vcd_Pornstars ( pornstar_id INTEGER NOT NULL, name VARCHAR(100), homepage VARCHAR(100), image_name VARCHAR(100), biography VARCHAR(250), PRIMARY KEY (pornstar_id) )
 CREATE TABLE vcd_PropertiesToUser ( user_id INTEGER NOT NULL, property_id INTEGER NOT NULL )
-CREATE TABLE vcd_RssFeeds ( feed_id INTEGER NOT NULL, user_id INTEGER NOT NULL, feed_name VARCHAR(60) NOT NULL, feed_url VARCHAR(150) NOT NULL, PRIMARY KEY (feed_id) )
+CREATE TABLE vcd_RssFeeds ( feed_id INTEGER NOT NULL, user_id INTEGER NOT NULL, feed_name VARCHAR(60) NOT NULL, feed_url VARCHAR(150) NOT NULL, isAdult DECIMAL(1), isSite DECIMAL(1), PRIMARY KEY (feed_id) )
 CREATE TABLE vcd_Screenshots ( vcd_id INTEGER NOT NULL, PRIMARY KEY (vcd_id) )
 CREATE TABLE vcd_Sessions ( session_id VARCHAR(50) NOT NULL, session_user_id INTEGER NOT NULL, session_start INTEGER NOT NULL, session_ip VARCHAR(15) NOT NULL )
 CREATE TABLE vcd_Settings ( settings_id INTEGER NOT NULL, settings_key VARCHAR(50) NOT NULL, settings_value VARCHAR(250), settings_description VARCHAR(250), isProtected DECIMAL(1), settings_type VARCHAR(20), PRIMARY KEY (settings_id) )

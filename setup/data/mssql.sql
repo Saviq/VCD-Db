@@ -230,7 +230,9 @@ CREATE TABLE [vcd_RssFeeds] (
 	[feed_id] [int] IDENTITY (1, 1) NOT NULL ,
 	[user_id] [int] NOT NULL ,
 	[feed_name] [varchar] (60) NOT NULL ,
-	[feed_url] [varchar] (150) NOT NULL 	
+	[feed_url] [varchar] (150) NOT NULL ,
+	[isadult] [bit] ,
+	[issite] [bit] 
 ) ON [PRIMARY]
 
 
