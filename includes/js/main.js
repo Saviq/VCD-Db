@@ -602,6 +602,12 @@ function addFeed() {
 	window.open(url, 'RSSFEED', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,height=250,width=350,top=200,left=250');
 }
 
+function addPrivateFeed() {
+	var url = './pages/addRssFeedP.php';
+	window.open(url, 'RSSFEEDP', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,height=80,width=300,top=200,left=250');
+}
+
+
 function rssCheck(form) {
 	count=0
 

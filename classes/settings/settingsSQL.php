@@ -738,8 +738,13 @@ class settingsSQL {
 		try {
 
 			$query = "SELECT feed_id, user_id, feed_name, feed_url, isAdult, isSite 
-				FROM $this->TABLE_rss WHERE user_id = ".$user_id."
-					  ORDER BY feed_name";
+				FROM $this->TABLE_rss WHERE user_id = ". $user_id;
+			
+			if (VCDUtils::isLoggedIn()) {
+				$query .= " OR (user_id = " . VCDUtils::getUserID() . " AND isSite = 0)";
+			}
+			
+			$query .= " ORDER BY feed_name";
 			$rs = $this->db->Execute($query);
 			
 			$arrObj = array();

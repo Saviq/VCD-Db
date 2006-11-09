@@ -298,8 +298,19 @@
 		<?
 		$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(0);
 		foreach ($arrFeeds as $rssObj) {
-			if (!in_array($rssObj->getId(), $arrSelectedFeeds))
-				print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
+			if (!in_array($rssObj->getId(), $arrSelectedFeeds)) {
+				if ($rssObj->isAdultFeed() && !VCDUtils::showAdultContent()) { continue; }
+				
+				if ($rssObj->isAdultFeed()) {
+					print "<option value=\"".$rssObj->getId()."\" style='color:blue'>".$rssObj->getName()."</option>";
+				} else if ($rssObj->getOwnerId() == VCDUtils::getUserID() ) {
+					print "<option value=\"".$rssObj->getId()."\" style='color:green'>".$rssObj->getName()."</option>";
+				} else {
+					print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
+				}
+				
+				
+			}
 		}
 		?>
 		</select>
@@ -312,8 +323,18 @@
 		<td><select multiple name="rssChoices" id="rssChoices" style="width:300px;" size="5" class="input" ondblclick="removeMe(document.choiceForm, 'rssAvailable', 'rssChoices');">
 		<?
 		foreach ($arrFeeds as $rssObj) {
-			if (is_array($arrSelectedFeeds) && in_array($rssObj->getId(), $arrSelectedFeeds))
-				print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
+			if (is_array($arrSelectedFeeds) && in_array($rssObj->getId(), $arrSelectedFeeds)) {
+				
+				if ($rssObj->isAdultFeed()) {
+					print "<option value=\"".$rssObj->getId()."\" style='color:blue'>".$rssObj->getName()."</option>";
+				} else if ($rssObj->getOwnerId() == VCDUtils::getUserID() ) {
+					print "<option value=\"".$rssObj->getId()."\" style='color:green'>".$rssObj->getName()."</option>";
+				} else {
+					print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
+				}
+			
+			}
+				
 		}
 		unset($arrFeeds);
 		unset($arrSelectedFeeds);
@@ -330,7 +351,7 @@
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="<?=VCDLanguage::translate('misc.update')?>" onclick="checkFieldsRaw(this.form,'rssChoices', 'rss_list')"/></td>
+	<td><input type="submit" value="<?=VCDLanguage::translate('misc.update')?>" onclick="checkFieldsRaw(this.form,'rssChoices', 'rss_list')"/> &nbsp; <input type="button" value="<?=VCDLanguage::translate('rss.add')?>" onclick="addPrivateFeed()"/></td>
 </tr>
 </table>
 </form>

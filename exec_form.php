@@ -93,6 +93,18 @@ switch ($form) {
 
 		break;
 
+	case 'addprivatefeed':
+			if (isset($_POST['rssname']) && isset($_POST['rssurl'])) {
+				$rssObj = new rssObj();
+				$rssObj->setName($_POST['rssname']);
+				$rssObj->setFeedUrl($_POST['rssurl']);
+				$rssObj->setOwnerId(VCDUtils::getUserID());
+				$rssObj->setAsSiteFeed(false);
+				$SETTINGSClass->addRssfeed($rssObj);
+			}
+		
+			break;
+		
 	case 'addcomment':
 
 
