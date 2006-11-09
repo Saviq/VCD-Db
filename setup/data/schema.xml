@@ -57,7 +57,7 @@
 			<NOTNULL/>
 		</field>
 		<field name="settings_description" type="X" size="255"/>
-		<field name="isProtected" type="L"/>
+		<field name="isProtected" type="I1"/>
 		<field name="settings_type" type="C" size="20"/>
 	</table>
 	<table name="vcd_CoverTypes">
@@ -137,7 +137,7 @@
 			<NOTNULL/>
 		</field>
 		<field name="site_getCommand" type="C" size="100"/>
-		<field name="site_isFetchable" type="L">
+		<field name="site_isFetchable" type="I1">
 			<NOTNULL/>
 		</field>
 		<field name="site_classname" type="C" size="20"/>
@@ -165,7 +165,7 @@
 		<field name="role_id" type="I">
 			<NOTNULL/>
 		</field>
-		<field name="is_deleted" type="L">
+		<field name="is_deleted" type="I1">
 			<NOTNULL/>
 		</field>
 		<field name="date_created" type="T">
@@ -335,7 +335,7 @@
 		<field name="comment" type="X" size="16">
 			<NOTNULL/>
 		</field>
-		<field name="isPrivate" type="L">
+		<field name="isPrivate" type="I1">
 			<NOTNULL/>
 		</field>
 	</table>
@@ -455,8 +455,8 @@
 		<field name="feed_url" type="C" size="150">
 			<NOTNULL/>
 		</field>
-		<field name="isAdult" type="L"></field>
-		<field name="isSite" type="L"></field>
+		<field name="isAdult" type="I1"></field>
+		<field name="isSite" type="I1"></field>
 	</table>
 	<table name="vcd_MetaData">
 		<field name="metadata_id" type="I" size="10">

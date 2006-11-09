@@ -842,7 +842,7 @@ class Installer {
 				{$db->qstr(md5(self::getConfigValue($objConfig, 'vcd_password')))},
 				{$db->qstr(utf8_encode(self::getConfigValue($objConfig, 'vcd_fullname')))},
 				{$db->qstr(self::getConfigValue($objConfig, 'vcd_email'))},
-			    1, 0, {$db->DBDate(time())})";
+			    1, '0', {$db->DBDate(time())})";
 			$db->Execute($query);
 			
 			return true;
