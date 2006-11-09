@@ -83,7 +83,12 @@ switch ($form) {
 		$feeds = $_POST['feeds'];
 		foreach ($feeds as $feed) {
 			$currFeed = explode("|",$feed);
-			$SETTINGSClass->addRssfeed(VCDUtils::getUserID(), $currFeed[0], $currFeed[1]);
+			$rssObj = new rssObj();
+			$rssObj->setName($currFeed[0]);
+			$rssObj->setFeedUrl($currFeed[1]);
+			$rssObj->setOwnerId(VCDUtils::getUserID());
+			$rssObj->setAsSiteFeed(true);
+			$SETTINGSClass->addRssfeed($rssObj);
 		}
 
 		break;

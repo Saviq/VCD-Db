@@ -50,8 +50,8 @@
 				}
 				
 				
-				$curr_feed = $SETTINGSClass->getRssfeed($feedarr[$i]);
-				ShowOneRSS($curr_feed['url']);
+				$rssObj = $SETTINGSClass->getRssfeed($feedarr[$i]);
+				ShowOneRSS($rssObj->getFeedUrl());
 				print "</td>";
 				
 				if (((bool)(($i % 2)==1) && ($i != 0)) || ($i == ($rsscount-1))) {
@@ -66,8 +66,8 @@
 		} else {
 			foreach ($feedarr as $feed_id) {
 			if (is_numeric($feed_id)) {
-				$curr_feed = $SETTINGSClass->getRssfeed($feed_id);
-				ShowOneRSS($curr_feed['url']);
+				$rssObj = $SETTINGSClass->getRssfeed($feed_id);
+				ShowOneRSS($rssObj->getFeedUrl());
 				}
 			}
 		}

@@ -228,8 +228,10 @@
 	$feeds = $SETTINGSClass->getRssFeedsByUserId($user->getUserID());
 	if (sizeof($feeds) > 0) {
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" class=\"displist\" width=\"100%\">";
-		foreach ($feeds as $rssfeed) {
-			$pos = strpos($rssfeed['url'], "?rss=");
+		foreach ($feeds as $rssObj) {
+			if (!$rssObj->isVcddbFeed()) {continue;}
+			
+			$pos = strpos($rssObj->getFeedUrl(), "?rss=");
 			if ($pos === false) {
 			    $img = "<img src=\"images/rsssite.gif\" hspace=\"4\" title=\"".VCDLanguage::translate('rss.site')."\" border=\"0\"/>";
 			} else {
@@ -237,7 +239,7 @@
 			}
 
 
-			print "<tr><td align=\"center\">".$img."</td><td width=\"95%\">".$rssfeed['name']."</td><td><a href=\"".$rssfeed['url']."\"><img src=\"images/rss.gif\" border=\"0\" alt=\"".VCDLanguage::translate('rss.view')."\"/></a></td><td><img src=\"images/icon_del.gif\" onclick=\"deleteFeed(".$rssfeed['id'].")\"/></td></tr>";
+			print "<tr><td align=\"center\">".$img."</td><td width=\"95%\">".$rssObj->getName()."</td><td><a href=\"".$rssObj->getFeedUrl()."\"><img src=\"images/rss.gif\" border=\"0\" alt=\"".VCDLanguage::translate('rss.view')."\"/></a></td><td><img src=\"images/icon_del.gif\" onclick=\"deleteFeed(".$rssObj->getId().")\"/></td></tr>";
 		}
 		print "</table>";
 	} else {
@@ -295,9 +297,9 @@
 		<select name="rssAvailable" id="rssAvailable" size="5" style="width:300px;" onDblClick="moveOver(this.form, 'rssAvailable', 'rssChoices')">
 		<?
 		$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(0);
-		foreach ($arrFeeds as $item) {
-			if (!in_array($item['id'], $arrSelectedFeeds))
-				print "<option value=\"".$item['id']."\">".$item['name']."</option>";
+		foreach ($arrFeeds as $rssObj) {
+			if (!in_array($rssObj->getId(), $arrSelectedFeeds))
+				print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
 		}
 		?>
 		</select>
@@ -309,9 +311,9 @@
 	<tr>
 		<td><select multiple name="rssChoices" id="rssChoices" style="width:300px;" size="5" class="input" ondblclick="removeMe(document.choiceForm, 'rssAvailable', 'rssChoices');">
 		<?
-		foreach ($arrFeeds as $item) {
-			if (is_array($arrSelectedFeeds) && in_array($item['id'], $arrSelectedFeeds))
-				print "<option value=\"".$item['id']."\">".$item['name']."</option>";
+		foreach ($arrFeeds as $rssObj) {
+			if (is_array($arrSelectedFeeds) && in_array($rssObj->getId(), $arrSelectedFeeds))
+				print "<option value=\"".$rssObj->getId()."\">".$rssObj->getName()."</option>";
 		}
 		unset($arrFeeds);
 		unset($arrSelectedFeeds);

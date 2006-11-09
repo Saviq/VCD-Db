@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 
 require_once(dirname(__FILE__).'/settingsObj.php');
 require_once(dirname(__FILE__).'/sourceSiteObj.php');
@@ -27,6 +27,7 @@ require_once(dirname(__FILE__).'/commentObj.php');
 require_once(dirname(__FILE__).'/statisticsObj.php');
 require_once(dirname(__FILE__).'/metadataObj.php');
 require_once(dirname(__FILE__).'/dvdObj.php');
+require_once(dirname(__FILE__).'/rssObj.php');
 
 class vcd_settings implements ISettings {
 
@@ -1075,22 +1076,17 @@ class vcd_settings implements ISettings {
 
 
 	/*  Rss Feeds */
-	/**
+	
+	 /**
 	 * Add a new feed to database.
 	 *
-	 * user_id should be 0 for Global Feeds.
-	 *
-	 * @param int $user_id
-	 * @param string $feed_name
-	 * @param string $feed_url
+	 * @param rssObj $obj
 	 */
-	public function addRssfeed($user_id, $feed_name, $feed_url) {
+	public function addRssfeed(rssObj $obj) {
 		try {
-			if (is_numeric($user_id)) {
-				$this->SQL->addRssfeed($user_id, $feed_name, $feed_url);
-			} else {
-				throw new Exception('Invalid user id');
-			}
+			
+			$this->SQL->addRssfeed($obj);
+			
 		} catch (Exception $e) {
 			VCDException::display($e);
 		}
@@ -1122,17 +1118,12 @@ class vcd_settings implements ISettings {
 	/**
 	 * Update RSS feed entry in the database.
 	 *
-	 * @param int $feed_id
-	 * @param string $feed_name
-	 * @param string $feed_url
+	 * @param rssObj $obj
 	 */
-	public function updateRssfeed($feed_id, $feed_name, $feed_url) {
+	public function updateRssfeed(rssObj $obj) {
 		try {
-			if (is_numeric($feed_id)) {
-				$this->SQL->updateRssfeed($feed_id, $feed_name, $feed_url);
-			} else {
-				throw new Exception("Parameter feed_id must be numeric");
-			}
+			
+			$this->SQL->updateRssfeed($obj);
 
 		} catch (Exception $e) {
 			VCDException::display($e);
@@ -1149,7 +1140,9 @@ class vcd_settings implements ISettings {
 	 */
 	public function getRssFeedsByUserId($user_id) {
 		try {
+			
 			return $this->SQL->getRssFeedsByUserId($user_id);
+			
 		} catch (Exception $e) {
 			VCDException::display($e);
 		}

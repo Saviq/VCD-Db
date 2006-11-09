@@ -13,8 +13,9 @@
 
 	print "<h1>".VCDLanguage::translate('menu.rss')."</h1>";
 	
-	foreach ($arrFeeds as $rssfeed) {
-		showFeed($rssfeed['name'], $rssfeed['url']);
+	foreach ($arrFeeds as $rssObj) {
+		if (!$rssObj->isVcddbFeed()) {continue;}
+		showFeed($rssObj->getName(), $rssObj->getFeedUrl());
 	}
 
 ?>

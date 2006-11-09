@@ -1,6 +1,7 @@
 <?php
-	require_once("../classes/includes.php");
-	require_once("functions/adminPageFunctions.php");
+	define('BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
+	require_once(BASE .'/classes/includes.php');
+	require_once(dirname(__FILE__).'/functions/adminPageFunctions.php');
 		
 	if (!VCDAuthentication::isAdmin()) {
 		VCDException::display("Only administrators have access here");
@@ -1128,7 +1129,15 @@
 			if (isset($_POST['save'])) {
 				if (isset($_POST['name']) && strlen($_POST['name']) > 0 
 					&& isset($_POST['url']) && strlen($_POST['url']) > 0) {
-					$SETTINGSclass->addRssfeed(0, $_POST['name'], $_POST['url']);
+					
+					$rssObj = new rssObj();
+					$rssObj->setName($_POST['name']);
+					$rssObj->setFeedUrl($_POST['url']);
+					if (isset($_POST['isxrated'])) {
+						$rssObj->setAdult(true);
+					}
+					$rssObj->setOwnerId(0);
+					$SETTINGSclass->addRssfeed($rssObj);
 				}
 				
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
@@ -1136,7 +1145,15 @@
 			}
 			/* Update XML feed */
 			elseif (isset($_POST['update'])) {
-				$SETTINGSclass->updateRssfeed($_POST['id'], $_POST['name'], $_POST['url']);
+				$rssObj = $SETTINGSclass->getRssfeed($_POST['id']);
+				$rssObj->setName($_POST['name']);
+				$rssObj->setFeedUrl($_POST['url']);
+				$isadult = false;
+				if (isset($_POST['isxrated'])) {
+					$isadult = true;	
+				}
+				$rssObj->setAdult($isadult);
+				$SETTINGSclass->updateRssfeed($rssObj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -1165,14 +1182,13 @@
 			$header = array("Feed name", "", "", "");
 			printTableOpen();
 			printRowHeader($header);
-			foreach ($arrFeeds as $item) {
+			foreach ($arrFeeds as $rssObj) {
 				printTr();
-			
-				printRow($item['name']);
+				printRow($rssObj->getName());
 				
-				printEditRow($item['id'], $CURRENT_PAGE);
-				printDeleteRow($item['id'], $CURRENT_PAGE, "Delete XML feed?");
-				printCustomRow($item['id'],$CURRENT_PAGE,"icon_xml","View feed","viewFeed");
+				printEditRow($rssObj->getId(), $CURRENT_PAGE);
+				printDeleteRow($rssObj->getId(), $CURRENT_PAGE, "Delete XML feed?");
+				printCustomRow($rssObj->getId(),$CURRENT_PAGE,"icon_xml","View feed","viewFeed");
 				
 				printTr(false);
 			}
@@ -1193,7 +1209,7 @@
 			elseif ($CURRENT_PAGE == '') {
 				$serverInfo = $conn->getServerInfo();
 				print "<strong>VCD-db</strong> v." . VCDDB_VERSION . " admin console.<br/>";
-				print "Running on " .$serverInfo['description'];
+				print "Running on " . $conn->getSQLType() . " " . $serverInfo['version'] . " (" .$serverInfo['description'].")";
 				?>
 				<p>
 				Here you can edit the settings for the VCD-db.<br>

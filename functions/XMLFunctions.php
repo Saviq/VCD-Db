@@ -68,7 +68,7 @@ function showAvailableFeeds($url) {
 	print "<tr><td colspan=\"2\"><strong>".VCDLanguage::translate('rss.user')."</strong></td></tr>";
 	$usersfeeds = $xml_users->rssusers->user;
 	foreach ($usersfeeds as $user_feed) {
-		print "<tr><td><input name=\"feeds[]\" type=\"checkbox\" class=\"nof\" value=\"".utf8_decode($user_feed->fullname)."|".$user_feed->rsspath."\"></td><td>". utf8_decode($user_feed->fullname) . "</td></tr>";
+		print "<tr><td><input name=\"feeds[]\" type=\"checkbox\" class=\"nof\" value=\"".$user_feed->fullname."|".$user_feed->rsspath."\"></td><td>". $user_feed->fullname . "</td></tr>";
 	}
 	
 	print "<tr><td colspan=\"2\" align=\"right\"><input type=\"submit\" value=\"save\" onclick=\"return rssCheck(this.form)\"></td></tr>";

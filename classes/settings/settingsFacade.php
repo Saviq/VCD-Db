@@ -75,11 +75,11 @@ interface ISettings {
 	public function notifyOfNewEntry($vcdObj);
 	
 	/*  Rss Feeds */
-	public function addRssfeed($user_id, $feed_name, $feed_url);
+	public function addRssfeed(rssObj $obj);
 	public function getRssfeed($feed_id);
 	public function getRssFeedsByUserId($user_id); 
 	public function delFeed($feed_id);
-	public function updateRssfeed($feed_id, $feed_name, $feed_url);
+	public function updateRssfeed(rssObj $obj);
 	
 	/* Wishlist */
 	public function addToWishList($vcd_id, $user_id);

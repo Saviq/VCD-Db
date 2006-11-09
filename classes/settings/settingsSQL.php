@@ -685,24 +685,31 @@ class settingsSQL {
 
 	/* RSS Feed functions */
 
-	public function addRssfeed($user_id, $feed_name, $feed_url) {
+	public function addRssfeed(rssObj $obj) {
 		try {
 
-		$query = "INSERT INTO $this->TABLE_rss (user_id, feed_name, feed_url) VALUES
-				 (".$user_id.",".$this->db->qstr($feed_name).", ".$this->db->qstr($feed_url).")";
-		$this->db->Execute($query);
+			$query = "INSERT INTO $this->TABLE_rss (user_id, feed_name, feed_url, isAdult, isSite) VALUES (
+				{$obj->getOwnerId()}, 
+				{$this->db->qstr($obj->getName())},
+				{$this->db->qstr($obj->getFeedUrl())},
+				{$obj->isAdultFeed()}, 
+				{$obj->isVcddbFeed()})";
+			
+			
+			$this->db->Execute($query);
 
 		} catch (Exception $e) {
 			throw new Exception($e->getMessage());
 		}
 	}
 
-	public function updateRssfeed($feed_id, $feed_name, $feed_url) {
+	public function updateRssfeed(rssObj $obj) {
 		try {
 
-		$query = "UPDATE $this->TABLE_rss SET feed_name = ".$this->db->qstr($feed_name).",
-				  feed_url = ".$this->db->qstr($feed_url)." WHERE feed_id =  " . $feed_id;
-		$this->db->Execute($query);
+			$query = "UPDATE $this->TABLE_rss SET feed_name = ".$this->db->qstr($obj->getName()).",
+					  feed_url = ".$this->db->qstr($obj->getFeedUrl()).", isAdult = ".$obj->isAdultFeed()." 
+					  WHERE feed_id =  " . $obj->getId();
+			$this->db->Execute($query);
 
 		} catch (Exception $e) {
 			throw new Exception($e->getMessage());
@@ -712,15 +719,15 @@ class settingsSQL {
 	public function getRSSfeedByID($feed_id) {
 		try {
 
-		$query = "SELECT feed_id, feed_name, feed_url FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
-		$rs = $this->db->Execute($query);
-		if ($rs && $rs->RecordCount() > 0) {
-			$row = $rs->FetchRow();
-			$arr = array('id' => $row[0], 'name' => $row[1], 'url' => $row[2]);
-			$rs->Close();
-			return $arr;
-		}
-		return null;
+			$query = "SELECT feed_id, user_id, feed_name, feed_url, isAdult, isSite 
+						FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
+			
+			$rs = $this->db->Execute($query);
+			if ($rs && $rs->RecordCount() > 0) {
+				return new rssObj($rs->FetchRow());
+			}
+			
+			return null;
 
 		} catch (Exception $e) {
 			throw new Exception($e->getMessage());
@@ -730,16 +737,18 @@ class settingsSQL {
 	public function getRssFeedsByUserId($user_id) {
 		try {
 
-		$query = "SELECT feed_id, feed_name, feed_url FROM $this->TABLE_rss WHERE user_id = ".$user_id."
-				  ORDER BY feed_name";
-		$rs = $this->db->Execute($query);
-		$arrResults = array();
-		foreach ($rs as $row) {
-			array_push($arrResults, array('id' => $row[0], 'name' => $row[1], 'url' => $row[2]));
-		}
-
-		$rs->Close();
-		return $arrResults;
+			$query = "SELECT feed_id, user_id, feed_name, feed_url, isAdult, isSite 
+				FROM $this->TABLE_rss WHERE user_id = ".$user_id."
+					  ORDER BY feed_name";
+			$rs = $this->db->Execute($query);
+			
+			$arrObj = array();
+			foreach ($rs as $row) {
+	    		$obj = new rssObj($row);
+	    		array_push($arrObj, $obj);
+			}
+			$rs->Close();
+			return $arrObj;
 
 		} catch (Exception $e) {
 			throw new Exception($e->getMessage());
@@ -749,8 +758,8 @@ class settingsSQL {
 	public function delFeed($feed_id) {
 		try {
 
-		$query = "DELETE FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
-		$this->db->Execute($query);
+			$query = "DELETE FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
+			$this->db->Execute($query);
 
 		} catch (Exception $e) {
 			throw new Exception($e->getMessage());

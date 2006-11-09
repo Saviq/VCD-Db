@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 	// Define the current VCD-db version revision
 	define("VCDDB_VERSION","0.984-CVS");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));

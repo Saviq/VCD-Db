@@ -1,9 +1,10 @@
 <?php 
 	
-	$objArr = array ("id"=>"", "name"=>"", "url"=>"");
+	$objArr = array ("id"=>"", "name"=>"", "url"=>"", "adult"=>"");
 	$readonly = "";	
 	$button_value = "Save";
 	$parent_id = "";
+	$check = "";
 
 	
 	if (strcmp($WORKING_MODE, "edit") == 0) {
@@ -13,17 +14,18 @@
 		}
 		
 		
-		$feed = $SETTINGSclass->getRssfeed($_GET['recordID']);	
+		$rssObj = $SETTINGSclass->getRssfeed($_GET['recordID']);
 		
-		
-		$objArr['id']	= $feed['id'];
-		$objArr['name'] = $feed['name'];
-		$objArr['url'] 	= $feed['url'];
+		$objArr['id']	= $rssObj->getId();
+		$objArr['name'] = $rssObj->getName();
+		$objArr['url'] 	= $rssObj->getFeedUrl();
+		$objArr['adult'] = $rssObj->isAdultFeed();
 		
 		
 		$readonly = "readonly";	
 		$button_value = "Update";
-		
+		if ((bool)$objArr['adult']) 
+			$check = "checked";
 		
 	}
 	
@@ -45,6 +47,10 @@
 <tr>
 	<td>Url:</td>
 	<td><input name="url" size="90" value="<?=$objArr['url']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+</tr>
+<tr>
+	<td>Is xRated:</td>
+	<td><input name="isxrated" type="checkbox" value="<?=$objArr['adult']?>" <?=$check?> onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td colspan="2"><INPUT type="submit" value="<?=$button_value?>" name="<?=strtolower($button_value)?>" class="save"></td>

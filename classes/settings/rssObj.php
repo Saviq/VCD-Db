@@ -19,22 +19,61 @@
 
 class rssObj {
 	
+	/**
+	 * The ID of the RSS feed
+	 *
+	 * @var int
+	 */
 	private $id;
-	private $owner_id;
+	/**
+	 * The owner ID of the RSS feed, 0 = system owner visible
+	 * to all VCD-db users.
+	 *
+	 * @var int
+	 */
+	private $owner_id = 0;
+	/**
+	 * The name of the RSS feed
+	 *
+	 * @var string
+	 */
 	private $name;
+	/**
+	 * The actual RSS Feed URL
+	 *
+	 * @var string
+	 */
 	private $url;
-	private $isAdult = false;
-	private $isSitefeed = false;
+	/**
+	 * Is this RSS feed pointing to adult content or not
+	 *
+	 * @var bool
+	 */
+	private $isXrated;
+	/**
+	 * Is this feed a VCD-db RSS feed from remote VCD-db site
+	 *
+	 * @var bool
+	 */
+	private $isSitefeed;
 
 
+	/**
+	 * Object contstructor
+	 *
+	 * @param array $dataArr | Array populated from database
+	 */
 	public function __construct($dataArr) {
+		$this->isXrated = 0;
+		$this->isSitefeed = 0;
+		
 		if (is_array($dataArr))	{
 			$this->id = $dataArr[0];
 			$this->owner_id = $dataArr[1];
 			$this->name = $dataArr[2];
 			$this->url = $dataArr[3];
 			if (isset($dataArr[4])) {
-				$this->isAdult = $dataArr[4];
+				$this->isXrated = $dataArr[4];
 			}
 			if (isset($dataArr[5])) {
 				$this->isSitefeed = $dataArr[5];
@@ -42,41 +81,103 @@ class rssObj {
 		}
 	}
 
-
+	/**
+	 * Get the feed ID
+	 *
+	 * @return int
+	 */
 	public function getId() {
 		return $this->id;
 	}
 	
+	/**
+	 * Get the owner ID of the RSS feed
+	 *
+	 * @return int
+	 */
 	public function getOwnerId() {
 		return $this->owner_id;
 	}
 	
+	/**
+	 * Set the owner Id of the RSS feed, 0 = user global feed
+	 *
+	 * @param int $id
+	 */
 	public function setOwnerId($id) {
 		$this->owner_id = $id;
 	}
 	
+	/**
+	 * Get the name of the RSS feed
+	 *
+	 * @return string
+	 */
 	public function getName() {
 		return $this->name;
 	}
 	
+	/**
+	 * Set the name of the RSS feed
+	 *
+	 * @param string $name
+	 */
 	public function setName($name) {
 		$this->name = $name;
 	}
 	
+	/**
+	 * Get the RSS feed url
+	 *
+	 * @return string
+	 */
 	public function getFeedUrl() {
 		return $this->url;
 	}
 	
+	/**
+	 * Set the RSS feed url
+	 *
+	 * @param string $feedurl
+	 */
 	public function setFeedUrl($feedurl) {
 		$this->url = $feedurl;
 	}
 	
-	public function isAdult() {
-		return $this->isAdult;
+	/**
+	 * Check if the RSS feed points to adult content
+	 *
+	 * @return bool
+	 */
+	public function isAdultFeed() {
+		return $this->isXrated;
 	}
 	
+	/**
+	 * Set the RSS Feed as adult feed or not
+	 *
+	 * @param bool $bool
+	 */
+	public function setAdult($bool) {
+		$this->isXrated = (int)$bool;
+	}
+	
+	/**
+	 * Check if the feed belongs to another VCD-db web
+	 *
+	 * @return bool
+	 */
 	public function isVcddbFeed() {
 		return $this->isSitefeed;
+	}
+	
+	/**
+	 * Set the RSS feed as a VCD-db site feed
+	 *
+	 * @param bool $bSitefeed
+	 */
+	public function setAsSiteFeed($bSitefeed) {
+		$this->isSitefeed = (int)$bSitefeed;
 	}
 
 }
