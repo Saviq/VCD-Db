@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  H�kon Birgisson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @version $Id$
  */
 ?>
@@ -36,8 +36,10 @@ if (isset($_GET['searchstring']) && isset($_GET['by'])) {
 	<meta http-equiv="Content-Type" content="text/html; charset=<?= VCDUtils::getCharSet()?>"/>
 	<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" /> 
 	<link rel="stylesheet" type="text/css" href="<?= VCDUtils::getStyle()?>" media="screen, projection"/>
-	<?= VCDUtils::getAlternateLink() ?>
+	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
+	<?= VCDUtils::getAlternateLink() ?>
+	
 </head>
 <body>
 
@@ -58,7 +60,6 @@ if (isset($_GET['searchstring']) && isset($_GET['by'])) {
 
 <!-- Right Sidebar starts -->
 <? 
-//require_once('modules/sidebar_right.php') ;
 if (!$showright) {	hidelayer("right"); }
 ?>
 <!-- Right Sidebar ends -->
