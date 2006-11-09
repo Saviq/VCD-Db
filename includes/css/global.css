@@ -1,9 +1,8 @@
 #lang {
-	position: relative;
-	color: White;
-	z-index: 1;
-	bottom: 22px;
-	left: 108px;
+	position: absolute;
+	top: 74px;
+	left: 729px;
+   color: White;
 }
 
 #lang .inp {
