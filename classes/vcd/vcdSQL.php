@@ -1244,6 +1244,17 @@ class vcdSQL {
 			break;
 
 		}
+		
+		
+		// Transform the queries with LOWER() if postgres ..
+		if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) { 
+			$arrFields = array('v.title', 'i.title', 'i.alt_title1', 'i.alt_title2', 'i.fcast','p.name', 'i.director', $this->db->Quote($keyword));
+			//  create the replacement array ..
+			$arrLower = array();
+			for ($i=0;$i<sizeof($arrFields);$i++) { $arrLower[$i] = "lower(".$arrFields[$i].")"; }
+			$query = str_replace($arrFields, $arrLower, $query);
+		}
+		
 
 		$rs = $this->db->Execute($query);
 		$arrVcdObj = array();
@@ -1375,6 +1386,17 @@ class vcdSQL {
 	
 		$query .= " ORDER BY v.title";
 
+		
+		// Transform the queries with LOWER() if postgres ..
+		if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) { 
+			$arrFields = array('v.title', 'c.comment', $this->db->qstr($title));
+			//  create the replacement array ..
+			$arrLower = array();
+			for ($i=0;$i<sizeof($arrFields);$i++) { $arrLower[$i] = "lower(".$arrFields[$i].")"; }
+			$query = str_replace($arrFields, $arrLower, $query);
+		}
+		
+		
 		$results = array();
 
 
