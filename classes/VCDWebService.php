@@ -253,15 +253,6 @@ class VCDWebService {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public static function getMovieById($movie_id) {
 		try {
 	
@@ -347,7 +338,7 @@ class VCDWebService {
 			}
 			
 		} catch (Exception $ex) {
-			throw new soap_fault($ex->getMessage());
+			return new soap_fault($ex->getMessage());
 		}
 	}
 	
