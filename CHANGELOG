@@ -20,6 +20,7 @@ Changed - Added new Role for adult users and increased isolation of adult conten
 Updated - The advanced search now also seached within user comments on movies.
 Fixed   - Fixed some glitches in the XML importer.
 Updated - Updated the imagepaths in the DVDEmpire fetch class after they changed their image server.
+Fixed   - The search now works using Postgres without using CaseSens (thanks Cirdan)
 
 0.983
 Added	- All lang files now in UTF-8 - a fully international character encoding.
