@@ -221,6 +221,23 @@
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'NFOrce.nl - VCD', 'http://nforce.nl/rss/rss_14.xml', '0', '0')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'NFOrce.nl - XviD', 'http://nforce.nl/rss/rss_13.xml', '0', '0')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'NFOrce.nl - XXX', 'http://nforce.nl/rss/rss_17.xml', '0', '0')</query>
+		
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - VCD', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=1', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - SVCD', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=2', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - XXX', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=3', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - TVRips', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=4', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - DivX/Xvid', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=5', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'VCDQuality.com - DVDR', 'http://www.vcdquality.com/lastx.php?type=4&amp;num=10&amp;genre=6', '0', '0')</query>
+		
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net', 'http://rss.swecheck.net/', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - DVDR', 'http://rss.swecheck.net/?s=dvd-r', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - VCD', 'http://rss.swecheck.net/?s=vcd', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - SVCD', 'http://rss.swecheck.net/?s=svcd', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - TV', 'http://rss.swecheck.net/?s=tv', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - XXX', 'http://rss.swecheck.net/?s=xxx', '0', '0')</query>
+		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'SweCheck.net - DivX', 'http://rss.swecheck.net/?s=divx', '0', '0')</query>
+		
+		
 				
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'Rotten Tomatoes - In Theaters', 'http://i.rottentomatoes.com/syndication/rss/in_theaters.xml', '0', '0')</query>
 		<query>INSERT INTO vcd_RssFeeds (user_id, feed_name, feed_url, isAdult, isSite) VALUES (0, 'Rotten Tomatoes - Top Movies', 'http://i.rottentomatoes.com/syndication/rss/top_movies.xml', '0', '0')</query>
