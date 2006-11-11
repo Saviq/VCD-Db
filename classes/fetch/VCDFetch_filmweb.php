@@ -20,7 +20,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected $regexArray = array(
 	'title'		=> '#div id=\"filmTitle\">([^<]+)<#',
 	'org_title' => '#<span class=\"otherTitle\">([^<]+)</span>#',
-	'alt_title' => '#<span class=\"otherTitle\">[^(]+\(AKA [^)]+\)#',
+	'alt_title' => '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
@@ -53,7 +53,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function showSearchResults() {
-		$regx = "#<a title='(?P<title>[^(/]*)(/ (?P<org_title>[^(]+)|\(AKA (?P<aka>[^)]+)\)| \((?P<year>[0-9]{4})\)| \((?P<info>[a-z.]+)\))*'\s*href=\"http://(www.filmweb.pl/Film\?id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl)\">#";
+		$regx = "#<a title='(?P<title>([^(/]|\(I+\))*)(/ (?P<org_title>([^(/]|\(I+\))+)|\(AKA (?P<aka>([^(/]|\(I+\))+)\)| \((?P<year>[0-9]{4})\)| \((?P<info>[a-z.]+)\))*'\s*href=\"http://(www.filmweb.pl/Film\?id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl)\">#";
 		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
 		$results = array();
 		foreach($searchArr as $searchItem) {
@@ -109,7 +109,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 				case 'org_title':
 					if(!ereg("^\([0-9]{4}\)$", trim($arrData[1]))) {
-						$org_title = VCDUtils::titleFormat($arrData[1]);
+						$org_title = VCDUtils::titleFormat($arrData[2]);
 						$obj->setAltTitle($org_title);
 					}
 					break;
@@ -148,8 +148,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'rating':
-					$rating = $arrData[1].$arrData[2];
-					$rating = $rating/100;
+					$rating = $arrData[1].".".$arrData[2];
 					$obj->setRating($rating);
 					break;
 
@@ -168,11 +167,6 @@ class VCDFetch_filmweb extends VCDFetch {
 				case 'runtime':
 					$runtime = $arrData[1];
 					$obj->setRuntime($runtime);
-					break;
-
-				case 'akas':
-					$akaTitles = implode(',', $arrData);
-					$obj->setAltTitle($akaTitles);
 					break;
 
 				case 'plot':
