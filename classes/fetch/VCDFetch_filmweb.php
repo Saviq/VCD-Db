@@ -19,8 +19,8 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
 	'title'		=> '#div id=\"filmTitle\">([^<]+)<#',
-	'org_title' => '#<span class=\"otherTitle\">([^<]+)</span>#',
-	'alt_title' => '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
+	'org_title'	=> '#<span class=\"otherTitle\">([^<]+)</span>#',
+	'alt_title'	=> '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
@@ -109,7 +109,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 				case 'org_title':
 					if(!ereg("^\([0-9]{4}\)$", trim($arrData[1]))) {
-						$org_title = VCDUtils::titleFormat($arrData[2]);
+						$org_title = VCDUtils::titleFormat($arrData[1]);
 						$obj->setAltTitle($org_title);
 					}
 					break;
