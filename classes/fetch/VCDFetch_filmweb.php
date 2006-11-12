@@ -108,7 +108,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'org_title':
-					if(!ereg("^\([0-9]{4}\)$", trim($arrData[1]))) {
+					if(!ereg("^\([0-9]{4}\)$", trim($arrData[1])) && !ereg("^\(AKA", trim($arrData[1]))) {
 						$org_title = VCDUtils::titleFormat($arrData[1]);
 						$obj->setAltTitle($org_title);
 					}
