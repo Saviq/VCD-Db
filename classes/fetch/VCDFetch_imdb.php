@@ -57,7 +57,7 @@ class VCDFetch_imdb extends VCDFetch {
 	public function showSearchResults() {
 
 		$this->setMaxSearchResults(50);
-		$regx = '<a href=\"\/title\/tt([0-9]+)\/([^\<]*)\">([^\<]*)</a>[^(]*\(([0-9]{4})\)';
+		$regx = '<a href=\"\/title\/tt([0-9]+)\/([^\<]*)\">([^\<]*)</a>[^(]*\(([0-9]{4}(/I+)?)\)';
 		$results = parent::generateSimpleSearchResults($regx, 1, 3, 4);
 		parent::generateSearchSelection($results);
 	}
