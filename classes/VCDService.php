@@ -16,21 +16,26 @@
 ?>
 <?php
 
-
-
-class VCDServices {
-
+class UserServices extends VCDServices implements IUser {
 	
-	private static $_Movie;
-	private static $_User;
-	private static $_Pornstar;
-	private static $_Cdcover;
-	private static $_Settings;
+		
 	
-	/* 
-		Movie Services
 	
-	*/
+}
+
+class SettingsServices extends VCDServices implements ISettings {
+	
+}
+
+class CoverServices extends VCDServices implements ICdcover {
+	
+}
+
+class PornstarServices extends VCDServices implements IPornstar {
+	
+}
+
+class MovieServices extends VCDServices implements IVcd {
 	
 	/**
 	 * Get movie by ID
@@ -38,32 +43,68 @@ class VCDServices {
 	 * @param int $movie_id
 	 * @return vcdObj
 	 */
-	public static function Movie_GetVCDById($movie_id) {
+	public static function GetVCDById($movie_id) {
 		try {
+			
 			return self::Movie()->getVcdByID($movie_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
-		
 	}
 	
-	
+}
+
+
+class VCDServices {
 	
 	/**
 	 * Get an instantce of the vcd_movie class
 	 *
 	 * @return vcd_movie
 	 */
-	private static function Movie() {
-		if (self::$_Movie instanceof vcd_movie ) {
-			return self::$_Movie;
-		} else {
-			self::$_Movie = VCDClassFactory::getInstance('vcd_movie');
-			return self::$_Movie;
-		}
+	protected static function Movie() {
+		return VCDClassFactory::getInstance('vcd_movie');
 	}
 
-
+	/**
+	 * Get an instance of the vcd_user class
+	 *
+	 * @return vcd_user
+	 */
+	protected static function User() {
+		return VCDClassFactory::getInstance('vcd_user');
+	}
+	
+	/**
+	 * Get an instance of the vcd_pornstar class
+	 *
+	 * @return vcd_pornstar
+	 */
+	protected static function Pornstar() {
+		return VCDClassFactory::getInstance('vcd_pornstar');
+	}
+	
+	/**
+	 * Get an instance of the CDcover class
+	 *
+	 * @return vcd_cdcover
+	 */
+	protected static function CDcover() {
+		return VCDClassFactory::getInstance('vcd_cdcover');
+	}
+	
+	/**
+	 * Get an instance of the vcd_settings class
+	 *
+	 * @return vcd_settings
+	 */
+	protected static function Settings() {
+		return VCDClassFactory::getInstance('vcd_settings');
+	}
 }
+
+
+
 
 ?>
