@@ -92,6 +92,7 @@ class VCDFetch_yahoo extends VCDFetch {
 
 				case 'runtime':
 					$runtime = $arrData[2];
+
 					if (!is_numeric($runtime)) {
 						$regex = "([0-9]{1}) ([^<]*) ([0-9]{1,2}) min.";
 						if(@eregi($regex, $runtime, $retval)) {
@@ -102,10 +103,19 @@ class VCDFetch_yahoo extends VCDFetch {
 									$runtime = ($hours*60) + $minutes;
 									$obj->setRuntime($runtime);
 								}
+							} 
+						} else {
+							$regex = "([0-9]{1,3}) min.";
+							if(@eregi($regex, $runtime, $retval)) {
+								if (sizeof($retval) == 2) {
+									$obj->setRuntime($retval[1]);
+								}
 							}
 						}
+					} else {
+						$obj->setRuntime($runtime);	
 					}
-					$obj->setRuntime($runtime);
+			
 
 					break;
 
@@ -206,7 +216,8 @@ class VCDFetch_yahoo extends VCDFetch {
 				$referer = "http://".$this->servername.str_replace('[$]', $this->getItemID(), $this->itempath);
 
 				// Set the regx
-				$regx = '&cf=gen">([^"]+)</a></font></td>([^\s])<td><font face=arial size=-1>([^"]+)</font>';
+				$regx = '>([^"]+)</a></font></td>([^\s])<td><font face=arial size=-1>([^"]+)</font>';
+				
 
 				$isActors =  $this->fetchPage($this->servername, $actorurl, $referer);
 				if ($isActors) {
