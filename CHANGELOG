@@ -1,3 +1,6 @@
+0.985
+Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
+
 0.984
 Added   - New fetch class, bushdvd.com (by request)
 Fixed   - Updateded the DVDEmpire class to handle the images urls on their servers.
