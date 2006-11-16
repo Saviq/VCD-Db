@@ -16,26 +16,269 @@
 ?>
 <?php
 
-class UserServices extends VCDServices implements IUser {
+class UserServices extends VCDServices {
 	
-		
+	/* Users */
+	/**
+	 * Get user By ID
+	 *
+	 * @param int $user_id
+	 * @return userObj
+	 */
+	public static function getUserByID($user_id) {
+		try {
+			
+			return self::User()->getUserByID($user_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function updateUser(userObj $userObj) {
+		try {
+			
+			return self::User()->updateUser($userObj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function deleteUser($user_id, $erase_data = false) {
+		try {
+			
+			self::User()->deleteUser($user_id, $erase_data);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function addUser(userObj $userObj) {
+		try {
+			
+			return self::User()->addUser($userObj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getAllUsers() {
+		try {
+			
+			return self::User()->getAllUsers();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/* Specific users */
+	public static function getActiveUsers() {
+		try {
+			
+			return self::User()->getActiveUsers();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/* Login and session routines */
+	public static function getUserByUsername($user_name) {
+		try {
+			
+			return self::User()->getUserByUsername($user_name);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function addSession($session_id, $user_id) {
+		try {
+			
+			self::User()->addSession($session_id, $user_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function isValidSession($session_id, $session_time, $user_id) {
+		try {
+			
+			return self::User()->isValidSession($session_id, $session_time, $user_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+			
+	/* Roles / Groups */
+	public static function getAllUserRoles() {
+		try {
+			
+			return self::User()->getAllUserRoles();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getAllUsersInRole($role_id) {
+		try {
+			
+			return self::User()->getAllUsersInRole($role_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function addUserRole($userRoleObj) {
+		try {
+			
+			self::User()->addUserRole($userRoleObj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function deleteUserRole($role_id) {
+		try {
+			
+			return self::User()->deleteUserRole($role_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getDefaultRole() {
+		try {
+			
+			return self::User()->getDefaultRole();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function setDefaultRole($role_id) {
+		try {
+			
+			self::User()->setDefaultRole($role_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+
+	/* User Properties */
+	public static function getAllProperties() {
+		try {
+			
+			return self::User()->getAllProperties();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getPropertyById($property_id) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getPropertyByKey($property_key) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function addProperty($userPropertiesObj) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function deleteProperty($property_id) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function updateProperty($userPropertiesObj) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+			
+	/* Properties on user */
+	public static function addPropertyToUser($property_id, $user_id) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function deletePropertyOnUser($property_id, $user_id) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	public static function getAllUsersWithProperty($property_id) {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/* Misc user functions */
+	public static function getUserTopList() {
+		try {
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
 	
 	
 }
 
-class SettingsServices extends VCDServices implements ISettings {
+class SettingsServices extends VCDServices {
 	
 }
 
-class CoverServices extends VCDServices implements ICdcover {
+class CoverServices extends VCDServices {
 	
 }
 
-class PornstarServices extends VCDServices implements IPornstar {
+class PornstarServices extends VCDServices {
 	
 }
 
-class MovieServices extends VCDServices implements IVcd {
+class MovieServices extends VCDServices {
 	
 	/**
 	 * Get movie by ID
