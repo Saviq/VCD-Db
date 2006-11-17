@@ -16,6 +16,12 @@
 ?>
 <?php
 
+require_once(dirname(__FILE__) . '/settings/settingsFacade.php');
+require_once(dirname(__FILE__) . '/user/userFacade.php');
+require_once(dirname(__FILE__) . '/pornstar/pornstarFacade.php');
+require_once(dirname(__FILE__) . '/cdcover/cdcoverFacade.php');
+require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
+
 /**
  * Provide the Web UI access to the User Services.  All errors that occur beneath this layer
  * are catched here in and displayed in the Web UI.  Since the errors are re-thrown in the 
@@ -1387,133 +1393,266 @@ class SettingsServices extends VCDServices {
 	
 }
 
+/**
+ * Provide the Web UI access to the Cover Services.  All errors that occur beneath this layer
+ * are catched here in and displayed in the Web UI.  Since the errors are re-thrown in the 
+ * Cover business class, the webservices can now handle its own exception logic and deal with 
+ * Exceptions and throw them as soap_fault instead of getting prepared javascript messages 
+ * that were originally intended for the Web UI.
+ *
+ */
 class CoverServices extends VCDServices {
 	
 	// Deny instantiation of the class 
 	private function __construct() {}
 	
+	/**
+	 * Get all cover types in VCD-db, returns array of coverType objects
+	 *
+	 * @return array
+	 */
 	public static function getAllCoverTypes() {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function addCoverType($cdcoverTypeObj) {
-		try {
+			return self::CDcover()->getAllCoverTypes();
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Add a new coverType object
+	 *
+	 * @param cdcoverTypeObj $obj
+	 */
+	public static function addCoverType(cdcoverTypeObj $obj) {
+		try {
+			
+			self::CDcover()->addCoverType($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Delete a specific cover type object
+	 *
+	 * @param int $type_id | The ID of the cover type object to delete
+	 */
 	public static function deleteCoverType($type_id) {
 		try {
 			
+			self::CDcover()->deleteCoverType($type_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all coverTypes used by this specific movie, returns array of coverType objects
+	 *
+	 * @param int $mediatype_id | The mediaType ID of the movie
+	 * @return array
+	 */
 	public static function getAllCoverTypesForVcd($mediatype_id) {
 		try {
 			
+			return self::CDcover()->getAllCoverTypesForVcd($mediatype_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get coverType object by ID
+	 *
+	 * @param int $covertype_id | The ID of the coverType object
+	 * @return cdcoverTypeObj
+	 */
 	public static function getCoverTypeById($covertype_id) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function getCoverTypeByName($covertype_name) {
-		try {
+			return self::CDcover()->getCoverTypeById($covertype_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
-	public static function updateCoverType($cdcoverTypeObj) {
+	/**
+	 * Get coverType object by Name
+	 *
+	 * @param string $name | The name of the coverType object
+	 * @return cdcoverTypeObj
+	 */
+	public static function getCoverTypeByName($name) {
 		try {
+			
+			return self::CDcover()->getCoverTypeByName($name);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Update specific coverType object
+	 *
+	 * @param cdcoverTypeObj $obj
+	 */
+	public static function updateCoverType(cdcoverTypeObj $obj) {
+		try {
+			
+			self::CDcover()->updateCoverType($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * The a specific cover by ID
+	 *
+	 * @param int $cover_id | 
+	 * @return cdcoverObj
+	 */
 	public static function getCoverById($cover_id) {
 		try {
 			
+			return self::CDcover()->getCoverTypeById($cover_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all cover objects that belong to a specified movie, returns array of cdcover objects
+	 *
+	 * @param int $vcd_id | The ID of the movie that owns the covers
+	 * @return array
+	 */
 	public static function getAllCoversForVcd($vcd_id) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function addCover($cdcoverObj) {
-		try {
+			return self::CDcover()->getAllCoversForVcd($vcd_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Add a new cover to VCD-db
+	 *
+	 * @param cdcoverObj $obj
+	 */
+	public static function addCover(cdcoverObj $obj) {
+		try {
+			
+			self::CDcover()->addCover($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Delete a specific cover from VCD-db
+	 *
+	 * @param int $cover_id
+	 */
 	public static function deleteCover($cover_id) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function updateCover($cdcoverObj) {
-		try {
+			self::CDcover()->deleteCover($cover_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Update cover object
+	 *
+	 * @param cdcoverObj $obj
+	 */
+	public static function updateCover(cdcoverObj $obj) {
+		try {
+			
+			self::CDcover()->updateCover($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Get all cdcoverType objects associated with incoming mediaType objects.
+	 * Parameter should contain array of mediaType objects, 
+	 * returns an array of cdcoverType objects if none are found
+	 *
+	 * @param array $mediaTypeObjArr | Array of mediaType objects
+	 * @return array
+	 */
 	public static function getAllowedCoversForVcd($mediaTypeObjArr) {
 		try {
 			
+			return self::CDcover()->getAllowedCoversForVcd($mediaTypeObjArr);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	
+	/**
+	 * Assign a new coverType object to a specified mediaType.
+	 *
+	 * @param int $mediaTypeID | The media type ID to use for assignment
+	 * @param array $coverTypeIDArr | Array of integers representing coverType ID's
+	 */
 	public static function addCoverTypesToMedia($mediaTypeID, $coverTypeIDArr) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function getCDcoverTypesOnMediaType($mediaType_id) {
-		try {
+			self::CDcover()->addCoverTypesToMedia($mediaTypeID, $coverTypeIDArr);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get All coverType associated with the specified mediaType ID, returns array of cdcoverType objects.
+	 *
+	 * @param int $mediaType_id | The ID of the mediaType object
+	 * @return array
+	 */
+	public static function getCDcoverTypesOnMediaType($mediaType_id) {
+		try {
+			
+			return self::CDcover()->getCDcoverTypesOnMediaType($mediaType_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Get all thumbnails that the specified user has created in VCD-db, returns array of cdcover objects.
+	 * And the cdcover objects are all of type 'Thumbnail'
+	 *
+	 * @param int $user_id | The Owner ID of the thumbnails
+	 * @return array
+	 */
 	public static function getAllThumbnailsForXMLExport($user_id) {
 		try {
+			
+			return self::CDcover()->getAllThumbnailsForXMLExport($user_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -1521,11 +1660,24 @@ class CoverServices extends VCDServices {
 	}
 }
 
+/**
+ * Provide the Web UI access to the Pornstar Services.  All errors that occur beneath this layer
+ * are catched here in and displayed in the Web UI.  Since the errors are re-thrown in the 
+ * Pornstar business class, the webservices can now handle its own exception logic and deal with 
+ * Exceptions and throw them as soap_fault instead of getting prepared javascript messages 
+ * that were originally intended for the Web UI.
+ *
+ */
 class PornstarServices extends VCDServices {
 	
 	// Deny instantiation of the class 
 	private function __construct() {}
 	
+	/**
+	 * Get all pornstars in VCD-db, returns array of pornstar objects
+	 *
+	 * @return array
+	 */
 	public static function getAllPornstars() {
 		try {
 			
@@ -1536,6 +1688,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get a pornstar object by ID
+	 *
+	 * @param int $pornstar_id | The ID of the pornstar object
+	 * @return pornstarObj
+	 */
 	public static function getPornstarByID($pornstar_id) {
 		try {
 			
@@ -1546,6 +1704,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 		
+	/**
+	 * Get a pornstar object by the pornstar Name
+	 *
+	 * @param string $name | The Name of the pornstar
+	 * @return pornstarObj
+	 */
 	public static function getPornstarByName($name) {
 		try {
 			
@@ -1556,6 +1720,13 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get all pornstars that have been added to the cast list of a specific movie,
+	 * returns array of pornstar objects.
+	 *
+	 * @param int $movie_id | The ID of the movie
+	 * @return array
+	 */
 	public static function getPornstarsByMovieID($movie_id) {
 		try {
 			
@@ -1668,6 +1839,7 @@ class PornstarServices extends VCDServices {
 	/**
 	 * Get all adult studios.  Returns array of studio objects.
 	 *
+	 * @return array
 	 */
 	public static function getAllStudios() {
 		try {
@@ -1679,6 +1851,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get a specific studio object by ID.
+	 *
+	 * @param int $studio_id | The ID of the studio object
+	 * @return studioObj
+	 */
 	public static function getStudioByID($studio_id) {
 		try {
 			
@@ -1689,6 +1867,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get a specific studio object by studio name.
+	 *
+	 * @param string $studio_name | The name of the studio
+	 * @return studioObj
+	 */
 	public static function getStudioByName($studio_name) {
 		try {
 			
@@ -1699,6 +1883,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get the studio object that has been assigned to the specified movie.
+	 *
+	 * @param int $vcd_id | The ID of the movie to lookup.
+	 * @return studioObj
+	 */
 	public static function getStudioByMovieID($vcd_id) {
 		try {
 			
@@ -1709,6 +1899,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get a list of all the studios that are at least assigned to 1 movie.
+	 * Returns array of studio objects.
+	 *
+	 * @return array
+	 */
 	public static function getStudiosInUse() {
 		try {
 			
@@ -1719,6 +1915,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Assign movie to studio object.
+	 *
+	 * @param int $studio_id | The ID of the studio object
+	 * @param itn $vcd_id | The ID of the movie object.
+	 */
 	public static function addMovieToStudio($studio_id, $vcd_id) {
 		try {
 			
@@ -1729,6 +1931,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Remove studio assignment from a movie.
+	 *
+	 * @param int $vcd_id | The ID of the movie to release the studio assignment
+	 */
 	public static function deleteMovieFromStudio($vcd_id) {
 		try {
 			
@@ -1739,6 +1946,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Add new studio object to VCD-db
+	 *
+	 * @param studioObj $obj
+	 */
 	public static function addStudio(studioObj $obj) {
 		try {
 			
@@ -1749,6 +1961,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Delete a studio object from VCD-db
+	 *
+	 * @param int $studio_id | The ID of the studio object to delete
+	 */
 	public static function deleteStudio($studio_id) {
 		try {
 			
@@ -1759,7 +1976,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
-	/* Subcategories */
+	/**
+	 * Get all pornacategories, returns array of porncategory objects.
+	 *
+	 * @return array
+	 */
 	public static function getSubCategories() {
 		try {
 			
@@ -1770,6 +1991,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get a specific porncategory object by ID.
+	 *
+	 * @param int $category_id | The ID of the porncategory object
+	 * @return porncategoryObj
+	 */
 	public static function getSubCategoryByID($category_id) {
 		try {
 			
@@ -1780,6 +2007,13 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get all porncategories that have been assigned to a specific movie.
+	 * Returns array of porncategory objects.
+	 *
+	 * @param int $vcd_id | The ID of the movie to get the categories for
+	 * @return array
+	 */
 	public static function getSubCategoriesByMovieID($vcd_id) {
 		try {
 			
@@ -1790,6 +2024,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Get all porncategory objects that are at least used once by any movie.
+	 * Returns array of porncategory objects.
+	 *
+	 * @return array
+	 */
 	public static function getSubCategoriesInUse() {
 		try {
 			
@@ -1800,6 +2040,14 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Searches in the names for the current adult categories, if a name is found in the incoming list
+	 * the porncategory match is pushed to the result array.  The return array contains porncategory objects.
+	 * This function is mainly used by adult fetch-site scripts to verify the categories assign on the feched movie.
+	 *
+	 * @param array $arrCategoryNames | Array of category name to check
+	 * @return array
+	 */
 	public static function getValidCategories($arrCategoryNames) {
 		try {
 			
@@ -1810,6 +2058,12 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Assign movie to a specific adult category.
+	 *
+	 * @param int $vcd_id | The Movie ID
+	 * @param int $category_id | The ID of the adult category object
+	 */
 	public static function addCategoryToMovie($vcd_id, $category_id) {
 		try {
 			
@@ -1820,6 +2074,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Remove all adult categories from the specific movie object.
+	 *
+	 * @param int $vcd_id | The ID of the movie to release all adult category assignments.
+	 */
 	public static function deleteMovieFromCategories($vcd_id) {
 		try {
 			
@@ -1830,6 +2089,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Add new porncategory object to VCD-db
+	 *
+	 * @param porncategoryObj $obj
+	 */
 	public static function addAdultCategory(porncategoryObj $obj) {
 		try {
 			
@@ -1840,6 +2104,11 @@ class PornstarServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Delete a specific adult category object from VCD-db.
+	 *
+	 * @param int $category_id | The ID of the category object to delete.
+	 */
 	public static function deleteAdultCategory($category_id) {
 		try {
 			
@@ -1852,6 +2121,14 @@ class PornstarServices extends VCDServices {
 	
 }
 
+/**
+ * Provide the Web UI access to the Movie Services.  All errors that occur beneath this layer
+ * are catched here in and displayed in the Web UI.  Since the errors are re-thrown in the 
+ * Movie business class, the webservices can now handle its own exception logic and deal with 
+ * Exceptions and throw them as soap_fault instead of getting prepared javascript messages 
+ * that were originally intended for the Web UI.
+ *
+ */
 class MovieServices extends VCDServices {
 	
 	// Deny instantiation of the class 
@@ -1874,202 +2151,453 @@ class MovieServices extends VCDServices {
 	}
 	
 	
-	public static function addVcd(vcdObj $vcdObj) {
+	/**
+	 * Create a new movie object, returns the ID of the newly created movie object.
+	 *
+	 * @param vcdObj $obj
+	 * @return int
+	 */
+	public static function addVcd(vcdObj $obj) {
 		try {
+			
+			return self::Movie()->addVcd($obj);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
-	public static function updateVcd(vcdObj $vcdObj) {
+	/**
+	 * Update movie
+	 *
+	 * @param vcdObj $obj
+	 */
+	public static function updateVcd(vcdObj $obj) {
 		try {
+			
+			self::Movie()->updateVcd($obj);
+			
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Update instance of a movie object, updated the media type and the cd count.
+	 *
+	 * @param int $vcd_id | The ID of the vcd object
+	 * @param int $new_mediaid | The old media type object ID
+	 * @param int $old_mediaid | The new media type object ID
+	 * @param int $new_numcds | The new number of cd count
+	 * @param int $oldnumcds | The old number of cd count
+	 */
 	public static function updateVcdInstance($vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds) {
 		try {
 			
+			self::Movie()->updateVcdInstance($vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Remove user from the owner list of a specific movie.
+	 * If $mode is set to 'full' all records about that movie is deleted.
+	 * Should not be called unless the specified user_id is the only owner of the movie.  
+	 * If $mode is set to 'single', the record linking to the user is the only thing that will be deleted.  
+	 * Returns true on success otherwise false.
+	 *
+	 * @param int $vcd_id | The vcd object ID
+	 * @param int $media_id | The media type ID to remove
+	 * @param string $mode | can be 'full' or 'single'
+	 * @param int $user_id | The Owner ID of the vcd object
+	 * @return bool
+	 */
 	public static function deleteVcdFromUser($vcd_id, $media_id, $mode, $user_id = -1) {
 		try {
 			
+			return self::Movie()->deleteVcdFromUser($vcd_id, $media_id, $mode, $user_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all vcd objects that belong to a certain category ID.  The $start and $end are used as pager variables.
+	 * The $user_id param is optional. Returns array of vcd objects.
+	 *
+	 * @param int $category_id | The category ID to filter by
+	 * @param int $start | The start row of the recordset to get
+	 * @param int $end | The end row of the the recordset to get
+	 * @param int $user_id | Filter by specific owner ID
+	 * @return array
+	 */
 	public static function getVcdByCategory($category_id, $start=0, $end=0, $user_id = -1) {
 		try {
 			
+			return self::Movie()->getVcdByCategory($category_id, $start, $end, $user_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all vcd objects that belong to a certain category ID.  The $start and $end are used as pager variables.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $category_id | The category ID to filter by
+	 * @param int $start | The start row of the recordset to get
+	 * @param int $end | The end row of the the recordset to get
+	 * @param int $user_id | Filter by specific owner ID
+	 * @return array
+	 */
 	public static function getVcdByCategoryFiltered($category_id, $start=0, $end=0, $user_id) {
 		try {
 			
+			return self::Movie()->getVcdByCategoryFiltered($category_id, $start, $end, $user_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all vcd objects that belong to a specific owner ID.  Param $simple tells if the vcd object shall be fully populated.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $user_id | The Owner ID to get movies by
+	 * @param bool $simple | Get partially populated vcd objects or fully populated
+	 * @return array
+	 */
 	public static function getAllVcdByUserId($user_id, $simple = true) {
 		try {
 			
+			return self::Movie()->getAllVcdByUserId($user_id, $simple);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get list of users vcd objects, ordered by creation date DESC.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $user_id | The Owner ID of the vcd objects
+	 * @param int $count | Number of results to get
+	 * @param bool $simple | Get partially populated vcd objects or fully populated
+	 * @return array
+	 */
 	public static function getLatestVcdsByUserID($user_id, $count, $simple = true) {
 		try {
 			
+			return self::Movie()->getLatestVcdsByUserID($user_id, $count, $simple);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all vcd objects for lists creations.  Returns array of vcd objects.
+	 *
+	 * @param int $excluded_userid | The ID of the owner to exclude
+	 * @return array
+	 */
 	public static function getAllVcdForList($excluded_userid) {
 		try {
 			
+			return self::Movie()->getAllVcdForList($excluded_userid);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get specific movies by ID's.  Returns array of vcd objects.
+	 *
+	 * @param array $arrIDs | array of integers representing movie ID's
+	 * @return array
+	 */
 	public static function getVcdForListByIds($arrIDs) {
 		try {
 			
+			return self::Movie()->getVcdForListByIds($arrIDs);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Add a new instance of a vcd object to user.
+	 *
+	 * @param int $user_id | The User ID to link the movie to
+	 * @param int $vcd_id | The vcd object ID to link to user
+	 * @param int $mediatype | The ID of the mediaType object
+	 * @param int $cds | The number of CD's this copy uses
+	 */
 	public static function addVcdToUser($user_id, $vcd_id, $mediatype, $cds) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function getCategoryCount($category_id, $isAdult = false, $user_id = -1) {
-		try {
+			self::Movie()->addVcdToUser($user_id, $vcd_id, $mediatype, $cds);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get count of all vcd objects that belong to a specified category.
+	 * Returns the number of vcd objects that match the given criteria.
+	 *
+	 * @param int $category_id | The ID of the mediatype to filter by
+	 * @param int $user_id | The Owner ID
+	 * @return int
+	 */
+	public static function getCategoryCount($category_id, $user_id = -1) {
+		try {
+			
+			return self::Movie()->getCategoryCount($category_id, false, $user_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Get the number of movies for selected category after user filter has been applied.
+	 *
+	 * @param int $category_id | The ID of the mediatype to filter by
+	 * @param int $user_id | The Owner ID
+	 * @return int
+	 */
 	public static function getCategoryCountFiltered($category_id, $user_id) {
 		try {
 			
+			return self::Movie()->getCategoryCountFiltered($category_id, $user_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get the Top Ten list of latest movies.
+	 * $category_id can be used to filter results to specified category.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $category_id | The ID of the mediatype to filter by
+	 * @param array $arrFilter | array of category id's to exclude
+	 * @return array
+	 */
 	public static function getTopTenList($category_id = 0) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function search($keyword, $method) {
-		try {
+			return self::Movie()->getTopTenList($category_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Search the database. Returns array of vcd Objects.
+	 * Param $method defines the search type. Search type can be 'title', 'actor' or 'director'
+	 *
+	 * @param string $keyword | The keyword to search by
+	 * @param string $method | The search method to use can be one of the following [title, actor, director]
+	 * @return array
+	 */
+	public static function search($keyword, $method) {
+		try {
+			
+			return self::Movie()->search($keyword, $method);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Perform advanced search, where filters can be applied.  All params except $title are optional.
+	 * Returns array of vcd objects.
+	 *
+	 * @param string $title | The search keyword
+	 * @param int $category | The ID of the movieCategory object to filter by
+	 * @param int $year | The Year of production to filter by
+	 * @param int $mediatype | The ID of the mediaType object to filter by
+	 * @param int $owner | The Owner ID to filter by
+	 * @param float $imdbgrade | The minimum IMDB grade to use a filter
+	 * @return array
+	 */
 	public static function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
 								   $owner = null, $imdbgrade = null) {
 		try {
 			
+			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Perform a cross join of movies by the logged-in user and some other Owner ID.
+	 * Param $method represents the join action, returns array of vcd objects.
+	 * 1 = Movies I own but user not
+	 * 2 = Movies user owns but i dont
+	 * 3 = Movies we both own
+	 *
+	 * @param int $user_id | The Other Owner ID to perform cross join with
+	 * @param int $media_id | The mediatype ID to limit results by
+	 * @param int $category_id | The category type ID to limit results
+	 * @param int $method | The Join method to use, 1,2 or 3 []
+	 * @return array
+	 */
 	public static function crossJoin($user_id, $media_id, $category_id, $method) {
 		try {
 			
+			return self::Movie()->crossJoin($user_id, $category_id, $method);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+ 	 * Get all vcd objects by User ID for printview.
+	 * $list_type can be 'all', 'movies', 'tv', text or 'blue'
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $user_id | The Owner ID of the movie objects
+	 * @param string $list_type | The list type [all,movies,tv,text,blue]
+	 * @return array
+	 */
 	public static function getPrintViewList($user_id, $list_type) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function getRandomMovie($category, $use_seenlist = false) {
-		try {
+			return self::Movie()->getPrintViewList($user_id, $list_type);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Find a random vcd object, params $category_id and $use_seenlist are optional.
+	 *
+	 * @param int $category_id | The movie category ID to limit results by
+	 * @param bool $use_seenlist | Filter search result only to unseen movies.
+	 * @return vcdObj
+	 */
+	public static function getRandomMovie($category_id, $use_seenlist = false) {
+		try {
+			
+			return self::Movie()->getRandomMovie($category_id, $use_seenlist);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Get similiar movies as an array of vcd objects.
+	 * Movies in same category as the one specified in the $vcd_id param will be returned.
+	 *
+	 * @param int $vcd_id | The ID of the vcd object to search by
+	 * @return array
+	 */
 	public static function getSimilarMovies($vcd_id) {
 		try {
 			
+			return self::Movie()->getSimilarMovies($vcd_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get the number of movies that user owns
+	 *
+	 * @param itn $user_id | The Owner ID to seek by
+	 * @return int
+	 */
 	public static function getMovieCount($user_id) {
 		try {
 			
+			return self::Movie()->getMovieCount($user_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
-	/* Adult VCD functions */
+	/**
+	 * Get vcd objects that are marked adult, and that are in a specific adult category.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $category_id | The ID of the porncategory object to filter by
+	 * @return array
+	 */
 	public static function getVcdByAdultCategory($category_id) {
 		try {
 			
+			return self::Movie()->getVcdByAdultCategory($category_id);
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Get all vcd objects that are linked to a specific adult studio.
+	 * Returns array of vcd objects.
+	 *
+	 * @param int $studio_id | The ID of the studio object to filter by
+	 * @return array
+	 */
 	public static function getVcdByAdultStudio($studio_id) {
 		try {
 			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
-	
-	public static function markVcdWithScreenshots($vcd_id) {
-		try {
+			return self::Movie()->getVcdByAdultStudio($studio_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * Set the screenshot flag on a specified movie object.
+	 *
+	 * @param int $vcd_id | The ID of the vcd object
+	 */
+	public static function markVcdWithScreenshots($vcd_id) {
+		try {
+			
+			self::Movie()->markVcdWithScreenshots($vcd_id);;
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Check if the movie has some screenshots.  Returns true if screenshots exist, otherwise false.
+	 *
+	 * @param int $vcd_id | The ID of the movie object
+	 * @return bool
+	 */
 	public static function getScreenshots($vcd_id) {
 		try {
+			
+			return self::Movie()->getScreenshots($vcd_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -2130,8 +2658,5 @@ abstract class VCDServices {
 		return VCDClassFactory::getInstance('vcd_settings');
 	}
 }
-
-
-
 
 ?>
