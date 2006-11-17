@@ -15,7 +15,7 @@
 ?>
 <?php
 	// Define the current VCD-db version revision
-	define("VCDDB_VERSION","0.984");
+	define("VCDDB_VERSION","0.985-CVS");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
 	if (file_exists(VCDDB_BASE.'/config.php')) {
 		require_once(VCDDB_BASE.'/config.php');
@@ -31,6 +31,7 @@
 	require_once(dirname(__FILE__) . '/Connection.php');
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
+	require_once(dirname(__FILE__) . '/VCDService.php');
 	
 	/* External Libraries */
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');
@@ -39,20 +40,7 @@
 	require_once(dirname(__FILE__) . '/external/lastRSS.php');
 	include_once(dirname(__FILE__) . '/external/Image_Toolbox.class.php');
 	
-	/* Settings */
-	require_once(dirname(__FILE__) . '/settings/settingsFacade.php');
-
-	/* User */
-	require_once(dirname(__FILE__) . '/user/userFacade.php');
-
-	/* Pornstars */
-	require_once(dirname(__FILE__) . '/pornstar/pornstarFacade.php');
-
-	/* CDCovers && Image inserts*/
-	require_once(dirname(__FILE__) . '/cdcover/cdcoverFacade.php');
-
-	/* VCD movies */
-	require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
+	
 
 	/* Common Functions*/
 	require_once(VCDDB_BASE . '/functions/WebFunctions.php');
