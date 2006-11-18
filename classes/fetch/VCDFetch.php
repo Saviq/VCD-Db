@@ -277,8 +277,8 @@ abstract class VCDFetch {
 		}
 
 		$arrSearchResults = array();
-		
-		
+
+
 		for ($i = 0; $i < sizeof($results); $i++) {
 			if ($i > $this->searchMaxResults) { break; }
 
@@ -288,8 +288,8 @@ abstract class VCDFetch {
 			} else {
 				array_push($arrSearchResults, array('id' => $searchItem[$indexId], 'title' => strip_tags($searchItem[$indexTitle]), 'year' => $searchItem[$indexYear]));
 			}
-			
-			
+
+
 		}
 
 		return $arrSearchResults;
@@ -431,7 +431,7 @@ abstract class VCDFetch {
 			$this->writeToCache($url);
 		}
 
-		if (ereg('"text/html;charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
+		if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
 
 		return $results;
 
@@ -439,7 +439,7 @@ abstract class VCDFetch {
 	}
 
 	/**
-	 * This one allows forced direct match through special search phrase. 
+	 * This one allows forced direct match through special search phrase.
 	 *
 	 * @param int $url
 	 */
@@ -652,7 +652,7 @@ abstract class VCDFetch {
 		$this->isAdult = true;
 	}
 
-	
+
 	/**
 	 * Check if a remote file/image exists on the remote server.
 	 *
@@ -666,8 +666,8 @@ abstract class VCDFetch {
  		fclose($handle);
  		return true;
 	}
-	
-	
+
+
 
 	/**
 	 *
@@ -693,7 +693,7 @@ abstract class VCDFetch {
 		if(file_exists($cacheFileName)) {
 			$this->isCached = true;
 			$site = implode("", file($cacheFileName));
-			if (ereg('"text/html;charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) return(iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site));
+			if (ereg('"text/html; *charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) return(iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site));
 			else return($site);
 		} else {
 			return null;
