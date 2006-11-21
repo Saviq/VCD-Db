@@ -45,10 +45,6 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function search($title) {
-		if(preg_match("/id:([0-9]+)/", $title, $id)) {
-			parent::setSearchRedirectUrl("http://".$this->servername.str_replace('[$]', $id[1], $this->itempath));
-			return(parent::SEARCH_EXACT);
-		}
 		return parent::search($title);
 	}
 
