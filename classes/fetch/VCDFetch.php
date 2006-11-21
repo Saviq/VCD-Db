@@ -439,15 +439,6 @@ abstract class VCDFetch {
 	}
 
 	/**
-	 * This one allows forced direct match through special search phrase.
-	 *
-	 * @param int $url
-	 */
-	protected function setSearchRedirectUrl($url) {
-		$this->searchRedirectUrl = $url;
-	}
-
-	/**
 	 * If search() returns SEARCH_EXACT, this function will return the url that was redirected to.
 	 *
 	 * @return string
