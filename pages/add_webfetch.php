@@ -46,9 +46,8 @@ if (strcmp($sTitle, "") != 0) {
 
 
 
-if (isset($_GET['fid']) || isset($_POST['fid'])) {
+if (isset($_GET['fid']) || !empty($_POST['fid'])) {
 	// Get specific movie ..
-
 	$id = empty($_GET['fid'])?$_POST['fid']:$_GET['fid'];
 	$fetchClass->fetchItemByID($id);
 	$fetchClass->fetchValues();
