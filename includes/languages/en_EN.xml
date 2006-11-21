@@ -231,6 +231,7 @@
 		<string id="addmovie.info">Select method to add a new movie</string>
 		<string id="addmovie.imdb">Fetch from Internet Movie Database</string>
 		<string id="addmovie.imdbtitle">Enter keywords to search by</string>
+		<string id="addmovie.id">or site's movie ID</string>
 		<string id="addmovie.manual">Enter data manually</string>
 		<string id="addmovie.listed">Add movies already listed</string>
 		<string id="addmovie.xml">Add movies from exported XML file</string>
