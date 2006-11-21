@@ -46,18 +46,18 @@ if (strcmp($sTitle, "") != 0) {
 
 
 
-if (isset($_GET['fid'])) {
+if (isset($_GET['fid']) || isset($_POST['fid'])) {
 	// Get specific movie ..
-	
-	$id = $_GET['fid'];
+
+	$id = empty($_GET['fid'])?$_POST['fid']:$_GET['fid'];
 	$fetchClass->fetchItemByID($id);
 	$fetchClass->fetchValues();
 	$obj = $fetchClass->getFetchedObject();
 	$obj->setSourceSite($sourceObj->getsiteID());
-		
+
 	displayFetchedObject($obj);
-	
-	
+
+
 } else {
 	// Display search results
 	$fetchResults =	$fetchClass->Search($sTitle);
@@ -68,7 +68,7 @@ if (isset($_GET['fid'])) {
 	 	$obj->setSourceSite($sourceObj->getsiteID());
 	 	displayFetchedObject($obj);
 	} else {
-	 	$fetchClass->showSearchResults();	
+	 	$fetchClass->showSearchResults();
 	}
 }
 
@@ -78,13 +78,13 @@ function displayFetchedObject($fetchedObj) {
 		if (!$fetchedObj instanceof fetchedObj ) {
 			throw new Exception("Invalid fetched object.");
 		}
-		
-		
+
+
 		// Generic Fetched Object actions ..
 		if (strcmp($fetchedObj->getImage(), "") != 0) {
 			$filename = VCDUtils::grabImage($fetchedObj->getImage());
 			// Check if we need to resize the thumbnail ..
-			list($width, $height) = getimagesize(TEMP_FOLDER.$filename); 
+			list($width, $height) = getimagesize(TEMP_FOLDER.$filename);
 			if ((int)$width > 135) {
 				// Image to big .. resize it
 				$im = new Image_Toolbox(TEMP_FOLDER.$filename);
@@ -93,33 +93,33 @@ function displayFetchedObject($fetchedObj) {
 				} else {
 					$im->newOutputSize(0,140);
 				}
-				
+
 				$newFilename ="x".$filename;
 				$im->save(TEMP_FOLDER.$newFilename, 'jpg');
 				unset($im);
 				fs_unlink($filename);
 				$filename = $newFilename;
 			}
-			
-			
-			$fetchedObj->setImage($filename);	
+
+
+			$fetchedObj->setImage($filename);
 		}
-		
+
 		// Store the fetchedObject in session for later usage
 		$_SESSION['_fetchedObj'] = $fetchedObj;
-		
-		
+
+
 		if ($fetchedObj instanceof imdbObj ) {
-			
+
 			require_once('pages/confirm_movie.php');
-				
+
 		} elseif ($fetchedObj instanceof adultObj ) {
-		
+
 			require_once('pages/confirm_adult.php');
-						
+
 		}
-		
-		
+
+
 	} catch (Exception $ex) {
 		VCDException::display($ex, true);
 	}
