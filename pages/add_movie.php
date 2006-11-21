@@ -9,7 +9,10 @@
 <table cellspacing="1" cellpadding="1" class="plain">
 <tr>
 	<td><?=VCDLanguage::translate('addmovie.imdbtitle')?>:</td>
-	<td><input type="text" name="searchTitle" class="input" size="15"/>&nbsp; <?= display_fetchsites();?>&nbsp; <input type="submit" value="<?=VCDLanguage::translate('search.search')?>" class="buttontext"/></td>
+	<td><input type="text" name="searchTitle" class="input" size="15"/></td><td rowspan="2">&nbsp; <?= display_fetchsites();?>&nbsp;<input type="submit" value="<?=VCDLanguage::translate('search.search')?>" class="buttontext"/></td>
+</tr>
+<tr>
+	<td><?=VCDLanguage::translate('addmovie.id')?>:</td><td><input type="text" name="fid" class="input" size="15"/></td>
 </tr>
 </table>
 </form>
@@ -34,7 +37,7 @@
 <tr>
 	<td colspan="2" valign="top">
 	<?=VCDLanguage::translate('addmovie.xmlnote')?>
-		
+
 	</td>
 </tr>
 </table>
