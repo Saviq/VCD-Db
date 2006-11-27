@@ -27,15 +27,15 @@ class vcd_movie implements IVcd  {
 	 * @var vcdSQL
 	 */
 	private $SQL;
-	
-	
+
+
 	/**
 	 * Legal search methods.
 	 *
 	 * @var array
 	 */
 	private $searchMethods = array('title', 'actor', 'director');
-	
+
 
 	public function __construct() {
 		$this->SQL = new vcdSQL();
@@ -317,13 +317,9 @@ class vcd_movie implements IVcd  {
 					throw new Exception('Could not add instance to user');
 				}
 
-
-				// Create temporary unique ID for the image
-				$image_name = VCDUtils::generateUniqueId();
-
 				// Add the IMDB information to the IMDB table
 				if ($vcdObj->getIMDB() instanceof imdbObj) {
-					
+
 					// Just to be sure .. check for existing IMDB entry
 					if ($this->SQL->checkIMDBDuplicate($vcdObj->getIMDB()->getIMDB()) == 0) {
 						if (!$this->SQL->addIMDBInfo($vcdObj->getIMDB())) {
@@ -331,7 +327,6 @@ class vcd_movie implements IVcd  {
 						}
 					}
 				}
-
 
 				// Add to movie to the source site linked table
 				if (is_numeric($vcdObj->getSourceSiteID()) && strlen($vcdObj->getExternalID()) > 0) {
@@ -342,65 +337,60 @@ class vcd_movie implements IVcd  {
 
 
 				/*
-					Process The thumbnail
-					Check if images should be stored in DB or on HD.
-					First, check if any thumbnail was added
+				Process The thumbnail
+				Check if images should be stored in DB or on HD.
+				First, check if any thumbnail was added
 				*/
 
-				$thumbnail = $vcdObj->getCover("thumbnail");
-				if ($thumbnail instanceof cdcoverObj ) {
-					// Ok thumbnail was added .. lets save the image
+				foreach ($vcdObj->getCovers() as $coverObj) {
+					if($coverObj instanceof cdcoverObj) {
+						$imgToDB = (bool)$SETTINGSClass->getSettingsByKey('DB_COVERS');
 
+						// Create temporary unique ID for the image
+						$image_name = VCDUtils::generateUniqueId();
 
-					$imgToDB = (bool)$SETTINGSClass->getSettingsByKey('DB_COVERS');
+						$coverObj->setOwnerId($vcdObj->getInsertValueUserID());
+						$coverObj->setVcdId($cd_id);
 
-					$thumbnail->setOwnerId($vcdObj->getInsertValueUserID());
-					$thumbnail->setVcdId($cd_id);
+						$filename = TEMP_FOLDER.$coverObj->getFilename();
+						$newname = $image_name . "." . VCDUtils::getFileExtension($coverObj->getFilename());
 
-					$filename = TEMP_FOLDER.$thumbnail->getFilename();
-					$newname = $image_name . "." . VCDUtils::getFileExtension($thumbnail->getFilename());
+						if ($imgToDB) { // Insert the image as a binary file to DB, it's still in the temp folder
+							$vcd_image = new VCDImage();
 
-					if ($imgToDB) {	// Insert the image as a binary file to DB, it's still in the temp folder
+							if (VCDUtils::getFileExtension($coverObj->getFilename()) == 'gif') {
+								$image_type = "gif";
+							} else {
+								$image_type = "pjpeg";
+							}
 
-						$vcd_image = new VCDImage();
-						if (VCDUtils::getFileExtension($thumbnail->getFilename()) == 'gif') {
-							$image_type = "gif";
+							// Use File info
+							$arrFileInfo = array("name" => "".$newname."", "type" => "image/".$image_type."");
+
+							$image_id = $vcd_image->addImageFromPath(TEMP_FOLDER.$coverObj->getFilename(), $arrFileInfo, true);
+							$coverObj->setFilesize($vcd_image->getFilesize());
+							// Set the DB imageID to the cover
+							$coverObj->setImageID($image_id);
+							$coverObj->setFilename($newname);
 						} else {
-							$image_type = "pjpeg";
+							// rename the image and move it to the thumbnail upload folder
+							if (fs_file_exists($filename)) {
+
+								$coverObj->setFilesize(fs_filesize($filename));
+								if (strcmp($coverObj->getCoverTypeName(), "thumbnail") == 0) fs_rename($filename, THUMBNAIL_PATH . $newname);
+								else fs_rename($filename, COVER_PATH . $newname);
+								$coverObj->setFilename($newname);
+
+							} else {
+								throw new Exception("Trying to move an image that does not exist!");
+							}
+
 						}
-
-						// Use File info
-						$arrFileInfo = array("name" => "".$newname."", "type" => "image/".$image_type."");
-
-						$image_id = $vcd_image->addImageFromPath(TEMP_FOLDER.$thumbnail->getFilename(), $arrFileInfo, true);
-						$thumbnail->setFilesize($vcd_image->getFilesize());
-						// Set the DB imageID to the cover
-						$thumbnail->setImageID($image_id);
-						$thumbnail->setFilename($newname);
-
-
-					} else {
-
-
-						// rename the image and move it to the thumbnail upload folder
-						if (fs_file_exists($filename)) {
-
-							$thumbnail->setFilesize(fs_filesize($filename));
-							fs_rename($filename, THUMBNAIL_PATH . $newname);
-							$thumbnail->setFilename($newname);
-
-						} else {
-							throw new Exception("Trying to move an image that does not exist!");
-						}
-
 					}
-
 
 					// Finally add the CDCover Obj to the DB
 					$vcdCover = VCDClassFactory::getInstance("vcd_cdcover");
-					$vcdCover->addCover($thumbnail);
-
-
+					$vcdCover->addCover($coverObj);
 				}
 
 
@@ -409,11 +399,6 @@ class vcd_movie implements IVcd  {
 				if ($vcdObj->isAdult()) {
 					$this->handleAdultVcd($vcdObj);
 				}
-
-
-
-
-
 			} else {
 				// CD exist, we only have to add our instance in the db
 
@@ -436,7 +421,7 @@ class vcd_movie implements IVcd  {
 
 			}
 
-			
+
 			// Add comments to the movie if any
 			if (is_array($vcdObj->getComments()) && sizeof($vcdObj->getComments()) > 0) {
 				foreach ($vcdObj->getComments() as $commentObj) {
@@ -444,7 +429,7 @@ class vcd_movie implements IVcd  {
 					$SETTINGSClass->addComment($commentObj);
 				}
 			}
-			
+
 			// Add metadata to the movie if any
 			if (is_array($vcdObj->getMetaData()) && sizeof($vcdObj->getMetaData()) > 0) {
 				// Get metadataObjects created by user if any ..
@@ -472,12 +457,12 @@ class vcd_movie implements IVcd  {
 							// Update the internal $arrUserMeta stack
 							$arrUserMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
 						}
-					} 
-					
+					}
+
 					$SETTINGSClass->addMetadata($metadataObj, true);
 				}
 			}
-			
+
 
 			// Check if people wan't to be notified of the new entry
 			if ($notify) {
@@ -614,9 +599,9 @@ class vcd_movie implements IVcd  {
 					}
 
 
-						// Finally add the CDCover Obj to the DB
-						$vcdCover->addCover($cdcoverObj);
-					}
+					// Finally add the CDCover Obj to the DB
+					$vcdCover->addCover($cdcoverObj);
+				}
 			}
 
 		} catch (Exception $e) {
@@ -766,15 +751,15 @@ class vcd_movie implements IVcd  {
 	 */
 	public function updateVcdInstance($vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds) {
 		try {
-				if (is_numeric($vcd_id) && is_numeric($new_mediaid) && is_numeric($old_mediaid) &&
-				    is_numeric($new_numcds) && is_numeric($oldnumcds)) {
+			if (is_numeric($vcd_id) && is_numeric($new_mediaid) && is_numeric($old_mediaid) &&
+			is_numeric($new_numcds) && is_numeric($oldnumcds)) {
 
-				    	$user_id = VCDUtils::getUserID();
-				    	$this->SQL->updateVcdInstance($user_id, $vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
+				$user_id = VCDUtils::getUserID();
+				$this->SQL->updateVcdInstance($user_id, $vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
 
-				} else {
-					throw new Exception("Invalid parameters");
-				}
+			} else {
+				throw new Exception("Invalid parameters");
+			}
 
 		} catch (Exception $e) {
 			VCDException::display($e);
@@ -933,7 +918,7 @@ class vcd_movie implements IVcd  {
 	 */
 	public function getCategoryCountFiltered($category_id, $user_id) {
 		try {
-		// Get the ignore list.
+			// Get the ignore list.
 			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
 			$ignorelist = split("#", $metaArr[0]->getMetadataValue());
@@ -1213,14 +1198,14 @@ class vcd_movie implements IVcd  {
 	 */
 	public function search($keyword, $method) {
 		try {
-			
-			
+
+
 			// Check that the search method is legal
 			if (!in_array($method, $this->searchMethods)) {
 				$method = $this->searchMethods[0];
 			}
-			
-			
+
+
 			// are adult categories in use ? and if so does user want to see them ?
 			$showadult = VCDUtils::showAdultContent();
 
@@ -1267,7 +1252,7 @@ class vcd_movie implements IVcd  {
 	 * @return array
 	 */
 	public function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
-									   $owner = null, $imdbgrade = null) {
+	$owner = null, $imdbgrade = null) {
 		try {
 
 
@@ -1444,32 +1429,32 @@ class vcd_movie implements IVcd  {
 			VCDException::display($e);
 		}
 	}
-	
+
 	/**
-	 * Add Default DVD Settings if they are defined and if the selected mediaType 
+	 * Add Default DVD Settings if they are defined and if the selected mediaType
 	 * is a DVD or a child of the DVD mediatype object.
 	 *
 	 * @param vcdObj $obj
 	 */
 	public function addDefaultDVDSettings(vcdObj &$obj) {
 		try {
-			
+
 			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 			$mediaTypeID = $obj->getInsertValueMediaTypeID();
-			
-			
+
+
 			$dvdTypeObj = $SETTINGSClass->getMediaTypeByName('DVD');
 			$dvdrTypeObj = $SETTINGSClass->getMediaTypeByName('DVD-R');
-			
+
 			if (is_numeric($mediaTypeID)) {
-				
-				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID() 
-						|| $mediaTypeID == $dvdrTypeObj->getmediaTypeID() || $mediaTypeID == $dvdrTypeObj->getParentID()) {
-					// Yeap .... DVD based type	
+
+				if ($mediaTypeID == $dvdTypeObj->getmediaTypeID() || $mediaTypeID == $dvdTypeObj->getParentID()
+				|| $mediaTypeID == $dvdrTypeObj->getmediaTypeID() || $mediaTypeID == $dvdrTypeObj->getParentID()) {
+					// Yeap .... DVD based type
 					$dmetaObj = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
 					if (is_array($dmetaObj) && sizeof($dmetaObj) == 1) {
 						$dvdSettings = unserialize($dmetaObj[0]->getMetadataValue());
-						if (is_array($dvdSettings)) { 
+						if (is_array($dvdSettings)) {
 							$metaObj = new metadataObj(array('', '', VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvdSettings['region']));
 							$metaObj->setMediaTypeID($mediaTypeID);
 							$obj->addMetaData($metaObj);
@@ -1490,10 +1475,10 @@ class vcd_movie implements IVcd  {
 				}
 			}
 
-			
+
 		} catch (Exception $ex) {
 			VCDException::display($ex);
-		}	
+		}
 	}
 
 
@@ -1536,7 +1521,7 @@ class vcd_movie implements IVcd  {
 			throw new VCDException($e);
 		}
 	}
-	
+
 
 }
 

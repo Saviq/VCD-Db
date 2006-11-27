@@ -102,9 +102,9 @@ switch ($form) {
 				$rssObj->setAsSiteFeed(false);
 				$SETTINGSClass->addRssfeed($rssObj);
 			}
-		
+
 			break;
-		
+
 	case 'addcomment':
 
 
@@ -196,7 +196,7 @@ switch ($form) {
 
 
 	case 'update_dvdsettings':
-	
+
 		$dvd['format'] = $_POST['format'];
 		$dvd['aspect'] = $_POST['aspect'];
 		$dvd['region'] = $_POST['region'];
@@ -207,7 +207,7 @@ switch ($form) {
 				$dvdaudio = substr($dvd['audio'], 0, strlen($dvd['audio'])-1);
 				$dvd['audio'] = $dvdaudio;
 			}
-			
+
 		}
 		if (isset($_POST['dvdsubs'])) {
 			$dvdsubs = implode('#', array_unique(explode("#", $_POST['dvdsubs'])));
@@ -216,17 +216,17 @@ switch ($form) {
 				$dvdsubs = substr($dvd['subs'], 0, strlen($dvd['subs'])-1);
 				$dvd['subs'] = $dvdsubs;
 			}
-			
+
 		}
-		
+
 		$data = serialize($dvd);
 
 		$obj = new metadataObj(array('', 0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD , $data));
 		$SETTINGSClass->addMetaData($obj);
 		redirect('?page=private&o=settings#defaultdvd');
 		break;
-		
-		
+
+
 	case 'update_ignorelist':
 		if (isset($_POST['id_list'])) {
 			// Save the ignore list to database
@@ -238,7 +238,7 @@ switch ($form) {
 		break;
 
 	case 'addfromxml':
-		
+
 		$movie_titles = array();
 
 		try {
@@ -259,7 +259,7 @@ switch ($form) {
 
 		break;
 
-	
+
 	case 'add_manually':
 		// Create the basic CD obj
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
@@ -271,23 +271,23 @@ switch ($form) {
 		// Set the allowed extensions for the upload
 		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF);
 		$VCDUploader = new VCDFileUpload($arrExt);
-				
+
 		if ($VCDUploader->getFileCount() == 1) {
 			try {
-			
+
 				$fileObj = $VCDUploader->getFileAt(0);
-				
+
 				// Move the file to the TEMP Folder
 				$fileObj->move(TEMP_FOLDER);
 				// Get the full path including filename after it has been moved
 				$fileLocation = $fileObj->getFileLocation();
 				$fileExtension = $fileObj->getFileExtenstion();
-								
+
 	  	   		$im = new Image_Toolbox($fileLocation);
 				$im->newOutputSize(0,140);
 				$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
-				  	   		
-	
+
+
 			  	$cover = new cdcoverObj();
 				// Get a Thumbnail CoverTypeObj
 				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
@@ -296,13 +296,13 @@ switch ($form) {
 				$cover->setCoverTypeName("thumbnail");
 				$cover->setFilename($fileObj->getFileName());
 				$vcd->addCovers(array($cover));
-				
-				
+
+
 				// CleanUp
 				unset($im);
 				$fileObj->delete();
-				
-			
+
+
 			} catch (Exception $ex) {
 				VCDException::display($ex, true);
 				exit();
@@ -342,8 +342,8 @@ switch ($form) {
 
 		// Get the fetchedObj from session and unset it from session
 		$fetchedObj = $_SESSION['_fetchedObj'];
-		unset($_SESSION['_fetchedObj']);
-		
+//		unset($_SESSION['_fetchedObj']);
+
 		// Create the basic CD obj
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
 		$vcd = new vcdObj($basic);
@@ -369,23 +369,6 @@ switch ($form) {
 		// Add the imdbObj to the VCD
 		$vcd->setIMDB($obj);
 
-
-		// Add the thumbnail as a cover if any was found on IMDB
-		if (isset($_POST['image']) && strcmp($_POST['image'], "") != 0) {
-			$cover = new cdcoverObj();
-
-			// Get a Thumbnail CoverTypeObj
-			$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
-			$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
-			$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
-			$cover->setCoverTypeName("thumbnail");
-
-
-			$cover->setFilename($_POST['image']);
-			$vcd->addCovers(array($cover));
-		}
-
-
 		// Set the source site
 		$sourceSiteObj = $SETTINGSClass->getSourceSiteByID($fetchedObj->getSourceSiteID());
 		if ($sourceSiteObj instanceof sourceSiteObj ) {
@@ -393,16 +376,130 @@ switch ($form) {
 		}
 
 		// Set the default DVD Settings
-		$VCDClass->addDefaultDVDSettings($vcd);
-		
-		
+		// $VCDClass->addDefaultDVDSettings($vcd);
+
+		// Get a cover class working
+		$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
+
+		$coverArr = array();
+
+		// Add the thumbnail as a cover if any was found on IMDB
+		if (isset($_POST['image']) && strcmp($_POST['image'], "") != 0) {
+			$cover = new cdcoverObj();
+
+			// Get a Thumbnail CoverTypeObj
+			$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
+			$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
+			$cover->setCoverTypeName("thumbnail");
+			$cover->setFilename($_POST['image']);
+			$coverArr[] = $cover;
+		}
+
+		// Set allowed upload file types
+		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF,
+						VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
+		$VCDUploader = new VCDFileUpload($arrExt);
+
+		// Process uploaded files
+		if ($VCDUploader->getFileCount() > 0) {
+
+			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
+
+			for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
+
+				$fileObj = $VCDUploader->getFileAt($i);
+				$cover_typeid = $fileObj->getHTMLFieldName();
+
+		      		// Check if this uploaded file is a NFO file ..
+		      		$nfostart = "meta|nfo";
+		      		if (substr_count($cover_typeid, $nfostart) > 0)  {
+
+		      			// Yeap it's a NFO file
+	      				try {
+
+	      					// Keep the original filename and do not overwrite
+	      					$fileObj->setRandomFileName(false);
+	      					$fileObj->setOverWrite(false);
+
+		      				if (!$fileObj->move(NFO_PATH)) {
+		      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
+		      					$errors = true;
+		      				} else {
+		      					// Everything is OK ... add the metadata
+								$entry = explode("|", $cover_typeid);
+								$metadataName = $entry[1];
+								$metadatatype_id = $entry[2];
+								$mediatype_id = $entry[3];
+
+								// Create the MetadataObject
+								$obj = new metadataObj(array('', null, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
+								$obj->setMetaDataTypeID($metadatatype_id);
+								$obj->setMediaTypeID($mediatype_id);
+								// And add to the vcdObj
+								$vcd->addMetadata($obj);
+		      				}
+
+	      				} catch (Exception $ex) {
+	      					VCDException::display($ex,true);
+	      					exit();
+	      				}
+
+
+		      		} else {
+		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
+		      			try {
+		      				$fileObj->move(TEMP_FOLDER);
+		      			} catch (Exception $ex) {
+		      				VCDException::display($ex, true);
+		      				exit();
+		      			}
+						$cover = new cdcoverObj();
+			      		$cover->setCoverTypeID($cover_typeid);
+						$cover->setCoverTypeName($coverType->getCoverTypeName());
+						$cover->setFilename($fileObj->getFileName());
+			      		$coverArr[] = $cover;
+		      		}
+			}
+		}
+
+		$vcd->addCovers($coverArr);
+
+	    // Handle metadata
+	    $arrMetaData = array();
+		foreach ($_POST as $key => $value) {
+			if ((int)substr_count($key, 'meta') == 1) {
+		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
+		 	}
+		}
+
+		if (sizeof($arrMetaData) > 0) {
+			foreach ($arrMetaData as $itemArr) {
+				$key   = $itemArr['key'];
+				$value = is_array($itemArr['value'])?implode("#",$itemArr['value']):$itemArr['value'];
+				$entry = explode("|", $key);
+				$metadataName = $entry[1];
+				$metadatatype_id = $entry[2];
+				$mediatype_id = $entry[3];
+
+
+				// Skip empty metadata
+				if (strcmp($value, "") != 0 && strcmp($value, "null") != 0) {
+					$obj = new metadataObj(array('', null, VCDUtils::getUserID(), $metadataName, $value));
+					$obj->setMetaDataTypeID($metadatatype_id);
+					$obj->setMediaTypeID($mediatype_id);
+					$vcd->addMetadata($obj);
+				}
+
+			}
+			unset($arrMetaData);
+		}
+
 		// Forward the movie to the Business layer
 		try {
 			$new_id = $VCDClass->addVcd($vcd);
 		} catch (Exception $ex) {
 			VCDException::display($ex, true);
 		}
-
 
 		// Insert the user comments if any ..
 		if (isset($_POST['comment']) && (strlen($_POST['comment']) > 1)) {
@@ -414,7 +511,6 @@ switch ($form) {
 			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 			$SETTINGSClass->addComment($commObj);
 		}
-
 
 		if (is_numeric($new_id) && $new_id != -1) {
 			redirect("?page=cd&vcd_id=".$new_id."");
@@ -428,8 +524,8 @@ switch ($form) {
 			// Get the fetchedObj from session and unset it from session
 			$fetchedObj = $_SESSION['_fetchedObj'];
 			unset($_SESSION['_fetchedObj']);
-			
-			
+
+
 			// Create the basic CD obj
 			$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
 			$vcd = new vcdObj($basic);
@@ -584,7 +680,7 @@ switch ($form) {
 				$SETTINGSClass->addComment($commObj);
 			}
 
-			
+
 			if (is_numeric($new_id) && $new_id != -1) {
 				redirect("?page=cd&vcd_id=".$new_id."");
 			}
@@ -611,18 +707,18 @@ switch ($form) {
 			// Set the allowed extensions for the upload
 			$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF);
 			$VCDUploader = new VCDFileUpload($arrExt);
-					
+
 			if ($VCDUploader->getFileCount() == 1) {
 				try {
-				
+
 					$fileObj = $VCDUploader->getFileAt(0);
-					
+
 					// Move the file to the TEMP Folder
 					$fileObj->move(TEMP_FOLDER);
 					// Get the full path including filename after it has been moved
 					$fileLocation = $fileObj->getFileLocation();
 					$fileExtension = $fileObj->getFileExtenstion();
-									
+
 					// Check if image should be resized
 			      	if (isset($_POST['resize']) && $_POST['resize']) {
 			  	   		$im = new Image_Toolbox($fileLocation);
@@ -632,21 +728,21 @@ switch ($form) {
 			      	} else {
 			    		fs_rename($fileObj->getFileLocation(), PORNSTARIMAGE_PATH.$fileObj->getFileName());
 			      	}
-					
+
 			      	$pornstar->setImageName($fileObj->getFileName());
-			      	
+
 					// CleanUp
 					unset($im);
-					
-					
-				
+
+
+
 				} catch (Exception $ex) {
 					VCDException::display($ex, true);
 					exit();
 				}
 			}
 
-			      	   
+
 			$PORNClass->updatePornstar($pornstar);
 
 			if (isset($_POST['update'])) {
@@ -903,21 +999,21 @@ switch ($form) {
 		}
 
 
-		
-		
-		
-		
+
+
+
+
 		// Set the allowed extensions for the upload
-		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF, 
+		$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF,
 						VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
 		$VCDUploader = new VCDFileUpload($arrExt);
-				
+
 		if ($VCDUploader->getFileCount() > 0) {
-			
+
 			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 
 			for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
-			
+
 				$fileObj = $VCDUploader->getFileAt($i);
 				$cover_typeid = $fileObj->getHTMLFieldName();
 
@@ -927,11 +1023,11 @@ switch ($form) {
 
 		      			// Yeap it's a NFO file
 	      				try {
-	      					
+
 	      					// Keep the original filename and do not overwrite
 	      					$fileObj->setRandomFileName(false);
 	      					$fileObj->setOverWrite(false);
-	      							      					
+
 		      				if (!$fileObj->move(NFO_PATH)) {
 		      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
 		      					$errors = true;
@@ -950,12 +1046,12 @@ switch ($form) {
 								// And save to DB
 								$SETTINGSClass->addMetadata($obj, true);
 		      				}
-		      				
+
 	      				} catch (Exception $ex) {
 	      					VCDException::display($ex,true);
 	      					exit();
 	      				}
-			      				
+
 
 		      		} else {
 		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
@@ -966,18 +1062,18 @@ switch ($form) {
 		      				VCDException::display($ex, true);
 		      				exit();
 		      			}
-		      						      			
-		      			
-			      		$imginfo = array('', $cd_id, $fileObj->getFileName(), $fileObj->getFileSize(), VCDUtils::getUserID(), 
+
+
+			      		$imginfo = array('', $cd_id, $fileObj->getFileName(), $fileObj->getFileSize(), VCDUtils::getUserID(),
 			      					date(time()), $cover_typeid, $coverType->getCoverTypeName(), '');
 			      		$cdcover = new cdcoverObj($imginfo);
 			      		$vcd->addCovers(array($cdcover));
 		      		}
 			}
 		}
-		
 
-		
+
+
 
 		$VCDClass->updateVcd($vcd);
 

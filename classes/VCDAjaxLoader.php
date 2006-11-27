@@ -13,28 +13,29 @@
  * @version $Id$
  */
 ?>
-<? 
+<?
 
 if (VCDUtils::isLoggedIn()) {
 
 	// Include the Ajason & Ajax libraries
 	require_once(dirname(__FILE__) . '/external/ajason/Ajax.php');
-	
+
 	// Create Ajax class instance
-	$ajax = new Ajax(); 
+	$ajax = new Ajax();
 	// Register VCD-db Ajax methods
-	$ajax->registerMethod( 'VCDXMLImporter', 'addMovie' ); 
+	$ajax->registerMethod('VCDXMLImporter', 'addMovie' );
 	$ajax->registerMethod('dvdObj', 'getCountryFlag');
-	$ajaxServer = $ajax->getServer(); 
+	$ajax->registerFunction('VCDAjaxHelper');
+	$ajaxServer = $ajax->getServer();
 	// Check for Ajax Request and handle it.
-	if ( $ajaxServer->isRequest() ) 
-	{ 
-	  echo $ajaxServer->handleRequest(); 
-	  exit(); 
-	} 
-	$ajaxClient = $ajax->getClient(); 
-	
-	
+	if ( $ajaxServer->isRequest() )
+	{
+	  echo $ajaxServer->handleRequest();
+	  exit();
+	}
+	$ajaxClient = $ajax->getClient();
+
+
 }
 
 

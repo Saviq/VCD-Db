@@ -2,12 +2,12 @@
 /**
  * VCD-db - a web based VCD/DVD Catalog system
  * Copyright (C) 2003-2006 Konni - konni.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
- * 
+ *
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
@@ -20,16 +20,16 @@
  *
  */
 class VCDFileUpload {
-	
+
 	private $maxFileSize = 0;			// Max allowed filesize in bytes, 0 = no limit
 	private $overwrite = true;			// Overwrite existing file with same name or not ?
 	private $randomname	= true;			// Generate random file name or keep the original one.
 	private $fileperm = 0777;			// Unix style file permission number
 	private $arrRestrictions = array(); // Array of allowed mime types to upload.
-	
+
 	private $arrProcessesFiles = array();
-	
-	
+
+
 	/**
 	 * Object constructor
 	 *
@@ -37,14 +37,18 @@ class VCDFileUpload {
 	 */
 	public function __construct($arrExtensions=null) {
 		if (!is_null($arrExtensions)) { $this->setFileTypeRestrictions($arrExtensions); }
-		
+
 		if($_FILES) {
 			foreach($_FILES as $fieldname => $fileObj) {
+				if($fileObj['error'] > 0) {
+					$this->downloadFile($fileObj, $fieldname);
+					$_FILES[$fieldname] = $fileObj;
+				}
 				$this->processFile($fileObj, $fieldname);
 			}
 		}
 	}
-	
+
 	/**
 	 * Process each uploaded file.
 	 *
@@ -55,15 +59,15 @@ class VCDFileUpload {
 		$VCDUploadedFileObj = new VCDUploadedFile($fileObj, $fieldname);
 		$VCDUploadedFileObj->setFileParams($this->maxFileSize, $this->overwrite, $this->randomname, $this->fileperm);
 		$VCDUploadedFileObj->setFileRestrictions($this->arrRestrictions);
-	
-		
+
+
 		if (!(strcmp($VCDUploadedFileObj->getFileName(), "") == 0)) {
-			array_push($this->arrProcessesFiles, $VCDUploadedFileObj);	
+			array_push($this->arrProcessesFiles, $VCDUploadedFileObj);
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Set MIME type restrictions on the uploaded files.
 	 * Uses the VCDUloadedFile::FILE_ Constants
@@ -77,8 +81,8 @@ class VCDFileUpload {
 			array_push($this->arrRestrictions, $arrRestrictions);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Get specific file by the HTML upload field name.
 	 * Returns array of VCDUploadFiles, empty array if no file matches.
@@ -95,7 +99,7 @@ class VCDFileUpload {
 		}
 		return $arrFiles;
 	}
-	
+
 	/**
 	 * Get the number of uploaded files
 	 *
@@ -104,7 +108,7 @@ class VCDFileUpload {
 	public function getFileCount() {
 		return sizeof($this->arrProcessesFiles);
 	}
-	
+
 	/**
 	 * Get uploaded files by certain Mime Type.
 	 * Returns array of VCDUploadFiles, empty array if no file matches.
@@ -123,7 +127,7 @@ class VCDFileUpload {
 		}
 		return $arrFiles;
 	}
-	
+
 	/**
 	 * Get VCDUploadFile at specific index in the local file array.
 	 *
@@ -136,12 +140,43 @@ class VCDFileUpload {
 		} else {
 			throw new Exception("File index out of bound.");
 		}
-		
+
 	}
-	
-	
-	
-	
+
+	/**
+	 * Try to download the file if upload failed
+	 *
+	 * @param $_FILE $fileObj | One item in PHP $_FILES array
+	 * @param string $fieldname | The HTML upload field name
+	 */
+	public function downloadFile(&$fileObj, $fieldname) {
+		if(!empty($_POST[$fieldname.'_uri'])) {
+			$uri = $_POST[$fieldname.'_uri'];
+			unset($_POST[$fieldname.'_uri']);
+			$snoopy = new Snoopy();
+			if($snoopy->fetch($uri)) {
+				foreach($snoopy->headers as $header) {
+					if(eregi("filename=([^;]*)", $header, $out)) {
+						$fileObj['name'] = trim($out[1]);
+					}
+					if(eregi("Content-type:([^;]*)", $header, $out)) {
+						$fileObj['type'] = trim($out[1]);
+					}
+				}
+				if(empty($fileObj['name'])) $fileObj['name'] = basename($uri);
+				$fileObj['tmp_name'] = tempnam(null, "vcd_");
+				if($local = fopen($fileObj['tmp_name'], 'w')) {
+					fwrite($local, $snoopy->results);
+					$fileObj['size'] = filesize($fileObj['tmp_name']);
+					$fileObj['error'] = 0;
+				} else {
+					$fileObj['error'] = 7;
+				}
+			} else {
+				$fileObj['error'] = 4;
+			}
+		}
+	}
 }
 
 
@@ -150,24 +185,24 @@ class VCDFileUpload {
  *
  */
 class VCDUploadedFile {
-	
+
 	private $filename;				// The name of the file
 	private $filetmpname;			// The tmpfilename in /tmp folder
 	private $filesize;				// Filesize in bytes
 	private $filemimetype;			// The mimetype of the file | ex. ("xml" => "text/xml")
 	private $fileerror;				// The error during upload if any
 	private $fieldname;				// The HTML field name of the html upload field.
-	
+
 	private $filelocation = null;	// The full filepath on server filesystem.
-	
+
 	/* File variables set by VCDFileUpload class */
 	private $iMaxFileSize;
 	private $bOverWrite ;
 	private $bUseRandomFileName;
 	private $strFilePermission;
 	private $arrRestrictions = array();
-	
-	
+
+
 	/* List of file extensions used by VCD-db */
 	CONST FILE_XML  = "xml";
 	CONST FILE_TGZ  = "tgz";
@@ -177,7 +212,7 @@ class VCDUploadedFile {
 	CONST FILE_GIF  = "gif";
 	CONST FILE_NFO  = "nfo";
 	CONST FILE_TXT  = "txt";
-		
+
 	private $arrExtension = array(
 		self::FILE_XML  => 'text/xml',
 		self::FILE_TGZ  => 'application/x-gzip',
@@ -188,8 +223,8 @@ class VCDUploadedFile {
 		self::FILE_NFO  => 'text/nfo',
 		self::FILE_TXT  => 'text/plain'
 	);
-	
-	
+
+
 	/**
 	 * Object constructer
 	 *
@@ -207,9 +242,9 @@ class VCDUploadedFile {
 		} else {
 			throw new Exception("Parameter must be item of array $_FILES");
 		}
-		
+
 	}
-	
+
 	/**
 	 * Set the uploaded file parameters.
 	 *
@@ -224,7 +259,7 @@ class VCDUploadedFile {
 		$this->bUseRandomFileName = $useRandomFileName;
 		$this->strFilePermission = $filePermissions;
 	}
-	
+
 	/**
 	 * Set the MIME Type restrictions on the uploaded file.
 	 *
@@ -235,7 +270,7 @@ class VCDUploadedFile {
 			$this->arrRestrictions = $arrRestrictions;
 		}
 	}
-	
+
 
 	/**
 	 * Set the maximimum filesize in bytes
@@ -244,10 +279,10 @@ class VCDUploadedFile {
 	 */
 	public function setMaxFileSize($iSize) {
 		if (is_numeric($iSize)) {
-			$this->iMaxFileSize = $iSize;	
+			$this->iMaxFileSize = $iSize;
 		}
 	}
-	
+
 	/**
 	 * Set the file name to be generated or not.
 	 *
@@ -256,7 +291,7 @@ class VCDUploadedFile {
 	public function setRandomFileName($bUseRandom) {
 		$this->bUseRandomFileName = $bUseRandom;
 	}
-	
+
 	/**
 	 * Overwrite existing file with same name if it exists?
 	 *
@@ -265,8 +300,8 @@ class VCDUploadedFile {
 	public function setOverWrite($bOverWrite) {
 		$this->bOverWrite = $bOverWrite;
 	}
-	
-	
+
+
 	/**
 	 * Get the HTML upload field name of the uploaded file
 	 *
@@ -275,7 +310,7 @@ class VCDUploadedFile {
 	public function getHTMLFieldName() {
 		return $this->fieldname;
 	}
-	
+
 	/**
 	 * Get the file name of the uploaded file
 	 *
@@ -284,7 +319,7 @@ class VCDUploadedFile {
 	public function getFileName() {
 		return $this->filename;
 	}
-	
+
 	/**
 	 * Get the size of the file in bytes
 	 *
@@ -293,7 +328,7 @@ class VCDUploadedFile {
 	public function getFileSize() {
 		return $this->filesize;
 	}
-	
+
 	/**
 	 * Get the file MIME type
 	 *
@@ -301,8 +336,8 @@ class VCDUploadedFile {
 	 */
 	public function getFileType() {
 		return $this->filemimetype;
-	}	
-	
+	}
+
 	/**
 	 * Get the Error code of the file if any, no error = 0
 	 *
@@ -311,7 +346,7 @@ class VCDUploadedFile {
 	public function getFileError() {
 		return $this->fileerror;
 	}
-	
+
 	/**
 	 * Get the current file location of the file, empty string if file has not been moved from tmp folder
 	 *
@@ -320,7 +355,7 @@ class VCDUploadedFile {
 	public function getFileLocation() {
 		return $this->filelocation;
 	}
-	
+
 	/**
 	 * Get the current file extension
 	 *
@@ -329,29 +364,29 @@ class VCDUploadedFile {
 	public function getFileExtenstion() {
 		ereg( ".*\.(.*)$", $this->filename, $regs );
 	    if (isset($regs[1])) {
-	    	return $regs[1];	
+	    	return $regs[1];
 	    } else {
 	    	return "";
 	    }
 	}
-	
-	
+
+
 	/**
 	 * Move the uploaded file to a specific folder.
 	 * If Move is successful functions returns true, otherwise false.
 	 *
 	 * @param string $strDestinationFolder
-	 * 
+	 *
 	 * @return bool
 	 */
 	public function move($strDestinationFolder) {
 		try {
-			
+
 			if ($this->checkUploadConditions($strDestinationFolder)) {
-				
+
 				$dst_file_name = ($this->bUseRandomFileName) ? $this->generateFileName() : $this->fixFileName($this->filename);
         		$full_destination_path = $strDestinationFolder."/".$dst_file_name;
-        		
+
         		// Check if overwrite is disabled and if file already exists ..
         		if (!$this->bOverWrite && file_exists($full_destination_path)) {
         			// it already exists .. we have to use generated file name
@@ -359,30 +394,29 @@ class VCDUploadedFile {
         			$full_destination_path = $strDestinationFolder."/".$dst_file_name;
         			$this->filename = $dst_file_name;
         		}
-        		
-        		if(@move_uploaded_file($this->filetmpname,$full_destination_path)) {
+        		if(@rename($this->filetmpname,$full_destination_path)) {
             		$this->setFileLocation($strDestinationFolder."/".$dst_file_name);
         			@chmod ($this->filelocation, $this->strFilePermission);
         			if ($this->bUseRandomFileName) {
-        				$this->filename = $dst_file_name;	
+        				$this->filename = $dst_file_name;
         			}
         			return true;
-            		
+
         		} else {
         			throw new Exception("Unknown exception trying to move file {$this->filename}");
         		}
-				
+
         		return false;
-				
+
 			}
 
 		} catch (Exception $ex) {
 			throw $ex;
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Delete the file from file system.
 	 * Returns true if file could be deleted, otherwise false.
@@ -395,13 +429,13 @@ class VCDUploadedFile {
 		}
 		return true;
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * 	 Private functions below ..
 	 */
-	
-   
+
+
 	/**
 	 * Set the relative file location on the file system on the webserver.
 	 *
@@ -411,8 +445,8 @@ class VCDUploadedFile {
 		$location = str_replace("//", "/", $strLocation);
 		$this->filelocation = $location;
 	}
-	
-	
+
+
 	/**
 	 * Check for upload conditions, such as file restrictions, size restrictions and folder location.
 	 * Returns true if no restriction is broken, otherwise an Exception is thrown.
@@ -422,42 +456,42 @@ class VCDUploadedFile {
 	 */
 	private function checkUploadConditions($strDestinationFolder) {
 		try {
-			
+
 			// Check if the requested directory to move to exits
 			if (!@is_dir($strDestinationFolder)) {
 				throw new Exception("Directory {$strDestinationFolder} does not exist.  Cannot move file.");
 			}
-			
+
 			// Check if the file is of a legal extension
 			if (is_array($this->arrExtension) && sizeof($this->arrExtension) > 0) {
 				$isLegal = false;
 				foreach ($this->arrRestrictions as $index => $extension) {
-					
+
 					if (strcmp(strtolower($this->getFileExtenstion()), strtolower($extension)) == 0) {
 						$isLegal = true;
 						break;
 					}
 				}
 				if (!$isLegal) {
-					throw new Exception("File type \"{$this->getFileType()}\" not allowed.");
+					throw new Exception("File type of \"{$this->getFileName()}\", \"{$this->getFileType()}\" not allowed.");
 				}
 			}
-			
+
 			// Check for filesize Restrictions
 			if (is_numeric($this->iMaxFileSize) && ($this->iMaxFileSize > 0) && ($this->filesize > $this->iMaxFileSize)) {
 				throw new Exception("Filesize exceeds file size limit ({$this->toHumanFileSize($this->iMaxFileSize)}) ");
 			}
-			
-			
-			
+
+
+
 			return true;
-			
+
 		} catch (Exception $ex) {
 			throw $ex;
 		}
 	}
-	
-	  
+
+
 	/**
 	 * Generate a unique name to the uploaded file.
 	 *
@@ -467,7 +501,7 @@ class VCDUploadedFile {
 	    return md5(uniqid(mt_rand(),TRUE));
   	}
 
-  
+
 	/**
 	 * Generate the file unique name with extension.
 	 *
@@ -480,7 +514,7 @@ class VCDUploadedFile {
 	    return $dst_file_name;
   	}
 
-  	
+
   	/**
   	 * Replace accents and special chars from file name.
   	 *
@@ -497,8 +531,8 @@ class VCDUploadedFile {
 	    $this->filename = $string;
 	    return $string;
   	}
-  	
-  	
+
+
   	/**
   	 * Format size in bytes to more readable format.
   	 *
@@ -513,8 +547,8 @@ class VCDUploadedFile {
 	   		return "0 Bytes";
 	   }
 	}
-	
-	
+
+
 }
 
 

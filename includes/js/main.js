@@ -68,7 +68,21 @@ function loadManager(cd_id) {
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
-
+function copyFiles(form) {
+	for (key in form.elements) {
+		el = form.elements[key];
+		uri = el.value;
+		if(el.getAttribute("clear"))
+			el.type = "text";
+		else if (el.type == 'file' && el.value != '') {
+			node = document.createElement("input");
+			node.type = "hidden";
+			node.name = el.name+"_uri";
+			node.value = el.value;
+			form.appendChild(node);
+		}
+	}
+}
 
 function moveOver(form, boxAvailable, boxChoices)  {
 try {
@@ -1125,27 +1139,27 @@ function deleteMeta(metadata_id, cd_id) {
 }
 
 
-/* Ajax based form functions */ 
+/* Ajax based form functions */
 
 var currCountryName;
 var currCountryKey;
 
-function updateSubtitles( response )   { 
+function updateSubtitles( response )   {
   	obj = new Object(response);
   	var img = new Image();
   	img.src = obj;
-  	  	
+
   	var html = '<ul>';
-  	
+
   	var htmlfield = document.getElementById('dvdsubs');
   	if (htmlfield.value.length==0) {
   		htmlfield.value += currCountryKey;
   	} else {
   		htmlfield.value += '#'+currCountryKey;
   	}
-  	
-  	
-  	
+
+
+
   	var subtitles = document.getElementById('subtitles');
     var lis = subtitles.getElementsByTagName('LI');
 	for (i=0; i < lis.length; i++) {
@@ -1153,12 +1167,12 @@ function updateSubtitles( response )   {
 		if (lid != currCountryKey) {
 			html += '<li id='+lid+'>' + lis[i].innerHTML + '</li>';
 		}
-		
+
 	}
-	
+
 	var iMaxlen = 10;
 	var lang = new String(currCountryName);
-	
+
 	if (lang.length > iMaxlen) {
 		var firstBracket = lang.indexOf('(');
 		var lastBracket = lang.indexOf(')');
@@ -1168,11 +1182,11 @@ function updateSubtitles( response )   {
 			lang = lang.substring(0, iMaxlen) + '..';
 		}
 	}
-	
-	
+
+
 	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' height='12' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
 	html += "</ul>";
-	
+
   	subtitles.innerHTML = html;
 }
 
@@ -1180,7 +1194,7 @@ function removeSub(key) {
 	var subtitles = document.getElementById('subtitles');
 	var htmlfield = document.getElementById('dvdsubs');
 	htmlfield.value = '';
-  	
+
     var lis = subtitles.getElementsByTagName('LI');
     var lid = "";
     var html = '<ul>';
@@ -1189,11 +1203,11 @@ function removeSub(key) {
 		if (lid != key) {
 			html += '<li id=\"'+lid+'\">' + lis[i].innerHTML + '</li>';
 			if (htmlfield.value == '') {
-				htmlfield.value = lid ;	
+				htmlfield.value = lid ;
 			} else {
 				htmlfield.value += '#' + lid ;
 			}
-			
+
 		}
 	}
 	html += "</ul>";
@@ -1206,10 +1220,10 @@ function addSubtitle(form, source) {
 	if (selectedItem < 0) { return; }
 	var selectedText = objList.options[selectedItem].text;
 	var selectedValue = objList.options[selectedItem].value;
-	
+
 	currCountryName = selectedText;
 	currCountryKey = selectedValue;
-	
+
 	x_dvdObj.getCountryFlag(selectedValue, updateSubtitles);
 }
 
@@ -1219,17 +1233,17 @@ function addAudio(form, source) {
 	if (selectedItem < 0) { return; }
 	var selectedText = objList.options[selectedItem].text;
 	var selectedValue = objList.options[selectedItem].value;
-	
+
 	var audio = document.getElementById('audio');
-	
+
   	var htmlfield = document.getElementById('dvdaudio');
   	if (htmlfield.value.length==0) {
   		htmlfield.value += selectedValue;
   	} else {
   		htmlfield.value += '#'+selectedValue;
   	}
-  	
-  	
+
+
   	var html = '<ul>';
     var lis = audio.getElementsByTagName('LI');
 	for (i=0; i < lis.length; i++) {
@@ -1238,10 +1252,10 @@ function addAudio(form, source) {
 			html += '<li class=audio id='+lid+' ondblclick=\"removeAudio(\''+lid+'\')\">' + lis[i].innerHTML + '</li>';
 		}
 	}
-		
+
 	html += '<li id='+selectedValue+' ondblclick=\"removeAudio(\''+selectedValue+'\')\">' +selectedText + '</li>';
 	html += "</ul>";
-	
+
 	audio.innerHTML = html;
 }
 
@@ -1249,7 +1263,7 @@ function removeAudio(key) {
 	var audios = document.getElementById('audio');
 	var htmlfield = document.getElementById('dvdaudio');
 	htmlfield.value = '';
-  	
+
     var lis = audios.getElementsByTagName('LI');
     var lid = "";
     var html = '<ul>';
@@ -1262,7 +1276,7 @@ function removeAudio(key) {
 			} else {
 				htmlfield.value += '#' + lid;
 			}
-			
+
 		}
 	}
 	html += "</ul>";

@@ -110,7 +110,7 @@
 </head>
 
 <body onload="tabInit();window.focus()<?=$onload?>">
-<form action="../exec_form.php?action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
+<form onSubmit="copyFiles(this);" action="../exec_form.php?action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
 <input type="hidden" name="cd_id" value="<?=$vcd->getId()?>"/>
 
 
@@ -505,7 +505,7 @@
 
 
 		$iCounter = 0;
-		
+
 
 		foreach ($arrMyMediaTypes as $mediaTypeObj) {
 			$iMetaID = -1;
@@ -531,7 +531,7 @@
 				if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
 					$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
 				}
-   				
+
 	   			print "<tr>";
 	   			print "<td class=\"tblb\">Custom Index:</td>";
 	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/>{$delImage}</td>";
@@ -615,8 +615,8 @@
 						if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
 						$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
 					}
-					
-					
+
+
 					print "<tr>";
 					print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
 					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/>{$delImage}</td>";
