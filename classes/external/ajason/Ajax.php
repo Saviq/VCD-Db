@@ -140,7 +140,7 @@
       {
          $this->validClassAndMethod( $class, $method );
 
-         if ( !in_array( $class, $this->methods ) )
+         if ( !array_key_exists( $class, $this->methods ) )
          {
             $this->methods[ $class ] = array();
          }

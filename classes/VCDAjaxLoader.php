@@ -25,7 +25,7 @@ if (VCDUtils::isLoggedIn()) {
 	// Register VCD-db Ajax methods
 	$ajax->registerMethod('VCDXMLImporter', 'addMovie' );
 	$ajax->registerMethod('dvdObj', 'getCountryFlag');
-	$ajax->registerFunction('VCDAjaxHelper');
+	$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
 	$ajaxServer = $ajax->getServer();
 	// Check for Ajax Request and handle it.
 	if ( $ajaxServer->isRequest() )

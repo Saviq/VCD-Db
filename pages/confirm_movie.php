@@ -142,7 +142,7 @@ if(is_array($fetchedObj->getCast(false))) {
 		<td class="strong" nowrap><?=VCDLanguage::translate('movie.mediatype')?>:</td>
 		<td>
 		<?
-		print "<select name=\"mediatype\" onchange=\"processing(true);x_VCDAjaxHelper('meta|cover|dvd', this.value, showForms);\" size=\"1\">";
+		print "<select name=\"mediatype\" onchange=\"processing(true);x_VCDAjaxHelper.getDataForMediaType('meta|cover|dvd', this.value, showForms);\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
 		foreach ($SettingsClass->getAllMediatypes() as $mediaTypeObj) {
 			print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
