@@ -1177,14 +1177,20 @@
 			echo "<div class=\"content\">";	
 				
 			$arrFeeds = $SETTINGSclass->getRssFeedsByUserId(0);
-			
+			$adultimg = "<img src=\"../images/admin/icon_tits.gif\" border=\"0\" title=\"Adult content\" alt=\"Adult content\" align=\"absmiddle\">";
 						
-			$header = array("Feed name", "", "", "");
+			$header = array("Feed name", "", "", "","");
 			printTableOpen();
 			printRowHeader($header);
 			foreach ($arrFeeds as $rssObj) {
 				printTr();
 				printRow($rssObj->getName());
+				
+				if ($rssObj->isAdultFeed()) {
+					printRow($adultimg, "", false, 5);
+				} else {
+					printRow("", "", false, 5);
+				}
 				
 				printEditRow($rssObj->getId(), $CURRENT_PAGE);
 				printDeleteRow($rssObj->getId(), $CURRENT_PAGE, "Delete XML feed?");

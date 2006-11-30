@@ -60,7 +60,7 @@ function printRowHeader($arrHeader) {
  * @param string $rowdata
  * @param string $cssClass
  */
-function printRow($rowdata = "", $cssClass = "", $nowrap=false) {
+function printRow($rowdata = "", $cssClass = "", $nowrap=false, $width=null) {
 
 	if (is_bool($rowdata)) {
 		if ($rowdata)
@@ -78,7 +78,12 @@ function printRow($rowdata = "", $cssClass = "", $nowrap=false) {
 		$wrap = " nowrap=\"nowrap\"";
 	}
 	
-	print "<td valign=top{$cssClass}{$wrap}>$rowdata</td>";
+	$tdwidth = "";
+	if (!is_null($width)) {
+		$tdwidth = " width=\"{$width}\"";
+	}
+	
+	print "<td valign=top{$cssClass}{$wrap}{$tdwidth}>$rowdata</td>";
 }
 
 
@@ -184,8 +189,7 @@ function deleteRecord($recordID, $recordType) {
 		break;
 
 		case 'roles';
-			$USERClass = new vcd_user();
-			if ($USERClass->deleteUserRole($recordID))
+			if (UserServices::deleteUserRole($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
@@ -468,8 +472,7 @@ function exportUserXML($user_id) {
  * @param int $recordID
  */
 function setDefaultRole($recordID) {
-	$CLASSUser = VCDClassFactory::getInstance('vcd_user');
-	$CLASSUser->setDefaultRole($recordID);
+	UserServices::setDefaultRole($recordID);
 	redirect('?page=roles');
 }
 
