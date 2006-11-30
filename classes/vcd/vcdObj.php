@@ -330,12 +330,15 @@ class vcdObj extends cdObj implements XMLable {
 	}
 	
 	/**
-	 * Add mediaTypeObj to this movie
+	 * Add mediaTypeObj to this movie.  No room for duplicate entries.
 	 *
 	 * @param mediaTypeObj $obj
 	 */
 	public function addMediaType(mediaTypeObj $obj) {
-		array_push($this->mediaTypeObjArr, $obj);
+		if (!in_array($obj, $this->mediaTypeObjArr)) {
+			array_push($this->mediaTypeObjArr, $obj);	
+		}
+		
 	}
 	
 	/**
