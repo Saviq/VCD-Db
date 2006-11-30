@@ -1308,6 +1308,24 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Add a new metadatatype object to the database, returns the same object with populated ID.
+	 *
+	 * @param metadataTypeObj $obj
+	 * @return metadataTypeObj
+	 */
+	public static function addMetadataType(metadataTypeObj $obj) { 
+		try {
+		
+			return self::Settings()->addMetaDataType($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+		
+	
 	/**
 	 * Add new medata object to VCD-db.  Param can either be metadata object or an array of metadata objects.
 	 *
