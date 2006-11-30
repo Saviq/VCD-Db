@@ -284,7 +284,7 @@ class UserServices extends VCDServices {
 	public static function getPropertyById($property_id) {
 		try {
 			
-			return self::getPropertyById($property_id);
+			return self::User()->getPropertyById($property_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -1384,6 +1384,23 @@ class SettingsServices extends VCDServices {
 		try {
 			
 			return self::Settings()->getRecordIDsByMetadata($user_id, $metadata_name);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Get all known metadatatypes from database. If $user_id is provided, only metadatatypes created by that
+	 * user_id will be returned. Function returns array of metadataTypeObjects.
+	 *
+	 * @param int $user_id | The user_id to filter metadatatypes to, null = no filter
+	 * @return array
+	 */
+	public static function getMetadataTypes($user_id) {
+		try {
+			
+			return self::Settings()->getMetadataTypes($user_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
