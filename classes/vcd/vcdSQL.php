@@ -398,14 +398,16 @@ class vcdSQL {
 		try {
 
 		if ($user_id == -1) {
-			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
+			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
 				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
-				  WHERE v.category_id = ".$category_id." ORDER BY v.title";
+				  LEFT OUTER JOIN $this->TABLE_vcdtouser AS m ON m.vcd_id = v.vcd_id
+				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
 		} else {
-			$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
+			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
 				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  LEFT OUTER JOIN $this->TABLE_vcdtouser AS m ON m.vcd_id = v.vcd_id
 				  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
-				  WHERE v.category_id = ".$category_id." ORDER BY v.title";
+				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
 		}
 
 
@@ -414,34 +416,41 @@ class vcdSQL {
 		$arrVcdObj = array();
 
 		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+		
 
 		$i = 0;
+		$lastMovieObj = null;
 		foreach ($rs as $row) {
 
 			if ($i >= $offset && $i < ($offset+$numrecords)) {
 				$obj = new vcdObj($row);
 
-				// Get the mediaTypes
-				foreach ($SETTINGSClass->getMediaTypesOnCD($obj->getID()) as $mediaTypeObj) {
-					$obj->addMediaType($mediaTypeObj);
+				// Add the mediaType
+				$obj->addMediaType($SETTINGSClass->getMediaTypeByID($row[4]));
+				
+				if (!is_null($lastMovieObj) && $obj->getID() === $lastMovieObj->getID()) {
+					$lastMovieObj->addMediaType($SETTINGSClass->getMediaTypeByID($row[4]));
+					continue;
 				}
-
+			
+								
 				// check for thumnail cover
-				if (isset($row[4])) {
+				if (isset($row[5])) {
 					$cobj = new cdcoverObj();
 					$cobj->setVcdId($row[0]);
 					$cobj->setCoverTypeID($thumbnail_id);
 					$cobj->setCoverTypeName('Thumbnail');
-					$cobj->setFilename($row[4]);
+					$cobj->setFilename($row[5]);
 
-					if (isset($row[5])) {
-						$cobj->setImageID($row[5]);
+					if (isset($row[6])) {
+						$cobj->setImageID($row[6]);
 					}
 
 					$obj->addCovers(array($cobj));
 				}
 
 				array_push($arrVcdObj, $obj);
+				$lastMovieObj = $obj;
 			}
 
 			$i++;
