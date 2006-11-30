@@ -33,6 +33,7 @@ class settingsSQL {
 	private $TABLE_covers 	  = "vcd_Covers";
 	private $TABLE_metadata   = "vcd_MetaData";
 	private $TABLE_metatypes  = "vcd_MetaDataTypes";
+	private $TABLE_propstousr = "vcd_PropertiesToUser";
 
 	/**
 	 *
@@ -846,7 +847,20 @@ class settingsSQL {
 
 	}
 
+	public function isPublicWishLists($user_id, $property_id) {
+		try {
+			
+			$query = "SELECT Count(l.vcd_id) AS Result FROM $this->TABLE_wishlist l INNER JOIN $this->TABLE_propstousr 
+			AS p on p.user_id = l.user_id WHERE p.property_id = {$property_id} AND l.user_id <> " . $user_id;
+			
+			return ($this->db->GetOne($query) > 0);
+			
+		} catch (Exception $ex) {
+			throw new Exception($ex->getMessage());
+		}
+	}
 
+	
 	public function removeFromWishList($vcd_id, $user_id) {
 		try {
 

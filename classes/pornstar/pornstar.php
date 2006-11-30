@@ -33,9 +33,9 @@ class vcd_pornstar implements IPornstar {
 	  * Constructor
 	  *
 	  */
-	 public function __construct() { 
-	 	$this->SQL = new pornstarSQL();
-   } 
+	public function __construct() { 
+		$this->SQL = new pornstarSQL();
+	} 
 
    
 	/**
@@ -44,13 +44,14 @@ class vcd_pornstar implements IPornstar {
 	 * @return array
 	 */
 	public function getAllPornstars() {
-   		try {
-   			return $this->SQL->getAllPornstars();
-   		} catch (Exception $e) {
-   			VCDException::display($e);
-   		}
-		
-  }
+		try {
+   			
+			return $this->SQL->getAllPornstars();
+   			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
    
    
 	/**
@@ -62,14 +63,13 @@ class vcd_pornstar implements IPornstar {
 	public function getPornstarByID($pornstar_id) {
 		try {
 			if (!is_numeric($pornstar_id)) {
-				throw new Exception("ID must be numeric");
-				return false;
+				throw new VCDInvalidArgumentException('Pornstar Id must be numeric');
 			}
 			
 			return $this->SQL->getPornstarByID($pornstar_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -81,9 +81,11 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function updatePornstar(pornstarObj $pornstar) {
 		try {
+			
 			$this->SQL->updatePornstar($pornstar);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -94,10 +96,12 @@ class vcd_pornstar implements IPornstar {
 	 * @return pornstarObj
 	 */
 	public function getPornstarByName($pornstar_name) {
-		try {
+		try 
+		{
 			return $this->SQL->getPornstarByName($pornstar_name);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -110,28 +114,28 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getPornstarsByMovieID($movie_id) {
 		try {
+			
 			return $this->SQL->getPornstarsByMovieID($movie_id);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	/**
-	 * Adds new pornstar object to database.
-	 *
-	 * Returns the same object with the new id
+	 * Adds new pornstar object to database, returns the same object with the new id.
 	 *
 	 * @param pornstarObj $pornstarObj
 	 * @return pornstarObj
 	 */
 	public function addPornstar(pornstarObj $pornstarObj) {
 		try {
-			$new_id =  $this->SQL->addPornstar($pornstarObj);
+			
+			$new_id = $this->SQL->addPornstar($pornstarObj);
 			return $this->getPornstarByID($new_id);
 			
-			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -144,13 +148,15 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function addPornstarToMovie($pornstar_id, $movie_id) {
 		try {
-			if (is_numeric($pornstar_id) && is_numeric($movie_id)) {
-				$this->SQL->addPornstarToMovie($pornstar_id, $movie_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
+			
+			if (!(is_numeric($pornstar_id) && is_numeric($movie_id))) {
+				throw new VCDInvalidArgumentException('Params must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			$this->SQL->addPornstarToMovie($pornstar_id, $movie_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -163,13 +169,15 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function deletePornstarFromMovie($pornstar_id, $movie_id) {
 		try {
-			if (is_numeric($pornstar_id) && is_numeric($movie_id)) {
-				$this->SQL->deletePornstarFromMovie($pornstar_id, $movie_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
+			
+			if (!(is_numeric($pornstar_id) && is_numeric($movie_id))) {
+				throw new VCDInvalidArgumentException('Params must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			$this->SQL->deletePornstarFromMovie($pornstar_id, $movie_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -186,14 +194,13 @@ class vcd_pornstar implements IPornstar {
 			
 			return $this->SQL->getAllStudios();
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	/**
 	 * Get all adult studio objects in database that have any movies associated. 
-	 *
 	 * Returns array of studio objects.
 	 *
 	 * @return array
@@ -203,8 +210,8 @@ class vcd_pornstar implements IPornstar {
 			
 			return $this->SQL->getStudiosInUse();
 			
-		} catch(Exception $e) {
-			VCDException::display($e);
+		} catch(Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -216,14 +223,15 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getStudioByID($studio_id) {
 		try {
+			
 			if (!is_numeric($studio_id)) {
-				throw new Exception("Studio ID must be numeric");
+				throw new VCDInvalidArgumentException('Studio Id must be numeric');
 			}
+			
 			return $this->SQL->getStudioByID($studio_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -236,9 +244,11 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getStudioByName($studio_name) {
 		try {
+			
 			return $this->SQL->getStudioByName($studio_name);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -250,14 +260,15 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getStudioByMovieID($vcd_id) {
 		try {
-			if (is_numeric($vcd_id)) {
-				return $this->SQL->getStudioByMovieID($vcd_id);
-			} else {
-				throw new Exception("Parameter must be numeric");
+
+			if (!is_numeric($vcd_id)) {
+				throw new VCDInvalidArgumentException('Vcd Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+				
+			return $this->SQL->getStudioByMovieID($vcd_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -269,11 +280,13 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function addMovieToStudio($studio_id, $vcd_id) {
 		try {
+			
 			if (is_numeric($studio_id) && is_numeric($vcd_id)) {
 				$this->SQL->addMovieToStudio($studio_id, $vcd_id);
 			} 
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -285,14 +298,14 @@ class vcd_pornstar implements IPornstar {
 	public function deleteMovieFromStudio($vcd_id) {
 		try {
 		
-			if (is_numeric($vcd_id)) {
-				$this->SQL->deleteMovieFromStudio($vcd_id);
-			} else {
-				throw new Exception("Parameter must be numeric");
-			}
+			if (!is_numeric($vcd_id)) {
+				throw new VCDInvalidArgumentException('Vcd Id must be numeric');
+			}	
+			
+			$this->SQL->deleteMovieFromStudio($vcd_id);
 		
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -304,9 +317,11 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function addStudio(studioObj $obj) {
 		try {
+			
 			$this->SQL->addStudio($obj);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -318,23 +333,21 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function deleteStudio($studio_id) {
 		try {
-			if (is_numeric($studio_id)) {
-				
-				// Check if any movies are using this studio
-				$CLASSVcd = new vcd_movie();
-				$arrMovies = $CLASSVcd->getVcdByAdultStudio($studio_id);
-				if (is_array($arrMovies) && sizeof($arrMovies) > 0) {
-					throw new Exception("Cannot delete active studio in use.");
-				} else {
-					$this->SQL->deleteStudio($studio_id);
-				}
-				
-				
+			if (!is_numeric($studio_id)) {
+				throw new VCDInvalidArgumentException('Studio Id must be numeric');
+			}	
+			
+			// Check if any movies are using this studio
+			$CLASSVcd = VCDClassFactory::getInstance('vcd_movie');
+			$arrMovies = $CLASSVcd->getVcdByAdultStudio($studio_id);
+			if (is_array($arrMovies) && sizeof($arrMovies) > 0) {
+				throw new VCDConstraintException('Cannot delete studios already linked to movies.');
 			} else {
-				throw new Exception("studio id must be numeric");
+				$this->SQL->deleteStudio($studio_id);
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -350,8 +363,8 @@ class vcd_pornstar implements IPornstar {
 		
 			return $this->SQL->getSubCategories();
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -363,9 +376,11 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getSubCategoriesInUse() {
 		try {
+			
 			return $this->SQL->getSubCategoriesInUse();
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -378,14 +393,14 @@ class vcd_pornstar implements IPornstar {
 	public function getSubCategoryByID($category_id) {
 		try {
 				
-			if (is_numeric($category_id)) {
-				return $this->SQL->getSubCategoryByID($category_id);
-			} else {
-				throw new Exception("Parameter must be numeric");
+			if (!is_numeric($category_id)) {
+				throw new VCDInvalidArgumentException('Category Id must be numeric');
 			}
+				
+			return $this->SQL->getSubCategoryByID($category_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -397,15 +412,15 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getSubCategoriesByMovieID($vcd_id) {
 		try {
+			
 			if (!is_numeric($vcd_id)) {
-				throw new Exception("Parameter must be numeric");
+				throw new VCDInvalidArgumentException('Vcd Id must be numeric');
 			}
 			
 			return $this->SQL->getSubCategoriesByMovieID($vcd_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -419,14 +434,14 @@ class vcd_pornstar implements IPornstar {
 	public function addCategoryToMovie($vcd_id, $category_id) {
 		try {
 		
-			if (is_numeric($vcd_id) && is_numeric($category_id)) {
-				$this->SQL->addCategoryToMovie($vcd_id, $category_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
-			}
+			if (!(is_numeric($vcd_id) && is_numeric($category_id))) {
+				throw new VCDInvalidArgumentException('Params must be numeric');
+			} 
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+			$this->SQL->addCategoryToMovie($vcd_id, $category_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -439,14 +454,14 @@ class vcd_pornstar implements IPornstar {
 	public function deleteMovieFromCategories($vcd_id) {
 		try {
 		
-			if (is_numeric($vcd_id)) {
-				$this->SQL->deleteMovieFromCategories($vcd_id);
-			} else {
-				throw new Exception("Parameter must be numeric");
+			if (!is_numeric($vcd_id)) {
+				throw new VCDInvalidArgumentException('Vcd Id must be numeric');
 			}
+				
+			$this->SQL->deleteMovieFromCategories($vcd_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -476,8 +491,8 @@ class vcd_pornstar implements IPornstar {
 				return $returnArr;
 			}
 		
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -493,9 +508,11 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function getPornstarsAlphabet($active_only) {
 		try {
+			
 			return $this->SQL->getPornstarsAlphabet($active_only);
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -511,18 +528,17 @@ class vcd_pornstar implements IPornstar {
 		try {
 			
 			if (strlen($letter) != 1) {
-				throw new Exception('Letter should only contain 1 letter.');
+				throw new VCDInvalidArgumentException('Letter should only contain 1 letter.');
 			}
 			
 			if(!eregi("^[a-zA-Z ]+$", $letter))  {
-				throw new Exception('Only alphabetical characters will do.');
+				throw new VCDInvalidArgumentException('Only alphabetical characters can be used.');
 			}
-			
-			
+
 			return $this->SQL->getPornstarsByLetter($letter, $active_only);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -537,8 +553,8 @@ class vcd_pornstar implements IPornstar {
 			
 			$this->SQL->addAdultCategory($obj);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		} 
 	}
 	
@@ -551,23 +567,22 @@ class vcd_pornstar implements IPornstar {
 	 */
 	public function deleteAdultCategory($category_id) {
 		try {
-			if (is_numeric($category_id)) {
-				
-				// Check if category is in use ..
-				$CLASSVcd = new vcd_movie();
-				$arrMovies = $CLASSVcd->getVcdByAdultCategory($category_id);
-				if (is_array($arrMovies) && sizeof($arrMovies) > 0) {
-					throw new Exception("Cannot delete active category");	
-				} else {
-					$this->SQL->deleteAdultCategory($category_id);
-				}
-				
-				
-			} else {
-				throw new Exception("category_id must be numeric");
+			if (!is_numeric($category_id)) {
+				throw new VCDInvalidArgumentException('Category Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			// Check if category is in use ..
+			$CLASSVcd = VCDClassFactory::getInstance('vcd_movie');
+			$arrMovies = $CLASSVcd->getVcdByAdultCategory($category_id);
+			if (is_array($arrMovies) && sizeof($arrMovies) > 0) {
+				throw new VCDConstraintException('Cannot delete active category');
+			} else {
+				$this->SQL->deleteAdultCategory($category_id);
+			}
+				
+				
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	

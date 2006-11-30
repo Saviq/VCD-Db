@@ -70,6 +70,7 @@ class vcd_user implements IUser {
 	 */
 	public function getUserByID($user_id) {
    		try {
+   			
    			$obj = $this->SQL->getUserByID($user_id);
    			
    			if (!$obj instanceof userObj ) {
@@ -77,18 +78,18 @@ class vcd_user implements IUser {
    			} 
    			
    			/* Since we found our user, lets get his extended properties */
-   				$propIDarr = $this->SQL->getPropertyIDsOnUser($obj->getUserID());
-   				if (!is_null($propIDarr)) {
-   					foreach ($propIDarr as $propID) {
-   						$obj->addProperty($this->getPropertyById($propID));
-   					}
-   					unset($propIDarr);
-   				}
+			$propIDarr = $this->SQL->getPropertyIDsOnUser($obj->getUserID());
+			if (!is_null($propIDarr)) {
+				foreach ($propIDarr as $propID) {
+					$obj->addProperty($this->getPropertyById($propID));
+				}
+				unset($propIDarr);
+			}
+			
    			return $obj;
    			
-   			
-   		} catch (Exception $e){
-   			VCDException::display($e);
+   		} catch (Exception $ex){
+   			throw $ex;
    		} 
    }
    
@@ -125,8 +126,8 @@ class vcd_user implements IUser {
    			}
    			
    			
-   		} catch (Exception $e){
-   			VCDException::display($e);
+   		} catch (Exception $ex){
+   			throw $ex;
    		}	
    }
    
@@ -140,53 +141,43 @@ class vcd_user implements IUser {
     */
    public function addUser(userObj $userObj) {
    		try {
-   			if ($userObj instanceof userObj) {
-   				
-   				// Check if username is taken
-   				foreach ($this->getAllUsers() as $user) {
-   					if (strcmp(strtolower($user->getUserName()), strtolower($userObj->getUserName())) == 0) {
-   						VCDException::display($userObj->getUsername() . " is already taken, choose another one");
-   						return false;
-   					}
-   				}
-   				
-   				if (strlen(trim($userObj->getUsername())) == 0) {
-   					VCDException::display("Username cannot be empty");
-   					return false;
-   				}
-   				
-   				if (strlen(trim($userObj->getFullname())) == 0) {
-   					VCDException::display("Full name cannot be empty");
-   					return false;
-   				}
-   				
-   				// Add default role to user
-   				$userObj->setRole($this->getDefaultRole());
-   				// Add the user to DB and grab the new user_id
-   				$user_id = $this->SQL->addUser($userObj);
-   				
-   				// Save the users selected properties to database
-   				foreach ($userObj->getUserProperties() as $propObj) {
-   					$this->addPropertyToUser($propObj->getpropertyID(), $user_id);
-   				}
-   				
-   				// Create users default frontpage with default options
-   				$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-   				$statsObj = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTSTATS, 1));
-				$barObj   = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTBAR, 1));
-				$SETTINGSClass->addMetadata(array($barObj, $statsObj));
-   								
-				$this->updateUserCache(true);
-   				return true;
-   				   				
-   			} else {
-   				throw new Exception('userObj required');
-   			}
    			
+			// Check if username is taken
+			foreach ($this->getAllUsers() as $user) {
+				if (strcmp(strtolower($user->getUserName()), strtolower($userObj->getUserName())) == 0) {
+					throw new VCDConstraintException($userObj->getUsername() . ' is already taken, choose another one');
+				}
+			}
+			
+			if (strlen(trim($userObj->getUsername())) == 0) {
+				throw new VCDInvalidArgumentException('Username cannot be empty');
+			}
+			
+			if (strlen(trim($userObj->getFullname())) == 0) {
+				throw new VCDInvalidArgumentException('Full name cannot be empty');
+			}
+			
+			// Add default role to user
+			$userObj->setRole($this->getDefaultRole());
+			// Add the user to DB and grab the new user_id
+			$user_id = $this->SQL->addUser($userObj);
+			
+			// Save the users selected properties to database
+			foreach ($userObj->getUserProperties() as $propObj) {
+				$this->addPropertyToUser($propObj->getpropertyID(), $user_id);
+			}
+			
+			// Create users default frontpage with default options
+			$statsObj = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTSTATS, 1));
+			$barObj   = new metadataObj(array('',0, $user_id, metadataTypeObj::SYS_FRONTBAR, 1));
+			$this->Settings()->addMetadata(array($barObj, $statsObj));
+							
+			$this->updateUserCache(true);
+			return true;
+   				   				
    			   			
-   		} catch (Exception $e) {
-   			VCDException::display($e);
-   			return false;
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
@@ -196,14 +187,15 @@ class vcd_user implements IUser {
     * @param string $session_id
     * @param int $user_id
     */
-   public function addSession($session_id, $user_id) {
-   	try {
-   			$user_ip = $_SERVER['REMOTE_ADDR'];
+	public function addSession($session_id, $user_id) {
+		try {
+			
+			$user_ip = $_SERVER['REMOTE_ADDR'];
 			$session_time = VCDUtils::getmicrotime();
-   			$this->SQL->addSession($session_id, $user_id, $session_time, $user_ip);
+			$this->SQL->addSession($session_id, $user_id, $session_time, $user_ip);
    			
-   		} catch (Exception $e){
-   			VCDException::display($e);
+   		} catch (Exception $ex){
+   			throw $ex;
    		}
    }
    
@@ -227,41 +219,26 @@ class vcd_user implements IUser {
    			}
    			
    			// Expire time in hours
-   			$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-   			$session_lifetime = (int)$SETTINGSclass->getSettingsByKey("SESSION_LIFETIME");
+   			$session_lifetime = (int)$this->Settings()->getSettingsByKey("SESSION_LIFETIME");
    			$session_expires = 24*24*24*$session_lifetime;
-  			unset($SETTINGSclass);
   			
   			if ((VCDUtils::getmicrotime() - (int)$session_expires)  < (int)$session_time) {
   				// Time-frame seems to be valid .. proceed with check
-  				
-  				try {
-
-  					$user_id = $this->SQL->getSessionUserID($session_id, $session_time);
-  					if (!empty($user_id)) {
-						
-  						// Our user seems valid... update the session info
-  						$new_sessiontime = VCDUtils::getmicrotime();
-  						$this->SQL->updateSession($session_id, $new_sessiontime);
-  						return true;	
-  						
-  						 						
-  						
-  					} else {
-  						return false;
-  					}	
-  					
-  					 					
-  				} catch (Exception $e) {
-  					VCDException::display($e);
-  				}
-  					
+				$user_id = $this->SQL->getSessionUserID($session_id, $session_time);
+  				if (!empty($user_id)) {
+					// Our user seems valid... update the session info
+  					$new_sessiontime = VCDUtils::getmicrotime();
+  					$this->SQL->updateSession($session_id, $new_sessiontime);
+  					return true;	
+				} else {
+  					return false;
+  				}	
   			}
    			
    			return false;
    			
-   		} catch (Exception $e) {
-   			VCDException::display($e);
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    	
    }
@@ -292,8 +269,8 @@ class vcd_user implements IUser {
    			
 			return false;
    			
-   		} catch (Exception $e){
-   			VCDException::display($e);
+   		} catch (Exception $ex){
+   			throw $ex;
    		}
    }
    
@@ -312,18 +289,12 @@ class vcd_user implements IUser {
    		
    			if (is_numeric($user_id)) {
    				
-   				  				
-   				
    				if ($erase_data) {
    					// delete all user related data aswell
    					// (borrowers, loan records, rss feeds, user properties)
-   					   					  					
    					
    					// Find all user movies
-   					$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-   					$vcdArr = $VCDClass->getAllVcdByUserId($user_id, true);
-   					
-   					
+   					$vcdArr = $this->Movie()->getAllVcdByUserId($user_id, true);
    					
    					// loop through his movies and delete them
    					foreach ($vcdArr as $vcdObj) {
@@ -333,27 +304,23 @@ class vcd_user implements IUser {
    							$mediaTypeObj = $mtArr[0];
    							
    							// delete the copy
-   							$VCDClass->deleteVcdFromUser($vcdObj->getID(), $mediaTypeObj->getmediaTypeID(), 'full', $user_id);
+   							$this->Movie()->deleteVcdFromUser($vcdObj->getID(), $mediaTypeObj->getmediaTypeID(), 'full', $user_id);
    						}
    					}
    					
-   					unset($vcdArr);
-   					
-   					// delete rest of user data
+ 					// delete rest of user data
    					$this->SQL->eraseUser($user_id);
-   					
    				
    				} else {
    					$this->SQL->deleteUser($user_id);
    				}
    				
-   				
    				$this->updateUserCache();
    				
    			}
    			
-   		} catch (Exception $e) {
-   			VCDException::display($e);
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
@@ -365,11 +332,12 @@ class vcd_user implements IUser {
    */
    public function getAllUsers() {
    		try {
+   			
    			$this->updateUserCache();	
    			return $this->userObjArr;
    			
-   		}	catch (Exception $e) {
-   			VCDException::display($e);
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
@@ -380,10 +348,12 @@ class vcd_user implements IUser {
    * @return array
    */
    public function getActiveUsers() {
-   		try {
+		try {
+			
    			return $this->SQL->getActiveUsers();
-   		} catch (Exception $e) {
-   			VCDException::display($e);
+   			
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
@@ -404,9 +374,8 @@ class vcd_user implements IUser {
    				return $this->userRolesArr;
    			}
    			
-   			
-   		} catch (Exception $e) {
-   			VCDException::display($e);
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
@@ -418,20 +387,14 @@ class vcd_user implements IUser {
     */
    public function getAllUsersInRole($role_id) {
    		try {
+   			
    			return $this->SQL->getAllUsersInRole($role_id);
-   		} catch (Exception $e) {
-   			VCDException::display($e);
+   			
+   		} catch (Exception $ex) {
+   			throw $ex;
    		}
    }
    
-   /**
-    * Enter description here...
-    *
-    * @param unknown $userRoleObj
-    */
-   public function addUserRole($userRoleObj) {
-   		//TODO .. implement
-   }
    
    
    /**
@@ -444,21 +407,23 @@ class vcd_user implements IUser {
     * @return bool
     */
    public function deleteUserRole($role_id) {
-		if (is_numeric($role_id)) {
+		try {
+			
+			if (!is_numeric($role_id)) {
+				throw new VCDInvalidArgumentException('Role ID must be numeric');
+			}
+				
 			$arrUsersinWithRole = $this->getAllUsersInRole($role_id);
 			if (is_array($arrUsersinWithRole) && sizeof($arrUsersinWithRole) == 0) {
-				try {
-					$this->SQL->deleteUserRole($role_id);
-					return true;
-				} catch (Exception $e) {
-					VCDException::display($e);
-				}
-				
+				$this->SQL->deleteUserRole($role_id);
+				return true;
 			} else {
-				VCDException::display("Cannot delete roles with ".sizeof($arrUsersinWithRole)." active users, change user roles first.");
+				throw new VCDConstraintException("Cannot delete roles with ".sizeof($arrUsersinWithRole)." active users, change user roles first.");
 			}
+			
+		} catch (Exception $ex) {
+			throw $ex;	
 		}
-		return false;
    }
    
 
@@ -470,6 +435,7 @@ class vcd_user implements IUser {
     * @param bool $force | Force update even if data exists
     */
    private function updateUserCache($force = false) {
+   	
    		if ($force || is_null($this->userObjArr)) {
    			$this->userObjArr = $this->SQL->getAllUsers();
    		}
@@ -486,6 +452,7 @@ class vcd_user implements IUser {
 	 */
 	public function getAllProperties() {
 		try {
+			
 			if (is_null($this->propertiesArr)) {
 				$this->updatePropsCache();
 				return $this->propertiesArr;
@@ -493,8 +460,8 @@ class vcd_user implements IUser {
 				return $this->propertiesArr;
 			}
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -502,26 +469,22 @@ class vcd_user implements IUser {
 	/**
 	 * Add a new user property object to database.
 	 *
-	 * @param userPropertiesObj $userPropertiesObj
+	 * @param userPropertiesObj $obj
 	 */
-	public function addProperty($userPropertiesObj) {
+	public function addProperty(userPropertiesObj $obj) {
 		try {
 			
-			if ($userPropertiesObj instanceof userPropertiesObj ) {
-				$this->SQL->addProperty($userPropertiesObj);
-				$this->updatePropsCache();
-			}
+			$this->SQL->addProperty($obj);
+			$this->updatePropsCache();
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	
 	/**
-	 * Delete property from database.
-	 *
-	 * Throws Exception if any users are using this property.
+	 * Delete property from database. Throws an Exception if any users are using this property.
 	 *
 	 * @param int $property_id
 	 */
@@ -530,15 +493,14 @@ class vcd_user implements IUser {
 			if (is_numeric($property_id)) {
 				
 				if (sizeof($this->getAllUsersWithProperty($property_id)) > 0) {
-					VCDException::display('Cannot delete property. Property is in use by users.');
-					return;
+					throw new VCDConstraintException('Cannot delete property. Property is in use by users.');
 				}
 				
 				$this->SQL->deleteProperty($property_id);
 				$this->updatePropsCache();
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -546,16 +508,16 @@ class vcd_user implements IUser {
 	/**
 	 * Update userProperty object in database.
 	 *
-	 * @param userPropertiesObj $userPropertiesObj
+	 * @param userPropertiesObj $obj
 	 */
-	public function updateProperty($userPropertiesObj) {
+	public function updateProperty(userPropertiesObj $obj) {
 		try {
-			if ($userPropertiesObj instanceof userPropertiesObj ) {
-				$this->SQL->updateProperty($userPropertiesObj);
-				$this->updatePropsCache();
-			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+			$this->SQL->updateProperty($obj);
+			$this->updatePropsCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -569,15 +531,15 @@ class vcd_user implements IUser {
 	 */
 	public function addPropertyToUser($property_id, $user_id) {
 		try {
-			if (is_numeric($property_id) && is_numeric($user_id)) {
-				$this->SQL->addPropertyToUser($property_id, $user_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
+			
+			if (!(is_numeric($property_id) && is_numeric($user_id))) {
+				throw new VCDInvalidArgumentException('Parameters must be numeric');
 			}
+			 
+			$this->SQL->addPropertyToUser($property_id, $user_id);
 			
-			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -590,22 +552,20 @@ class vcd_user implements IUser {
 	public function getPropertyById($property_id) {
 		try {
 		
-			if (is_numeric($property_id)) {
-				
-				foreach ($this->getAllProperties() as $obj) {
-					if ($obj->getpropertyID() == $property_id) {
-						return $obj;
-					}
+			if (!(is_numeric($property_id))) {
+				throw new VCDInvalidArgumentException("Invalid property ID");
+			}
+		
+			foreach ($this->getAllProperties() as $obj) {
+				if ($obj->getpropertyID() == $property_id) {
+					return $obj;
 				}
-				
-				return null;
-				
-			} else {
-				throw new Exception("Invalid property ID");
 			}
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+			return null;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -620,23 +580,16 @@ class vcd_user implements IUser {
 	public function getPropertyByKey($property_key) {
 		try {
 		
-			if (is_string($property_key)) {
-				foreach ($this->getAllProperties() as $obj) {
-					
-					if (strcmp(strtolower($obj->getpropertyName()), strtolower($property_key)) == 0) {
-						return $obj;
-					}
-					
+			foreach ($this->getAllProperties() as $obj) {
+				if (strcmp(strtolower($obj->getpropertyName()), strtolower($property_key)) == 0) {
+					return $obj;
 				}
-				
-				return null;
-				
-			} else {
-				throw new Exception("Invalid property key");
 			}
-			
-		} catch (Exception $e) {
-			VCDException::display($e);
+	
+			return null;
+				
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -650,21 +603,21 @@ class vcd_user implements IUser {
 	 */
 	public function deletePropertyOnUser($property_id, $user_id) {
 		try {
-			if (is_numeric($property_id) && is_numeric($user_id)) {
-				$this->SQL->deletePropertyOnUser($property_id, $user_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
-			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+			if (!(is_numeric($property_id) && is_numeric($user_id))) {
+				throw new VCDInvalidArgumentException("Parameters must be numeric");
+			}	
+
+			$this->SQL->deletePropertyOnUser($property_id, $user_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	
 	/**
-	 * Get all users with the specified property ID assigned.
-	 *
-	 * Returns array of user objects.
+	 * Get all users with the specified property ID assigned. Returns an array of user objects.
 	 *
 	 * @param int $property_id
 	 * @return array
@@ -672,7 +625,7 @@ class vcd_user implements IUser {
 	public function getAllUsersWithProperty($property_id) {
 		try {
 			if (!is_numeric($property_id)) {
-				throw new Exception("Property ID must be an Identifier");
+				throw new VCDInvalidArgumentException("Property ID must be numeric");
 			}			
 			
 			$arrUsers = $this->SQL->getUsersByPropertyID($property_id);
@@ -689,9 +642,8 @@ class vcd_user implements IUser {
 		
 			return $arrUsers;
 		
-			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -699,20 +651,18 @@ class vcd_user implements IUser {
 	/* Misc functions */
 	
 	/**
-	 * Get the users with most movie count in database.
-	 *
-	 * Returns array of user objects sorted by highest movie count.
+	 * Get the users with most movie count in database. Returns array of user objects sorted by highest movie count.
 	 *
 	 * @return array
 	 */
 	public function getUserTopList() {
 		try {
+			
 			return $this->SQL->getUserTopList();
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		
-		
 	}
 	
 	
@@ -744,10 +694,8 @@ class vcd_user implements IUser {
 	public function getDefaultRole() {
 		try {
 			
-			
 			// Check if default role has been defined as a metadata
-			$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
-			$arrMeta = $CLASSSettings->getMetadata(0,0,'default_role');
+			$arrMeta = $this->Settings()->getMetadata(0,0,'default_role');
 			if (is_array($arrMeta) && sizeof($arrMeta) == 1) {
 				$metaObj = $arrMeta[0];
 				if ($metaObj instanceof metadataObj ) {
@@ -768,10 +716,10 @@ class vcd_user implements IUser {
 				}
 			}
 			
-			throw new Exception("Default User Role not found!");
+			throw new VCDProgramException('Default User Role not found!');
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 
 	}
@@ -786,21 +734,35 @@ class vcd_user implements IUser {
 		
 			foreach ($this->getAllUserRoles() as $role) {
 				if ((strcmp(strtolower($role->getRoleName()), strtolower("administrator")) == 0) && ($role->getRoleID() == $role_id)) {
-					VCDException::display('For security reasons<break>administrator cannot be set as a default role.', true);
-					return;
+					throw new VCDProgramException('For security reasons<break>administrator cannot be set as a default role.');
 				}
 			}
 			
-			$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
 			$metadata = new metadataObj(array('', 0, 0, metadataTypeObj::SYS_DEFAULTROLE , $role_id));
-			$CLASSSettings->addMetadata($metadata);
-			
+			$this->Settings()->addMetadata($metadata);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex, true);
+			throw $ex;
 		}
 	}
 
+	/**
+	 * Get an instance of the vcd_settings class
+	 *
+	 * @return vcd_settings
+	 */
+	private function Settings() {
+		return VCDClassFactory::getInstance('vcd_settings');
+	}
+	
+	/**
+	 * Get an instance of the vcd_movie class
+	 *
+	 * @return vcd_movie
+	 */
+	private function Movie() {
+		return VCDClassFactory::getInstance('vcd_movie');
+	}
 
 }
 

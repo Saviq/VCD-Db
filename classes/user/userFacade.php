@@ -40,7 +40,6 @@ interface IUser {
 	/* Roles / Groups */
 	public function getAllUserRoles();
 	public function getAllUsersInRole($role_id);
-	public function addUserRole($userRoleObj);
 	public function deleteUserRole($role_id);
 	public function getDefaultRole();
 	public function setDefaultRole($role_id);
@@ -49,9 +48,9 @@ interface IUser {
 	public function getAllProperties();
 	public function getPropertyById($property_id);
 	public function getPropertyByKey($property_key);
-	public function addProperty($userPropertiesObj);
+	public function addProperty(userPropertiesObj $obj);
 	public function deleteProperty($property_id);
-	public function updateProperty($userPropertiesObj);
+	public function updateProperty(userPropertiesObj $obj);
 			
 	/* Properties on user */
 	public function addPropertyToUser($property_id, $user_id);

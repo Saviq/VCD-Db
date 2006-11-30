@@ -39,8 +39,14 @@ class vcd_cdcover implements ICdcover {
 	* @return array
 	*/
 	public function getAllCoverTypes() {
-		$this->updateCoverTypeCache();
-		return $this->coverTypesArr;
+		try {
+			
+			$this->updateCoverTypeCache();
+			return $this->coverTypesArr;	
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
    
 	/**
@@ -48,15 +54,13 @@ class vcd_cdcover implements ICdcover {
 	 * 
 	 * @param cdcoverTypeObj $cdcoverTypeObj
 	 */
-	public function addCoverType($cdcoverTypeObj) {
-		if ($cdcoverTypeObj instanceof cdcoverTypeObj) {
-			try {
-				$this->SQL->addCoverType($cdcoverTypeObj);
-			} catch (Exception $e) {
-				VCDException::display($e);
-			}
-		} else {
-			VCDException::display("Invalid object type: Expecting cdcoverObj");
+	public function addCoverType(cdcoverTypeObj $cdcoverTypeObj) {
+		try {
+
+			$this->SQL->addCoverType($cdcoverTypeObj);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -67,34 +71,38 @@ class vcd_cdcover implements ICdcover {
 	 * @param int $type_id
 	 */
 	public function deleteCoverType($type_id) {
-		if (is_numeric($type_id)) {
-			try {
-				$this->SQL->deleteCoverType($type_id);
+		try {
 			
-			} catch (Exception $e) {
-				VCDException::display($e);
+			if (!is_numeric($type_id)) {
+				throw new VCDInvalidArgumentException('CoverType Id must be numeric');
 			}
+			
+			$this->SQL->deleteCoverType($type_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-	
 	}
 	
 	
 	/**
 	 * Get all allowed coverType objects that have been associated with the selected mediaTypeId.
-	 * 
 	 * Returns an array of coverType objects.
 	 *
 	 * @param int $mediatype_id
 	 * @return array
 	 */
 	public function getAllCoverTypesForVcd($mediatype_id) {
-		if (is_numeric($mediatype_id)) {
-			try {
-				return $this->SQL->getAllCoverTypesForVcd($mediatype_id);
+		try {
 			
-			} catch (Exception $e) {
-				VCDException::display($e);
+			if (!is_numeric($mediatype_id)) {
+				throw new VCDInvalidArgumentException('MediaType Id must be numeric');
 			}
+			
+			return $this->SQL->getAllCoverTypesForVcd($mediatype_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -107,21 +115,24 @@ class vcd_cdcover implements ICdcover {
 	public function getCoverTypeById($covertype_id) {
 		try {
 			
-			if (is_numeric($covertype_id)) {
-				$this->updateCoverTypeCache();
-				foreach ($this->coverTypesArr as $obj) {
-					if ($obj->getCoverTypeID() == $covertype_id) {
-						return $obj;
-					}
-				}
-				return null;
+			if (!is_numeric($covertype_id)) {
+				throw new VCDInvalidArgumentException('CoverType Id must be numeric');
 			}
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+			$this->updateCoverTypeCache();
+			foreach ($this->coverTypesArr as $obj) {
+				if ($obj->getCoverTypeID() == $covertype_id) {
+					return $obj;
+				}
+			}
+			
+			return null;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
-	
+
 	/**
 	 * Get a cdcover object by name.
 	 *
@@ -130,17 +141,18 @@ class vcd_cdcover implements ICdcover {
 	 */
 	public function getCoverTypeByName($covertype_name) {
 		try {
-				$this->updateCoverTypeCache();
-				foreach ($this->coverTypesArr as $obj) {
-					if (strcmp(strtolower($obj->getCoverTypeName()), strtolower($covertype_name)) == 0) {
-						return $obj;
-					}
+			
+			$this->updateCoverTypeCache();
+			foreach ($this->coverTypesArr as $obj) {
+				if (strcmp(strtolower($obj->getCoverTypeName()), strtolower($covertype_name)) == 0) {
+					return $obj;
 				}
-				throw new Exception($covertype_name . " not found");
+			}
 			
+			throw new VCDProgramException($covertype_name . ' not found');
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -150,17 +162,14 @@ class vcd_cdcover implements ICdcover {
 	 *
 	 * @param cdcoverTypeObj $cdcoverTypeObj
 	 */
-	public function updateCoverType($cdcoverTypeObj) {
+	public function updateCoverType(cdcoverTypeObj $cdcoverTypeObj) {
 		try {
-			if ($cdcoverTypeObj instanceof cdcoverTypeObj ) {
-				$this->SQL->updateCoverType($cdcoverTypeObj);
-				$this->updateCoverTypeCache();
-			} else {
-				throw new Exception("CoverTypeObj Expected");
-			}
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+			$this->SQL->updateCoverType($cdcoverTypeObj);
+			$this->updateCoverTypeCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -173,20 +182,22 @@ class vcd_cdcover implements ICdcover {
 	 * @return cdcoverObj
 	 */
 	public function getCoverById($cover_id) {
-		if (is_numeric($cover_id)) {
-			try {
-				return $this->SQL->getCoverById($cover_id);
+		try {
 			
-			} catch (Exception $e) {
-				VCDException::display($e);
+			if (!is_numeric($cover_id)) {
+				throw new VCDInvalidArgumentException('Cover Id must be numeric');
 			}
+			
+			return $this->SQL->getCoverById($cover_id);
+		
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	
 	/**
 	 * Get all cdcoverType objects associated with incoming mediaType objects.
-	 * 
 	 * Parameter should contain array of mediaType objects.
 	 * Returns an array of cdcoverType objects, if none are
 	 * found - function returns null.
@@ -214,14 +225,9 @@ class vcd_cdcover implements ICdcover {
 				return null;
 			}
 			
-			
-						
-			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		
-	
 	}
 	
 	
@@ -234,66 +240,61 @@ class vcd_cdcover implements ICdcover {
 	 * @return array
 	 */
 	public function getAllCoversForVcd($vcd_id) {
-		if (is_numeric($vcd_id)) {
-			try {
-				$arrCovers = $this->SQL->getAllCoversForVcd($vcd_id);
-				
-				// Filter out the duplicates
-				$arrUnique = array();
-				$arrTypes = array();
-				foreach ($arrCovers as $obj) {
-					if (!in_array($obj->getCoverTypeID(),$arrTypes)) { 
-						array_push($arrUnique, $obj);
-						array_push($arrTypes, $obj->getCoverTypeID());
-					}
-				}
-
-				unset($arrTypes);
-				unset($arrCovers);
-				return $arrUnique;
-				
-				
-			} catch (Exception $e) {
-				VCDException::display($e);
+		try {
+			
+			if (!is_numeric($vcd_id)) {
+				throw new VCDInvalidArgumentException('Id must be numeric');
 			}
 			
+			$arrCovers = $this->SQL->getAllCoversForVcd($vcd_id);
+			
+			// Filter out the duplicates
+			$arrUnique = array();
+			$arrTypes = array();
+			foreach ($arrCovers as $obj) {
+				if (!in_array($obj->getCoverTypeID(),$arrTypes)) { 
+					array_push($arrUnique, $obj);
+					array_push($arrTypes, $obj->getCoverTypeID());
+				}
+			}
+
+			return $arrUnique;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
 	
 	/**
 	 * Save a new cdcover object to database.
-	 *
-	 * If same cdCover object exists in database,
-	 * the cdCover object is updated instead of inserting 
-	 * duplicate entry.
+	 * If same cover object exists in database, the cover object is updated 
+	 * instead of inserting a duplicate entry.
 	 *
 	 * @param cdcoverObj $cdcoverObj
 	 */
-	public function addCover($cdcoverObj) {
-		if ($cdcoverObj instanceof cdcoverObj) {
-			try {
-				
-				// Check cover with same coverTypeID and movie exist, and then call update 
-				// instead of inserting ..
-				
-				$coverArr = $this->getAllCoversForVcd($cdcoverObj->getVcdId());
-				if (is_array($coverArr) && sizeof($coverArr) > 0) {
-					foreach ($coverArr as $coverObj) {
-						if ($coverObj->getCoverTypeID() == $cdcoverObj->getCoverTypeID()) {
-							$cdcoverObj->setCoverID($coverObj->getId());
-							$this->updateCover($cdcoverObj);
-							return;
-						}
+	public function addCover(cdcoverObj $cdcoverObj) {
+		try {
+		
+			// Check cover with same coverTypeID and movie exist, and then call update 
+			// instead of inserting ..
+			
+			$coverArr = $this->getAllCoversForVcd($cdcoverObj->getVcdId());
+			if (is_array($coverArr) && sizeof($coverArr) > 0) {
+				foreach ($coverArr as $coverObj) {
+					if ($coverObj->getCoverTypeID() == $cdcoverObj->getCoverTypeID()) {
+						$cdcoverObj->setCoverID($coverObj->getId());
+						$this->updateCover($cdcoverObj);
+						return;
 					}
 				}
-				
-				// Nopes .. cover is brand new .. lets insert it.
-				$this->SQL->addCover($cdcoverObj);
-			
-			} catch (Exception $e) {
-				VCDException::display($e);
 			}
+			
+			// Nopes .. cover is brand new .. lets insert it.
+			$this->SQL->addCover($cdcoverObj);
+	
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -303,13 +304,16 @@ class vcd_cdcover implements ICdcover {
 	 * @param int $cover_id
 	 */
 	public function deleteCover($cover_id) {
-		if (is_numeric($cover_id)) {
-			try {
-				$this->SQL->deleteCover($cover_id);
+		try {
 			
-			} catch (Exception $e) {
-				VCDException::display($e);
+			if (!is_numeric($cover_id)) {
+				throw new VCDInvalidArgumentException('Cover Id must be numeric');
 			}
+			
+			$this->SQL->deleteCover($cover_id);
+		
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -318,14 +322,13 @@ class vcd_cdcover implements ICdcover {
 	 *
 	 * @param cdcoverObj $cdcoverObj
 	 */
-	public function updateCover($cdcoverObj) {
-		if ($cdcoverObj instanceof cdcoverObj) {
-			try {
-				$this->SQL->updateCover($cdcoverObj);
-			
-			} catch (Exception $e) {
-				VCDException::display($e);
-			}
+	public function updateCover(cdcoverObj $cdcoverObj) {
+		try {
+
+			$this->SQL->updateCover($cdcoverObj);
+		
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -333,11 +336,8 @@ class vcd_cdcover implements ICdcover {
 	
 	/**
 	 * Link coverType objects to mediaType objects.
-	 *
-	 * If the param coverTypeIDArr is an empty array
-	 * all linking to mediaTypeId in param 1 is deleted.
-	 * Otherwise coverTypeIDArr should be an array containing 
-	 * cdcoverType id's.
+	 * If the param coverTypeIDArr is an empty array all linking to mediaTypeId in param 1 is deleted.
+	 * Otherwise coverTypeIDArr should be an array containing cdcoverType id's.
 	 *
 	 * @param int $mediaTypeID
 	 * @param array $coverTypeIDArr
@@ -346,7 +346,7 @@ class vcd_cdcover implements ICdcover {
 		try {
 
 			if (!is_numeric($mediaTypeID)) {
-				throw new Exception("Wrong mediaTypeID supplied");
+				throw new VCDInvalidArgumentException('Mediatype Id must be numeric');
 			}
 			
 			if (is_array($coverTypeIDArr) && sizeof($coverTypeIDArr) == 0) {
@@ -364,11 +364,11 @@ class vcd_cdcover implements ICdcover {
 				}
 							
 			} else {
-				throw new Exception("Input must be Array of coverTypeIDs or an empty array");
+				throw new VCDInvalidArgumentException('Param $coverTypeIDArr must be an array on covertype ids');
 			}
 					
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -376,7 +376,6 @@ class vcd_cdcover implements ICdcover {
 	
 	/**
 	 * Get all cdcoverType objects associated with selected mediaType id.
-	 * 
 	 * Returns an array of cdcoverType objects.
 	 *
 	 * @param int $mediaType_id
@@ -384,14 +383,15 @@ class vcd_cdcover implements ICdcover {
 	 */
 	public function getCDcoverTypesOnMediaType($mediaType_id) {
 		try {
-			if (is_numeric($mediaType_id)) {
-				return $this->SQL->getCDcoverTypesOnMediaType($mediaType_id);
-			} else {
-				throw new Exception("mediaTypeID must be numeric");
-				return false;
+			
+			if (!is_numeric($mediaType_id)) {
+				throw new VCDInvalidArgumentException('Mediatype Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			return $this->SQL->getCDcoverTypesOnMediaType($mediaType_id);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -404,16 +404,15 @@ class vcd_cdcover implements ICdcover {
 	 */
 	public function getAllThumbnailsForXMLExport($user_id) {
 		try {
-			if (is_numeric($user_id)) {
-				
-				$coverObj = $this->getCoverTypeByName('thumbnail');
-				return $this->SQL->getAllThumbnailsForXMLExport($user_id, $coverObj->getCoverTypeID());
-				
-			} else {
-				throw new Exception('Parameter must be numeric');
+			if (!is_numeric($user_id)) {
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			$coverObj = $this->getCoverTypeByName('thumbnail');
+			return $this->SQL->getAllThumbnailsForXMLExport($user_id, $coverObj->getCoverTypeID());
+						
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	

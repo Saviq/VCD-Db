@@ -52,56 +52,54 @@ class vcd_settings implements ISettings {
     *
     * @return array of settingsObj
     */
-   public function getAllSettings() {
-	try {
-		if (is_null($this->settingsArray)) {
-			$this->updateCache();
+	public function getAllSettings() {
+		try {
+		
+			if (is_null($this->settingsArray)) {
+				$this->updateCache();
+			}
+			
+	   		return $this->settingsArray;
+
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-   		return $this->settingsArray;
-
-   	} catch (Exception $e) {
-   		VCDException::display($e);
-   	}
-
    }
 
    /**
     * Save settingsObj to database.
-    *
     * Parameter can either be settingsObj or
     * an array of settingsObj
     *
     * @param mixed $settingsObj
     */
-   public function addSettings($settingsObj) {
-
-   		try {
-	   		if ($settingsObj instanceof settingsObj) {
-			    if ($this->checkDuplicates($settingsObj)) {
-			    	VCDException::display("Key already exist");
-			    	return;
+	public function addSettings($settingsObj) {
+		try {
+	   		
+			if ($settingsObj instanceof settingsObj) {
+				if ($this->checkDuplicates($settingsObj)) {
+					throw new VCDConstraintException('Key already exists');
 			    }
 
 			    if (strcmp($settingsObj->getKey(),"") == 0) {
-			    	VCDException::display("Key cannot be empty");
-			    	return;
+			    	throw new VCDInvalidArgumentException('Key can not be empty');
 			    }
 
 			    if (strcmp($settingsObj->getValue(),"") == 0) {
-			    	VCDException::display("Value cannot be empty");
-			    	return;
+			    	throw new VCDInvalidArgumentException('Value can not be empty');
 			    }
 
 	   			$this->SQL->saveSettings($settingsObj);
 
-			}
-			elseif (is_array($settingsObj)) {
+			} elseif (is_array($settingsObj)) {
 			   $this->SQL->saveSettings($settingsObj);
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+			$this->updateCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		$this->updateCache();
    }
 
    /**
@@ -109,16 +107,15 @@ class vcd_settings implements ISettings {
     *
     * @param settingsObj $settingsObj
     */
-   public function updateSettings($settingsObj) {
-   		if ($settingsObj instanceof settingsObj) {
-   			try {
-   				$this->SQL->updateSettings($settingsObj);
-   			} catch (Exception $e) {
-   				VCDException::display($e);
-   			}
+   public function updateSettings(settingsObj $obj) {
+		try {
 
+			$this->SQL->updateSettings($obj);
+			$this->updateCache();
+   		
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		$this->updateCache();
    }
 
 
@@ -138,41 +135,42 @@ class vcd_settings implements ISettings {
 				}
 			}
 
-			throw new Exception("Key ".$key." not found");
+			throw new VCDProgramException("Key {$key} was not found");
 
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return false;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
-
 	}
 
 	/**
-	 * Delete a settingsObj.
-	 *
-	 * Returns true if settingsObj with that key was deleted, otherwise false.
+	 * Delete a settingsObj, returns true if settingsObj with that key was deleted, otherwise false.
 	 *
 	 * @param int $settings_id
 	 * @return boolean
 	 */
 	public function deleteSettings($settings_id) {
-		if (is_numeric($settings_id)) {
-
+		try {
+			
+			if (!is_numeric($settings_id)) {
+				throw new VCDInvalidArgumentException('Settings Id must be numeric');
+			}
+			
 			$obj = $this->getSettingsByID($settings_id);
 			if (!$obj instanceof settingsObj) {
-				return false;
+				throw new VCDInvalidArgumentException('Invalid settings Id value');
 			}
 
 			if ($obj->isProtected()) {
-				return false;
+				throw new VCDConstraintException('Key is protected');
 			}
 
 			$this->SQL->deleteSettings($settings_id);
 			$this->updateCache();
 			return true;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		return false;
 	}
 
 
@@ -184,14 +182,16 @@ class vcd_settings implements ISettings {
 	 */
 	public function getSettingsByID($settings_id) {
 		try {
-			if (is_numeric($settings_id)) {
-				return $this->SQL->getSettingsByID($settings_id);
+			
+			if (!is_numeric($settings_id)) {
+				throw new VCDInvalidArgumentException('Settings Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+		
+			return $this->SQL->getSettingsByID($settings_id);
+				
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 
@@ -205,11 +205,12 @@ class vcd_settings implements ISettings {
 	 */
 	public function getSourceSites() {
 		try {
+			
 			$this->updateSiteCache();
 			return $this->sourcesiteArray;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -221,18 +222,21 @@ class vcd_settings implements ISettings {
 	 */
 	public function getSourceSiteByID($source_id) {
 		try {
-
-			if (is_numeric($source_id)) {
-				foreach ($this->getSourceSites() as $obj) {
-					if ($obj->getsiteID() == $source_id) {
-						return $obj;
-					}
-				}
-				return null;
+			
+			if (!is_numeric($source_id)) {
+				throw new VCDInvalidArgumentException('Source Id must be numeric');
 			}
+		
+			foreach ($this->getSourceSites() as $obj) {
+				if ($obj->getsiteID() == $source_id) {
+					return $obj;
+				}
+			}
+			
+			return null;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -254,32 +258,28 @@ class vcd_settings implements ISettings {
 
 			return null;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 	/**
 	 * Save a new SourceSiteObj to database
 	 *
-	 * @param sourceSiteObj $sourceSiteObj
+	 * @param sourceSiteObj $obj
 	 */
-	public function addSourceSite($sourceSiteObj) {
+	public function addSourceSite(sourceSiteObj $obj) {
 		try {
-			if ($sourceSiteObj instanceof sourceSiteObj ) {
-				if ($sourceSiteObj->isFetchable() && strcmp($sourceSiteObj->getClassName(),"") == 0) {
-					throw new Exception("When object is marked fetchable, classname must be defined.");
-				}
-				$this->SQL->addSourceSite($sourceSiteObj);
-				$this->updateSiteCache();
-			} else {
-				throw new Exception('Wrong object type');
+			
+			if ($obj->isFetchable() && strcmp($obj->getClassName(),"") == 0) {
+				throw new VCDConstraintException('When sourcesite is marked fetchable, classname must be defined.');
 			}
-
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+			$this->SQL->addSourceSite($obj);
+			$this->updateSiteCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -291,45 +291,44 @@ class vcd_settings implements ISettings {
 	 */
 	public function deleteSourceSite($source_id) {
 		try {
-			if (is_numeric($source_id)) {
-				$this->SQL->deleteSourceSite($source_id);
-				$this->updateSiteCache();
+			
+			if (!is_numeric($source_id)) {
+				throw new VCDInvalidArgumentException('Source Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+		
+			$this->SQL->deleteSourceSite($source_id);
+			$this->updateSiteCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
 	 * Update an existing sourceSiteObj
 	 *
-	 * @param sourceSiteObj $sourceSiteObj
+	 * @param sourceSiteObj $obj
 	 */
-	public function updateSourceSite($sourceSiteObj) {
+	public function updateSourceSite(sourceSiteObj $obj) {
 		try {
-			if ($sourceSiteObj instanceof sourceSiteObj ) {
-				
-				if ($sourceSiteObj->isFetchable() && strcmp($sourceSiteObj->getClassName(),"") == 0) {
-					throw new Exception("When object is marked fetchable, classname must be defined.");
-				}
-				
-				if (strcmp($sourceSiteObj->getImage(),"") != 0) {
-					$filename = '../images/logos/'.$sourceSiteObj->getImage();
-					if (!fs_file_exists($filename)) {
-						throw new Exception("File " . $filename ." was not found.");
-					}
-				}
-			
-			
-				$this->SQL->updateSourceSite($sourceSiteObj);
-				$this->updateSiteCache();
-			} else {
-				throw new Exception('Wrong object type');
+						
+			if ($obj->isFetchable() && strcmp($obj->getClassName(),"") == 0) {
+				throw new VCDConstraintException('When sourcesite is marked fetchable, classname must be defined.');
 			}
+			
+			if (strcmp($obj->getImage(),"") != 0) {
+				$filename = '../images/logos/'.$obj->getImage();
+				if (!fs_file_exists($filename)) {
+					throw new VCDProgramException("File {$filename} was not found.");
+				}
+			}
+		
+		
+			$this->SQL->updateSourceSite($obj);
+			$this->updateSiteCache();
 
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -350,15 +349,15 @@ class vcd_settings implements ISettings {
 	 */
 	public function getAllMediatypes() {
 		try {
+			
 			if (is_null($this->mediatypeArray)) {
 				$this->updateMediaCache();
 			}
 
 			return $this->mediatypeArray;
 
-
 		} catch (Exeption $e) {
-			VCDException::display($e);
+			throw $ex;
 		}
 	}
 
@@ -375,9 +374,8 @@ class vcd_settings implements ISettings {
 
 			return $this->mediatypeFullArray;
 
-
 		} catch (Exeption $e) {
-			VCDException::display($e);
+			throw $ex;
 		}
 	}
 
@@ -390,24 +388,27 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMediaTypeByID($media_id) {
 		try {
-			if (is_numeric($media_id)) {
-
-				foreach ($this->getAllMediatypes() as $obj) {
-					if ($media_id == $obj->getmediaTypeID()) {
-						return $obj;
-					}
-						// Also check the children
-						foreach ($obj->getChildren() as $childObj) {
-							if ($media_id == $childObj->getmediaTypeID()) {
-								return $childObj;
-							}
-						}
-				}
-				return null;
+			
+			if (!is_numeric($media_id)) {
+				throw new VCDInvalidArgumentException('Media Id must be numeric');
 			}
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+			foreach ($this->getAllMediatypes() as $obj) {
+				if ($media_id == $obj->getmediaTypeID()) {
+					return $obj;
+				}
+				// Also check the children
+				foreach ($obj->getChildren() as $childObj) {
+					if ($media_id == $childObj->getmediaTypeID()) {
+						return $childObj;
+					}
+				}
+			}
+			
+			return null;
+
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -415,54 +416,52 @@ class vcd_settings implements ISettings {
 	/**
 	 * Save a new mediaTypeObj to database
 	 *
-	 * @param mediaTypeObj $mediaTypeObj
+	 * @param mediaTypeObj $obj
 	 */
-	public function addMediaType($mediaTypeObj) {
+	public function addMediaType(mediaTypeObj $obj) {
 		try {
-			if ($mediaTypeObj instanceof mediaTypeObj) {
-				$this->SQL->addMediaType($mediaTypeObj);
-				$this->updateMediaCache();
-			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+			$this->SQL->addMediaType($obj);
+			$this->updateMediaCache();
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 
 	/**
-	 * Delete mediaTypeObj from database.
-	 *
-	 * Return true if deletion is successful otherwise
-	 * returns false.
+	 * Delete mediaTypeObj from database, returns true if deletion is successful otherwise false.
 	 *
 	 * @param int $mediatype_id
 	 * @return boolean
 	 */
 	public function deleteMediaType($mediatype_id) {
 		try {
-			if (is_numeric($mediatype_id)) {
+			
+				if (!is_numeric($mediatype_id)) {
+					throw new VCDInvalidArgumentException('Mediatype Id must be numeric');
+				}
+			
 				$tempObj = $this->getMediaTypeByID($mediatype_id);
 				if (!$tempObj instanceof mediaTypeObj) {
 					return false;
 				}
 
 				if ($tempObj->getChildrenCount() > 0) {
-					throw new Exception('Cannot delete media type with active subcategories,');
+					throw new VCDConstraintException('Cannot delete mediatype with active subcategories');
 				}
 
 				if ($this->SQL->getCountByMediaType($mediatype_id) > 0) {
-					throw new Exception('Media type in use.  Cannot delete,');
+					throw new VCDConstraintException('Media type is in use. Cannot delete.');
 				}
 
 				$this->SQL->deleteMediaType($mediatype_id);
 				$this->updateMediaCache();
 				return true;
-			}
-
-			return false;
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return false;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -470,15 +469,15 @@ class vcd_settings implements ISettings {
 	/**
 	 * Update a mediaTypeObj
 	 *
-	 * @param mediaTypeObj $mediaTypeObj
+	 * @param mediaTypeObj $obj
 	 */
-	public function updateMediaType($mediaTypeObj) {
+	public function updateMediaType(mediaTypeObj $obj) {
 		try {
-			if ($mediaTypeObj instanceof mediaTypeObj) {
-				$this->SQL->updateMediaType($mediaTypeObj);
-			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+				$this->SQL->updateMediaType($obj);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -502,13 +501,11 @@ class vcd_settings implements ISettings {
 				return $arrMediaTypes;
 
 			} else {
-				VCDException::display("CD with id " . $vcd_id ." has no assigned media types");
+				throw new VCDProgramException("CD with id {$vcd_id} has no assigned media types");
 			}
 
-
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -524,26 +521,22 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMediaTypesInUseByUserID($user_id) {
 		try {
-			if (is_numeric($user_id)) {
-
-				$media_array = $this->SQL->getMediaTypesInUseByUserID($user_id);
-				$i = 0;
-				foreach ($media_array as $itemArray) {
-					$catObj = $this->getMediaTypeByID($itemArray[0]);
-					$media_array[$i++][1] = $catObj->getDetailedName();
-				}
-
-				asort($media_array);
-				return aSortBySecondIndex($media_array,1);
-
-
-			} else {
-				throw new Exception('Parameter must be numeric');
+			if (!is_numeric($user_id)) { 
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
 
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+			$media_array = $this->SQL->getMediaTypesInUseByUserID($user_id);
+			$i = 0;
+			foreach ($media_array as $itemArray) {
+				$catObj = $this->getMediaTypeByID($itemArray[0]);
+				$media_array[$i++][1] = $catObj->getDetailedName();
+			}
+
+			asort($media_array);
+			return aSortBySecondIndex($media_array,1);
+
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -557,36 +550,37 @@ class vcd_settings implements ISettings {
 	public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {
 
-			if (is_numeric($user_id) && is_numeric($category_id)) {
-				return $this->SQL->getMediaCountByCategoryAndUserID($user_id, $category_id);
-			} else {
-				throw new Exception('Parameters must be numeric');
+			if (!(is_numeric($user_id) && is_numeric($category_id))) {
+				throw new VCDInvalidArgumentException('User Id and Category Id must be numeric');
 			}
+			
+			return $this->SQL->getMediaCountByCategoryAndUserID($user_id, $category_id);			
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Get a mediatypeObj by mediatype name.
-	 * If media type is not found, null is returned.
+	 * Get a mediatypeObj by mediatype name. If media type is not found, null is returned.
 	 *
 	 * @param string $media_name | The name of the media type
 	 * @return mediaTypeObj | The object found.
 	 */
 	public function getMediaTypeByName($media_name) {
 		try {
+			
 			foreach ($this->getAllMediaTypesFull() as $movieMediaTypeObj) {
-				$thisname = $movieMediaTypeObj->getName();
-				if (strcmp(strtolower(substr($media_name, -strlen($thisname))), strtolower($thisname)) == 0) {
+				$typename = $movieMediaTypeObj->getName();
+				if (strcmp(strtolower(substr($media_name, -strlen($typename))), strtolower($typename)) == 0) {
 					return $movieMediaTypeObj;
 				}
 			}
+			
 			return null;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -604,13 +598,15 @@ class vcd_settings implements ISettings {
 	 */
 	public function getAllMovieCategories() {
 		try {
-			if (is_null($this->moviecategoryArray))
+			
+			if (is_null($this->moviecategoryArray)) {
 				$this->updateCategoryCache();
-
+			}
+		
 			return $this->moviecategoryArray;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -621,10 +617,11 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMovieCategoriesInUse() {
 		try {
+			
 			return $this->SQL->getMovieCategoriesInUse();
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -638,15 +635,14 @@ class vcd_settings implements ISettings {
 	public function getCategoriesInUseByUserID($user_id) {
 		try {
 
-			if (is_numeric($user_id)) {
-				return $this->SQL->getCategoriesInUseByUserID($user_id);
-			} else {
-				throw new Exception('Parameter must be numeric');
+			if (!is_numeric($user_id)) {
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
+				
+			return $this->SQL->getCategoriesInUseByUserID($user_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -658,32 +654,32 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMovieCategoryByID($category_id) {
 		try {
+			
 			foreach ($this->getAllMovieCategories() as $movieCategoryObj) {
 				if ($movieCategoryObj->getID() == $category_id) {
 					return $movieCategoryObj;
 				}
 			}
+			
 			return null;
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
 	 * Save a new movieCategoyObj to database
 	 *
-	 * @param movieCategoyObj $movieCategoryObj
+	 * @param movieCategoyObj $obj
 	 */
-	public function addMovieCategory($movieCategoryObj) {
+	public function addMovieCategory(movieCategoryObj $obj) {
 		try {
-			if ($movieCategoryObj instanceof movieCategoryObj) {
-				$this->SQL->addMovieCategory($movieCategoryObj);
-			} else {
-				throw new Exception('movieCategoryObj expected');
-			}
+			
+			$this->SQL->addMovieCategory($obj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -695,37 +691,39 @@ class vcd_settings implements ISettings {
 	 */
 	public function deleteMovieCategory($category_id) {
 		try {
-			if (is_numeric($category_id)) {
-
-				// check if category is in use ..
-				foreach ($this->getMovieCategoriesInUse() as $obj) {
-					if ($obj->getID() == $category_id) {
-						throw new Exception("Cannot delete category that is in use.");
-					}
-				}
-
-				$this->SQL->deleteMovieCategory($category_id);
-				$this->updateCategoryCache();
+			
+			if (!is_numeric($category_id)) {
+				throw new VCDInvalidArgumentException('Category Id must be numeric');
 			}
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+			// check if category is in use ..
+			foreach ($this->getMovieCategoriesInUse() as $obj) {
+				if ($obj->getID() == $category_id) {
+					throw new VCDConstraintException('Cannot delete category that is in use.');
+				}
+			}
+
+			$this->SQL->deleteMovieCategory($category_id);
+			$this->updateCategoryCache();
+			
+
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
 	 * Update an instance of movieCategoryObj in database
 	 *
-	 * @param movieCategoryObj $movieCategoryObj
+	 * @param movieCategoryObj $obj
 	 */
-	public function updateMovieCategory($movieCategoryObj) {
+	public function updateMovieCategory(movieCategoryObj $obj) {
 		try {
-			if ($movieCategoryObj instanceof movieCategoryObj) {
-				$this->SQL->updateMovieCategory($movieCategoryObj);
-			}
+			
+			$this->SQL->updateMovieCategory($obj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -738,15 +736,17 @@ class vcd_settings implements ISettings {
 	 */
 	public function getCategoryIDByName($category_name, $localized=false) {
 		try {
+			
 			foreach ($this->getAllMovieCategories() as $movieCategoryObj) {
 				if (strcmp(strtolower($category_name), strtolower($movieCategoryObj->getName($localized))) == 0) {
 					return $movieCategoryObj->getID();
 				}
 			}
+			
 			return 0;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -765,7 +765,7 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($borrower_id)) {
-				throw new Exception("Invalid borrower_id");
+				throw new VCDInvalidArgumentException('Borrower Id must be numeric');
 			}
 
 			if (is_null($this->borrowersArray)) {
@@ -780,11 +780,10 @@ class vcd_settings implements ISettings {
 			}
 
 			// No borrower found, should never happen
-			throw new Exception("Borrower nr. " . $borrower_id . " does not exist.");
+			throw new VCDProgramException("Borrower with Id {$borrower_id} does not exist.");
 
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 
 	}
@@ -797,31 +796,30 @@ class vcd_settings implements ISettings {
 	 */
 	public function getBorrowersByUserID($user_id) {
 		try {
+			
 			if (is_null($this->borrowersArray)) {
 				$this->updateBorrowersCache($user_id);
 			}
+			
 			return $this->borrowersArray;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
 	 * Add a new borrower object to database
 	 *
-	 * @param borrowerObj $borrowerObj
+	 * @param borrowerObj $obj
 	 */
-	public function addBorrower($borrowerObj) {
+	public function addBorrower(borrowerObj $obj) {
 		try {
-			if ($borrowerObj instanceof borrowerObj) {
-				$this->SQL->addBorrower($borrowerObj);
-			} else {
-				throw new Exception("object must be a instance of borrowerObj");
-			}
+			
+			$this->SQL->addBorrower($borrowerObj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -829,18 +827,15 @@ class vcd_settings implements ISettings {
 	/**
 	 * Update borrowe object in database
 	 *
-	 * @param borrowerObj $borrowerObj
+	 * @param borrowerObj $obj
 	 */
-	public function updateBorrower($borrowerObj) {
+	public function updateBorrower(borrowerObj $obj) {
 		try {
-			if ($borrowerObj instanceof borrowerObj) {
-				$this->SQL->updateBorrower($borrowerObj);
-			} else {
-				throw new Exception("object must be a instance of borrowerObj");
-			}
+			
+			$this->SQL->updateBorrower($obj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -848,31 +843,23 @@ class vcd_settings implements ISettings {
 	/**
 	 * Delete a borrower from database and all related records to him.
 	 *
-	 * @param borrowerObj $borrowerObj
+	 * @param borrowerObj $obj
 	 */
-	public function deleteBorrower($borrowerObj) {
+	public function deleteBorrower(borrowerObj $obj) {
 		try {
 
-			if ($borrowerObj instanceof borrowerObj) {
-
-				// Check if user is allowd to delete this borrowerObj
-				$user_id = VCDUtils::getUserID();
-				if ($borrowerObj->getOwnerID() != $user_id) {
-					throw new Exception("You have no permission to delete borrower " . $borrowerObj->getName());
-				}
-
-				// Delete the borrower loan history records
-				$this->deleteLoanRecords($borrowerObj->getID());
-				$this->SQL->deleteBorrower($borrowerObj->getID());
-
-
-			} else {
-				throw new Exception("object must be a instance of borrowerObj");
+			// Check if user is allowd to delete this borrowerObj
+			$user_id = VCDUtils::getUserID();
+			if ($obj->getOwnerID() != $user_id) {
+				throw new VCDConstraintException("You have no permission to delete borrower " . $obj->getName());
 			}
 
+			// Delete the borrower loan history records
+			$this->deleteLoanRecords($obj->getID());
+			$this->SQL->deleteBorrower($obj->getID());
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -882,9 +869,7 @@ class vcd_settings implements ISettings {
 	*/
 
 	/**
-	 * Loan movies to borrower.
-	 *
-	 * Param $arrMovieIDs must contain  array of movie ID's.
+	 * Loan movies to borrower. Param $arrMovieIDs must contain  array of movie ID's.
 	 * Returns true on success otherwise false.
 	 *
 	 * @param int $borrower_id
@@ -893,49 +878,50 @@ class vcd_settings implements ISettings {
 	 */
 	public function loanCDs($borrower_id, $arrMovieIDs) {
 		try {
+			
 			if (!is_array($arrMovieIDs)) {
-				VCDException::display("Movie IDs must be entered as an array");
-				return false;
-			} else {
-				foreach ($arrMovieIDs as $cd_id) {
-					$this->SQL->loanCDs(VCDUtils::getUserID(), $borrower_id, $cd_id);
-				}
-				return true;
+				throw new VCDInvalidArgumentException('Expected Ids as an array');
 			}
+			
+			if (!is_numeric($borrower_id)) {
+				throw new VCDInvalidArgumentException('Borrower Id must be numeric');
+			}
+		
+			foreach ($arrMovieIDs as $cd_id) {
+				$this->SQL->loanCDs(VCDUtils::getUserID(), $borrower_id, $cd_id);
+			}
+			
+			return true;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Return a movie from loan
-	 *
-	 * Returns true on success otherwise false.
+	 * Return a movie from loan, returns true on success otherwise false.
 	 *
 	 * @param int $loan_id
 	 * @return bool
 	 */
 	public function loanReturn($loan_id) {
 		try {
-			if (is_numeric($loan_id)) {
-				$this->SQL->loanReturn($loan_id);
-				return true;
-			} else {
-				VCDException::display("Loan id must be numeric");
-				return false;
+			
+			if (!is_numeric($loan_id)) { 
+				throw new VCDInvalidArgumentException('Loan Id must be numeric');
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
+				
+			$this->SQL->loanReturn($loan_id);
+			return true;
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Get all loans by specified user.
-	 *
-	 * Param $show_returned specifies if only movies currently in loan
-	 * should be returned or all movies ever to be loaned.
-	 * Returns an array of loan objects.
+	 * Get all loans by specified user, param $show_returned specifies if only movies currently in loan
+	 * should be returned or all movies ever to be loaned. Returns an array of loan objects.
 	 *
 	 * @param int $user_id
 	 * @param bool $show_returned
@@ -943,29 +929,25 @@ class vcd_settings implements ISettings {
 	 */
 	public function getLoans($user_id, $show_returned) {
 		try {
-			if (is_numeric($user_id)) {
-
-				$loanArr =  $this->SQL->getLoans($user_id, $show_returned);
-				$outArr = array();
-				foreach ($loanArr as $data) {
-
-					$inArr = array($data[0], $data[1], $data[2], $this->getBorrowerByID($data[3]), $data[4], $data[5]);
-					$obj = new loanObj($inArr);
-					array_push($outArr, $obj);
-				}
-				unset($loanArr);
-				unset($inArr);
-				return $outArr;
-
-
-			} else {
-				throw new Exception("UserID must be valid");
+			if (!is_numeric($user_id)) { 
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
 
-		} catch (Exception $e) {
-			VCDException::display($e);
-		}
+			$loanArr =  $this->SQL->getLoans($user_id, $show_returned);
+			$outArr = array();
+			foreach ($loanArr as $data) {
+				$inArr = array($data[0], $data[1], $data[2], $this->getBorrowerByID($data[3]), $data[4], $data[5]);
+				$obj = new loanObj($inArr);
+				array_push($outArr, $obj);
+			}
+			unset($loanArr);
+			unset($inArr);
+			
+			return $outArr;
 
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
 
 
@@ -977,22 +959,21 @@ class vcd_settings implements ISettings {
 	private function deleteLoanRecords($borrower_id) {
 		try {
 
-			if (is_numeric($borrower_id)) {
-				$this->SQL->deleteLoanRecords($borrower_id);
+			if (!is_numeric($borrower_id)) {
+				throw new VCDInvalidArgumentException('Borrower Id must be numeric');
 			}
+		
+			$this->SQL->deleteLoanRecords($borrower_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 
 	/**
-	 * Get all loans by specified borrower id.
-	 *
-	 * $show_returned can specify weither to show all movies ever loaned
-	 * to that borrower or only the movies that he currently has in loan.
-	 * Returns an array of loan objects.
+	 * Get all loans by specified borrower id. $show_returned can specify weither to show all movies ever loaned
+	 * to that borrower or only the movies that he currently has in loan. Returns an array of loan objects.
 	 *
 	 * @param int $user_id
 	 * @param int $borrower_id
@@ -1003,7 +984,7 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($user_id) || !is_numeric($borrower_id)) {
-				throw new Exception("Wrong parameters");
+				throw new VCDInvalidArgumentException('User Id and Borrower Id must be numeric');
 			}
 
 			$arr = $this->getLoans($user_id, $show_returned);
@@ -1018,59 +999,47 @@ class vcd_settings implements ISettings {
 			unset($arr);
 			return $userloans;
 
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 
 	/* Notification */
 
 	/**
-	 * Send email notifycation.
+	 * Send email notifycation. Send out email notification to all users that are wathing for 
+	 * new movies to be inserted in the database. Returns true on successful email delivery otherwise false.
 	 *
-	 * Send out email notification to all users that are wathing for new movies to be inserted in the database.
-	 * Returns true on successful email delivery otherwise false.
-	 *
-	 * @param vcdObj $vcdObj
+	 * @param vcdObj $obj
 	 * @return bool
 	 */
-	public function notifyOfNewEntry($vcdObj) {
+	public function notifyOfNewEntry(vcdObj $obj) {
 		try {
 
 			// First, find all the users that want to be notified
-			$USERClass = VCDClassFactory::getInstance("vcd_user");
-
-			$notifyPropObj = $USERClass->getPropertyByKey('NOTIFY');
+			$notifyPropObj = $this->User()->getPropertyByKey('NOTIFY');
 			if (!$notifyPropObj instanceof userPropertiesObj) {
-				VCDException::display("Property NOTIFY was not found.<break>Cant send notifications");
-				return false;
+				throw new VCDProgramException('Property key Notify was not found, aborting.');
 			}
 
-			$notifyUsers = $USERClass->getAllUsersWithProperty($notifyPropObj->getpropertyID());
+			$notifyUsers = $this->User()->getAllUsersWithProperty($notifyPropObj->getpropertyID());
 
 			if (is_array($notifyUsers) && sizeof($notifyUsers) > 0) {
 				$arrEmails = array();
 				foreach ($notifyUsers as $userObj) {
 					// If the movie is an adult film .. only notify those with adult enabled ..
-					if ($vcdObj->isAdult() && !(bool)$userObj->getPropertyByKey('SHOW_ADULT')) {continue;}
-					
+					if ($obj->isAdult() && !(bool)$userObj->getPropertyByKey('SHOW_ADULT')) {continue;}
 					array_push($arrEmails, $userObj->getEmail());
 				}
+				
 				unset($notifyUsers);
-
-				$body = createNotifyEmailBody($vcdObj);
-
+				$body = createNotifyEmailBody($obj);
 				VCDUtils::sendMail($arrEmails, 'New entry in VCD-db', $body, true);
-
 			}
 
-
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1087,8 +1056,8 @@ class vcd_settings implements ISettings {
 			
 			$this->SQL->addRssfeed($obj);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1102,16 +1071,15 @@ class vcd_settings implements ISettings {
 	 */
 	public function getRssfeed($feed_id) {
 		try {
+			
 			if (!is_numeric($feed_id)) {
-				throw new Exception("Parameter must be numeric");
+				throw new VCDInvalidArgumentException('Feed Id must be numeric');
 			}
 
 			return $this->SQL->getRSSfeedByID($feed_id);
 
-
-		} catch (Exception $e) {
-			VCDException::display($e);
-			return null;
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1125,15 +1093,13 @@ class vcd_settings implements ISettings {
 			
 			$this->SQL->updateRssfeed($obj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Get all RSS feeds by specified user ID.
-	 *
-	 * Returns an array containing all RSS feeds
+	 * Get all RSS feeds by specified user ID. Returns an array containing all RSS feeds
 	 *
 	 * @param int $user_id
 	 * @return array
@@ -1143,8 +1109,8 @@ class vcd_settings implements ISettings {
 			
 			return $this->SQL->getRssFeedsByUserId($user_id);
 			
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1155,14 +1121,15 @@ class vcd_settings implements ISettings {
 	 */
 	public function delFeed($feed_id) {
 		try {
-			if (is_numeric($feed_id)) {
-				$this->SQL->delFeed($feed_id);
-			} else {
-				VCDException::display('Invalid Feed ID');
+			
+			if (!is_numeric($feed_id)) {
+				throw new VCDInvalidArgumentException('Feed Id must be numeric');
 			}
+				
+			$this->SQL->delFeed($feed_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1177,14 +1144,15 @@ class vcd_settings implements ISettings {
 	 */
 	public function addToWishList($vcd_id, $user_id) {
 		try {
-			if (is_numeric($user_id) && is_numeric($vcd_id))	 {
-				$this->SQL->addToWishList($vcd_id, $user_id);
-			} else {
-				VCDException::display("Parameters must be numeric");
+			
+			if (!(is_numeric($user_id) && is_numeric($vcd_id)))	 {
+				throw new VCDInvalidArgumentException('Movie Id and User Id must be numeric');
 			}
+				
+			$this->SQL->addToWishList($vcd_id, $user_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1196,38 +1164,38 @@ class vcd_settings implements ISettings {
 	 */
 	public function getWishList($user_id) {
 		try {
-			if (is_numeric($user_id))	 {
-				$wishlistArr = $this->SQL->getWishList($user_id);
-				if (isset($_SESSION['user']) && VCDUtils::getUserID() != $user_id) {
-					// User is view-ing others wishlist, lets check if user owns movies from this wishlist
-					$ArrVCDids = $this->SQL->getVCDIDsByUser(VCDUtils::getUserID());
-					if (is_array($ArrVCDids) && sizeof($ArrVCDids) > 0) {
-						// Loop through the list
-						$comparedArr = array();
-						if (sizeof($wishlistArr) > 0) {
-							foreach ($wishlistArr as $item) {
-								$iown = 0;
-								if (in_array($item[0], $ArrVCDids)) {
-									$iown = 1;
-								}
-								array_push($comparedArr, array('id' => $item[0], 'title' => $item[1], 'mine' => $iown));
+			
+			if (!is_numeric($user_id)) {
+				throw new VCDInvalidArgumentException('User Id must be numeric');
+			}
+				
+			$wishlistArr = $this->SQL->getWishList($user_id);
+			
+			if (VCDUtils::isLoggedIn() && VCDUtils::getUserID() != $user_id) {
+				// User is view-ing others wishlist, lets check if user owns movies from this wishlist
+				$ArrVCDids = $this->SQL->getVCDIDsByUser(VCDUtils::getUserID());
+				if (is_array($ArrVCDids) && sizeof($ArrVCDids) > 0) {
+					// Loop through the list
+					$comparedArr = array();
+					if (sizeof($wishlistArr) > 0) {
+						foreach ($wishlistArr as $item) {
+							$iown = 0;
+							if (in_array($item[0], $ArrVCDids)) {
+								$iown = 1;
 							}
+							array_push($comparedArr, array('id' => $item[0], 'title' => $item[1], 'mine' => $iown));
 						}
-						unset($wishlistArr);
-						unset($ArrVCDids);
-						return $comparedArr;
 					}
-
-				} else {
-					return $wishlistArr;
+					unset($wishlistArr);
+					unset($ArrVCDids);
+					return $comparedArr;
 				}
-
 			} else {
-				throw new Exception("Parameters must be numeric");
+				return $wishlistArr;
 			}
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1241,14 +1209,13 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($vcd_id)) {
-				throw new Exception("ID for wishlist must be numeric");
+				throw new VCDInvalidArgumentException('Movie Id must be numeric');
 			}
 
-			$user_id = VCDUtils::getUserID();
-			return $this->SQL->isOnWishList($vcd_id, $user_id);
+			return $this->SQL->isOnWishList($vcd_id, VCDUtils::getUserID());
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1260,14 +1227,14 @@ class vcd_settings implements ISettings {
 	 */
 	public function removeFromWishList($vcd_id, $user_id) {
 		try {
-			if (is_numeric($user_id) && is_numeric($vcd_id))	 {
-				$this->SQL->removeFromWishList($vcd_id, $user_id);
-			} else {
-				throw new Exception("Parameters must be numeric");
+			if (!(is_numeric($user_id) && is_numeric($vcd_id)))	{
+				throw new VCDInvalidArgumentException('Movie Id and User Id must be numeric');
 			}
+			
+			$this->SQL->removeFromWishList($vcd_id, $user_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1279,29 +1246,19 @@ class vcd_settings implements ISettings {
 	 */
 	public function isPublicWishLists($user_id) {
 		try {
+			
 			if (is_numeric($user_id)) {
-
-				$USERClass = VCDClassFactory::getInstance('vcd_user');
-				$propObj = $USERClass->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
-				if ($propObj instanceof userPropertiesObj ) {
-					$propCount = (int)sizeof($USERClass->getAllUsersWithProperty($propObj->getpropertyID()));
-					if ($propCount == 0) {
-						return false;
-					} elseif ($_SESSION['user']->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST) && ($propCount == 1)) {
-						return false;
-					} elseif (!$_SESSION['user']->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST) && ($propCount >= 1)) {
-						return true;
-					} else {
-						return true;
-					}
+				
+				$propertyObj = $this->User()->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
+				if ($propertyObj instanceof userPropertiesObj ) {
+					return $this->SQL->isPublicWishLists($user_id, $propertyObj->getpropertyID());	
 				}
-
-
 			}
+			
 			return false;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1317,8 +1274,8 @@ class vcd_settings implements ISettings {
 
 			$this->SQL->addComment($obj);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1331,13 +1288,13 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($comment_id)) {
-				throw new Exception('Comment ID must be numeric');
+				throw new VCDInvalidArgumentException('Comment Id must be numeric');
 			}
 
 			$this->SQL->deleteComment($comment_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1351,13 +1308,13 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($comment_id)) {
-				throw new Exception('Comment ID must be numeric');
+				throw new VCDInvalidArgumentException('Comment Id must be numeric');
 			}
 
 			return $this->SQL->getCommentByID($comment_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1371,20 +1328,18 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($user_id)) {
-				throw new Exception('User ID must be numeric');
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
 
 			return $this->SQL->getAllCommentsByUserID($user_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Get all comments for specified movie.
-	 *
-	 * Returns array of commentObj.
+	 * Get all comments for specified movie. Returns array of comment objects.
 	 *
 	 * @param int $vcd_id
 	 * @return array
@@ -1393,13 +1348,13 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($vcd_id)) {
-				throw new Exception('VCD ID must be numeric');
+				throw new VCDInvalidArgumentException('Movie Id must be numeric');
 			}
 
 			return $this->SQL->getAllCommentsByVCD($vcd_id);
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
@@ -1443,12 +1398,9 @@ class vcd_settings implements ISettings {
 
 			return $obj;
 
-
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 
@@ -1462,17 +1414,15 @@ class vcd_settings implements ISettings {
 	public function getUserStatistics($user_id) {
 		try {
 
-			if (is_numeric($user_id)) {
-				return $this->SQL->getUserStatistics($user_id);
-			} else {
-				throw new Exception("Missing parameter user_id");
+			if (!is_numeric($user_id)) {
+				throw new VCDInvalidArgumentException('User Id musr be numeric');
 			}
+				
+			return $this->SQL->getUserStatistics($user_id);
 
-
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 
@@ -1480,11 +1430,8 @@ class vcd_settings implements ISettings {
 	/* Metadata objects */
 
 	/**
-	 * Add metadata to database.
-	 *
-	 * param $arrObj can either be metadataObj or an
-	 * array of metadata objects.  If metadata object with same
-	 * record_id, user_id and metadata name exists already, that
+	 * Add metadata to database. Param $arrObj can either be metadataObj or an array of metadata objects.  
+	 * If metadata object with same record_id, user_id and metadata name exists already, that
 	 * entry is updated instead of inserting duplicate record.
 	 *
 	 * @param mixed $arrObj
@@ -1492,7 +1439,6 @@ class vcd_settings implements ISettings {
 	 */
 	public function addMetadata($arrObj, $forceCheck = false) {
 	 	try {
-
 
 	 		if ($forceCheck) {
 	 			if (is_array($arrObj)) {
@@ -1502,7 +1448,7 @@ class vcd_settings implements ISettings {
 	 			} else {
 
 	 				if (!$arrObj instanceof metadataObj ) {
-	 					throw new Exception('Excepted metadata object.');
+	 					throw new VCDProgramException('Excepted metadata object.');
 	 				}
 
 	 				$oldArr = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName(), $arrObj->getmediaTypeID());
@@ -1573,8 +1519,8 @@ class vcd_settings implements ISettings {
 	 			}
 	 		}
 
-	 	} catch (Exception $e) {
-	 		VCDException::display($e);
+	 	} catch (Exception $ex) {
+	 		throw $ex;
 	 	}
 	}
 
@@ -1584,15 +1530,13 @@ class vcd_settings implements ISettings {
 	 *
 	 * @param metadataObj $obj
 	 */
-	public function updateMetadata($obj) {
+	public function updateMetadata(metadataObj $obj) {
 		try {
 
-			if ($obj instanceof metadataObj ) {
-				$this->SQL->updateMetadata($obj);
-			}
+			$this->SQL->updateMetadata($obj);
 
-	 	} catch (Exception $e) {
-	 		VCDException::display($e);
+	 	} catch (Exception $ex) {
+	 		throw $ex;
 	 	}
 	}
 
@@ -1603,32 +1547,28 @@ class vcd_settings implements ISettings {
 	 */
 	public function deleteMetadata($metadata_id) {
 		try {
-	 		if (is_numeric($metadata_id)) {
-	 			
-	 			// Check if user has rights to delete this metadata ..
-	 			$metaDataObj = $this->SQL->getMetadataById($metadata_id);
-	 			if ($metaDataObj instanceof metadataObj ) {
-	 				if ($metaDataObj->getUserID() == VCDUtils::getUserID() ) {
-	 					$this->SQL->deleteMetadata($metadata_id);
-	 				} else {
-	 					throw new Exception("You do not have rights to delete this object.");
-	 				}
-	 			}
-	 			
-	 		} else {
-	 			throw new Exception('metadata_id must be numeric');
+	 		if (!is_numeric($metadata_id)) {
+	 			throw new VCDInvalidArgumentException('Metadata Id must be numeric');
 	 		}
+	 			
+ 			// Check if user has rights to delete this metadata ..
+ 			$metaDataObj = $this->SQL->getMetadataById($metadata_id);
+ 			if ($metaDataObj instanceof metadataObj ) {
+ 				if ($metaDataObj->getUserID() == VCDUtils::getUserID() ) {
+ 					$this->SQL->deleteMetadata($metadata_id);
+ 				} else {
+ 					throw new VCDConstraintException('You do not have rights to delete this metadata entry.');
+ 				}
+ 			}
 
-	 	} catch (Exception $e) {
-	 		VCDException::display($e);
+	 	} catch (Exception $ex) {
+	 		throw $ex;
 	 	}
 	}
 
 
 	/**
-	 * Get specific metadata.
-	 *
-	 * If an entry with specific parameters does not exists,
+	 * Get specific metadata. If an entry with specific parameters does not exists,
 	 * null is returned.  Otherwise array of metadata is returned
 	 *
 	 * @param int $record_id
@@ -1639,6 +1579,7 @@ class vcd_settings implements ISettings {
 	 */
 	public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 		try {
+			
 	 		if (is_numeric($record_id) && is_numeric($user_id)) {
 
 	 			// reverse metadataObj SYS constant to correct string
@@ -1647,13 +1588,12 @@ class vcd_settings implements ISettings {
 	 				if ($mappingName) {
 	 					return $this->SQL->getMetadata($record_id, $user_id, $mappingName);
 	 				} else {
-	 					throw new Exception('System mapping for metadataType not found.');
+	 					throw new VCDProgramException('System mapping for metadataType not found.');
 	 				}
 
 	 			} else {
 	 				return $this->SQL->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
 	 			}
-
 
 
 	 		} else {
@@ -1663,11 +1603,10 @@ class vcd_settings implements ISettings {
 	 			} else {
 	 				return null;
 	 			}
-
 	 		}
 
-	 	} catch (Exception $e) {
-	 		VCDException::display($e);
+	 	} catch (Exception $ex) {
+	 		throw $ex;
 	 	}
 	}
 
@@ -1680,14 +1619,14 @@ class vcd_settings implements ISettings {
 	public function getMetadataById($metadata_id) {
 		try {
 
-			if (is_numeric($metadata_id)) {
-				return $this->SQL->getMetadataById($metadata_id);
-			} else {
-				throw new Exception("Metadata ID must be numeric");
+			if (!is_numeric($metadata_id)) { 
+				throw new VCDInvalidArgumentException('Metadata Id must be numeric');
 			}
+			
+			return $this->SQL->getMetadataById($metadata_id);
 
  		} catch (Exception $ex) {
- 			VCDException::display($ex);
+ 			throw $ex;
  		}
 	}
 
@@ -1717,18 +1656,18 @@ class vcd_settings implements ISettings {
 
 
 			}
+			
 			return null;
 
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
 
 
 	/**
-	 * Add a new metadataTypeObj to the database.
-	 * The updated metadataTypeObj is then returned.
+	 * Add a new metadataTypeObj to the database. The updated metadataTypeObj is then returned.
 	 *
 	 * @param metadataTypeObj $obj
 	 * @return metadataTypeObj
@@ -1739,15 +1678,13 @@ class vcd_settings implements ISettings {
 			return $this->SQL->addMetaDataType($obj);
 
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 
 	/**
-	 * Get all known metadatatypes from database.
-	 * If $user_id is provided, only metadatatypes created by that
-	 * user_id will be returned.
-	 * Function returns array of metadataTypeObjects.
+	 * Get all known metadatatypes from database. If $user_id is provided, only metadatatypes created by that
+	 * user_id will be returned. Function returns array of metadataTypeObjects.
 	 *
 	 * @param int $user_id | The user_id to filter metadatatypes to, null = no filter
 	 * @return array
@@ -1758,7 +1695,7 @@ class vcd_settings implements ISettings {
 			return $this->SQL->getMetadataTypes($user_id);
 
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 
@@ -1786,13 +1723,12 @@ class vcd_settings implements ISettings {
 				if ($canDelete) {
 					$this->SQL->deleteMetaDataType($metatype_id);
 				} else {
-					throw new Exception('You cannot delete metadataType that you did not create.');
+					throw new VCDConstraintException('You are not the owner of this entry, aborting.');
 				}
-
 			}
 
  		} catch (Exception $ex) {
- 			VCDException::display($ex);
+ 			throw $ex;
  		}
 	}
 
@@ -1824,12 +1760,12 @@ class vcd_settings implements ISettings {
 					$this->deleteMetadata($metadata_id);
 
 				} else {
-					throw new Exception("You have no access to delete this file!");
+					throw new VCDConstraintException('You do not have access to delete this file.');
 				}
 
 			}
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 
@@ -1846,11 +1782,12 @@ class vcd_settings implements ISettings {
 	 */
 	private function updateCache() {
 		try {
+			
 			$this->settingsArray = $this->SQL->getAllSettings();
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 	/**
@@ -1882,7 +1819,6 @@ class vcd_settings implements ISettings {
 
 		unset($arrAllMedia);
 
-
 	}
 
 	/**
@@ -1891,11 +1827,12 @@ class vcd_settings implements ISettings {
 	 */
 	private function updateCategoryCache() {
 		try {
+			
 			$this->moviecategoryArray = $this->SQL->getAllMovieCategories();
-		} catch (Exception $e) {
-			VCDException::display($e);
+			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-
 	}
 
 	/**
@@ -1903,9 +1840,9 @@ class vcd_settings implements ISettings {
 	 *
 	 */
 	private function updateSiteCache() {
-		if (is_null($this->sourcesiteArray))
+		if (is_null($this->sourcesiteArray)) {
 			$this->sourcesiteArray = $this->SQL->getSourceSites();
-
+		}
 	}
 
 	/**
@@ -1914,8 +1851,9 @@ class vcd_settings implements ISettings {
 	 * @param int $user_id
 	 */
 	private function updateBorrowersCache($user_id) {
-		if (is_null($this->borrowersArray))
+		if (is_null($this->borrowersArray)) {
 			$this->borrowersArray = $this->SQL->getBorrowersByUserID($user_id);
+		}
 	}
 
 
@@ -1937,11 +1875,15 @@ class vcd_settings implements ISettings {
 		return false;
 	}
 
-
-
+	/**
+	 * Get an instance of the vcd_user class
+	 *
+	 * @return vcd_user
+	 */
+	private function User() {
+		return VCDClassFactory::getInstance('vcd_user');
+	}
 }
-
-
 
 
 ?>
