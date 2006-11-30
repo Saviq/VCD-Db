@@ -29,24 +29,21 @@ if (isset($_GET['action']) && sizeof($_POST) > 0) {
 $reload_and_close = true;
 
 
-$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-
 switch ($form) {
 
 	case 'borrower':
 		$obj = new borrowerObj(array("",VCDUtils::getUserID(),$_POST['borrower_name'], $_POST['borrower_email']));
-		$SETTINGSClass->addBorrower($obj);
+		SettingsServices::addBorrower($obj);
 		VCDUtils::setMessage("(Added ".$_POST['borrower_name']." to your list)");
 		break;
 
 	case 'edit_borrower':
-		$borrowerObj = $SETTINGSClass->getBorrowerByID($_POST['borrower_id']);
+		$borrowerObj = SettingsServices::getBorrowerByID($_POST['borrower_id']);
 		$borrowerObj->setEmail($_POST['borrower_email']);
 		if (isset($_POST['borrower_name']) && strlen($_POST['borrower_name']) > 0) {
 			$borrowerObj->setName($_POST['borrower_name']);
 		}
-		$SETTINGSClass->updateBorrower($borrowerObj);
+		SettingsServices::updateBorrower($borrowerObj);
 		VCDUtils::setMessage("(".$borrowerObj->getName()." has been updated)");
 		redirect('?page=private&o=settings#borrower');
 		break;
@@ -55,7 +52,7 @@ switch ($form) {
 	case 'loan':
 		$arrMovies = split("#",$_POST['id_list']);
 		$borrower_id = $_POST['borrowers'];
-		$SETTINGSClass->loanCDs($borrower_id, $arrMovies);
+		SettingsServices::loanCDs($borrower_id, $arrMovies);
 		VCDUtils::setMessage("(Movies successfully loaned)");
 		header("Location: ".$_SERVER['HTTP_REFERER']."");
 		break;
@@ -70,7 +67,7 @@ switch ($form) {
 			if (strcmp($metaname, "") != 0 && strcmp($metadescription,"") != 0) {
 
 				$obj = new metadataTypeObj('', $metaname, $metadescription, VCDUtils::getUserID());
-				$SETTINGSClass->addMetaDataType($obj);
+				SettingsServices::addMetaDataType($obj);
 			}
 
 			header("Location: ".$_SERVER['HTTP_REFERER']."");
@@ -88,7 +85,7 @@ switch ($form) {
 			$rssObj->setFeedUrl($currFeed[1]);
 			$rssObj->setOwnerId(VCDUtils::getUserID());
 			$rssObj->setAsSiteFeed(true);
-			$SETTINGSClass->addRssfeed($rssObj);
+			SettingsServices::addRssfeed($rssObj);
 		}
 
 		break;
@@ -100,7 +97,7 @@ switch ($form) {
 				$rssObj->setFeedUrl($_POST['rssurl']);
 				$rssObj->setOwnerId(VCDUtils::getUserID());
 				$rssObj->setAsSiteFeed(false);
-				$SETTINGSClass->addRssfeed($rssObj);
+				SettingsServices::addRssfeed($rssObj);
 			}
 
 			break;
@@ -116,7 +113,7 @@ switch ($form) {
 			$commObj = new commentObj(array('', $_POST['vcd_id'], VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
 
 			if (strlen($_POST['comment']) > 0) {
-				$SETTINGSClass->addComment($commObj);
+				SettingsServices::addComment($commObj);
 			}
 
 		}
@@ -141,16 +138,14 @@ switch ($form) {
 	/* Update media player settings */
 	case 'player':
 		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYER, $_POST['player']));
-		$SETTINGSClass->addMetadata($obj);
+		SettingsServices::addMetadata($obj);
 		$obj = new metadataObj(array('',0,VCDUtils::getUserID(), metadataTypeObj::SYS_PLAYERPATH, $_POST['params']));
-		$SETTINGSClass->addMetadata($obj);
+		SettingsServices::addMetadata($obj);
 		redirect('pages/player.php');
 		break;
 
 
 	case 'listedconfirm':
-		$VCDClass = new vcd_movie();
-
 		if (isset($_POST['disccount'])) {
 			$j = $_POST['disccount'];
 			for ($i=0; $i < $j; $i++) {
@@ -160,7 +155,7 @@ switch ($form) {
 				$valkey = $_POST[$key];
 				$valcds = $_POST[$cds];
 				$arr = split("\\|",$valkey);
-				$VCDClass->addVcdToUser(VCDUtils::getUserID(), $arr[0], $arr[1], $valcds);
+				MovieServices::addVcdToUser(VCDUtils::getUserID(), $arr[0], $arr[1], $valcds);
 			}
 		}
 		redirect();
@@ -187,7 +182,7 @@ switch ($form) {
 			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $_POST['rss_list']));
 		}
 
-		$SETTINGSClass->addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
+		SettingsServices::addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
 
 
 		redirect('?page=private&o=settings');
@@ -222,7 +217,7 @@ switch ($form) {
 		$data = serialize($dvd);
 
 		$obj = new metadataObj(array('', 0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD , $data));
-		$SETTINGSClass->addMetaData($obj);
+		SettingsServices::addMetaData($obj);
 		redirect('?page=private&o=settings#defaultdvd');
 		break;
 
@@ -231,7 +226,7 @@ switch ($form) {
 		if (isset($_POST['id_list'])) {
 			// Save the ignore list to database
 			$obj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST , $_POST['id_list']));
-			$SETTINGSClass->addMetadata($obj);
+			SettingsServices::addMetadata($obj);
 		}
 
 		redirect('?page=private&o=settings');
@@ -242,7 +237,6 @@ switch ($form) {
 		$movie_titles = array();
 
 		try {
-			//$file_name = checkMovieImport($movie_titles);
 			$file_name = VCDXMLImporter::validateXMLImport($movie_titles);
 		} catch (Exception $ex) {
 			VCDException::display($ex, true);
@@ -265,7 +259,7 @@ switch ($form) {
 		$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
 		$vcd = new vcdObj($basic);
 		// Add 1 instance
-		$vcd->addInstance($_SESSION['user'], $SETTINGSClass->getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
+		$vcd->addInstance($_SESSION['user'], SettingsServices::getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
 		// if file was uploaded .. lets process it ..
 
 		// Set the allowed extensions for the upload
@@ -290,8 +284,7 @@ switch ($form) {
 
 			  	$cover = new cdcoverObj();
 				// Get a Thumbnail CoverTypeObj
-				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
-				$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
+				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
 				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
 				$cover->setCoverTypeName("thumbnail");
 				$cover->setFilename($fileObj->getFileName());
@@ -312,7 +305,7 @@ switch ($form) {
 
 		// Forward the movie to the Business layer
 		try {
-			$new_id = $VCDClass->addVcd($vcd);
+			$new_id = MovieServices::addVcd($vcd);
 		} catch (Exception $ex) {
 			VCDException::display($ex, true);
 		}
@@ -326,7 +319,7 @@ switch ($form) {
 			}
 
 			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
-			$SETTINGSClass->addComment($commObj);
+			SettingsServices::addComment($commObj);
 		}
 
 		if (is_numeric($new_id) && $new_id != -1) {
@@ -349,7 +342,7 @@ switch ($form) {
 		$vcd = new vcdObj($basic);
 
 		// Add 1 instance
-		$vcd->addInstance($_SESSION['user'], $SETTINGSClass->getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
+		$vcd->addInstance($_SESSION['user'], SettingsServices::getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
 
 		// Create the IMDB obj
 		$obj = new imdbObj();
@@ -370,16 +363,13 @@ switch ($form) {
 		$vcd->setIMDB($obj);
 
 		// Set the source site
-		$sourceSiteObj = $SETTINGSClass->getSourceSiteByID($fetchedObj->getSourceSiteID());
+		$sourceSiteObj = SettingsServices::getSourceSiteByID($fetchedObj->getSourceSiteID());
 		if ($sourceSiteObj instanceof sourceSiteObj ) {
 			$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['imdb']);
 		}
 
 		// Set the default DVD Settings
 		// $VCDClass->addDefaultDVDSettings($vcd);
-
-		// Get a cover class working
-		$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
 
 		$coverArr = array();
 
@@ -388,7 +378,7 @@ switch ($form) {
 			$cover = new cdcoverObj();
 
 			// Get a Thumbnail CoverTypeObj
-			$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
+			$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
 			$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
 			$cover->setCoverTypeName("thumbnail");
 			$cover->setFilename($_POST['image']);
@@ -402,8 +392,6 @@ switch ($form) {
 
 		// Process uploaded files
 		if ($VCDUploader->getFileCount() > 0) {
-
-			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 
 			for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
 
@@ -446,13 +434,14 @@ switch ($form) {
 
 
 		      		} else {
-		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
+		      			$coverType = CoverServices::getCoverTypeById($cover_typeid);
 		      			try {
 		      				$fileObj->move(TEMP_FOLDER);
 		      			} catch (Exception $ex) {
 		      				VCDException::display($ex, true);
 		      				exit();
 		      			}
+		      			
 						$cover = new cdcoverObj();
 			      		$cover->setCoverTypeID($cover_typeid);
 						$cover->setCoverTypeName($coverType->getCoverTypeName());
@@ -496,7 +485,7 @@ switch ($form) {
 
 		// Forward the movie to the Business layer
 		try {
-			$new_id = $VCDClass->addVcd($vcd);
+			$new_id = MovieServices::addVcd($vcd);
 		} catch (Exception $ex) {
 			VCDException::display($ex, true);
 		}
@@ -509,7 +498,7 @@ switch ($form) {
 			}
 
 			$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
-			$SETTINGSClass->addComment($commObj);
+			SettingsServices::addComment($commObj);
 		}
 
 		if (is_numeric($new_id) && $new_id != -1) {
@@ -531,10 +520,10 @@ switch ($form) {
 			$vcd = new vcdObj($basic);
 
 			// Add 1 instance
-			$vcd->addInstance($_SESSION['user'], $SETTINGSClass->getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
+			$vcd->addInstance($_SESSION['user'], SettingsServices::getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
 
 			// Set the categoryObj
-			$vcd->setMovieCategory($SETTINGSClass->getMovieCategoryByID($_POST['category']));
+			$vcd->setMovieCategory(SettingsServices::getMovieCategoryByID($_POST['category']));
 
 
 			// Add the thumbnail as a cover if any was found on IMDB
@@ -542,8 +531,7 @@ switch ($form) {
 				$cover = new cdcoverObj();
 
 				// Get a Thumbnail CoverTypeObj
-				$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
-				$coverTypeObj = $COVERClass->getCoverTypeByName("thumbnail");
+				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
 				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
 				$cover->setCoverTypeName("thumbnail");
 
@@ -554,7 +542,7 @@ switch ($form) {
 
 
 			// Set the source site
-			$sourceSiteObj = $SETTINGSClass->getSourceSiteByID($fetchedObj->getSourceSiteID());
+			$sourceSiteObj = SettingsServices::getSourceSiteByID($fetchedObj->getSourceSiteID());
 			if ($sourceSiteObj instanceof sourceSiteObj ) {
 				$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['id']);
 			}
@@ -565,8 +553,6 @@ switch ($form) {
 			}
 
 			// Associate the existing pornstars to the CD
-			$PORNClass = new vcd_pornstar();
-
 
 			// Set the adult categories
 			if (isset($_POST['id_list'])) {
@@ -574,7 +560,7 @@ switch ($form) {
 
 	     		if (sizeof($adult_categories) > 0) {
 					foreach ($adult_categories as $adult_catid) {
-						$catObj = $PORNClass->getSubCategoryByID($adult_catid);
+						$catObj = PornstarServices::getSubCategoryByID($adult_catid);
 						if ($catObj instanceof porncategoryObj ) {
 							$vcd->addAdultCategory($catObj);
 						}
@@ -588,7 +574,7 @@ switch ($form) {
 			if (isset($_POST['pornstars'])) {
 				$pornstars = array_unique($_POST['pornstars']);
 				foreach ($pornstars as $pornstar_id) {
-					$vcd->addPornstars($PORNClass->getPornstarByID($pornstar_id));
+					$vcd->addPornstars(PornstarServices::getPornstarByID($pornstar_id));
 				}
 			}
 
@@ -598,7 +584,7 @@ switch ($form) {
 			if (isset($_POST['pornstars_new'])) {
 				$pornstars_new = array_unique($_POST['pornstars_new']);
 				foreach ($pornstars_new as $new_names) {
-					$vcd->addPornstars($PORNClass->addPornstar(new pornstarObj(array("",$new_names, "","",""))));
+					$vcd->addPornstars(PornstarServices::addPornstar(new pornstarObj(array("",$new_names, "","",""))));
 				}
 			}
 
@@ -624,8 +610,7 @@ switch ($form) {
 						$image_name = VCDUtils::grabImage($path);
 
 						$cover = new cdcoverObj();
-						$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
-						$coverTypeObj = $COVERClass->getCoverTypeByName($image_type);
+						$coverTypeObj = CoverServices::getCoverTypeByName($image_type);
 						$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
 						$cover->setCoverTypeName($image_type);
 
@@ -642,7 +627,7 @@ switch ($form) {
 
 			// Forward the movie to the Business layer
 			try {
-				$new_id = $VCDClass->addVcd($vcd);
+				$new_id = MovieServices::addVcd($vcd);
 			} catch (Exception $ex) {
 				VCDException::display($ex, true);
 			}
@@ -659,7 +644,7 @@ switch ($form) {
 						}
 
 						// Mark thumbnails to movie in DB
-						$VCDClass->markVcdWithScreenshots($new_id);
+						MovieServices::markVcdWithScreenshots($new_id);
 
 					} else {
 						VCDException::display("Could not create directory ".ALBUMS.$new_id."<break>Check permissions");
@@ -677,7 +662,7 @@ switch ($form) {
 				}
 
 				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
-				$SETTINGSClass->addComment($commObj);
+				SettingsServices::addComment($commObj);
 			}
 
 
@@ -696,8 +681,7 @@ switch ($form) {
 			$pornstar_url = $_POST['www'];
 
 
-			$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-			$pornstar = $PORNClass->getPornstarByID($pornstar_id);
+			$pornstar = PornstarServices::getPornstarByID($pornstar_id);
 			$pornstar->setName($pornstar_name);
 			$pornstar->setHomePage($pornstar_url);
 			$pornstar->setBiography($pornstar_bio);
@@ -743,7 +727,7 @@ switch ($form) {
 			}
 
 
-			$PORNClass->updatePornstar($pornstar);
+			PornstarServices::updatePornstar($pornstar);
 
 			if (isset($_POST['update'])) {
 				redirect("pages/pmanager.php?pornstar_id=".$pornstar_id.""); /* Redirect back to form */
@@ -770,37 +754,34 @@ switch ($form) {
 
 
 	     // Fetch the current data from DB
-	     $VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	     $vcd = $VCDClass->getVcdByID($cd_id);
-
+	     $vcd = MovieServices::getVcdByID($cd_id);
 
 
 	     $vcd->setYear($year);
 	     $vcd->setTitle($title);
 
 
-	     $movieCategoryObj = $SETTINGSClass->getMovieCategoryByID($category);
+	     $movieCategoryObj = SettingsServices::getMovieCategoryByID($category);
 	     if ($movieCategoryObj instanceof movieCategoryObj ) {
 	     	$vcd->setMovieCategory($movieCategoryObj);
 	     }
 
 	     // External ID already exists
-	     if ($vcd->getSourceSiteID() == $SETTINGSClass->getSourceSiteByAlias('imdb')->getsiteID()) {
+	     if ($vcd->getSourceSiteID() == SettingsServices::getSourceSiteByAlias('imdb')->getsiteID()) {
 	     	$vcd->setSourceSite($vcd->getSourceSiteID(), $imdb);
 	     }
 
 
 
 	     // is this by any means blue movie ?
-	     if ($category == $SETTINGSClass->getCategoryIDByName('adult')) {
+	     if ($category == SettingsServices::getCategoryIDByName('adult')) {
 	     	// Blue movie data
 	     	if (isset($_POST['id_list'])) {
 	     		$subCatArr = split('#',$_POST['id_list']);
-	     		$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 	     		foreach ($subCatArr as $adult_catid) {
 	     			$adultCatObj = null;
 	     			if (is_numeric($adult_catid)) {
-	     				$adultCatObj = $PORNClass->getSubCategoryByID($adult_catid);
+	     				$adultCatObj = PornstarServices::getSubCategoryByID($adult_catid);
 	     			}
 	     			if ($adultCatObj instanceof porncategoryObj ) {
 	     				$vcd->addAdultCategory($adultCatObj);
@@ -871,7 +852,7 @@ switch ($form) {
 						}
 						if (!$double) {
 							// Either media type or numCD's have been updated .. update entry to DB
-							$VCDClass->updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
+							MovieServices::updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
 						}
 					}
 			}
@@ -891,7 +872,7 @@ switch ($form) {
 	     		if (!$double) {
 	     			// Added media...
 	     			try {
-						$VCDClass->addVcdToUser(VCDUtils::getUserID(), $cd_id, $postedMediaType, $postedCDCount);
+						MovieServices::addVcdToUser(VCDUtils::getUserID(), $cd_id, $postedMediaType, $postedCDCount);
 					} catch (Exception $ex) {
 						VCDException::display($ex, true);
 					}
@@ -903,20 +884,20 @@ switch ($form) {
 	    // Update metadata
 	    if (isset($_POST['custom_index'])) {
 	    	// add or update ?
-	    	$metaArr = $SETTINGSClass->getMetadata($vcd->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX );
+	    	$metaArr = SettingsServices::getMetadata($vcd->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX );
 	    	if (sizeof($metaArr) == 1) {
 	    		$obj = $metaArr[0];
 	    		$obj->setMetadataValue($_POST['custom_index']);
-	    		$SETTINGSClass->updateMetadata($obj);
+	    		SettingsServices::updateMetadata($obj);
 	    	} else {
 	    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX , $_POST['custom_index']));
-	    		$SETTINGSClass->addMetadata($obj);
+	    		SettingsServices::addMetadata($obj);
 	    	}
 	    }
 
 	    if (isset($_POST['filepath'])) {
 	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_FILELOCATION , $_POST['filepath']));
-	    	$SETTINGSClass->addMetadata($obj);
+	    	SettingsServices::addMetadata($obj);
 	    }
 
 
@@ -955,7 +936,7 @@ switch ($form) {
 	    	}
 
 	    	// Add / Update the DVD metadata
-	    	$SETTINGSClass->addMetadata($arrDVDMeta, true);
+	    	SettingsServices::addMetadata($arrDVDMeta, true);
 
 
 	    }
@@ -992,10 +973,7 @@ switch ($form) {
 			}
 
 
-			$SETTINGSClass->addMetadata($metadataCommit, true);
-			unset($metadataCommit);
-			unset($arrMetaData);
-
+			SettingsServices::addMetadata($metadataCommit, true);
 		}
 
 
@@ -1009,8 +987,6 @@ switch ($form) {
 		$VCDUploader = new VCDFileUpload($arrExt);
 
 		if ($VCDUploader->getFileCount() > 0) {
-
-			$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 
 			for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
 
@@ -1044,7 +1020,7 @@ switch ($form) {
 								$obj->setMediaTypeID($mediatype_id);
 
 								// And save to DB
-								$SETTINGSClass->addMetadata($obj, true);
+								SettingsServices::addMetadata($obj, true);
 		      				}
 
 	      				} catch (Exception $ex) {
@@ -1054,7 +1030,7 @@ switch ($form) {
 
 
 		      		} else {
-		      			$coverType = $COVERClass->getCoverTypeById($cover_typeid);
+		      			$coverType = CoverServices::getCoverTypeById($cover_typeid);
 
 		      			try {
 		      				$fileObj->move(TEMP_FOLDER);
@@ -1075,7 +1051,7 @@ switch ($form) {
 
 
 
-		$VCDClass->updateVcd($vcd);
+		MovieServices::updateVcd($vcd);
 
 
 	    if (isset($_POST['update'])) {
