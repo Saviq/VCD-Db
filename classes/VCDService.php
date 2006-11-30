@@ -2413,10 +2413,10 @@ class MovieServices extends VCDServices {
 	 * @param array $arrFilter | array of category id's to exclude
 	 * @return array
 	 */
-	public static function getTopTenList($category_id = 0) {
+	public static function getTopTenList($category_id = 0, $arrFilter = null) {
 		try {
 			
-			return self::Movie()->getTopTenList($category_id);
+			return self::Movie()->getTopTenList($category_id, $arrFilter);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
