@@ -17,13 +17,20 @@
 
 class VCDException extends Exception {
 
+	protected $name = null;
+	
 	/**
 	 * Constructor
 	 *
 	 * @param Exception $exception
 	 */
-	public function __construct() { 
-		parent::__construct();
+	public function __construct($message = null, $code = 0) { 
+		
+		if (is_null($this->getName())) {
+ 	      $this->setName(get_class($self));
+ 	    }
+ 	    
+		parent::__construct($message, $code);
 	} 
 
 	
@@ -41,6 +48,10 @@ class VCDException extends Exception {
 	   $err = "Exception occurred.";
 	
 	   if ($exception instanceof Exception) {
+	   		
+	   		if ($exception instanceof VCDException ) {
+	   			$err = $exception->getName() . " occurred.";	
+	   		}
 	   	
 	   		$error_file = basename($exception->getFile());
 	   		
@@ -76,7 +87,23 @@ class VCDException extends Exception {
 	}
 	
 	
+	/**
+	 * Get the name of the exception
+	 *
+	 * @return string
+	 */
+	public function getName() {
+		return $this->name;
+	}
 	
+	/**
+	 * Set the name of the exception
+	 *
+	 * @param string $name | The Exception name
+	 */
+	protected function setName($name) {
+		$this->name = $name;
+	}
 	
 	/**
 	 * Navigate browser back.
@@ -126,9 +153,55 @@ class VCDException extends Exception {
 		VCDLog::addEntry(VCDLog::EVENT_ERROR , $logmsg);
 		}
 	}
-	
-
 }
 
+/**
+ * Exceptions that are thrown when invalid arguments are passed to
+ * functions within VCD-db.
+ *
+ */
+class VCDInvalidArgumentException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}
+
+/**
+ * Exceptions that are thrown in the database layer.
+ *
+ */
+class VCDSqlException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}
+
+/**
+ * Exceptions that are thrown when required constraints are broken.
+ *
+ */
+class VCDConstraintException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}
+
+/**
+ * Exceptions that are unrecoverable.
+ *
+ */
+class VCDProgramException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}	
 
 ?>
