@@ -4,8 +4,6 @@
 <?php echo $ajaxClient->getJavaScript(); ?> 
 </script>
 <?
-	$USERClass = VCDClassFactory::getInstance("vcd_user");
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	$user = $_SESSION['user'];
 	$status = "";
 
@@ -22,17 +20,21 @@
 			$user->setPassword(md5($_POST['password']));
 		}
 
+		
 
 		// Check for properties
 		$user->flushProperties();
+		
 		if (isset($_POST['property']) && is_array($_POST['property'])) {
-			foreach ($_POST['property'] as $propID) {
-				$user->addProperty($USERClass->getPropertyById($propID));
+			foreach ($_POST['property'] as $property_id) {
+				$user->addProperty(UserServices::getPropertyById($property_id));
 			}
 		}
+		
+		
 
 
-		if ($USERClass->updateUser($user)) {
+		if (UserServices::updateUser($user)) {
 			// update the user in session as well
 			$_SESSION['user'] = $user;
 			VCDUtils::setMessage("(".VCDLanguage::translate('usersettings.updated').")");
@@ -75,8 +77,8 @@
 <? /*
 	Get all the custom user properties
    */
-	$props = $USERClass->getAllProperties();
-	$show_adult = (bool)$SETTINGSClass->getSettingsByKey('SITE_ADULT');
+	$props = UserServices::getAllProperties();
+	$show_adult = (bool)SettingsServices::getSettingsByKey('SITE_ADULT');
 
 	foreach ($props as $propertyObj) {
 		$checked = "";
@@ -154,14 +156,14 @@
 
 <?
 
-	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID($user->getUserID());
+	$arrBorrowers = SettingsServices::getBorrowersByUserID($user->getUserID());
 
 	$bEdit = false;
 	$bid = "";
 	if (isset($_GET['edit']) && strcmp($_GET['edit'], "borrower") == 0) {
 		$bEdit = true;
 		$bid = $_GET['bid'];
-		$currObj = $SETTINGSClass->getBorrowerByID($bid);
+		$currObj = SettingsServices::getBorrowerByID($bid);
 	}
 
 
@@ -225,7 +227,7 @@
 <fieldset id="mainset" title="<?=VCDLanguage::translate('rss.title')?>">
 <legend class="bold"><?=VCDLanguage::translate('rss.title')?></legend>
 <?
-	$feeds = $SETTINGSClass->getRssFeedsByUserId($user->getUserID());
+	$feeds = SettingsServices::getRssFeedsByUserId($user->getUserID());
 	if (sizeof($feeds) > 0) {
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" class=\"displist\" width=\"100%\">";
 		foreach ($feeds as $rssObj) {
@@ -257,9 +259,9 @@
 <?
 	// Check for current values
 	$uid = VCDUtils::getUserID();
-	$metaObjA = $SETTINGSClass->getMetadata(0, $uid, 'frontstats');
-	$metaObjB = $SETTINGSClass->getMetadata(0, $uid, 'frontbar');
-	$metaObjC = $SETTINGSClass->getMetadata(0, $uid, 'frontrss');
+	$metaObjA = SettingsServices::getMetadata(0, $uid, 'frontstats');
+	$metaObjB = SettingsServices::getMetadata(0, $uid, 'frontbar');
+	$metaObjC = SettingsServices::getMetadata(0, $uid, 'frontrss');
 	$isChecked = "checked=\"checked\"";
 	$check1 = "";
 	$check2 = "";
@@ -296,7 +298,7 @@
 		<td>
 		<select name="rssAvailable" id="rssAvailable" size="5" style="width:300px;" onDblClick="moveOver(this.form, 'rssAvailable', 'rssChoices')">
 		<?
-		$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(0);
+		$arrFeeds = SettingsServices::getRssFeedsByUserId(0);
 		foreach ($arrFeeds as $rssObj) {
 			if (!in_array($rssObj->getId(), $arrSelectedFeeds)) {
 				if ($rssObj->isAdultFeed() && !VCDUtils::showAdultContent()) { continue; }
@@ -367,7 +369,7 @@
 <?
 	$dvdObj = new dvdObj();
 	// Get the default data from user.. if any 
-	$metaObjDvd = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
+	$metaObjDvd = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
 	
 	$d_format = "";
 	$d_aspect = "";
@@ -470,8 +472,7 @@
 		We only display the ignore list if more than 1 active users
 		is using VCD-db.
 	*/
-	$CLASSUsers = VCDClassFactory::getInstance('vcd_user');
-	if (sizeof($CLASSUsers->getActiveUsers()) > 1) {
+	if (sizeof(UserServices::getActiveUsers()) > 1) {
 ?>
 
 
@@ -482,7 +483,7 @@
 <?
 	// Get current ignore list
 	$ignorelist = array();
-	$metaArr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST );
+	$metaArr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST );
 	if (sizeof($metaArr) > 0) {
 		$ignorelist = split("#", $metaArr[0]->getMetadataValue());
 	}
@@ -495,7 +496,7 @@
 		<?
 
 
-		$arrUsers = $CLASSUsers->getActiveUsers();
+		$arrUsers = UserServices::getActiveUsers();
 		foreach ($arrUsers as $userObj) {
 			if (!in_array($userObj->getUserID(), $ignorelist)) {
 				if ($userObj->getUserID() != VCDUtils::getUserID()) {
@@ -538,7 +539,7 @@
 <fieldset id="mainset" title="<?=VCDLanguage::translate('metadata.my')?>">
 <legend class="bold"><?=VCDLanguage::translate('metadata.my')?></legend>
 <?
-	$arrMyMeta = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+	$arrMyMeta = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
 ?>
 <form name="metadata" method="post" action="exec_form.php?action=addmetadata">
 <table cellpadding="1" cellspacing="1" border="0" width="100%">

@@ -3,27 +3,23 @@
 	$numRecords = 25;	
 	$batch = 1;
 	$start = 0;
-	
-	
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	
+		
 	$user_id = VCDUtils::getUserID();
 	if (isset($_POST['save'])) {
 		// Loop through the posted values
 		foreach ($_POST['seenlist'] as $key => $value) {
 			if (is_numeric($key) && (strcmp($value, "") != 0)) {
 				// check for existing data
-				$arr = $SETTINGSClass->getMetadata($value, $user_id, metadataTypeObj::SYS_SEENLIST );
+				$arr = SettingsServices::getMetadata($value, $user_id, metadataTypeObj::SYS_SEENLIST );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];
 					$obj->setMetadataValue('1');
-					$SETTINGSClass->updateMetadata($obj);
+					SettingsServices::updateMetadata($obj);
 				} else {
 					// create new Obj
 					$obj = new metadataObj(array('',$value, $user_id, metadataTypeObj::SYS_SEENLIST , '1'));
-					$SETTINGSClass->addMetadata($obj);
+					SettingsServices::addMetadata($obj);
 				}
 			}
 		}
@@ -53,7 +49,7 @@
 <? 
 
 
-$arrMovies = $VCDClass->getAllVcdByUserId($user_id, true);
+$arrMovies = MovieServices::getAllVcdByUserId($user_id, true);
 $currRecordCount = 0;
 if ($end > sizeof($arrMovies)) {
 	$end = sizeof($arrMovies);
@@ -66,7 +62,7 @@ if ($start > $end) {
 for ($j = $start; $j < $end; $j++) {
 	$obj = $arrMovies[$j];
 	$currRecordCount++;
-	$arr = $SETTINGSClass->getMetadata($obj->getID(), $user_id, 'seenlist');
+	$arr = SettingsServices::getMetadata($obj->getID(), $user_id, 'seenlist');
 	$checked = "";
 	if (is_array($arr) && sizeof($arr) == 1) {
 		$checked = "checked=\"checked\"";
@@ -103,7 +99,7 @@ for ($j = $start; $j < $end; $j++) {
 		
 	} while ($to < sizeof($arrMovies));
 	
-	print "<select>";
+	print "</select>";
 	
 	if ($currRecordCount < $numRecords) {
 		$savetext = VCDLanguage::translate('misc.save');

@@ -1,8 +1,3 @@
-<?
-$cd_id = $_GET['vcd_id'];
-
-?>
-
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>
 	<td width="75%" class="header"><?=VCDLanguage::translate('movie.movie')?></td>
@@ -50,7 +45,7 @@ $cd_id = $_GET['vcd_id'];
 						print "<a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."\">".VCDLanguage::translate('movie.hide')."</a>";
 					}
 
-					elseif ($VCDClass->getScreenshots($movie->getID())) {
+					elseif (MovieServices::getScreenshots($movie->getID())) {
 						print "<a href=\"./?page=cd&amp;vcd_id=".$movie->getID()."&amp;screens=on\">".VCDLanguage::translate('movie.show')."</a>";
 					} else {
 						print VCDLanguage::translate('movie.noscreens');
@@ -60,7 +55,7 @@ $cd_id = $_GET['vcd_id'];
 			</tr>
 			<?
 				if (VCDUtils::isLoggedIn()) {
-					if ($SETTINGSClass->isOnWishList($movie->getID())) {
+					if (SettingsServices::isOnWishList($movie->getID())) {
 						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= VCDLanguage::translate('wishlist.onlist')?>)</a></td></tr><?
 					} else {
 						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= VCDLanguage::translate('wishlist.add')?></a></td></tr><?
@@ -76,7 +71,7 @@ $cd_id = $_GET['vcd_id'];
 				}
 				// Display seen box if activated
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie) && $_SESSION['user']->getPropertyByKey('SEEN_LIST')) {
-   					$arrList = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
+   					$arrList = SettingsServices::getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
    					print "<tr><td>&nbsp;</td><td>";
    					if (sizeof($arrList) == 1 && ($arrList[0]->getMetadataValue() == 1)) {
 				   		print "<a href=\"#\"><img src=\"images/mark_seen.gif\" alt=\"".VCDLanguage::translate('seen.notseenitclick')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 0)\"/></a>";
@@ -113,7 +108,7 @@ $cd_id = $_GET['vcd_id'];
 	</tr>
 	</table>
 
-	<? if (isset($_GET['screens']) && $VCDClass->getScreenshots($movie->getID())) {
+	<? if (isset($_GET['screens']) && MovieServices::getScreenshots($movie->getID())) {
 		?>
 		<h2>Screenshots</h2>
 		<iframe id="screenshots" width="100%" height="470" src="screens.php?s_id=<?=$movie->getID()?>"
@@ -127,8 +122,7 @@ $cd_id = $_GET['vcd_id'];
 	<h2><?=VCDLanguage::translate('movie.actors')?></h2>
 	<div id="actorimages" style="padding-left:10px;">
 	<?
-		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-		$arr = $PORNClass->getPornstarsByMovieID($movie->getID());
+		$arr = PornstarServices::getPornstarsByMovieID($movie->getID());
 
 		foreach ($arr as $pornstar) {
 			$pornstar->showImage() ;
@@ -140,7 +134,7 @@ $cd_id = $_GET['vcd_id'];
 	<div id="copies">
 	<h2><?= VCDLanguage::translate('movie.available')?>:</h2>
 	<? 
-		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
+		$allMeta = SettingsServices::getMetadata($cd_id, null, null, null);
 		drawDVDLayers($movie, $allMeta);
 		$movie->displayCopies($allMeta) 
 	?>
@@ -169,9 +163,9 @@ $cd_id = $_GET['vcd_id'];
 	<ul>
 		<?
 			if (is_numeric($movie->getStudioID())) {
-				$studio = $PORNClass->getStudioByID($movie->getStudioID());
+				$studio = PornstarServices::getStudioByID($movie->getStudioID());
 			} else {
-				$studio = $PORNClass->getStudioByMovieID($movie->getID());
+				$studio = PornstarServices::getStudioByMovieID($movie->getID());
 			}
 
 
@@ -188,7 +182,7 @@ $cd_id = $_GET['vcd_id'];
 	<h2><?=VCDLanguage::translate('dvdempire.subcat')?></h2>
 	<ul>
 	<?
-		$subcats = $PORNClass->getSubCategoriesByMovieID($movie->getID());
+		$subcats = PornstarServices::getSubCategoriesByMovieID($movie->getID());
 		foreach ($subcats as $categoryObj) {
 			print "<li><a href=\"./?page=adultcategory&amp;category_id=".$categoryObj->getId()."\">".$categoryObj->getName(true) . "</a></li>";
 		}
@@ -230,7 +224,7 @@ $cd_id = $_GET['vcd_id'];
 	<br/>
 	<div id="similar">
 	<?
-		$simArr = $VCDClass->getSimilarMovies($movie->getID());
+		$simArr = MovieServices::getSimilarMovies($movie->getID());
 		if (is_array($simArr) && sizeof($simArr) > 0) {
 
 			print "<h2>".VCDLanguage::translate('movie.similar')."</h2>";
@@ -269,7 +263,7 @@ $cd_id = $_GET['vcd_id'];
 	</div>
 
 	<?
-		$commArr = $SETTINGSClass->getAllCommentsByVCD($movie->getID());
+		$commArr = SettingsServices::getAllCommentsByVCD($movie->getID());
 		if (empty($commArr)) {
 			print "<ul><li>".VCDLanguage::translate('comments.none')."</li></ul>";
 		} else {

@@ -3,9 +3,7 @@
 		redirect();
 	}
 	
-	
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$listArr = $SETTINGSClass->getWishList(VCDUtils::getUserID());
+	$listArr = SettingsServices::getWishList(VCDUtils::getUserID());
 ?>
 
 <h1><?= VCDLanguage::translate('menu.wishlist')?></h1>

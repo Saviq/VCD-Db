@@ -1,12 +1,8 @@
 <? 
 	$cat_id = $_GET['studio_id'];
 	
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-	$PORNClass= VCDClassFactory::getInstance("vcd_pornstar");
-	
-	$arrAdultStudios = $PORNClass->getStudiosInUse();
-	$movies = $VCDClass->getVcdByAdultStudio($cat_id);
+	$arrAdultStudios = PornstarServices::getStudiosInUse();
+	$movies = MovieServices::getVcdByAdultStudio($cat_id);
 	$count = sizeof($movies);
 	
 	$imagemode = false;
@@ -43,7 +39,7 @@
 	if (isset($_GET['batch']))
 		$batch = $_GET['batch'];
 	
-	$Recordcount = $SETTINGSclass->getSettingsByKey("PAGE_COUNT");
+	$Recordcount = SettingsServices::getSettingsByKey("PAGE_COUNT");
 	$offset = $batch*$Recordcount;
 	
 	

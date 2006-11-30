@@ -1,5 +1,4 @@
 <? 
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	$SHOW_STATS = true;
 	$SHOW_RIGHT = true;
 	$SHOW_FEEDS = false;
@@ -8,18 +7,18 @@
 	// Check for custom frontpage settings
 	if (VCDUtils::isLoggedIn()) {
 		$user_id = VCDUtils::getUserID();
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'frontstats');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'frontstats');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$SHOW_STATS = $arr[0]->getMetadataValue();
 		}
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'frontrss');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'frontrss');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$feedstring = $arr[0]->getMetadataValue();
 			$feedarr = split("#", $feedstring);
 			$rsscount = sizeof($feedarr);
 			$SHOW_FEEDS = true;	
 		}
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'frontbar');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
 				$SHOW_RIGHT = false;
 		}
@@ -50,7 +49,7 @@
 				}
 				
 				
-				$rssObj = $SETTINGSClass->getRssfeed($feedarr[$i]);
+				$rssObj = SettingsServices::getRssfeed($feedarr[$i]);
 				ShowOneRSS($rssObj->getFeedUrl());
 				print "</td>";
 				
@@ -66,7 +65,7 @@
 		} else {
 			foreach ($feedarr as $feed_id) {
 			if (is_numeric($feed_id)) {
-				$rssObj = $SETTINGSClass->getRssfeed($feed_id);
+				$rssObj = SettingsServices::getRssfeed($feed_id);
 				ShowOneRSS($rssObj->getFeedUrl());
 				}
 			}

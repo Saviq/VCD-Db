@@ -4,8 +4,7 @@
 		exit();
 	}
 
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$movies = $VCDClass->getAllVcdForList(VCDUtils::getUserID());
+	$movies = MovieServices::getAllVcdForList(VCDUtils::getUserID());
 ?>
 
 <h1><?=VCDLanguage::translate('addmovie.listed')?></h1>
@@ -22,7 +21,7 @@
 <div style="padding-left:10px;">
 <form action="./exec_form.php?action=addlisted" method="post" name="choiceForm">
 	<input type="hidden" name="id_list" id="id_list"/>
-	<INPUT TYPE="hidden" NAME="keys" VALUE=""/>
+	<input type="hidden" name="keys" value=""/>
 
 
 
@@ -33,13 +32,11 @@
 
 	<select name="available" id="available" size=20 style="width:300px;"onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();">
 	<?
-
 		foreach ($movies as $movie) {
 			print "<option value=\"".$movie->getID()."\">".$movie->getTitle()."</option>";
 		}
 
 		unset($movies);
-
 	?>
 	</select>
 	</td>

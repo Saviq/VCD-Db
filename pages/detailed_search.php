@@ -30,8 +30,8 @@
 	<td><?=VCDLanguage::translate('movie.category')?>:</td>
 	<td><? 
 	
-		$catObjArr = getLocalizedCategories($SETTINGSClass->getMovieCategoriesInUse());
-		$adultCatID = $SETTINGSClass->getCategoryIDByName('adult');
+		$catObjArr = getLocalizedCategories(SettingsServices::getMovieCategoriesInUse());
+		$adultCatID = SettingsServices::getCategoryIDByName('adult');
 		$adultEnabled = VCDUtils::showAdultContent();
 		
 		print "<select name=\"category\" size=\"1\">";
@@ -74,7 +74,7 @@
 	<td><? 
 		print "<select name=\"mediatype\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
-		foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
 			
 			$sel = "";
 			if ($mediaTypeObj->getmediaTypeID() == $s_mediatype)  {
@@ -100,10 +100,9 @@
 	<td><?=VCDLanguage::translate('movie.owner')?>:</td>
 	<td>
 	<? 
-		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
-		foreach ($USERClass->getActiveUsers() as $userObj) {
+		foreach (UserServices::getActiveUsers() as $userObj) {
 			
 			$sel = "";
 			if ($userObj->getUserID() == $s_owner)  {
@@ -148,16 +147,13 @@
 	if (isset($_GET['action']) && $_GET['action'] == 'search') {
 		if (sizeof($_POST) > 0) {
 		
-			
-			
 			if ($s_title == '') {
 				$s_title = null;
 			} else {
 				$s_title = str_replace("'","''", $s_title);
 			}
 			
-			$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-			$resultArr = $VCDClass->advancedSearch($s_title, $s_category, $s_year, $s_mediatype, $s_owner, $s_grade);
+			$resultArr = MovieServices::advancedSearch($s_title, $s_category, $s_year, $s_mediatype, $s_owner, $s_grade);
 			
 			if (sizeof($resultArr) == 0) {
 				print "<p class=\"bold\">".VCDLanguage::translate('search.noresult').".</p>";

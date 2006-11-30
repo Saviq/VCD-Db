@@ -1,23 +1,15 @@
 <h2>Pornstars</h2>
 <? 
-	;
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
-	$show_adult = false;
-	if (VCDUtils::isLoggedIn()) {
-		$show_adult = $_SESSION['user']->getPropertyByKey('SHOW_ADULT');
-	}
-	
-	if (VCDUtils::isLoggedIn() && $SETTINGSClass->getSettingsByKey('SITE_ADULT') && $show_adult && isset($_GET['view'])) {
+	if (VCDUtils::showAdultContent() && isset($_GET['view'])) {
 		$mode = $_GET['view'];
 		$active = false;
 		
-		$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 		if (strcmp($mode, 'active') == 0) {
-			$arrAlpha = $PORNClass->getPornstarsAlphabet(true);
+			$arrAlpha = PornstarServices::getPornstarsAlphabet(true);
 			$active = true;
 		} else {
-			$arrAlpha = $PORNClass->getPornstarsAlphabet(false);
+			$arrAlpha = PornstarServices::getPornstarsAlphabet(false);
 		}
 		
 		if (is_array($arrAlpha))  {
@@ -39,7 +31,7 @@
 		print "</div>";
 				
 		if (isset($_GET['l'])) {
-			$pornstars = $PORNClass->getPornstarsByLetter($_GET['l'], $active);
+			$pornstars = PornstarServices::getPornstarsByLetter($_GET['l'], $active);
 			
 			print "<hr/><div align=\"center\"><span class=\"bold\">".sizeof($pornstars)." pornstars</span> begin with letter \"".$_GET['l']."\" (<a href=\"./?page=pornstars&amp;view=".$_GET['view']."&amp;l=".$_GET['l']."\">Text view</a> / <a href=\"./?page=pornstars&amp;view=".$_GET['view']."&amp;l=".$_GET['l']."&amp;viewmode=img\">Image view</a>)</div>";
 			

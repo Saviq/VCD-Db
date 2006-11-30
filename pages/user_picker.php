@@ -10,7 +10,7 @@
 	<td><? 
 		print "<select name=\"category\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
-		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
+		foreach (SettingsServices::getMovieCategoriesInUse() as $categoryObj) {
 			print "<option value=\"".$categoryObj->getID()."\">".$categoryObj->getName(true)."</option>";
 		}
 		print "</select>"; ?></td>

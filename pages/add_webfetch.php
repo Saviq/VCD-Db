@@ -16,8 +16,7 @@ if (isset($_POST['fetchsite'])) {
 
 
 // Dynamically load the correct fetch class
-$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
-$sourceObj = $SettingsClass->getSourceSiteByAlias($sSource);
+$sourceObj = SettingsServices::getSourceSiteByAlias($sSource);
 if (is_null($sourceObj)) {
 	VCDException::display("Malformed Url.", true);
 	exit();
@@ -30,14 +29,12 @@ if (is_null($fetchClass)) {
 }
 
 // Save the current fetch class in use for next time user fetches movie
-$metaDefaultClass = $SettingsClass->getMetadata(0,VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
+$metaDefaultClass = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
 if (!($metaDefaultClass instanceof metadataObj && strcmp($metaDefaultClass->getMetadataValue(), $sSource)==0)) {
 	// Default class changed or not found .. add "last used class" to database
 	$metaLastUsedClass = new metadataObj(array('',0,VCDUtils::getUserID(),metadataTypeObj::SYS_LASTFETCH,$sSource));
-	$SettingsClass->addMetadata(array($metaLastUsedClass));
+	SettingsServices::addMetadata(array($metaLastUsedClass));
 }
-
-
 
 
 if (strcmp($sTitle, "") != 0) {

@@ -1,12 +1,8 @@
 <? 
 	$cat_id = $_GET['category_id'];
 	
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-	$PORNClass= VCDClassFactory::getInstance("vcd_pornstar");
-	
-	$arrAdultCats = $PORNClass->getSubCategoriesInUse();
-	$movies = $VCDClass->getVcdByAdultCategory($cat_id);
+	$arrAdultCats = PornstarServices::getSubCategoriesInUse();
+	$movies = MovieServices::getVcdByAdultCategory($cat_id);
 	$count = sizeof($movies);
 	
 	$batch  = 0;
@@ -41,7 +37,7 @@
 	
 	
 	
-	$Recordcount = $SETTINGSclass->getSettingsByKey("PAGE_COUNT");
+	$Recordcount = SettingsServices::getSettingsByKey("PAGE_COUNT");
 	$offset = $batch*$Recordcount;
 	
 	

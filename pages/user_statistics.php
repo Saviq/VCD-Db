@@ -1,10 +1,7 @@
 <?
-	$CLASSSettings = VCDClassFactory::getInstance("vcd_settings");
-	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
-
 	$user_id = VCDUtils::getUserID();
-	$statsArr = $CLASSSettings->getUserStatistics($user_id);
-	$moviecount = $CLASSVcd->getMovieCount($user_id);
+	$statsArr = SettingsServices::getUserStatistics($user_id);
+	$moviecount = MovieServices::getMovieCount($user_id);
 	
 	$useGD = isset($_GET['view']) && strcmp($_GET['view'], "gfx")==0;
 
@@ -39,7 +36,7 @@
 
 		$i = 0;
 		foreach ($arrCats as $subArr) {
-				$category = $CLASSSettings->getMovieCategoryByID($subArr[0])->getName(true);
+				$category = SettingsServices::getMovieCategoryByID($subArr[0])->getName(true);
 				$num = $subArr[1];
 				$PG->x[$i] = $category;
 				$PG->y[$i] = $num;		
@@ -61,7 +58,7 @@
 
 		$i = 0;
 		foreach ($arrCats as $subArr) {
-				$media = $SETTINGSClass->getMediaTypeByID($subArr[0])->getDetailedName();
+				$media = SettingsServices::getMediaTypeByID($subArr[0])->getDetailedName();
 				$num = $subArr[1];
 				$PG->x[$i] = $media;
 				$PG->y[$i] = $num;		
@@ -108,7 +105,7 @@
 		print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\" class=\"list\">";
 		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".VCDLanguage::translate('movie.category')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 		foreach ($arrCats as $subArr) {
-			$category = $CLASSSettings->getMovieCategoryByID($subArr[0])->getName(true);
+			$category = SettingsServices::getMovieCategoryByID($subArr[0])->getName(true);
 			if (!$altLang && key_exists($category, $mapping)) {
 				$category = VCDLanguage::translate($mapping[$category]);
 			}
@@ -135,7 +132,7 @@
 		print "<tr><td width=\"1\">{$statimg}</td><td class=\"statheader\">".VCDLanguage::translate('movie.media')."</td><td class=\"statheader\">".$moviecount."</td><td class=\"statheader\">&nbsp;</td></tr>";
 		foreach ($arrMedia as $subArr) {
 	
-			$media = $CLASSSettings->getMediaTypeByID($subArr[0])->getDetailedName();
+			$media = SettingsServices::getMediaTypeByID($subArr[0])->getDetailedName();
 			$num = $subArr[1];
 			$percent = round((($num/$moviecount)*100),1);
 			$imgpercent = $percent*$multiplier;

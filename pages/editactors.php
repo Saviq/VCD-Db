@@ -14,22 +14,17 @@
 	
 
 	$user = $_SESSION['user'];
-	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	
 	$jsaction = "";
 		
-	
 	if(isset($_POST['updatename'])) {
 	
 		$newactor = $_POST['newstar'];
 		if (!empty($newactor)) {
 			$obj = new pornstarObj(array('',$newactor,'',''));
-			$PORNClass->addPornstar($obj);
+			PornstarServices::addPornstar($obj);
 		} 
 		$cd_id = $_POST['movie_id'];
-		$vcd = $VCDClass->getVcdById($cd_id);
+		$vcd = MovieServices::getVcdById($cd_id);
 	
 	} elseif(isset($_POST['updateboth'])) {
 		
@@ -38,27 +33,27 @@
 		
 		if (!empty($newactor)) {
 			$obj = new pornstarObj(array('',$newactor,'',''));
-			$pObj = $PORNClass->addPornstar($obj);
+			$pObj = PornstarServices::addPornstar($obj);
 			$new_id = $pObj->getID();
-			$PORNClass->addPornstarToMovie($new_id, $movie_id);
+			PornstarServices::addPornstarToMovie($new_id, $movie_id);
 		}
 		
-		$vcd = $VCDClass->getVcdById($movie_id);
+		$vcd = MovieServices::getVcdById($movie_id);
 		$jsaction = ";window.opener.location.reload()";
 	
 	} elseif(isset($_POST['update'])) {
 		$movie_id = $_POST['movie_id'];
 		$actors = explode ("#", $_POST['id_list']);
 		foreach ($actors as $actor_id) {
-			$PORNClass->addPornstarToMovie($actor_id, $movie_id);
+			PornstarServices::addPornstarToMovie($actor_id, $movie_id);
 		}
 		$jsaction = ";window.opener.location.reload();window.close()";
-		$vcd = $VCDClass->getVcdById($movie_id);
+		$vcd = MovieServices::getVcdById($movie_id);
 		
 	
 	} else {
 		$cd_id = $_GET['id'];
-		$vcd = $VCDClass->getVcdById($cd_id);
+		$vcd = MovieServices::getVcdById($cd_id);
 	
 	}
 
@@ -87,20 +82,19 @@
 <input type="submit" name="updateboth" value="<?=VCDLanguage::translate('manager.savetodbncd')?>" class="buttontext" title="<?=VCDLanguage::translate('manager.savetodbncd')?>"/><br/>
 <hr/>
 <? 
-	$pornstarArr = $PORNClass->getAllPornstars();
+	$pornstarArr = PornstarServices::getAllPornstars();
 ?>
 	<input type="hidden" name="id_list"/>
 		<table cellspacing="0" cellpadding="2" border="0" width="95%">
 		<tr>
 		<td>
 		&nbsp;<strong><?=VCDLanguage::translate('manager.indb')?></strong>
-		<INPUT TYPE="hidden" NAME="keys" VALUE=""/>
+		<input type="hidden" name="keys" value=""/>
 		<select name="available" size=15 style="width:180px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
 		<?
 		 	foreach ($pornstarArr as $pornstar) {
 		 		echo "<option value=\"".$pornstar->getID()."\">".$pornstar->getName()."</option>";
 		 	}
-			unset($pornstarArr);
 		?> 
 		</select>
 		</td>

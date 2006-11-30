@@ -1,6 +1,5 @@
 <?
-$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-$movies = $VCDClass->search($search_string, $search_method);
+$movies = MovieServices::search($search_string, $search_method);
 
 
 if (sizeof($movies) > 0) {

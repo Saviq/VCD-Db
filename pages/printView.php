@@ -26,8 +26,7 @@
 <?
 	
 	// Get all the users movies based on the selection
-	$MOVIEClass = new vcd_movie();
-	$arr = $MOVIEClass->getPrintViewList(VCDUtils::getUserID(), $_GET['mode']);
+	$arr = MovieServices::getPrintViewList(VCDUtils::getUserID(), $_GET['mode']);
 	
 	
 	if (strcmp($_GET['mode'], "text") == 0) {

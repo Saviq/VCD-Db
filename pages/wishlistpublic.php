@@ -7,16 +7,14 @@
 	print "<h1>" . VCDLanguage::translate('menu.wishlistpublic') . "</h1>";
 	
 	// Get all available wishlists except for my own.
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$USERClass = VCDClassFactory::getInstance('vcd_user');
-	$propObj = $USERClass->getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
+	$propObj = UserServices::getPropertyByKey(vcd_user::$PROPERTY_WISHLIST);
 	if ($propObj instanceof userPropertiesObj ) {
-		$usersArr = $USERClass->getAllUsersWithProperty($propObj->getpropertyID());
+		$usersArr = UserServices::getAllUsersWithProperty($propObj->getpropertyID());
 		if (sizeof($usersArr) > 0) {
 			// Loop through the users wishlists
 			foreach ($usersArr as $userObj) {
 				if ($userObj->getUserID() != VCDUtils::getUserID()) {
-					$currList = $SETTINGSClass->getWishList($userObj->getUserID());
+					$currList = SettingsServices::getWishList($userObj->getUserID());
 					
 					if (sizeof($currList) > 0) {
 					

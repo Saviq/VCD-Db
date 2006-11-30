@@ -12,8 +12,7 @@
 	}
 	
 	
-	$USERClass = VCDClassFactory::getInstance('vcd_user');
-	$obj = $USERClass->getUserByUsername($username);
+	$obj = UserServices::getUserByUsername($username);
 	if ($obj instanceof userObj ) {
 		if (strcmp($obj->getEmail(),$email) == 0) {
 			
@@ -30,7 +29,7 @@
 				
 				// actually update the password since we now know that the email was successfully sent
 				$obj->setPassword($md5newpass);
-				$USERClass->updateUser($obj);
+				UserServices::updateUser($obj);
 				
 			} else {
 				$message = "The site owner has wrong mail settings defined, cannot sent password";

@@ -1,9 +1,7 @@
 <?
 $cd_id = $_GET['vcd_id'];
 
-$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-$movie = $VCDClass->getVcdByID($cd_id);
+$movie = MovieServices::getVcdByID($cd_id);
 if (!$movie instanceof vcdObj ) {
 	redirect();
 }
@@ -68,7 +66,7 @@ if ($movie->isAdult()) {
 			</tr>
 			<?
 				if (VCDUtils::isLoggedIn()) {
-					if ($SETTINGSClass->isOnWishList($movie->getID())) {
+					if (SettingsServices::isOnWishList($movie->getID())) {
 						?><tr><td>&nbsp;</td><td><a href="./?page=private&amp;o=wishlist">(<?= VCDLanguage::translate('wishlist.onlist')?>)</a></td></tr><?
 					} else {
 						?><tr><td>&nbsp;</td><td><a href="#" onclick="addtowishlist(<?=$movie->getID()?>)"><?= VCDLanguage::translate('wishlist.add')?></a></td></tr><?
@@ -87,7 +85,7 @@ if ($movie->isAdult()) {
 
 				// Display seen box if activated
 				if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie) && $_SESSION['user']->getPropertyByKey('SEEN_LIST')) {
-   					$arrList = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
+   					$arrList = SettingsServices::getMetadata($movie->getID(), VCDUtils::getUserID(), 'seenlist');
    					print "<tr><td>&nbsp;</td><td>";
    					if (sizeof($arrList) == 1 && ($arrList[0]->getMetadataValue() == 1)) {
 				   		print "<a href=\"#\"><img src=\"images/mark_seen.gif\" alt=\"".VCDLanguage::translate('seen.notseenitclick')."\" border=\"0\" style=\"padding-right:5px\" onclick=\"markSeen(".$movie->getID().", 0)\"/></a>";
@@ -185,7 +183,7 @@ if ($movie->isAdult()) {
 	<h2><?= VCDLanguage::translate('movie.available')?>:</h2>
 
 	<?
-		$allMeta = $SETTINGSClass->getMetadata($cd_id, null, null, null);
+		$allMeta = SettingsServices::getMetadata($cd_id, null, null, null);
 		drawDVDLayers($movie, $allMeta);
 		$movie->displayCopies($allMeta);
 	?>
@@ -194,7 +192,7 @@ if ($movie->isAdult()) {
 
 	<?
 		if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($movie)) {
-			$userMetaArr = $SETTINGSClass->getMetadata($movie->getID(), VCDUtils::getUserID(), null);
+			$userMetaArr = SettingsServices::getMetadata($movie->getID(), VCDUtils::getUserID(), null);
 			// Filter out the SYSTEM Types that we don't want to display ..
 			$userMetaArr = metadataTypeObj::filterOutSystemMeta($userMetaArr);
 
@@ -209,7 +207,7 @@ if ($movie->isAdult()) {
 				print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
 				print "<tr><td width=\"20%\">".VCDLanguage::translate('movie.media')."</td><td>".VCDLanguage::translate('metadata.type')."</td><td>".VCDLanguage::translate('metadata.value')."</td></tr>";
 				foreach ($userMetaArr as $metadataObj) {
-					$mediaObj = $SETTINGSClass->getMediaTypeByID($metadataObj->getMediaTypeID());
+					$mediaObj = SettingsServices::getMediaTypeByID($metadataObj->getMediaTypeID());
 					if ($mediaObj instanceof mediaTypeObj && strcmp(trim($metadataObj->getMetadataValue()), "") != 0) {
 						print "<tr><td>{$mediaObj->getName()}</td><td title=\"{$metadataObj->getMetadataDescription()}\">{$metadataObj->getMetadataName()}</td><td>{$metadataObj->prettyPrint($movie)}</td></tr>";
 					}
@@ -260,7 +258,7 @@ if ($movie->isAdult()) {
 	</div>
 
 	<?
-		$commArr = $SETTINGSClass->getAllCommentsByVCD($movie->getID());
+		$commArr = SettingsServices::getAllCommentsByVCD($movie->getID());
 		if (empty($commArr)) {
 			print "<ul><li>".VCDLanguage::translate('comments.none')."</li></ul>";
 		} else {
@@ -305,7 +303,7 @@ if ($movie->isAdult()) {
 
 	<div id="imdblinks">
 	<?
-		$SourceSiteObj = $SETTINGSClass->getSourceSiteByID($movie->getSourceSiteID());
+		$SourceSiteObj = SettingsServices::getSourceSiteByID($movie->getSourceSiteID());
 		if (isset($imdb) && $SourceSiteObj instanceof sourceSiteObj && strcmp($SourceSiteObj->getAlias(), "imdb") == 0) {
 			display_imdbLinks($imdb->getIMDB());
 		}
@@ -314,7 +312,7 @@ if ($movie->isAdult()) {
 
 	<div id="similar">
 	<?
-		$simArr = $VCDClass->getSimilarMovies($movie->getID());
+		$simArr = MovieServices::getSimilarMovies($movie->getID());
 		if (is_array($simArr) && sizeof($simArr) > 0) {
 
 			print "<h2>".VCDLanguage::translate('movie.similar')."</h2>";

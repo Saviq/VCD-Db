@@ -10,11 +10,7 @@
 		unset($_SESSION['listed']);
 	}
 
-	
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$movies = $VCDClass->getVcdForListByIds($id_list);
-	
-	
+	$movies = MovieServices::getVcdForListByIds($id_list);
 ?>
 
 
@@ -39,7 +35,7 @@
 			print "<td>";
 			print "<select name=\"item_".$i."\" size=\"1\">";
 			print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
-			foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
+			foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
 				
 				print "<option value=\"".$movie->getId()."|".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 				if ($mediaTypeObj->getChildrenCount() > 0) {

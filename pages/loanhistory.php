@@ -1,11 +1,10 @@
 <? 
 
-$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-$borrowerObj = $SETTINGSClass->getBorrowerByID($_GET['history']);
+$borrowerObj = SettingsServices::getBorrowerByID($_GET['history']);
 if (!$borrowerObj instanceof borrowerObj ) {
 	VCDException::display("Aborting query", true);
 }
-$loansArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrowerObj->getID(), true);
+$loansArr = SettingsServices::getLoansByBorrowerID(VCDUtils::getUserID(), $borrowerObj->getID(), true);
 
 
 
@@ -16,7 +15,7 @@ $loansArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrowe
 <? 
 
 	$bid = $_GET['history'];
-	$arrBorrowers = $SETTINGSClass->getBorrowersByUserID(VCDUtils::getUserID());
+	$arrBorrowers = SettingsServices::getBorrowersByUserID(VCDUtils::getUserID());
 	print "<form>&nbsp;<span class=\"bold\">".VCDLanguage::translate('loan.select')." </span><select name=\"borrowers\" size=1\" onchange=\"Valmynd(this, false)\">";
 			foreach ($arrBorrowers as $obj) {
 				$arr = $obj->getList();

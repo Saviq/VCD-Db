@@ -1,9 +1,6 @@
 <?
-	
-	;
-	$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
 	$pid = $_GET['pornstar_id'];
-	$pornstarObj = $PORNClass->getPornstarByID($pid);
+	$pornstarObj = PornstarServices::getPornstarByID($pid);
 ?>
 <h1>Pornstar | <?=$pornstarObj->getName()?></h1>
 

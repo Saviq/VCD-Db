@@ -44,10 +44,9 @@ if ($dbCompatible) {
 <tr>
 	<td>1) <?= VCDLanguage::translate('mymovies.joinsuser') ?></td>
 	<td><? 
-		$USERClass = VCDClassFactory::getInstance('vcd_user');
 		print "<select name=\"owner\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
-		foreach ($USERClass->getActiveUsers() as $userObj) {
+		foreach (UserServices::getActiveUsers() as $userObj) {
 			
 			$sel = "";
 			if ($userObj->getUserID() == $s_owner)  {
@@ -64,7 +63,7 @@ if ($dbCompatible) {
 	<td><? 
 		print "<select name=\"mediatype\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
-		foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
 			
 			$sel = "";
 			if ($mediaTypeObj->getmediaTypeID() == $s_mediatype)  {
@@ -91,7 +90,7 @@ if ($dbCompatible) {
 	<td><? 
 		print "<select name=\"category\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.any')."</option>";
-		foreach ($SETTINGSClass->getMovieCategoriesInUse() as $categoryObj) {
+		foreach (SettingsServices::getMovieCategoriesInUse() as $categoryObj) {
 			
 			$sel = "";
 			if ($categoryObj->getID() == $s_category)  {

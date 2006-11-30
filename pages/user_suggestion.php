@@ -23,11 +23,7 @@
 	<script src="../includes/js/main.js" type="text/javascript"></script>
 </head>
 <body class="nobg">
-
-
 <?
-
-	$CLASSVcd = VCDClassFactory::getInstance('vcd_movie');
 
 	if (VCDUtils::isLoggedIn() && isset($_GET['do']) && strcmp($_GET['do'], "suggest") == 0) {
 
@@ -40,7 +36,7 @@
 			$seenfilter = 1;
 		}
 
-		$movie = $CLASSVcd->getRandomMovie($category, $seenfilter);
+		$movie = MovieServices::getRandomMovie($category, $seenfilter);
 		if ($movie instanceof vcdObj ) {
 			?>
 			<table cellpadding="0" cellspacing="0" border="0" width="100%">

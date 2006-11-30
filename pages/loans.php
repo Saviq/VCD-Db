@@ -1,10 +1,8 @@
 <? 
-	
-	$CLASSvcd = VCDClassFactory::getInstance("vcd_movie");
-	$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-	$arrVcd = $CLASSvcd->getAllVcdByUserId(VCDUtils::getUserID());
-	$arrBorrowers = $SETTINGSclass->getBorrowersByUserID(VCDUtils::getUserID());
-	$arrLoans = $SETTINGSclass->getLoans(VCDUtils::getUserID(), false);
+
+	$arrVcd = MovieServices::getAllVcdByUserId(VCDUtils::getUserID());
+	$arrBorrowers = SettingsServices::getBorrowersByUserID(VCDUtils::getUserID());
+	$arrLoans = SettingsServices::getLoans(VCDUtils::getUserID(), false);
 	
 	if (is_array($arrLoans) && sizeof($arrLoans) > 0 && sizeof($arrVcd) > 0) {
 		$arrVcd = filterLoanList($arrVcd, $arrLoans);

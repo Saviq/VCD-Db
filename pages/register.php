@@ -1,7 +1,5 @@
 <? 
-	$USERClass = VCDClassFactory::getInstance("vcd_user");
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$allow_registration = $SETTINGSClass->getSettingsByKey("ALLOW_REGISTRATION");
+	$allow_registration = SettingsServices::getSettingsByKey("ALLOW_REGISTRATION");
 
 	/* Process the registration form */
 	if (sizeof($_POST) > 0) {
@@ -16,16 +14,16 @@
 		// find selected properties
 		if (isset($_POST['props'])) {
 			foreach ($_POST['props'] as $propKey) {
-				$propObj = $USERClass->getPropertyByKey($propKey);
+				$propObj = UserServices::getPropertyByKey($propKey);
 				$userObj->addProperty($propObj);	
 			}
 		}
 		
 		
 		
-		if ($USERClass->addUser($userObj)) {
+		if (UserServices::addUser($userObj)) {
 			// Try to send mail to user with registration details.
-			$body = sprintf(VCDLanguage::translate('mail.register'), $name, $username, $_POST['password'], $SETTINGSClass->getSettingsByKey('SITE_HOME'));
+			$body = sprintf(VCDLanguage::translate('mail.register'), $name, $username, $_POST['password'], SettingsServices::getSettingsByKey('SITE_HOME'));
 			sendMail($email, "VCD-db " . VCDLanguage::translate('register.title'), $body, true);	
 		
 			// save the user in session
@@ -70,7 +68,7 @@ if (!$allow_registration) {
 <? /* 
 	Get all the custom user properties
    */
-	$props = $USERClass->getAllProperties();
+	$props = UserServices::getAllProperties();
 	foreach ($props as $propertyObj) {
 		
 		// Check if translation for property exists

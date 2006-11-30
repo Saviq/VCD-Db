@@ -1,9 +1,6 @@
 <?php
 /* Display the movies in selected category */
 
-$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-
 $cat_id = $_GET['category_id'];
 $batch  = 0;
 
@@ -46,16 +43,16 @@ if (VCDUtils::isLoggedIn()) {
 }
 
 
-$Recordcount = $SETTINGSclass->getSettingsByKey("PAGE_COUNT");
+$Recordcount = SettingsServices::getSettingsByKey("PAGE_COUNT");
 $offset = $batch*$Recordcount;
 
 
 if ($showmine && VCDUtils::isLoggedIn()) {
-	$movies = $VCDClass->getVcdByCategory($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
+	$movies = MovieServices::getVcdByCategory($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
 } elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter(VCDUtils::getUserID())) {
-	$movies = $VCDClass->getVcdByCategoryFiltered($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
+	$movies = MovieServices::getVcdByCategoryFiltered($cat_id, $Recordcount, $offset, VCDUtils::getUserID());
 } else {
-	$movies = $VCDClass->getVcdByCategory($cat_id, $Recordcount, $offset);
+	$movies = MovieServices::getVcdByCategory($cat_id, $Recordcount, $offset);
 }
 
 
@@ -74,11 +71,11 @@ if (sizeof($movies) > 0 || $showmine) {
 	}
 
 	if ($showmine && VCDUtils::isLoggedIn()) {
-		$categoryCount = $VCDClass->getCategoryCount($cat_id, false, VCDUtils::getUserID());
+		$categoryCount = MovieServices::getCategoryCount($cat_id, VCDUtils::getUserID());
 	} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter(VCDUtils::getUserID())) {
-		$categoryCount = $VCDClass->getCategoryCountFiltered($cat_id, VCDUtils::getUserID());
+		$categoryCount = MovieServices::getCategoryCountFiltered($cat_id, VCDUtils::getUserID());
 	} else {
-		$categoryCount = $VCDClass->getCategoryCount($cat_id);
+		$categoryCount = MovieServices::getCategoryCount($cat_id);
 	}
 
 

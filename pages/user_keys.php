@@ -4,8 +4,6 @@
 	$batch = 1;
 	$start = 0;
 	
-	$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	
 	$user_id = VCDUtils::getUserID();
 	if (isset($_POST['save'])) {
@@ -13,25 +11,25 @@
 		foreach ($_POST as $key => $value) {
 			if (is_numeric($key) && (strcmp($value, "") != 0)) {
 				// check for existing data
-				$arr = $SETTINGSClass->getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
+				$arr = SettingsServices::getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];
 					$obj->setMetadataValue($value);
-					$SETTINGSClass->updateMetadata($obj);
+					SettingsServices::updateMetadata($obj);
 				} else {
 					// create new Obj
 					$obj = new metadataObj(array('',$key, $user_id, metadataTypeObj::SYS_MEDIAINDEX , $value));
-					$SETTINGSClass->addMetadata($obj);
+					SettingsServices::addMetadata($obj);
 				}
 			} elseif (strcmp($value, "") == 0) {
 				// Check if a existing value has been set to empty
-				$arr = $SETTINGSClass->getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
+				$arr = SettingsServices::getMetadata($key, $user_id, metadataTypeObj::SYS_MEDIAINDEX );
 				if (is_array($arr) && sizeof($arr) == 1) {
 					// update the Obj
 					$obj = $arr[0];
 					$obj->setMetadataValue($value);
-					$SETTINGSClass->updateMetadata($obj);
+					SettingsServices::updateMetadata($obj);
 				}
 			}
 		}
@@ -61,7 +59,7 @@
 <? 
 
 
-$arrMovies = $VCDClass->getAllVcdByUserId($user_id, true);
+$arrMovies = MovieServices::getAllVcdByUserId($user_id, true);
 $currRecordCount = 0;
 if ($end > sizeof($arrMovies)) {
 	$end = sizeof($arrMovies);
@@ -75,7 +73,7 @@ if ($start > $end) {
 for ($j = $start; $j < $end; $j++) {
 	$obj = $arrMovies[$j];
 	$currRecordCount++;
-	$arr = $SETTINGSClass->getMetadata($obj->getID(), $user_id, 'mediaindex');
+	$arr = SettingsServices::getMetadata($obj->getID(), $user_id, 'mediaindex');
 	$cusID = "";
 	if (is_array($arr) && sizeof($arr) == 1) {
 		$cusID = $arr[0]->getMetadataValue();
@@ -112,7 +110,7 @@ for ($j = $start; $j < $end; $j++) {
 		
 	} while ($to < sizeof($arrMovies));
 	
-	print "<select>";
+	print "</select>";
 	
 	if ($currRecordCount < $numRecords) {
 		$savetext = VCDLanguage::translate('misc.save');

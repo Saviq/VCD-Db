@@ -1,9 +1,3 @@
-<?
-	;
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$PORNClass = VCDClassFactory::getInstance('vcd_pornstar');
-?>
-
 <h2><?=VCDLanguage::translate('dvdempire.info')?></h2>
 
 <?
@@ -37,12 +31,12 @@
 				<td><select name="studio" class="plain" size="1">
 					<?
 						$studio_fetchID = "";
-						$studio = $PORNClass->getStudioByName($fetchedObj->getStudio());
+						$studio = PornstarServices::getStudioByName($fetchedObj->getStudio());
 						if ($studio instanceof studioObj ) {
 							$studio_fetchID = $studio->getId();
 						}
 
-						evalDropdown($PORNClass->getAllStudios(), $studio_fetchID);
+						evalDropdown(PornstarServices::getAllStudios(), $studio_fetchID);
 					?>
 					</select>
 				</td>
@@ -76,8 +70,8 @@
 			<td class="tblb"><?=VCDLanguage::translate('movie.category')?>:</td>
 			<td><select name="category" class="plain">
 				<?
-					$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
-					evalDropdown($SETTINGSClass->getAllMovieCategories(), $adult_id);
+					$adult_id = SettingsServices::getCategoryIDByName('adult');
+					evalDropdown(SettingsServices::getAllMovieCategories(), $adult_id);
 
 				?>
 			</select>
@@ -90,7 +84,7 @@
 			<?
 			print "<select name=\"mediatype\" size=\"1\" class=\"plain\">";
 			print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
-			foreach ($SETTINGSClass->getAllMediatypes() as $mediaTypeObj) {
+			foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
 				print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 				if ($mediaTypeObj->getChildrenCount() > 0) {
 					foreach ($mediaTypeObj->getChildren() as $childObj) {
@@ -118,7 +112,7 @@
 				<td>
 					<select name="available" id="available" size=8 style="width:110px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');" class="plain">
 					<?
-						evalDropdown($PORNClass->getSubCategories(), -1, false);
+						evalDropdown(PornstarServices::getSubCategories(), -1, false);
 					?>
 					</select>
 				</td>
@@ -129,7 +123,7 @@
 				<td>
 					<select multiple name="choiceBox" id="choiceBox" style="width:110px;" size="8" class="plain">
 					<?
-						$valid_categories = $PORNClass->getValidCategories($fetchedObj->getCategories());
+						$valid_categories = PornstarServices::getValidCategories($fetchedObj->getCategories());
 						evalDropdown($valid_categories, -1, false);
 					?>
 					</select>
@@ -160,7 +154,7 @@
 
 
 			foreach ($fetchedObj->getActors() as $value => $key) {
- 			  $pornstar = $PORNClass->getPornstarByName($key);
+ 			  $pornstar = PornstarServices::getPornstarByName($key);
 
 			  if ($pornstar instanceof pornstarObj && $pornstar->getName() != '') {
 			   	echo "<li class=\"green\">";

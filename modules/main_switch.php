@@ -5,8 +5,6 @@
 	global $CURRENT_PAGE parameter.
 */
 
-$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
 switch ($CURRENT_PAGE) {
 
 	case 'category':
@@ -20,7 +18,7 @@ switch ($CURRENT_PAGE) {
 		
 		
 	case 'adultcategory':
-		if ($SETTINGSClass->getSettingsByKey('SITE_ADULT')) {
+		if (SettingsServices::getSettingsByKey('SITE_ADULT')) {
 			
 			if (isset($_GET['category_id'])) {
 				require_once(VCDDB_BASE.'/pages/adultcategory.php');
@@ -83,7 +81,7 @@ switch ($CURRENT_PAGE) {
 	case 'pornstar':
 		if (is_numeric($_GET['pornstar_id'])) {
 			// is this permitted by the administrator ?
-			if ($SETTINGSClass->getSettingsByKey('SITE_ADULT')) {
+			if (SettingsServices::getSettingsByKey('SITE_ADULT')) {
 				require_once(VCDDB_BASE.'/pages/pornstar.php');
 			} else {
 				redirect();
