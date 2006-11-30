@@ -14,6 +14,7 @@
  */
 ?>
 <?php
+	error_reporting(E_NOTICE | E_ALL | E_STRICT | E_ERROR);	
 	// Define the current VCD-db version revision
 	define("VCDDB_VERSION","0.985-CVS");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
@@ -23,8 +24,6 @@
 		header("Location: setup/index.php");
 		exit();
 	}
-
-
 
 	checkEnvironment();
 

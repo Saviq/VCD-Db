@@ -46,10 +46,8 @@ function display_topmenu() {
  */
 function display_userlinks() {
 
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 	$rssLink = "";
-	if (sizeof($SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
+	if (sizeof(SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
 		$rssLink = "<span class=\"nav\"><a href=\"./?page=private&o=rss\" class=\"navx\">".VCDLanguage::translate('menu.rss')."</a></span>";
 	}
 	?>
@@ -61,12 +59,12 @@ function display_userlinks() {
 	<span class="nav"><a href="./?page=private&amp;o=loans" class="navx"><?=VCDLanguage::translate('menu.loansystem')?></a></span>
 	<? }
 	// Check for shared wishlists and if so .. display the "others wishlist link"
-		if ($SETTINGSClass->isPublicWishLists(VCDUtils::getUserID())) {
+		if (SettingsServices::isPublicWishLists(VCDUtils::getUserID())) {
 		?><span class="nav"><a href="./?page=private&amp;o=publicwishlist" class="navx"><?=VCDLanguage::translate('menu.wishlistpublic')?></a></span><?
 	}
 	?>
 	<span class="nav"><a href="./?page=private&amp;o=wishlist" class="navx"><?=VCDLanguage::translate('menu.wishlist')?></a></span>
-	<? if ($CLASSVcd->getMovieCount(VCDUtils::getUserID()) > 0)  {?>
+	<? if (MovieServices::getMovieCount(VCDUtils::getUserID()) > 0)  {?>
 	<span class="nav"><a href="./?page=private&amp;o=stats" class="navx"><?=VCDLanguage::translate('menu.statistics')?></a></span>
 	<? } ?>
 	<?=$rssLink?>
