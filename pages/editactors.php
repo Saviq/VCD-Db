@@ -84,13 +84,13 @@
 <? 
 	$pornstarArr = PornstarServices::getAllPornstars();
 ?>
-	<input type="hidden" name="id_list"/>
+		<input type="hidden" id="id_list" name="id_list"/>
 		<table cellspacing="0" cellpadding="2" border="0" width="95%">
 		<tr>
 		<td>
 		&nbsp;<strong><?=VCDLanguage::translate('manager.indb')?></strong>
-		<input type="hidden" name="keys" value=""/>
-		<select name="available" size=15 style="width:180px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
+		<input type="hidden" name="keys" id="keys" value=""/>
+		<select name="available" id="available" size=15 style="width:180px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');clr();" onKeyPress="selectKeyPress();" onKeyDown="onSelectKeyDown();" onBlur="clr();" onFocus="clr();" class="input">
 		<?
 		 	foreach ($pornstarArr as $pornstar) {
 		 		echo "<option value=\"".$pornstar->getID()."\">".$pornstar->getName()."</option>";
@@ -103,7 +103,7 @@
 			<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 		</td>
 		<td><strong><?=VCDLanguage::translate('manager.sel')?></strong>
-			<select multiple name="choiceBox" onclick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
+			<select multiple name="choiceBox" id="choiceBox" onclick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
 			<br/><br/>
 			<input type="submit" onClick="checkFieldsRaw(this.form,'choiceBox','id_list')" value="<?=VCDLanguage::translate('misc.saveandclose')?>" name="update" class="buttontext"/>
 		</td>			
