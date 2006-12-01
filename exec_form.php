@@ -277,11 +277,14 @@ switch ($form) {
 				$fileLocation = $fileObj->getFileLocation();
 				$fileExtension = $fileObj->getFileExtenstion();
 
+				
+				//die($fileLocation . " og " . $fileExtension );
+				
 	  	   		$im = new Image_Toolbox($fileLocation);
 				$im->newOutputSize(0,140);
 				$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
 
-
+				
 			  	$cover = new cdcoverObj();
 				// Get a Thumbnail CoverTypeObj
 				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
@@ -293,7 +296,7 @@ switch ($form) {
 
 				// CleanUp
 				unset($im);
-				$fileObj->delete();
+				
 
 
 			} catch (Exception $ex) {
@@ -304,12 +307,8 @@ switch ($form) {
 
 
 		// Forward the movie to the Business layer
-		try {
-			$new_id = MovieServices::addVcd($vcd);
-		} catch (Exception $ex) {
-			VCDException::display($ex, true);
-		}
-
+		$new_id = MovieServices::addVcd($vcd);
+		
 
 		// Insert the user comments if any ..
 		if (isset($_POST['comment']) && (strlen($_POST['comment']) > 1)) {
