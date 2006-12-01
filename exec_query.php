@@ -31,23 +31,22 @@ if (isset($_GET['action'])) {
 }
 
 $reload_and_close = true;
-$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 
 switch ($form) {
 
 	case 'returnloan':
 		$loan_id = $_GET['loan_id'];
-		$SETTINGSClass->loanReturn($loan_id);
+		SettingsServices::loanReturn($loan_id);
 		VCDUtils::setMessage("(Removed CD from loan)");
 		redirect('?page=private&o=loans');
 		break;
 	
 	case 'reminder':
 		$borrower_id = $_GET['bid'];
-		$obj = $SETTINGSClass->getBorrowerByID($borrower_id);
+		$obj = SettingsServices::getBorrowerByID($borrower_id);
 		
 		if ($obj instanceof borrowerObj ) {
-			$loanArr = $SETTINGSClass->getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
+			$loanArr = SettingsServices::getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
 			if (VCDUtils::sendMail($obj->getEmail(), VCDLanguage::translate('mail.returntopic'), createReminderEmailBody($obj->getName(), $loanArr), true)) {
 				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
 			} else {
@@ -60,7 +59,7 @@ switch ($form) {
 		
 	case 'deleteNFO':
 		if (isset($_GET['meta_id']) && is_numeric($_GET['meta_id'])) {
-			$SETTINGSClass->deleteNFO($_GET['meta_id']);
+			SettingsServices::deleteNFO($_GET['meta_id']);
 			$vcd_id = $_GET['rid'];
 			redirect("pages/manager.php?cd_id=".$vcd_id."&do=reload");
 		}
@@ -70,7 +69,7 @@ switch ($form) {
 		
 	case 'deletemeta':
 		if (isset($_GET['meta_id']) && is_numeric($_GET['meta_id'])) {
-			$SETTINGSClass->deleteMetadata($_GET['meta_id']);
+			SettingsServices::deleteMetadata($_GET['meta_id']);
 			$vcd_id = $_GET['rid'];
 			redirect("pages/manager.php?cd_id=".$vcd_id."&do=reload");
 		}
@@ -79,8 +78,8 @@ switch ($form) {
 		
 		
 	case 'delete_borrower':
-		$borrowerObj = $SETTINGSClass->getBorrowerByID($_GET['bid']);
-		$SETTINGSClass->deleteBorrower($borrowerObj);
+		$borrowerObj = SettingsServices::getBorrowerByID($_GET['bid']);
+		SettingsServices::deleteBorrower($borrowerObj);
 		VCDUtils::setMessage("(".$borrowerObj->getName()." has been deleted)");
 		redirect('?page=private&o=settings');
 		break;
@@ -202,10 +201,9 @@ switch ($form) {
 		
 		if (fs_rename(TEMP_FOLDER.$image_name, PORNSTARIMAGE_PATH.$image_name)) {
 			// Success ...
-			$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-			$pornstar = $PORNClass->getPornstarByID($pornstar_id);
+			$pornstar = PornstarServices::getPornstarByID($pornstar_id);
 			$pornstar->setImageName($image_name);
-			$PORNClass->updatePornstar($pornstar);
+			PornstarServices::updatePornstar($pornstar);
 			redirect("pages/pmanager.php?pornstar_id=".$pornstar_id."");
 		} else {
 			// Error notification
@@ -221,8 +219,7 @@ switch ($form) {
 		$media_id = $_GET['media_id'];
 		$cd_id = $_GET['cd_id'];
 		$mode = $_GET['mode'];
-		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-		$VCDClass->deleteVcdFromUser($cd_id, $media_id, $mode);
+		MovieServices::deleteVcdFromUser($cd_id, $media_id, $mode);
 	
 		break;
 	
@@ -230,9 +227,8 @@ switch ($form) {
 	case 'deletecover':
 		$cid = $_GET['cover_id'];
 		$vcd_id = $_GET['vcd_id'];
-		$COVERClass = VCDClassFactory::getInstance('vcd_cdcover');
 		if (is_numeric($cid)) {
-			$COVERClass->deleteCover($cid);
+			CoverServices::deleteCover($cid);
 		} 
 		redirect("pages/manager.php?cd_id=".$vcd_id."&do=reload");
 		
@@ -241,10 +237,10 @@ switch ($form) {
 	case 'delComment':
 		
 		$comment_id = $_GET['cid'];
-		$commObj = $SETTINGSClass->getCommentByID($comment_id);
+		$commObj = SettingsServices::getCommentByID($comment_id);
 		if ($commObj instanceof commentObj && $commObj->getOwnerID() == VCDUtils::getUserID()) {
 			$vcd_id = $commObj->getVcdID();
-			$SETTINGSClass->deleteComment($comment_id);	
+			SettingsServices::deleteComment($comment_id);	
 			redirect("?page=cd&vcd_id=".$vcd_id."");
 		} else {
 			redirect();
@@ -255,20 +251,19 @@ switch ($form) {
 		
 	case 'delimage':
 		$pornstar_id = $_GET['star_id'];
-		
-		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-		$pornstar = $PORNClass->getPornstarByID($pornstar_id);
+
+		$pornstar = PornstarServices::getPornstarByID($pornstar_id);
 		
 		fs_unlink(PORNSTARIMAGE_PATH.$pornstar->getImageName());
 		$pornstar->setImageName('');
-		$PORNClass->updatePornstar($pornstar);
+		PornstarServices::updatePornstar($pornstar);
 		redirect("pages/pmanager.php?pornstar_id=".$pornstar_id."");
 
 		break;
 		
 	case 'delrss':
 		$rssid = $_GET['rss_id'];
-		$SETTINGSClass->delFeed($rssid);
+		SettingsServices::delFeed($rssid);
 		redirect('?page=private&o=settings');
 
 		break;
@@ -276,7 +271,7 @@ switch ($form) {
 	case 'delmetatype':
 		$metadatatype_id = $_GET['meta_id'];
 		if (is_numeric($metadatatype_id)) {
-			$SETTINGSClass->deleteMetaDataType($metadatatype_id);
+			SettingsServices::deleteMetaDataType($metadatatype_id);
 		}
 		redirect('?page=private&o=settings');
 		break;
@@ -284,8 +279,7 @@ switch ($form) {
 	case 'delactor':
 		$actor_id = $_GET['actor_id'];
 		$movie_id = $_GET['movie_id'];
-		$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-		$PORNClass->deletePornstarFromMovie($actor_id, $movie_id);
+		PornstarServices::deletePornstarFromMovie($actor_id, $movie_id);
 		redirect("pages/manager.php?cd_id=".$movie_id."");
 		
 		break;
@@ -331,16 +325,16 @@ switch ($form) {
 		if (is_numeric($movie_id) && is_numeric($mark) && VCDUtils::isLoggedIn()) {
 			
 			// Check for existing data
-			$arr = $SETTINGSClass->getMetadata($movie_id, VCDUtils::getUserID(), 'seenlist');
+			$arr = SettingsServices::getMetadata($movie_id, VCDUtils::getUserID(), 'seenlist');
 			if (is_array($arr) && sizeof($arr) == 1) {
 				// update the Obj
 				$obj = $arr[0];
 				$obj->setMetadataValue($mark);
-				$SETTINGSClass->updateMetadata($obj);
+				SettingsServices::updateMetadata($obj);
 			} else {
 				// create new Obj
 				$obj = new metadataObj(array('',$movie_id, VCDUtils::getUserID(), metadataTypeObj::SYS_SEENLIST , $mark));
-				$SETTINGSClass->addMetadata($obj);
+				SettingsServices::addMetadata($obj);
 			}
 			
 			redirect("?page=cd&vcd_id=".$movie_id."");
@@ -352,13 +346,13 @@ switch ($form) {
 		
 	case 'addtowishlist':
 		$id = $_GET['vcd_id'];		
-		$SETTINGSClass->addToWishList($id, VCDUtils::getUserID());
+		SettingsServices::addToWishList($id, VCDUtils::getUserID());
 		redirect("./?page=cd&vcd_id=".$id);
 		break;
 		
 	case 'deletefromwishlist':
 		$id = $_GET['vcd_id'];		
-		$SETTINGSClass->removeFromWishList($id, VCDUtils::getUserID());
+		SettingsServices::removeFromWishList($id, VCDUtils::getUserID());
 		redirect("?page=private&o=wishlist");
 		break;
 		
