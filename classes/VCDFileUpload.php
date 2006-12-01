@@ -149,7 +149,7 @@ class VCDFileUpload {
 	 * @param $_FILE $fileObj | One item in PHP $_FILES array
 	 * @param string $fieldname | The HTML upload field name
 	 */
-	public function downloadFile($fileObj, $fieldname) {
+	public function downloadFile(&$fileObj, $fieldname) {
 		if(!empty($_POST[$fieldname.'_uri'])) {
 			$uri = $_POST[$fieldname.'_uri'];
 			unset($_POST[$fieldname.'_uri']);
@@ -394,8 +394,8 @@ class VCDUploadedFile {
         			$full_destination_path = $strDestinationFolder."/".$dst_file_name;
         			$this->filename = $dst_file_name;
         		}
-        		
-        		if(@move_uploaded_file($this->filetmpname,$full_destination_path)) {
+
+        		if(@move_uploaded_file($this->filetmpname,$full_destination_path) || @fs_rename($this->filetmpname, $full_destination_path)) {
             		$this->setFileLocation($strDestinationFolder."/".$dst_file_name);
         			@chmod ($this->filelocation, $this->strFilePermission);
         			if ($this->bUseRandomFileName) {
