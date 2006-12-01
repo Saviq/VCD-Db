@@ -301,56 +301,59 @@ class vcd_movie implements IVcd  {
 				*/
 
 				foreach ($vcdObj->getCovers() as $coverObj) {
-					if($coverObj instanceof cdcoverObj) {
-						
-						// Create temporary unique ID for the image
-						$image_name = VCDUtils::generateUniqueId();
+                    if($coverObj instanceof cdcoverObj) {
+                        $imgToDB = (bool)$this->Settings()->getSettingsByKey('DB_COVERS');
 
+                        // Create temporary unique ID for the image
+                        $image_name = VCDUtils::generateUniqueId();
 
-						$imgToDB = (bool)$this->Settings()->getSettingsByKey('DB_COVERS');
+                        $coverObj->setOwnerId($vcdObj->getInsertValueUserID());
+                        $coverObj->setVcdId($cd_id);
 
-						$coverObj->setOwnerId($vcdObj->getInsertValueUserID());
-						$coverObj->setVcdId($cd_id);
+                        $filename = TEMP_FOLDER.$coverObj->getFilename();
+                        $newname = $image_name . "." . VCDUtils::getFileExtension($coverObj->getFilename());
 
+                        if ($imgToDB) { // Insert the image as a binary file to DB, it's still in the temp folder
+                            $vcd_image = new VCDImage();
 
-						$filename = TEMP_FOLDER.$coverObj->getFilename();
-						$newname = $image_name . "." . VCDUtils::getFileExtension($coverObj->getFilename());
+                            if (VCDUtils::getFileExtension($coverObj->getFilename()) == 'gif') {
+                                $image_type = "gif";
+                            } else {
+                                $image_type = "pjpeg";
+                            }
 
-						if ($imgToDB) { // Insert the image as a binary file to DB, it's still in the temp folder
-							$vcd_image = new VCDImage();
+                            // Use File info
+                            $arrFileInfo = array("name" => "".$newname."", "type" => "image/".$image_type."");
 
-							if (VCDUtils::getFileExtension($coverObj->getFilename()) == 'gif') {
-								$image_type = "gif";
-							} else {
-								$image_type = "pjpeg";
-							}
+                            $image_id = $vcd_image->addImageFromPath(TEMP_FOLDER.$coverObj->getFilename(), $arrFileInfo, true);
+                            $coverObj->setFilesize($vcd_image->getFilesize());
+                            // Set the DB imageID to the cover
+                            $coverObj->setImageID($image_id);
+                            $coverObj->setFilename($newname);
+                        } else {
+                            // rename the image and move it to the thumbnail upload folder
+                            if (fs_file_exists($filename)) {
 
-							// Use File info
-							$arrFileInfo = array("name" => "".$newname."", "type" => "image/".$image_type."");
+                                $coverObj->setFilesize(fs_filesize($filename));
+                                if (strcmp($coverObj->getCoverTypeName(), "thumbnail") == 0) {
+                                	fs_rename($filename, THUMBNAIL_PATH . $newname);
+                                } else {
+                                	fs_rename($filename, COVER_PATH . $newname);
+                                }
+                                
+                                $coverObj->setFilename($newname);
 
-							$image_id = $vcd_image->addImageFromPath(TEMP_FOLDER.$coverObj->getFilename(), $arrFileInfo, true);
-							$coverObj->setFilesize($vcd_image->getFilesize());
-							// Set the DB imageID to the cover
-							$coverObj->setImageID($image_id);
-							$coverObj->setFilename($newname);
-						} else {
-							// rename the image and move it to the thumbnail upload folder
-							if (fs_file_exists($filename)) {
+                            } else {
+                                throw new VCDProgramException('Trying to move an image that does not exist!');
+                            }
 
-								$coverObj->setFilesize(fs_filesize($filename));
-								if (strcmp($coverObj->getCoverTypeName(), "thumbnail") == 0) fs_rename($filename, THUMBNAIL_PATH . $newname);
-								else fs_rename($filename, COVER_PATH . $newname);
-								$coverObj->setFilename($newname);
+                        }
+                    }
 
+                    // Finally add the CDCover Obj to the DB
+                    $this->Cover()->addCover($coverObj);
+                }
 
-						} else {
-							throw new VCDProgramException('Trying to move an image that does not exist!');
-						}
-					}
-
-					// Finally add the CDCover Obj to the DB
-					$this->Cover()->addCover($thumbnail);
-				}
 
 
 
@@ -359,7 +362,7 @@ class vcd_movie implements IVcd  {
 					$this->handleAdultVcd($vcdObj);
 				}
 				
-			}
+			
 
 			} else {
 				// CD exist, we only have to add our instance in the db
