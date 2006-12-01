@@ -304,7 +304,7 @@ if ($movie->isAdult()) {
 	<div id="imdblinks">
 	<?
 		if (is_numeric($movie->getSourceSiteID())) {
-			$SourceSiteObj = SettingsServices::getSourceSiteByID();
+			$SourceSiteObj = SettingsServices::getSourceSiteByID($movie->getSourceSiteID());
 			if (isset($imdb) && $SourceSiteObj instanceof sourceSiteObj && strcmp($SourceSiteObj->getAlias(), "imdb") == 0) {
 				display_imdbLinks($imdb->getIMDB());
 			}
