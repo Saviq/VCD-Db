@@ -303,10 +303,13 @@ if ($movie->isAdult()) {
 
 	<div id="imdblinks">
 	<?
-		$SourceSiteObj = SettingsServices::getSourceSiteByID($movie->getSourceSiteID());
-		if (isset($imdb) && $SourceSiteObj instanceof sourceSiteObj && strcmp($SourceSiteObj->getAlias(), "imdb") == 0) {
-			display_imdbLinks($imdb->getIMDB());
+		if (is_numeric($movie->getSourceSiteID())) {
+			$SourceSiteObj = SettingsServices::getSourceSiteByID();
+			if (isset($imdb) && $SourceSiteObj instanceof sourceSiteObj && strcmp($SourceSiteObj->getAlias(), "imdb") == 0) {
+				display_imdbLinks($imdb->getIMDB());
+			}
 		}
+		
 	?>
 	</div>
 
