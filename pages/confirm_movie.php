@@ -1,5 +1,4 @@
 <?
-$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
 global $ajax, $ajaxClient, $ajaxServer;
 ?>
 <script type="text/javascript" src="includes/js/json.js"></script>
@@ -144,7 +143,7 @@ if(is_array($fetchedObj->getCast(false))) {
 		<?
 		print "<select name=\"mediatype\" onchange=\"processing(true);x_VCDAjaxHelper.getDataForMediaType('meta|cover|dvd', this.value, showForms);\" size=\"1\">";
 		print "<option value=\"null\">".VCDLanguage::translate('misc.select')."</option>";
-		foreach ($SettingsClass->getAllMediatypes() as $mediaTypeObj) {
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
 			print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
 			if ($mediaTypeObj->getChildrenCount() > 0) {
 				foreach ($mediaTypeObj->getChildren() as $childObj) {
@@ -169,7 +168,7 @@ if(is_array($fetchedObj->getCast(false))) {
 
 		if (is_array($items)) {
 			$scat = $items[0];
-			$sid = $SettingsClass->getCategoryIDByName($scat, true);
+			$sid = SettingsServices::getCategoryIDByName($scat, true);
 		}
 
 		// Get the localized category list
@@ -206,7 +205,7 @@ if(is_array($fetchedObj->getCast(false))) {
 	<div id="metaFields"></div>
 	<div id="coverFields"></div>
 	<br/>
-	<img id="processIcon" style="visibility:hidden;" src="/images/processing.gif"/>
+	<img id="processIcon" style="visibility:hidden;" src="images/processing.gif"/>
 	<input type="submit" value="<?=VCDLanguage::translate('misc.confirm')?>" class="buttontext" id="confirmButton" onclick="return val_IMDB(this.form)"/>
 	<!-- End My copy -->
 	</td>
