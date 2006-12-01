@@ -604,6 +604,23 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Delete NFO file
+	 *
+	 * @param int $metadata_id | The Id of the metadata containing the NFO entry
+	 */
+	public static function deleteNFO($metadata_id) {
+		try {
+			
+			self::Settings()->deleteNFO($metadata_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);	
+		}
+	}
+	
+	
 	/**
 	 * Update a specific sourceSite object.
 	 *
@@ -1350,6 +1367,22 @@ class SettingsServices extends VCDServices {
 		try {
 			
 			self::Settings()->updateMetadata($obj);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	
+	/**
+	 * Delete a user defined metadata type
+	 *
+	 * @param int $type_id | The Id of the metadata type
+	 */
+	public static function deleteMetaDataType($type_id) {
+		try {
+			
+			self::Settings()->deleteMetaDataType($type_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
