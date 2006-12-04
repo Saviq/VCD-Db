@@ -129,8 +129,7 @@ function display_toggle() {
  */
 function display_topusers() {
 	
-	$USERClass = VCDClassFactory::getInstance('vcd_user');
-	$list = $USERClass->getUserTopList();
+	$list = UserServices::getUserTopList();
 	if (sizeof($list) > 0) {
 		$i = 0;
 		print "<ul>";
@@ -154,12 +153,9 @@ function display_moviecategories() {
 	
 	?>	<div class="topic"><?=VCDLanguage::translate('menu.categories')?></div> 	<?
 
-
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$categories = $SETTINGSClass->getMovieCategoriesInUse();
-	$adult_id = $SETTINGSClass->getCategoryIDByName('adult');
-	$show_adult = VCDUtils::showAdultContent();
-	
+	$categories = SettingsServices::getMovieCategoriesInUse();
+	$adult_id = SettingsServices::getCategoryIDByName('adult');
+		
 	$curr_catid = -1;
 	if (isset($_GET['category_id']) && is_numeric($_GET['category_id'])) {
 		$curr_catid = $_GET['category_id'];
@@ -172,7 +168,7 @@ function display_moviecategories() {
 				$cssclass = "navon";
 			}
 			if ($category->getID() == $adult_id) {
-				if ($show_adult) {
+				if (VCDUtils::showAdultContent()) {
 					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 				}
 			} else {
@@ -183,8 +179,6 @@ function display_moviecategories() {
 		print "<ul><li>".VCDLanguage::translate('misc.nocats')."</li></ul>";
 	}
 
-
-	unset($categories);
 }
 
 /*  display pager for scrolling through recordsets on page */
@@ -199,15 +193,12 @@ function pager($totalRecords, $current_pos, $url) {
 
 	global $CURRENT_PAGE;
 
-	$SetttingsClass = VCDClassFactory::getInstance("vcd_settings");
-	$recordCount = $SetttingsClass->getSettingsByKey("PAGE_COUNT");
+	$recordCount = SettingsServices::getSettingsByKey("PAGE_COUNT");
 	$totalPages = floor($totalRecords / $recordCount);
-
 
 	if ($totalRecords < $recordCount) {
 		return;
 	}
-
 
 	$nextpos = $current_pos + 1;
 	$backpos = $current_pos - 1;
@@ -446,19 +437,17 @@ function getCategoryMapping() {
  */
 function parseCategoryList($strList) {
 
-
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$categories = $SETTINGSClass->getAllMovieCategories();
+	$categories = SettingsServices::getAllMovieCategories();
 	$mapping = getCategoryMapping();
 	$inArr = explode(", ", $strList);
 
 	$strResult = "";
 	foreach ($inArr as $cat) {
 
-		$cat_id = $SETTINGSClass->getCategoryIDByName($cat, true);
+		$cat_id = SettingsServices::getCategoryIDByName($cat, true);
 		$cat_name = $cat;
 		if (is_numeric($cat_id) && $cat_id != 0) {
-			$catObj = $SETTINGSClass->getMovieCategoryByID($cat_id);
+			$catObj = SettingsServices::getMovieCategoryByID($cat_id);
 			$cat_name = $catObj->getName(true);
 		}
 
@@ -471,8 +460,6 @@ function parseCategoryList($strList) {
 	}
 
 	return substr($strResult, 0, (strlen($strResult)-1));
-
-
 }
 
 
@@ -540,10 +527,6 @@ function inc_tooltipjs() {
 		<?
 
 	}
-
-
-
-
 }
 
 /**
@@ -561,9 +544,7 @@ function rightbar() {
 	if ($CURRENT_PAGE == '') {
 		// Check if user is logged in and wished to disable sidebar
 		if (VCDUtils::isLoggedIn()) {
-
-			$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-			$arr = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), 'frontbar');
+			$arr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
 				return false;
 			}
@@ -697,8 +678,6 @@ function filterLoanList($arrMovies, $arrLoans) {
 
 	unset($loanIds);
 	return $arrAvailable;
-
-
 }
 
 /**
@@ -708,7 +687,6 @@ function filterLoanList($arrMovies, $arrLoans) {
  * @param unknown $showdescription
  */
 function ShowOneRSS($url, $showdescription = false) {
-
 
 	$maxtitlelen = 44;
 	$rss = VCDClassFactory::getInstance('lastRSS');
@@ -782,9 +760,8 @@ function unhtmlentities ($string)
  */
 function printStatistics($show_logo = true, $width = "230", $style = "statsTable") {
 
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$statObj = $SETTINGSClass->getStatsObj();
-	$adultCatID = $SETTINGSClass->getCategoryIDByName('adult');
+	$statObj = SettingsServices::getStatsObj();
+	$adultCatID = SettingsServices::getCategoryIDByName('adult');
 	$showAdult = VCDUtils::showAdultContent();
 
 	if (strcmp($style, "statsTable") == 0) {
@@ -885,8 +862,6 @@ function printStatistics($show_logo = true, $width = "230", $style = "statsTable
 function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
 	if (VCDUtils::isLoggedIn() && VCDUtils::isOwner($vcdObj) && $_SESSION['user']->getPropertyByKey('PLAYOPTION')) {
 
-		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
 		$player = "";
 		$playerparams = "";
 		$filename = "";
@@ -895,7 +870,7 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
 		if ($metaObj instanceof metadataObj ) {
 			$filename = $metaObj->getMetaDataValue();
 		} else {
-			$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, metadataTypeObj::SYS_FILELOCATION );
+			$fileArr = SettingsServices::getMetadata($vcdObj->getID(), $user_id, metadataTypeObj::SYS_FILELOCATION );
 			if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
 				$filename = $fileArr[0]->getMetaDataValue();
 			}
@@ -904,11 +879,11 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
 
 
 		// check for player settings
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'player');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'player');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$player = $arr[0]->getMetaDataValue();
 		}
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'playerpath');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'playerpath');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$playerparams = $arr[0]->getMetaDataValue();
 		}
@@ -937,25 +912,23 @@ function getPlayCommand($vcdObj, $user_id, &$playcommand, $metaObj = null) {
  */
 function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
 
-		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
 		$player = "";
 		$playerparams = "";
 		$filename = "";
 
 		// check for filename
-		$fileArr = $SETTINGSClass->getMetadata($vcdObj->getID(), $user_id, 'filelocation');
+		$fileArr = SettingsServices::getMetadata($vcdObj->getID(), $user_id, 'filelocation');
 		if (is_array($fileArr) && sizeof($fileArr) == 1 && $fileArr[0] instanceof metadataObj) {
 			$filename = $fileArr[0]->getMetaDataValue();
 		}
 
 
 		// check for player settings
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'player');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'player');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$player = $arr[0]->getMetaDataValue();
 		}
-		$arr = $SETTINGSClass->getMetadata(0, $user_id, 'playerpath');
+		$arr = SettingsServices::getMetadata(0, $user_id, 'playerpath');
 		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
 			$playerparams = $arr[0]->getMetaDataValue();
 		}
@@ -983,11 +956,8 @@ function getPublicPlayCommand($vcdObj, $user_id, &$playcommand) {
  */
 function getLocalizedCategories($categoryObjArr = null) {
 	
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
-
 	if ($categoryObjArr == null) {
-		$categoryObjArr = $SETTINGSClass->getAllMovieCategories();
+		$categoryObjArr = SettingsServices::getAllMovieCategories();
 	}
 
 
@@ -1001,7 +971,6 @@ function getLocalizedCategories($categoryObjArr = null) {
 	}
 	$arrCategories = aSortBySecondIndex($arrCategories, 'name');
 	return $arrCategories;
-
 }
 
 
@@ -1187,7 +1156,6 @@ function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
 	} else {
 		return;
 	}
-
 }
 
 function showDVDSpecs(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
@@ -1281,13 +1249,11 @@ function display_fetchsites() {
 	}
 	
 	// Check for the last used fetch class and make it default if we find one ..
-	$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
-	$metaDefaultArr = $SettingsClass->getMetadata(0,VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
+	$metaDefaultArr = SettingsServices::getMetadata(0,VCDUtils::getUserID(), metadataTypeObj::SYS_LASTFETCH);
 	$defaultClassName = "";
 	if (is_array($metaDefaultArr) && sizeof($metaDefaultArr) > 0 && $metaDefaultArr[0] instanceof metadataObj ) {
 		$defaultClassName = $metaDefaultArr[0]->getMetadataValue();
 	}
-	
 	
 	$html = "<select name=\"fetchsite\">";
 	foreach ($arrFetchableSites as $sourceSiteObj) {
@@ -1300,14 +1266,12 @@ function display_fetchsites() {
 	$html .= "</select>";
 	
 	print $html;
-	
 }
 
 
 function getFetchClasses($bShowAdult = false) {
 	
-	$SettingsClass = VCDClassFactory::getInstance("vcd_settings");
-	$arrSourceSites = $SettingsClass->getSourceSites();
+	$arrSourceSites = SettingsServices::getSourceSites();
 	$arrSourceList = array();
 	foreach ($arrSourceSites as $siteObj) {
 
@@ -1330,14 +1294,12 @@ function getFetchClasses($bShowAdult = false) {
 	    }
 	}
 	return $arrSourceList;
-       
 } 
 
 
 function drawSourceSiteLogo($sourceSiteID, $external_id) {
 	if (is_numeric($sourceSiteID) && strcmp($external_id,"") != 0) {
-		$SettingsClass = VCDClassFactory::getInstance('vcd_settings');
-		$SourceSiteObj = $SettingsClass->getSourceSiteByID($sourceSiteID);	
+		$SourceSiteObj = SettingsServices::getSourceSiteByID($sourceSiteID);	
 		if ($SourceSiteObj instanceof sourceSiteObj ) {
 			$image = "images/logos/".$SourceSiteObj->getImage();
 			$link = str_replace("#", $external_id, $SourceSiteObj->getCommand());

@@ -149,8 +149,7 @@ class VCDUtils {
 		}
 
 		$user = $_SESSION['user'];	
-		$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-		$siteEnabled = $SETTINGSClass->getSettingsByKey('SITE_ADULT');
+		$siteEnabled = SettingsServices::getSettingsByKey('SITE_ADULT');
 		$userEnabled = $user->getPropertyByKey('SHOW_ADULT');
 		$roleEnabled = $user->isAdult();
 		if ($skipUserPrefs) {
@@ -169,7 +168,7 @@ class VCDUtils {
 	 */
 	static function getUserID() {
 		if (VCDUtils::isLoggedIn()) {
-			return $_SESSION['user']->getUserID();
+			return (int)$_SESSION['user']->getUserID();
 		} else {
 			return null;
 		}
@@ -184,8 +183,7 @@ class VCDUtils {
 	 */
 	static function isUsingFilter($user_id) {
 
-		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		$metaArr = $SETTINGSClass->getMetadata(0, $user_id, 'ignorelist');
+		$metaArr = SettingsServices::getMetadata(0, $user_id, 'ignorelist');
 		if (is_array($metaArr) && sizeof($metaArr) > 0) {
 
 			if ($metaArr[0] instanceof metadataObj && strcmp(trim($metaArr[0]->getMetaDataValue()), "") != 0) {
@@ -252,8 +250,6 @@ class VCDUtils {
 			return "1 " . VCDLanguage::translate('loan.days');
 
 		}
-
-
 	}
 
 
@@ -368,9 +364,9 @@ class VCDUtils {
   *
   * @return string
   */
- static function generateUniqueId(){
-    return md5(uniqid(mt_rand(),TRUE));
-  }
+	static function generateUniqueId(){
+		return md5(uniqid(mt_rand(),TRUE));
+	}
 
 
   /**
@@ -380,14 +376,14 @@ class VCDUtils {
    * @param char $sepator | The seperator token
    * @return string
    */
-  static function split($arrItems, $sepator) {
-  	if (is_array($arrItems)) {
-  		$string = implode($sepator, $arrItems);
-  		return $string;
-  	} else {
-  		return $arrItems;
-  	}
-  }
+	static function split($arrItems, $sepator) {
+		if (is_array($arrItems)) {
+  			$string = implode($sepator, $arrItems);
+  			return $string;
+  		} else {
+  			return $arrItems;
+  		}
+	}
 
 
    /**
@@ -447,14 +443,14 @@ class VCDUtils {
 				$b = fwrite($fp,$content);
 				fclose($fp);
 				if($b != -1){
-					return TRUE;
+					return true;
 				} else {
 					VCDException::display("Can't write File [no fwrite]");
-					return FALSE;
+					return false;
 				}
 			} else {
 				VCDException::display("Cant write File [no filename | no content]");
-				return FALSE;
+				return false;
 			}
 		}
 
@@ -466,7 +462,7 @@ class VCDUtils {
 	 * @return bool
 	 */
 	static function isOwner(vcdObj $obj) {
-		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
+		if (self::isLoggedIn()) {
 			$user = $_SESSION['user'];
 			if ($obj->getInstancesByUserID($user->getUserID()) != null &&
 				is_array($obj->getInstancesByUserID($user->getUserID()))) {
@@ -487,7 +483,7 @@ class VCDUtils {
 	 * @return bool
 	 */
 	static function hasPermissionToChange(vcdObj $obj) {
-		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj ) {
+		if (self::isLoggedIn()) {
 			$user = $_SESSION['user'];
 			if ($user->isAdmin()) {
 				return true;
@@ -593,12 +589,9 @@ class VCDUtils {
 	 * @return string
 	 */
 	static function getAlternateLink() {
-		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-		$showRSS = $SETTINGSClass->getSettingsByKey('RSS_SITE');
-		if ($showRSS) {
+		if ((bool)SettingsServices::getSettingsByKey('RSS_SITE')) {
 			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=rss/>";
 		}
-
 	}
 
 
@@ -611,10 +604,9 @@ class VCDUtils {
 	static function isDVDType($arrMediaTypes) {
 		if (is_array($arrMediaTypes) && sizeof($arrMediaTypes) > 0) {
 
-			$CLASSsettings = VCDClassFactory::getInstance('vcd_settings');
 			// Get the standars DVD and DVD-R mediaTypeObj
-			$objDVD =  $CLASSsettings->getMediaTypeByName('DVD');
-			$objDVDR = $CLASSsettings->getMediaTypeByName('DVD-R');
+			$objDVD =  SettingsServices::getMediaTypeByName('DVD');
+			$objDVDR = SettingsServices::getMediaTypeByName('DVD-R');
 
 			$isDVDType = false;
 			if ($objDVD instanceof mediaTypeObj && $objDVDR instanceof mediaTypeObj ) {
