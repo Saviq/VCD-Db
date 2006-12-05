@@ -181,6 +181,31 @@ class vcd_pornstar implements IPornstar {
 		}
 	}
 	
+	public function deletePornstar($pornstar_id) {
+		try {
+			
+			if (!is_numeric($pornstar_id)) {
+				throw new VCDInvalidArgumentException('Pornstar Id must be numeric');
+			}
+			
+			$pornstarObj = $this->getPornstarByID($pornstar_id);
+			
+			if (!$pornstarObj instanceof pornstarObj ) {
+				throw new VCDInvalidArgumentException('Invalid pornstar Id');
+			}
+			
+			if ($pornstarObj->getMovieCount() > 0) {
+				throw new VCDConstraintException("Cannot delete pornstar, pornstar is linked to {$pornstarObj->getMovieCount()} movies");
+			} else {
+				$this->SQL->deletePornstar($pornstar_id);
+				return true;
+			}
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 	
 	/* Functions for adult studios */
 	

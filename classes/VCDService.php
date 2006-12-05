@@ -702,9 +702,9 @@ class SettingsServices extends VCDServices {
 	/**
 	 * Update a specific mediaType object in VCD-db.
 	 *
-	 * @param medaTypeObj $mediaTypeObj
+	 * @param mediaTypeObj $mediaTypeObj
 	 */
-	public static function updateMediaType(medaTypeObj $mediaTypeObj) {
+	public static function updateMediaType(mediaTypeObj $mediaTypeObj) {
 		try {
 			
 			self::Settings()->updateMediaType($mediaTypeObj);
@@ -1847,6 +1847,22 @@ class PornstarServices extends VCDServices {
 		try {
 			
 			self::Pornstar()->deletePornstarFromMovie($pornstar_id, $movie_id);
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	/**
+	 * Delete pornstar from VCD-db, return true if operation secceds otherwise false.
+	 *
+	 * @param int $pornstar_id | The Id of the pornstar
+	 * @return bool
+	 */
+	public static function deletePornstar($pornstar_id) {
+		try {
+			
+			return self::Pornstar()->deletePornstar($pornstar_id);
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);

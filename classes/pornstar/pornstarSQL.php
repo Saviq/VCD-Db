@@ -596,6 +596,17 @@ class pornstarSQL  {
 			throw new Exception($e->getMessage());
 		}
 	}
+	
+	public function deletePornstar($pornstar_id) {
+		try {
+			
+			$query = "DELETE FROM $this->TABLE_pornstars WHERE pornstar_id =  " . $pornstar_id;
+			$this->db->Execute($query);
+			
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage());
+		}
+	}
 
 }
 
