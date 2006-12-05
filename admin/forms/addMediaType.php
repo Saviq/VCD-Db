@@ -11,7 +11,7 @@
 			print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 			exit();
 		}
-		$mediaTypeObj = $SETTINGSclass->getMediaTypeByID($_GET['recordID']);	
+		$mediaTypeObj = SettingsServices::getMediaTypeByID($_GET['recordID']);	
 		
 		
 		$objArr['name']   = $mediaTypeObj->getName();
@@ -43,11 +43,13 @@
 	<td><? if (strcmp($WORKING_MODE, "edit") != 0) {
 		createDropDown($mtypes, "parent","Select parent","add", $parent_id); print " (if any)";
 	} else {
-		$parentObj = $SETTINGSclass->getMediaTypeByID($mediaTypeObj->getParentID());
-		if ($parentObj instanceof mediaTypeObj)
-			print $parentObj->getName();
-		else 	
+		
+		if (is_numeric($mediaTypeObj->getParentID())) {
+			$parentObj = SettingsServices::getMediaTypeByID($mediaTypeObj->getParentID());
+			print $parentObj->getName();	
+		} else {
 			print "None";
+		}
 	}
 	?>
 	</td>

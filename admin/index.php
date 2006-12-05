@@ -386,14 +386,11 @@
 			*/
 			if ($CURRENT_PAGE == "roles") { 
 			require("forms/addRole.php");	
-			
-			$USERclass = new vcd_user();
-			
+									
 			/* Add Settings */
 			if (isset($_POST['save'])) {
 					
 				$data = array("",$_POST['key'],$_POST['value'],$_POST['description'],$protected);
-				
 				
 			}
 			/*****************/
@@ -401,8 +398,8 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$roles = $USERclass->getAllUserRoles();
-			$defaultRoleObj = $USERclass->getDefaultRole();
+			$roles = UserServices::getAllUserRoles();
+			$defaultRoleObj = UserServices::getDefaultRole();
 			
 						
 			$header = array("Role name","Description","&nbsp;","&nbsp;");
@@ -441,8 +438,7 @@
 				Case Source Sites
 			*/
 			if ($CURRENT_PAGE == "sites") { 
-				
-			$SETTINGSclass = new vcd_settings();
+			
 			require("forms/addSite.php");	
 			
 			/* Add Settings */
@@ -453,7 +449,7 @@
 				
 				$data = array("",$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname'], $_POST['imagename']);
 				$sObj = new sourceSiteObj($data);
-				$SETTINGSclass->addSourceSite($sObj);
+				SettingsServices::addSourceSite($sObj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 		
@@ -466,7 +462,7 @@
 					
 				$data = array($_POST['id'],$_POST['name'],$_POST['alias'],$_POST['homepage'],$_POST['command'],$fetchable,$_POST['classname'], $_POST['imagename']);
 				$obj = new sourceSiteObj($data);
-				$SETTINGSclass->updateSourceSite($obj);
+				SettingsServices::updateSourceSite($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -474,7 +470,7 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$sites = $SETTINGSclass->getSourceSites();
+			$sites = SettingsServices::getSourceSites();
 						
 			$header = array("Site name","Alias", "Fetchable", "","");
 			printTableOpen();
@@ -510,8 +506,7 @@
 			*/
 			if ($CURRENT_PAGE == "media_types") { 
 						
-			$SETTINGSclass = new vcd_settings();
-			$mtypes = $SETTINGSclass->getAllMediatypes();
+			$mtypes = SettingsServices::getAllMediatypes();
 			
 			require("forms/addMediaType.php");	
 			
@@ -519,7 +514,6 @@
 			if (isset($_POST['save'])) {
 				
 				// Get the default DB NULL value
-				//$parent = $SETTINGSclass->getSettingsByKey("DB_NULL");
 				$parent = "NULL";
 								
 				if (strcmp($_POST['parent'],"null") != 0) {
@@ -528,19 +522,19 @@
 				
 				$data = array("",$_POST['name'], $parent, $_POST['description']);
 				$obj = new mediaTypeObj($data);
-				$SETTINGSclass->addMediaType($obj);	
+				SettingsServices::addMediaType($obj);	
 				
 				// Update the new RecordSet
-				$mtypes = $SETTINGSclass->getAllMediatypes();
+				$mtypes = SettingsServices::getAllMediatypes();
 				unset($data);
 				
 			}
 			/*****************/
 			/* Update Media Type */
 			elseif (isset($_POST['update'])) {
-				$obj = $SETTINGSclass->getMediaTypeByID($_POST['id']);
+				$obj = SettingsServices::getMediaTypeByID($_POST['id']);
 				$obj->setDescription($_POST['description']);
-				$SETTINGSclass->updateMediaType($obj);
+				SettingsServices::updateMediaType($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -559,7 +553,6 @@
 				foreach ($mtypes as $mediaTypeObj) {
 					printTr();
 					printRow($mediaTypeObj->getName());			
-					//printRow($mediaTypeObj->getChildrenCount());			
 					printRow($mediaTypeObj->getDescription());	
 					printEditRow($mediaTypeObj->getmediaTypeID(), $CURRENT_PAGE);
 					printDeleteRow($mediaTypeObj->getmediaTypeID(), $CURRENT_PAGE, "Delete mediatype?");
@@ -570,7 +563,6 @@
 						foreach ($mediaTypeObj->getChildren() as $childObj) {
 							printTr();
 							printRow($childObj->getName(), "child");			
-							//printRow("");			
 							printRow($childObj->getDescription(),"child");	
 							printEditRow($childObj->getmediaTypeID(), $CURRENT_PAGE);
 							printDeleteRow($childObj->getmediaTypeID(), $CURRENT_PAGE, "Delete mediatype?");
@@ -581,7 +573,7 @@
 					
 				}
 				printTableClose();
-				unset($mtypes);
+				
 				
 			} else {
 				print "<strong>No media types available.</strong>";
@@ -602,13 +594,12 @@
 			if ($CURRENT_PAGE == "categories") { 
 			require("forms/addMovieCategorie.php");	
 			
-			$SETTINGSclass = new vcd_settings();
-			
+						
 			/* Add Movie Categorie */
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['name']);
 				$obj = new movieCategoryObj($data);
-				$SETTINGSclass->addMovieCategory($obj);
+				SettingsServices::addMovieCategory($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 		
@@ -618,7 +609,7 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$categories = $SETTINGSclass->getAllMovieCategories();
+			$categories = SettingsServices::getAllMovieCategories();
 						
 			$header = array("Category name", "");
 			printTableOpen();
@@ -632,7 +623,6 @@
 				printTr(false);
 			}
 			printTableClose();
-			unset($categories);
 			
 			echo "</div>";
 			
@@ -651,8 +641,7 @@
 				Allowed Cover types
 			*/
 			if ($CURRENT_PAGE == "allowed_types") { 
-			$SETTINGSclass = new vcd_settings();
-			$CDclass = new vcd_cdcover();
+			
 			require("forms/addCoverToMedia.php");	
 									
 			/* Add Allowed Cover types */
@@ -662,7 +651,7 @@
 				if (sizeof($coverTypeArr) == 1 && strcmp($coverTypeArr[0],"") == 0)
 					$coverTypeArr = array();
 				
-				$CDclass->addCoverTypesToMedia($_POST['media_id'], $coverTypeArr);
+				CoverServices::addCoverTypesToMedia($_POST['media_id'], $coverTypeArr);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 				
@@ -672,7 +661,7 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$mtypes = $SETTINGSclass->getAllMediatypes();
+			$mtypes = SettingsServices::getAllMediatypes();
 						
 			$header = array("Media Type", "Covers used","Cover description","");
 			printTableOpen();
@@ -687,7 +676,7 @@
 				printTr(false);
 				
 					// Get allowed covers for this Media type
-					$covertypes = $CDclass->getCDcoverTypesOnMediaType($obj->getmediaTypeID());
+					$covertypes = CoverServices::getCDcoverTypesOnMediaType($obj->getmediaTypeID());
 					foreach ($covertypes as $coverTypeObj) {
 						printTr();
 						printRow("");
@@ -699,8 +688,6 @@
 				
 			}
 			printTableClose();
-			unset($mtypes);
-			unset($covertypes);
 			
 			echo "</div>";
 			
@@ -715,7 +702,6 @@
 			*/
 			if ($CURRENT_PAGE == "properties") { 
 			
-			$USERclass = new vcd_user();
 			require("forms/addProperty.php");	
 			
 			
@@ -724,15 +710,15 @@
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['name'], $_POST['description']);
 				$obj = new userPropertiesObj($data);
-				$USERclass->addProperty($obj);
+				UserServices::addProperty($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
 			/* Update Properties */
 			elseif (isset($_POST['update'])) {
-				$obj = $USERclass->getPropertyById($_POST['id']);
+				$obj = UserServices::getPropertyById($_POST['id']);
 				$obj->setPropertyDescription($_POST['description']);
-				$USERclass->updateProperty($obj);
+				UserServices::updateProperty($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -741,7 +727,7 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$properties = $USERclass->getAllProperties();
+			$properties = UserServices::getAllProperties();
 						
 			$header = array("Property name", "Description", "", "");
 			printTableOpen();
@@ -758,7 +744,6 @@
 				printTr(false);
 			}
 			printTableClose();
-			unset($categories);
 			
 			echo "</div>";
 			
@@ -843,9 +828,8 @@
 				drawLogBar($numrows, $offset, $logfilter);
 				
 				$arrLog = VCDLog::getLogEntries($numrows, $offset, $logfilter);
-				$CLASSUser = new vcd_user();
-				
-				$arrAllUsers = $CLASSUser->getAllUsers();
+								
+				$arrAllUsers = UserServices::getAllUsers();
 				
 				$header = array("Event", "Message", "User", "Date", "Remote IP");
 				printTableOpen();
@@ -905,27 +889,12 @@
 			
 			/*  Porn related Stuff */
 			if ($CURRENT_PAGE == "pornstars") { 
-			
-			
-			$PORNClass = new vcd_pornstar();
-			$SETTINGSclass = new vcd_settings();
-			
-			/* Add pornstar */
-			if (isset($_POST['save'])) {
-				$data = array("",$_POST['name']);
-				$obj = new movieCategoryObj($data);
-				$SETTINGSclass->addMovieCategory($obj);
-				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
-				exit();
-		
-			}
-			/*****************/
-				
+									
 				
 			echo "<div class=\"bigcontent\">";	
 						
-			$pornstars = $PORNClass->getAllPornstars();
-						
+			$pornstars = PornstarServices::getAllPornstars();
+												
 			$header = array("Name", "");
 			printTableOpen('96%');
 			printRowHeader($header);
@@ -933,12 +902,11 @@
 				printTr();
 			
 				printRow($obj->getName());
-				printDeleteRow($obj->getID(), $CURRENT_PAGE, "Delete category?");
+				printDeleteRow($obj->getID(), $CURRENT_PAGE, "Delete pornstar?");
 				
 				printTr(false);
 			}
 			printTableClose();
-			unset($pornstars);
 			
 			echo "</div>";
 			
@@ -953,14 +921,11 @@
 			if ($CURRENT_PAGE == "porncategories") { 
 			require("forms/addPornCategory.php");	
 			
-			$PORNClass = new vcd_pornstar();
-			$SETTINGSclass = new vcd_settings();
-			
 			/* Add Porn category */
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['name']);
 				$obj = new porncategoryObj($data);
-				$PORNClass->addAdultCategory($obj);
+				PornstarServices::addAdultCategory($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 		
@@ -970,7 +935,7 @@
 				
 			echo "<div class=\"bigcontent\">";	
 						
-			$adultCats = $PORNClass->getSubCategories();
+			$adultCats = PornstarServices::getSubCategories();
 						
 			$header = array("Name", "");
 			printTableOpen('96%');
@@ -984,7 +949,6 @@
 				printTr(false);
 			}
 			printTableClose();
-			unset($adultCats);
 			
 			echo "</div>";
 			
@@ -999,15 +963,12 @@
 			
 			if ($CURRENT_PAGE == "pornstudios") { 
 			require("forms/addPornStudio.php");	
-			
-			$PORNClass = new vcd_pornstar();
-			$SETTINGSclass = new vcd_settings();
-			
+						
 			/* Add Porn studio */
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['name']);
 				$obj = new studioObj($data);
-				$PORNClass->addStudio($obj);
+				PornstarServices::addStudio($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 		
@@ -1017,7 +978,7 @@
 				
 			echo "<div class=\"bigcontent\">";	
 						
-			$studios = $PORNClass->getAllStudios();
+			$studios = PornstarServices::getAllStudios();
 						
 			$header = array("Name", "");
 			printTableOpen('96%');
@@ -1031,7 +992,6 @@
 				printTr(false);
 			}
 			printTableClose();
-			unset($studios);
 			
 			echo "</div>";
 			
@@ -1115,7 +1075,6 @@
 			*/
 			if ($CURRENT_PAGE == "xmlfeeds") { 
 			
-			$SETTINGSclass = new vcd_settings();
 			require("forms/addFeed.php");	
 			
 			
@@ -1132,7 +1091,7 @@
 						$rssObj->setAdult(true);
 					}
 					$rssObj->setOwnerId(0);
-					$SETTINGSclass->addRssfeed($rssObj);
+					SettingsServices::addRssfeed($rssObj);
 				}
 				
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
@@ -1140,7 +1099,7 @@
 			}
 			/* Update XML feed */
 			elseif (isset($_POST['update'])) {
-				$rssObj = $SETTINGSclass->getRssfeed($_POST['id']);
+				$rssObj = SettingsServices::getRssfeed($_POST['id']);
 				$rssObj->setName($_POST['name']);
 				$rssObj->setFeedUrl($_POST['url']);
 				$isadult = false;
@@ -1148,7 +1107,7 @@
 					$isadult = true;	
 				}
 				$rssObj->setAdult($isadult);
-				$SETTINGSclass->updateRssfeed($rssObj);
+				SettingsServices::updateRssfeed($rssObj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -1171,7 +1130,7 @@
 			
 			echo "<div class=\"content\">";	
 				
-			$arrFeeds = $SETTINGSclass->getRssFeedsByUserId(0);
+			$arrFeeds = SettingsServices::getRssFeedsByUserId(0);
 			$adultimg = "<img src=\"../images/admin/icon_tits.gif\" border=\"0\" title=\"Adult content\" alt=\"Adult content\" align=\"absmiddle\">";
 						
 			$header = array("Feed name", "", "", "","");
@@ -1194,7 +1153,6 @@
 				printTr(false);
 			}
 			printTableClose();
-			unset($arrFeeds);
 			
 			echo "</div>";
 			

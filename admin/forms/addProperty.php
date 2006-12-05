@@ -13,7 +13,7 @@
 		}
 		
 		
-		$propertyObj = $USERclass->getPropertyById($_GET['recordID']);	
+		$propertyObj = UserServices::getPropertyById($_GET['recordID']);	
 		
 		
 		$objArr['name']   = $propertyObj->getpropertyName();

@@ -195,16 +195,14 @@ function deleteRecord($recordID, $recordType) {
 		break;
 
 		case 'media_types';
-			$SETTINGSclass = new vcd_settings();
-			if ($SETTINGSclass->deleteMediaType($recordID))
+			if (SettingsServices::deleteMediaType($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
 		break;
 
 		case 'categories';
-			$SETTINGSclass = new vcd_settings();
-			if ($SETTINGSclass->deleteMovieCategory($recordID))
+			if (SettingsServices::deleteMovieCategory($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
@@ -212,21 +210,13 @@ function deleteRecord($recordID, $recordType) {
 
 
 		case 'cover_types';
-			$COVERSclass = new vcd_cdcover();
-			if ($COVERSclass->deleteCoverType($recordID))
+			if (CoverServices::deleteCoverType($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
 		break;
 
-		case 'users';
-			$USERClass = new vcd_user();
-			if ($USERClass->deleteUser($recordID))
-				header("Location: ./?page=".$recordType.""); /* Redirect browser */
-			else
-				print "<script>history.back(-1)</script>";
-		break;
-
+	
 		case 'deleteUser';
 
 			// Check if user is trying to delete himself
@@ -235,51 +225,42 @@ function deleteRecord($recordID, $recordType) {
 				return;
 			}
 
-			$USERClass = new vcd_user();
-
 			// check if all his data should be deleted as well
 			if (isset($_GET['mode']) && strcmp($_GET['mode'], 'full') == 0) {
 
 				// Add time limit since this can be very time consuming operation.
 				set_time_limit(300);
 
-				if ($USERClass->deleteUser($recordID, true))
+				if (UserServices::deleteUser($recordID, true))
 					header("Location: ./?page=".$recordType."");
 				else
 					print "<script>history.back(-1)</script>";
 
 
 			} else {
-				if ($USERClass->deleteUser($recordID, false))
+				if (UserServices::deleteUser($recordID, false))
 					header("Location: ./?page=".$recordType.""); /* Redirect browser */
 				else
 					print "<script>history.back(-1)</script>";
 			}
-
-
-
-
 		break;
 
 		case 'sites';
-			$SETTINGSclass = new vcd_settings();
-			if ($SETTINGSclass->deleteSourceSite($recordID))
+			if (SettingsServices::deleteSourceSite($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
 		break;
 
 		case 'properties';
-			$USERClass = new vcd_user();
-			if ($USERClass->deleteProperty($recordID))
+			if (UserServices::deleteProperty($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
 		break;
 
 		case 'xmlfeeds';
-			$SETTINGSClass = new vcd_settings();
-			if ($SETTINGSClass->delFeed($recordID))
+			if (SettingsServices::delFeed($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
@@ -291,10 +272,16 @@ function deleteRecord($recordID, $recordType) {
 			header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			break;
 
-
+		case 'pornstars':
+			if (PornstarServices::deletePornstar($recordID)) {
+				header("Location: ./?page=".$recordType.""); /* Redirect browser */
+			} else {
+				print "<script>history.back(-1)</script>";
+			}
+			break;
+			
 		case 'porncategories':
-			$PORNClass = new vcd_pornstar();
-			if ($PORNClass->deleteAdultCategory($recordID))
+			if (PornstarServices::deleteAdultCategory($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";
@@ -302,8 +289,7 @@ function deleteRecord($recordID, $recordType) {
 
 
 		case 'pornstudios':
-			$PORNClass = new vcd_pornstar();
-			if ($PORNClass->deleteStudio($recordID))
+			if (PornstarServices::deleteStudio($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";

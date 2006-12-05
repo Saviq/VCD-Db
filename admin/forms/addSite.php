@@ -12,7 +12,7 @@
 		}
 		
 		
-		$sourceSiteObj = $SETTINGSclass->getSourceSiteByID($_GET['recordID']);	
+		$sourceSiteObj = SettingsServices::getSourceSiteByID($_GET['recordID']);	
 		$objArr['name']   = $sourceSiteObj->getName();
 		$objArr['alias']   = $sourceSiteObj->getAlias();
 		$objArr['homepage']   = $sourceSiteObj->getHomepage();

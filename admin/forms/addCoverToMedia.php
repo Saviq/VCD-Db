@@ -9,11 +9,10 @@
 
 	} else {
 
-	$COVERCLASS = new vcd_cdcover();
-	$coverTypes = $COVERCLASS->getAllCoverTypes();
-	$mediaObj = $SETTINGSclass->getMediaTypeByID($_GET['recordID']);
+	$coverTypes = CoverServices::getAllCoverTypes();
+	$mediaObj = SettingsServices::getMediaTypeByID($_GET['recordID']);
 	
-	$covers = $COVERCLASS->getCDcoverTypesOnMediaType($mediaObj->getmediaTypeID());
+	$covers = CoverServices::getCDcoverTypesOnMediaType($mediaObj->getmediaTypeID());
 	
 	// remove the already selected from the available list
 	if (is_array($covers) && sizeof($covers) > 0) {
@@ -24,10 +23,7 @@
 			}
 		}
 		$coverTypes = $filtererCovers;
-		unset($filtererCovers);
 	}
-	
-	
 
 ?>
 

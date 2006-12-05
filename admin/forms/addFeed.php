@@ -14,7 +14,7 @@
 		}
 		
 		
-		$rssObj = $SETTINGSclass->getRssfeed($_GET['recordID']);
+		$rssObj = SettingsServices::getRssfeed($_GET['recordID']);
 		
 		$objArr['id']	= $rssObj->getId();
 		$objArr['name'] = $rssObj->getName();
