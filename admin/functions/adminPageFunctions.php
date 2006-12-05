@@ -181,8 +181,7 @@ function deleteRecord($recordID, $recordType) {
 
 	switch ($recordType) {
 		case 'settings';
-			$CLASSsettings = new vcd_settings();
-			if ($CLASSsettings->deleteSettings($recordID))
+			if (SettingsServices::deleteSettings($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */
 			else
 				print "<script>history.back(-1)</script>";

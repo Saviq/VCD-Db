@@ -10,7 +10,7 @@
 			exit();
 		}
 		
-		$settingsObj = $SETTINGSclass->getSettingsByID($_GET['recordID']);	
+		$settingsObj = SettingsServices::getSettingsByID($_GET['recordID']);	
 		$objArr['key']   = $settingsObj->getKey();
 		$objArr['value'] = $settingsObj->getValue();
 		$objArr['description'] = $settingsObj->getDescription();

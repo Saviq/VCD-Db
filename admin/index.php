@@ -81,9 +81,7 @@
 		<li><hr style="height:1px;"/><a href="./?page=versioncheck">Check for new version</a></li>
 		
 		<? 
-			$SETTINGSclass = VCDClassFactory::getInstance("vcd_settings");
-			$showAdult = $SETTINGSclass->getSettingsByKey('SITE_ADULT');
-			if ($showAdult) { ?>
+			if (SettingsServices::getSettingsByKey('SITE_ADULT')) { ?>
 			<li><hr style="height:1px;"/><a href="./?page=pornstars">Pornstars</a></li>
 			<li><a href="./?page=porncategories">Porn categories</a></li>
 			<li><a href="./?page=pornstudios">Porn studios</a></li>
@@ -125,7 +123,6 @@
 				CASE Cover Types
 			*/
 			if ($CURRENT_PAGE == "cover_types") { 
-			$CTClass = new vcd_cdcover();
 			
 			require("forms/addCoverType.php");	
 		
@@ -136,20 +133,20 @@
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['name'],$_POST['description']);
 				$obj = new cdcoverTypeObj($data);
-				$CTClass->addCoverType($obj);
+				CoverServices::addCoverType($obj);
 				
 			}
 			/* Update coverType */
 			elseif (isset($_POST['update'])) {
 				$data = array($_POST['id'],$_POST['name'], $_POST['description']);
 				$obj = new cdcoverTypeObj($data);
-				$CTClass->updateCoverType($obj);
+				CoverServices::updateCoverType($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
 			/**************************/
 			
-			$covertypes = $CTClass->getAllCoverTypes();			
+			$covertypes = CoverServices::getAllCoverTypes();
 			$header = array("Type name","Description");
 			printTableOpen();
 			printRowHeader($header);
@@ -176,15 +173,14 @@
 				require("forms/addUser.php");	
 				
 	   		echo "<div class=\"content\">";	
-			$USERclass = new vcd_user();
 			
 			if (isset($_POST['save'])) {
 				$data = array("",$_POST['username'],md5($_POST['password']), $_POST['name'], $_POST['email'], null, null, null, null);
 				$obj = new userObj($data);
-				$USERclass->addUser($obj);
+				UserServices::addUser($obj);
 			}
 			
-			$users = $USERclass->getAllUsers();
+			$users = UserServices::getAllUsers();
 			
 			$header = array("Full name","Username","Email","Group","Created","","","","");
 			printTableOpen();
@@ -306,9 +302,8 @@
 				Case Web Settings			
 			*/
 			if ($CURRENT_PAGE == "settings") { 
-			$SETTINGSclass = new vcd_settings();
+
 			require("forms/addSettings.php");	
-			
 			
 			/****************/
 			/* Add Settings */
@@ -320,14 +315,14 @@
 					
 				$data = array("",$_POST['key'],$_POST['value'],$_POST['description'],$protected, "");
 				$obj = new settingsObj($data);
-				$SETTINGSclass->addSettings($obj);
+				SettingsServices::addSettings($obj);
 			}
 			/****************/
 			/* Update Settings */
 			elseif (isset($_POST['update'])) {
 				
 				
-				$obj = $SETTINGSclass->getSettingsByID($_POST['id']);
+				$obj = SettingsServices::getSettingsByID($_POST['id']);
 				
 				if (!$obj->isProtected()) {
 					if (isset($_POST['protect'])) {
@@ -338,7 +333,7 @@
 				$obj->setValue($_POST['value']);
 				$obj->setDescription($_POST['description']);
 								
-				$SETTINGSclass->updateSettings($obj);
+				SettingsServices::updateSettings($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
 			}
@@ -349,7 +344,7 @@
 				
 			echo "<div class=\"content\">";	
 						
-			$settings = $SETTINGSclass->getAllSettings();
+			$settings = SettingsServices::getAllSettings();
 						
 			$header = array("Description","Value","Locked","","");
 			printTableOpen();
@@ -1168,8 +1163,8 @@
 				$RSSClass->cache_dir = '../upload'; 
 				$RSSClass->cache_time = 3600; // one hour
 				
-				$view_feed = $SETTINGSclass->getRssfeed($fid);
-				ShowOneRSS($view_feed['url'], $RSSClass);
+				$rssObj = SettingsServices::getRssfeed($fid);
+				ShowOneRSS($rssObj->getFeedUrl(), $RSSClass);
 
 			}
 			

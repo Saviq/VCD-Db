@@ -10,7 +10,7 @@
 			exit();
 		}
 		
-		$coverTypeObj = $CTClass->getCoverTypeById($_GET['recordID']);	
+		$coverTypeObj = CoverServices::getCoverTypeById($_GET['recordID']);	
 		$objArr['name']   = $coverTypeObj->getCoverTypeName();
 		$objArr['description'] = $coverTypeObj->getCoverTypeDescription();
 		
