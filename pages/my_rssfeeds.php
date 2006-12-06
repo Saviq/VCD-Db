@@ -5,17 +5,16 @@
 		exit();
 	}
 
-	
+		
 	// Get all the users feeds
-	
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-	$arrFeeds = $SETTINGSClass->getRssFeedsByUserId(VCDUtils::getUserID());
+	$arrFeeds = SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID());
+	$ClassRss = new VCDRss();
 
 	print "<h1>".VCDLanguage::translate('menu.rss')."</h1>";
 	
 	foreach ($arrFeeds as $rssObj) {
 		if (!$rssObj->isVcddbFeed()) {continue;}
-		showFeed($rssObj->getName(), $rssObj->getFeedUrl());
+		$ClassRss->showRemoteVcddbFeed($rssObj->getName(), $rssObj->getFeedUrl());
 	}
 
 ?>
