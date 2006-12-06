@@ -8,9 +8,6 @@
 	
 	
 	$user = $_SESSION['user'];
-	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 	
 	$language = new VCDLanguage();
 	if (isset($_SESSION['vcdlang'])) {
@@ -20,7 +17,7 @@
 	
 	
 	$pornstar_id = $_GET['pornstar_id'];
-	$pornstar = $PORNClass->getPornStarByID($pornstar_id);
+	$pornstar = PornstarServices::getPornStarByID($pornstar_id);
 	
 	if (isset($_GET['error'])) {
 		VCDException::display('Error d/l image<break>Probably bad url');
@@ -92,7 +89,7 @@
 	&nbsp;
 	<input type="button" name="close" onclick="window.close()" value="<?=VCDLanguage::translate('misc.close')?>" class="buttontext">
 	&nbsp;
-	<input type="submit" name="save" value="<?=VCDLanguage::translate('misc.saveandcose')?>" class="buttontext">
+	<input type="submit" name="save" value="<?=VCDLanguage::translate('misc.saveandclose')?>" class="buttontext">
 	<? if (strlen($pornstar->getImageName()) > 3)	{ ?>
 	&nbsp;
 	<input type="button" name="delimage" value="Delete image" class="buttontext" onClick="delpornstarImage(<?=$pornstar_id?>)">
