@@ -272,8 +272,12 @@ function display_search() {
  * Enter description here...
  *
  */
-function reloadandclose() {
-	print "onload=\"window.opener.location.reload();window.close()\"";
+function reloadandclose($frontpage=false) {
+	if ($frontpage) {
+		print "onload=\"window.opener.location.href='./?';window.close()\"";	
+	} else {
+		print "onload=\"window.opener.location.reload();window.close()\"";	
+	}
 }
 
 
