@@ -31,6 +31,7 @@ if (isset($_GET['action'])) {
 }
 
 $reload_and_close = true;
+$reload_tofrontpage = false;
 
 switch ($form) {
 
@@ -220,7 +221,9 @@ switch ($form) {
 		$cd_id = $_GET['cd_id'];
 		$mode = $_GET['mode'];
 		MovieServices::deleteVcdFromUser($cd_id, $media_id, $mode);
-	
+		if (strcmp($mode, 'full') == 0) {
+			$reload_tofrontpage = true;
+		}
 		break;
 	
 		
@@ -395,7 +398,7 @@ switch ($form) {
 	<link rel="stylesheet" type="text/css" href="includes/templates/default/style.css"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
-<body <?if ($reload_and_close) { reloadandclose(); } ?>>
+<body <?if ($reload_and_close) { reloadandclose($reload_tofrontpage); } ?>>
 
  
 
