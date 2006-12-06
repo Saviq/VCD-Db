@@ -103,7 +103,7 @@
 			<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 		</td>
 		<td><strong><?=VCDLanguage::translate('manager.sel')?></strong>
-			<select multiple name="choiceBox" id="choiceBox" onclick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
+			<select multiple name="choiceBox" id="choiceBox" onDblClick="removeMe(this.form, 'available', 'choiceBox')" style="width:180px;" size="8" class="input"></select>
 			<br/><br/>
 			<input type="submit" onClick="checkFieldsRaw(this.form,'choiceBox','id_list')" value="<?=VCDLanguage::translate('misc.saveandclose')?>" name="update" class="buttontext"/>
 		</td>			
