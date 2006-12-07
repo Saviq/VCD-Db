@@ -13,15 +13,12 @@
 	}
 	VCDClassFactory::put($language, true);
 
-
-
 	$user = $_SESSION['user'];
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-
+	
 	$player = "";
 	$path = "";
-	$playerObj = $SETTINGSClass->getMetadata(0, $user->getUserID(), 'player');
-	$pathObj = $SETTINGSClass->getMetadata(0, $user->getUserID(), 'playerpath');
+	$playerObj = SettingsServices::getMetadata(0, $user->getUserID(), 'player');
+	$pathObj = SettingsServices::getMetadata(0, $user->getUserID(), 'playerpath');
 	if (is_array($playerObj) && sizeof($playerObj) == 1 && $playerObj[0] instanceof metadataObj ) {
 		$player = $playerObj[0]->getMetaDataValue();
 	}
