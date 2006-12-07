@@ -17,14 +17,8 @@
 	}
 	VCDClassFactory::put($language, true);
 
-
-
 	$user = $_SESSION['user'];
-	$VCDClass = VCDClassFactory::getInstance("vcd_movie");
-	$PORNClass = VCDClassFactory::getInstance("vcd_pornstar");
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-
-
+	
 	$action = "";
 	if (isset($_GET['action'])) {
 		$action = $_GET['action'];
@@ -35,21 +29,21 @@
 	if ($action == "delactor") {
 		$act_id = $_GET['act_id'];
 		$mov_id = $_GET['mov_id'];
-		$pornstar->delPornstarFromMovie($act_id, $mov_id);
+		PornstarServices::delPornstarFromMovie($act_id, $mov_id);
 		$cd_id = $mov_id;
 	} else {
 		$cd_id = $_GET['cd_id'];
 	}
 
 	$bIMDB = false;
-	$vcd = $VCDClass->getVcdByID($cd_id);
+	$vcd = MovieServices::getVcdByID($cd_id);
 	if ($vcd->getIMDB() instanceof imdbObj ) {
 		$imdb = $vcd->getIMDB();
 		$bIMDB = true;
 	}
 
 	$userMetadata = false;
-	$userMetaArray = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+	$userMetaArray = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
 	if (is_array($userMetaArray) && sizeof($userMetaArray) > 0) {
 		$userMetadata = true;
 	}
@@ -78,7 +72,7 @@
 	$arrMyMeta = null;
 	if (!is_null($arrMyMediaTypes)) {
 		// Get existing metadata for the record ID, IE. The user defined types ..
-		$arrMyMeta = $SETTINGSClass->getMetadata($vcd->getId(), VCDUtils::getUserID(), "");
+		$arrMyMeta = SettingsServices::getMetadata($vcd->getId(), VCDUtils::getUserID(), "");
 	}
 
 	if ($showDVDSpecs) {
@@ -164,7 +158,7 @@
 	<td class="tblb"><?=VCDLanguage::translate('movie.category')?>:</td>
 	<td>
 		<select name="category" class="input">
-		<? 	evalDropdown($SETTINGSClass->getAllMovieCategories(),$vcd->getCategoryID()); ?>
+		<? 	evalDropdown(SettingsServices::getAllMovieCategories(),$vcd->getCategoryID()); ?>
 		</select>
 	</td>
 </tr>
@@ -196,7 +190,7 @@
 	<td>
 	<select name="screenshots" class="input" size="1">
 		<option value="0"><?=VCDLanguage::translate('misc.no')?></option>
-		<option value="1" <? if ($VCDClass->getScreenshots($vcd->getID())) {echo "selected";} ?>><?=VCDLanguage::translate('misc.yes')?></option>
+		<option value="1" <? if (MovieServices::getScreenshots($vcd->getID())) {echo "selected";} ?>><?=VCDLanguage::translate('misc.yes')?></option>
 	</select>
 	</td>
 </tr>
@@ -223,7 +217,7 @@
 	<table cellspacing="1" cellpadding="1" border="0" width="100%">
 	<tr><td><?=VCDLanguage::translate('manager.1copy')?></td><td><?=VCDLanguage::translate('movie.mediatype')?></td><td><?=VCDLanguage::translate('movie.num')?></td><td>&nbsp;</td></tr>
 	<?
-		$allMediaTypes =  $SETTINGSClass->getAllMediatypes();
+		$allMediaTypes =  SettingsServices::getAllMediatypes();
 
 		for ($i = 0; $i < sizeof($arrMediaTypes); $i++) {
 			print "<tr><td>".($i+1)."</td><td>";
@@ -323,13 +317,13 @@
 	<td class="tblb" valign="top">Studio:</td>
 	<td><select name="studio" class="input">
 		<?
-			$studioObj = $PORNClass->getStudioByMovieID($vcd->getID());
+			$studioObj = PornstarServices::getStudioByMovieID($vcd->getID());
 			if ($studioObj instanceof studioObj) {
 				$studio_id = $studioObj->getID();
 			} else {
 				$studio_id = "";
 			}
-			evalDropdown($PORNClass->getAllStudios(),$studio_id); ?>
+			evalDropdown(PornstarServices::getAllStudios(),$studio_id); ?>
 	</select>
 
 	</td>
@@ -342,7 +336,7 @@
 				<td>
 					<select name="available" id="available" size=8 style="width:200px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input">
 					<?
-					$result = $PORNClass->getSubCategories();
+					$result = PornstarServices::getSubCategories();
 					foreach ($result as $porncategoryObj) {
 						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
 					}
@@ -357,7 +351,7 @@
 				<td>
 					<select multiple name="choiceBox" id="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input">
 					<?
-					$result = $PORNClass->getSubCategoriesByMovieID($vcd->getID());
+					$result = PornstarServices::getSubCategoriesByMovieID($vcd->getID());
 					foreach ($result as $porncategoryObj) {
 						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
 					}
@@ -420,7 +414,7 @@
 <? } ?>
 <?
 	if ($vcd->isAdult()) {
-			$ArrayPornstars = $PORNClass->getPornstarsByMovieID($vcd->getID());
+			$ArrayPornstars = PornstarServices::getPornstarsByMovieID($vcd->getID());
 			if(is_array($ArrayPornstars)) {
 			echo "<table cellspacing=1 cellpadding=1 border=0>";
 				foreach($ArrayPornstars as $pornstar)   {
@@ -455,8 +449,7 @@
 <div id="content4" class="content">
 <?
 	// first get all cover types that are allowed on this media type
-	$COVERClass = VCDClassFactory::getInstance("vcd_cdcover");
-	$arrCoverTypes = $COVERClass->getAllowedCoversForVcd($vcd->getMediaType());
+	$arrCoverTypes = CoverServices::getAllowedCoversForVcd($vcd->getMediaType());
 ?>
 <p><table cellspacing="1" cellpadding="1" border="0">
 <?
