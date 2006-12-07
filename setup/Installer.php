@@ -31,6 +31,12 @@ class Installer {
 	private static $template = 'config.template';
 	private static $totalRecordCount = 3348;
 	
+	/**
+	 * Live database connection
+	 *
+	 * @var ADONewConnection
+	 */
+	private static $db = null;
 	
 	/**
 	 * The heart of the installer and the only public function, this function is the
@@ -320,29 +326,9 @@ class Installer {
 			if (!is_array($arrSettings)) {
 				throw new Exception('Missing connection arguments.');
 			}
-			
-			$host = $arrSettings[0];
-			$user = $arrSettings[1];
-			$pass = $arrSettings[2];
-			$name = $arrSettings[3];
-			$type = $arrSettings[4];
-		
-			
-			$db = ADONewConnection( $type );
-			switch ($type) {
-				case 'db2':
-					$db->Connect($name, $user, $pass, $host);	
-					break;
-					
-				case 'sqlite':
-					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
-					break;
-			
-				default:
-					$db->Connect($host, $user, $pass, $name);
-					break;
-			}
-			
+									
+			$db = self::getConnection($arrSettings);
+						
 			
 			$tables = $db->MetaTables('TABLES');
 			$count = 0;
@@ -373,31 +359,11 @@ class Installer {
 			if (!is_array($arrSettings)) {
 				throw new Exception('Missing connection arguments.');
 			}
-			
-			$host = $arrSettings[0];
-			$user = $arrSettings[1];
-			$pass = $arrSettings[2];
-			$name = $arrSettings[3];
-			$type = $arrSettings[4];
-			
-		
+					
 			// Get the old error reporting level, and set current to E_ERROR
 			$error_level = error_reporting(E_ERROR);
 			
-			$db = NewADOConnection($type);
-			switch ($type) {
-    			case 'db2':
-    				$db->Connect($name, $user, $pass, $host);
-    				break;
-    				
-    			case 'sqlite':
-    				return true;		
-    				break;
-    		
-    			default:
-    				$db->Connect($host, $user, $pass, $name);
-    				break;
-    		}
+			$db = self::getConnection($arrSettings);
 		
     	
     		// No error has been thrown .. return true
@@ -423,29 +389,8 @@ class Installer {
 				throw new Exception('Missing connection arguments.');
 			}
 			
-			// Get connection parameters
-			$host = $arrSettings[0];
-			$user = $arrSettings[1];
-			$pass = $arrSettings[2];
-			$name = $arrSettings[3];
-			$type = $arrSettings[4];
-						
-			
 			//Start by creating a normal ADODB connection.
-			$db = ADONewConnection( $type );
-			switch ($type) {
-				case 'db2':
-					$db->Connect($name, $user, $pass, $host);	
-					break;
-					
-				case 'sqlite':
-					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
-					break;
-			
-				default:
-					$db->Connect($host, $user, $pass, $name);
-					break;
-			}
+			$db = self::getConnection($arrSettings);
 			
 			
 			// Use the database connection to create a new adoSchema object.
@@ -454,6 +399,8 @@ class Installer {
 			// Parse the Schema - and supress errors to override the index not found errors
 			@$schema->ParseSchema(dirname(__FILE__) . '/' . self::$XMLSchema );
 			
+			// Get the current database type
+			$type = $arrSettings[4];
 			
 			// Execute based on the database type
 			switch ($type) {
@@ -557,29 +504,7 @@ class Installer {
 			// Give it some time ... 10 minutes for really bad hardware and/or slow connections
 			@set_time_limit(60*10);
 			
-			
-			// Get connection parameters
-			$host = $arrSettings[0];
-			$user = $arrSettings[1];
-			$pass = $arrSettings[2];
-			$name = $arrSettings[3];
-			$type = $arrSettings[4];
-			
-
-			$db = ADONewConnection( $type );
-			switch ($type) {
-				case 'db2':
-					$db->Connect($name, $user, $pass, $host);	
-					break;
-					
-				case 'sqlite':
-					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
-					break;
-			
-				default:
-					$db->Connect($host, $user, $pass, $name);
-					break;
-			}
+			$db = self::getConnection($arrSettings);
 			
 			// Begin with VCD-db core data ..
 			$schema = new adoSchema( $db );
@@ -666,33 +591,17 @@ class Installer {
 			// Give it some time ... 2 minutes for really bad hardware and/or slow connections
 			@set_time_limit(60*2);
 			
+			$db = self::getConnection($arrSettings);
 			
-			// Get connection parameters
+			if (!is_object($objConfig)) {
+				throw new Exception('Config params missing!');
+			} 
+			
 			$host = $arrSettings[0];
 			$user = $arrSettings[1];
 			$pass = $arrSettings[2];
 			$name = $arrSettings[3];
 			$type = $arrSettings[4];
-			
-			
-			$db = ADONewConnection( $type );
-			switch ($type) {
-				case 'db2':
-					$db->Connect($name, $user, $pass, $host);	
-					break;
-					
-				case 'sqlite':
-					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
-					break;
-			
-				default:
-					$db->Connect($host, $user, $pass, $name);
-					break;
-			}
-			
-			if (!is_object($objConfig)) {
-				throw new Exception('Config params missing!');
-			} 
 			
 			// Create the mappings to update the config.php file
 			$cmap = array(
@@ -809,28 +718,7 @@ class Installer {
 			// Give it some time ... 2 minutes for really bad hardware and/or slow connections
 			@set_time_limit(60*2);
 			
-			// Get connection parameters
-			$host = $arrSettings[0];
-			$user = $arrSettings[1];
-			$pass = $arrSettings[2];
-			$name = $arrSettings[3];
-			$type = $arrSettings[4];
-			
-			
-			$db = ADONewConnection( $type );
-			switch ($type) {
-				case 'db2':
-					$db->Connect($name, $user, $pass, $host);	
-					break;
-					
-				case 'sqlite':
-					$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
-					break;
-			
-				default:
-					$db->Connect($host, $user, $pass, $name);
-					break;
-			}
+			$db = self::getConnection($arrSettings);
 			
 			if (!is_object($objConfig)) {
 				throw new Exception('Config params missing!');
@@ -852,6 +740,53 @@ class Installer {
 		}
 	}
 	
+	
+	/**
+	 * Get a live database connection
+	 *
+	 * @param array $arrSettings | The array containing the connection params
+	 * @return ADONewConnection
+	 */
+	private static function getConnection($arrSettings) {
+		try {
+			
+			if (!is_array($arrSettings)) {
+				throw new Exception('Missing connection arguments.');
+			}
+			
+			
+			if (!is_null(self::$db) && self::$db instanceof ADONewConnection && self::$db->IsConnected()) {
+				
+				return self::$db;
+				
+			} else {
+				
+				$host = $arrSettings[0];
+				$user = $arrSettings[1];
+				$pass = $arrSettings[2];
+				$name = $arrSettings[3];
+				$type = $arrSettings[4];
+			
+				
+				self::$db = ADONewConnection( $type );
+				switch ($type) {
+					case 'sqlite':
+						self::$db->Connect(self::getBaseDir().'upload/cache/vcddb.db');
+						break;
+				
+					default:
+						self::$db->Connect($host, $user, $pass, $name);
+						break;
+				}
+				
+				return self::$db;
+				
+			}
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
 	
 	
 	/**
@@ -885,9 +820,7 @@ class Installer {
 			}
 		}
 
-	
-	
-	
+
 }
 
 ?>
