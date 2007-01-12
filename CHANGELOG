@@ -1,5 +1,8 @@
 0.985
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
+Fixed   - Fixed javascript errors in the pornstar manager in Firefox.
+Updated - Web UI now uses the VCDServices layer.
+
 
 0.984
 Added   - New fetch class, bushdvd.com (by request)
