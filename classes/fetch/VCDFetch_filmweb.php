@@ -37,7 +37,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	private $servername = 'www.filmweb.pl';
 	private $itempath = '/Film?id=[$]';
 	private $plotpath = '/FilmDescriptions?id=[$]';
-	private $searchpath = '/Find?category=1&query=[$]';
+	private $searchpath = '/szukaj?q=[$]&alias=film';
 
 	public function __construct() {
 		$this->setSiteName("filmweb");
@@ -49,38 +49,49 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function showSearchResults() {
-		$regx = "#<a title='(?P<title>([^(/]|\(I+\))*)(/ (?P<org_title>([^(/]|\(I+\))+)|\(AKA (?P<aka>([^(/]|\(I+\))+)\)| \((?P<year>[0-9]{4})\)| \((?P<info>[a-z.]+)\))*'\s*href=\"http://(www.filmweb.pl/Film\?id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl)\">#";
-		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
-		$results = array();
-		foreach($searchArr as $searchItem) {
-			array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka'])));
+		$contents = split("font-size: 1.5em;", $this->getContents()); //split the site
+		unset($contents[0]); //get rid of the beginning
+		$regx =  '#<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/[^"]*,id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl/)\"[^>]*>'
+		.'\s*(?P<title>.*?)\s+(?:/\s+(?P<org_title>.*?))?\s*'
+		.'</a>[^\(]*\((?P<year>[0-9]{4})\)'
+		.'(?:[^<]*<span[^<]*<br/>aka:\s*(?P<aka>.*)[^<]*</span>)?#';
+		foreach ($contents as $part) {
+			preg_match('#">([^<]+)</div>#', $part, $partname);
+			preg_match_all($regx, $part, $searchArr, PREG_SET_ORDER);
+			$results = array();
+			foreach($searchArr as $searchItem) {
+				array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka'])));
+			}
+			$partresults[$partname[1]] = $results;
 		}
-		$this->generateSearchSelection($results);
+		$this->generateSearchSelection($partresults);
 	}
 
-	protected function generateSearchSelection($arrSearchResults) {
-		if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) {
+	protected function generateSearchSelection($arrPartSearchResults) {
+		if (!is_array($arrPartSearchResults) || sizeof($arrPartSearchResults) == 0) {
 			print "No search results to generate from.";
 			return;
 		}
 
-		$testItem = $arrSearchResults[0];
-		if (!isset($testItem['id']) || !isset($testItem['title']) || !isset($testItem['year']))	{
-			throw new Exception('Results array must contain at least keys [id], [title] and [year]');
+		foreach ($arrPartSearchResults as $partName => $arrSearchResults) {
+			if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) continue;
+			$testItem = $arrSearchResults[0];
+			if (!isset($testItem['id']) || !isset($testItem['title']) || !isset($testItem['year']))	{
+				throw new Exception('Results array must contain at least keys [id], [title] and [year]');
+			}
+			print("<h3>".$partName."</h3>\n");
+
+			$extUrl = "http://".$this->servername.$this->itempath;
+			print "<ul>";
+			foreach ($arrSearchResults as $item) {
+				$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
+				if (is_numeric($item['id'])) $info = "http://filmweb.pl"."/Film?id=".$item['id'];
+				else $info = "http://".$item['id'].".filmweb.pl";
+				$str = "<li><a href=\"{$link}\">{$item['title']}</a> ({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
+				print $str;
+			}
+			print "</ul>";
 		}
-
-
-		$extUrl = "http://".$this->servername.$this->itempath;
-		print "<ul>";
-		foreach ($arrSearchResults as $item) {
-			$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
-			if (is_numeric($item['id'])) $info = "http://filmweb.pl"."/Film?id=".$item['id'];
-			else $info = "http://".$item['id'].".filmweb.pl";
-			$str = "<li><a href=\"{$link}\">{$item['title']}</a> ({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
-			print $str;
-		}
-		print "<ul>";
-
 	}
 
 	protected function processResults() {
