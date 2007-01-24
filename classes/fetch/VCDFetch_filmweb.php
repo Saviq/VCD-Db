@@ -24,11 +24,11 @@ class VCDFetch_filmweb extends VCDFetch {
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
-	'genre' 	=> 'genre.id=[0-9]+\">([^<]+)</a>',
+	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
 	'cast'		=> 'class="filmActor"[^>]+>([^<]+)</a>[^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)</div>',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
-	'country' 	=> 'country\.id=[0-9]+\">([^<]+)</a>',
+	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
 	'plot'		=> '#"justify">(.*?)</li>#'
 	);
 
@@ -50,17 +50,16 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	public function showSearchResults() {
 		$contents = split("font-size: 1.5em;", $this->getContents()); //split the site
-		unset($contents[0]); //get rid of the beginning
-		$regx =  '#<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/[^"]*,id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl/)\"[^>]*>'
+		$regx =  '#(?:none;">\((?P<info>[^\)]*)\)</span>[^<]*)?<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/[^"]*,id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl/)\"[^>]*>'
 		.'\s*(?P<title>.*?)\s+(?:/\s+(?P<org_title>.*?))?\s*'
-		.'</a>[^\(]*\((?P<year>[0-9]{4})\)'
+		.'</a>[^\(]*\((?P<year>[0-9]{4}(?:-[0-9]{4})?)\)'
 		.'(?:[^<]*<span[^<]*<br/>aka:\s*(?P<aka>.*)[^<]*</span>)?#';
 		foreach ($contents as $part) {
 			preg_match('#">([^<]+)</div>#', $part, $partname);
 			preg_match_all($regx, $part, $searchArr, PREG_SET_ORDER);
 			$results = array();
 			foreach($searchArr as $searchItem) {
-				array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka'])));
+				array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka']), 'info' => trim($searchItem['info'])));
 			}
 			$partresults[$partname[1]] = $results;
 		}
@@ -87,7 +86,7 @@ class VCDFetch_filmweb extends VCDFetch {
 				$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
 				if (is_numeric($item['id'])) $info = "http://filmweb.pl"."/Film?id=".$item['id'];
 				else $info = "http://".$item['id'].".filmweb.pl";
-				$str = "<li><a href=\"{$link}\">{$item['title']}</a> ({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
+				$str = "<li><a href=\"{$link}\">{$item['title']}</a> ".(empty($item['info'])?"":"[".strtolower($item['info'])."] ")."({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
 				print $str;
 			}
 			print "</ul>";
