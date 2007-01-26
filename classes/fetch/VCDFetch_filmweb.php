@@ -26,7 +26,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
-	'cast'		=> 'class="filmActor"[^>]+>([^<]+)</a>[^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)</div>',
+	'cast'		=> 'class=\"filmActor\"[^>]+>([^<]+)</a>([^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)</div>)?',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
 	'plot'		=> '#"justify">(.*?)</li>#'
@@ -163,7 +163,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					$arr = array();
 					foreach ($arrData as $itemArr) {
 						$actor = trim($itemArr[1]);
-						$role = trim(str_replace("&nbsp;", " ", $itemArr[2]));
+						$role = trim(str_replace("&nbsp;", " ", $itemArr[3]));
 						$result = $actor.($role==""?"":" .... ".$role);
 						array_push($arr, $result);
 					}
@@ -218,7 +218,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					}
 				}
 				break;
-
+						
 			default:
 				break;
 		}
