@@ -1,4 +1,5 @@
-Updates - New filmweb.pl search layout - now fixed.
+Fixed	- Fixed filmweb.pl fetch for actors with no roles assigned.
+Updated - New filmweb.pl search layout.
 
 0.985
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
