@@ -560,7 +560,7 @@ class vcd_movie implements IVcd  {
 			}
 
 		} catch (Exception $ex) {
-			throw $e;
+			throw $ex;
 		}
 	}
 
