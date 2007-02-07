@@ -132,8 +132,17 @@ class vcd_pornstar implements IPornstar {
 		try {
 			
 			$new_id = $this->SQL->addPornstar($pornstarObj);
-			return $this->getPornstarByID($new_id);
+			$newPornstarsObj = $this->getPornstarByID($new_id);
 			
+			
+			if ($newPornstarsObj instanceof pornstarObj) {
+				return $newPornstarsObj;
+			} else {
+				// Bug in Postgres, sometimes entry not fount within same transaction ..
+				$pornstarObj->setID($new_id);
+				return $pornstarObj;
+			}
+						
 		} catch (Exception $ex) {
 			throw $ex;
 		}
