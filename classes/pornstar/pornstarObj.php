@@ -87,6 +87,15 @@ class pornstarObj implements XMLable {
 	}
 	
 	/**
+	 * Set the pornstar ID
+	 *
+	 * @param int $pornstar_id
+	 */
+	public function setID($pornstar_id) {
+		$this->id = $pornstar_id;
+	}
+	
+	/**
 	 * Get the pornstar ID
 	 *
 	 * @return int
