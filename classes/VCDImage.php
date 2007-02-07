@@ -82,9 +82,7 @@ class VCDImage {
    				unset($imagedata);
    				
    			}
-   			
    		}
-   		
 	} 
 	
 		
@@ -108,7 +106,6 @@ class VCDImage {
 			// was only submitted
 			$path_added = $this->default_filepath . "/" . $file;
 			if(!fs_file_exists($path_added)) { 
-				VCDException::display("File ".$file." does not exist");
 				return;
 			} else {
 				$file = $path_added;
@@ -134,14 +131,11 @@ class VCDImage {
 
 		// Look for image information
 		if (is_array($imageInfoArr)) {
-			
 			$this->name = $imageInfoArr['name'];
 			$this->content_type = $imageInfoArr['type'];
-					
 		} else {	
 			$this->getAttributes($file);
 		}
-		
 		
 			
 		try {
@@ -150,12 +144,11 @@ class VCDImage {
 			
 				$image_id = $this->SQL->addImage($this->name, $this->content_type, filesize($file), $encoded);
 				if (!(bool)$image_id) {
-					VCDException::display("Could not insert image to DB");
+					throw new VCDProgramException('Could not insert image to database.');
 				}
 				
-				
-			} catch (Exception $e) {
-				VCDException::display($e);
+			} catch (Exception $ex) {
+				throw $ex;
 			}
 		
 		
@@ -178,8 +171,9 @@ class VCDImage {
 	 */
 	public function getImageStream($image_id) {
 		try {
+			
 			if (!is_numeric($image_id)) {
-				VCDException::display("Parameter image_id missing");
+				throw new VCDInvalidArgumentException('Parameter image_id is missing');
 			} else {
 				if (is_null($this->image)) {
 					$this->image = $this->SQL->getImageStream($image_id);
@@ -188,8 +182,8 @@ class VCDImage {
 			}
 			
 			
-		} catch (Exception $e)	{
-			VCDException::display($e);
+		} catch (Exception $ex)	{
+			VCDException::display($ex);
 		}
 	}
 	
