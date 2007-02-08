@@ -1256,7 +1256,8 @@ class vcdSQL {
 		
 		
 		// Transform the queries with LOWER() if postgres ..
-		if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) { 
+		$isPostgres = (bool)(substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0);
+		if ($isPostgres) { 
 			$arrFields = array('v.title', 'i.title', 'i.alt_title1', 'i.alt_title2', 'i.fcast','p.name', 'i.director', $this->db->Quote($keyword));
 			//  create the replacement array ..
 			$arrLower = array();
@@ -1276,6 +1277,11 @@ class vcdSQL {
 				// Get the mediaTypes
 				foreach ($SETTINGSClass->getMediaTypesOnCD($obj->getID()) as $mediaTypeObj) {
 					$obj->addMediaType($mediaTypeObj);
+				}
+				
+				// Update the titles from lowercase to UcFirst if Postgres
+				if ($isPostgres) {
+					$obj->setTitle(ucwords($obj->getTitle()));
 				}
 				array_push($arrVcdObj, $obj);
 		}
