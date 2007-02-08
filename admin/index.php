@@ -798,7 +798,7 @@
 					}
 
 					$metaObj = new metadataObj(array('',0,0,metadataTypeObj::SYS_LOGTYPES , $logTypes));
-					$SETTINGSclass->addMetadata($metaObj);
+					SettingsServices::addMetadata($metaObj);
 					$updated = true;
 				}
 				
