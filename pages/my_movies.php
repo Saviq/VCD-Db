@@ -47,6 +47,7 @@
 	<ul>
 		<li><a href="./?page=private&o=movies&do=diff"><?= VCDLanguage::translate('mymovies.join') ?></a></li>
 		<li><a href="#" onclick="showUserStatus()"><?= VCDLanguage::translate('mymovies.overview') ?></a></li>
+		<li><a href="#" onclick="showUserStatusDetailed()"><?= VCDLanguage::translate('mymovies.overviewdetail') ?></a></li>
 		<? if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  { ?>
 		<li><a href="./?page=private&o=movies&do=customkeys"><?= VCDLanguage::translate('mymovies.keys') ?></a></li>
 		<? } ?>

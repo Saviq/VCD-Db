@@ -67,6 +67,7 @@ function display_userlinks() {
 	<? if (MovieServices::getMovieCount(VCDUtils::getUserID()) > 0)  {?>
 	<span class="nav"><a href="./?page=private&amp;o=stats" class="navx"><?=VCDLanguage::translate('menu.statistics')?></a></span>
 	<? } ?>
+	<span class="nav"><a href="#" onclick="showAllMoviesDetailed()" class="navx"><?=VCDLanguage::translate('menu.showallusersmovies')?></a></span>
 	<?=$rssLink?>
 	<?
 }
