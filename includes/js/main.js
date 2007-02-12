@@ -694,6 +694,16 @@ function showUserStatus() {
 	window.open(url, 'popup', 'scrollbars=yes,resizable=yes,height=600,width=830,top=50,left=25');
 }
 
+function showUserStatusDetailed() {
+	url = 'pages/user_status_detail.php';
+	window.open(url, 'popup2', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
+}
+
+function showAllMoviesDetailed() {
+	url = 'pages/all_movies_details.php';
+	window.open(url, 'popup3', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
+}
+
 function checkupload(formvalue) {
 	if (formvalue == "") {
 		alert('Select file to upload');
