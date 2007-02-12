@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Top users</string>
 		<string id="menu.wishlistpublic">Others wishlists</string>
 		<string id="menu.statistics">Statistics</string>
+		<string id="menu.showallusersmovies">All movies</string>
 
 
 		<!-- login based strings -->
@@ -206,6 +207,7 @@
 		<string id="mymovies.find">Find a movie</string>
 		<string id="mymovies.notseen">Suggest only movies I haven't seen</string>
 		<string id="mymovies.friends">My friends who borrow CD's</string>
+		<string id="mymovies.overviewdetail">Detailed collection overview</string>
 
 
 		<!-- strings for the movie manager window -->

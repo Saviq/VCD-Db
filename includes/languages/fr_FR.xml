@@ -29,8 +29,9 @@
 		<string id="menu.logout">Quitter</string>
 		<string id="menu.submit">Accepter</string>
 		<string id="menu.topusers">Utilisateurs</string>
-		<string id="menu.wishlistpublic">Demandes des autres</string>
+		<string id="menu.wishlistpublic">Demandes externes</string>
 		<string id="menu.statistics">Statistiques</string>
+		<string id="menu.showallusersmovies">Tous les films</string>
 
 
 		<!-- login based strings -->
@@ -78,7 +79,8 @@
 
 
 		<!-- strings for search and search results -->
-		<string id="search.search">Rechercher</string>
+		<!-- <string id="search.search">Rechercher</string> -->
+		<string id="search.search">Trouver</string>
 		<string id="search.title">Par titre</string>
 		<string id="search.actor">Par acteur</string>
 		<string id="search.director">Par réalisateur</string>
@@ -206,6 +208,7 @@
 		<string id="mymovies.find">Chercher un film</string>
 		<string id="mymovies.notseen">Suggérer uniquement les films que je n'ai pas vus</string>
 		<string id="mymovies.friends">Personnes avec qui partager mes films</string>
+		<string id="mymovies.overviewdetail">Vue détaillée collection</string>
 
 
 		<!-- strings for the movie manager window -->
