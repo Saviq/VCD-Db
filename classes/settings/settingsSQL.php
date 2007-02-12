@@ -350,6 +350,26 @@ class settingsSQL {
 
 	}
 
+		public function getMediaTypesInUse()
+		{
+			try
+			{
+				$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
+						  FROM $this->TABLE_mediatypes AS m
+						  INNER JOIN $this->TABLE_vcdtousers AS u ON m.media_type_id = u.media_type_id 
+						  GROUP BY m.media_type_id, m.media_type_name
+						  ORDER BY m.media_type_id";
+				$rs = $this->db->Execute($query);
+				$arr = $rs->GetRows();
+				$rs->Close( );
+				return $arr;
+			}
+			catch (Exception $e)
+			{
+				throw new Exception($e->getMessage());
+			}
+		}
+
 	public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {
 
@@ -367,6 +387,23 @@ class settingsSQL {
 			throw new Exception($e->getMessage());
 		}
 	}
+
+		public function getMediaCountByCategory($category_id) {
+			try {
+				
+			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count 
+					  FROM $this->TABLE_vcd AS v
+					  INNER JOIN $this->TABLE_vcdtousers as u ON v.vcd_id = u.vcd_id 
+					  LEFT OUTER JOIN $this->TABLE_mediatypes AS m ON u.media_type_id = m.media_type_id
+					  WHERE v.category_id = ".$category_id."
+					  GROUP BY u.media_type_id";
+			
+			return $this->db->Execute($query)->getArray();
+			
+			} catch (Exception $e) {
+				throw new Exception($e->getMessage());
+			}
+		}
 
 	public function getCountByMediaType($mediatype_id) {
 		try {

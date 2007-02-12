@@ -541,6 +541,32 @@ class vcd_settings implements ISettings {
 	}
 
 	/**
+	 * Get all mediatype in use
+	 *
+	 * @return array of mediaTypeObj
+	 */
+	public function getMediaTypesInUse() 
+	{
+		try
+		{
+			$media_array = $this->SQL->getMediaTypesInUse();
+			$i = 0;
+			foreach ($media_array as $itemArray)
+			{
+				$catObj = $this->getMediaTypeByID($itemArray[0]);
+				$media_array[$i++][1] = $catObj->getDetailedName();
+			}
+			asort($media_array);
+			return aSortBySecondIndex($media_array,1);
+		}
+		catch (Exception $e)
+		{
+			VCDException::display($e);
+			return null;
+		}
+	}
+
+	/**
 	 * Get the count of mediaTypes by certain categoryID and userID
 	 *
 	 * @param int $user_id
@@ -558,6 +584,31 @@ class vcd_settings implements ISettings {
 
 		} catch (Exception $ex) {
 			throw $ex;
+		}
+	}
+
+	/**
+	 * Get the count of mediaTypes by certain categoryID
+	 *
+	 * @param int $category_id
+	 * @return int
+	 */
+	public function getMediaCountByCategory($category_id)
+	{
+		try
+		{
+			if (is_numeric($category_id))
+			{
+				return $this->SQL->getMediaCountByCategory($category_id);
+			}
+			else
+			{
+				throw new Exception('Parameters must be numeric');
+			}
+		}
+		catch (Exception $e)
+		{
+			VCDException::display($e);
 		}
 	}
 
