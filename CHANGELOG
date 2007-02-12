@@ -5,6 +5,8 @@ Updated - New filmweb.pl search layout.
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
 Fixed   - Fixed javascript errors in the pornstar manager in Firefox.
 Updated - Web UI now uses the VCDServices layer.
+Added   - New popup to display all movies, sorted by caterogires names, in database (whatever owner).
+Added   - New popup to display logged user movies sorted by categories name.
 
 
 0.984
