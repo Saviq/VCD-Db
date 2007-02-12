@@ -382,13 +382,16 @@ unknown {
 }
 
 .stata {
-	BACKGROUND-COLOR: #dcdcdc
+	BACKGROUND-COLOR: #E9C9FF;
 }
 .statsTable .stata {
-	BACKGROUND-COLOR: #dcdcdc;
+	BACKGROUND-COLOR: #E9C9FF;
 }
 .statb {
 	BACKGROUND-COLOR: white;
+}
+.statc {
+	background-color: #A957D8;
 }
 .statsTable {
 	COLOR: #000000; BACKGROUND-COLOR: #dcdcdc;

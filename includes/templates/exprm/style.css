@@ -496,6 +496,10 @@ li {
 	/*color: #FBF1E6;*/
 }
 
+.statc {
+	background-color: #979797;
+}
+
 .statsTable {
 	background-color: #dcdcdc;
 	color: #333333;
