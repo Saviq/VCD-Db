@@ -17,15 +17,23 @@
 
 if (VCDUtils::isLoggedIn()) {
 
+	
 	// Include the Ajason & Ajax libraries
 	require_once(dirname(__FILE__) . '/external/ajason/Ajax.php');
 
 	// Create Ajax class instance
 	$ajax = new Ajax();
 	// Register VCD-db Ajax methods
-	$ajax->registerMethod('VCDXMLImporter', 'addMovie' );
-	$ajax->registerMethod('dvdObj', 'getCountryFlag');
-	$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
+	if (substr_count($_SERVER['PHP_SELF'], 'admin') == 1) {
+		$ajax->registerMethod('PornstarProxy', 'getUpdateList' );
+		$ajax->registerMethod('PornstarProxy', 'doHandshake' );
+		$ajax->registerMethod('PornstarProxy', 'getUpdates' );
+	} else {
+		$ajax->registerMethod('VCDXMLImporter', 'addMovie' );
+		$ajax->registerMethod('dvdObj', 'getCountryFlag');
+		$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
+	}
+		
 	$ajaxServer = $ajax->getServer();
 	// Check for Ajax Request and handle it.
 	if ( $ajaxServer->isRequest() )
