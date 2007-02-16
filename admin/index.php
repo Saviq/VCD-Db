@@ -8,7 +8,7 @@
 		print "<script>self.close();</script>";
 		exit();
 	}
-	
+		
 	$WORKING_MODE = "";
 	if (isset($_GET['mode']))
 		$WORKING_MODE = $_GET['mode'];
@@ -29,7 +29,7 @@
 	if (strcmp($CURRENT_PAGE, "setDefaultRole") == 0) {
 		setDefaultRole($_GET['recordID']);
 	}
-	
+			
 	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/strict.dtd">		 
@@ -39,6 +39,13 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<link rel="stylesheet" href="../includes/css/admin.css" type="text/css" media="all" />
 	<script src="../includes/js/admin.js" type="text/javascript"></script>
+	<?php if(strcmp($CURRENT_PAGE,'pornstarsync')==0):?>
+	<script type="text/javascript" src="../includes/js/json.js"></script>
+	<script type="text/javascript" src="../includes/js/ajax.js"></script>
+	<script type="text/javascript">
+	<?php echo $ajaxClient->getJavaScript(); ?> 
+	</script>
+	<?php endif;?>
 </head>
 <body onload="window.focus()">
 
@@ -83,6 +90,7 @@
 		<? 
 			if (SettingsServices::getSettingsByKey('SITE_ADULT')) { ?>
 			<li><hr style="height:1px;"/><a href="./?page=pornstars">Pornstars</a></li>
+			<li style="text-indent:10px"><a href="./?page=pornstarsync">Get updates</a></li>
 			<li><a href="./?page=porncategories">Porn categories</a></li>
 			<li><a href="./?page=pornstudios">Porn studios</a></li>
 			
@@ -1064,6 +1072,13 @@
 					
 				printTableClose();
 				
+				
+			}
+			
+			
+			if ($CURRENT_PAGE == 'pornstarsync') {
+
+				require_once('forms/pornstarsync.php');
 				
 			}
 			

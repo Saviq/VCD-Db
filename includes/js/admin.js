@@ -270,17 +270,70 @@ function saveMe() {
 
 
 function checkFields(form) {
-var delimiter = "#";	// Hvernig viltu splitta strengnum ??
-teString = "";
-tempSt = "";
-
-for(var i=0; i<form.choiceBox.options.length; i++)  {
-	teString = form.choiceBox.options[i].value;
-	if (i < form.choiceBox.options.length - 1){
-		tempSt = tempSt + teString + delimiter;
-	} else {
-		tempSt = tempSt + teString;
+	var delimiter = "#";
+	teString = "";
+	tempSt = "";
+	
+	for(var i=0; i<form.choiceBox.options.length; i++)  {
+		teString = form.choiceBox.options[i].value;
+		if (i < form.choiceBox.options.length - 1){
+			tempSt = tempSt + teString + delimiter;
+		} else {
+			tempSt = tempSt + teString;
+		}
 	}
+	form.id_list.value = tempSt;
 }
-form.id_list.value = tempSt;
+
+
+function Updater() {
+
+	this.counter = 1;
+	this.aIndex = Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	this.currentIndex = 0;
+	this.proxy = x_PornstarProxy;
+	
+	this.startUpdate = function() {
+		
+		this.addLogEntry('Call to Server', 'Getting list for letter '+this.aIndex[this.currentIndex]);
+		this.proxy.getUpdateList(this.aIndex[this.currentIndex], this.handeListResponse);
+		
+		
+	};
+	
+	
+
+	
+	this.addLogEntry = function(action, message) {
+	
+		var table = document.getElementById('tblupdater');
+		var tbody = table.getElementsByTagName("tbody")[0];
+		var row = table.insertRow(0);
+		
+		var cell_action  = document.createElement("TD");
+		var cell_message = document.createElement("TD");
+		
+		cell_action.innerHTML = action;
+		cell_message.innerHTML = message;
+						
+		row.appendChild(cell_action);
+		row.appendChild(cell_message);
+	};
+	
+
+	this.handeListResponse = function(response) {
+		
+		var entryCount = response.entries;
+		
+		Updater.addLogEntry('Response from Server', entryCount);
+		
+		
+		if (Updater.currentIndex < (Updater.aIndex.length-1)) {
+			Updater.currentIndex++;
+			Updater.startUpdate();
+		}
+		
+		
+	};
+
 }
