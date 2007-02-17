@@ -47,7 +47,7 @@ class UserServices extends VCDServices {
 			return self::User()->getUserByID($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -63,7 +63,7 @@ class UserServices extends VCDServices {
 			return self::User()->updateUser($userObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -79,7 +79,7 @@ class UserServices extends VCDServices {
 			self::User()->deleteUser($user_id, $erase_data);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -96,7 +96,7 @@ class UserServices extends VCDServices {
 			return self::User()->addUser($userObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -111,7 +111,7 @@ class UserServices extends VCDServices {
 			return self::User()->getAllUsers();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -126,7 +126,7 @@ class UserServices extends VCDServices {
 			return self::User()->getActiveUsers();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -142,7 +142,7 @@ class UserServices extends VCDServices {
 			return self::User()->getUserByUsername($user_name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -158,7 +158,7 @@ class UserServices extends VCDServices {
 			self::User()->addSession($session_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -177,7 +177,7 @@ class UserServices extends VCDServices {
 			return self::User()->isValidSession($session_id, $session_time, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 			
@@ -192,7 +192,7 @@ class UserServices extends VCDServices {
 			return self::User()->getAllUserRoles();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -208,7 +208,7 @@ class UserServices extends VCDServices {
 			return self::User()->getAllUsersInRole($role_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -226,7 +226,7 @@ class UserServices extends VCDServices {
 			return self::User()->deleteUserRole($role_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -241,7 +241,7 @@ class UserServices extends VCDServices {
 			return self::User()->getDefaultRole();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -256,7 +256,7 @@ class UserServices extends VCDServices {
 			self::User()->setDefaultRole($role_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 
@@ -271,7 +271,7 @@ class UserServices extends VCDServices {
 			return self::User()->getAllProperties();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -287,7 +287,7 @@ class UserServices extends VCDServices {
 			return self::User()->getPropertyById($property_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -303,7 +303,7 @@ class UserServices extends VCDServices {
 			return self::User()->getPropertyByKey($property_key);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -318,7 +318,7 @@ class UserServices extends VCDServices {
 			self::User()->addProperty($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -333,7 +333,7 @@ class UserServices extends VCDServices {
 			self::User()->deleteProperty($property_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -348,7 +348,7 @@ class UserServices extends VCDServices {
 			self::User()->updateProperty($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 			
@@ -364,7 +364,7 @@ class UserServices extends VCDServices {
 			self::User()->addPropertyToUser($property_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -380,7 +380,7 @@ class UserServices extends VCDServices {
 			self::User()->deletePropertyOnUser($property_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -396,7 +396,7 @@ class UserServices extends VCDServices {
 			return self::User()->getAllUsersWithProperty($property_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -412,7 +412,7 @@ class UserServices extends VCDServices {
 			return self::User()->getUserTopList();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -443,7 +443,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getAllSettings();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -459,7 +459,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getSettingsByKey($key);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -475,7 +475,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getSettingsByID($settings_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -491,7 +491,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addSettings($settings);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -506,7 +506,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateSettings($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -522,7 +522,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->deleteSettings($settings_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -538,7 +538,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getSourceSites();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -554,7 +554,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getSourceSiteByID($source_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -570,7 +570,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getSourceSiteByAlias($alias);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -585,7 +585,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addSourceSite($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -600,7 +600,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteSourceSite($source_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -616,7 +616,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteNFO($metadata_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);	
+			parent::handleError($ex);	
 		}
 	}
 	
@@ -632,7 +632,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateSourceSite($sourceSiteObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -648,7 +648,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getAllMediatypes();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -664,7 +664,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMediaTypeByID($media_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -679,7 +679,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addMediaType($mediaTypeObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -695,7 +695,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->deleteMediaType($mediatype_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -710,7 +710,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateMediaType($mediaTypeObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -727,7 +727,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMediaTypesOnCD($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -744,7 +744,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMediaTypesInUseByUserID($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -761,7 +761,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMediaCountByCategoryAndUserID($user_id, $category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -777,7 +777,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMediaTypeByName($name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -794,7 +794,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getAllMovieCategories();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -810,7 +810,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMovieCategoriesInUse();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -826,7 +826,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMovieCategoryByID($category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -841,7 +841,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addMovieCategory($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -856,7 +856,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteMovieCategory($category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -871,7 +871,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateMovieCategory($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -887,7 +887,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getCategoryIDByName($name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -904,7 +904,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getCategoriesInUseByUserID($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -920,7 +920,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getBorrowerByID($borrower_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -937,7 +937,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getBorrowersByUserID($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -952,7 +952,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addBorrower($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -967,7 +967,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateBorrower($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -982,7 +982,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteBorrower($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -999,7 +999,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->loanCDs($borrower_id, $arrMovieIDs);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1014,7 +1014,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->loanReturn($loan_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1032,7 +1032,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getLoans($user_id, $show_returned);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1050,7 +1050,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getLoansByBorrowerID($user_id, $borrower_id, $show_returned);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1066,7 +1066,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addRssfeed($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1082,7 +1082,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getRssfeed($feed_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1099,7 +1099,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getRssFeedsByUserId($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1114,7 +1114,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->delFeed($feed_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1129,7 +1129,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateRssfeed($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1146,7 +1146,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addToWishList($vcd_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1162,7 +1162,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getWishList($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1178,7 +1178,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->isOnWishList($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1194,7 +1194,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->removeFromWishList($vcd_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1210,7 +1210,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->isPublicWishLists($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1226,7 +1226,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addComment($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1241,7 +1241,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteComment($comment_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1257,7 +1257,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getCommentByID($comment_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1273,7 +1273,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getAllCommentsByUserID($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1290,7 +1290,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getAllCommentsByVCD($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1305,7 +1305,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getStatsObj();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 		
@@ -1321,7 +1321,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getUserStatistics($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1338,7 +1338,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->addMetaDataType($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 		
@@ -1354,7 +1354,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->addMetadata($arrObj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1369,7 +1369,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->updateMetadata($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1385,7 +1385,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteMetaDataType($type_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1400,7 +1400,7 @@ class SettingsServices extends VCDServices {
 			self::Settings()->deleteMetadata($metadata_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1419,7 +1419,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMetadata($record_id, $user_id, $metadata_name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1437,7 +1437,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getRecordIDsByMetadata($user_id, $metadata_name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1454,7 +1454,7 @@ class SettingsServices extends VCDServices {
 			return self::Settings()->getMetadataTypes($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1485,7 +1485,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getAllCoverTypes();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1500,7 +1500,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->addCoverType($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1515,7 +1515,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->deleteCoverType($type_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1531,7 +1531,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getAllCoverTypesForVcd($mediatype_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1547,7 +1547,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getCoverTypeById($covertype_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1563,7 +1563,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getCoverTypeByName($name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1578,7 +1578,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->updateCoverType($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1594,7 +1594,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getCoverTypeById($cover_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1610,7 +1610,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getAllCoversForVcd($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1625,7 +1625,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->addCover($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1640,7 +1640,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->deleteCover($cover_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1655,7 +1655,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->updateCover($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1673,7 +1673,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getAllowedCoversForVcd($mediaTypeObjArr);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1690,7 +1690,7 @@ class CoverServices extends VCDServices {
 			self::CDcover()->addCoverTypesToMedia($mediaTypeID, $coverTypeIDArr);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1706,7 +1706,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getCDcoverTypesOnMediaType($mediaType_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1723,7 +1723,7 @@ class CoverServices extends VCDServices {
 			return self::CDcover()->getAllThumbnailsForXMLExport($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 }
@@ -1752,7 +1752,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getAllPornstars();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1768,7 +1768,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getPornstarByID($pornstar_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 		
@@ -1784,7 +1784,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getPornstarByName($name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1801,7 +1801,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getPornstarsByMovieID($movie_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1817,7 +1817,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->addPornstar($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1833,7 +1833,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->addPornstarToMovie($pornstar_id, $movie_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1849,7 +1849,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->deletePornstarFromMovie($pornstar_id, $movie_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1865,7 +1865,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->deletePornstar($pornstar_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1880,7 +1880,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->updatePornstar($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1897,7 +1897,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getPornstarsAlphabet($active_only);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1915,7 +1915,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getPornstarsByLetter($letter, $active_only);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1931,7 +1931,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getAllStudios();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1947,7 +1947,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getStudioByID($studio_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1963,7 +1963,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getStudioByName($studio_name);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1979,7 +1979,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getStudioByMovieID($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -1995,7 +1995,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getStudiosInUse();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2011,7 +2011,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->addMovieToStudio($studio_id, $vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2026,7 +2026,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->deleteMovieFromStudio($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2041,7 +2041,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->addStudio($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2056,7 +2056,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->deleteStudio($studio_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2071,7 +2071,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getSubCategories();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2087,7 +2087,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getSubCategoryByID($category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2104,7 +2104,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getSubCategoriesByMovieID($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2120,7 +2120,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getSubCategoriesInUse();
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2138,7 +2138,7 @@ class PornstarServices extends VCDServices {
 			return self::Pornstar()->getValidCategories($arrCategoryNames);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2154,7 +2154,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->addCategoryToMovie($vcd_id, $category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2169,7 +2169,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->deleteMovieFromCategories($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2184,7 +2184,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->addAdultCategory($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2199,7 +2199,7 @@ class PornstarServices extends VCDServices {
 			self::Pornstar()->deleteAdultCategory($category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2230,7 +2230,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdByID($movie_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2247,7 +2247,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->addVcd($obj);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2263,7 +2263,7 @@ class MovieServices extends VCDServices {
 			
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2282,7 +2282,7 @@ class MovieServices extends VCDServices {
 			self::Movie()->updateVcdInstance($vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2305,7 +2305,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->deleteVcdFromUser($vcd_id, $media_id, $mode, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2325,7 +2325,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdByCategory($category_id, $start, $end, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2345,7 +2345,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdByCategoryFiltered($category_id, $start, $end, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2363,7 +2363,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getAllVcdByUserId($user_id, $simple);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2382,7 +2382,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getLatestVcdsByUserID($user_id, $count, $simple);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2398,7 +2398,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getAllVcdForList($excluded_userid);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2414,7 +2414,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdForListByIds($arrIDs);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2432,7 +2432,7 @@ class MovieServices extends VCDServices {
 			self::Movie()->addVcdToUser($user_id, $vcd_id, $mediatype, $cds);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2450,7 +2450,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getCategoryCount($category_id, false, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2467,7 +2467,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getCategoryCountFiltered($category_id, $user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2486,7 +2486,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getTopTenList($category_id, $arrFilter);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2504,7 +2504,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->search($keyword, $method);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2527,7 +2527,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2550,7 +2550,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->crossJoin($user_id, $category_id, $method);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2569,7 +2569,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getPrintViewList($user_id, $list_type);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2586,7 +2586,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getRandomMovie($category_id, $use_seenlist);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2603,7 +2603,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getSimilarMovies($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2619,7 +2619,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getMovieCount($user_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2636,7 +2636,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdByAdultCategory($category_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2653,7 +2653,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getVcdByAdultStudio($studio_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2668,7 +2668,7 @@ class MovieServices extends VCDServices {
 			self::Movie()->markVcdWithScreenshots($vcd_id);;
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2684,7 +2684,7 @@ class MovieServices extends VCDServices {
 			return self::Movie()->getScreenshots($vcd_id);
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			parent::handleError($ex);
 		}
 	}
 	
@@ -2696,6 +2696,30 @@ class MovieServices extends VCDServices {
  *
  */
 abstract class VCDServices {
+	
+	private static $forwardError = false;
+	
+	
+	/**
+	 * Disable the Web UI error handling, useful for Ajax and SOAP calls
+	 *
+	 */
+	public static function disableErrorHandler() {
+		self::$forwardError = true;
+	}
+	
+	/**
+	 * Handle the error, rethrow it for Ajax and SOAP calls or display it for the Web UI
+	 *
+	 * @param Exception $ex
+	 */
+	protected static function handleError(Exception $ex) {
+		if (self::$forwardError) {
+			throw $ex;
+		} else {
+			parent::handleError($ex);
+		}
+	}
 	
 	/**
 	 * Get an instantce of the vcd_movie class
