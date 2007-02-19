@@ -16,11 +16,17 @@
  ?>
 <?php
 require_once(VCDDB_BASE.'/classes/external/nusoap.php');
+set_time_limit(0);
 
 class PornstarProxy {
 
 	static private $currCollection;
 	
+	/**
+	 * Initial handshake to check for Service status
+	 *
+	 * @return string
+	 */
 	static public function doHandshake() {
 		try {
 			
@@ -35,47 +41,7 @@ class PornstarProxy {
 		}
 	}
 
-	/**
-	 * Discover the SOAP Service from the vcddb.konni.com website.
-	 * And then store the wsdl url in session
-	 *
-	 */
-	static private function discoverServiceUri() {
-		try {
-			
-			$base = "http://vcddb.konni.com/ws.vcddb.xml";
-			$xml = simplexml_load_file($base);
-		
-			if (!$xml) {
-				throw new Exception('Could not locate WSDL uri, try again later.');
-			}
-		
-			$wsdluri = (string)$xml->wsdl;
-			$_SESSION['vcddb-wsdl']	= $wsdluri;
-						
-		} catch (Exception $ex) {
-			throw $ex;
-		}
-	}
-	
-	/**
-	 * Get the Pornstar Sync Server Endpoint
-	 *
-	 * @return string | The WSDL endpoint url
-	 */
-	static private function getWSDL() {
-		try {
-			
-			if (!isset($_SESSION['vcddb-wsdl'])) {
-				throw new Exception('No Service Endpoint has been specified');
-			} else {
-				return $_SESSION['vcddb-wsdl'];
-			}
-			
-		} catch (Exception $ex) {
-			throw $ex;
-		}
-	}
+
 	
 	
 	/**
@@ -150,6 +116,50 @@ class PornstarProxy {
 		}		
 	}
 	
+	
+	/**
+	 * Discover the SOAP Service from the vcddb.konni.com website.
+	 * And then store the wsdl url in session
+	 *
+	 */
+	static private function discoverServiceUri() {
+		try {
+			
+			$base = "http://vcddb.konni.com/ws.vcddb.xml";
+			$xml = simplexml_load_file($base);
+		
+			if (!$xml) {
+				throw new Exception('Could not locate WSDL uri, try again later.');
+			}
+		
+			$wsdluri = (string)$xml->wsdl;
+			$_SESSION['vcddb-wsdl']	= $wsdluri;
+						
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	/**
+	 * Get the Pornstar Sync Server Endpoint
+	 *
+	 * @return string | The WSDL endpoint url
+	 */
+	static private function getWSDL() {
+		try {
+			
+			if (!isset($_SESSION['vcddb-wsdl'])) {
+				throw new Exception('No Service Endpoint has been specified');
+			} else {
+				return $_SESSION['vcddb-wsdl'];
+			}
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
 	/**
 	 * Store the current SOAP results in memory
 	 *
@@ -185,6 +195,10 @@ class PornstarProxy {
 	}
 }
 
+/**
+ * pornstarUpdater handles the SOAP communications with the master server.
+ *
+ */
 class pornstarUpdater {
 	
 	
@@ -194,11 +208,13 @@ class pornstarUpdater {
 	 * @var nusoapclient
 	 */
 	private $soapClient;
-	//private $letters = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-	//private $letters = array('A');
+		
 	
-	
-	
+	/**
+	 * Class constructor
+	 *
+	 * @param string $wsdl | The url to the WSDL file to use
+	 */
 	public function __construct($wsdl)
 	{
 		$this->soapClient = new nusoapclient($wsdl, true);
@@ -206,6 +222,13 @@ class pornstarUpdater {
 	
 	
 	
+	/**
+	 * Sends clients pornstar list and gets back servers pornstar list.
+	 * The list contains instructions on what to update/get/send
+	 *
+	 * @param char $letter | The character to seek by.  For example "A"
+	 * @return array | Returns the SOAP results from the Remote server
+	 */
 	public function getListByLetter($letter) {
 		try {
 		
@@ -218,14 +241,19 @@ class pornstarUpdater {
  			
  			return $arrResults;
  			
- 			//$this->handleListResponse($arrResults);
  			
 		} catch (Exception $ex) {
 			throw $ex;
 		}
-		
 	}
 	
+	/**
+	 * Process a single request before it is sent to the Remote Server.
+	 *
+	 * @param string $action | The action to perform on the server
+	 * @param array $pornstarData | The SOAP strucy containing the pornstar info and instructions
+	 * @return array | Returns a status array for the Ajax UI to display
+	 */
 	public function processSyncRequest($action, $pornstarData) {
 		try {
 			
@@ -251,20 +279,27 @@ class pornstarUpdater {
 					
 					PornstarServices::disableErrorHandler();
 					PornstarServices::addPornstar($obj);
-					return 'incoming ' . $obj->getName();
+					
+					return array('action' => 'Incoming', 'message' => $obj->getName());
 					
 					break;
 					
 				case 'outgoing':
 					
-					VCDUtils::write('/home/konni/www/vcddb/upload/sending.txt', print_r($param, true) , true);
+					//VCDUtils::write('/home/konni/www/vcddb/upload/sending.txt', print_r($param, true) , true);
+					
+					$msg = "";
 					
 					$response = $this->soapClient->call('AddPornstar', $param);
 					if ($response == true) {
-						return 'outgoing: successfully sent ' . $pornstarData['name'] . ' to master server';
+						$msg = 'Successfully sent ' . $pornstarData['name'] . ' to master server';
 					} else {
-						return 'outgoing: failed to send ' . $pornstarData['name'] . ' to master server';
+						$msg = 'Failed to send ' . $pornstarData['name'] . ' to master server';
 					}
+					
+					return array('action' => 'Outgoing', 'message' => $msg);
+					
+					
 					break;
 					
 				case 'serverupdate':
@@ -305,14 +340,15 @@ class pornstarUpdater {
 					}
 					
 					
-					return 'clientupdate ' . $localObj->getName() . ' updates: ' . implode(',', $updateList);
+					return array('action' => 'Client update', 'message' => $localObj->getName() . ' Updates: ' . implode(', ', $updateList));
+					
 					break;
 					
 				case 'clientserverupdate':
 					
 					break;
 					
-				default: throw new Exception('Undefined action:' + $action);
+				default: throw new Exception('Undefined action:' . $action);
 			}
 			
 			
@@ -322,6 +358,13 @@ class pornstarUpdater {
 		}
 	}
 	
+	/**
+	 * Create the Correct SOAP parameters to send to the Remote Server
+	 *
+	 * @param string $action | The action to perform on the server
+	 * @param array $data | The data containing instructions from the Remote Server on what to do
+	 * @return array | The SOAP parameters to send to the Remote Server
+	 */
 	private function prepareSyncRequest($action, $data) {
 		try {
 			
@@ -352,7 +395,7 @@ class pornstarUpdater {
 					
 					break;
 					
-				default: throw new Exception('Undefined action:' + $action);
+				default: throw new Exception('Undefined action:' . $action);
 			}
 			
 		} catch (Exception $ex) {
@@ -360,31 +403,7 @@ class pornstarUpdater {
 		}
 		
 	}
-	
-	private function handleListResponse($arrServerResults) {
-		try {
-			
-			$arrIncoming = $arrServerResults['incoming'];
-			$arrOutgoing = $arrServerResults['outgoing'];
-			$arrServerUpdate = $arrServerResults['serverupdate'];
-			$arrClientUpdate = $arrServerResults['clientupdate'];
-			$arrClientServerUpdate = $arrServerResults['clientserverupdate'];
-			
-			
-			print "<br>Send = " . sizeof($arrOutgoing) . " , Get = " . sizeof($arrIncoming) . " , ClientServerUpdate = " . sizeof($arrClientServerUpdate)
-					. " , ClientUpdate = " . sizeof($arrClientUpdate) . " , ServerUpdate = " . sizeof($arrServerUpdate);
-
-			
-			$totalSize = 0;
-			foreach ($arrServerResults as $arr)	{ $totalSize += sizeof($arr);}
-			print "<br>Total size = " .$totalSize;
-			
-			
-		} catch (Exception $ex) {
-			throw $ex;
-		}
-	}
-	
+		
 	/**
 	 * Send the current pornstarlist beginning with specified character
 	 *
@@ -462,32 +481,42 @@ class pornstarUpdater {
 				
 	}
 	
+	/**
+	 * The Message that is sent to the Remote Server to tell the server what data the Client has
+	 *
+	 * @param array $arrPornstars | The clients local pornstar collection subset
+	 * @return array | SOAP message to deliver to the Remote Server
+	 */
 	private function createListRequest($arrPornstars) {
-	
-		$arrSoapList = array();
+		try {
 		
-		foreach ($arrPornstars as $pornstarObj) {
+			$arrSoapList = array();
 			
-			$website = "0";
-			$image = "0";
-			if (strlen(trim($pornstarObj->getHomePage())) > 0) { $website = "1"; }
-			if (strlen(trim($pornstarObj->getImageName())) > 0) { $image = "1";}
+			foreach ($arrPornstars as $pornstarObj) {
+				
+				$website = "0";
+				$image = "0";
+				if (strlen(trim($pornstarObj->getHomePage())) > 0) { $website = "1"; }
+				if (strlen(trim($pornstarObj->getImageName())) > 0) { $image = "1";}
+				
+				$pObj = PornstarServices::getPornstarByID($pornstarObj->getId());
+				$biolength = strlen($pObj->getBiography());
+				
+				
+				$arrSoapList[] = array(
+					'name' => utf8_encode($pornstarObj->getName()),
+					'biographylength' =>  $biolength,
+					'haswebsite' => $website,
+					'hasimage' => $image
+					);
+				
+			}
+		
+			return $arrSoapList;
 			
-			$pObj = PornstarServices::getPornstarByID($pornstarObj->getId());
-			$biolength = strlen($pObj->getBiography());
-			
-			
-			$arrSoapList[] = array(
-				'name' => utf8_encode($pornstarObj->getName()),
-				'biographylength' =>  $biolength,
-				'haswebsite' => $website,
-				'hasimage' => $image
-				);
-			
+		} catch (Exception $ex) {
+			throw $ex;
 		}
-		
-		return $arrSoapList;
-		
 	}
 	
 	
