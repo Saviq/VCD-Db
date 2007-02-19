@@ -9,13 +9,9 @@
 	after each operation so you can see the ongoing progress.
 	
 	<p>
-	<input type="button" value="Start Operation" onclick="Updater.startUpdate()"/>
+	<input type="button" id="btnStartCall" value="Start Operation" onclick="Updater.startUpdate()"/>
 	</p>
 </p>
 <p id="statusPanel">
-<table cellpadding="0" cellspacing="1" border="0" width="100%" id="tblupdater">
-<tbody>
-</tbody>
-</table>
+<table cellpadding="0" cellspacing="1" border="0" width="100%" id="tblupdater" class="datatable"></table>
 </p>
-
