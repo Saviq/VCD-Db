@@ -277,17 +277,17 @@ class pornstarUpdater {
 					
 					$updateList = array();
 					
-					if ($pornstarData['biography'] == "1") {
+					if ($pornstarData['biography'] == 'client') {
 						$localObj->setBiography($response['biography']);
 						$updateList[] = 'biography';
 					}
 					
-					if ($pornstarData['website'] == "1") {
+					if ($pornstarData['website'] == 'client') {
 						$localObj->setHomePage($response['website']);
 						$updateList[] = 'website';
 					}
 					
-					if ($pornstarData['image'] == "1") {
+					if ($pornstarData['image'] == 'client') {
 						$imgData = $response['image'];
 						// Check if this is really an image
 						if (strlen($imgData) > 10) {
@@ -299,7 +299,11 @@ class pornstarUpdater {
 						}
 					}
 					
-					//VCDUtils::write('/home/konni/www/vcddb/upload/'.$pornstarData['name'].'.txt', print_r($pornstarData, true));
+					if (sizeof($updateList) > 0) {
+						PornstarServices::disableErrorHandler();
+						PornstarServices::updatePornstar($localObj);
+					}
+					
 					
 					return 'clientupdate ' . $localObj->getName() . ' updates: ' . implode(',', $updateList);
 					break;
