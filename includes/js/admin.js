@@ -288,27 +288,145 @@ function checkFields(form) {
 
 function Updater() {
 
-	this.counter = 1;
-	this.aIndex = Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	this.totalTransactions = 0;
+	this.transactionCount = 0;
+	this.transactionCounter = 0;
+	//this.aIndex = Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	this.aIndex = Array('A');
 	this.currentIndex = 0;
+	this.transactionsCompleted = true;
 	this.proxy = x_PornstarProxy;
 	
 	this.startUpdate = function() {
 		
-		this.addLogEntry('Call to Server', 'Getting list for letter '+this.aIndex[this.currentIndex]);
-		this.proxy.getUpdateList(this.aIndex[this.currentIndex], this.handeListResponse);
+		document.getElementById('btnStartCall').disabled = true;
+		this.addLogEntry('Action', 'Message', 'header');
+		
+		this.addLogEntry('Notice', 'Asking for endpoint ...');
+		this.proxy.doHandshake(this.handleServiceDiscovery);
 		
 		
 	};
 	
+	this.handleServiceDiscovery = function(response) {
+		
+		Updater.addLogEntry('Notice', response);
+		Updater.getListByLetter();
+		
+	};
+	
+	
+	this.getListByLetter = function(retryCount) {
+		try {
+			
+			if (this.currentIndex == this.aIndex.length) {
+				this.endTransactions();
+				return;
+			}
+			
+			if (this.transactionsCompleted) {
+				this.transactionCount = 0;
+				this.transactionCounter = 0;
+				this.addLogEntry('Call to Server', 'Getting list for pornstars starting with letter '+this.aIndex[this.currentIndex]);
+				this.transactionsCompleted = false;
+				this.totalTransactions++;
+				this.proxy.getUpdateList(this.aIndex[this.currentIndex], this.handeListResponse);
+				
+			} else {
+				retryCount++;
+				this.addLogEntry('Waiting', 'Waiting for transactions to comeplete');
+				setTimeout('Updater.getListByLetter('+retryCount+')', 2000);
+			}
+			
+			
+		} catch (Exception) {}
+	};
 	
 
+	this.endTransactions = function() {
+		this.addLogEntry('Notice', 'Update finished, total '+this.totalTransactions+' transactions');
+	};
 	
-	this.addLogEntry = function(action, message) {
+	this.runTransaction = function(response) {
+		
+		var totalEntries = response.entries;
+		this.transactionCount = totalEntries;
+		var Incoming = response.incoming;
+		var Outgoing = response.outgoing;
+		var ServerUpdate = response.supdate;
+		var ClientUpdate = response.cupdate;
+		var ClientServerUpdate = response.csupdate;
+		
+		this.addLogEntry('Notice', 'Incoming calls needed for letter '+response.letter+': ' + Incoming);
+		this.addLogEntry('Notice', 'Outgoing calls needed for letter '+response.letter+': ' + Outgoing);
+		this.addLogEntry('Notice', 'Sync calls needed for letter '+response.letter+': ' + ClientServerUpdate);
+		this.addLogEntry('Notice', 'Server updates needed for letter '+response.letter+': ' + ServerUpdate);
+		this.addLogEntry('Notice', 'Client updates needed for letter '+response.letter+': ' + ClientUpdate);
+		
+		for (var i=0;i<this.transactionCount;i++) {
+			this.totalTransactions++;
+			this.proxy.getUpdates(i, this.handleTransactionResponse);
+		}
+		
+				
+	};
+	
+	this.handleTransactionResponse = function(response) {
+		Updater.addLogEntry('Transaction response','Counter = ' + (Updater.transactionCounter+1) + ' ' + response);
+		Updater.transactionCounter++;
+		
+		
+		// Trigger Updates for next letter
+		if (Updater.transactionCounter == Updater.transactionCount) {
+			Updater.transactionsCompleted = true;
+			Updater.getListByLetter();
+		}
+	}
+	
+	
+	this.handeListResponse = function(response) {
+		try {
+		
+			var entryCount = response.entries;
+			
+			Updater.addLogEntry('Response from Server', 'Total transactions required: ' + entryCount);
+
+			// If no updates are required
+			if (entryCount == 0) {
+				Updater.transactionsCompleted = true;
+				Updater.currentIndex++;
+				Updater.getListByLetter();
+				return;
+			}
+			
+					
+								
+			if (Updater.currentIndex < (Updater.aIndex.length)) {
+				if (entryCount == 0) {
+					Updater.getListByLetter();
+				} else  {
+					Updater.runTransaction(response);
+				}
+			} 
+			
+			Updater.currentIndex++;
+		
+			
+		} catch (Exception) {}
+	};
+	
+	
+	this.addLogEntry = function(action, message, className) {
 	
 		var table = document.getElementById('tblupdater');
 		var tbody = table.getElementsByTagName("tbody")[0];
-		var row = table.insertRow(0);
+		
+		if (table.rows.length == 0) {
+			var row = table.insertRow(0);
+		} else {
+			var row = table.insertRow(1);
+		}
+		
 		
 		var cell_action  = document.createElement("TD");
 		var cell_message = document.createElement("TD");
@@ -316,24 +434,15 @@ function Updater() {
 		cell_action.innerHTML = action;
 		cell_message.innerHTML = message;
 						
-		row.appendChild(cell_action);
-		row.appendChild(cell_message);
-	};
-	
-
-	this.handeListResponse = function(response) {
-		
-		var entryCount = response.entries;
-		
-		Updater.addLogEntry('Response from Server', entryCount);
-		
-		
-		if (Updater.currentIndex < (Updater.aIndex.length-1)) {
-			Updater.currentIndex++;
-			Updater.startUpdate();
+		if (className != 'undefined') {
+			cell_action.className = className;
+			cell_message.className = className;
+			cell_action.width = '20%';
+			cell_message.width = '80%';
 		}
 		
-		
+		row.appendChild(cell_action);
+		row.appendChild(cell_message);
 	};
 
 }
