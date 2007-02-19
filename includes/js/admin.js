@@ -291,8 +291,8 @@ function Updater() {
 	this.totalTransactions = 0;
 	this.transactionCount = 0;
 	this.transactionCounter = 0;
-	//this.aIndex = Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-	this.aIndex = Array('A');
+	this.aIndex = Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	//this.aIndex = Array('A');
 	this.currentIndex = 0;
 	this.transactionsCompleted = true;
 	this.proxy = x_PornstarProxy;
@@ -372,7 +372,15 @@ function Updater() {
 	};
 	
 	this.handleTransactionResponse = function(response) {
-		Updater.addLogEntry('Transaction response','Counter = ' + (Updater.transactionCounter+1) + ' ' + response);
+				
+		try {
+			Updater.addLogEntry(response.action + ' ' + '['+(Updater.transactionCounter+1)+']',response.message);	
+		} catch (Exception) {
+			Updater.addLogEntry('Bad response',response);
+		}
+		
+		
+		
 		Updater.transactionCounter++;
 		
 		
