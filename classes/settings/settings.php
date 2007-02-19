@@ -867,7 +867,7 @@ class vcd_settings implements ISettings {
 	public function addBorrower(borrowerObj $obj) {
 		try {
 			
-			$this->SQL->addBorrower($borrowerObj);
+			$this->SQL->addBorrower($obj);
 
 		} catch (Exception $ex) {
 			throw $ex;
