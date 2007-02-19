@@ -2717,7 +2717,7 @@ abstract class VCDServices {
 		if (self::$forwardError) {
 			throw $ex;
 		} else {
-			parent::handleError($ex);
+			VCDException::display($ex);
 		}
 	}
 	
