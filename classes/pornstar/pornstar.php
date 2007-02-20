@@ -131,6 +131,17 @@ class vcd_pornstar implements IPornstar {
 	public function addPornstar(pornstarObj $pornstarObj) {
 		try {
 			
+			if (is_null($pornstarObj->getName())) {
+				throw new VCDInvalidArgumentException('Pornstar name cannot be empty');
+			}
+			
+			// Check for duplicates ..
+			$existingObj = $this->getPornstarByName($pornstarObj->getName());
+			if ($existingObj instanceof pornstarObj ) {
+				return $existingObj;
+			}
+			
+			
 			$new_id = $this->SQL->addPornstar($pornstarObj);
 			$newPornstarsObj = $this->getPornstarByID($new_id);
 			
