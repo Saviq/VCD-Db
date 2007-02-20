@@ -103,7 +103,6 @@ class PornstarProxy {
 					if ($index == $listIndex){
 						$Updater = new pornstarUpdater(self::getWSDL());
 						return $Updater->processSyncRequest($listType, $currArray[$i]);
-						//return "Action: " . $listType . " pornstar: " . $currArray[$i]['name'];
 					}
 				}
 			}
@@ -268,15 +267,12 @@ class pornstarUpdater {
 					$imgData = $response['image'];
 					// Check if this is really an image
 					if (strlen($imgData) > 10) {
-						//VCDUtils::write('/home/konni/www/vcddb/upload/images.txt', $obj->getName() . base64_decode($imgData) . "\n", true);
 						$imagename = VCDUtils::generateUniqueId().'.jpg';
 						if ($this->writeImage(BASE.DIRECTORY_SEPARATOR.PORNSTARIMAGE_PATH.$imagename,  $imgData)) {
 							$obj->setImageName($imagename);
 						}
 					}
-					
-					
-					
+										
 					PornstarServices::disableErrorHandler();
 					PornstarServices::addPornstar($obj);
 					
@@ -285,10 +281,6 @@ class pornstarUpdater {
 					break;
 					
 				case 'outgoing':
-					
-					//VCDUtils::write('/home/konni/www/vcddb/upload/sending.txt', print_r($param, true) , true);
-					
-					$msg = "";
 					
 					$response = $this->soapClient->call('AddPornstar', $param);
 					if ($response == true) {
@@ -299,15 +291,25 @@ class pornstarUpdater {
 					
 					return array('action' => 'Outgoing', 'message' => $msg);
 					
-					
 					break;
 					
 				case 'serverupdate':
+					
+					$response = $this->soapClient->call('UpdatePornstar', $param);
+					if ($response == true) {
+						$msg = 'Successfully sent ' . $pornstarData['name'] . ' to master server';
+					} else {
+						$msg = 'Failed to send ' . $pornstarData['name'] . ' to master server';
+					}
+					
+					return array('action' => 'Server Update', 'message' => $msg);
+					
 					
 					break;
 			
 				case 'clientupdate':
 					$response = $this->soapClient->call('GetPornstarByName', $param);
+					PornstarServices::disableErrorHandler();
 					$localObj = PornstarServices::getPornstarByName($pornstarData['name']);
 					
 					$updateList = array();
@@ -335,7 +337,6 @@ class pornstarUpdater {
 					}
 					
 					if (sizeof($updateList) > 0) {
-						PornstarServices::disableErrorHandler();
 						PornstarServices::updatePornstar($localObj);
 					}
 					
@@ -375,6 +376,7 @@ class pornstarUpdater {
 					break;
 					
 				case 'outgoing':
+				case 'serverupdate':
 					PornstarServices::disableErrorHandler();
 					$pornstarObj = PornstarServices::getPornstarByName($data['name']);
 					$param = array(
@@ -385,11 +387,7 @@ class pornstarUpdater {
 						);
 					return array('Pornstar' => $param);
 					break;
-					
-				case 'serverupdate':
-					
-					break;
-			
+
 					
 				case 'clientserverupdate':
 					
