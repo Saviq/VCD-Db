@@ -22,7 +22,7 @@
 	foreach ($listArr as $item) {
 		$iown = "&nbsp;";
 		if ($item[2] == 1) {
-			$iown = "<img src=\"images/mark_seen.gif\" border=\"0\" alt=\"{VCDLanguage::translate('wislist.own')}\"/>";
+			$iown = "<img src=\"images/mark_seen.gif\" border=\"0\" alt=\"".VCDLanguage::translate('wishlist.own')."\"/>";
 		}
 		
 		print "<tr><td><a href=\"./?page=cd&amp;vcd_id=".$item[0]."\">".$item[1]."</a></td><td align=\"center\">{$iown}</td><td align=\"center\"><a href=\"#\"><img src=\"images/icon_del.gif\" onclick=\"deleteFromWishlist(".$item[0].")\" border=\"0\"/></a></td></tr>";
