@@ -20,17 +20,17 @@ class VCDFetch_imdb extends VCDFetch {
 
 
 	protected $regexArray = array(
-		'title' 	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
-		'year'  	=> '<STRONG CLASS=\"title\">([^\<]*) <SMALL>\(<A HREF=\"/Sections/Years/([0-9]{4})',
+		'title'		=> '<h1>([^\<]*)<span>',
+		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})">([0-9]{4})</a>)',
 		'poster' 	=> '<a name="poster"([^<]*)><img([^<]*)([^<]*)src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>',
 		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
-		'rating' 	=> '<B>([0-9]).([0-9])/10</B> \([0-9,]+ votes\)',
-		'cast' 		=> '<td valign="middle"><a href="/name/nm([^"]+)">([^<]*)</a></td><td valign="middle" nowrap="1"> .... </td><td valign="middle">([^<]*)</td>',
-		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
+		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
+		'cast' 		=> '<td class="nm"><a href="/name/nm([^"]+)/">([^<]*)</a></td><td class="ddd"> ... </td><td class="char">([^<]*)</td></tr>',
+		'runtime' 	=> '([0-9]+) min',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
 		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
-		'plot'		=> '<p class="plotpar">([^<]*)</p>'
+		'plot'		=> '<h5>Plot Outline:</h5>([^\<]*)<'
 		);
 
 	protected $multiArray = array(
@@ -136,7 +136,7 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'plot':
-					$plot = $arrData;
+					$plot = trim($arrData[1]);
 					$obj->setPlot($plot);
 					break;
 
