@@ -288,9 +288,11 @@ class pornstarUpdater {
 								
 					$response = $this->soapClient->call('GetPornstarByName', $param);
 					
+					/*
 					if ($this->soapClient->fault) {
 						throw new Exception($this->soapClient->faultstring);
 					}
+					*/
 					
 					if (!isset($response['name'])) {
 						$failmsg = "Failed to get " . $pornstarData['name'];
@@ -345,7 +347,18 @@ class pornstarUpdater {
 					break;
 			
 				case 'clientupdate':
-					$response = $this->soapClient->call('GetPornstarByName', $param);
+				case 'clientserverupdate':
+					
+					if ($action == 'clientserverupdate') {
+						$updateType = 'Client Server update';
+						$this->soapClient->call('UpdatePornstar', $param);
+						$response = $this->soapClient->call('GetPornstarByName', array('PornstarName' => trim($pornstarData['name'])));
+					} else {
+						$updateType = 'Client update';
+						$response = $this->soapClient->call('GetPornstarByName', $param);
+					}
+					
+					
 					PornstarServices::disableErrorHandler();
 					$localObj = PornstarServices::getPornstarByName($pornstarData['name']);
 					
@@ -382,13 +395,11 @@ class pornstarUpdater {
 					}
 					
 					
-					return array('action' => 'Client update', 'message' => $localObj->getName() . ' Updates: ' . implode(', ', $updateList));
+					return array('action' => $updateType, 'message' => $localObj->getName() . ' Updates: ' . implode(', ', $updateList));
 					
 					break;
 					
-				case 'clientserverupdate':
-					
-					break;
+				
 					
 				default: throw new Exception('Undefined action:' . $action);
 			}
@@ -418,6 +429,7 @@ class pornstarUpdater {
 					
 				case 'outgoing':
 				case 'serverupdate':
+				case 'clientserverupdate':
 					PornstarServices::disableErrorHandler();
 					$pornstarObj = PornstarServices::getPornstarByName($data['name']);
 					$param = array(
@@ -429,10 +441,6 @@ class pornstarUpdater {
 					return array('Pornstar' => $param);
 					break;
 
-					
-				case 'clientserverupdate':
-					
-					break;
 					
 					
 				case 'handshake':
