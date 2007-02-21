@@ -257,7 +257,7 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="name" type="X" size="150">
+		<field name="name" type="C" size="150">
 			<NOTNULL/>
 		</field>
 		<field name="homepage" type="C" size="100"/>
