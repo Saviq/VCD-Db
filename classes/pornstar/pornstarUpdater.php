@@ -33,9 +33,16 @@ class PornstarProxy {
 			// Get the endpoint
 			self::discoverServiceUri();
 			
-			// Report success
-			return "Got Service: " . self::getWSDL();
-		
+			// Do the handshake
+			$Updater = new pornstarUpdater(self::getWSDL());
+			$response = $Updater->doHandshake();
+			if ($response) {
+				return "Got Service: " . self::getWSDL();	
+			} else {
+				return "No response from master server, try again later.";
+			}
+			
+			
 		} catch (Exception $ex) {
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
@@ -58,9 +65,7 @@ class PornstarProxy {
 			
 			// Store the list in session
 			self::storeList($list);
-			
-			//VCDUtils::write('/home/konni/www/vcddb/upload/'.$letter.'.txt', print_r($list, true));
-			
+						
 			$totalSize = 0;
 			foreach ($list as $arr)	{ $totalSize += sizeof($arr);}
 			
@@ -246,6 +251,26 @@ class pornstarUpdater {
 		}
 	}
 	
+	
+	/**
+	 * Make a handshake with the remote server and verify it's up and running.
+	 * Returns true if connection is established otherwise false
+	 *
+	 * @return bool
+	 */
+	public function doHandshake()
+	{
+		try {
+			
+			$param = $this->prepareSyncRequest('handshake', null);
+			return $this->soapClient->call('DoHandshake', $param);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
 	/**
 	 * Process a single request before it is sent to the Remote Server.
 	 *
@@ -257,12 +282,23 @@ class pornstarUpdater {
 		try {
 			
 			$param = $this->prepareSyncRequest($action, $pornstarData);
-			
+						
 			switch ($action) {
 				case 'incoming':
+								
 					$response = $this->soapClient->call('GetPornstarByName', $param);
-					$obj = new pornstarObj(array('',$response['name'], $response['website'], '', $response['biography']));
-										
+					
+					if ($this->soapClient->fault) {
+						throw new Exception($this->soapClient->faultstring);
+					}
+					
+					if (!isset($response['name'])) {
+						$failmsg = "Failed to get " . $pornstarData['name'];
+						return array('action' => 'Incoming', 'message' => $failmsg);
+					}
+					
+					$obj = new pornstarObj(array('',utf8_encode($response['name']), $response['website'], '', $response['biography']));
+
 					
 					$imgData = $response['image'];
 					// Check if this is really an image
@@ -272,7 +308,8 @@ class pornstarUpdater {
 							$obj->setImageName($imagename);
 						}
 					}
-										
+					
+									
 					PornstarServices::disableErrorHandler();
 					PornstarServices::addPornstar($obj);
 					
@@ -311,6 +348,10 @@ class pornstarUpdater {
 					$response = $this->soapClient->call('GetPornstarByName', $param);
 					PornstarServices::disableErrorHandler();
 					$localObj = PornstarServices::getPornstarByName($pornstarData['name']);
+					
+					if ($this->soapClient->fault) {
+						throw new Exception($this->soapClient->faultstring);
+					}
 					
 					$updateList = array();
 					
@@ -372,7 +413,7 @@ class pornstarUpdater {
 			switch ($action) {
 				case 'incoming':
 				case 'clientupdate':
-					return array('PornstarName' => $data['name']);
+					return array('PornstarName' => trim($data['name']));
 					break;
 					
 				case 'outgoing':
@@ -380,7 +421,7 @@ class pornstarUpdater {
 					PornstarServices::disableErrorHandler();
 					$pornstarObj = PornstarServices::getPornstarByName($data['name']);
 					$param = array(
-						'name' => utf8_encode($pornstarObj->getName()),
+						'name' => utf8_encode(trim($pornstarObj->getName())),
 						'biography' =>  utf8_encode($pornstarObj->getBiography()),
 						'website' => utf8_encode($pornstarObj->getHomepage()),
 						'image' => base64_encode(file_get_contents(BASE.DIRECTORY_SEPARATOR.PORNSTARIMAGE_PATH.$pornstarObj->getImageName()))
@@ -391,6 +432,13 @@ class pornstarUpdater {
 					
 				case 'clientserverupdate':
 					
+					break;
+					
+					
+				case 'handshake':
+					SettingsServices::disableErrorHandler();
+					$message = 'Call from ' . SettingsServices::getSettingsByKey('SITE_HOME');
+					return array('Message' => utf8_encode($message));
 					break;
 					
 				default: throw new Exception('Undefined action:' . $action);
