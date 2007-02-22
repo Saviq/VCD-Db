@@ -42,10 +42,9 @@ if (strcmp($sTitle, "") != 0) {
 }
 
 
-
-if (isset($_GET['fid']) || !empty($_POST['fid'])) {
+if (isset($_GET['fid']) || (isset($_POST['searchIsId']) && strcmp($_POST['searchIsId'], "1")==0)) {
 	// Get specific movie ..
-	$id = empty($_GET['fid'])?$_POST['fid']:$_GET['fid'];
+	$id = empty($_GET['fid'])?$sTitle:$_GET['fid'];
 	$fetchClass->fetchItemByID($id);
 	$fetchClass->fetchValues();
 	$obj = $fetchClass->getFetchedObject();
@@ -107,11 +106,11 @@ function displayFetchedObject($fetchedObj) {
 
 		if ($fetchedObj instanceof imdbObj ) {
 
-			require_once('pages/confirm_movie.php');
+			require_once(VCDDB_BASE.'/pages/confirm_movie.php');
 
 		} elseif ($fetchedObj instanceof adultObj ) {
 
-			require_once('pages/confirm_adult.php');
+			require_once(VCDDB_BASE.'/pages/confirm_adult.php');
 
 		}
 
