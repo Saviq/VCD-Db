@@ -97,3 +97,18 @@ div#tipDiv div.msg { text-align:left; margin-top:4px }
 #audio ul li  {
 	cursor:hand;
 }
+
+P img {
+	vertical-align:middle;
+}
+
+#pzone P.outer {
+	padding:4px;
+}
+	
+#pzone P.inner {
+	border-top:1px dashed #c0c0c0;
+	padding-left:10px;
+	margin-left:22px;
+	padding-bottom:0px;
+}
