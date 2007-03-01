@@ -23,8 +23,8 @@ function Installer()  {
 	this.dbpassword = '';
 	this.dbname = '';
 	
-	this.supportedDBMSKeys = Array('mysql', 'postgres', 'mssql', 'db2', 'sqlite');
-	this.supportedDBMSValues = Array('MySQL', 'Postgre SQL', 'Microsoft SQL', 'IBM DB2', 'SQLite');
+	this.supportedDBMSKeys = Array('mysql', 'postgres', 'mssql', 'db2', 'sqlite','oci8');
+	this.supportedDBMSValues = Array('MySQL', 'Postgre SQL', 'Microsoft SQL', 'IBM DB2', 'SQLite', 'Oracle');
 	this.availableDBMS = Array();
 	this.checklist = Array('phpversion', 'gd', 'simplexml', 'session', 'shorttags', 'urlfopen', 'fileupload', 'permissions', 'config', 'database');
 	this.checklistErrorMessages = Array(
@@ -710,7 +710,7 @@ function Installer()  {
 		selectObj = document.getElementById('dbtype');
 		this.dbtype = selectObj.options[selectObj.selectedIndex].value;
 		
-		if (this.dbhost == '') {
+		if (this.dbhost == '' && this.dbtype != 'oci8') {
 			alert('Please type in database host.');
 			document.getElementById('dbhost').focus();
 			return;

@@ -66,7 +66,8 @@
 				<br/> b) Microsoft SQL (7, 2000 and 2005)
 				<br/> c) Postgres (7.x or 8.x)
 				<br/> d) IBM DB2 (7.2 and up)
-				<br/> e) SQLite
+				<br/> e) Oracle 8, 9 or 10G
+				<br/> f) SQLite
 				</blockquote></li>
 
 			<li>3) Create a file called config.php in your VCD-db root folder</li>

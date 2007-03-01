@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +25,12 @@ class Installer {
 	private static $SchemaMSSQL = 'data/mssql.sql';
 	private static $SchemaDB2 = 'data/db2.sql';
 	private static $SchemaSQLite = 'data/sqlite.sql';
+	private static $SchemaOracle = 'data/oracle.sql';
 	private static $XMLData = 'data/data.xml';
 	private static $XMLAdultData = 'data/adultdata.xml';
 	
 	private static $template = 'config.template';
-	private static $totalRecordCount = 3348;
+	private static $totalRecordCount = 3345;
 	
 	/**
 	 * Live database connection
@@ -277,7 +278,7 @@ class Installer {
 					
 				case 'database':
 					$arrConns = array('mysql_connect' => 'MySQL', 'pg_connect' => 'Postgres', 
-						'mssql_connect' => 'Microsoft SQL', 'db2_connect' => 'IBM DB2', 'sqlite_open' => 'SQLite');
+						'mssql_connect' => 'Microsoft SQL', 'db2_connect' => 'IBM DB2', 'sqlite_open' => 'SQLite', 'oci_connect' => 'Oracle');
 					$strResults = "<ul style='margin:0px;padding:0px'>";
 					$bConnOk = false;
 					
@@ -449,6 +450,30 @@ class Installer {
 					
 					$result = 2;
 					break;
+					
+				 case 'oci8':
+					$oracleFile = dirname(__FILE__) . '/' . self::$SchemaOracle;
+					if (!file_exists($oracleFile)) {
+						throw new Exception('Oracle sql script missing!');
+					}
+					
+					$fd = fopen($oracleFile,'rb');
+					if (!$fd) {
+						throw new Exception('Cannot open Oracle script: ' . self::$SchemaOracle);
+					}
+					
+					// Read the file
+					$sql = fread($fd, filesize($oracleFile));
+					fclose($fd);
+					// We have to split each CREATE TABLE STATEMENT to single statements
+					// Because the ODBC driver can't handle more than one Create Table at a time
+					$arrTables = split("/",$sql);
+					foreach ($arrTables as $table) {
+						$db->Execute(trim($table));
+					}
+					
+					$result = 2;
+					break; 
 					
 					
 				case 'sqlite':

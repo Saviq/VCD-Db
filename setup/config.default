@@ -24,7 +24,8 @@
 	mysql			MySQL version 3.x, 4.x and 5.x
 	postgres		PostgreSQL 6.x, 7.x, 8.x and 9.x
 	mssql			Microsoft SQL Server 9.0, 2000 and 2005
-	db2			IBM DB2 7.2 and up
+	db2				IBM DB2 7.2 and up
+	oci8			Oracle
 	sqlite			SQLite
 **/
 define("DB_TYPE",    		"db.type");
