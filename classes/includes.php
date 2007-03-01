@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,6 @@
  */
 ?>
 <?php
-	error_reporting(E_NOTICE | E_ALL | E_STRICT | E_ERROR);	
 	// Define the current VCD-db version revision
 	define("VCDDB_VERSION","0.985-CVS");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
@@ -27,7 +26,7 @@
 
 	checkEnvironment();
 
-	require_once(dirname(__FILE__) . '/Connection.php');
+	require_once(dirname(__FILE__) . '/VCDConnection.php');
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 	require_once(dirname(__FILE__) . '/VCDService.php');
