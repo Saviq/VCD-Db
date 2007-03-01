@@ -17,22 +17,16 @@
 ?>
 <?PHP
 
-class logSQL {
+final class logSQL extends VCDConnection {
 		
 	private $TABLE_log   = "vcd_Log";
-	/**
-	 *
-	 * @var ADOConnection
-	 */
-	private $db = null;
 
 	/**
 	 * Class constructor
 	 *
 	 */
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
+		parent::__construct();
 	}
 	
 	
@@ -50,7 +44,7 @@ class logSQL {
 			$this->db->Execute($query);
 		
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -93,9 +87,8 @@ class logSQL {
 		
 		
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}			
-		
 	}
 	
 	/**
@@ -109,7 +102,7 @@ class logSQL {
 			$this->db->Execute($query);
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -131,7 +124,7 @@ class logSQL {
 			return $this->db->getOne($query);
 		
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	

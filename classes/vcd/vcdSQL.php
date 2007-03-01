@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ?>
 <?PHP
 
-class vcdSQL {
+class vcdSQL extends VCDConnection {
 
 	private $TABLE_vcd   	    = "vcd";
 	private $TABLE_categories   = "vcd_MovieCategories";
@@ -38,22 +38,10 @@ class vcdSQL {
 	private $TABLE_metadata		= "vcd_MetaData";
 
 
-	/**
-	 *
-	 * @var ADOConnection
-	 */
-	private $db;
-	/**
-	 *
-	 * @var Connection
-	 */
-	private $conn;
  	private $magic_quotes;
 
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
- 		$this->conn = &$conn;
+		parent::__construct();
  		$this->magic_quotes = magic_quotes_runtime();
 	}
 
@@ -62,8 +50,8 @@ class vcdSQL {
 		try {
 
 		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, s.site_id, s.external_id
-				  FROM $this->TABLE_vcd AS v
-				  LEFT OUTER join $this->TABLE_vcdtosources AS s ON v.vcd_id = s.vcd_id
+				  FROM $this->TABLE_vcd v
+				  LEFT OUTER join $this->TABLE_vcdtosources s ON v.vcd_id = s.vcd_id
 				  WHERE v.vcd_id = $vcd_id";
 
 		$rs = $this->db->GetRow($query);
@@ -108,17 +96,16 @@ class vcdSQL {
 			return null;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
 	public function getAllVcdByCategory($category_id) {
 		try {
 
-		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd AS v
+		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
 				  WHERE v.category_id = ".$category_id." ORDER BY v.title";
 
 		// Get all CD's in this category
@@ -140,8 +127,8 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -149,8 +136,8 @@ class vcdSQL {
 	public function getAllVcdByUserAndCategory($user_id, $category_id, $simple = true) {
 		try {
 
-		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd AS v
-				  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
+				  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 				  WHERE v.category_id = ".$category_id." AND u.user_id = ".$user_id." ORDER BY v.title";
 
 		// Get all CD's in this category
@@ -174,8 +161,8 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -186,10 +173,10 @@ class vcdSQL {
 
 
 		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, s.vcd_id AS screenshots,
-				  z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
-				  INNER JOIN $this->TABLE_vcdtoporncat AS c ON v.vcd_id = c.vcd_id
-				  LEFT OUTER JOIN $this->TABLE_screens AS s ON s.vcd_id = v.vcd_id
-				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  z.cover_filename, z.image_id FROM $this->TABLE_vcd v
+				  INNER JOIN $this->TABLE_vcdtoporncat c ON v.vcd_id = c.vcd_id
+				  LEFT OUTER JOIN $this->TABLE_screens s ON s.vcd_id = v.vcd_id
+				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 				  WHERE c.category_id = ".$category_id."
 				  ORDER BY v.title";
 
@@ -224,10 +211,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -235,10 +221,10 @@ class vcdSQL {
 		try {
 
 		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, s.vcd_id AS screenshots,
-				  z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
-				  INNER JOIN $this->TABLE_vcdtostudios AS c ON v.vcd_id = c.vcd_id
-				  LEFT OUTER JOIN $this->TABLE_screens AS s ON s.vcd_id = v.vcd_id
-				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  z.cover_filename, z.image_id FROM $this->TABLE_vcd v
+				  INNER JOIN $this->TABLE_vcdtostudios c ON v.vcd_id = c.vcd_id
+				  LEFT OUTER JOIN $this->TABLE_screens s ON s.vcd_id = v.vcd_id
+				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 				  WHERE c.studio_id = ".$studio_id."
 				  ORDER BY v.title";
 
@@ -274,10 +260,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getAllVcdByUserId($user_id, $limit = -1) {
@@ -287,8 +272,8 @@ class vcdSQL {
 		if ($limit > 0) {
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id,
 				  u.disc_count, u.date_added, s.site_id, s.external_id FROM
-				  $this->TABLE_vcdtouser u, $this->TABLE_vcd AS v
-				  LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON v.vcd_id = s.vcd_id
+				  $this->TABLE_vcdtouser u, $this->TABLE_vcd v
+				  LEFT OUTER JOIN $this->TABLE_vcdtosources s ON v.vcd_id = s.vcd_id
 		    	  WHERE u.user_id = ".$user_id." AND u.vcd_id = v.vcd_id
 				  ORDER BY v.vcd_id DESC";
 
@@ -299,8 +284,8 @@ class vcdSQL {
 
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id,
 				  u.disc_count, u.date_added, s.site_id, s.external_id FROM
-				  $this->TABLE_vcdtouser u, $this->TABLE_vcd AS v
-				  LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON v.vcd_id = s.vcd_id
+				  $this->TABLE_vcdtouser u, $this->TABLE_vcd v
+				  LEFT OUTER JOIN $this->TABLE_vcdtosources s ON v.vcd_id = s.vcd_id
 		    	  WHERE u.user_id = ".$user_id." AND u.vcd_id = v.vcd_id
 				  ORDER BY v.title";
 
@@ -332,11 +317,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
-
 	}
 
 
@@ -381,8 +364,8 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -398,15 +381,15 @@ class vcdSQL {
 		try {
 
 		if ($user_id == -1) {
-			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
-				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
-				  LEFT OUTER JOIN $this->TABLE_vcdtouser AS m ON m.vcd_id = v.vcd_id
+			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd v
+				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  LEFT OUTER JOIN $this->TABLE_vcdtouser m ON m.vcd_id = v.vcd_id
 				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
 		} else {
-			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd AS v
-				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
-				  LEFT OUTER JOIN $this->TABLE_vcdtouser AS m ON m.vcd_id = v.vcd_id
-				  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
+			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.image_id FROM $this->TABLE_vcd v
+				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  LEFT OUTER JOIN $this->TABLE_vcdtouser m ON m.vcd_id = v.vcd_id
+				  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
 				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
 		}
 
@@ -461,10 +444,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -488,8 +470,8 @@ class vcdSQL {
 
 
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
-				  FROM $this->TABLE_vcd AS v
-				  LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+				  FROM $this->TABLE_vcd v
+				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 				  WHERE v.category_id = ".$category_id." AND v.vcd_id IN
 				  (SELECT v.vcd_id FROM $this->TABLE_vcd v, $this->TABLE_vcdtouser u
 				  WHERE v.vcd_id = u.vcd_id AND (".$sql_ignore.")) ORDER BY v.title";
@@ -538,10 +520,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -575,10 +556,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -593,8 +573,8 @@ class vcdSQL {
 			return $cd_id;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -606,8 +586,8 @@ class vcdSQL {
 				  vcd_id = ".$vcd_id." AND user_id = ".$user_id." AND media_type_id = " . $media_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -618,8 +598,8 @@ class vcdSQL {
 		$query = "SELECT COUNT(user_id) FROM $this->TABLE_vcdtouser WHERE vcd_id = " . $vcd_id;
 		return $this->db->GetOne($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -663,8 +643,8 @@ class vcdSQL {
 		$this->db->Execute($query);
 		
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -690,9 +670,9 @@ class vcdSQL {
 			$inserted_id = $this->db->Insert_ID($this->TABLE_vcd, 'vcd_id');
 		} catch (Exception $ex) {
 			// Check if this is a Postgre not using OID columns
-			if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+			if ($this->isPostgres()) {
 				// Yeap, postgres not using OID ..
-				$inserted_id = $this->conn->oToID($this->TABLE_vcd, 'vcd_id');
+				$inserted_id = $this->oToID($this->TABLE_vcd, 'vcd_id');
 			} else {
 				throw $ex;
 			}
@@ -717,8 +697,8 @@ class vcdSQL {
 
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -737,8 +717,8 @@ class vcdSQL {
 
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -750,8 +730,8 @@ class vcdSQL {
 				  VALUES (".$vcd_id.", ".$user_id.", ".$mediatype.", ".$cds.",  ".$this->db->DBTimeStamp(time()).")";
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -762,8 +742,8 @@ class vcdSQL {
 				  VALUES (".$obj->getID().", ".$obj->getSourceSiteID().", ".$this->db->qstr($obj->getExternalID()).")";
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -776,10 +756,9 @@ class vcdSQL {
 
 		return $this->db->GetOne($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function addIMDBInfo(imdbObj $obj) {
@@ -804,8 +783,8 @@ class vcdSQL {
 
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -830,10 +809,9 @@ class vcdSQL {
 
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function updateBasicVcdInfo(vcdObj $obj) {
@@ -850,8 +828,8 @@ class vcdSQL {
 				  WHERE vcd_id = ".$obj->getID()."";
 		return $this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -864,8 +842,8 @@ class vcdSQL {
 					  disc_count = ".$oldnumcds."";
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -876,8 +854,8 @@ class vcdSQL {
 		$query = "INSERT INTO $this->TABLE_screens (vcd_id) VALUES (".$vcd_id.")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -894,8 +872,8 @@ class vcdSQL {
 
 		return $screens;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -912,8 +890,8 @@ class vcdSQL {
 
 		return $this->db->GetOne($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -931,7 +909,7 @@ class vcdSQL {
 			}
 
 
-			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd AS v
+			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd v
 				  WHERE v.category_id = ".$category_id." AND v.vcd_id IN
 				  (SELECT v.vcd_id FROM $this->TABLE_vcd v, $this->TABLE_vcdtouser u
 				  WHERE v.vcd_id = u.vcd_id AND (".$sql_ignore."))";
@@ -940,10 +918,9 @@ class vcdSQL {
 			return $this->db->GetOne($query);
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -966,8 +943,8 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1009,8 +986,8 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1038,8 +1015,8 @@ class vcdSQL {
 			return $arrVcdObj;
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1059,10 +1036,9 @@ class vcdSQL {
 
 		return null;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -1075,10 +1051,9 @@ class vcdSQL {
 		$itemCount = $this->db->GetOne($query);
 		return $itemCount;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getPrintViewList($user_id, $arr_use = null, $arr_exclude = null, $thumbnail_id) {
@@ -1089,17 +1064,17 @@ class vcdSQL {
 			if (!is_array($arr_exclude)) {
 				// Fetch all movies
 				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
-						  FROM $this->TABLE_vcd AS v
-						  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
-					      LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id
+						  FROM $this->TABLE_vcd v
+						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
+					      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id
 						  AND z.cover_type_id = ".$thumbnail_id."
 						  ORDER BY v.title";
 			} else {
 				// Fetch all movies except those in the exclusion array
 				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
-						  FROM $this->TABLE_vcd AS v
-						  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
-					      LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id." ";
+						  FROM $this->TABLE_vcd v
+						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
+					      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id." ";
 
 				$query .= "WHERE";
 				for ($i = 0; $i < sizeof($arr_exclude); $i++) {
@@ -1118,8 +1093,8 @@ class vcdSQL {
 		} elseif (is_array($arr_use)) {
 			// Get movies with category ID's defined in the array
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
-					  FROM $this->TABLE_vcd AS v
-				      LEFT OUTER JOIN $this->TABLE_covers AS z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
+					  FROM $this->TABLE_vcd v
+				      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 					  WHERE ";
 
 			for ($i = 0; $i < sizeof($arr_use); $i++) {
@@ -1165,11 +1140,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
-
 	}
 
 
@@ -1181,8 +1154,8 @@ class vcdSQL {
 			return $this->db->getOne($query);
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1201,17 +1174,17 @@ class vcdSQL {
 				if ($showadult) {
 
 					$query = "SELECT v.vcd_id, v.title, v.category_id, v.year
-							  FROM $this->TABLE_vcd AS v
-							  LEFT OUTER JOIN $this->TABLE_vcdtosources AS so ON v.vcd_id = so.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_imdb AS i ON so.external_id = i.imdb
+							  FROM $this->TABLE_vcd v
+							  LEFT OUTER JOIN $this->TABLE_vcdtosources so ON v.vcd_id = so.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_imdb i ON so.external_id = i.imdb
 							  WHERE v.title LIKE ".$this->db->quote($keyword)." OR i.title LIKE ".$this->db->quote($keyword)."
 							  OR i.alt_title1 LIKE ".$this->db->quote($keyword)." OR i.alt_title2 LIKE ".$this->db->quote($keyword)."
 							  ORDER BY v.title";
 				} else {
 					$query = "SELECT v.vcd_id, v.title, v.category_id, v.year
-							  FROM $this->TABLE_vcd AS v
-							  LEFT OUTER JOIN $this->TABLE_vcdtosources AS so ON v.vcd_id = so.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_imdb AS i ON so.external_id = i.imdb
+							  FROM $this->TABLE_vcd v
+							  LEFT OUTER JOIN $this->TABLE_vcdtosources so ON v.vcd_id = so.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_imdb i ON so.external_id = i.imdb
 							  WHERE (v.title LIKE ".$this->db->quote($keyword)." OR i.title LIKE ".$this->db->quote($keyword)."
 							  OR i.alt_title1 LIKE ".$this->db->quote($keyword)." OR i.alt_title2 LIKE ".$this->db->quote($keyword).")
 							  AND v.category_id <> ".$adult_cat."
@@ -1222,19 +1195,19 @@ class vcdSQL {
 			case 'actor':
 				if ($showadult) {
 					$query = "SELECT v.vcd_id, v.title, v.category_id, v.year
-							  FROM $this->TABLE_vcd AS v
-							  LEFT OUTER JOIN $this->TABLE_vcdtosources AS so ON v.vcd_id = so.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_imdb AS i ON so.external_id = i.imdb
-							  LEFT OUTER JOIN $this->TABLE_vcdtopornst as tp ON v.vcd_id = tp.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_pornstars as p ON tp.pornstar_id = p.pornstar_id
+							  FROM $this->TABLE_vcd v
+							  LEFT OUTER JOIN $this->TABLE_vcdtosources so ON v.vcd_id = so.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_imdb i ON so.external_id = i.imdb
+							  LEFT OUTER JOIN $this->TABLE_vcdtopornst tp ON v.vcd_id = tp.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_pornstars p ON tp.pornstar_id = p.pornstar_id
 							  WHERE i.fcast LIKE ".$this->db->quote($keyword)." OR p.name LIKE ".$this->db->quote($keyword)."
 							  ORDER BY v.title";
 
 				} else {
 					$query = "SELECT v.vcd_id, v.title, v.category_id, v.year
-							  FROM $this->TABLE_vcd AS v
-							  LEFT OUTER JOIN $this->TABLE_vcdtosources AS so ON v.vcd_id = so.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_imdb AS i ON so.external_id = i.imdb
+							  FROM $this->TABLE_vcd v
+							  LEFT OUTER JOIN $this->TABLE_vcdtosources so ON v.vcd_id = so.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_imdb i ON so.external_id = i.imdb
 							  WHERE i.fcast LIKE ".$this->db->quote($keyword)."
 							  AND v.category_id <> ".$adult_cat."
 							  ORDER BY v.title";
@@ -1244,9 +1217,9 @@ class vcdSQL {
 
 			case 'director':
 					$query = "SELECT v.vcd_id, v.title, v.category_id, v.year
-							  FROM $this->TABLE_vcd AS v
-							  LEFT OUTER JOIN $this->TABLE_vcdtosources AS so ON v.vcd_id = so.vcd_id
-							  LEFT OUTER JOIN $this->TABLE_imdb AS i ON so.external_id = i.imdb
+							  FROM $this->TABLE_vcd v
+							  LEFT OUTER JOIN $this->TABLE_vcdtosources so ON v.vcd_id = so.vcd_id
+							  LEFT OUTER JOIN $this->TABLE_imdb i ON so.external_id = i.imdb
 							  WHERE i.director LIKE ".$this->db->quote($keyword)."
 							  ORDER BY v.title";
 
@@ -1256,8 +1229,7 @@ class vcdSQL {
 		
 		
 		// Transform the queries with LOWER() if postgres ..
-		$isPostgres = (bool)(substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0);
-		if ($isPostgres) { 
+		if ($this->isPostgres()) { 
 			$arrFields = array('v.title', 'i.title', 'i.alt_title1', 'i.alt_title2', 'i.fcast','p.name', 'i.director', $this->db->Quote($keyword));
 			//  create the replacement array ..
 			$arrLower = array();
@@ -1280,7 +1252,7 @@ class vcdSQL {
 				}
 				
 				// Update the titles from lowercase to UcFirst if Postgres
-				if ($isPostgres) {
+				if ($this->isPostgres()) {
 					$obj->setTitle(ucwords($obj->getTitle()));
 				}
 				array_push($arrVcdObj, $obj);
@@ -1289,10 +1261,9 @@ class vcdSQL {
 		$rs->Close();
 		return $arrVcdObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getMovieByCustomKey($user_id, $metadataKey) {
@@ -1300,10 +1271,10 @@ class vcdSQL {
 
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id, i.rating
 				  FROM $this->TABLE_vcd v
-				  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
-				  INNER JOIN $this->TABLE_metadata  AS m ON u.vcd_id = m.record_id
-				  LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON s.vcd_id = v.vcd_id
-					  LEFT OUTER JOIN $this->TABLE_imdb AS i ON i.imdb = s.external_id
+				  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
+				  INNER JOIN $this->TABLE_metadata  m ON u.vcd_id = m.record_id
+				  LEFT OUTER JOIN $this->TABLE_vcdtosources s ON s.vcd_id = v.vcd_id
+					  LEFT OUTER JOIN $this->TABLE_imdb i ON i.imdb = s.external_id
 				  WHERE m.user_id = ".$user_id." AND m.type_id = ".metadataTypeObj::SYS_MEDIAINDEX ." AND
 				  m.metadata_value = " . $this->db->qstr($metadataKey);
 
@@ -1320,26 +1291,25 @@ class vcdSQL {
 		}
 		return $results;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade) {
 		try {
 
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id, i.rating
-				  FROM $this->TABLE_vcd AS v ";
+				  FROM $this->TABLE_vcd v ";
 
 
-		$query .= "LEFT OUTER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id ";
+		$query .= "LEFT OUTER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id ";
 
-		$query .= "LEFT OUTER JOIN $this->TABLE_vcdtosources AS s ON s.vcd_id = v.vcd_id ";
+		$query .= "LEFT OUTER JOIN $this->TABLE_vcdtosources s ON s.vcd_id = v.vcd_id ";
 
-		$query .= "LEFT OUTER JOIN $this->TABLE_imdb AS i ON i.imdb = s.external_id ";
+		$query .= "LEFT OUTER JOIN $this->TABLE_imdb i ON i.imdb = s.external_id ";
 		
-		$query .= "LEFT OUTER JOIN $this->TABLE_comments AS c ON c.vcd_id = v.vcd_id ";
+		$query .= "LEFT OUTER JOIN $this->TABLE_comments c ON c.vcd_id = v.vcd_id ";
 
 
 		$bCon = false;
@@ -1386,15 +1356,19 @@ class vcdSQL {
 			}
 		}
 
-		
+
+		$commentColumn = "c.comment";
+		if ($this->isOracle()) {
+			$commentColumn = "c.comments";
+		}
 		
 		// Check for all public comments and users private if user is logged in
 		if (!is_null($title) && (!is_numeric($owner) && !is_numeric($mediatype) && !is_numeric($category) && !is_numeric($year))) {
 			if (VCDUtils::isLoggedIn()) {
 				$user_id = VCDUtils::getUserID();
-				$query .= "OR ((c.comment LIKE {$this->db->qstr($title)} AND isPrivate = 0) OR (c.comment LIKE {$this->db->qstr($title)} AND c.user_id = {$user_id}))";
+				$query .= " OR (($commentColumn LIKE {$this->db->qstr($title)} AND isPrivate = 0) OR ($commentColumn LIKE {$this->db->qstr($title)} AND c.user_id = {$user_id}))";
 			} else {
-				$query .= "OR (c.comment LIKE {$this->db->qstr($title)} AND isPrivate = 0) ";
+				$query .= " OR ($commentColumn LIKE {$this->db->qstr($title)} AND isPrivate = 0) ";
 			}
 		}
 		
@@ -1403,8 +1377,7 @@ class vcdSQL {
 
 		
 		// Transform the queries with LOWER() if postgres ..
-		$isPostgres = (bool)(substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0);
-		if ($isPostgres) { 
+		if ($this->isPostgres()) { 
 			$arrFields = array('v.title', 'c.comment', $this->db->qstr($title));
 			//  create the replacement array ..
 			$arrLower = array();
@@ -1414,8 +1387,7 @@ class vcdSQL {
 		
 		
 		$results = array();
-
-
+		
 		$rs = $this->db->Execute($query);
 		if ($rs) {
 
@@ -1434,7 +1406,7 @@ class vcdSQL {
 				}
 				
 				// Update the titles from lowercase to UcFirst if Postgres
-				if ($isPostgres) {
+				if ($this->isPostgres()) {
 						$item['title'] = ucwords($item['title']);
 				}
 				array_push($results, $item);
@@ -1445,13 +1417,11 @@ class vcdSQL {
 
 			$rs->Close();
 		}
-
 		return $results;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -1479,7 +1449,7 @@ class vcdSQL {
 				// Movies I got but user not
 				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year FROM
 						  $this->TABLE_vcd v
-						  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 						  WHERE u.user_id = ".$request_userid."";
 
 				if ($bMed) {
@@ -1493,7 +1463,7 @@ class vcdSQL {
 				$query .=  " AND v.vcd_id NOT IN
 						  	(SELECT v.vcd_id FROM
 							$this->TABLE_vcd v
-							INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+							INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 							WHERE u.user_id = ".$user_id."";
 
 				if ($bMed) {
@@ -1514,7 +1484,7 @@ class vcdSQL {
 				// Movies user has but i do not
 				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year FROM
 						  $this->TABLE_vcd v
-						  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 						  WHERE u.user_id = ".$user_id."";
 
 				if ($bMed) {
@@ -1528,7 +1498,7 @@ class vcdSQL {
 				$query .=  " AND v.vcd_id NOT IN
 						  	(SELECT v.vcd_id FROM
 							$this->TABLE_vcd v
-							INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+							INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 							WHERE u.user_id = ".$request_userid."";
 
 				if ($bMed) {
@@ -1548,7 +1518,7 @@ class vcdSQL {
 				// Movies we both got
 				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year FROM
 						  $this->TABLE_vcd v
-						  INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 						  WHERE u.user_id = ".$request_userid."";
 
 				if ($bMed) {
@@ -1562,7 +1532,7 @@ class vcdSQL {
 				$query .=  " AND v.vcd_id IN
 						  	(SELECT v.vcd_id FROM
 							$this->TABLE_vcd v
-							INNER JOIN $this->TABLE_vcdtouser AS u ON v.vcd_id = u.vcd_id
+							INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
 							WHERE u.user_id = ".$user_id."";
 
 				if ($bMed) {
@@ -1594,12 +1564,11 @@ class vcdSQL {
 		return $arrVcdObj;
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 
 	}
-
 
 
 

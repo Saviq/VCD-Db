@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  ?>
 <?
 
-class pornstarSQL  {
+class pornstarSQL extends VCDConnection {
 	
 	private $TABLE_pornstars 	  = "vcd_Pornstars";
 	private $TABLE_vcdtopornstars = "vcd_VcdToPornstars";
@@ -25,20 +25,9 @@ class pornstarSQL  {
 	private $TABLE_vcdtocategory  = "vcd_VcdToPornCategories";
 	private $TABLE_vcdtostudios	  = "vcd_VcdToPornStudios";
 	private $TABLE_vcd			  = "vcd";
-	/**
-	 * @var ADOConnection
-	 */
-	private $db;
-	/**
-	 * @var Connection
-	 */
-	private $conn;
- 			
-	
+		
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
- 		$this->conn = &$conn;
+		parent::__construct();
 	}
 	
 	public function getAllPornstars() {
@@ -58,8 +47,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrPornstarsObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 		
 	}
@@ -87,8 +76,8 @@ class pornstarSQL  {
 						
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -103,8 +92,8 @@ class pornstarSQL  {
 			return new pornstarObj($rs->FetchRow());
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -120,8 +109,8 @@ class pornstarSQL  {
 			      WHERE pornstar_id = " . $pornstar->getID();
 		$this->db->Execute($query);
 	
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	
 	}
@@ -145,8 +134,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrPornstarsObj;
 	
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -173,9 +162,9 @@ class pornstarSQL  {
 			$inserted_id = $this->db->Insert_ID($this->TABLE_pornstars, 'pornstar_id');
 		} catch (Exception $ex) {
 			// Check if this is a Postgre not using OID columns
-			if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+			if ($this->isPostgres()) {
 				// Yeap, postgres not using OID ..
-				$inserted_id = $this->conn->oToID($this->TABLE_pornstars, 'pornstar_id');
+				$inserted_id = $this->oToID($this->TABLE_pornstars, 'pornstar_id');
 			} else {
 				throw $ex;
 			}
@@ -201,11 +190,9 @@ class pornstarSQL  {
 						
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
-	
 	}
 	
 	
@@ -215,8 +202,8 @@ class pornstarSQL  {
 		$query = "INSERT INTO $this->TABLE_vcdtopornstars (vcd_id, pornstar_id) VALUES (".$movie_id.", ".$pornstar_id.")";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -227,8 +214,8 @@ class pornstarSQL  {
 				  pornstar_id = ".$pornstar_id."";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -246,8 +233,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -267,8 +254,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -281,8 +268,8 @@ class pornstarSQL  {
 			return new studioObj($rs->FetchRow());
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -297,8 +284,8 @@ class pornstarSQL  {
 			return null;
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -314,10 +301,9 @@ class pornstarSQL  {
 			return null;
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	public function addMovieToStudio($studio_id, $vcd_id) {
@@ -326,10 +312,9 @@ class pornstarSQL  {
 		$query = "INSERT INTO $this->TABLE_vcdtostudios (vcd_id, studio_id) VALUES (".$vcd_id.",".$studio_id.")";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	
@@ -339,8 +324,8 @@ class pornstarSQL  {
 		$query = "DELETE FROM $this->TABLE_vcdtostudios WHERE vcd_id = " . $vcd_id;
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 		
@@ -357,8 +342,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -379,8 +364,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -395,10 +380,9 @@ class pornstarSQL  {
 			return null;
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	public function deleteMovieFromCategories($vcd_id) {
@@ -407,8 +391,8 @@ class pornstarSQL  {
 		$query = "DELETE FROM $this->TABLE_vcdtocategory WHERE vcd_id = " . $vcd_id;
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -426,8 +410,8 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -437,8 +421,8 @@ class pornstarSQL  {
 		$query = "INSERT INTO $this->TABLE_vcdtocategory (vcd_id, category_id) VALUES (".$vcd_id.", ".$category_id.")";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -498,10 +482,9 @@ class pornstarSQL  {
 		
 		return null;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 	
 	public function getPornstarsByLetter($letter, $active_only) {
@@ -523,8 +506,8 @@ class pornstarSQL  {
 			
 			$query = "SELECT p.pornstar_id, p.name, p.homepage, p.image_name,  
 					  COUNT(v.pornstar_id) as numfilms 
-					  FROM $this->TABLE_pornstars AS p
-					  LEFT OUTER JOIN $this->TABLE_vcdtopornstars AS v ON p.pornstar_id = v.pornstar_id
+					  FROM $this->TABLE_pornstars p
+					  LEFT OUTER JOIN $this->TABLE_vcdtopornstars v ON p.pornstar_id = v.pornstar_id
 					  WHERE p.name LIKE ".$this->db->qstr($letter)."
 					  GROUP BY p.pornstar_id, p.name, p.homepage, p.image_name
 					  ORDER BY p.name";
@@ -543,10 +526,9 @@ class pornstarSQL  {
 		$rs->Close();
 		return $arrPornstarsObj;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	
@@ -556,8 +538,8 @@ class pornstarSQL  {
 			$query = "INSERT INTO $this->TABLE_adultcategory (category_name) VALUES (".$this->db->qstr($obj->getName()).") ";
 			$this->db->Execute($query);
 			
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -568,10 +550,9 @@ class pornstarSQL  {
 			$query = "DELETE FROM $this->TABLE_adultcategory WHERE category_id = " . $category_id;
 			$this->db->Execute($query);
 			
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	
@@ -581,8 +562,8 @@ class pornstarSQL  {
 			$query = "INSERT INTO $this->TABLE_studios (studio_name) VALUES (".$this->db->qstr($obj->getName()).")";
 			$this->db->Execute($query);
 			
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	

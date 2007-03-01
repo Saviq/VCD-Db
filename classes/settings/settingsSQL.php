@@ -16,7 +16,7 @@
 ?>
 <?PHP
 
-class settingsSQL {
+class settingsSQL extends VCDConnection  {
 
 	private $TABLE_settings   = "vcd_Settings";
 	private $TABLE_sites      = "vcd_SourceSites";
@@ -35,16 +35,8 @@ class settingsSQL {
 	private $TABLE_metatypes  = "vcd_MetaDataTypes";
 	private $TABLE_propstousr = "vcd_PropertiesToUser";
 
-	/**
-	 *
-	 * @var ADOConnection
-	 */
-	private $db;
-	private $conn;
-
 	public function __construct() {
-		$this->conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$this->conn->getConnection();
+		parent::__construct();
 	}
 
 
@@ -65,10 +57,9 @@ class settingsSQL {
 		$rs->Close();
 		return $arrSettingsObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -83,8 +74,8 @@ class settingsSQL {
 				  WHERE settings_id = ".$settingsObj->getID()."";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -109,10 +100,9 @@ class settingsSQL {
 			$this->db->Execute($query);
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -122,8 +112,8 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_settings WHERE settings_id = " .$settings_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -138,10 +128,9 @@ class settingsSQL {
 			return new settingsObj($rs->FetchRow());
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -169,8 +158,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -189,8 +178,8 @@ class settingsSQL {
 
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -209,10 +198,9 @@ class settingsSQL {
 				  WHERE site_id = " . $obj->getsiteID();
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function deleteSourceSite($source_id) {
@@ -221,8 +209,8 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_sites WHERE site_id = " . $source_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -239,6 +227,7 @@ class settingsSQL {
 			      FROM $this->TABLE_mediatypes
 				  ORDER BY parent_id, media_type_name";
 
+				
 		$rs = $this->db->Execute($query);
 
 		$arrObj = array();
@@ -252,8 +241,8 @@ class settingsSQL {
 
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -268,10 +257,9 @@ class settingsSQL {
 
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function deleteMediaType($mediatype_id) {
@@ -280,10 +268,9 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_mediatypes WHERE media_type_id = " . $mediatype_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function updateMediaType(mediaTypeObj $mediaTypeObj) {
@@ -304,8 +291,8 @@ class settingsSQL {
 		
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -323,8 +310,8 @@ class settingsSQL {
 		return $resultArr;
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -333,8 +320,8 @@ class settingsSQL {
 		try {
 
 		$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
-				  FROM $this->TABLE_mediatypes AS m
-				  INNER JOIN $this->TABLE_vcdtousers AS u ON m.media_type_id = u.media_type_id
+				  FROM $this->TABLE_mediatypes m
+				  INNER JOIN $this->TABLE_vcdtousers u ON m.media_type_id = u.media_type_id
 					AND u.user_id = ".$user_id."
 				  GROUP BY m.media_type_id, m.media_type_name
 				  ORDER BY m.media_type_id";
@@ -344,66 +331,64 @@ class settingsSQL {
 		$rs->Close( );
 		return $arr;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
-		public function getMediaTypesInUse()
+	public function getMediaTypesInUse()
+	{
+		try
 		{
-			try
-			{
-				$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
-						  FROM $this->TABLE_mediatypes AS m
-						  INNER JOIN $this->TABLE_vcdtousers AS u ON m.media_type_id = u.media_type_id 
-						  GROUP BY m.media_type_id, m.media_type_name
-						  ORDER BY m.media_type_id";
-				$rs = $this->db->Execute($query);
-				$arr = $rs->GetRows();
-				$rs->Close( );
-				return $arr;
-			}
-			catch (Exception $e)
-			{
-				throw new Exception($e->getMessage());
-			}
+			$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
+					  FROM $this->TABLE_mediatypes m
+					  INNER JOIN $this->TABLE_vcdtousers u ON m.media_type_id = u.media_type_id 
+					  GROUP BY m.media_type_id, m.media_type_name
+					  ORDER BY m.media_type_id";
+			$rs = $this->db->Execute($query);
+			$arr = $rs->GetRows();
+			$rs->Close( );
+			return $arr;
 		}
+		catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
+		}
+	}
 
 	public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {
 
 		$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count
-				  FROM $this->TABLE_vcd AS v
-				  INNER JOIN $this->TABLE_vcdtousers as u ON v.vcd_id = u.vcd_id
+				  FROM $this->TABLE_vcd v
+				  INNER JOIN $this->TABLE_vcdtousers u ON v.vcd_id = u.vcd_id
 					AND u.user_id = ".$user_id."
-				  LEFT OUTER JOIN $this->TABLE_mediatypes AS m ON u.media_type_id = m.media_type_id
+				  LEFT OUTER JOIN $this->TABLE_mediatypes m ON u.media_type_id = m.media_type_id
 				  WHERE v.category_id = ".$category_id."
 				  GROUP BY u.media_type_id";
 
 		return $this->db->Execute($query)->getArray();
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
-		public function getMediaCountByCategory($category_id) {
-			try {
-				
-			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count 
-					  FROM $this->TABLE_vcd AS v
-					  INNER JOIN $this->TABLE_vcdtousers as u ON v.vcd_id = u.vcd_id 
-					  LEFT OUTER JOIN $this->TABLE_mediatypes AS m ON u.media_type_id = m.media_type_id
-					  WHERE v.category_id = ".$category_id."
-					  GROUP BY u.media_type_id";
+	public function getMediaCountByCategory($category_id) {
+		try {
 			
-			return $this->db->Execute($query)->getArray();
-			
-			} catch (Exception $e) {
-				throw new Exception($e->getMessage());
-			}
+		$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count 
+				  FROM $this->TABLE_vcd v
+				  INNER JOIN $this->TABLE_vcdtousers u ON v.vcd_id = u.vcd_id 
+				  LEFT OUTER JOIN $this->TABLE_mediatypes m ON u.media_type_id = m.media_type_id
+				  WHERE v.category_id = ".$category_id."
+				  GROUP BY u.media_type_id";
+		
+		return $this->db->Execute($query)->getArray();
+		
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
+	}
 
 	public function getCountByMediaType($mediatype_id) {
 		try {
@@ -411,8 +396,8 @@ class settingsSQL {
 		$query = "SELECT COUNT(vcd_id) FROM $this->TABLE_vcdtousers WHERE media_type_id = " . $mediatype_id;
 		return $this->db->getOne($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -430,8 +415,8 @@ class settingsSQL {
 		$rs->Close();
 		return $obj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -456,8 +441,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -478,8 +463,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -506,8 +491,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -518,8 +503,8 @@ class settingsSQL {
 				  VALUES (".$this->db->qstr($movieCategoryObj->getName()).")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -529,8 +514,8 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_categories WHERE category_id = " . $category_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -540,8 +525,8 @@ class settingsSQL {
 		$query = "UPDATE $this->TABLE_categories SET category_name = ".$this->db->qstr($movieCategoryObj->getName())."";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -559,8 +544,8 @@ class settingsSQL {
 		$rs->Close();
 		return $obj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -582,10 +567,9 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getBorrowersByUserID($user_id) {
@@ -602,8 +586,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -615,8 +599,8 @@ class settingsSQL {
 				  ".$this->db->qstr($borrowerObj->getEmail()).")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -629,8 +613,8 @@ class settingsSQL {
 				  WHERE borrower_id = ".$borrowerObj->getID()."";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -640,8 +624,8 @@ class settingsSQL {
 			$query = "DELETE FROM $this->TABLE_borrowers WHERE borrower_id = " . $borrower_id;
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -656,8 +640,8 @@ class settingsSQL {
 				  VALUES (".$cd_id.", ".$user_id.", ".$borrower_id.", ".$this->db->DBDate(time()).")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -668,8 +652,8 @@ class settingsSQL {
 		$query = "UPDATE $this->TABLE_loans SET date_in = ".$this->db->DBDate(time())." WHERE loan_id = " . $loan_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -701,10 +685,9 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function deleteLoanRecords($borrower_id) {
@@ -713,8 +696,8 @@ class settingsSQL {
 			$query = "DELETE FROM $this->TABLE_loans WHERE borrower_id = " . $borrower_id;
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -736,8 +719,8 @@ class settingsSQL {
 			
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -749,8 +732,8 @@ class settingsSQL {
 					  WHERE feed_id =  " . $obj->getId();
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -767,8 +750,8 @@ class settingsSQL {
 			
 			return null;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -793,8 +776,8 @@ class settingsSQL {
 			$rs->Close();
 			return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -804,8 +787,8 @@ class settingsSQL {
 			$query = "DELETE FROM $this->TABLE_rss WHERE feed_id = " . $feed_id;
 			$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -825,8 +808,8 @@ class settingsSQL {
 			return null;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -836,8 +819,8 @@ class settingsSQL {
 		$query = "INSERT INTO $this->TABLE_wishlist (user_id, vcd_id) VALUES (".$user_id.", ".$vcd_id.")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -858,10 +841,9 @@ class settingsSQL {
 			return null;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function isOnWishList($vcd_id, $user_id) {
@@ -878,22 +860,21 @@ class settingsSQL {
 			return false;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function isPublicWishLists($user_id, $property_id) {
 		try {
 			
 			$query = "SELECT Count(l.vcd_id) AS Result FROM $this->TABLE_wishlist l INNER JOIN $this->TABLE_propstousr 
-			AS p on p.user_id = l.user_id WHERE p.property_id = {$property_id} AND l.user_id <> " . $user_id;
-			
+			p on p.user_id = l.user_id WHERE p.property_id = {$property_id} AND l.user_id <> " . $user_id;
+
 			return ($this->db->GetOne($query) > 0);
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -904,8 +885,8 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_wishlist WHERE vcd_id = ".$vcd_id." AND user_id = ".$user_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -914,47 +895,62 @@ class settingsSQL {
 	public function addComment(commentObj $obj) {
 		try {
 
-		$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, comment, isPrivate)
+		$commentColumn = 'comment';
+		if ($this->isOracle()) {
+			$commentColumn = 'comments';
+		}
+		
+			
+		$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, $commentColumn, isPrivate)
 				  VALUES (".$obj->getVcdID().", ".$obj->getOwnerID().", ".$this->db->DBDate(time()).",
 				  ".$this->db->qstr($obj->getComment()).", ".$obj->isPrivate().")";
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
 	public function deleteComment($comment_id) {
 		try {
-
+			
 		$query = "DELETE FROM $this->TABLE_comments WHERE comment_id = " . $comment_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getCommentByID($comment_id)  {
 		try {
 
-		$query = "SELECT comment_id, vcd_id, user_id, comment_date, comment, isPrivate FROM
+		$commentColumn = 'comment';
+		if ($this->isOracle()) {
+			$commentColumn = 'comments';
+		}
+			
+		$query = "SELECT comment_id, vcd_id, user_id, comment_date, $commentColumn, isPrivate FROM
 				  $this->TABLE_comments WHERE comment_id = ".$comment_id." ORDER BY comment_date DESC";
 		$rs = $this->db->Execute($query);
 		if ($rs) {
 			return new commentObj($rs->FetchRow());
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
 	public function getAllCommentsByUserID($user_id) {
 		try {
 
-		$query = "SELECT comment_id, vcd_id, user_id, comment_date, comment, isPrivate FROM
+		$commentColumn = 'comment';
+		if ($this->isOracle()) {
+			$commentColumn = 'comments';
+		}
+			
+		$query = "SELECT comment_id, vcd_id, user_id, comment_date, $commentColumn, isPrivate FROM
 				  $this->TABLE_comments WHERE user_id = ".$user_id." ORDER BY comment_date DESC";
 
 		$rs = $this->db->Execute($query);
@@ -966,21 +962,26 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 	public function getAllCommentsByVCD($vcd_id) {
 		try {
 
-		$query = "SELECT c.comment_id, c.vcd_id, c.user_id, c.comment_date, c.comment,
+		$commentColumn = 'c.comment';
+		if ($this->isOracle()) {
+			$commentColumn = 'c.comments';
+		}
+			
+		$query = "SELECT c.comment_id, c.vcd_id, c.user_id, c.comment_date, $commentColumn,
 				  c.isPrivate, u.user_name FROM
-				  $this->TABLE_comments AS c
-				  LEFT OUTER JOIN $this->TABLE_users AS u ON c.user_id = u.user_id
+				  $this->TABLE_comments c
+				  LEFT OUTER JOIN $this->TABLE_users u ON c.user_id = u.user_id
 				  WHERE c.vcd_id = ".$vcd_id." ORDER BY c.comment_date DESC";
 
+		
 		$rs = $this->db->Execute($query);
 		$arrObj = array();
 		foreach ($rs as $row) {
@@ -991,8 +992,8 @@ class settingsSQL {
 		$rs->Close();
 		return $arrObj;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1007,8 +1008,8 @@ class settingsSQL {
 
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1019,8 +1020,8 @@ class settingsSQL {
 				 WHERE metadata_id = " . $obj->getMetadataID();
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1030,8 +1031,8 @@ class settingsSQL {
 		$query = "DELETE FROM $this->TABLE_metadata WHERE metadata_id = " . $metadata_id;
 		$this->db->Execute($query);
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1087,8 +1088,8 @@ class settingsSQL {
 		
 		return $metaArr;
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -1112,7 +1113,7 @@ class settingsSQL {
 			
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -1137,8 +1138,8 @@ class settingsSQL {
 			return null;
 		}
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1175,9 +1176,9 @@ class settingsSQL {
 					$inserted_id = $this->db->Insert_ID($this->TABLE_metatypes, 'type_id');
 				} catch (Exception $e) {
 					// Check if this is a Postgre not using OID columns
-					if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+					if ($this->isPostgres()) {
 						// Yeap, postgres not using OID ..
-						$inserted_id = $this->conn->oToID($this->TABLE_metatypes, 'type_id');
+						$inserted_id = $this->oToID($this->TABLE_metatypes, 'type_id');
 					} else {
 						throw $ex;
 					}
@@ -1200,7 +1201,7 @@ class settingsSQL {
 
 
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1224,7 +1225,7 @@ class settingsSQL {
 
 
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1255,7 +1256,7 @@ class settingsSQL {
 
 
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 
@@ -1269,9 +1270,8 @@ class settingsSQL {
 			$this->db->Execute($query);
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		 
 	}
 	
 	
@@ -1283,7 +1283,7 @@ class settingsSQL {
 			return $this->db->GetOne($query);
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -1358,10 +1358,9 @@ class settingsSQL {
 		return $obj;
 
 
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 
 
@@ -1409,10 +1408,8 @@ class settingsSQL {
 
 
 
-
-
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 

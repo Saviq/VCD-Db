@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ?>
 <?
 
-class userSQL {
+class userSQL extends VCDConnection  {
 	
 	private $TABLE_users = "vcd_Users";
 	private $TABLE_roles = "vcd_UserRoles";
@@ -32,13 +32,9 @@ class userSQL {
 	private $TABLE_borrowers = "vcd_Borrowers";
 	private $TABLE_metadata  = "vcd_MetaData";
 	
-	private $db;
- 	private $conn;		
-	
+		
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
- 		$this->conn = &$conn;
+		parent::__construct();
 	}
 	
 	
@@ -63,10 +59,9 @@ class userSQL {
 		$rs->Close();
 		return $userObjArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	
@@ -75,14 +70,14 @@ class userSQL {
 			
 		$query = "SELECT DISTINCT u.user_id,  u.user_name,  u.user_password,  u.user_fullname,  u.user_email, 
 				  u.role_id,  r.role_name,  u.is_deleted,  u.date_created
-				  FROM $this->TABLE_users as u
-				  LEFT OUTER JOIN $this->TABLE_roles as r ON u.role_id = r.role_id
-				  INNER JOIN $this->TABLE_vcdtousers AS us ON us.user_id = u.user_id
+				  FROM $this->TABLE_users u
+				  LEFT OUTER JOIN $this->TABLE_roles r ON u.role_id = r.role_id
+				  INNER JOIN $this->TABLE_vcdtousers us ON us.user_id = u.user_id
 				  WHERE 
 				  u.is_deleted = 0 
 				  ORDER BY u.user_fullname";
 		
-				  
+						  
 		$rs = $this->db->Execute($query);
 		
 		$userObjArr = array();
@@ -94,8 +89,8 @@ class userSQL {
 		$rs->Close();
 		return $userObjArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -117,10 +112,9 @@ class userSQL {
 		}
 		
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-
 	}
 	
 	
@@ -137,8 +131,8 @@ class userSQL {
 		$this->db->Execute($query);
 		return true;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -168,9 +162,9 @@ class userSQL {
 			$inserted_id = $this->db->Insert_ID($this->TABLE_users, 'user_id');
 		} catch (Exception $ex) {
 			// Check if this is a Postgre not using OID columns
-			if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+			if ($this->isPostgres()) {
 				// Yeap, postgres not using OID ..
-				$inserted_id = $this->conn->oToID($this->TABLE_users, 'user_id');
+				$inserted_id = $this->oToID($this->TABLE_users, 'user_id');
 			} else {
 				throw $ex;
 			}
@@ -196,10 +190,9 @@ class userSQL {
 						
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	public function deleteUser($user_id) {
@@ -208,8 +201,8 @@ class userSQL {
 		$query = "UPDATE $this->TABLE_users SET is_deleted = 1 WHERE user_id = " . $user_id;
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -239,10 +232,9 @@ class userSQL {
 		$query = "DELETE FROM $this->TABLE_users WHERE user_id = " . $user_id;
 		$this->db->Execute($query);
 	
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	public function getAllUserRoles() {
@@ -260,10 +252,9 @@ class userSQL {
 		$rs->Close();
 		return $userRoleObjArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	
@@ -287,8 +278,8 @@ class userSQL {
 		$rs->Close();
 		return $userObjArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -298,10 +289,9 @@ class userSQL {
 		$query = "DELETE FROM $this->TABLE_roles WHERE role_id = ". $role_id;
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	public function getUserByUsername($user_name) {
@@ -319,8 +309,8 @@ class userSQL {
 		}
 		$rs->Close();	
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 		
@@ -339,8 +329,8 @@ class userSQL {
    				  (".$this->db->qstr($session_id).",".$user_id.",".$session_time.",".$this->db->qstr($user_ip).")";
    		$this->db->Execute($query);
    		
-   		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+   		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
    	}
    			
@@ -354,8 +344,8 @@ class userSQL {
    		
    		return $this->db->GetOne($query);
    		
-   		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+   		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
    	}
    	
@@ -368,10 +358,9 @@ class userSQL {
 			
 			$this->db->Execute($query);
 			
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-   		   		
    	}
 		
 	
@@ -395,8 +384,8 @@ class userSQL {
 		$rs->Close();
 		return $objArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -408,8 +397,8 @@ class userSQL {
 		
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -421,8 +410,8 @@ class userSQL {
 				  ".$this->db->qstr($obj->getpropertyDescription()).")";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -433,8 +422,8 @@ class userSQL {
 		$query = "DELETE FROM $this->TABLE_props WHERE property_id = " . $property_id;
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -447,10 +436,9 @@ class userSQL {
 				  WHERE property_id = " . $obj->getpropertyID();
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	
@@ -462,8 +450,8 @@ class userSQL {
 		
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
@@ -475,10 +463,9 @@ class userSQL {
 				  user_id = ".$user_id." AND property_id = ".$property_id."";
 		$this->db->Execute($query);
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-		
 	}
 	
 	public function getUsersByPropertyID($property_id) {
@@ -504,10 +491,9 @@ class userSQL {
 		$rs->Close();
 		return $userObjArr;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	public function getPropertyIDsOnUser($user_id) {
@@ -526,10 +512,9 @@ class userSQL {
 			return null;
 		}
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
-	
 	}
 	
 	
@@ -548,8 +533,8 @@ class userSQL {
 		
 		return null;
 		
-		} catch (Exception $e) {
-			throw new Exception($e->getMessage());
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	

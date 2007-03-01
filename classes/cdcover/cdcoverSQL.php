@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,17 @@
 ?>
 <?PHP
 
-class cdcoverSQL {
+class cdcoverSQL extends VCDConnection {
 	
 	private $TABLE_covers 		 = "vcd_Covers";
 	private $TABLE_types  		 = "vcd_CoverTypes";
 	private $TABLE_mediatypes 	 = "vcd_MediaTypes";
 	private $TABLE_allowedcovers = "vcd_CoversAllowedOnMediatypes";
 	private $TABLE_vcdtousers    = "vcd_VcdToUsers";
-	private $db;
  			
 	
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
+		parent::__construct();
 	}
 	
 	

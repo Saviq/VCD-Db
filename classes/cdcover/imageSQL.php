@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 ?>
 <?PHP
 
-class imageSQL {
+class imageSQL extends VCDConnection {
 	
 	/**
 	 * Constant representing the image table name in database.
@@ -25,18 +25,7 @@ class imageSQL {
 	 * @var string
 	 */
 	private $TABLE_images = "vcd_Images";
-	/**
-	 * An adodb connection object
-	 *
-	 * @var adodb object
-	 */
-	private $db;
-	/**
-	 * instance of NewADOConnection from ther adodb class
-	 *
-	 * @var NewADOConnection
-	 */
-	private $conn;
+
  			
 
 	
@@ -45,9 +34,7 @@ class imageSQL {
 	 *
 	 */
 	public function __construct() {
-		$conn = VCDClassFactory::getInstance('Connection');
- 		$this->db = &$conn->getConnection();
- 		$this->conn = &$conn;
+		parent::__construct();
 	}
 	
 	
@@ -84,9 +71,9 @@ class imageSQL {
 				$new_imageid = $this->db->Insert_Id($this->TABLE_images, 'image_id');
 			} catch (Exception $ex) {
 			// Check if this is a Postgre not using OID columns
-			if (substr_count(strtolower($this->conn->getSQLType()), 'postgre') > 0) {
+			if ($this->isPostgres()) {
 				// Yeap, postgres not using OID ..
-				$new_imageid = $this->conn->oToID($this->TABLE_images, 'image_id');
+				$new_imageid = $this->oToID($this->TABLE_images, 'image_id');
 			} else {
 				throw $ex;
 			}
@@ -116,7 +103,7 @@ class imageSQL {
 		   	return $new_imageid;
 	   	
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 		
 	}
@@ -141,7 +128,7 @@ class imageSQL {
 			}
 		
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 		
 	}
@@ -171,7 +158,7 @@ class imageSQL {
 			
 			
 		} catch (Exception $ex) {
-			throw new Exception($ex->getMessage());
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		} 
 	
 	}
