@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -448,10 +448,10 @@ class SettingsServices extends VCDServices {
 	}
 	
 	/**
-	 * Get specific settings object by key.
+	 * Get specific settings string by key.
 	 *
 	 * @param string $key | The settings key that identifies the object
-	 * @return settingsObj
+	 * @return string
 	 */
 	public static function getSettingsByKey($key) {
 		try {
