@@ -356,7 +356,7 @@ class vcd_settings implements ISettings {
 
 			return $this->mediatypeArray;
 
-		} catch (Exeption $e) {
+		} catch (Exeption $ex) {
 			throw $ex;
 		}
 	}
@@ -374,7 +374,7 @@ class vcd_settings implements ISettings {
 
 			return $this->mediatypeFullArray;
 
-		} catch (Exeption $e) {
+		} catch (Exeption $ex) {
 			throw $ex;
 		}
 	}
@@ -559,10 +559,9 @@ class vcd_settings implements ISettings {
 			asort($media_array);
 			return aSortBySecondIndex($media_array,1);
 		}
-		catch (Exception $e)
+		catch (Exception $ex)
 		{
-			VCDException::display($e);
-			return null;
+			throw $ex;
 		}
 	}
 
@@ -606,9 +605,8 @@ class vcd_settings implements ISettings {
 				throw new Exception('Parameters must be numeric');
 			}
 		}
-		catch (Exception $e)
-		{
-			VCDException::display($e);
+		catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 
