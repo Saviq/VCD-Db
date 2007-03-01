@@ -18,9 +18,8 @@
 		user diff page :(
 	*/
 	$dbCompatible = true;
-	$conn = new Connection();
-	$sql_type = $conn->getSQLType();
-	$sql_info = $conn->getServerInfo();
+	$sql_type = DB_TYPE;
+	$sql_info = VCDConnection::getServerInfo();
 	unset($conn);
 	if (strcmp($sql_type, 'mysql') == 0) {
 		if (is_array($sql_info) && isset($sql_info['version'])) {
