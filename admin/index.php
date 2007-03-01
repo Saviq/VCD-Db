@@ -105,8 +105,8 @@
           Version: <?=VCDDB_VERSION?><br>
           OS: <?=PHP_OS?><br>
 		  Host: <?=$_SERVER['SERVER_NAME']?><br>
-          DB Type: <? $conn = new Connection(); echo $conn->getSQLType() ?><br>
-          DB Host: <?=$conn->getSQLHost() ?>
+          DB Type: <?= DB_TYPE ?><br>
+          DB Host: <?= DB_HOST ?>
           
           
           </p>
@@ -1181,9 +1181,9 @@
 			
 			
 			elseif ($CURRENT_PAGE == '') {
-				$serverInfo = $conn->getServerInfo();
+				$serverInfo = VCDConnection::getServerInfo();
 				print "<strong>VCD-db</strong> v." . VCDDB_VERSION . " admin console.<br/>";
-				print "Running on " . $conn->getSQLType() . " " . $serverInfo['version'] . " (" .$serverInfo['description'].")";
+				print "Running on " . DB_TYPE . " " . $serverInfo['version'] . " (" .$serverInfo['description'].")";
 				?>
 				<p>
 				Here you can edit the settings for the VCD-db.<br>

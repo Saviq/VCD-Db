@@ -332,7 +332,7 @@ function getCategoryResults($catArr, $dataArray) {
  *
  */
 function addQueryCount() {
-	Connection::addQueryCount();
+	VCDConnection::addQueryCount();
 }
 
 ?>
