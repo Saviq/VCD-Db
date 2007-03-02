@@ -214,6 +214,18 @@ class Installer {
 				case 'urlfopen':
 					$results['status'] = (int)ini_get('allow_url_fopen');
 					$results['results'] = "Allow_url_fopen is set in php.ini";
+					
+					// if url_fopen disabled ... check for CURL support
+					if ((int)ini_get('allow_url_fopen') == 0 && function_exists('curl_init')) {
+						$results['results'] = "Url_fopen disabled, but I can use CURL instead!";
+						$results['status'] = 1;
+					}
+					
+					if ($results['status'] == 0) {
+						$results['results'] = "Allow_url_open and CURL disabled!";
+					}
+					
+					
 					break;
 					
 				case 'fileupload':
@@ -529,11 +541,22 @@ class Installer {
 			// Give it some time ... 10 minutes for really bad hardware and/or slow connections
 			@set_time_limit(60*10);
 			
+			// Get database connection
 			$db = self::getConnection($arrSettings);
 			
+			// Get the current database type
+			$type = $arrSettings[4];
+						
 			// Begin with VCD-db core data ..
 			$schema = new adoSchema( $db );
-			$schema->ParseSchema(dirname(__FILE__) . '/' . self::$XMLData );
+			
+			if ($type == 'db2') {
+				$schema->ParseSchemaString(self::transformSchema(dirname(__FILE__) . '/' . self::$XMLData));
+			} else {
+				$schema->ParseSchema(dirname(__FILE__) . '/' . self::$XMLData );
+			}
+			
+			
 			$result = $schema->ExecuteSchema();
 			
 			// Then the adult stuff
@@ -561,11 +584,30 @@ class Installer {
 				// Insert pornstars
 				$pornstars = $Xml->pornstars->pornstar;
 				if (sizeof($pornstars) > 0) {
-					foreach ($pornstars as $item) {
-						$query = "INSERT INTO vcd_Pornstars (name, homepage, image_name, biography) 
-								  VALUES (".$db->qstr($item->name).", ".$db->qstr($item->homepage).",
-						          ".$db->qstr($item->image).", ".$db->qstr($item->biography).")";
-						$db->Execute($query);
+					
+					if ($type == 'oci8') {
+						// Trim all biographies down to 4000 chars
+						foreach ($pornstars as $item) {
+							
+							$biography = $db->qstr($item->biography);
+							if (strlen($biography) >= 4000) {
+								$biography = self::shortenText($biography, 3990);
+							}
+							
+							
+							$query = "INSERT INTO vcd_Pornstars (name, homepage, image_name, biography) 
+									  VALUES (".$db->qstr($item->name).", ".$db->qstr($item->homepage).",
+						        	  ".$db->qstr($item->image).", ".$biography.")";
+							$db->Execute($query);
+						}
+						
+					} else {
+						foreach ($pornstars as $item) {
+							$query = "INSERT INTO vcd_Pornstars (name, homepage, image_name, biography) 
+								  	VALUES (".$db->qstr($item->name).", ".$db->qstr($item->homepage).",
+						          	".$db->qstr($item->image).", ".$db->qstr($item->biography).")";
+							$db->Execute($query);
+						}
 					}
 				}
 			}
@@ -743,19 +785,35 @@ class Installer {
 			// Give it some time ... 2 minutes for really bad hardware and/or slow connections
 			@set_time_limit(60*2);
 			
+			// Get the current database type
+			$type = $arrSettings[4];
+			
+			// Get database connection
 			$db = self::getConnection($arrSettings);
 			
 			if (!is_object($objConfig)) {
 				throw new Exception('Config params missing!');
 			} 
 			
-			$query = "INSERT INTO vcd_Users (user_name, user_password, user_fullname, 
+			if ($type == 'db2') {
+				$query = "INSERT INTO vcd_Users (user_name, user_password, user_fullname, 
+				user_email, role_id, is_deleted, date_created) VALUES (
+				{$db->qstr(self::getConfigValue($objConfig, 'vcd_username'))},
+				{$db->qstr(md5(self::getConfigValue($objConfig, 'vcd_password')))},
+				{$db->qstr(utf8_encode(self::getConfigValue($objConfig, 'vcd_fullname')))},
+				{$db->qstr(self::getConfigValue($objConfig, 'vcd_email'))},
+			    1, 0, {$db->DBDate(time())})";
+			} else {
+				$query = "INSERT INTO vcd_Users (user_name, user_password, user_fullname, 
 				user_email, role_id, is_deleted, date_created) VALUES (
 				{$db->qstr(self::getConfigValue($objConfig, 'vcd_username'))},
 				{$db->qstr(md5(self::getConfigValue($objConfig, 'vcd_password')))},
 				{$db->qstr(utf8_encode(self::getConfigValue($objConfig, 'vcd_fullname')))},
 				{$db->qstr(self::getConfigValue($objConfig, 'vcd_email'))},
 			    1, '0', {$db->DBDate(time())})";
+			}
+			
+			
 			$db->Execute($query);
 			
 			return true;
@@ -814,6 +872,69 @@ class Installer {
 	}
 	
 	
+	
+	/**
+	 * Transform the XML schema when needed for special cases, like DB2
+	 *
+	 * @param string $schemaFile | The Xml Schema file to transform
+	 * @return string | The transformed XML schema as string
+	 */
+	private static function transformSchema($schemaFile) {
+		try {
+			
+			
+			
+			$xmlObject = simplexml_load_file($schemaFile);
+			$queries = $xmlObject->sql->query;
+			
+			$i = 0;
+			foreach ($queries as $query) {
+				if (isset($query['transform'])) {
+			
+					$newQuery = $query;
+					
+					switch ($query['transform']) {
+						
+						// Settings
+						case 1:
+							$items = explode(',', $query);
+							$items[7] = str_replace("'", "", $items[7]);
+							$newQuery = implode(',', $items);
+							break;
+							
+						// Source sites
+						case 2:
+							$items = explode(',', $query);
+							if (sizeof($items) > 10) {
+								$items[10] = str_replace("'", "", $items[10]);
+							} else {
+								$items[8] = str_replace("'", "", $items[8]);
+							}
+							$newQuery = implode(',', $items);
+							break;
+							
+						// Rss Feeds
+						case 3:
+							$items = explode(',', $query);
+							$items[7] = str_replace("'", "", $items[7]);
+							$items[8] = str_replace("'", "", $items[8]);
+							$newQuery = htmlspecialchars(implode(',', $items), ENT_QUOTES);
+							break;
+						
+					}
+					$xmlObject->sql->query[$i] = $newQuery;
+				}
+				$i++;
+			}
+			
+			return $xmlObject->asXML();					
+						
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
 	/**
 	 * Get the basedir of the VCD-db installation.  I.O.W. the parent of this folder.
 	 *
@@ -831,19 +952,40 @@ class Installer {
 	 * @return bool
 	 */
 	private static function write($filename, $content){
-			if(!empty($filename) && !empty($content)){
-				$fp = fopen($filename,"w");
-				$b = fwrite($fp,$content);
-				fclose($fp);
-				if($b != -1){
-					return TRUE;
-				} else {
-					return FALSE;
-				}
+		if(!empty($filename) && !empty($content)){
+			$fp = fopen($filename,"w");
+			$b = fwrite($fp,$content);
+			fclose($fp);
+			if($b != -1){
+				return TRUE;
 			} else {
 				return FALSE;
 			}
+		} else {
+			return FALSE;
 		}
+	}
+	
+	
+	/**
+	 * Shorten text, used by Oracle installations
+	 *
+	 * @param string $text | The text to shorten
+	 * @param string $length | The supposed text length
+	 * @return string | The shortened string
+	 */
+	private static function shortenText($text, $length) {
+		if (strlen($text) > $length) {
+				$text_spl = explode(' ', $text);
+				$i = 1;
+				$text = $text_spl[0];
+				while(strlen($text.$text_spl[$i]) < $length) {
+					$text .= " ".$text_spl[$i++];
+				}
+				$text = $text."...";
+			}
+		return $text;
+	}
 
 
 }
