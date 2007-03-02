@@ -1,10 +1,10 @@
 <div id="r-col">
 <? 
-	$maxTitlelen = 17;
+	$maxTitlelen = 24;
 	$tv_category = SettingsServices::getCategoryIDByName("tv shows");
 	$xx_category = SettingsServices::getCategoryIDByName("adult");
 	
-	
+		
 	/* Top Ten latest all movies , except for TV Shows and Adult movies*/
 	$arrExclude = array($tv_category, $xx_category);
 	$movies = MovieServices::getTopTenList(0, $arrExclude);
