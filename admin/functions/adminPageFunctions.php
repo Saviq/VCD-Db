@@ -266,6 +266,28 @@ function deleteRecord($recordID, $recordType) {
 				print "<script>history.back(-1)</script>";
 		break;
 
+		
+		// Clear the cache directory
+		case 'statistics':
+			$cacheFolder = BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER;
+			
+			$it = new DirectoryIterator($cacheFolder);
+						
+			$filesToKeep = array('vcddb.db', 'index.html');
+			
+			foreach ($it as $file) {
+				if (!$file->isDir()) {
+					
+					if (!in_array($file->getFileName(), $filesToKeep)) {
+						$fileToDel = $cacheFolder.$file->getFileName();
+						fs_unlink($fileToDel);
+					}
+				}
+			}
+			header("Location: ./?page=".$recordType.""); /* Redirect browser */
+
+			break;
+		
 
 		case 'log':
 			VCDLog::clearLog();

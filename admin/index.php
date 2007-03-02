@@ -1047,7 +1047,13 @@
 					printRow(human_file_size($folderInfo['size']));
 					printRow($folderInfo['subfolders']);
 					
-					printDeleteRow("'".$folder."'", $CURRENT_PAGE, "Delete files from directory?");
+					if (substr_count($folder, 'cache') > 0) {
+						printDeleteRow("'0'", $CURRENT_PAGE, "Clean up the cache folder?");
+					} else {
+						printRow();
+					}
+					
+					
 					
 					printTr(false);
 					
