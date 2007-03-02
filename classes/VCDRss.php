@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,6 @@ class VCDRss {
 	private $site_rss = false;
 	private $user_rss = false;
 	private $rssUsers = array();
-	private $VCDSettings = null;
 	private $baseurl;
 
 	private $rss_version = "2.0";
@@ -39,16 +38,13 @@ class VCDRss {
 	 */
 	public function __construct() {
 		$this->cache_folder = "../" . $this->cache_folder;
-		$this->VCDSettings = VCDClassFactory::getInstance('vcd_settings');
-		$this->site_rss = $this->VCDSettings->getSettingsByKey('RSS_SITE');
-		$this->user_rss = $this->VCDSettings->getSettingsByKey('RSS_USERS');
-		$this->baseurl = $this->VCDSettings->getSettingsByKey('SITE_HOME');
-		$CLASSUser = VCDClassFactory::getInstance('vcd_user');
-		$pObj = $CLASSUser->getPropertyByKey('RSS');
+		$this->site_rss = SettingsServices::getSettingsByKey('RSS_SITE');
+		$this->user_rss = SettingsServices::getSettingsByKey('RSS_USERS');
+		$this->baseurl = SettingsServices::getSettingsByKey('SITE_HOME');
+		$pObj = UserServices::getPropertyByKey('RSS');
 		if ($pObj instanceof userPropertiesObj) {
-			$this->rssUsers = $CLASSUser->getAllUsersWithProperty($pObj->getpropertyID());
+			$this->rssUsers = UserServices::getAllUsersWithProperty($pObj->getpropertyID());
 		} 
-		
 	}
 
 
@@ -108,30 +104,26 @@ class VCDRss {
 			}
 
 
-
-    		$VCDClass      = VCDClassFactory::getInstance('vcd_movie');
-	   		$USERClass     = VCDClassFactory::getInstance('vcd_user');
-	   		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
 	   		$builddate = date("r", time());
 
 			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
   			$xml .= "<channel>\n";
-    		$xml .= "<title>".htmlspecialchars($SETTINGSClass->getSettingsByKey('SITE_NAME'), ENT_QUOTES)." (".$user_name.")</title>\n";
+    		$xml .= "<title>".htmlspecialchars(SettingsServices::getSettingsByKey('SITE_NAME'), ENT_QUOTES)." (".$user_name.")</title>\n";
     		$xml .= "<link>".$this->baseurl."</link>\n";
-    		$xml .= "<description>VCD Database movie list</description>\n";
+    		$xml .= "<description>VCD-db movie list</description>\n";
     		$xml .= "<language>en-us</language>\n";
     		$xml .= "<lastBuildDate>{$builddate}</lastBuildDate>\n";
     		$xml .= "<generator>VCD-db ".VCDDB_VERSION."</generator>\n";
     		$xml .= "<image>\n<url>".$this->baseurl."images/logo.gif</url>\n<title>VCD-db</title>\n<link>{$this->baseurl}</link>\n</image>\n";
 
 
-    		$uobj = $USERClass->getUserByUsername($user_name);
-    		$movies = $VCDClass->getLatestVcdsByUserID($uobj->getUserID(),10, true);
+    		$uobj = UserServices::getUserByUsername($user_name);
+    		$movies = MovieServices::getLatestVcdsByUserID($uobj->getUserID(),10, true);
 
     		if (sizeof($movies) > 0) {
     			foreach ($movies as $smallMovie) {
-    				$movie = $VCDClass->getVcdByID($smallMovie->getID());
+    				$movie = MovieServices::getVcdByID($smallMovie->getID());
     				$arr = $movie->getRSSData();
     				$xml .= "<item>\n";
 				    $xml .= "<title>".htmlspecialchars($movie->getTitle(),ENT_QUOTES)."</title>\n";
@@ -192,31 +184,28 @@ class VCDRss {
 
 			}
 
-
-
-    		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-    		$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-    		$Conn = VCDClassFactory::getInstance('Connection');
-    		$sInfo = $Conn->getServerInfo();
-    		$db_env = $Conn->getSQLType() . " - " . $sInfo['description'];
+    		
+    		
+    		$sInfo = VCDConnection::getServerInfo();
+    		$db_env = DB_TYPE . " - " . $sInfo['description'];
 
 			$builddate = date("r", time());
 
 			$xml = "<?xml version=\"1.0\" encoding=\"{$this->rss_encoding}\"?>\n";
 			$xml .= "<rss version=\"".$this->rss_version."\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\">\n";
   			$xml .= "<channel>\n";
-    		$xml .= "<title>".htmlspecialchars($SETTINGSClass->getSettingsByKey('SITE_NAME'),ENT_QUOTES)."</title>\n";
+    		$xml .= "<title>".htmlspecialchars(SettingsServices::getSettingsByKey('SITE_NAME'),ENT_QUOTES)."</title>\n";
     		$xml .= "<link>".$this->baseurl."</link>\n";
-    		$xml .= "<description>VCD Database Movie List</description>\n";
+    		$xml .= "<description>VCD-db Movie List</description>\n";
     		$xml .= "<language>en-us</language>\n";
     		$xml .= "<lastBuildDate>{$builddate}</lastBuildDate>\n";
     		$xml .= "<generator>VCD-db ".VCDDB_VERSION." ({$db_env})</generator>\n";
     		$xml .= "<image>\n<url>".$this->baseurl."images/logo.gif</url>\n<title>VCD-db</title>\n<link>{$this->baseurl}</link>\n</image>\n";
 
-    		$movies = $VCDClass->getTopTenList();
+    		$movies = MovieServices::getTopTenList();
     		if (sizeof($movies) > 0) {
     			foreach ($movies as $smallMovie) {
-    				$movie = $VCDClass->getVcdByID($smallMovie->getID());
+    				$movie = MovieServices::getVcdByID($smallMovie->getID());
     				$arr = $movie->getRSSData();
     				$xml .= "<item>\n";
 				    $xml .= "<title>".htmlspecialchars($movie->getTitle(),ENT_QUOTES)."</title>\n";
