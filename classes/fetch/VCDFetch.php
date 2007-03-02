@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -431,10 +431,12 @@ abstract class VCDFetch {
 			$this->writeToCache($url);
 		}
 
-		if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
+		// Only do the conversion if iconv is installed ..
+		if (function_exists('iconv')) {
+			if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
+		}
 
 		return $results;
-
 
 	}
 
