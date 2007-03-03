@@ -101,11 +101,17 @@ class pornstarSQL extends VCDConnection {
 	public function updatePornstar(pornstarObj $pornstar)  {
 		try {
 			
+		// Oracle check ..
+		$biography = $pornstar->getBiography();
+		if ($this->isOracle() && strlen($biography) >= 4000) {
+			$biography = $this->shortenText($biography, 3990);
+		}
+			
 		$query = "UPDATE $this->TABLE_pornstars 
 				  SET name = ".$this->db->qstr($pornstar->getName()).",
 		          homepage = ".$this->db->qstr($pornstar->getHomepage()).",
 				  image_name = ".$this->db->qstr($pornstar->getImageName()).",
-				  biography = ".$this->db->qstr($pornstar->getBiography())."
+				  biography = ".$this->db->qstr($biography)."
 			      WHERE pornstar_id = " . $pornstar->getID();
 		$this->db->Execute($query);
 	
@@ -143,11 +149,18 @@ class pornstarSQL extends VCDConnection {
 	public function addPornstar(pornstarObj $pornstarObj) {
 		try {
 			
+			
+		// Oracle check ..
+		$biography = $pornstarObj->getBiography();
+		if ($this->isOracle() && strlen($biography) >= 4000) {
+			$biography = $this->shortenText($biography, 3990);
+		}
+			
 		$query = "INSERT INTO $this->TABLE_pornstars (name, homepage, image_name, biography)
 				  VALUES (".$this->db->qstr($pornstarObj->getName()).",
 				  ".$this->db->qstr($pornstarObj->getHomepage()).",
 		          ".$this->db->qstr($pornstarObj->getImageName()).",
-		          ".$this->db->qstr($pornstarObj->getBiography()).")";
+		          ".$this->db->qstr($biography).")";
 		/* 	Returns the last autonumbering ID inserted. Returns false if function not supported. 
 			Only supported by databases that support auto-increment or object id's,
 			such as PostgreSQL, MySQL and MS SQL Server currently. PostgreSQL returns the OID, 
@@ -588,6 +601,28 @@ class pornstarSQL extends VCDConnection {
 			throw new VCDSqlException($ex->getMessage());
 		}
 	}
+	
+	
+	/*
+	 * Shorten text, used by Oracle
+	 *
+	 * @param string $text | The text to shorten
+	 * @param string $length | The supposed text length
+	 * @return string | The shortened string
+	 */
+	private function shortenText($text, $length) {
+		if (strlen($text) > $length) {
+				$text_spl = explode(' ', $text);
+				$i = 1;
+				$text = $text_spl[0];
+				while(strlen($text.$text_spl[$i]) < $length) {
+					$text .= " ".$text_spl[$i++];
+				}
+				$text = $text."...";
+			}
+		return $text;
+	}
+	
 
 }
 
