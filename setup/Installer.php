@@ -589,7 +589,7 @@ class Installer {
 						// Trim all biographies down to 4000 chars
 						foreach ($pornstars as $item) {
 							
-							$biography = $db->qstr($item->biography);
+							$biography = $item->biography;
 							if (strlen($biography) >= 4000) {
 								$biography = self::shortenText($biography, 3990);
 							}
@@ -597,7 +597,7 @@ class Installer {
 							
 							$query = "INSERT INTO vcd_Pornstars (name, homepage, image_name, biography) 
 									  VALUES (".$db->qstr($item->name).", ".$db->qstr($item->homepage).",
-						        	  ".$db->qstr($item->image).", ".$biography.")";
+						        	  ".$db->qstr($item->image).", ".$db->qstr($biography).")";
 							$db->Execute($query);
 						}
 						
