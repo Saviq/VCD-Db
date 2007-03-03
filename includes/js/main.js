@@ -69,19 +69,23 @@ function loadManager(cd_id) {
 }
 
 function copyFiles(form) {
-	for (key in form.elements) {
-		el = form.elements[key];
-		uri = el.value;
-		if(el.getAttribute("clear"))
-			el.type = "text";
-		else if (el.type == 'file' && el.value != '') {
-			node = document.createElement("input");
-			node.type = "hidden";
-			node.name = el.name+"_uri";
-			node.value = el.value;
-			form.appendChild(node);
+	
+	try {
+	
+		for (key in form.elements) {
+			el = form.elements[key];
+			uri = el.value;
+			if(el.getAttribute("clear"))
+				el.type = "text";
+			else if (el.type == 'file' && el.value != '') {
+				node = document.createElement("input");
+				node.type = "hidden";
+				node.name = el.name+"_uri";
+				node.value = el.value;
+				form.appendChild(node);
+			}
 		}
-	}
+	} catch (Exception) {}
 }
 
 function moveOver(form, boxAvailable, boxChoices)  {
@@ -269,8 +273,9 @@ function checkFields(form) {
 
 function onSelectKeyDown()
 {
-	if(window.event.keyCode == 46)
-		clr();
+	try {
+		if(window.event.keyCode == 46)clr();
+	} catch (Exception) {}
 }
 
 function selectKeyPress() {
@@ -283,28 +288,32 @@ function selectKeyPress() {
 	//TODO:
 	//	1) add Netscape handling
 
-
-var sndr = window.event.srcElement;
-var pre = this.document.all["keys"].value;
-var key = window.event.keyCode;
-var charx = String.fromCharCode(key);
-
-	var re = new RegExp("^" + pre + charx, "i"); // "i" -> ignoreCase
-	for(var i=0; i<sndr.options.length; i++)
-	{
-		if(re.test(sndr.options[i].text))
-		{
-			sndr.options[i].selected=true;
-			document.all["keys"].value += charx;
-			window.event.returnValue = false;
-			break;
-		}
-	}
+	try {
+		
+		var sndr = window.event.srcElement;
+		var pre = this.document.all["keys"].value;
+		var key = window.event.keyCode;
+		var charx = String.fromCharCode(key);
+		
+			var re = new RegExp("^" + pre + charx, "i"); // "i" -> ignoreCase
+			for(var i=0; i<sndr.options.length; i++)
+			{
+				if(re.test(sndr.options[i].text))
+				{
+					sndr.options[i].selected=true;
+					document.all["keys"].value += charx;
+					window.event.returnValue = false;
+					break;
+				}
+			}
+	} catch (Exception) {}
 }
 
 function clr()
 {
-	document.all["keys"].value = "";
+	try {
+		document.all["keys"].value = "";
+	} catch (Exception) {}
 }
 
 function createBorrower() {
