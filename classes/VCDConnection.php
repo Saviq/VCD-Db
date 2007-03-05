@@ -54,7 +54,13 @@ class VCDConnection {
 
 				// IBM DB2 wants catalog as the first parameter
 				if ($this->db_type == 'db2') {
-					$this->db->Connect($this->db_catalog, $this->db_username, $this->db_password, $this->db_host);
+					// Try the old approach
+					try {
+						$this->db->Connect($this->db_catalog, $this->db_username, $this->db_password, $this->db_host);
+					} catch (Exception $ex) {
+						// If it failes .. try the new approach
+						$this->db->Connect($this->db_host, $this->db_username, $this->db_password, $this->db_catalog);
+					}
 
 
 				} elseif ($this->db_type == 'sqlite') {
@@ -195,15 +201,17 @@ class VCDConnection {
 	 */
 	private function getSQLitePath() {
 		try {
-			if (file_exists(dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->sqlitedb)) {
-				return dirname(__FILE__) . '/../'.CACHE_FOLDER.$this->sqlitedb;
+			
+			$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$this->sqlitedb;
+			if (file_exists($fullpath)) {
+				return $fullpath;
 			} else {
-				throw new Exception('Could not find path to SQLite DB');
+				throw new Exception('Could not locate the SQLite database');
 			}
+			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
-
 	}
 
 
