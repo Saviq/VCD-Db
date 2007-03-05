@@ -177,7 +177,7 @@ abstract class VCDFetch {
 	/**
 	 * Check weither the fecthed site contains adult movies or not.
 	 *
-	 * @return unknown
+	 * @return bool
 	 */
 	public function isAdultSite() {
 		return $this->isAdult;
@@ -210,7 +210,7 @@ abstract class VCDFetch {
 	 */
 	protected function search($title) {
 		$this->searchKey = rawurlencode($title);
-		if ($this->useSnoopy) {
+		if ($this->useSnoopy || ((int)ini_get('allow_url_fopen') == 0)) {
 			$this->fetchSearchPath = str_replace('[$]', $this->searchKey, $this->fetchSearchPath);
 		}
 
@@ -351,6 +351,9 @@ abstract class VCDFetch {
 		$this->fetchDomain = $domain;
 		$this->fetchSearchPath = $searchPath;
 		$this->fetchItemPath = $itemPath;
+		
+		// check for proxy status ..
+		$this->checkProxySettings();
 	}
 
 
@@ -380,7 +383,15 @@ abstract class VCDFetch {
 
 
 		// Item not found in cache
-		if ($this->useSnoopy) {
+		
+		// If url_fopen is disabled, but CURL is available
+		if (((int)ini_get('allow_url_fopen') == 0) && function_exists('curl_init')) {
+			
+			$curlUrl = "http://".$host.$url;
+			$results = $this->fetchWithCurl($curlUrl);
+			
+			
+		} else if ($this->useSnoopy) {
 			$snoopyurl = "http://".$host.$url;
 			$this->snoopy->fetch($snoopyurl);
 
@@ -672,6 +683,34 @@ abstract class VCDFetch {
 	 *
 	 */
 
+	
+	/**
+	 * Check the config file if proxy server should be used, and if so
+	 * set the correct proxy settings.
+	 *
+	 */
+	private function checkProxySettings()	{
+		try {
+			
+			$useProxy = (bool)USE_PROXY;
+			$proxyUrl = PROXY_URL;
+			$proxyPort = PROXY_PORT;
+			
+			if ($useProxy) {
+			
+				if (!isset($proxyUrl) || (strcmp($proxyUrl, '0') ==0)) {
+					throw new VCDInvalidArgumentException('Proxy server address must be defined in config.php');
+				}
+			
+				$this->setProxy($proxyUrl, $proxyPort);
+					
+			}
+						
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 
 	/**
 	 * Get the page from Cache if it exists.  Otherwise function returns null.
@@ -780,6 +819,37 @@ abstract class VCDFetch {
 	   return true;
 	}
 
+
+	/**
+	 * Fetch webpage with the CURL extension
+	 *
+	 * @param string $url | The url to fetch
+	 * @param string $referrer | The http referer to use
+	 * @return bool
+	 */
+	private function fetchWithCurl($url, $referer=null) {
+		
+	   
+	   $ch = curl_init();
+	   curl_setopt($ch, CURLOPT_URL, $url);
+	   curl_setopt($ch, CURLOPT_HEADER, 1);
+	   curl_setopt($ch, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']);
+	   curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	   curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	   if (!is_null($referer)) {
+	   	curl_setopt($ch, CURLOPT_REFERER, $referer);	
+	   }
+	   
+	   $data = curl_exec($ch);
+	   	   
+	   curl_close($ch);
+	   if ($data) {
+	       $this->fetchContents = substr($data, strpos($data,"\r\n\r\n")+4);
+	       return true;
+	   } else {
+	       return false;
+	   }
+	}
 
 	private function clean($strData) {
 		while(ereg("&#([0-9]{3});", $strData, $x)) {
