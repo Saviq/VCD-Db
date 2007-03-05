@@ -30,8 +30,8 @@ For Oracle the default is dd-mon-yy or dd-mon-yyyy, and for SQL-92 the default i
 yy-mm-dd or yyyy-mm-dd.
 
 Using 'RR' in the format forces two-digit years less than or equal to 49 to be
-interpreted as years in the 21st century (2000–2049), and years over 50 as years in
-the 20th century (1950–1999). Setting the RR format as the default for all two-digit
+interpreted as years in the 21st century (2000ï¿½2049), and years over 50 as years in
+the 20th century (1950ï¿½1999). Setting the RR format as the default for all two-digit
 year entries allows you to become year-2000 compliant. For example:
 NLS_DATE_FORMAT='RR-MM-DD'
 
@@ -210,20 +210,20 @@ NATSOFT.DOMAIN =
 				
  		//if ($argHostname) print "<p>Connect: 1st argument should be left blank for $this->databaseType</p>";
 		if ($mode==1) {
-			$this->_connectionID = ($this->charSet) ? 
+			$this->_connectionID = (!$this->charSet) ? 
 				OCIPLogon($argUsername,$argPassword, $argDatabasename)
 				:
 				OCIPLogon($argUsername,$argPassword, $argDatabasename, $this->charSet)
 				;
 			if ($this->_connectionID && $this->autoRollback)  OCIrollback($this->_connectionID);
 		} else if ($mode==2) {
-			$this->_connectionID = ($this->charSet) ? 
+			$this->_connectionID = (!$this->charSet) ? 
 				OCINLogon($argUsername,$argPassword, $argDatabasename)
 				:
 				OCINLogon($argUsername,$argPassword, $argDatabasename, $this->charSet);
 				
 		} else {
-			$this->_connectionID = ($this->charSet) ? 
+			$this->_connectionID = (!$this->charSet) ? 
 				OCILogon($argUsername,$argPassword, $argDatabasename)
 				:
 				OCILogon($argUsername,$argPassword, $argDatabasename,$this->charSet);
