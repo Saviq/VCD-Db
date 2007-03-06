@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,8 +24,6 @@
  * @desc Send an email, returns true on success and false on failure
  */
 function sendMail($mail_to, $subject='', $body='', $use_html=false) {
-
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
 
 	$smtp = VCDClassFactory::getInstance("smtp_class");
 
@@ -64,26 +62,12 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 
 
 	}
-	/*
-	 * If GetMXRR function is available but it is not functional, to use
-	 * the direct delivery mode, you may use a replacement function.
-	 */
-	/*
-	else
-	{
-		$_NAMESERVERS=array();
-		if(count($_NAMESERVERS)==0)
-			Unset($_NAMESERVERS);
-		include("rrcompat.php");
-		$smtp->getmxrr="_getmxrr";
-	}
-	*/
-
+	
 	$smtp->host_name=getenv("HOSTNAME"); /* relay SMTP server address */
 	$smtp->localhost="localhost"; /* this computer address */
-	$smtp->host_name = $SETTINGSClass->getSettingsByKey('SMTP_SERVER');
+	$smtp->host_name = SettingsServices::getSettingsByKey('SMTP_SERVER');
 
-	$from = $SETTINGSClass->getSettingsByKey('SMTP_FROM');
+	$from = SettingsServices::getSettingsByKey('SMTP_FROM');
 	$to = $mail_to;
 
 	/* Set to 1 to deliver directly to the recepient SMTP server */
@@ -95,15 +79,15 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 	                           	  	Set to 0 to use the same defined in the timeout variable */
 
 	/* Set to 1 to output the communication with the SMTP server */
-	$smtp->debug = $SETTINGSClass->getSettingsByKey('SMTP_DEBUG');
+	$smtp->debug = SettingsServices::getSettingsByKey('SMTP_DEBUG');
 	 /* Set to 1 to format the debug output as HTML */
-	$smtp->html_debug = $SETTINGSClass->getSettingsByKey('SMTP_DEBUG');
+	$smtp->html_debug = SettingsServices::getSettingsByKey('SMTP_DEBUG');
 	/* Set to the user name if the server requires authetication */
-	$smtp->user = $SETTINGSClass->getSettingsByKey('SMTP_USER');
+	$smtp->user = SettingsServices::getSettingsByKey('SMTP_USER');
 	 /* Set to the authetication realm, usually the authentication user e-mail domain */
-	$smtp->realm = $SETTINGSClass->getSettingsByKey('SMTP_REALM');
+	$smtp->realm = SettingsServices::getSettingsByKey('SMTP_REALM');
 	/* Set to the authetication password */
-	$smtp->password = $SETTINGSClass->getSettingsByKey('SMTP_PASS');
+	$smtp->password = SettingsServices::getSettingsByKey('SMTP_PASS');
 
 	
 	if($smtp->SendMessage(
@@ -148,9 +132,9 @@ function keyED($txt,$encrypt_key)		{
 	$ctr=0;
 	$tmp = "";
 	for ($i=0;$i<strlen($txt);$i++){
-			if ($ctr==strlen($encrypt_key)) $ctr=0;
-			$tmp.= substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1);
-			$ctr++;
+		if ($ctr==strlen($encrypt_key)) $ctr=0;
+		$tmp.= substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1);
+		$ctr++;
 	}
 	return $tmp;
 }
@@ -168,13 +152,13 @@ function Encrypt($txt,$key) {
 	$encrypt_key = md5(rand(0,32000));
 	$ctr=0;
 	$tmp = "";
-	for ($i=0;$i<strlen($txt);$i++)
-	{
-	if ($ctr==strlen($encrypt_key)) $ctr=0;
-	$tmp.= substr($encrypt_key,$ctr,1) .
-	(substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1));
-	$ctr++;
+	for ($i=0;$i<strlen($txt);$i++)	{
+		if ($ctr==strlen($encrypt_key)) $ctr=0;
+		$tmp.= substr($encrypt_key,$ctr,1) .
+		(substr($txt,$i,1) ^ substr($encrypt_key,$ctr,1));
+		$ctr++;
 	}
+	
 	return base64_encode(keyED($tmp,$key));
 }
 
@@ -229,8 +213,7 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
  */
 function createNotifyEmailBody(vcdObj $obj) {
 
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$home = $SETTINGSClass->getSettingsByKey('SITE_HOME');
+	$home = SettingsServices::getSettingsByKey('SITE_HOME');
 	$home = substr($home, 0, (strlen($home)-1));
 
 	$msg = '';
@@ -245,11 +228,8 @@ function createNotifyEmailBody(vcdObj $obj) {
  */
 function generateExcel() {
 
-	$user_id = VCDUtils::getUserID();
-	$vcd = VCDClassFactory::getInstance("vcd_movie");
-	$arrMovies = $vcd->getAllVcdByUserId($user_id);
-	$SETTINGSClass = VCDClassFactory::getInstance('vcd_settings');
-
+	$arrMovies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID());
+	
 	//initiate a instance of "excelgen" class
 	$excel = new ExcelGen("My_Movies");
 
@@ -262,11 +242,11 @@ function generateExcel() {
 	$row++;
 
 	// Write the column headers
-	$excel->WriteText($row, 0, "Title");
-	$excel->WriteText($row, 1, "Genre");
-	$excel->WriteText($row, 2, "Media type");
-	$excel->WriteText($row, 3, "Year");
-	$excel->WriteText($row, 4, "Media index");
+	$excel->WriteText($row, 0, utf8_decode( VCDLanguage::translate('movie.title')) );
+	$excel->WriteText($row, 1, utf8_decode( VCDLanguage::translate('movie.category')) );
+	$excel->WriteText($row, 2, utf8_decode( VCDLanguage::translate('movie.media')) );
+	$excel->WriteText($row, 3, utf8_decode( VCDLanguage::translate('movie.year')) );
+	$excel->WriteText($row, 4, utf8_decode( VCDLanguage::translate('movie.mediaindex')) );
 	$row++;
 
 	for ($row; $row < sizeof($arrMovies) + 2; $row++) {
@@ -280,7 +260,7 @@ function generateExcel() {
 
 		// Write The category
 		if (!is_null($movie->getCategory())) {
-			$excel->WriteText($row, $col, $movie->getCategory()->getName(true));
+			$excel->WriteText($row, $col, utf8_decode($movie->getCategory()->getName(true)));
 		}
 		$col++;
 
@@ -296,7 +276,7 @@ function generateExcel() {
 		$col++;
 
 		// Write The Media index
-		$arr = $SETTINGSClass->getMetadata($movie->getID(), $user_id, 'mediaindex');
+		$arr = SettingsServices::getMetadata($movie->getID(), $user_id, 'mediaindex');
 		if (is_array($arr) && sizeof($arr) == 1) {
 			$excel->WriteText($row, $col, $arr[0]->getMetadataValue());
 		}
