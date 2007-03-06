@@ -13,6 +13,7 @@ Updated - Improved exception handling in the SQL classes.
 Added 	- The Cache folder can now be flushed from the "Control Panel".
 Fixed   - Using Proxy Server now works again with the fetch classes.
 Added   - CURL is now supported by the fetchclasses if url_fopen is disabled.
+Updated - The Excel document headers are now localized.
 
 0.984
 Added   - New fetch class, bushdvd.com (by request)
