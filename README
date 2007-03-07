@@ -6,14 +6,16 @@ VCD-db README ($Date$)
 INSTALLATION
 
 1)  Unzip the VCD-db file on your webserver. 
-2)  You must have a database access. 
+2)  You must have a database access / or use SQLite as a backend. 
 3)  Create an empty database.
 	At the moment the following databases are supported 
 	a) MySQL (3.x/4.x/5.x) 
 	b) Microsoft SQL (7, 2000 and 2005) 
 	c) Postgre SQL 7.4, 7.5, 8, 8.1 (Even without OID's enabled)
 	d) IBM DB2 (7.2 and up) 
-	e) SQLite
+	e) Oracle
+	f) SQLite
+	
 4)  If your webserver is on a Win32 box this step is unneccassary,
 	otherwise if your webserver is on a Unix/Linux box, you must have an Shell Access 
 	or a ftp access to chmod some files and folders. Open up a console session to your box and
@@ -38,7 +40,12 @@ INSTALLATION
 
 UPGRADING
 
-Upgrading from 0.983
+Upgrading from 0.984
+	- At last a painless upgrade :) 
+	  Simply overwrite all existing files from the new zip/tar file.
+	  Delete the setup folder and start using VCD-db again.
+
+Upgrading from 0.983 or 0.982
 	1) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
 	2) First, the file classes/VCDConstants.php is no longer used, but dont delete it yet.
 	   Goto the vcddb/setup directory and copy the file config.default to your vcddb root directory
@@ -65,48 +72,14 @@ Upgrading from 0.983
 	  	 uses XML files stored in /includes/languages/
 
 		   
-		   
-Upgrading from 0.982
-	1) Back up your existing settings file (classes/VCDConstants.php)
-	2) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
-	3) Edit the file "classes/VCDConstants.php" and update your database settings.  (You can take a look at the backed up file as a reference.)
-	4) Upgrade is complete .. Delete the /vcddb/setup folder and you are good to go.
-
-Upgrading from 0.98 or from 0.981
-	1) Back up your existing settings file (classes/VCDConstants.php)
-	2) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
-	3) Two new columns in table vcd_SourceSites need to be created.
-	   Create them after the site_isFetchable column.
-		   a) create column "site_classname", varchar(20), null=yes, default=null
-	   	   b) create column "site_image", varchar(50), null=yes, default=null
-	   	   	(If you are using mysql you can use the SQL statement below to make things easier) (copy the text without quotes)
-	   	   	"ALTER TABLE vcd_SourceSites ADD site_classname VARCHAR(20) NULL AFTER site_isFetchable;
-	   	   	 ALTER TABLE vcd_SourceSites ADD site_image VARCHAR(50) NULL AFTER site_classname;"
-	4) Edit the file "classes/VCDConstants.php" and update your database settings.  (You can take a look at the backed up file as a reference.)
-	5) Open browser and goto your VCD-db site/setup and select upgrade. (host/vcddb/setup)
-	6) When the upgrade process has reported success, delete the /setup folder.
-	7) Congrats, you have just finished updating VCD-db :)
-
-   
 UPGRADING FROM OLDER VERSIONS
-  	You will have to d/l an older release such as VCD-db 0.98 from sf.net/projects/vcddb and
+  	You will have to d/l an older release such as VCD-db 0.983 from sf.net/projects/vcddb and
   	upgrade from that version.  Then after that, upgrade again with latest version.
   	Since VCD-db is still in beta stage, I'm not providing upgrade support for very old releases.
 
-
-  
-INSTALLATION NOTES
-For the 99.9% of users, USE THE INSTALLER, use/read the following only if your are
-having troubles using the installer.
-Some people have reported problems when installing VCD-db on MySQL .. 
-The exact problem has not been foundm, but just in case the installer is not working for you
-there is a SQL script file for MySQL for creating the tables under "/setup/vcd_mysql.sql", but
-If you execute the SQL file instead of using the supplied installer you will need to
-manually update the file "classes/VCDConstants.php" with the correct DB parameters.
-The script created the user admin with the same password.
    
 APPLICATION NOTES
-1) You can change the template that VCD-db uses by modifying the "STYLE" constant in the VCDConstants.php
+1) You can change the template that VCD-db uses by modifying the "STYLE" constant in the config.php
    file, for example try changing it to "includes/templates/exprm/" for a new look.
 
 2) All major settings are stored in the "config.php" file.
@@ -122,11 +95,7 @@ APPLICATION NOTES
 6) The VCD-db GUI client does not work with VCD-db installed on IIS servers at the moment, 
    this will be fixed in the future.
 
-7) To use LDAP authentication instead of the internal DB authentication system, you must
-   edit the file 'classes/VCDConstants.php' and set the appropriate values to match your
-   Directory Server configuration.
-
-8) When LDAP is used for authentication (defined in the config.php) users can not register,
+7) When LDAP is used for authentication (defined in the config.php) users can not register,
    All they have to do is login with their LDAP account and then the account in automatically created for them.
 
 
@@ -140,4 +109,4 @@ VCD-db uses the following code/code fragments
  - Snoopy > HTTP Class (GNU Licensed)
  - NuSOAP > Web Services Toolkit for PHP (GNU Licensed)
  - Image_Toolbox > PHP image manipulation class (GNU Licensed)
- - PowerGraphic > Graph Builder (No Licenese - Freeaware)
+ - PowerGraphic > Graph Builder (No Licenese - Freeware)
