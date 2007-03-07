@@ -748,6 +748,39 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Get all media types that are being used by the system
+	 *
+	 * @return array | Array of mediatype objects
+	 */
+	public static function getMediaTypesInUse() {
+		try {
+			
+			return self::Settings()->getMediaTypesInUse();
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
+	/**
+	 * Get the count of media's in the specified movie category
+	 *
+	 * @param int $category_id | The category ID to use
+	 * @return array
+	 */
+	public static function getMediaCountByCategory($category_id) {
+		try {
+			
+			return self::Settings()->getMediaCountByCategory($category_id);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
+	
 	/**
 	 * Get the movie count of all movies belonging to a specific category.
 	 *
