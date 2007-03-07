@@ -117,8 +117,8 @@
 					</select>
 				</td>
 				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
+					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;width:25px;"/><br/>
+					<input type="button" value="&lt;&lt;" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input" style="width:25px;"/>
 				</td>
 				<td>
 					<select multiple name="choiceBox" id="choiceBox" style="width:110px;" size="8" class="plain">
