@@ -17,10 +17,7 @@
 
 
 <?php 
-
-   $s = new vcd_settings();
-   $v = VCDClassFactory::getInstance("vcd_movie");
-   $userCategories = $s->getCategoriesInUseByUserID(VCDUtils::getUserID());
+   $userCategories = SettingsServices::getCategoriesInUseByUserID(VCDUtils::getUserID());
    if (sizeof($userCategories) == 0)
    {
       VCDException::display('You have not added any movies yet<break>Try again after you have inserted some movies');
@@ -42,7 +39,7 @@
          $newKey = $categoryObj->getName();
       array_push($newCatName, $newKey);
    }
-   //Alphabetical sort catégories names
+   //Alphabetical sort catï¿½gories names
    sort($newCatName);
    //Reorder categories objects according to categories names
    $newCatObj = array();
@@ -67,7 +64,7 @@
    }
    $userCategories = $newCatObj;
    
-   $arr = $s->getMediaTypesInUseByUserID(VCDUtils::getUserID());
+   $arr = SettingsServices::getMediaTypesInUseByUserID(VCDUtils::getUserID());
    $arrMediaTypes = array();
    
    print "<table cellspacing=\"1\" cellpadding=\"1\" border=\"0\" width=\"100%\">";
@@ -98,7 +95,7 @@
       
       print "<tr>";
       print "<td nowrap=\"nowrap\" class=\"".$css_class."\">".$newKey."</td>";
-      $arr2 = $s->getMediaCountByCategoryAndUserID(VCDUtils::getUserID(),$categoryObj->getID());
+      $arr2 = SettingsServices::getMediaCountByCategoryAndUserID(VCDUtils::getUserID(),$categoryObj->getID());
       $resultArr = getCategoryResults($arrMediaTypes,  $arr2);
       $category_sum = 0;
       foreach ($resultArr as $count)
@@ -113,9 +110,9 @@
       $batch  = 0;
       if (isset($_GET['batch']))
          $batch = $_GET['batch'];
-      $Recordcount = $s->getSettingsByKey("PAGE_COUNT");
+      $Recordcount = SettingsServices::getSettingsByKey("PAGE_COUNT");
       $offset = $batch*$Recordcount;
-      $movies = $v->getVcdByCategory($categoryObj->getID(), $Recordcount, $offset, VCDUtils::getUserID());
+      $movies = MovieServices::getVcdByCategory($categoryObj->getID(), $Recordcount, $offset, VCDUtils::getUserID());
       foreach ($movies as $movie)
       {
          print "<tr>";
