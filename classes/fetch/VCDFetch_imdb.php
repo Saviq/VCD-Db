@@ -1,7 +1,7 @@
 <?php
 /**
  * VCD-db - a web based VCD/DVD Catalog system
- * Copyright (C) 2003-2006 Konni - konni.com
+ * Copyright (C) 2003-2007 Konni - konni.com
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -136,8 +136,14 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'plot':
-					$plot = trim($arrData[1]);
+					if (is_array($arrData)) {
+						$plot = trim($arrData[1]);
+					} elseif (is_string($arrData)) {
+						$plot = trim($arrData);
+					}
+					
 					$obj->setPlot($plot);
+					
 					break;
 
 				case 'country':
@@ -198,6 +204,7 @@ class VCDFetch_imdb extends VCDFetch {
 
 			case 'plot':
 
+				
 				// Save the old buffer
 				$itemBuffer = $this->getContents();
 
@@ -207,10 +214,12 @@ class VCDFetch_imdb extends VCDFetch {
 
 				$isPlot =  $this->fetchPage($this->servername, $plotUrl, $referer);
 				if ($isPlot) {
-					if ($this->getItem($this->regexArray['plot']) == self::ITEM_OK) {
+					
+					$regxPlot = '<p class="plotpar">([^\<]*)<i>';
+					if ($this->getItem($regxPlot) == self::ITEM_OK) {
 
 						$plotArr = $this->getFetchedItem();
-						$plotText = $plotArr[1];
+						$plotText = trim($plotArr[1]);
 						array_push($this->workerArray, array($entry, $plotText));
 
 					} else {
