@@ -16,16 +16,16 @@
 		
 		switch ($user_action) {
 			case 'diff':
-				require_once('user_diff.php');
+				require_once(VCDDB_BASE.'/pages/user_diff.php');
 				break;
 			case 'customkeys':
-				require_once('user_keys.php');
+				require_once(VCDDB_BASE.'/pages/user_keys.php');
 				break;
 			case 'seenlist':
-				require_once('user_seenlist.php');
+				require_once(VCDDB_BASE.'/pages/user_seenlist.php');
 				break;
 			case 'picker':
-				require_once('user_picker.php');
+				require_once(VCDDB_BASE.'/pages/user_picker.php');
 				break;
 		
 			default:
@@ -110,8 +110,7 @@
 	
 	if (isset($_GET['show']) && $_GET['show'] == 'results') {
 		print "<h2>".VCDLanguage::translate('misc.results')."</h2>";
-		$VCDClass = VCDClassFactory::getInstance('vcd_movie');
-		$results = $VCDClass->crossJoin($s_owner, $s_mediatype, $s_category, $s_meth);	
+		$results = MovieServices::crossJoin($s_owner, $s_mediatype, $s_category, $s_meth);	
 		
 		if (sizeof($results) == 0) {
 			print "<p class=\"bold\">".VCDLanguage::translate('mymovies.noresults')."</p>";
