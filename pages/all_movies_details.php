@@ -10,7 +10,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<title>VCD Gallery</title>
+<title>VCD-db</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php echo VCDUtils::getCharSet() ?>"/>
 	<link rel="stylesheet" type="text/css" href="../<?php echo VCDUtils::getStyle() ?>"/>
 	<script src="../includes/js/main.js" type="text/javascript"></script>
@@ -20,9 +20,7 @@
 
 
 <?php 
-   $s = new vcd_settings();
-   $v = VCDClassFactory::getInstance("vcd_movie");
-   $categories = $s->getMovieCategoriesInUse();
+   $categories = SettingsServices::getMovieCategoriesInUse();
    if (sizeof($categories) == 0)
    {
       VCDException::display('You have not added any movies yet<break>Try again after you have inserted some movies');
@@ -44,7 +42,7 @@
          $newKey = $categoryObj->getName();
       array_push($newCatName, $newKey);
    }
-   //Alphabetical sort catégories names
+   //Alphabetical sort categories names
    sort($newCatName);
    //Reorder categories objects according to categories names
    $newCatObj = array();
@@ -69,7 +67,7 @@
    }
    $categories = $newCatObj;
    
-   $arr = $s->getMediaTypesInUse();
+   $arr = SettingsServices::getMediaTypesInUse();
    $arrMediaTypes = array();
    $arrMediaTypeNames = array();
    $mediaTypesCount = 0;
@@ -104,7 +102,7 @@
       
       print "<tr>";
       print "<td nowrap=\"nowrap\" class=\"".$css_class_cat."\">".$newKey."</td>";
-      $arr2 = $s->getMediaCountByCategory($categoryObj->getID());
+      $arr2 = SettingsServices::getMediaCountByCategory($categoryObj->getID());
       $resultArr = getCategoryResults($arrMediaTypes,  $arr2);
       $category_sum = 0;
       foreach ($resultArr as $count)
@@ -119,9 +117,9 @@
       $batch  = 0;
       if (isset($_GET['batch']))
          $batch = $_GET['batch'];
-      $Recordcount = $s->getSettingsByKey("PAGE_COUNT");
+      $Recordcount = SettingsServices::getSettingsByKey("PAGE_COUNT");
       $offset = $batch*$Recordcount;
-      $movies = $v->getVcdByCategory($categoryObj->getID(), $Recordcount, $offset);
+      $movies = MovieServices::getVcdByCategory($categoryObj->getID(), $Recordcount, $offset);
       $lig = 0;
       foreach ($movies as $movie)
       {
