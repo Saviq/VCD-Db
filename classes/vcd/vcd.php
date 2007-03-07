@@ -502,62 +502,6 @@ class vcd_movie implements IVcd  {
 
 			$cd_id = $vcdObj->getID();
 
-			// Add all extra covers to the movie
-			
-			foreach ($vcdObj->getCovers() as $cdcoverObj) {
-				if ($cdcoverObj instanceof cdcoverObj && !$cdcoverObj->isThumbnail()) {
-
-					// Create temporary unique ID for the image
-					$image_name = VCDUtils::generateUniqueId();
-
-					$imgToDB = (bool)$this->Settings()->getSettingsByKey('DB_COVERS');
-					$cdcoverObj->setOwnerId($vcdObj->getInsertValueUserID());
-					$cdcoverObj->setVcdId($cd_id);
-
-					$filename = TEMP_FOLDER.$cdcoverObj->getFilename();
-					$newname = $image_name . "." . VCDUtils::getFileExtension($cdcoverObj->getFilename());
-
-					if ($imgToDB) {	// Insert the image as a binary file to DB, it's still in the temp folder
-
-						$vcd_image = new VCDImage();
-						if (VCDUtils::getFileExtension($cdcoverObj->getFilename()) == 'gif') {
-							$image_type = "gif";
-						} else {
-							$image_type = "pjpeg";
-						}
-
-						// Use File info
-						$arrFileInfo = array("name" => "".$newname."", "type" => "image/".$image_type."");
-
-						$image_id = $vcd_image->addImageFromPath(TEMP_FOLDER.$cdcoverObj->getFilename(), $arrFileInfo, true);
-						$cdcoverObj->setFilesize($vcd_image->getFilesize());
-						// Set the DB imageID to the cover
-						$cdcoverObj->setImageID($image_id);
-						$cdcoverObj->setFilename($newname);
-
-
-					} else {
-
-
-						// rename the image and move it to the thumbnail upload folder
-						if (fs_file_exists($filename)) {
-
-							$cdcoverObj->setFilesize(fs_filesize($filename));
-							fs_rename($filename, COVER_PATH . $newname);
-							$cdcoverObj->setFilename($newname);
-
-						} else {
-							throw new VCDProgramException('Trying to move an image that does not exist!');
-						}
-						
-					}
-
-
-					// Finally add the CDCover Obj to the DB
-					$this->Cover()->addCover($cdcoverObj);
-				}
-
-			}
 
 		} catch (Exception $ex) {
 			throw $ex;
