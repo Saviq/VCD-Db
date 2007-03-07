@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Top usuarios</string>
 		<string id="menu.wishlistpublic">Deseadas por otros</string>
 		<string id="menu.statistics">Estadística</string>
+		<string id="menu.showallusersmovies">Todas las películas</string>
 
 
 		<!-- login based strings -->
@@ -198,20 +199,15 @@
 		<string id="mymovies.j2">Películas que el otro tiene pero yo no</string>
 		<string id="mymovies.j3">Películas que ambos tenemos</string>
 		<string id="mymovies.overview">Descripción de la colección</string>
-		<string id="mymovies.info">En ésta p´gina puedes encontrar todo sobre mis películas.
-							En la izquierda hay acciones que puedes ejecutar en tu colección de películas.
-							Puedes también exportar tu lista a Excel para imprimiri ó usar la función
-							de exportar a XML para backup ó mover toda tu colección de una
-							VCD-db a otra.</string>
+		<string id="mymovies.info">En ésta p´gina puedes encontrar todo sobre mis películas.&lt;br/&gt;En la izquierda hay acciones que puedes ejecutar en tu colección de películas.&lt;br/&gt;Puedes también exportar tu lista a Excel para imprimiri ó usar la función de exportar a XML para backup ó mover toda tu colección de una VCD-db a otra.</string>
 		<string id="mymovies.keys">Editar ID's propios</string>
 		<string id="mymovies.seenlist">Editar lista de ya vistas</string>
 		<string id="mymovies.helppicker">Elegir una película para ver</string>
-		<string id="mymovies.helppickerinfo">No sabes que ver esta noche?&lt;br/&gt;Deja que VCD-db te ayude a encontrar una película.&lt;br/&gt;
-							Puedes opcional crear filtros y usarlos para refinar la selección suggerida
-						    por VCD-db.</string>
+		<string id="mymovies.helppickerinfo">No sabes que ver esta noche?&lt;br/&gt;Deja que VCD-db te ayude a encontrar una película.&lt;br/&gt;Puedes opcional crear filtros y usarlos para refinar la selección suggerida por VCD-db.</string>
 		<string id="mymovies.find">Encontrar una película</string>
 		<string id="mymovies.notseen">Sugerir tan solo películas que no haya visto</string>
 		<string id="mymovies.friends">Amigos que me han pedido CD's</string>
+		<string id="mymovies.overviewdetail">Descripción detallada de la colección</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -241,19 +237,17 @@
 		<string id="addmovie.listed">Agregar películas ya listadas</string>
 		<string id="addmovie.xml">Agregar películas desde un fichero XML exportado</string>
 		<string id="addmovie.xmlfile">Selecciona fichero XML a importar</string>
-		<string id="addmovie.xmlnote">(Ten en cuenta, tan solo ficheros XML que se hayan exportado desde otra aplicación VCD-db
-							podran usarse para importar tus películas aquí. Puedes exportar tus películas desde la sección &quot;Mis películas&quot;.
-							Deberías evitar editar manualmente el fichero XML exportado.) </string>
+		<string id="addmovie.xmlnote">(Ten en cuenta, tan solo ficheros XML que se hayan exportado desde otra aplicación VCD-db podran usarse para importar tus películas aquí. &lt;br/&gt;Puedes exportar tus películas desde la sección &quot;Mis películas&quot;.&lt;br/&gt;Deberías evitar editar manualmente el fichero XML exportado.)</string>
 		<string id="addmovie.maxfilesize">Tamaño max. de fichero</string>
 		<string id="addmovie.dvdempire">Info en Adult DVD Empire (Películas clasificadas X)</string>
-		<string id="addmovie.listedstep1">Paso 1&lt;br/&gt;Selecciona los títulos que quieres agregar a tu lista.&lt;br/&gt;Puedes seleccionar el
-						  formato en el paso siguiente.</string>
+		<string id="addmovie.listedstep1">Paso 1&lt;br/&gt;Selecciona los títulos que quieres agregar a tu lista.&lt;br/&gt;Puedes seleccionar el formato en el paso siguiente.</string>
 		<string id="addmovie.listedstep2">Paso 2.&lt;br/&gt;Selecciona el formato adecuado.</string>
 		<string id="addmovie.indb">Películas  en VCD-DB</string>
 		<string id="addmovie.selected">Títulos seleccionados</string>
 		<string id="addmovie.infolist">Haz doble click sobre el título a seleccionar ó usa los cursores.&lt;br/&gt;Puedes utilizar el teclado para
 							encontrar los títulos rapidamente.</string>
 		<string id="addmovie.notitles">Ningun otro usuario ha agregado películas a VCD-db</string>
+		<string id="addmovie.id">La entrada es una identificación</string>
 
 
 		<!-- strings for XML actions -->
@@ -261,10 +255,7 @@
 		<string id="xml.contains">El fichero XML contiene %d películas.</string>
 		<string id="xml.info1">Pulsa confirmar para procesar las películas y guardarlas en la BD.&lt;br/&gt;
 							ó pulsa cancelar para salir. </string>
-		<string id="xml.info2">Si quieres incluir las miniaturas (posters) con las películas que vas a 
-							importar en tu fichero XML, &lt;b&gt;DEBERAS&lt;/b&gt; tener el fichero XML de las miniaturas disponible ahora!.&lt;br/&gt;
-							Los  posters no podr´n importarse después de finalizar el importar las películas desde el fichero XML actual.
-							Si ya tienes el fichero XML de las miniaturas disponible ahora marca el campo mas abajo y en el paso siguiente después de importar tus películas de la lista de abajo, se te preguntar´ también para enviar el fichero XML para ser procesado. </string>
+		<string id="xml.info2">Si quieres incluir las miniaturas (posters) con las películas que vas a importar en tu fichero XML, &lt;b&gt;DEBERAS&lt;/b&gt; tener el fichero XML de las miniaturas disponible ahora!.&lt;br/&gt;Los  posters no podr´n importarse después de finalizar el importar las películas desde el fichero XML actual.&lt;br/&gt;&lt;br/&gt;Si ya tienes el fichero XML de las miniaturas disponible ahora marca el campo mas abajo y en el paso siguiente después de importar tus películas de la lista de abajo, se te preguntar´ también para enviar el fichero XML para ser procesado.</string>
 		<string id="xml.thumbnails">Insertar miniaturas desde mi fichero XML de miniaturas</string>
 		<string id="xml.list">Lista completa de películas encontradas en el fichero XML.</string>
 		<string id="xml.error">Ningún titulo encontrado en el fichero XML.&lt;br/&gt;El fichero podría estar dañado o tan solo vacío.
@@ -279,9 +270,7 @@
 		<string id="dvdempire.subcat">Categoría de adultos</string>
 		<string id="dvdempire.details">Detalles de Adultdvdempire.com</string>
 		<string id="dvdempire.stars">Estrellas porno</string>
-		<string id="dvdempire.notice">Los actores marcados en rojo no se encuentran actualmente en VCD-DB.
-							Pero puedes marcar sus nombre y ser´n autom´ticamente agregados a VCD-db
-						    y associados con esta película.</string>
+		<string id="dvdempire.notice">Los actores marcados en rojo no se encuentran actualmente en VCD-db.&lt;br/&gt;Pero puedes marcar sus nombre y ser´n autom´ticamente agregados a VCD-db y associados con esta película.</string>
 		<string id="dvdempire.fetch">Traer tambien</string>
 
 
@@ -318,9 +307,7 @@
 		<string id="rss.user">RSS feed de usuario</string>
 		<string id="rss.view">Ver RSS feed</string>
 		<string id="rss.add">Agregar nuevo feed</string>
-		<string id="rss.note">Poner el &lt;strong&gt;enlace exacto&lt;/strong&gt; de la base de datos VCD amiga.&lt;br/&gt;
-							Si RSS esta activo en la web de tus amigos podr´s seleccionar los 
-							feeds que te interesen y verlos en tu p´gina.</string>
+		<string id="rss.note">Poner el &lt;strong&gt;enlace exacto&lt;/strong&gt; de la base de datos VCD amiga.  Si RSS esta activo en la web de tus amigos podr´s seleccionar los feeds que te interesen y verlos en tu p´gina.</string>
 		<string id="rss.fetch">Lista de RSS traidos</string>
 		<string id="rss.none">Sin RSS feeds añadidos.</string>
 		<string id="rss.found">Los siguientes RSS feeds fueron encontrados, selecciona los que quieras añadir:</string>
@@ -372,16 +359,10 @@
 
 		<!-- strings for the email messages sent from VCD-db -->
 		<string id="mail.returntopic">Recordar prestamo</string>
-		<string id="mail.returnmovies1">%s, quería recordarte tan solo que me devolvieras mis películas.\n
-							Sigues teniendo las siguientes :\n\n</string>
-		<string id="mail.returnmovies2">Por favor devuelveme los discos tan pronto te sea posible\n Saludos %s \n\n
-							nb. Este mensaje se generó autom´ticamente desde el sistema VCD-db (http://vcddb.konni.com)</string>
-		<string id="mail.notify">&lt;strong&gt;Se ha agregado una película nueva en VCD-db&lt;/strong&gt;&lt;br/&gt;
-							 Pulsa &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;aquí&lt;/a&gt; para ver mas ..
-							 &lt;p&gt;nb. Mensaje generado autom´ticamente desde VCD-db (vcddb.konni.com)&lt;/p&gt;</string>
-		<string id="mail.register">%s, registrado con éxito en VCD-db.&lt;br&gt;&lt;br&gt;Tu nombre de usuario es %s y tu contraseña es
-							%s.&lt;br&gt;&lt;br&gt;Siempre puedes cambiar tu contraseña despues de haber entrado.&lt;br&gt;
-							Pulsa &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; para ir a la web de VCD-db.</string>
+		<string id="mail.returnmovies1">%s, quería recordarte tan solo que me devolvieras mis películas.&lt;br/&gt;Sigues teniendo las siguientes :&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Por favor devuelveme los discos tan pronto te sea posible&lt;br/&gt;Saludos %s &lt;br/&gt;&lt;br/&gt;nb. Este mensaje se generó autom´ticamente desde el sistema VCD-db (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;Se ha agregado una película nueva en VCD-db&lt;/strong&gt;&lt;br/&gt;Pulsa &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;aquí&lt;/a&gt; para ver mas ..&lt;br/&gt;&lt;p&gt;nb. Mensaje generado autom´ticamente desde VCD-db (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.register">%s, registrado con éxito en VCD-db.&lt;br/&gt;&lt;br/&gt;Tu nombre de usuario es %s y tu contraseña es %s.&lt;br/&gt;&lt;br/&gt;Siempre puedes cambiar tu contraseña despues de haber entrado.&lt;br/&gt;Pulsa &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; para ir a la web de VCD-db.</string>
 
 
 		<!-- strings for the metadata -->
@@ -397,11 +378,7 @@
 		<string id="player.player">Reproductor</string>
 		<string id="player.path">Ruta</string>
 		<string id="player.param">Par´metros</string>
-		<string id="player.note">Entra la ruta completa de tu reproductor de películas en tu didsco duro.
-							Tu reproductor debe poder aceptar par´metros en línea de comandos como p.ej. 
-							BSPlayer en Win32 ó MPlayer en Linux.&lt;br/&gt;Puedes descargar gratuitamente BSPlayer
-							&lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt;
-							y MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt;.</string>
+		<string id="player.note">Entra la ruta completa de tu reproductor de películas en tu didsco duro.&lt;br/&gt;Tu reproductor debe poder aceptar par´metros en línea de comandos como p.ej. &lt;br/&gt;tttttttBSPlayer en Win32 ó MPlayer en Linux. Puedes descargar gratuitamente BSPlayer &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; y MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

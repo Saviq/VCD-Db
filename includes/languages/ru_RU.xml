@@ -1,61 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
 <!-- To update or create a new language, use the online translator! -->
-<!-- Original Author: Hákon Birgisson -->
+<!-- Original Author: Keeper -->
 <language>
-	<id>en_EN</id>
-	<name>English</name>
+	<id>ru_RU</id>
+	<name>Russian</name>
 	<charset>UTF-8</charset>
 	<strings>
 
 
 		<!-- Language specific keys -->
-		<string id="language.type">ENG</string>
-		<string id="language.name">English</string>
-		<string id="language.charset">UTF-8</string>
+		<string id="language.type">RUS</string>
+		<string id="language.name">Russian</string>
+		<string id="language.charset">windows-1251</string>
 
 
 		<!-- user menu keys -->
-		<string id="menu.mine">My menu</string>
-		<string id="menu.settings">My settings</string>
-		<string id="menu.movies">My movies</string>
-		<string id="menu.addmovie">Add new movie</string>
+		<string id="menu.mine">Меню</string>
+		<string id="menu.settings">Настройки</string>
+		<string id="menu.movies">Мои фильмы</string>
+		<string id="menu.addmovie">Добавить новый фильм</string>
 		<string id="menu.loansystem">Loan system</string>
-		<string id="menu.wishlist">My Wishlist</string>
-		<string id="menu.categories">Movie categories</string>
+		<string id="menu.wishlist">Избранное</string>
+		<string id="menu.categories">Жанры</string>
 		<string id="menu.rss">My Rss Feeds</string>
-		<string id="menu.controlpanel">Control Panel</string>
-		<string id="menu.register">Register</string>
-		<string id="menu.logout">Logout</string>
-		<string id="menu.submit">Submit</string>
+		<string id="menu.controlpanel">Контрольная панель</string>
+		<string id="menu.register">Регистрация</string>
+		<string id="menu.logout">Выйти</string>
+		<string id="menu.submit"> </string>
 		<string id="menu.topusers">Top users</string>
-		<string id="menu.wishlistpublic">Others wishlists</string>
-		<string id="menu.statistics">Statistics</string>
-		<string id="menu.showallusersmovies">All movies</string>
+		<string id="menu.wishlistpublic">Избранное других</string>
+		<string id="menu.statistics">Статистика</string>
 
 
 		<!-- login based strings -->
-		<string id="login.login">Login</string>
-		<string id="login.username">Username</string>
-		<string id="login.password">Password</string>
-		<string id="login.remember">Remember me</string>
-		<string id="login.info">Leave this empty if you do &lt;b&gt;not&lt;/b&gt; want to change your password</string>
+		<string id="login.login">Войти</string>
+		<string id="login.username">Имя</string>
+		<string id="login.password">Пароль</string>
+		<string id="login.remember">Запомнить</string>
+		<string id="login.info">Оставьте это поле пустым если &lt;b&gt;НЕ&lt;/b&gt; хотите изменить пароль</string>
 
 
 		<!-- Register based strings -->
-		<string id="register.title">Registration</string>
-		<string id="register.fullname">Full name</string>
+		<string id="register.title">Регистрация</string>
+		<string id="register.fullname">Полное имя</string>
 		<string id="register.email">Email</string>
-		<string id="register.again">Password again</string>
+		<string id="register.again">Пароль ещё раз</string>
 		<string id="register.disabled">Sorry, Administrator has disabled registration at the moment</string>
-		<string id="register.ok">Registration was successful, you can now logon to VCD-db.</string>
+		<string id="register.ok">Регистрация успешна. Теперь вы можете войти в VCD-db.</string>
 
 
 		<!-- strings for user properties -->
-		<string id="userproperties.notify">Send me an email when new movie is added?</string>
+		<string id="userproperties.notify">Присылать вам email при добавлении нового фильма?</string>
 		<string id="userproperties.show_adult">Show adult content on the site?</string>
 		<string id="userproperties.rss">Allow RSS feed from my movie list?</string>
-		<string id="userproperties.wishlist">Allow others to see my wishlist?</string>
+		<string id="userproperties.wishlist">Разрешить другим видеть ваше избранное?</string>
 		<string id="userproperties.use_index">Use index number fields for custom media ID's?</string>
 		<string id="userproperties.seen_list">Keep track of movies that I've seen?</string>
 		<string id="userproperties.playoption">Use client playback options?</string>
@@ -69,50 +68,50 @@
 		<string id="usersettings.custom">Customize my frontpage</string>
 		<string id="usersettings.showstat">Show statistics</string>
 		<string id="usersettings.showside">Show new movies in sidebar</string>
-		<string id="usersettings.selectrss">Select RSS feeds</string>
+		<string id="usersettings.selectrss">Select RSS feeds22у2</string>
 		<string id="usersettings.pagelook">Web layout</string>
 		<string id="usersettings.pagemode">Select default template:</string>
 		<string id="usersettings.updated">User information updated</string>
-		<string id="usersettings.update_failed">Failed to update</string>
+		<string id="usersettings.update_failed">Ошибка при обновлении</string>
 		<string id="usersettings.list">Ignore List</string>
 		<string id="usersettings.desc">Ignore all movies from the following users:</string>
 
 
 		<!-- strings for search and search results -->
-		<string id="search.search">Search</string>
-		<string id="search.title">By title</string>
-		<string id="search.actor">By actor</string>
-		<string id="search.director">By director</string>
-		<string id="search.results">Search results</string>
+		<string id="search.search">Поиск</string>
+		<string id="search.title">По названию</string>
+		<string id="search.actor">По актёру</string>
+		<string id="search.director">По режиссеру</string>
+		<string id="search.results">Результаты поиска</string>
 		<string id="search.extended">Detailed search</string>
 		<string id="search.noresult">Search returned no results</string>
 
 
 		<!-- strings for movie categories -->
-		<string id="category.action">Action</string>
-		<string id="category.adult">Adult</string>
-		<string id="category.adventure">Adventure</string>
-		<string id="category.animation">Animation</string>
-		<string id="category.anime">Anime / Manga</string>
-		<string id="category.comedy">Comedy</string>
-		<string id="category.crime">Crime</string>
-		<string id="category.documentary">Documentary</string>
-		<string id="category.drama">Drama</string>
-		<string id="category.family">Family</string>
-		<string id="category.fantasy">Fantasy</string>
+		<string id="category.action">Действие</string>
+		<string id="category.adult">Взрослым</string>
+		<string id="category.adventure">Приключения</string>
+		<string id="category.animation">Мультфильмф</string>
+		<string id="category.anime">Аниме / Манга</string>
+		<string id="category.comedy">Комедия</string>
+		<string id="category.crime">Криминал</string>
+		<string id="category.documentary">Документальное</string>
+		<string id="category.drama">Драма</string>
+		<string id="category.family">Семейное</string>
+		<string id="category.fantasy">Сказка</string>
 		<string id="category.filmnoir">Film Noir</string>
-		<string id="category.horror">Horror</string>
-		<string id="category.jamesbond">James Bond</string>
-		<string id="category.musicvideo">Music Video</string>
-		<string id="category.musical">Musical</string>
+		<string id="category.horror">Ужасы</string>
+		<string id="category.jamesbond">Джеймс Бонд</string>
+		<string id="category.musicvideo">Клипы</string>
+		<string id="category.musical">Музыкальное</string>
 		<string id="category.mystery">Mystery</string>
-		<string id="category.romance">Romance</string>
-		<string id="category.scifi">Sci-Fi</string>
-		<string id="category.short">Short</string>
-		<string id="category.thriller">Thriller</string>
-		<string id="category.tvshows">TV Shows</string>
-		<string id="category.war">War</string>
-		<string id="category.western">Western</string>
+		<string id="category.romance">Романтикау2</string>
+		<string id="category.scifi">Фантастика</string>
+		<string id="category.short">Короткометражные</string>
+		<string id="category.thriller">Триллер</string>
+		<string id="category.tvshows">ТВ-Шоу</string>
+		<string id="category.war">Военные</string>
+		<string id="category.western">Вестерн</string>
 		<string id="category.xrated">X-Rated</string>
 
 
@@ -132,7 +131,7 @@
 		<string id="movie.minutes">minutes</string>
 		<string id="movie.plot">Plot</string>
 		<string id="movie.noplot">No Plot summary available</string>
-		<string id="movie.covers">CD Covers</string>
+		<string id="movie.covers">CD обложки</string>
 		<string id="movie.available">Available copies</string>
 		<string id="movie.media">Medium</string>
 		<string id="movie.num">Num CD's</string>
@@ -146,8 +145,8 @@
 		<string id="movie.private">Mark private ?</string>
 		<string id="movie.screenshots">Screenshots</string>
 		<string id="movie.noscreens">No screenshots available</string>
-		<string id="movie.show">Show</string>
-		<string id="movie.hide">Hide</string>
+		<string id="movie.show">Показать</string>
+		<string id="movie.hide">Скрыть</string>
 		<string id="movie.change">Change information</string>
 		<string id="movie.nocovers">No CD-Covers available</string>
 		<string id="movie.bycat">Titles by category</string>
@@ -163,14 +162,14 @@
 		<string id="imdb.details">IMDB Details</string>
 		<string id="imdb.plot">Plot Summary</string>
 		<string id="imdb.gallery">Photo Gallery</string>
-		<string id="imdb.trailers">Trailers</string>
+		<string id="imdb.trailers">Ролики</string>
 		<string id="imdb.links">IMDB Links</string>
 		<string id="imdb.not">No IMDB information availble</string>
 
 
 		<!-- DVD specific string -->
-		<string id="dvd.region">Region</string>
-		<string id="dvd.format">Format</string>
+		<string id="dvd.region">Регион</string>
+		<string id="dvd.format">Формат</string>
 		<string id="dvd.aspect">Aspect ratio</string>
 		<string id="dvd.audio">Audio</string>
 		<string id="dvd.subtitles">Subtitles</string>
@@ -186,7 +185,7 @@
 		<string id="mymovies.joinmovies">Disc join movies</string>
 		<string id="mymovies.joinsuser">Select user</string>
 		<string id="mymovies.joinsmedia">Select media type</string>
-		<string id="mymovies.joinscat">Select category</string>
+		<string id="mymovies.joinscat">Select category увусу</string>
 		<string id="mymovies.joinstype">Select action</string>
 		<string id="mymovies.joinshow">Show results</string>
 		<string id="mymovies.noresults">Query returned no results</string>
@@ -195,8 +194,8 @@
 		<string id="mymovies.pwmovies">Printview (Movies)</string>
 		<string id="mymovies.pwtv">Printview (Tv Shows)</string>
 		<string id="mymovies.pwblue">Printview (Blue movies)</string>
-		<string id="mymovies.j1">Movies i got but user not</string>
-		<string id="mymovies.j2">Movies that user owns but i dont</string>
+		<string id="mymovies.j1">Movies i got but user notм</string>
+		<string id="mymovies.j2">Movies that user owns but i dontмм</string>
 		<string id="mymovies.j3">Movies we both own</string>
 		<string id="mymovies.overview">Collection overview</string>
 		<string id="mymovies.info">On this page you can find out everything about my movies.&lt;br/&gt;To the right are actions you can run on your movie collection.&lt;br/&gt;You can also export your list as Excel for printing or use the XML export functions for backup or to move all your collection data from one VCD-db to another.</string>
@@ -204,28 +203,15 @@
 		<string id="mymovies.seenlist">Edit Seen list</string>
 		<string id="mymovies.helppicker">Pick a movie to watch</string>
 		<string id="mymovies.helppickerinfo">Don't know what to watch tonight?&lt;br/&gt;Let VCD-db help you find a movie.&lt;br/&gt;You can optionally create filters and use them to narrow the suggested selections by VCD-db.</string>
-		<string id="mymovies.find">Find a movie</string>
+		<string id="mymovies.find">Найти фильм</string>
 		<string id="mymovies.notseen">Suggest only movies I haven't seen</string>
 		<string id="mymovies.friends">My friends who borrow CD's</string>
-		<string id="mymovies.overviewdetail">Detailed collection overview</string>
 
 
 		<!-- strings for the movie manager window -->
 		<string id="manager.basic">Basic information</string>
 		<string id="manager.imdb">IMDB info</string>
 		<string id="manager.empire">DVDEmpire info</string>
-		<string id="manager.copy">My copy</string>
-		<string id="manager.copies">My copies</string>
-		<string id="manager.nocopy">You have no copies</string>
-		<string id="manager.1copy">Copy</string>
-		<string id="manager.addact">Add actors</string>
-		<string id="manager.addtodb">Add new actors to DB</string>
-		<string id="manager.savetodb">Save to DB</string>
-		<string id="manager.savetodbncd">Save to DB and movie</string>
-		<string id="manager.indb">Actors in database</string>
-		<string id="manager.sel">Selected actors</string>
-		<string id="manager.stars">Stars</string>
-		<string id="manager.browse">Browse for file location</string>
 		<string id="manager.addmedia">Add...</string>
 
 
@@ -239,14 +225,13 @@
 		<string id="addmovie.xmlfile">Select XML file to import</string>
 		<string id="addmovie.xmlnote">(Please note, only XML files that have been exported from another VCD-db application can be used to import your movies here. &lt;br/&gt;You can export your movies from the &quot;My movies&quot; section. You should avoid manual editing of the exported XML files.)</string>
 		<string id="addmovie.maxfilesize">Max filesize</string>
-		<string id="addmovie.dvdempire">Fetch from Adult DVD Empire (X-rated films)</string>
-		<string id="addmovie.listedstep1">Step 1&lt;br/&gt;Select the titles that you want to add to your list.&lt;br/&gt;You can select media type in next step.</string>
-		<string id="addmovie.listedstep2">Step 2.&lt;br/&gt;Select the appropriate media type.</string>
+		<string id="addmovie.dvdempire">Fetch from Adult DVD Empire (X-rated films)амак</string>
+		<string id="addmovie.listedstep1">Шаг 1&lt;br/&gt;Select the titles that you want to add to your list.&lt;br/&gt;You can select media type in next step.</string>
+		<string id="addmovie.listedstep2">Шаг 2.&lt;br/&gt;Select the appropriate media type.</string>
 		<string id="addmovie.indb">Movies in VCD-DB</string>
 		<string id="addmovie.selected">Selected titles</string>
-		<string id="addmovie.infolist">Double click on title to select title or use the arrows.&lt;br/&gt;You can use the keyboard to	quickly find titles.</string>
+		<string id="addmovie.infolist">Double click on title to select title or use the arrows.&lt;br/&gt;You can use the keyboard to quickly find titles.</string>
 		<string id="addmovie.notitles">No other user has added movies to the VCD-db</string>
-		<string id="addmovie.id">Input is an Id</string>
 
 
 		<!-- strings for XML actions -->
@@ -254,7 +239,7 @@
 		<string id="xml.contains">XML file contains %d movies.</string>
 		<string id="xml.info1">Press confirm to process the movies and save to the database. Or press cancel to bail out.</string>
 		<string id="xml.info2">If you want to include the thumbnails (posters) with the movies that you are about to import in your XML file, you &lt;b&gt;MUST&lt;/b&gt; have the thumbnails XML file availeble now!&lt;br/&gt;Posters cannot be imported after you have finished importing you movies from the current XML file.&lt;br/&gt;&lt;br/&gt;If you already have the thumbnails XML file available check the field below and in next step after the import of your movies in the list below, you will be asked to submit you thumbnails XML file aswell for processing.</string>
-		<string id="xml.thumbnails">Insert thumbnails from my thumbnails XML file </string>
+		<string id="xml.thumbnails">Insert thumbnails from my thumbnails XML file</string>
 		<string id="xml.list">Full list of movies found in XML file.</string>
 		<string id="xml.error">No titles found in XML file.&lt;br/&gt;File could be damaged or just plain empty.&lt;br/&gt;&lt;br/&gt;Make sure that you are using XML file that was exported from the VCD-db...</string>
 		<string id="xml.results">XML upload results.</string>
@@ -264,7 +249,7 @@
 		<!-- strings for DVD empire based fetch -->
 		<string id="dvdempire.info">Information from AdultDVDEmpire.com ....</string>
 		<string id="dvdempire.desc">DVDEmpire description</string>
-		<string id="dvdempire.subcat">Adult categories</string>
+		<string id="dvdempire.subcat">Adult categories выс</string>
 		<string id="dvdempire.details">Adultdvdempire.com details</string>
 		<string id="dvdempire.stars">Pornstars</string>
 		<string id="dvdempire.notice">Actors marked red are currently not in the VCD-DB.&lt;br/&gt;But you can check their names and they will be automatically added to the VCD-db and associated with this movie.</string>
@@ -283,7 +268,7 @@
 		<string id="loan.reminder">Send reminder</string>
 		<string id="loan.history">Loan history</string>
 		<string id="loan.history2">See loan history</string>
-		<string id="loan.since">Since</string>
+		<string id="loan.since">Since уву</string>
 		<string id="loan.time">Time since</string>
 		<string id="loan.return">Return copy</string>
 		<string id="loan.success">Movies successfully loaned</string>
@@ -312,7 +297,7 @@
 
 
 		<!-- strings for the comments -->
-		<string id="comments.comments">Comments</string>
+		<string id="comments.comments">Коомментарии</string>
 		<string id="comments.add">Post new comment</string>
 		<string id="comments.none">No comments have been posted</string>
 		<string id="comments.type">Type in your new comment</string>
@@ -323,7 +308,7 @@
 
 		<!-- strings for the wishlist -->
 		<string id="wishlist.add">Add to my wishlist</string>
-		<string id="wishlist.onlist">On your wishlist</string>
+		<string id="wishlist.onlist">On your wishlist 4к3</string>
 		<string id="wishlist.empty">Your wistlist is empty</string>
 		<string id="wishlist.own">I own a copy of this movie</string>
 		<string id="wishlist.notown">I do not own a copy of this movie</string>
@@ -331,13 +316,13 @@
 
 		<!-- strings for the pornstar entries -->
 		<string id="pornstar.name">Name</string>
-		<string id="pornstar.web">Website</string>
+		<string id="pornstar.web">Сайт</string>
 		<string id="pornstar.moviecount">Movie count</string>
 
 
 		<!-- strings for the "seen movies" page -->
 		<string id="seen.seenit">I've seen it</string>
-		<string id="seen.notseenit">I've not seen it</string>
+		<string id="seen.notseenit">I've not seen it уу</string>
 		<string id="seen.seenitclick">Click to mark seen</string>
 		<string id="seen.notseenitclick">Click to mark unseen</string>
 
@@ -349,7 +334,7 @@
 		<string id="statistics.top_act">Most active categories</string>
 		<string id="statistics.top_covers">Covers in database</string>
 		<string id="statistics.total">Total</string>
-		<string id="statistics.today">Added today</string>
+		<string id="statistics.today">Добавлено сегодня</string>
 		<string id="statistics.week">Added in last 7 days</string>
 		<string id="statistics.month">Added in last 30 days</string>
 
@@ -368,14 +353,14 @@
 		<string id="metadata.desc">Description</string>
 		<string id="metadata.type">Meta type</string>
 		<string id="metadata.value">Meta value</string>
-		<string id="metadata.none">No Metadata exists.</string>
+		<string id="metadata.none">No Metadata exists</string>
 
 
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Path</string>
 		<string id="player.param">Parameters</string>
-		<string id="player.note">Enter the full path to your movie player on your harddrive.&lt;br/&gt;Your player must be able to take parameters as command line such as the BSPlayer for Win32 or the MPlayer for Linux.&lt;br/&gt;You can download BSPlayer for free &lt;a  href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt; and the MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt;.</string>
+		<string id="player.note">Enter the full path to your movie player on your harddrive.&lt;br/&gt;Your player must be able to take parameters as command line such as the BSPlayer for Win32 or the MPlayer for Linux.&lt;br/&gt;You can download BSPlayer for free &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt; and the MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
@@ -391,17 +376,17 @@
 		<string id="misc.status">Status</string>
 		<string id="misc.success">Success</string>
 		<string id="misc.failure">Failure</string>
-		<string id="misc.yes">Yes</string>
-		<string id="misc.no">No</string>
+		<string id="misc.yes">Да</string>
+		<string id="misc.no">Нет</string>
 		<string id="misc.showmore">Show more</string>
 		<string id="misc.showless">Show less</string>
 		<string id="misc.new">New</string>
-		<string id="misc.change">change</string>
-		<string id="misc.delete">delete</string>
-		<string id="misc.update">Update</string>
-		<string id="misc.saveandclose">Save and close</string>
-		<string id="misc.close">Close</string>
-		<string id="misc.edit">Edit</string>
+		<string id="misc.change">изменить</string>
+		<string id="misc.delete">удалить</string>
+		<string id="misc.update">Обновить</string>
+		<string id="misc.saveandclose">Сохранить и закрыть</string>
+		<string id="misc.close">Закрыть</string>
+		<string id="misc.edit">Редактировать</string>
 		<string id="misc.results">Results</string>
 		<string id="misc.latestmovies">latest movies</string>
 		<string id="misc.latesttv">latest TV shows</string>
@@ -411,12 +396,12 @@
 		<string id="misc.nousers">No active users</string>
 		<string id="misc.key">Key</string>
 		<string id="misc.savenext">Save and edit next</string>
-		<string id="misc.save">Save</string>
+		<string id="misc.save">Сохранить</string>
 		<string id="misc.seen">Seen</string>
 		<string id="misc.footer">Page Loaded in %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
 		<string id="misc.footer_link">Check out the official VCD-db website</string>
 		<string id="misc.toggle">Toggle preview</string>
-		<string id="misc.toggle_on">on</string>
-		<string id="misc.toggle_off">off</string>
+		<string id="misc.toggle_on">вкл</string>
+		<string id="misc.toggle_off">выкл</string>
 	</strings>
 </language>

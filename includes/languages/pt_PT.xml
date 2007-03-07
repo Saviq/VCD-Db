@@ -49,6 +49,7 @@
 </string>
 		<string id="menu.statistics"> Estatísticas
 </string>
+		<string id="menu.showallusersmovies">Todos os filmes</string>
 
 
 		<!-- login based strings -->
@@ -82,6 +83,7 @@
 		<!-- strings for user properties -->
 		<string id="userproperties.notify"> Receber um e-mail quando um novo filme for adicionado?
 </string>
+		<string id="userproperties.show_adult">Mostre o índice do adulto no local?</string>
 		<string id="userproperties.rss"> Activar fornecedores RSS da minha lista de filmes?
 </string>
 		<string id="userproperties.wishlist"> Permitir que outros vejam a minha lista de pedidos?
@@ -94,6 +96,7 @@
 </string>
 		<string id="userproperties.nfo"> Activar arquivos NFO?
 </string>
+		<string id="userproperties.default_image">Deve a vista da imagem ser defeito?</string>
 
 
 		<!-- strings for user settings -->
@@ -365,6 +368,7 @@
 </string>
 		<string id="mymovies.friends"> Meus amigos que pedem CD's emprestados
 </string>
+		<string id="mymovies.overviewdetail">Vista geral detalhada da coleção</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -434,6 +438,7 @@
 </string>
 		<string id="addmovie.notitles"> Nenhum outro utilizador adicionou filmes no VCD-db
 </string>
+		<string id="addmovie.id">A entrada é uma identificação</string>
 
 
 		<!-- strings for XML actions -->

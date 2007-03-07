@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Top gebruikers</string>
 		<string id="menu.wishlistpublic">Overige verlanglijstjes</string>
 		<string id="menu.statistics">Statistieken</string>
+		<string id="menu.showallusersmovies">Alle movies</string>
 
 
 		<!-- login based strings -->
@@ -59,6 +60,7 @@
 		<string id="userproperties.seen_list">Bijhouden welke films ik heb gezien</string>
 		<string id="userproperties.playoption">Gebruik player opties op client</string>
 		<string id="userproperties.nfo">Van het gebruik NFO- dossier?</string>
+		<string id="userproperties.default_image">Afbeelding weergave als standaard instellen?</string>
 
 
 		<!-- strings for user settings -->
@@ -68,6 +70,12 @@
 		<string id="usersettings.showstat">Statistieken</string>
 		<string id="usersettings.showside">Laat nieuwe film in zijmenu zien</string>
 		<string id="usersettings.selectrss">Selecteer RSS feeds</string>
+		<string id="usersettings.pagelook">Web layout</string>
+		<string id="usersettings.pagemode">Selecteer standaard sjabloon</string>
+		<string id="usersettings.updated">Gebruiker info bijgewerkt</string>
+		<string id="usersettings.update_failed">Bijwerken is mislukt</string>
+		<string id="usersettings.list">Negeer Lijst</string>
+		<string id="usersettings.desc">Negeer alle films van deze gebruikers:</string>
 
 
 		<!-- strings for search and search results -->
@@ -147,6 +155,7 @@
 		<string id="movie.textview">Tekst beeld</string>
 		<string id="movie.imageview">Afbeeldingen beeld</string>
 		<string id="movie.mineonly">Toon alleen mijn films</string>
+		<string id="movie.similar">Verwante films</string>
 		<string id="movie.mediaindex">Index nummer </string>
 
 
@@ -157,6 +166,14 @@
 		<string id="imdb.trailers">Trailers</string>
 		<string id="imdb.links">IMDB Koppelingen</string>
 		<string id="imdb.not">Geen IMDB info beschikbaar</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Regio</string>
+		<string id="dvd.format">Formaat</string>
+		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.audio">Audio</string>
+		<string id="dvd.subtitles">Ondertiteling</string>
 
 
 		<!-- My movies page strings -->
@@ -189,6 +206,8 @@
 		<string id="mymovies.helppickerinfo">Geen idee welke film te bekijken vandaag?&lt;br/&gt;Laat VCD-db helpen om een film te vinden.&lt;br/&gt;Je kunt ook filters maken en gebruiken om het resultaat te beperken.</string>
 		<string id="mymovies.find">Vind een film</string>
 		<string id="mymovies.notseen">Alleen films voorstellen die ik nog niet heb gezien</string>
+		<string id="mymovies.friends">Vrienden die CD's geleend hebben</string>
+		<string id="mymovies.overviewdetail">Gedetailleerd inzamelingsoverzicht</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -227,6 +246,7 @@
 		<string id="addmovie.selected">Geselecteerde titel</string>
 		<string id="addmovie.infolist">Dubbel-klik op titel om te selecteren of gebruik pijltjestoetsen.&lt;br/&gt;&lt;br/&gt;Je kunt het toetsenbord gebruiken om titels snel te vinden.</string>
 		<string id="addmovie.notitles">Geen andere gebruiker heeft films toegevoegd aan VCD-db</string>
+		<string id="addmovie.id">De input is een Identiteitskaart</string>
 
 
 		<!-- strings for XML actions -->
@@ -322,11 +342,33 @@
 		<string id="seen.notseenitclick">klik markeren niet gezien</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Aktueel Overzicht</string>
+		<string id="statistics.top_movies">Films in database</string>
+		<string id="statistics.top_cats">Top categorieën</string>
+		<string id="statistics.top_act">Meest actieve categorieën</string>
+		<string id="statistics.top_covers">Hoezen in database</string>
+		<string id="statistics.total">Totaal</string>
+		<string id="statistics.today">Vandaag toegevoegd</string>
+		<string id="statistics.week">Afgelopen 7 dagen toegevoegd</string>
+		<string id="statistics.month">Afgelopen 30 dagen toegevoegd</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Leen herinnering</string>
 		<string id="mail.returnmovies1">%s, Ik wil je eraan herinneren mijn films terug te bezorgen.&lt;br/&gt;Je hebt volgende films nog steeds:&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.returnmovies2">Bezorg de disks alsjeblieft zo snel mogelijk terug&lt;br/&gt;Groetjes %s&lt;br/&gt;&lt;br/&gt;nb. Dit is een automatisch e-mail bericht van het VCD-db systeem (http://vcddb.konni.com)</string>
 		<string id="mail.notify">&lt;strong&gt;Nieuwe film toegevoegd aan VCD-db&lt;/strong&gt;&lt;br/&gt;Klik &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;hier&lt;/a&gt; om meer te zien ..&lt;br/&gt;&lt;br/&gt;&lt;p&gt;nb. Dit is een automatisch e-mail bericht van het VCD-db systeem (http://vcddb.konni.com)&lt;/p&gt;</string>
 		<string id="mail.register">%s, Registratie ok, je kunt nu inloggen in VCD-db.&lt;br/&gt;&lt;br/&gt;Je gebruikersnaam is %s en je wachtwoord is %s.&lt;br/&gt;&lt;br/&gt;Je kunt altijd je wachtwoord veranderen nadat je hebt ingelogd.&lt;br/&gt;Klik &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;hier&lt;/a&gt; om naar de VCD-db website te gaan.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Mijn Metadata</string>
+		<string id="metadata.name">Naam</string>
+		<string id="metadata.desc">Omschrijving</string>
+		<string id="metadata.type">Meta type</string>
+		<string id="metadata.value">Meta waarde</string>
+		<string id="metadata.none">Geen Metadata aanwezig.</string>
 
 
 		<!-- strings for the player settings and actions -->
@@ -371,5 +413,10 @@
 		<string id="misc.savenext">Opslaan en bewerk volgende</string>
 		<string id="misc.save">Opslaan</string>
 		<string id="misc.seen">Gezien</string>
+		<string id="misc.footer">Pagina geladen in %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Bekijk de officiele VCD-db website</string>
+		<string id="misc.toggle">Rechter kolom</string>
+		<string id="misc.toggle_on">AAN</string>
+		<string id="misc.toggle_off">UIT</string>
 	</strings>
 </language>

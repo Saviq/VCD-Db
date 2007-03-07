@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: aSi Tekk -->
+<language>
+	<id>sk_SK</id>
+	<name>Slovak</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">SK</string>
+		<string id="language.name">Slovak</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Moje menu</string>
+		<string id="menu.settings">Moje nastavenia</string>
+		<string id="menu.movies">Moje filmy</string>
+		<string id="menu.addmovie">Pridať nový film</string>
+		<string id="menu.loansystem">Pôžičkový systém</string>
+		<string id="menu.categories">Kategórie</string>
+		<string id="menu.controlpanel">Ovládací panel</string>
+		<string id="menu.register">Registrovať</string>
+		<string id="menu.logout">Odhlásiť</string>
+		<string id="menu.submit">Pridať</string>
+		<string id="menu.topusers">Top uživatelia</string>
+		<string id="menu.statistics">Štatistiky</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Prihlásenie</string>
+		<string id="login.username">Meno</string>
+		<string id="login.password">Heslo</string>
+		<string id="login.remember">Zapamätaj si ma</string>
+		<string id="login.info">Ponechaj prázdne ak si neželáš zmeniť heslo</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Registrácia</string>
+		<string id="register.fullname">Celé meno</string>
+		<string id="register.email">Email</string>
+		<string id="register.again">Heslo znova</string>
+		<string id="register.disabled">Ľutujeme, administrátor vypol možnosť registrácie.</string>
+		<string id="register.ok">Registrácia bola úspešná, môžete sa prihlásiť do VCD-db.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Poslať e-mail ak bol pridaný nový film?</string>
+		<string id="userproperties.show_adult">Zobrazovať </string>
+		<string id="userproperties.seen_list">Sledovať filmy ktoré som videl?</string>
+		<string id="userproperties.nfo">Povoliť NFO súbory?</string>
+		<string id="userproperties.default_image">Zo</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Nastavenia prehrávača</string>
+		<string id="usersettings.custom">Upraviť moju hlavnú stránku</string>
+		<string id="usersettings.showstat">Zobraziť štatistiku</string>
+		<string id="usersettings.showside">Zobraziť nové filmy v bočnom panely</string>
+		<string id="usersettings.selectrss">Vybrať RSS obsah</string>
+		<string id="usersettings.pagelook">Usporiadanie stránky</string>
+		<string id="usersettings.pagemode">Vybrať predvolenú šablónu</string>
+		<string id="usersettings.updated">Uživateľské informácie aktualizované</string>
+		<string id="usersettings.update_failed">Aktualizácia neúspešná</string>
+		<string id="usersettings.list">Ignorovacia listina</string>
+		<string id="usersettings.desc">Ignoruj všetky filmy od nasledujúcich užívateľov:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Vyhľadať</string>
+		<string id="search.title">v názvoch</string>
+		<string id="search.actor">v hercoch</string>
+		<string id="search.director">v režiséroch</string>
+		<string id="search.results">Výsledky vyhľadávania</string>
+		<string id="search.extended">Detailné vyhľadávanie</string>
+		<string id="search.noresult">Žiadne výsledký vyhľadávania</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Akčné</string>
+		<string id="category.adult">Erotické</string>
+		<string id="category.adventure">Dobrodružné</string>
+		<string id="category.animation">Animované</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Komédie</string>
+		<string id="category.crime">Krimi</string>
+		<string id="category.documentary">Dokumentárne</string>
+		<string id="category.drama">Dráma</string>
+		<string id="category.family">Rodinné</string>
+		<string id="category.fantasy">Fantasy</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Horror</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Hudobné videá</string>
+		<string id="category.musical">Muzikály</string>
+		<string id="category.mystery">Mysteriózne</string>
+		<string id="category.romance">Romantické</string>
+		<string id="category.scifi">Sci-Fi</string>
+		<string id="category.short">Krátke</string>
+		<string id="category.thriller">Thriller</string>
+		<string id="category.tvshows">TV relácie</string>
+		<string id="category.war">Vojnové</string>
+		<string id="category.western">Westerny</string>
+		<string id="category.xrated">XXX</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Film</string>
+		<string id="movie.actors">Obsadenie</string>
+		<string id="movie.category">Kategória</string>
+		<string id="movie.year">Rok produkcie</string>
+		<string id="movie.copies">Kópie</string>
+		<string id="movie.from">Z</string>
+		<string id="movie.title">Titul</string>
+		<string id="movie.alttitle">Alt. názov</string>
+		<string id="movie.grade">Hodnotenie</string>
+		<string id="movie.director">Režisér</string>
+		<string id="movie.country">Štát</string>
+		<string id="movie.runtime">Dĺžka</string>
+		<string id="movie.minutes">minút</string>
+		<string id="movie.plot">Popis</string>
+		<string id="movie.noplot">Žiadne detaily</string>
+		<string id="movie.covers">CD obaly</string>
+		<string id="movie.available">Dostupné kópie</string>
+		<string id="movie.media">Médium</string>
+		<string id="movie.num">Počet CD</string>
+		<string id="movie.date">Pridané dňa</string>
+		<string id="movie.owner">Vlastník</string>
+		<string id="movie.noactors">Žiadne detaily</string>
+		<string id="movie.info">Informácie o filme</string>
+		<string id="movie.details">Detaily o mojej kópii</string>
+		<string id="movie.mediatype">Typ média</string>
+		<string id="movie.comment">Komentáre</string>
+		<string id="movie.private">Označiť ako privátne?</string>
+		<string id="movie.screenshots">Náhľady</string>
+		<string id="movie.noscreens">Žiadne náhľady</string>
+		<string id="movie.show">Ukáž</string>
+		<string id="movie.hide">Schovaj</string>
+		<string id="movie.change">Zmeniť informácie</string>
+		<string id="movie.nocovers">Žiadne CD obaly</string>
+		<string id="movie.bycat">Názvy podľa kategórií</string>
+		<string id="movie.currcat">Aktuálna kategória</string>
+		<string id="movie.textview">Textové zobrazenie</string>
+		<string id="movie.imageview">Náhľady obalov</string>
+		<string id="movie.mineonly">len moje filmy</string>
+		<string id="movie.similar">Rovnaké filmy</string>
+		<string id="movie.mediaindex">Media Index</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB podrobnosti</string>
+		<string id="imdb.plot">Súhrnný popis</string>
+		<string id="imdb.gallery">Fotogaléria</string>
+		<string id="imdb.trailers">Trailer</string>
+		<string id="imdb.links">IMDB odkazy</string>
+		<string id="imdb.not">Žiadne IMDB informácie k dispozícii</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Región</string>
+		<string id="dvd.format">Formát</string>
+		<string id="dvd.aspect">Pomer strán</string>
+		<string id="dvd.audio">Zvuk</string>
+		<string id="dvd.subtitles">Titulky</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Exportovať dáta</string>
+		<string id="mymovies.excel">Exportovať ako Excel formát</string>
+		<string id="mymovies.xml">Exportovať ako XML formát</string>
+		<string id="mymovies.xmlthumbs">Exportovať náhľady ako XML</string>
+		<string id="mymovies.join">Spájanie diskov</string>
+		<string id="mymovies.joinsuser">Vybrať uživatela</string>
+		<string id="mymovies.joinsmedia">Vybrať typ média</string>
+		<string id="mymovies.joinscat">Vybrať kategóriu</string>
+		<string id="mymovies.joinshow">Zobraziť výsledky</string>
+		<string id="mymovies.noresults">Žiadne výsledky hľadania</string>
+		<string id="mymovies.j1">Filmy ktoré mám ja a uživateľ nie.</string>
+		<string id="mymovies.j2">Filmy ktoré má uživateľ a ja nie.</string>
+		<string id="mymovies.j3">Filmy ktoré máme obaja.</string>
+		<string id="mymovies.overview">Prehľad kolekcie</string>
+		<string id="mymovies.info">Na tejto stránke nájdeš všetko o mojich filmoch.&lt;br/&gt;Na pravej strane sú možnosti ktoré môžeš previesť v tvojej zbierke.&lt;br/&gt;Môžeš taktiež exportovať svoj zoznam ako Excel formát alebo použiť XML export pre zálohovanie alebo presun dát svojej zbierky medzi VCD-db databázami.</string>
+		<string id="mymovies.helppicker">Vyber si film na pozeranie.</string>
+		<string id="mymovies.helppickerinfo">Nevieš čo večer pozerať?&lt;br/&gt;VCD-db ti rád pomôže s výberom.&lt;br/&gt;Môžeš si zvoliť filtre a použiť ich pri výbere.</string>
+		<string id="mymovies.find">Nájsť film</string>
+		<string id="mymovies.notseen">Odporúčaj len filmy ktoré som nevidel</string>
+		<string id="mymovies.friends">Priatelia ktorý požičiavajú CD-čka</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Základné informácie</string>
+		<string id="manager.imdb">IMDB info</string>
+		<string id="manager.empire">DVDEmpire info</string>
+		<string id="manager.copy">Moja kópia</string>
+		<string id="manager.copies">Moje kópie</string>
+		<string id="manager.nocopy">Nemáš žiadne kópie</string>
+		<string id="manager.1copy">Kópia</string>
+		<string id="manager.addact">Pridať hercov</string>
+		<string id="manager.addtodb">Pridať nových hercov do DB</string>
+		<string id="manager.savetodb">Uložiť do DB</string>
+		<string id="manager.savetodbncd">Uložiť do DB a filmu</string>
+		<string id="manager.indb">Herci v databáze</string>
+		<string id="manager.sel">Vybraný herci</string>
+		<string id="manager.stars">Hviezdy</string>
+		<string id="manager.browse">Vyhľadať súbor</string>
+		<string id="manager.addmedia">Pridať...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Vyberte postup pre pridanie filmu</string>
+		<string id="addmovie.imdb">Prebrať z IMDB.com</string>
+		<string id="addmovie.imdbtitle">Zadaj kľúčové slová</string>
+		<string id="addmovie.manual">Vložiť dáta manuálne</string>
+		<string id="addmovie.listed">Pridať film nachádzajúci sa v databáze</string>
+		<string id="addmovie.xml">Pridať film z exportovaného XML súboru</string>
+		<string id="addmovie.xmlfile">Vyber XML súbor pre import</string>
+		<string id="addmovie.xmlnote">Importovať môžete iba XML súbory ktoré boli vyexportované inou VCD-db aplikáciou.&lt;br/&gt;Exportovať filmy môžete v časti &quot;Moje filmy&quot;. Mali by ste sa vyhnút manuálnej úpravy vyexportovaných XML súborov.</string>
+		<string id="addmovie.maxfilesize">Max veľkosť súboru</string>
+		<string id="addmovie.dvdempire">Prebrať z Adult DVD Emprite (erotické filmy)</string>
+		<string id="addmovie.listedstep1">Krok 1&lt;br/&gt;Vyber tituly ktoré chceš pridať do zoznamu.&lt;br/&gt;Typ média si zvolíš v ďalšom kroku.</string>
+		<string id="addmovie.listedstep2">Krok 2.&lt;br/&gt;Vyber vhodný typ média.</string>
+		<string id="addmovie.indb">Filmy v VCD-db</string>
+		<string id="addmovie.selected">Vybrané tituly</string>
+		<string id="addmovie.infolist">Pre výber titulu použi šípky alebo dvojklik myšou.&lt;br/&gt;Môžeš použiť klávesnicu pre rýchle vyhľadanie titulov.</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.contains">XML súbor obsahuje %d filmov.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.stars">Pornohviezda</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Filmy na požičanie</string>
+		<string id="loan.to">Požičať filmy</string>
+		<string id="loan.addusers">Pridaj nejakých na požičiavane pre pokračovanie</string>
+		<string id="loan.name">Meno</string>
+		<string id="loan.select">Vybrať dlžníka</string>
+		<string id="loan.movieloans">Požičané filmy...</string>
+		<string id="loan.reminder">Poslať pripomenutie</string>
+		<string id="loan.history">História pôžičiek</string>
+		<string id="loan.history2">Zobraz históriu pôžičiek</string>
+		<string id="loan.since">Od</string>
+		<string id="loan.time">Čas od</string>
+		<string id="loan.return">Vrátiť kópiu</string>
+		<string id="loan.success">Úspešne požičané filmy</string>
+		<string id="loan.out">Nevrátené</string>
+		<string id="loan.datein">Požicané</string>
+		<string id="loan.dateout">Vrátené</string>
+		<string id="loan.period">Dĺžka pôžičky</string>
+		<string id="loan.back">Návrat na pôžičky</string>
+		<string id="loan.day">deň</string>
+		<string id="loan.days">dní</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Komentáre</string>
+		<string id="comments.add">Pridať komentár</string>
+		<string id="comments.none">Žiadne komentáre</string>
+		<string id="comments.type">Napíšte svoj komentár</string>
+		<string id="comments.your">Tvoj komentár</string>
+		<string id="comments.post">Napísať komentár</string>
+		<string id="comments.error">Musíš byť prihlásený pre písanie komentárov</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.own">Vlastním kópiu filmu</string>
+		<string id="wishlist.notown">Nevlastním kópiu filmu</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Meno</string>
+		<string id="pornstar.web">Webstránka</string>
+		<string id="pornstar.moviecount">Počet filmov</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Videl som</string>
+		<string id="seen.notseenit">Nevidel som</string>
+		<string id="seen.seenitclick">Označiť ako videný</string>
+		<string id="seen.notseenitclick">Označiť ako nevidený</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Dnešný súhrn</string>
+		<string id="statistics.top_movies">Filmov v databáze</string>
+		<string id="statistics.top_cats">Top kategórie</string>
+		<string id="statistics.top_act">Najaktívnejšie kategórie</string>
+		<string id="statistics.top_covers">Obalov v databáze</string>
+		<string id="statistics.total">Spolu</string>
+		<string id="statistics.today">Pridané dnes</string>
+		<string id="statistics.week">Pridané za posledných 7 dní</string>
+		<string id="statistics.month">Pridané za posledných 30 dní</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Pripomenúť vypožičanie</string>
+		<string id="mail.returnmovies1">%s, chcem ti iba pripomenúť vrátenie mojich filmov.&lt;br/&gt;Stále máš moje nasledujúce filmy:</string>
+		<string id="mail.returnmovies2">Prosím vráť mi moje disky čo najskôr.&lt;br/&gt;S pozdravom %s&lt;br/&gt;&lt;br/&gt;nb. Toto je automaticky generovaná správa z VCD-db systému (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;Nové filmy boli pridané do VCD-db&lt;/strong&gt;&lt;br/&gt;Klikni &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;sem&lt;/a&gt; pre detaily ..&lt;br/&gt;&lt;br/&gt;&lt;p&gt;nb. Toto je automaticky generovaná správa z VCD-db systému (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.register">%s, registrácia do VCD-db bola úspešná.&lt;br/&gt;&lt;br/&gt;Tvoje meno je %s a heslo %s.&lt;br/&gt;&lt;br/&gt;Heslo si môžete kedykoľvek zmeniť po prihlásení do systému.&lt;br/&gt;Klikni &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;sem&lt;/a&gt; pre otvorenie VCD-db webstránky.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Moje Metadáta</string>
+		<string id="metadata.name">Meno</string>
+		<string id="metadata.desc">Popis</string>
+		<string id="metadata.type">Meta typ</string>
+		<string id="metadata.value">Meta hodnota</string>
+		<string id="metadata.none">Žiadne Metadáta</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Player</string>
+		<string id="player.path">Cesta</string>
+		<string id="player.param">Parametre</string>
+		<string id="player.note">Vlož presnú cestu k tvojmu prehrávaču na tvojom pevnom disku.&lt;br/&gt;Prehrávač by mal byť schopný akceptovať parametre príkazového riadku ako napr. BSPlayer pre Windows alebo MPlayer pre Linux.&lt;br/&gt;Stiahnite si BSPlayer zadarmo &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;tu&lt;/a&gt; alebo MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;tu&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">obsahuje</string>
+		<string id="misc.grade">IMDB hodnotenie väčšie ako</string>
+		<string id="misc.any">Hociaký</string>
+		<string id="misc.tryagain">Skúsiť znovu</string>
+		<string id="misc.proceed">Pokračovať</string>
+		<string id="misc.select">Vybrať</string>
+		<string id="misc.confirm">Potvrdiť</string>
+		<string id="misc.cancel">Zrušiť&lt;br/&gt;</string>
+		<string id="misc.attention">Upozornenie!</string>
+		<string id="misc.status">Stav</string>
+		<string id="misc.success">Úspešné</string>
+		<string id="misc.failure">Chyba</string>
+		<string id="misc.yes">Ano</string>
+		<string id="misc.no">Nie</string>
+		<string id="misc.showmore">Zobraz viac</string>
+		<string id="misc.showless">Zobraz menej</string>
+		<string id="misc.new">Nový</string>
+		<string id="misc.change">zmeniť</string>
+		<string id="misc.delete">odstrániť</string>
+		<string id="misc.update">Aktualizovať</string>
+		<string id="misc.saveandclose">Ulož a zatvor</string>
+		<string id="misc.close">Zatvoriť</string>
+		<string id="misc.edit">Upraviť</string>
+		<string id="misc.results">Výsledky</string>
+		<string id="misc.latestmovies">najnovšie filmy</string>
+		<string id="misc.latesttv">najnovšie TV relácie</string>
+		<string id="misc.latestblue">najnovšie XXX</string>
+		<string id="misc.movies">filmov</string>
+		<string id="misc.nocats">Žiadne filmy neboli pridané</string>
+		<string id="misc.nousers">Žiadny aktívny uživatelia</string>
+		<string id="misc.key">Kľúč</string>
+		<string id="misc.savenext">Ulož a edituj ďalšie</string>
+		<string id="misc.save">Uložiť</string>
+		<string id="misc.seen">Videný</string>
+		<string id="misc.footer">Page Loaded in %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Navštív oficiálnu VCD-db webstránku.</string>
+		<string id="misc.toggle">Povoliť náhľad</string>
+		<string id="misc.toggle_on">zap.</string>
+		<string id="misc.toggle_off">vyp.</string>
+	</strings>
+</language>

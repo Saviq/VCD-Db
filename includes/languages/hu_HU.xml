@@ -59,6 +59,7 @@
 		<string id="userproperties.seen_list">Tartsd meg ezt a filmet, hogy láthassam</string>
 		<string id="userproperties.playoption">Use client playback options</string>
 		<string id="userproperties.nfo">Enable NFO files?</string>
+		<string id="userproperties.default_image">Képes nézet legyen az alapértelmezett?</string>
 
 
 		<!-- strings for user settings -->
@@ -67,10 +68,17 @@
 		<string id="usersettings.custom">Customize my frontpage</string>
 		<string id="usersettings.showstat">Mutasd a statisztikákat</string>
 		<string id="usersettings.showside">Mutassa az új filmeket a sidebar-ban</string>
+		<string id="usersettings.selectrss">RSS-adatfeltöltés kiválasztása</string>
+		<string id="usersettings.pagelook">Web elrendezés</string>
+		<string id="usersettings.pagemode">Alap Template:</string>
+		<string id="usersettings.updated">Felhasználói adatok frissítve.</string>
+		<string id="usersettings.update_failed">Sikertelen frissítés.</string>
+		<string id="usersettings.list">Elrejtő lista.</string>
+		<string id="usersettings.desc">A következő felhasználók filmjeit ne jelenítse meg</string>
 
 
 		<!-- strings for search and search results -->
-		<string id="search.search">Search</string>
+		<string id="search.search">Keresés</string>
 		<string id="search.title">Cím szerint</string>
 		<string id="search.actor">Színész szerint</string>
 		<string id="search.director">Rendezõ szerint</string>
@@ -160,11 +168,11 @@
 
 
 		<!-- DVD specific string -->
-		<string id="dvd.region">Region</string>
-		<string id="dvd.format">Format</string>
-		<string id="dvd.aspect">Aspect ratio</string>
-		<string id="dvd.audio">Audio</string>
-		<string id="dvd.subtitles">Subtitles</string>
+		<string id="dvd.region">Régió</string>
+		<string id="dvd.format">Formátum</string>
+		<string id="dvd.aspect">Képméret</string>
+		<string id="dvd.audio">Hang</string>
+		<string id="dvd.subtitles">Felirat</string>
 
 
 		<!-- My movies page strings -->
@@ -173,8 +181,8 @@
 		<string id="mymovies.xml">Export XML dokumentumként</string>
 		<string id="mymovies.xmlthumbs">Export thumbnails XMLként</string>
 		<string id="mymovies.actions">Lehetõségeim</string>
-		<string id="mymovies.join">Disc join</string>
-		<string id="mymovies.joinmovies">Disc join movies</string>
+		<string id="mymovies.join">Összehasonlítás</string>
+		<string id="mymovies.joinmovies">Filmek összehasonlítása</string>
 		<string id="mymovies.joinsuser">Felhasználó választás</string>
 		<string id="mymovies.joinsmedia">Media típus választás</string>
 		<string id="mymovies.joinscat">Kategória választás</string>
@@ -185,9 +193,12 @@
 		<string id="mymovies.pwall">Mutasd (Mind)</string>
 		<string id="mymovies.pwmovies">Mutasd (Filmeket)</string>
 		<string id="mymovies.pwtv">Mutasd (Tv Showkat)</string>
-		<string id="mymovies.pwblue">Mutasd (&quot;Kék&quot; filmeket)</string>
+		<string id="mymovies.pwblue">Nyomtatási nézet (18 )</string>
+		<string id="mymovies.j1">Csak nekem van meg</string>
+		<string id="mymovies.j2">Csak a másiknak van meg</string>
+		<string id="mymovies.j3">Mindkettőnknek megvan</string>
 		<string id="mymovies.overview">Kollekció áttekintése</string>
-		<string id="mymovies.info">Ezen az oldalon megtalálhatsz minden információt a filmjeimrõl.&lt;br/&gt;&lt;br/&gt;To the right are actions you can run on your movie collection.&lt;br/&gt;You can also export your list as Excel for printing or use the XML export functions for backup or to move all your collection data from one VCD-db to another.</string>
+		<string id="mymovies.info">Ezen az oldalon megtalálhatsz minden információt a filmjeimrõl.&lt;br/&gt;&lt;br/&gt;A jobb oldalon vannak az utasítások, amelyeket a gyűjteményeden végrehajthatsz.&lt;br/&gt;Ki is exportálhatod a listádat Excel formátumban a nyomtatáshoz, vagy használhatod az XML export funkciót arra, hogy átvidd a filmgyűjteményed egy VCD-db-ről a másikra.</string>
 		<string id="mymovies.keys">Egyedi azonosító szerkesztése</string>
 		<string id="mymovies.seenlist">Megnézett filmek kezelése</string>
 		<string id="mymovies.helppicker">Dobj egy filmet amit megnézzek</string>
@@ -224,15 +235,27 @@
 		<string id="addmovie.listed">A film már benne van a listában</string>
 		<string id="addmovie.xml">FIlm hozzáadása exportált XML file-bõl</string>
 		<string id="addmovie.xmlfile">Válaszd ki az XML file-t az importáláshoz</string>
+		<string id="addmovie.xmlnote">(Ügyelj arra, hogy csak más VCD-db alkalmazásokból exportált XML-fájlok használhatók fel a filmek importálásához.&lt;br/&gt;A filmek a &quot;Filmek&quot; részből is exportálhatók. Az exportált XML-fájlok manuális szerkesztése nem ajánlott.)</string>
 		<string id="addmovie.maxfilesize">Max fileméret</string>
 		<string id="addmovie.dvdempire">Lekérés az Adult DVD Empire-tõl (X-rated filmek)</string>
+		<string id="addmovie.listedstep1">1. lépés&lt;br/&gt;Válaszd ki a saját listádhoz hozzáadni kívánt címeket.&lt;br/&gt;Az adathordozó típusát a következő lépésben tudod megadni.</string>
+		<string id="addmovie.listedstep2">2. lépés&lt;br/&gt;Válaszd ki a megfelelő adathordozót.</string>
+		<string id="addmovie.indb">Filmek a VCD-DB-ben</string>
 		<string id="addmovie.selected">Kiválasztott címek</string>
+		<string id="addmovie.infolist">A filmek az adott címre való kettős kattintással vagy a nyilak segítségével választhatók ki..&lt;br/&gt;A gyorsabb kereséshez használhatod a billentyűzet betűit is.</string>
 		<string id="addmovie.notitles">Nincs másik felhasználónak ez a film hozzáadva a Filmtárba</string>
 
 
 		<!-- strings for XML actions -->
 		<string id="xml.confirm">Az XML feltötlését igazolása</string>
 		<string id="xml.contains">XML file  %d filmeket tartalmazza.</string>
+		<string id="xml.info1">A jóváhagyásra kattintva szerkesztheted a filmeket és mentheted el azokat az adatbázisban.&lt;br/&gt;Vagy kattints a Mégsem ikonra a kilépéshez.</string>
+		<string id="xml.info2">Ha az importálandó XML-fájlban lévő filmekhez miniatűröket is csatolni akarsz, a miniatűröket tartalmazó XML-fájlnak már most kész &lt;b&gt;KELL&lt;/b&gt; lennie!.&lt;br/&gt;Miniatűrök a filmek importjának befejezése után már nem importálhatók. &lt;br/&gt;&lt;br/&gt;Amennyiben már rendelkezel a miniatűröket tartalmazó XML-fájllal, jelöld be az alábbi négyzetet. Ekkor a következő lépésben, a filmek importja után a program rákérdez a miniatűröket tartalmazó XML-fájl importálására is.</string>
+		<string id="xml.thumbnails">Miniatűrök hozzáadása a miniatűröket tartalmazó XML-fájlból </string>
+		<string id="xml.list">Az XML-fájlban talált összes film.</string>
+		<string id="xml.error">Az XML-fájlban nincsenek címek.&lt;br/&gt;A fájl sérült vagy üres.&lt;br/&gt;Ellenőrizd, hogy a VCD-db-ből exportált XML-fájlt használod-e.</string>
+		<string id="xml.results">XML-feltöltés eredménye.</string>
+		<string id="xml.results2">Ez az XML-import eredménye.&lt;br/&gt;Összesen % film lett importálva.</string>
 
 
 		<!-- strings for DVD empire based fetch -->
@@ -241,6 +264,8 @@
 		<string id="dvdempire.subcat">Adult kategóriák</string>
 		<string id="dvdempire.details">Adultdvdempire.com details</string>
 		<string id="dvdempire.stars">Pornócsillagok</string>
+		<string id="dvdempire.notice">A pirossal jelzett színészek jelenleg nincsenek a VCD-DB-ben.&lt;br/&gt;Ha kijelölöd a nevüket, a program automatikusan hozzáadja őket a VCD-db-hez és összekapcsolja az adott filmmel..</string>
+		<string id="dvdempire.fetch">További import</string>
 
 
 		<!-- strings for the loan system -->
@@ -267,6 +292,20 @@
 		<string id="loan.day">nap</string>
 		<string id="loan.days">napok</string>
 		<string id="loan.today">mától</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS-adatimport</string>
+		<string id="rss.title">RSS-adatimport ismerősök VCD-DB-oldalairól</string>
+		<string id="rss.site">RSS oldal importja</string>
+		<string id="rss.user">RSS felhasználó importja</string>
+		<string id="rss.view">RSS-import megjelenítése</string>
+		<string id="rss.add">Új adatok hozzáadása</string>
+		<string id="rss.note">Add meg az ismerőseid VCD-adatbázisának &lt;strong&gt;pontos url-jét&lt;/strong&gt;.&lt;br/&gt;Ha az adott oldalakon az RSS engedélyezett, átveheted a számodra érdekes adatokat és megjelenítheted azokat saját oldaladon.</string>
+		<string id="rss.fetch">RSS-lista importja</string>
+		<string id="rss.none">Nincs megadva RSS-adatimport.</string>
+		<string id="rss.found">A következő RSS-adatok találhatók. Válaszd ki a hozzáadni kívánt forrásokat:</string>
+		<string id="rss.notfound">Itt nem találhatók adatok</string>
 
 
 		<!-- strings for the comments -->
@@ -300,11 +339,33 @@
 		<string id="seen.notseenitclick">Még nemláttam-ra állításhoz klikk</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Mai riport</string>
+		<string id="statistics.top_movies">Filmek az adatbázisban</string>
+		<string id="statistics.top_cats">Népszerübb kategóriák</string>
+		<string id="statistics.top_act">Aktív ketagóriák</string>
+		<string id="statistics.top_covers">Borítók</string>
+		<string id="statistics.total">Teljes</string>
+		<string id="statistics.today">Ma hozzáadva</string>
+		<string id="statistics.week">Az utolsó 7 napban</string>
+		<string id="statistics.month">Az utolsó 30 napban</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
-		<string id="mail.returnmovies1">%s, csak emlékeztetni szeretnélek hogy vissza kell hoznod a filmem.&lt;br/&gt;You still have the following movies :&lt;br/&gt;&lt;br/&gt;</string>
-		<string id="mail.returnmovies2">Kérlek hozd vissza amilyen gyorsan csak tudod a lemezeim&lt;br/&gt;Üdvözlettel %s&lt;br/&gt;&lt;br/&gt;ui. Ez egy autómatikus e-mail küldõ rendszer</string>
+		<string id="mail.returntopic">Kölcsönadási emlékeztető</string>
+		<string id="mail.returnmovies1">%s, csak emlékeztetni szeretnélek hogy vissza kell hoznod a filmem.&lt;br/&gt;Még mindig nálad vannak a következők:&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Légyszi, amint tudod, hozd vissza a lemezeket&lt;br/&gt;Köszi %s&lt;br/&gt;&lt;br/&gt;nb. Ez a VCD-db (http://vcddb.konni.com) által generált automatikus e-mail</string>
 		<string id="mail.notify">&lt;strong&gt;Új film lett hozzáadva a Filmtárhoz&lt;/strong&gt;&lt;br/&gt;Klikk &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;ide&lt;/a&gt;, hogy megnézhesd ..&lt;br/&gt;&lt;p&gt;ui. Ez egy autómatikus e-mail küldo rendszer&lt;/p&gt;</string>
-		<string id="mail.register">%s, regisztrációd a filmtárhoz megtörtént.&lt;br/&gt;&lt;br/&gt;A felhasználó neved:%s és a passwordöd: %s.&lt;br/&gt;&lt;br/&gt;nBármikor megváltoztathatod a jelszavad, hogy bejelentkeztél.&lt;br/&gt;Klikk &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;ide&lt;/a&gt; a Filmtárhoz.</string>
+		<string id="mail.register">%s, regisztrációd a VCD-db-re sikeres volt..&lt;br/&gt;&lt;br/&gt;A felhasználóneved %s és a jelszavad %s&lt;br/&gt;&lt;br/&gt;A jelszó belépés után módosítható.&lt;br/&gt;A VCD-db weboldal eléréséhez kattints &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;ide&lt;/a&gt;.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Az én meta-adataim</string>
+		<string id="metadata.name">Név</string>
+		<string id="metadata.desc">Leírás</string>
+		<string id="metadata.type">Meta-típus</string>
+		<string id="metadata.value">Meta-érték</string>
+		<string id="metadata.none">Nincs meta-adat</string>
 
 
 		<!-- strings for the player settings and actions -->
@@ -349,5 +410,10 @@
 		<string id="misc.savenext">Mentés és szerkeszt a következõt</string>
 		<string id="misc.save">Mentés</string>
 		<string id="misc.seen">Megnézve</string>
+		<string id="misc.footer">Oldal %s másodperc alatt betöltve (&lt;i&gt;%d lekérdezés&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Tekintsd meg a hivatalos VCD-db weboldalt!</string>
+		<string id="misc.toggle">Előnézet ki/bekapcsolása</string>
+		<string id="misc.toggle_on">be</string>
+		<string id="misc.toggle_off">ki</string>
 	</strings>
 </language>

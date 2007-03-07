@@ -59,6 +59,7 @@
 		<string id="userproperties.seen_list">Vodi raèuna o filmovima koje sam odgledao?</string>
 		<string id="userproperties.playoption">Koristi vlastite postavke za </string>
 		<string id="userproperties.nfo">Koristi NFO?</string>
+		<string id="userproperties.default_image">Koristi prikaz slika standardno?</string>
 
 
 		<!-- strings for user settings -->
@@ -68,6 +69,8 @@
 		<string id="usersettings.showstat">Prikaži statistiku</string>
 		<string id="usersettings.showside">Prikaži nove filmove u boènom meniju</string>
 		<string id="usersettings.selectrss">Odaberi RSS izvor</string>
+		<string id="usersettings.pagelook">Stranični prijelom</string>
+		<string id="usersettings.pagemode">Odredi standardnu šablonu</string>
 		<string id="usersettings.updated">User information updated</string>
 		<string id="usersettings.update_failed">Failed to update</string>
 		<string id="usersettings.list">Ignore List</string>
@@ -349,6 +352,7 @@
 
 
 		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Podsjetnik pozajmice</string>
 		<string id="mail.returnmovies1">%s, samo želim da te podsjetim da vratiš moje filmove.&lt;br/&gt;Kod tebe su slijedeæi filmovi:&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.returnmovies2">Molim te da ih vratiš što prije moguæe&lt;br/&gt;Pozdrav %s&lt;br/&gt;&lt;br/&gt;nb. ovo je automatska poruka od VCD-db sistema (http://vcddb.konni.com)</string>
 		<string id="mail.notify">&lt;strong&gt;Novi film je dodan u VCD-db&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;Klikni &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;ovdje&lt;/a&gt; da bi vidio više ...&lt;br/&gt;&lt;p&gt;nb. ovo je automatska poruka od VCD-db sistema (vcddb.konni.com)&lt;/p&gt;</string>

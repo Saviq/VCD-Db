@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Marzouq Almutairi -->
+<language>
+	<id>ar_AR</id>
+	<name>Arabic</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">ARB</string>
+		<string id="language.name">Arabic</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">قائمتي</string>
+		<string id="menu.settings">تعديلاتي</string>
+		<string id="menu.movies">أفلامي</string>
+		<string id="menu.addmovie">إضافة فلم جديد</string>
+		<string id="menu.loansystem">نظام الاستعارة</string>
+		<string id="menu.wishlist">قائمة أمنياتي</string>
+		<string id="menu.categories">أصناف الفلم</string>
+		<string id="menu.controlpanel">لوحة التحكم</string>
+		<string id="menu.register">سجل</string>
+		<string id="menu.logout">خروج</string>
+		<string id="menu.submit">ارسال</string>
+		<string id="menu.topusers">أعلى المستخدمين</string>
+		<string id="menu.wishlistpublic">قوائم الامنيات الأخرين</string>
+		<string id="menu.statistics">إحصائيات</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">دخول</string>
+		<string id="login.username">إسم المستخدم</string>
+		<string id="login.password">كلمة السر</string>
+		<string id="login.remember">تذكرني</string>
+		<string id="login.info">أتركه فارغا إذا كنت &lt;b&gt;لا&lt;/b&gt; تريد حفظ كلمة السر</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">التسجيل</string>
+		<string id="register.fullname">الإسم الكامل</string>
+		<string id="register.email">البريد الإكتروني</string>
+		<string id="register.again">كلمة السر مرة أخرى</string>
+		<string id="register.disabled">نأسف , مدير الموقع قد أوقف خدمة التسجيل حاليا</string>
+		<string id="register.ok">التسجيل تم بنجاح , يمكنك الدخول إلى الموقع</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">أرسل إلي بريد الكتروني عند إضافة فلم جديد ؟</string>
+		<string id="userproperties.show_adult">أعرض محتويات للكبار في الموقع ؟</string>
+		<string id="userproperties.wishlist">إجعل الآخرين يرون قائمة أمنياتي ؟</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.custom">تعديل صفحة الاستقبال</string>
+		<string id="usersettings.showstat">الاحصاءيات</string>
+		<string id="usersettings.list">قاءمة التجاهل</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">بحث</string>
+		<string id="search.title">بالعنوان</string>
+		<string id="search.actor">بالممثل</string>
+		<string id="search.director">بالمخرج</string>
+		<string id="search.results">نتائج البحث</string>
+		<string id="search.extended">تفاصيل البحث</string>
+		<string id="search.noresult">لا يوجد نتائج</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">إثارة</string>
+		<string id="category.adult">للكبار</string>
+		<string id="category.adventure">مغامرات</string>
+		<string id="category.animation">رسوم متحركة</string>
+		<string id="category.anime">مانجا/إنيمي</string>
+		<string id="category.comedy">فكاهي</string>
+		<string id="category.crime">جريمة</string>
+		<string id="category.documentary">وثائقي</string>
+		<string id="category.drama">دراما</string>
+		<string id="category.family">عائلي</string>
+		<string id="category.fantasy">خيالي</string>
+		<string id="category.filmnoir">إجرام</string>
+		<string id="category.horror">رعب</string>
+		<string id="category.jamesbond">جيمس بوند</string>
+		<string id="category.musicvideo">فيديو كليب</string>
+		<string id="category.musical">موسيقي</string>
+		<string id="category.mystery">غموض</string>
+		<string id="category.romance">رومانسي</string>
+		<string id="category.scifi">فضائي</string>
+		<string id="category.short">مختصر</string>
+		<string id="category.thriller">تشويق</string>
+		<string id="category.tvshows">برامج تلفزيونية</string>
+		<string id="category.war">حربي</string>
+		<string id="category.western">رعاة بقر</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">الفلم</string>
+		<string id="movie.actors">الممثلون</string>
+		<string id="movie.category">الصنف</string>
+		<string id="movie.year">سنة الانتاج</string>
+		<string id="movie.copies">النسخ</string>
+		<string id="movie.from">من</string>
+		<string id="movie.title">عنوان</string>
+		<string id="movie.alttitle">الترجمة</string>
+		<string id="movie.grade">تقدير</string>
+		<string id="movie.director">إخراج</string>
+		<string id="movie.country">بلد الإنتاج</string>
+		<string id="movie.runtime">المدة</string>
+		<string id="movie.minutes">دقائق</string>
+		<string id="movie.plot">قصة الفلم</string>
+		<string id="movie.noplot">غير متوفر ملخص قصة الفلم</string>
+		<string id="movie.covers">أغلفة إسطوانة</string>
+		<string id="movie.available">النسخ المتوفرة</string>
+		<string id="movie.media">فيديو</string>
+		<string id="movie.num">عدد الإسطوانات</string>
+		<string id="movie.date">تاريخ الإضافة</string>
+		<string id="movie.owner">المالك</string>
+		<string id="movie.noactors">غير متوفر قائمة ممثلون</string>
+		<string id="movie.info">معلومات الفلم</string>
+		<string id="movie.details">تفاصيل نسختي</string>
+		<string id="movie.mediatype">نوع الفيديو</string>
+		<string id="movie.comment">تعليق</string>
+		<string id="movie.private">علامة خصوصية ؟</string>
+		<string id="movie.screenshots">صور من الفلم</string>
+		<string id="movie.noscreens">غير متوفر صور من الفلم</string>
+		<string id="movie.show">عرض</string>
+		<string id="movie.hide">إخفاء</string>
+		<string id="movie.change">تغير المعلومات</string>
+		<string id="movie.nocovers">غير متوفر غلاف للإسطوانة</string>
+		<string id="movie.bycat">عناوين بالصنف</string>
+		<string id="movie.currcat">الصنف الحالي</string>
+		<string id="movie.textview">رؤية كتابية</string>
+		<string id="movie.imageview">رؤية صورية</string>
+		<string id="movie.mineonly">إعرض فقط أفلامي</string>
+		<string id="movie.similar">أفلام مشابهه</string>
+		<string id="movie.mediaindex">فهرس الفيديو</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB تفاصيل</string>
+		<string id="imdb.plot">قصة الفلم</string>
+		<string id="imdb.gallery">معرض الصور</string>
+		<string id="imdb.trailers">مقطع فيديو</string>
+		<string id="imdb.links">IMDB وصلات</string>
+		<string id="imdb.not">IMDB غير متوفر معلومات من</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">المنطقة</string>
+		<string id="dvd.format">نظام الفيديو</string>
+		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.audio">الصوت</string>
+		<string id="dvd.subtitles">الترجمات</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.joinsuser">اختيار مستعمل</string>
+		<string id="mymovies.joinsmedia">نوع الميديا</string>
+		<string id="mymovies.joinscat">اختر النوعية</string>
+		<string id="mymovies.joinshow">عرض النتيجة</string>
+		<string id="mymovies.noresults">لا نتيجة</string>
+		<string id="mymovies.keys">تعديل رقم المستعمل</string>
+		<string id="mymovies.helppicker">اختر فلم للمشاهدة</string>
+		<string id="mymovies.find">بحث فلم</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">معلومات أساسية</string>
+		<string id="manager.imdb">IMDB معلومة</string>
+		<string id="manager.empire">DVDEmpire معلومة</string>
+		<string id="manager.copy">نسختي</string>
+		<string id="manager.copies">نسخي</string>
+		<string id="manager.nocopy">لا يوجد لديك نسخ</string>
+		<string id="manager.1copy">نسخ</string>
+		<string id="manager.addact">إضافة ممثلون</string>
+		<string id="manager.addtodb">أضافة ممثلون في قاعدة البيانات</string>
+		<string id="manager.savetodb">أحفظ في قاعدة البيانات</string>
+		<string id="manager.savetodbncd">أحفظ في قاعدة البيانات والفلم</string>
+		<string id="manager.indb">ممثلون في قاعدة البيانات</string>
+		<string id="manager.sel">الممثلون المختارين</string>
+		<string id="manager.stars">نجوم</string>
+		<string id="manager.browse">أستعرض بمكان الملف</string>
+		<string id="manager.addmedia">أضافة ...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">طريقة الاضافة</string>
+		<string id="addmovie.imdb">بحث في قاعدة بيانات انترنات</string>
+		<string id="addmovie.imdbtitle">كلمة البحث</string>
+		<string id="addmovie.manual">ادخال المعلومات</string>
+		<string id="addmovie.listed">اضف فلم موجود</string>
+		<string id="addmovie.xmlfile">اختر xml للتصدير</string>
+		<string id="addmovie.maxfilesize">الحجم الاقصى</string>
+		<string id="addmovie.indb">الافلام في هذا الdvd</string>
+		<string id="addmovie.selected">العناوين المختلرة</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.fetch">بحث</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">افلام للكراء</string>
+		<string id="loan.newuser">كاري جديد</string>
+		<string id="loan.name">اسم</string>
+		<string id="loan.history">تاريخ الكراء</string>
+		<string id="loan.since">منذ</string>
+		<string id="loan.datein">تاريخ البداية</string>
+		<string id="loan.dateout">تاريخ النهاية</string>
+		<string id="loan.period">زمن الكراء</string>
+		<string id="loan.day">يوم</string>
+		<string id="loan.days">ايام</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.fetch">بحث rss</string>
+		<string id="rss.none">rss غير موجود</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">تعليقات</string>
+		<string id="comments.add">أرسل تعليق جديد</string>
+		<string id="comments.none">لا يوجد تعليقات أرسلت</string>
+		<string id="comments.type">إدخل تعليق جديد</string>
+		<string id="comments.your">تعليقك</string>
+		<string id="comments.post">إرسال تعليق</string>
+		<string id="comments.error">يجب عليك الدخول لإرسال التعليق</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">أضف إالي قائمة أمنياتي</string>
+		<string id="wishlist.onlist">في قائمة أمنياتك</string>
+		<string id="wishlist.empty">قائمة أمنياتك خالية</string>
+		<string id="wishlist.own">لدي نسخة من هذا الفلم</string>
+		<string id="wishlist.notown">ليس لدي نسخة من هذا الفلم</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">الاسم</string>
+		<string id="pornstar.web">موقع</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">لقد رأيته</string>
+		<string id="seen.notseenit">لم أراه</string>
+		<string id="seen.seenitclick">إضغط لعلامة رأيته</string>
+		<string id="seen.notseenitclick">إضغط لعلامة لم أراه</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">تقرير اليوم</string>
+		<string id="statistics.top_movies">أفلام في قاعدة البيانات</string>
+		<string id="statistics.top_cats">أفضل المصنفات</string>
+		<string id="statistics.top_act">أكثر المصنفات تفعيلا</string>
+		<string id="statistics.top_covers">أغلفة في قاعدة البيانات</string>
+		<string id="statistics.total">المجموع</string>
+		<string id="statistics.today">أضيف اليوم</string>
+		<string id="statistics.week">أضيف في الأسبوع الماضي</string>
+		<string id="statistics.month">أضيف في الشهر الماضي</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">بياناتي</string>
+		<string id="metadata.name">الاسم</string>
+		<string id="metadata.desc">الوصف</string>
+		<string id="metadata.type">نوع البيان</string>
+		<string id="metadata.value">قيمة البيان</string>
+		<string id="metadata.none">لايوجد بيان متوفرالممثلون</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">تمثيل</string>
+		<string id="player.path">العنوان</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">يحتوي</string>
+		<string id="misc.grade">التقديري أكثر من IMDB</string>
+		<string id="misc.any">أي</string>
+		<string id="misc.tryagain">حاول مرة أخرى</string>
+		<string id="misc.proceed">متابعة</string>
+		<string id="misc.select">إختر</string>
+		<string id="misc.confirm">تأكيد</string>
+		<string id="misc.cancel">إلغاء</string>
+		<string id="misc.attention">إنتبه!</string>
+		<string id="misc.status">الحالة</string>
+		<string id="misc.success">نجح</string>
+		<string id="misc.failure">فشل</string>
+		<string id="misc.yes">نعم</string>
+		<string id="misc.no">لا</string>
+		<string id="misc.showmore">إعرض المزيد</string>
+		<string id="misc.showless">إعرض القليل</string>
+		<string id="misc.new">جديد</string>
+		<string id="misc.change">تغير</string>
+		<string id="misc.delete">مسح</string>
+		<string id="misc.update">تحديث</string>
+		<string id="misc.saveandclose">تحديث وإغلاق</string>
+		<string id="misc.close">إغلاق</string>
+		<string id="misc.edit">حرر</string>
+		<string id="misc.results">نتائج</string>
+		<string id="misc.latestmovies">آخر الأفلام</string>
+		<string id="misc.latesttv">آخر البرامج التلفزيونية</string>
+		<string id="misc.latestblue">.</string>
+		<string id="misc.movies">أفلام</string>
+		<string id="misc.nocats">لا يوجد أفلام أضيفت</string>
+		<string id="misc.nousers">لا يوجد مستخدمون مفعلون</string>
+		<string id="misc.key">مفتاح</string>
+		<string id="misc.savenext">إحفظ و حرر التالي</string>
+		<string id="misc.save">حفظ</string>
+		<string id="misc.seen">شوهد</string>
+		<string id="misc.toggle">تثبيت العرض</string>
+		<string id="misc.toggle_on">تشغيل</string>
+		<string id="misc.toggle_off">إيقاف</string>
+	</strings>
+</language>

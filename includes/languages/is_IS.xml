@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Top notendur</string>
 		<string id="menu.wishlistpublic">Óskalisti annara</string>
 		<string id="menu.statistics">Tölfræði</string>
+		<string id="menu.showallusersmovies">Allar myndir</string>
 
 
 		<!-- login based strings -->
@@ -206,6 +207,7 @@
 		<string id="mymovies.find">Finna mynd</string>
 		<string id="mymovies.notseen">Stinga bara uppá myndum sem ég hef ekki séð</string>
 		<string id="mymovies.friends">Mínir lánþegar</string>
+		<string id="mymovies.overviewdetail">Ítarlegt yfirlit mynda</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,6 +246,7 @@
 		<string id="addmovie.selected">Valdir titlar</string>
 		<string id="addmovie.infolist">Tvísmelltu á mynd til að færa yfir, eða notaðu örina.&lt;br/&gt;Hægt er að nota lyklaborðið í valmyndinni vinstra megin til að flýta fyrir að finna ákveðna mynd.</string>
 		<string id="addmovie.notitles">Enginn annar notandi hefur skráð myndir í grunninn.</string>
+		<string id="addmovie.id">Innsláttur er auðkenni</string>
 
 
 		<!-- strings for XML actions -->

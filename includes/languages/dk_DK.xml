@@ -30,6 +30,7 @@
 		<string id="menu.submit">Send</string>
 		<string id="menu.topusers">Topbrugere</string>
 		<string id="menu.wishlistpublic">Andres ønskelister</string>
+		<string id="menu.statistics">Statistikker</string>
 
 
 		<!-- login based strings -->
@@ -58,6 +59,7 @@
 		<string id="userproperties.seen_list">Hold styr på de film jeg har set</string>
 		<string id="userproperties.playoption">Brug klient playback options</string>
 		<string id="userproperties.nfo">Bruge NFO arkiverer?</string>
+		<string id="userproperties.default_image">Skal billedeoversigt være standard?</string>
 
 
 		<!-- strings for user settings -->
@@ -179,6 +181,8 @@
 		<string id="mymovies.xml">Eksporter som XML</string>
 		<string id="mymovies.xmlthumbs">Eksporter thumbnails som XML</string>
 		<string id="mymovies.actions">Mine handlinger</string>
+		<string id="mymovies.join">Sammensæt disk</string>
+		<string id="mymovies.joinmovies">Sammensæt film disk</string>
 		<string id="mymovies.joinsuser">Vælg bruger</string>
 		<string id="mymovies.joinsmedia">Vælg medietype</string>
 		<string id="mymovies.joinscat">Vælg kategori</string>
@@ -205,6 +209,7 @@
 
 
 		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Generel information</string>
 		<string id="manager.imdb">IMDB info</string>
 		<string id="manager.empire">DVDEmpire info</string>
 		<string id="manager.copy">Min film</string>
@@ -405,6 +410,9 @@
 		<string id="misc.savenext">Gem og ret den næste</string>
 		<string id="misc.save">Gem</string>
 		<string id="misc.seen">Set</string>
+		<string id="misc.footer">Side Loadet efter %s sek. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Tjek den officielle VCD-db hjemmeside ud</string>
+		<string id="misc.toggle">Skift visning</string>
 		<string id="misc.toggle_on">Til</string>
 		<string id="misc.toggle_off">Fra</string>
 	</strings>

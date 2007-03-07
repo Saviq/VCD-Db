@@ -29,7 +29,7 @@
 		<string id="menu.logout">Quitter</string>
 		<string id="menu.submit">Accepter</string>
 		<string id="menu.topusers">Utilisateurs</string>
-		<string id="menu.wishlistpublic">Demandes externes</string>
+		<string id="menu.wishlistpublic">Demandes des autres</string>
 		<string id="menu.statistics">Statistiques</string>
 		<string id="menu.showallusersmovies">Tous les films</string>
 
@@ -79,8 +79,7 @@
 
 
 		<!-- strings for search and search results -->
-		<!-- <string id="search.search">Rechercher</string> -->
-		<string id="search.search">Trouver</string>
+		<string id="search.search">Rechercher</string>
 		<string id="search.title">Par titre</string>
 		<string id="search.actor">Par acteur</string>
 		<string id="search.director">Par réalisateur</string>
@@ -208,7 +207,7 @@
 		<string id="mymovies.find">Chercher un film</string>
 		<string id="mymovies.notseen">Suggérer uniquement les films que je n'ai pas vus</string>
 		<string id="mymovies.friends">Personnes avec qui partager mes films</string>
-		<string id="mymovies.overviewdetail">Vue détaillée collection</string>
+		<string id="mymovies.overviewdetail">Vue d'ensemble détaillée de collection</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -247,6 +246,7 @@
 		<string id="addmovie.selected">Sélectionner les titres</string>
 		<string id="addmovie.infolist">Double cliquez sur le titre pour le sélectionner ou utilisez les flèches.&lt;br/&gt;Vous pouvez utiliser le clavier pour une recherche rapide</string>
 		<string id="addmovie.notitles">Aucun autre utilisateur n'a ajouter de films</string>
+		<string id="addmovie.id">L'entrée est une identification</string>
 
 
 		<!-- strings for XML actions -->

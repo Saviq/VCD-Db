@@ -231,7 +231,6 @@
 		<string id="addmovie.info">Wybierz metodę dodawania filmu</string>
 		<string id="addmovie.imdb">Pobierz dane z Web</string>
 		<string id="addmovie.imdbtitle">Podaj ciąg do wyszukania</string>
-		<string id="addmovie.id">lub bezpośrednie ID</string>
 		<string id="addmovie.manual">Ręcznie podaj dane</string>
 		<string id="addmovie.listed">Dodaj film, który jest już w bazie</string>
 		<string id="addmovie.xml">Dodaj filmy z pliku XML</string>
@@ -361,7 +360,7 @@
 
 
 		<!-- strings for the metadata -->
-		<string id="metadata.my">Dodatkowe dane</string>
+		<string id="metadata.my">Moje dodatkowe dane</string>
 		<string id="metadata.name">Nazwa</string>
 		<string id="metadata.desc">Opis</string>
 		<string id="metadata.type">Typ danych</string>

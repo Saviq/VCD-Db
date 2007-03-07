@@ -12,10 +12,8 @@
 		<!-- Language specific keys -->
 		<string id="language.type"> SI
 </string>
-		<string id="language.name"> SLO
-</string>
-		<string id="language.charset"> windows-1250
-</string>
+		<string id="language.name">Slovenian</string>
+		<string id="language.charset">UTF-8</string>
 
 
 		<!-- user menu keys -->

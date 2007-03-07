@@ -59,6 +59,7 @@
 		<string id="userproperties.seen_list">Pidä kirjaa elokuvista jotka olen nähnyt</string>
 		<string id="userproperties.playoption">Käytä soittimen toistoasetuksia</string>
 		<string id="userproperties.nfo">Salli NFO tiedosto?</string>
+		<string id="userproperties.default_image">Pitäisikö kuvallinen näkymä olla oletus?</string>
 
 
 		<!-- strings for user settings -->
@@ -338,8 +339,20 @@
 		<string id="seen.notseenitclick">Klikkaa tätä merkataksesi näkemättömäksi</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Päivän raportti</string>
+		<string id="statistics.top_movies">Elokuvia tietokannassa</string>
+		<string id="statistics.top_cats">Eniten kategorioissa</string>
+		<string id="statistics.top_act">Aktiivisimmat kategoriat</string>
+		<string id="statistics.top_covers">Kansia tietokannassa</string>
+		<string id="statistics.total">Yhteensä</string>
+		<string id="statistics.today">Tänään lisätty</string>
+		<string id="statistics.week">Lisätty viimeisen 7 päivän aikana</string>
+		<string id="statistics.month">Lisätty viimeisen 30 päivän aikana</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
-		<string id="mail.returntopic">Lainan muistutus </string>
+		<string id="mail.returntopic">Lainauksen muistutus</string>
 		<string id="mail.returnmovies1">%s, haluaisin, että palautat vuokraamasi elokuvat ;).&lt;br/&gt;Sinulla on edelleen seuraavat leffat vuokrassa:&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.returnmovies2">Palautatko pian&lt;br/&gt;Terveisin %s&lt;br/&gt;&lt;br/&gt;Tämä on automaattisesti generoitu sähköposti VCD-db systeemistä (http://vcddb.konni.com/)</string>
 		<string id="mail.notify">&lt;strong&gt;Uusi elokuva on lisätty DVD tietokantaan!&lt;/strong&gt;&lt;br/&gt;Klikkaa &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;tätä&lt;/a&gt; nähdäksesi lisää...&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Tämä on automaattinen viesti, joka on lähetetty osoitteesta http://vcddb.konni.com&lt;/p&gt;</string>
@@ -397,5 +410,10 @@
 		<string id="misc.savenext">Talleta ja muokkaa seuraavaa</string>
 		<string id="misc.save">Talleta</string>
 		<string id="misc.seen">Nähty</string>
+		<string id="misc.footer">Sivu ladattu %s sekunnissa (&lt;i&gt;%d hakua&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Vieraile virallisella VCD-db sivulla</string>
+		<string id="misc.toggle">Aseta esikatselu päälle</string>
+		<string id="misc.toggle_on">päälle</string>
+		<string id="misc.toggle_off">pois</string>
 	</strings>
 </language>

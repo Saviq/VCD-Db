@@ -19,15 +19,15 @@
 		<string id="menu.mine">Меню</string>
 		<string id="menu.settings">Настройки</string>
 		<string id="menu.movies">Филми</string>
-		<string id="menu.addmovie">Прибави филм</string>
+		<string id="menu.addmovie">Добави филм</string>
 		<string id="menu.loansystem">Система Заем</string>
 		<string id="menu.wishlist">Списък &quot;Желания&quot;</string>
-		<string id="menu.categories">Категорий</string>
+		<string id="menu.categories">Категории</string>
 		<string id="menu.rss">My Rss Feeds</string>
 		<string id="menu.controlpanel">Контролен панел</string>
 		<string id="menu.register">Регистрирай се</string>
 		<string id="menu.logout">Излез</string>
-		<string id="menu.submit">Прати</string>
+		<string id="menu.submit">Изпрати</string>
 		<string id="menu.topusers">TOP потребители</string>
 		<string id="menu.wishlistpublic">Списък &quot;Желания&quot; на други потребители</string>
 		<string id="menu.statistics">Статистики</string>
@@ -38,7 +38,7 @@
 		<string id="login.username">Потребител</string>
 		<string id="login.password">Парола</string>
 		<string id="login.remember">Запомни ме</string>
-		<string id="login.info">ОСтави празно ако &lt;b&gt;не&lt;/b&gt; искаш да сменяш паролата си</string>
+		<string id="login.info">Остави празно ако &lt;b&gt;не&lt;/b&gt; искаш да сменяш паролата си</string>
 
 
 		<!-- Register based strings -->
@@ -46,12 +46,12 @@
 		<string id="register.fullname">Пълно име</string>
 		<string id="register.email">E-mail</string>
 		<string id="register.again">Повтори паролата</string>
-		<string id="register.disabled">Oooops !...Не става !</string>
+		<string id="register.disabled">Регистрацията е изключена от администратора.</string>
 		<string id="register.ok">Регистрацията премина успешно, можете да влезете в системата.</string>
 
 
 		<!-- strings for user properties -->
-		<string id="userproperties.notify">Прати ми писмо ако е прибавен нов филм?</string>
+		<string id="userproperties.notify">Прати ми писмо ако е добавен нов филм?</string>
 		<string id="userproperties.show_adult">Показвай съдържание за възрастни на сайта?</string>
 		<string id="userproperties.rss">Разреши RSS feed от моята листа?</string>
 		<string id="userproperties.wishlist">Да позволя на другите да виждат моята листа &quot;Желания&quot; ?</string>
@@ -59,14 +59,22 @@
 		<string id="userproperties.seen_list">Запази пътя до филмите, които не съм гледал</string>
 		<string id="userproperties.playoption">Използвай опций за възпройзвеждане на файл </string>
 		<string id="userproperties.nfo">Използвай NFO ?</string>
+		<string id="userproperties.default_image">Да бъде ли изгледа с картинки изглед по подразбиране</string>
 
 
 		<!-- strings for user settings -->
 		<string id="usersettings.player">Настройки на плейъра</string>
+		<string id="usersettings.ownfeed">Покажи моя фийд</string>
 		<string id="usersettings.custom">Промяна на стартова страница</string>
 		<string id="usersettings.showstat">Покажи статистики</string>
 		<string id="usersettings.showside">Показвай новите филми в страничния бар</string>
 		<string id="usersettings.selectrss">Избери RSS feeds</string>
+		<string id="usersettings.pagelook">уеб изглед</string>
+		<string id="usersettings.pagemode">Избери тема по подразбиране</string>
+		<string id="usersettings.updated">Потребителската информация е обновена</string>
+		<string id="usersettings.update_failed">Обновяването неуспешно</string>
+		<string id="usersettings.list">Списък с игнорирани</string>
+		<string id="usersettings.desc">Игнорирай всички филми от следните потребители:</string>
 
 
 		<!-- strings for search and search results -->
@@ -76,7 +84,7 @@
 		<string id="search.director">По режисьор</string>
 		<string id="search.results">Резултати</string>
 		<string id="search.extended">Детайлно търсене</string>
-		<string id="search.noresult">Засега го няма:):):)</string>
+		<string id="search.noresult">Няма резултат от търсенето</string>
 
 
 		<!-- strings for movie categories -->
@@ -116,7 +124,7 @@
 		<string id="movie.from">От</string>
 		<string id="movie.title">Заглавие</string>
 		<string id="movie.alttitle">Alt заглавие</string>
-		<string id="movie.grade">Рейтйнг</string>
+		<string id="movie.grade">Рейтинг</string>
 		<string id="movie.director">Режисьор</string>
 		<string id="movie.country">Държава</string>
 		<string id="movie.runtime">Продължителност</string>
@@ -127,7 +135,7 @@
 		<string id="movie.available">Налични копия</string>
 		<string id="movie.media">Тип медия</string>
 		<string id="movie.num">Номер CD/та</string>
-		<string id="movie.date">Дата на прибавяне</string>
+		<string id="movie.date">Дата на добавяне</string>
 		<string id="movie.owner">Сложил</string>
 		<string id="movie.noactors">Няма инфо за актьори</string>
 		<string id="movie.info">Информация</string>
@@ -141,7 +149,7 @@
 		<string id="movie.hide">Скрии</string>
 		<string id="movie.change">Редактирай данните</string>
 		<string id="movie.nocovers">Няма налични обложки</string>
-		<string id="movie.bycat">Заглавия по категорий</string>
+		<string id="movie.bycat">Заглавия по категории</string>
 		<string id="movie.currcat">Текуща категория</string>
 		<string id="movie.textview">Текстов вид</string>
 		<string id="movie.imageview">Фотогалерия</string>
@@ -159,6 +167,14 @@
 		<string id="imdb.not">IMDB не разполага с информация</string>
 
 
+		<!-- DVD specific string -->
+		<string id="dvd.region">Регион</string>
+		<string id="dvd.format">Формат</string>
+		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.audio">Аудио</string>
+		<string id="dvd.subtitles">Субтитри</string>
+
+
 		<!-- My movies page strings -->
 		<string id="mymovies.export">Експортирай</string>
 		<string id="mymovies.excel">като Excel</string>
@@ -170,7 +186,7 @@
 		<string id="mymovies.joinsuser">Избери потребител</string>
 		<string id="mymovies.joinsmedia">Избери тип</string>
 		<string id="mymovies.joinscat">Избери категория</string>
-		<string id="mymovies.joinstype">ИЗбери категория</string>
+		<string id="mymovies.joinstype">Избери категория</string>
 		<string id="mymovies.joinshow">Покажи резултати</string>
 		<string id="mymovies.noresults">Проверката не намери резултати</string>
 		<string id="mymovies.textall">Общ изглед (Textmode)</string>
@@ -208,7 +224,7 @@
 		<string id="manager.sel">Избрани актьори</string>
 		<string id="manager.stars">Звезди</string>
 		<string id="manager.browse">Преглед за метоположение на файла</string>
-		<string id="manager.addmedia">Add...</string>
+		<string id="manager.addmedia">Добави...</string>
 
 
 		<!-- Add new movie based strings -->
@@ -216,8 +232,8 @@
 		<string id="addmovie.imdb">Извличане от</string>
 		<string id="addmovie.imdbtitle">Търсене по ключова дума</string>
 		<string id="addmovie.manual">Ръчно въвеждане</string>
-		<string id="addmovie.listed">Прибави филм, който е вече в листата</string>
-		<string id="addmovie.xml">Прибави филм от експртиран XML файл </string>
+		<string id="addmovie.listed">Добави филм, който е вече в листата</string>
+		<string id="addmovie.xml">Добави филм от експртиран XML файл</string>
 		<string id="addmovie.xmlfile">Избери XML файл за импорт</string>
 		<string id="addmovie.xmlnote">(Трябва да знаете, че само XML файлове експортирани от друго VCD-db приложение могат да импортират информация тук.Можете да експортирате вашите филми  от секция -моите филми-. Трябва да избягвате редакция на експортираните XML файлове. ) </string>
 		<string id="addmovie.maxfilesize">Максимален размер на файла</string>
@@ -269,6 +285,8 @@
 		<string id="loan.return">Върни копието</string>
 		<string id="loan.success">Успешно дадени на заем</string>
 		<string id="loan.out">Не върнати</string>
+		<string id="loan.datein">Входяща дата</string>
+		<string id="loan.dateout">Изходяща дата</string>
 		<string id="loan.period">Период за заем</string>
 		<string id="loan.back">Върни се в главно меню за заем</string>
 		<string id="loan.day">ден</string>
@@ -311,7 +329,7 @@
 		<!-- strings for the pornstar entries -->
 		<string id="pornstar.name">Име</string>
 		<string id="pornstar.web">Уеб страница</string>
-		<string id="pornstar.moviecount">Movie count</string>
+		<string id="pornstar.moviecount">Брой филми</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -321,22 +339,45 @@
 		<string id="seen.notseenitclick">Крикни за маркиране като негледан</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Статистика за днес</string>
+		<string id="statistics.top_movies">Филми в база данни</string>
+		<string id="statistics.top_cats">Топ категории</string>
+		<string id="statistics.top_act">Най активни категории</string>
+		<string id="statistics.top_covers">Обложки в базата</string>
+		<string id="statistics.total">Общо</string>
+		<string id="statistics.today">Добавени днес</string>
+		<string id="statistics.week">Добавени последни 7 дни</string>
+		<string id="statistics.month">Добавени последни 30 дни</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
-		<string id="mail.returnmovies1">%s, Потсто ти напомням, че имаш да ми връщаш филми.&lt;br/&gt;</string>
-		<string id="mail.returnmovies2">Моля върни дисковете колкота се може по-скоро&lt;br/&gt;Наздраве %s&lt;br/&gt;&lt;br/&gt;</string>
+		<string id="mail.returntopic">Напомняне за заем</string>
+		<string id="mail.returnmovies1">%s, Просто ти напомням, че имаш да ми връщаш филми..&lt;br/&gt;Тези филми все още са при теб:&lt;br/&gt;</string>
+		<string id="mail.returnmovies2">Моля върни дисковете колкот се може по-скоро&lt;br/&gt;Наздраве %s&lt;br/&gt;&lt;br/&gt; п.с това е автоматичен e-mail от VCD-db системата (http://vcddb.konni.com)&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.notify">&lt;strong&gt;Нови филми бяха прибавени към VCD-db&lt;/strong&gt;&lt;br/&gt;</string>
 		<string id="mail.register">%s, регистрацията във VCD-db премина успешно.&lt;br/&gt;&lt;br/&gt;Твоето потребителско име е %s а твоята парола е</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Моите метаданни</string>
+		<string id="metadata.name">Име</string>
+		<string id="metadata.desc">Описание</string>
+		<string id="metadata.type">Мета тип</string>
+		<string id="metadata.value">Мета стойност</string>
+		<string id="metadata.none">Няма метаданни</string>
 
 
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Плейър</string>
 		<string id="player.path">Път</string>
 		<string id="player.param">Параметри</string>
-		<string id="player.note">Напиши пълния път до плейъра на твърдия диск.</string>
+		<string id="player.note">Напиши пълния път до плейъра ти на твърдия диск.&lt;br/&gt;Плейъра ти трябва да поддържа дос параметри. Такива плейъри са BSPlayer,Crystal Player зa Win32 или MPlayer за Linuz.&lt;br/&gt;</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
 		<string id="misc.contains">Съдържа</string>
+		<string id="misc.grade">IMDB рейтинг по-висок от</string>
 		<string id="misc.any">Всички</string>
 		<string id="misc.tryagain">Опитай отново</string>
 		<string id="misc.proceed">Продължи</string>
@@ -363,11 +404,16 @@
 		<string id="misc.latesttv">Нови ТВ шоу-та</string>
 		<string id="misc.latestblue">Нови Голи каки:)</string>
 		<string id="misc.movies">филма</string>
-		<string id="misc.nocats">Няма нови прибавени филми.</string>
+		<string id="misc.nocats">Няма нови добавени филми.</string>
 		<string id="misc.nousers">Няма активни потребители</string>
 		<string id="misc.key">Ключ</string>
 		<string id="misc.savenext">Запази и редактирай следващия</string>
 		<string id="misc.save">Запази</string>
 		<string id="misc.seen">Прегледани</string>
+		<string id="misc.footer">Страницата е заредена за %s сек. (&lt;i&gt;%d заявки&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Вижте страницата на VCD-db</string>
+		<string id="misc.toggle">Преглед статус</string>
+		<string id="misc.toggle_on">включен</string>
+		<string id="misc.toggle_off">изключен</string>
 	</strings>
 </language>

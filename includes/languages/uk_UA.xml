@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Sergi Adamchuk -->
+<language>
+	<id>uk_UA</id>
+	<name>Ukranian</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">UKR</string>
+		<string id="language.name">Ukranian</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Моє меню</string>
+		<string id="menu.settings">Мої устновки</string>
+		<string id="menu.movies">Мої фільми</string>
+		<string id="menu.addmovie">Додати фільм</string>
+		<string id="menu.loansystem">Система позичання</string>
+		<string id="menu.wishlist">Я шукаю</string>
+		<string id="menu.categories">Категорії фільмів</string>
+		<string id="menu.rss">Мої Rss</string>
+		<string id="menu.controlpanel">Панель управління</string>
+		<string id="menu.register">Зареєструватись</string>
+		<string id="menu.logout">Вийти</string>
+		<string id="menu.submit">Відправити</string>
+		<string id="menu.topusers">Кращі користувачі</string>
+		<string id="menu.wishlistpublic">Шукають інші</string>
+		<string id="menu.statistics">Статистика</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Увійти</string>
+		<string id="login.username">Ім'я користувача</string>
+		<string id="login.password">Пароль</string>
+		<string id="login.remember">Пам'ятати мене</string>
+		<string id="login.info">Залиште порожнім якщо &lt;b&gt;не&lt;/b&gt; бажаєте змінювати пароль</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Реєстрація</string>
+		<string id="register.fullname">Повне ім'я</string>
+		<string id="register.email">Емейл</string>
+		<string id="register.again">Ще раз пароль</string>
+		<string id="register.disabled">Нажаль реєстрація зараз заблокована адміністратором</string>
+		<string id="register.ok">Реєстрацію завершено успішно, зараз ви можете увійти в VCD-db.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Надсилати мені емейл коли з'являться нові фільми</string>
+		<string id="userproperties.show_adult">Показувати контент для дорослих на цьому сайті?</string>
+		<string id="userproperties.rss">Дозволити RSS з мого списку фільмів?</string>
+		<string id="userproperties.wishlist">Дозволити іншим бачити мій пошук?</string>
+		<string id="userproperties.use_index">Use index number fields for custom media ID's?</string>
+		<string id="userproperties.seen_list">Відслідковувати фільми які я вже подивився?</string>
+		<string id="userproperties.playoption">Використовувати клієнтські функції playback?</string>
+		<string id="userproperties.nfo">Дозволити NFO файли?</string>
+		<string id="userproperties.default_image">Зробити графічне представлення представленням за замовчуванням?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Налаштування програвача</string>
+		<string id="usersettings.ownfeed">Подивитись мої відгуки</string>
+		<string id="usersettings.custom">Налаштувати мою титулку</string>
+		<string id="usersettings.showstat">Показати статистику</string>
+		<string id="usersettings.showside">Показати нові фільми збоку</string>
+		<string id="usersettings.selectrss">Вибрати RSS</string>
+		<string id="usersettings.pagelook">Вигляд вебу</string>
+		<string id="usersettings.pagemode">Обрати шаблон за замовчуванням:</string>
+		<string id="usersettings.updated">Інформацію користувача змінено</string>
+		<string id="usersettings.update_failed">Не вдалось записати</string>
+		<string id="usersettings.list">Список ігнорованих</string>
+		<string id="usersettings.desc">Ігнорувати фільми таких користувачів:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Шукати</string>
+		<string id="search.title">За назвою</string>
+		<string id="search.actor">За актором</string>
+		<string id="search.director">За режисером</string>
+		<string id="search.results">Результати пошуку</string>
+		<string id="search.extended">Детальний пошук</string>
+		<string id="search.noresult">Пошук не дав результатів</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Екшин</string>
+		<string id="category.adult">Для дорослих</string>
+		<string id="category.adventure">Пригоди</string>
+		<string id="category.animation">Анімація</string>
+		<string id="category.anime">Аніме/Манга</string>
+		<string id="category.comedy">Комедія</string>
+		<string id="category.crime">Детектив</string>
+		<string id="category.documentary">Документальний</string>
+		<string id="category.drama">Драма</string>
+		<string id="category.family">Сімейний</string>
+		<string id="category.fantasy">Фентезі</string>
+		<string id="category.filmnoir">Film Noir</string>
+		<string id="category.horror">Жахи</string>
+		<string id="category.jamesbond">Джеймс Бонд</string>
+		<string id="category.musicvideo">Музичне відео</string>
+		<string id="category.musical">Мюзикл</string>
+		<string id="category.mystery">Містика</string>
+		<string id="category.romance">Романтика</string>
+		<string id="category.scifi">Санс фікшин</string>
+		<string id="category.short">Короткометражка</string>
+		<string id="category.thriller">Трилер</string>
+		<string id="category.tvshows">Телешоу</string>
+		<string id="category.war">Про війну</string>
+		<string id="category.western">Вестерн</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Фільм</string>
+		<string id="movie.actors">Актори</string>
+		<string id="movie.category">Категорія</string>
+		<string id="movie.year">Рік випуску</string>
+		<string id="movie.copies">Число копій</string>
+		<string id="movie.from">Від</string>
+		<string id="movie.title">Назва</string>
+		<string id="movie.alttitle">Оригінальна назва</string>
+		<string id="movie.grade">Рейтинг</string>
+		<string id="movie.director">Режисер</string>
+		<string id="movie.country">Країна виробництва</string>
+		<string id="movie.runtime">Runtime</string>
+		<string id="movie.minutes">Хвилин</string>
+		<string id="movie.plot">Plot</string>
+		<string id="movie.noplot">Plot не доступний</string>
+		<string id="movie.covers">CD Ковери</string>
+		<string id="movie.available">Доступно копій</string>
+		<string id="movie.media">Носій</string>
+		<string id="movie.num">К-ть CD</string>
+		<string id="movie.date">Додано</string>
+		<string id="movie.owner">Власник</string>
+		<string id="movie.noactors">Не доступний список акторів</string>
+		<string id="movie.info">Інформація про фільм</string>
+		<string id="movie.details">Детальніше про мою копію</string>
+		<string id="movie.mediatype">Тип носія</string>
+		<string id="movie.comment">Коментар</string>
+		<string id="movie.private">Позначити як приватний?</string>
+		<string id="movie.screenshots">Скріншоти</string>
+		<string id="movie.noscreens">Немає скріншотів</string>
+		<string id="movie.show">Показати</string>
+		<string id="movie.hide">Сховати</string>
+		<string id="movie.change">Змінити інформацію</string>
+		<string id="movie.nocovers">Немає CD каверів</string>
+		<string id="movie.bycat">Назвати за категорією</string>
+		<string id="movie.currcat">Поточна категорія</string>
+		<string id="movie.textview">Текстове представлення</string>
+		<string id="movie.imageview">Графічне представлення</string>
+		<string id="movie.mineonly">Показати лише мої фільми</string>
+		<string id="movie.similar">Подібні фільми</string>
+		<string id="movie.mediaindex">Код носія</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">Інфо з IMDB</string>
+		<string id="imdb.plot">Plot інформація</string>
+		<string id="imdb.gallery">Фотогалерея</string>
+		<string id="imdb.trailers">Трейлери</string>
+		<string id="imdb.links">Лінки на IMDB</string>
+		<string id="imdb.not">Немає інформації IMDB</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Регіон</string>
+		<string id="dvd.format">Формат</string>
+		<string id="dvd.aspect">Масштабування</string>
+		<string id="dvd.audio">Аудіо</string>
+		<string id="dvd.subtitles">Субтитри</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Еспортувати дані</string>
+		<string id="mymovies.excel">Експорт в Excel</string>
+		<string id="mymovies.xml">Експорт в XML</string>
+		<string id="mymovies.xmlthumbs">Експорт мініатюр в XML</string>
+		<string id="mymovies.actions">Мої дії</string>
+		<string id="mymovies.join">Disc join</string>
+		<string id="mymovies.joinmovies">Disc join movies</string>
+		<string id="mymovies.joinsuser">Вибрати користувача</string>
+		<string id="mymovies.joinsmedia">Вибрати тип носія</string>
+		<string id="mymovies.joinscat">Вибрати категорію</string>
+		<string id="mymovies.joinstype">Вибрати дію</string>
+		<string id="mymovies.joinshow">Показати результати</string>
+		<string id="mymovies.noresults">Запит не повернув результату</string>
+		<string id="mymovies.textall">Друк (текст)</string>
+		<string id="mymovies.pwall">Друк (все)</string>
+		<string id="mymovies.pwmovies">Друк (фільми)</string>
+		<string id="mymovies.pwtv">Друк (телешоу)</string>
+		<string id="mymovies.pwblue">Друк (Blue фільми)</string>
+		<string id="mymovies.j1">Фільми, які в мене є але нема у користувача</string>
+		<string id="mymovies.j2">Фільми, які є в користувача, але нема в мене</string>
+		<string id="mymovies.j3">Фільми, які є у нас обох</string>
+		<string id="mymovies.overview">Огляд колекції</string>
+		<string id="mymovies.info">На цій сторінці ви знайдете все про мої фільми.&lt;br/&gt;Справа - дії які можна виконати з вашими фільмами.&lt;br/&gt;Ви також можете експортувати фільми в Excel для друку або в XML для бекапу або перемістити на інший сайт.</string>
+		<string id="mymovies.keys">Редагувати користувацькі ідентифікатори</string>
+		<string id="mymovies.seenlist">Редагувати переглянуті фільми</string>
+		<string id="mymovies.helppicker">Вибрати фільм для перегляду</string>
+		<string id="mymovies.helppickerinfo">Не знаєте що сьогодні подивитись?&lt;br/&gt;Довірте нашій базі обрати фільм для вас.&lt;br/&gt;Ви можете за бажанням створити фільтри і застосувати для відбору у нашій базі.</string>
+		<string id="mymovies.find">Знайти фільм</string>
+		<string id="mymovies.notseen">Пропонувати лише фільми які я не дивився</string>
+		<string id="mymovies.friends">Мої друзі, які позичили диски</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Основна інформація</string>
+		<string id="manager.imdb">IMDB інфо</string>
+		<string id="manager.empire">DVDEmpire інфо</string>
+		<string id="manager.copy">Моя копія</string>
+		<string id="manager.copies">Мої копії</string>
+		<string id="manager.nocopy">У вас немає копій</string>
+		<string id="manager.1copy">Копіювати</string>
+		<string id="manager.addact">Додати акторів</string>
+		<string id="manager.addtodb">Додати акторів до бази даних</string>
+		<string id="manager.savetodb">Зберегти в базу</string>
+		<string id="manager.savetodbncd">Зберегти в базу і у фільм</string>
+		<string id="manager.indb">Актори в базі</string>
+		<string id="manager.sel">Вибрані актори</string>
+		<string id="manager.stars">Зірки</string>
+		<string id="manager.browse">Знайти файл</string>
+		<string id="manager.addmedia">Додати...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Вибрати метод додавання нових фільмів</string>
+		<string id="addmovie.imdb">Одержати з IMDB</string>
+		<string id="addmovie.imdbtitle">Ввест ключові слова для пошуку</string>
+		<string id="addmovie.manual">Додати дані вручну</string>
+		<string id="addmovie.listed">Додати існуючі фільми</string>
+		<string id="addmovie.xml">Додати фільми з експортованого XML файлу</string>
+		<string id="addmovie.xmlfile">Вибрати XML файл для імпорту</string>
+		<string id="addmovie.xmlnote">(Будь ласка зверніть увагу, лише XML файли, які були експортовані з іншої VCD-db програми тут можуть бути використані для імпорту. &lt;br/&gt;Ви можете експортувати ваші фільми з секції &quot;Мої фільми&quot;. Не редагуйте вручну експортовані XML файли.)</string>
+		<string id="addmovie.maxfilesize">Максимальний розмір файлу</string>
+		<string id="addmovie.dvdempire">Одержати з Adult DVD Empire (X-rated films)</string>
+		<string id="addmovie.listedstep1">Крок 1&lt;br/&gt;Вибрати назву яку хочете додати до списку.&lt;br/&gt;Тип носія ви можете вибрати на наступному кроці.</string>
+		<string id="addmovie.listedstep2">Крок 2.&lt;br/&gt;Виберіть тип носія.</string>
+		<string id="addmovie.indb">Фільми в нашій базі</string>
+		<string id="addmovie.selected">Вибрані заголовки</string>
+		<string id="addmovie.infolist">Двічі клікніть на заголовку щоб вибрати назву або використовуйте стрілки.&lt;br/&gt;Ви можете скористатись клавіатурою для швидкого пошуку назв.</string>
+		<string id="addmovie.notitles">Ніхто з користувачів не додавав фільми до нашої бази</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Підтвердіть вивантаження XML</string>
+		<string id="xml.contains">XML файл містить %d фільмів.</string>
+		<string id="xml.info1">Натисніть підтвердити для обробки фільмів та збереження в базі данизх. Чи натисніть відмінити щоб відмовитись.</string>
+		<string id="xml.info2">Якщо бажаєте включити мініатюри (постери) до фільмів які ви імпортуєте з XML файлу, ви &lt;b&gt;повинні&lt;/b&gt; мати XML файл з мініатюрами просто зараз!&lt;br/&gt;Постери не можна буде імпортувати після того, як ви закінчите імпортувати фільми з цього XML файлу.&lt;br/&gt;&lt;br/&gt;Якщо ви вже маєте XML файл з мініатюрами відмітьте поле нижче і на наступному кроці після імпорту фільмів в списку, наведеному нижче, вам буде потрібно ввести файл XML з мініатюрами для обробки.</string>
+		<string id="xml.thumbnails">Вставити мініатюри з XML файлу</string>
+		<string id="xml.list">Повинй список фільмів знайдений в XML файлі.</string>
+		<string id="xml.error">У XML файлі не знайдено заголовків.&lt;br/&gt;Можливо файл зіпсований або порожній.&lt;br/&gt;&lt;br/&gt;Переконайтесь чи ви використовуєте файл експортований з іншого сайту VCD-db...</string>
+		<string id="xml.results">Результати вивантаження XML.</string>
+		<string id="xml.results2">Ось результати вашого імпорту з XML файлу.&lt;br/&gt;Всього було імпортовано %d фільмів.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Інформація з AdultDVDEmpire.com ....</string>
+		<string id="dvdempire.desc">Опис з DVDEmpire</string>
+		<string id="dvdempire.subcat">Категорії для дорослих</string>
+		<string id="dvdempire.details">Інформація з Adultdvdempire.com</string>
+		<string id="dvdempire.stars">Порнозірки</string>
+		<string id="dvdempire.notice">Актори відмічені червоним відсутні в базі даних.&lt;br/&gt;Але ви можете відмітити їх імена і вони автоматично будуть додані до бази та асоційовані з цим фільмом.</string>
+		<string id="dvdempire.fetch">Одержати також</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Позичити фільми</string>
+		<string id="loan.to">Позичити фільми (кому)</string>
+		<string id="loan.addusers">Add some users to borrow to continue</string>
+		<string id="loan.newuser">Новий позичальник</string>
+		<string id="loan.registeruser">Додати нового позичальника</string>
+		<string id="loan.name">Ім'я</string>
+		<string id="loan.select">Вибрати позичальника</string>
+		<string id="loan.movieloans">Позичені фільми...</string>
+		<string id="loan.reminder">Послати нагадування</string>
+		<string id="loan.history">Історія позичання</string>
+		<string id="loan.history2">Побачити історію позичання</string>
+		<string id="loan.since">Від</string>
+		<string id="loan.time">Час від</string>
+		<string id="loan.return">Повернення копії</string>
+		<string id="loan.success">Фільми успішно позичено</string>
+		<string id="loan.out">Не повернуто</string>
+		<string id="loan.datein">Дата видачі</string>
+		<string id="loan.dateout">Дата повернення</string>
+		<string id="loan.period">Період позичання</string>
+		<string id="loan.back">Back to loan index</string>
+		<string id="loan.day">день</string>
+		<string id="loan.days">днів</string>
+		<string id="loan.today">від сьогодні</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">RSS</string>
+		<string id="rss.title">RSS моїх друзів</string>
+		<string id="rss.site">RSS сайт</string>
+		<string id="rss.user">RSS користувача</string>
+		<string id="rss.view">Подивитись RSS</string>
+		<string id="rss.add">Додати відгук</string>
+		<string id="rss.note">Введіть &lt;strong&gt;точний url&lt;/strong&gt; VCD-db бази вашого друга. Якщо RSS на сайті вашого други увімкнуто, ви зможете вибрати відгуки, які вас ціквлять і відобразити на вашій сторінці.</string>
+		<string id="rss.fetch">Одержати список RSS</string>
+		<string id="rss.none">Жодного RSS не було додано.</string>
+		<string id="rss.found">Такі RSS було додано, виберіть відгуки, які бажаєте додати:</string>
+		<string id="rss.notfound">Не знайдено відгуків</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Коментарі</string>
+		<string id="comments.add">Додати коментар</string>
+		<string id="comments.none">Немає коментарів</string>
+		<string id="comments.type">Наберіть ваш новий коментар</string>
+		<string id="comments.your">Ваш коментар</string>
+		<string id="comments.post">Надіслати коментар</string>
+		<string id="comments.error">Ви повинні залогінитись щоб відправляти коментарі</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Додати до шуканого</string>
+		<string id="wishlist.onlist">У вашому списку бажаного</string>
+		<string id="wishlist.empty">Ваш список бажаного порожній</string>
+		<string id="wishlist.own">У мене є копія цього фільму</string>
+		<string id="wishlist.notown">У мене нема копії цього фільму</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Ім'я</string>
+		<string id="pornstar.web">Вебсторінка</string>
+		<string id="pornstar.moviecount">Лічильник фільму</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Я його дивився</string>
+		<string id="seen.notseenit">Я його не дивився</string>
+		<string id="seen.seenitclick">Клікніть щоб відмітити &quot;дивився&quot;</string>
+		<string id="seen.notseenitclick">Клікніть щоб відмітити &quot;не дивився&quot;</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Сьогоднішній звіт</string>
+		<string id="statistics.top_movies">Фільми в базі</string>
+		<string id="statistics.top_cats">Найпоплярніші категорії</string>
+		<string id="statistics.top_act">Найактивніші категорії</string>
+		<string id="statistics.top_covers">Кавери в базі</string>
+		<string id="statistics.total">Всього</string>
+		<string id="statistics.today">Додані сьогодні</string>
+		<string id="statistics.week">Додані впродовж тижня</string>
+		<string id="statistics.month">Додані впродовж місяця</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Нагадувачка позичано</string>
+		<string id="mail.returnmovies1">%s, дозвольте нагадати про повернення моїх фільмів.&lt;br/&gt;У вас такі мої фільми:</string>
+		<string id="mail.returnmovies2">Прошу повернути диски якомога швидше&lt;br/&gt;Мої вітання, %s&lt;br/&gt;&lt;br/&gt;зауважте, що це автоматичне повідомлення від системи (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;New movie has been added to VCD-db&lt;/strong&gt;&lt;br/&gt;Click &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;here&lt;/a&gt; to see more ..&lt;br/&gt;&lt;br/&gt;&lt;p&gt;nb. this is an automated e-mail from VCD-db (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.register">%s, реєстрація в базі була успішною.&lt;br/&gt;&lt;br/&gt;Ваше ім'я користувача %s,  пароль %s.&lt;br/&gt;&lt;br/&gt;Ви завжди можете змінити пароль після того, як залогінитесь.&lt;br/&gt;Клікніть &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;тут&lt;/a&gt; щоб перейти до Мувітеки.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Мої метадані</string>
+		<string id="metadata.name">Ім'я</string>
+		<string id="metadata.desc">Опис</string>
+		<string id="metadata.type">Метатип</string>
+		<string id="metadata.value">Метазначення</string>
+		<string id="metadata.none">Немає метаданих.</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Програвач</string>
+		<string id="player.path">Шлях</string>
+		<string id="player.param">Параметри</string>
+		<string id="player.note">Enter the full path to your movie player on your harddrive.&lt;br/&gt;Your player must be able to take parameters as command line such as the BSPlayer for Win32 or the MPlayer for Linux.&lt;br/&gt;You can download BSPlayer for free &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt; and the MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt;.</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">містить</string>
+		<string id="misc.grade">IMDB рейтинг понад</string>
+		<string id="misc.any">Будь-що</string>
+		<string id="misc.tryagain">Спробуйте знову</string>
+		<string id="misc.proceed">Виконано</string>
+		<string id="misc.select">Вибрати</string>
+		<string id="misc.confirm">Підтвердити</string>
+		<string id="misc.cancel">Скасувати</string>
+		<string id="misc.attention">Увага!</string>
+		<string id="misc.status">Статус</string>
+		<string id="misc.success">Успішно</string>
+		<string id="misc.failure">Неуспішно</string>
+		<string id="misc.yes">Так</string>
+		<string id="misc.no">Ні</string>
+		<string id="misc.showmore">Показати детальніше</string>
+		<string id="misc.showless">Показати стисліше</string>
+		<string id="misc.new">Створити</string>
+		<string id="misc.change">змінити</string>
+		<string id="misc.delete">вилучити</string>
+		<string id="misc.update">Оновити</string>
+		<string id="misc.saveandclose">Зберегти й закрити</string>
+		<string id="misc.close">Закрити</string>
+		<string id="misc.edit">Редагувати</string>
+		<string id="misc.results">Результати</string>
+		<string id="misc.latestmovies">останні фільми</string>
+		<string id="misc.latesttv">останні телешоу</string>
+		<string id="misc.latestblue">останні </string>
+		<string id="misc.movies">фільми</string>
+		<string id="misc.nocats">Не було додано жодного фільму.</string>
+		<string id="misc.nousers">Немає активних користувачів</string>
+		<string id="misc.key">Ключ</string>
+		<string id="misc.savenext">Зберегти та редагувати наступний</string>
+		<string id="misc.save">Зберегти</string>
+		<string id="misc.seen">Дивився</string>
+		<string id="misc.footer">Сторінка завантажилась за %s сек. (&lt;i&gt;%d Запитів&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Перейти офіційний VCD-db сайт</string>
+		<string id="misc.toggle">Перемкнути перегляд</string>
+		<string id="misc.toggle_on">увімкнуто</string>
+		<string id="misc.toggle_off">вимкнуто</string>
+	</strings>
+</language>

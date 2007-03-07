@@ -11,7 +11,7 @@
 
 		<!-- Language specific keys -->
 		<string id="language.type">BR</string>
-		<string id="language.name">Portuguese</string>
+		<string id="language.name">Brazilian Portuguese</string>
 		<string id="language.charset">UTF-8</string>
 
 
@@ -23,7 +23,7 @@
 		<string id="menu.loansystem">Sistema de empréstimo</string>
 		<string id="menu.wishlist">Minha lista de desejos</string>
 		<string id="menu.categories">Categorias de filmes</string>
-		<string id="menu.rss">Meus Feeds Rss</string>
+		<string id="menu.rss">Meus Feeds RSS</string>
 		<string id="menu.controlpanel">Painel de Controle</string>
 		<string id="menu.register">Registrar</string>
 		<string id="menu.logout">Sair</string>
@@ -52,12 +52,14 @@
 
 		<!-- strings for user properties -->
 		<string id="userproperties.notify">Me enviar um e-mail quando um novo filme for adicionado?</string>
+		<string id="userproperties.show_adult">Mostra conteúdo adulto no site?</string>
 		<string id="userproperties.rss">Permitir feeds RSS da minha lista de filmes?</string>
 		<string id="userproperties.wishlist">Permitir que outros vejam a minha lista de desejos?</string>
 		<string id="userproperties.use_index">Utilizar campos do número de índice para ID's de mídias customizadas?</string>
-		<string id="userproperties.seen_list">Manterme a par dos filmes que eu já vi?</string>
+		<string id="userproperties.seen_list">Manter-me a par dos filmes que eu já vi?</string>
 		<string id="userproperties.playoption">Utilizar opções de playback do cliente?</string>
 		<string id="userproperties.nfo">Habilitar arquivos NFO?</string>
+		<string id="userproperties.default_image">Exibir imagens por padrão</string>
 
 
 		<!-- strings for user settings -->
@@ -69,6 +71,8 @@
 		<string id="usersettings.selectrss">Selecionar feeds RSS</string>
 		<string id="usersettings.pagelook">Layout Web</string>
 		<string id="usersettings.pagemode">Selecionar template padrão:</string>
+		<string id="usersettings.updated">Informação do usuário atualizada</string>
+		<string id="usersettings.update_failed">Falha a atualização</string>
 		<string id="usersettings.list">Lista de ignorados</string>
 		<string id="usersettings.desc">Ignorar todos os filmes dos seguintes usuários:</string>
 
@@ -139,8 +143,8 @@
 		<string id="movie.mediatype">Tipo de mídia</string>
 		<string id="movie.comment">Comentário</string>
 		<string id="movie.private">Marcar como privado?</string>
-		<string id="movie.screenshots">Screenshots</string>
-		<string id="movie.noscreens">Screenshots não disponíveis</string>
+		<string id="movie.screenshots">Imagens do filme</string>
+		<string id="movie.noscreens">Imagens do filme não disponíveis</string>
 		<string id="movie.show">Mostrar</string>
 		<string id="movie.hide">Esconder</string>
 		<string id="movie.change">Alterar informações</string>
@@ -175,7 +179,7 @@
 		<string id="mymovies.export">Exportar dados</string>
 		<string id="mymovies.excel">Exportar para Excel</string>
 		<string id="mymovies.xml">Exportar para XML</string>
-		<string id="mymovies.xmlthumbs">Exportar thumbnails para XML</string>
+		<string id="mymovies.xmlthumbs">Exportar miniaturas para XML</string>
 		<string id="mymovies.actions">Minhas ações</string>
 		<string id="mymovies.join">Junção de disco</string>
 		<string id="mymovies.joinmovies">Junção de discos de filmes</string>
@@ -194,16 +198,11 @@
 		<string id="mymovies.j2">Filmes que o usuário possui mas eu não</string>
 		<string id="mymovies.j3">Filmes que ambos possuímos</string>
 		<string id="mymovies.overview">Visão geral da coleção</string>
-		<string id="mymovies.info">Nesta página você pode encontrar tudo sobre os meus filmes.
-							À direita, estão ações que você pode executar na sua coleção de filmes.
-							Você também pode exportar sua lista em formato Excel para impressão ou utilizar
-							as funções XML para backup ou para mover os dados da sua coleção de um VCD-db
-							para outro VCD-db.</string>
+		<string id="mymovies.info">Nesta página você pode encontrar tudo sobre os meus filmes.&lt;BR/&gt;À direita, estão ações que você pode executar na sua coleção de filmes.&lt;BR/&gt;Você também pode exportar sua lista em formato Excel para impressão ou utilizar as funções XML para backup ou para mover os dados da sua coleção de um VCD-db para outro VCD-db.</string>
 		<string id="mymovies.keys">Editar ID's customizados</string>
 		<string id="mymovies.seenlist">Editar lista de filmes já vistos</string>
 		<string id="mymovies.helppicker">Escolha um filme para assistir</string>
-		<string id="mymovies.helppickerinfo">Não sabe o que assistir esta noite?&lt;br/&gt;Deixe o VCD-db ajudá-lo a encontrar um filme.&lt;br/&gt;
-							Você pode opcionalmente criar filtros e utilizá-los para limitar as seleções sugeridas pelo VCD-db.</string>
+		<string id="mymovies.helppickerinfo">Não sabe o que assistir esta noite?&lt;BR/&gt;Deixe o VCD-db ajudá-lo a encontrar um filme.&lt;BR/&gt;Você pode opcionalmente criar filtros e utilizá-los para limitar as seleções sugeridas pelo VCD-db.</string>
 		<string id="mymovies.find">Encontrar um filme</string>
 		<string id="mymovies.notseen">Sugerir apenas filmes que eu ainda não assistí</string>
 		<string id="mymovies.friends">Meus amigos que pedem CD's emprestados</string>
@@ -225,7 +224,7 @@
 		<string id="manager.sel">Atores selecionados</string>
 		<string id="manager.stars">Estrelas</string>
 		<string id="manager.browse">Navegar por localização de arquivo</string>
-		<string id="manager.addmedia">Add...</string>
+		<string id="manager.addmedia">Adicionar...</string>
 
 
 		<!-- Add new movie based strings -->
@@ -252,7 +251,7 @@
 		<string id="xml.contains">Arquivo XML contem %d filmes.</string>
 		<string id="xml.info1">Pressione confirme para processar os filmes e salvá-los na base de dados. Ou pressine cancelar para abortar.</string>
 		<string id="xml.info2">Se você deseja incluir thumbnails (posters) dos filmes que você está prestes a importar do arquivo XML, você &lt;b&gt;PRECISA&lt;/b&gt; ter o arquivo XML de thumbnails agora!.&lt;br/&gt;&lt;br/&gt;Posters não podem ser importados após você ter finalizado a importação dos filmes a partir do arquivo XML corrente.&lt;br/&gt;Se você ainda tem o arquivo XML de thumbnails disponível, marque o campo abaixo e no próximo passo, após importar seus filmes da lista abaixo, você será questionado a submeter seu arquivo XML de thumbnails para processamento.</string>
-		<string id="xml.thumbnails">Inserir thumbnails a partir do meu arquivo XML de thumbnails </string>
+		<string id="xml.thumbnails">Inserir miniaturas a partir do meu arquivo XML de miniaturas</string>
 		<string id="xml.list">Lista completa de filmes encontrados no arquivo XML.</string>
 		<string id="xml.error">Nenhum título encontrado no arquivo XML.&lt;br/&gt;O arquivo pode estar danificado ou simplesmente vazio.&lt;br/&gt;&lt;br/&gt;Tenha certeza de que você está utilizando um arquivo XML que foi exportado pelo VCD-db...</string>
 		<string id="xml.results">Resultado do upload de arquivo XML.</string>
@@ -340,16 +339,28 @@
 		<string id="seen.notseenitclick">Clique para marcar como não visto</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Relatório de Hoje</string>
+		<string id="statistics.top_movies">Filmes no banco de dados</string>
+		<string id="statistics.top_cats">Categorias Top</string>
+		<string id="statistics.top_act">Categorias mais ativas</string>
+		<string id="statistics.top_covers">Capas no banco de dados</string>
+		<string id="statistics.total">Total</string>
+		<string id="statistics.today">Adicionados hoje</string>
+		<string id="statistics.week">Adicionados nos últimos 7 dias</string>
+		<string id="statistics.month">Adicionados nos últimos 30 dias</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
 		<string id="mail.returntopic">Lembrete de empréstimo</string>
 		<string id="mail.returnmovies1">%s, só gostaria de lembrá-lo de devolver meus filmes.&lt;br/&gt;Você ainda está com os seguintes filmes :&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.returnmovies2">Por favor me devolva os discos o mais rápido possível&lt;br/&gt;Saudações %s&lt;br/&gt;&lt;br/&gt;nb. este é um e-mail automático do sistema VCD-db (http://vcddb.konni.com)</string>
-		<string id="mail.notify">&lt;strong&gt;Um novo filme foi adicionado em VCD-db&lt;/strong&gt;&lt;br/&gt;Clique &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;aquí&lt;/a&gt; para ver mais ..&lt;br/&gt;&lt;p&gt;nb. este é um e-mail automático do sistema VCD-db (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.notify">&lt;strong&gt;Um novo filme foi adicionado em VCD-db&lt;/strong&gt;&lt;br/&gt;Clique &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;aquí&lt;/a&gt; para ver mais...&lt;br/&gt;&lt;br/&gt;&lt;p&gt;nb. este é um e-mail automático do sistema VCD-db (vcddb.konni.com)&lt;/p&gt;</string>
 		<string id="mail.register">%s, seu registro no VCD-db foi bem sucedido.&lt;br/&gt;&lt;br/&gt;Seu usuário é %s e sua senha é %s.&lt;br/&gt;&lt;br/&gt;Você sempre pode alterar a sua senha após estar logado.&lt;br/&gt;Clique &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; para ir ao site VCD-db.</string>
 
 
 		<!-- strings for the metadata -->
-		<string id="metadata.my">Minha Metadata</string>
+		<string id="metadata.my">Meus Metadados</string>
 		<string id="metadata.name">Nome</string>
 		<string id="metadata.desc">Descrição</string>
 		<string id="metadata.type">Tipo Meta</string>
@@ -399,5 +410,10 @@
 		<string id="misc.savenext">Salvar e editar próximo</string>
 		<string id="misc.save">Salvar</string>
 		<string id="misc.seen">Visto</string>
+		<string id="misc.footer">Página Carregada em %s seg. (&lt;i&gt;%d Queries&lt;/I&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Conheça o site oficial do VCD-db</string>
+		<string id="misc.toggle">Ativar pré-visualização</string>
+		<string id="misc.toggle_on">ligado</string>
+		<string id="misc.toggle_off">desligado</string>
 	</strings>
 </language>

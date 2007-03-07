@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: 951 -->
+<language>
+	<id>zn_CH</id>
+	<name>Traditional Chinese</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">選單</string>
+		<string id="menu.settings">個人設定</string>
+		<string id="menu.movies">影片管理</string>
+		<string id="menu.addmovie">新增影片</string>
+		<string id="menu.loansystem">借閱管理</string>
+		<string id="menu.categories">影片分類</string>
+		<string id="menu.rss">我的 Rss Feeds</string>
+		<string id="menu.controlpanel">控制台</string>
+		<string id="menu.register">註冊</string>
+		<string id="menu.logout">登出</string>
+		<string id="menu.submit">送出</string>
+		<string id="menu.statistics">影片收藏狀態</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">登入</string>
+		<string id="login.username">帳號</string>
+		<string id="login.password">密碼</string>
+		<string id="login.remember">記住我</string>
+		<string id="login.info">不變更請將欄位空白</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">會員註冊</string>
+		<string id="register.fullname">帳號名稱</string>
+		<string id="register.again">確認密碼</string>
+		<string id="register.disabled">抱歉‧目前暫時不開放會員註冊</string>
+		<string id="register.ok">註冊成功‧請重新登入</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">當有影片新增加時，使用電子郵件通知我</string>
+		<string id="userproperties.show_adult">顯示成人內容</string>
+		<string id="userproperties.rss">允許使用 RSS feed 取得我的影片清單?</string>
+		<string id="userproperties.wishlist">允許其他人觀看我的</string>
+		<string id="userproperties.nfo">開啟支援NFO檔案格式</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.custom">自訂我的首頁</string>
+		<string id="usersettings.showside">於首頁顯示</string>
+		<string id="usersettings.selectrss">選擇 RSS feeds</string>
+		<string id="usersettings.pagelook">佈景主題</string>
+		<string id="usersettings.pagemode">預設樣板:</string>
+		<string id="usersettings.updated">更新使用者資料</string>
+		<string id="usersettings.update_failed">更新失敗</string>
+		<string id="usersettings.list">忽略清單</string>
+		<string id="usersettings.desc">忽略下列使用者的影片</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">搜尋</string>
+		<string id="search.title">影片名稱</string>
+		<string id="search.actor">演員</string>
+		<string id="search.director">導演</string>
+		<string id="search.results">搜尋結果</string>
+		<string id="search.extended">進階搜尋</string>
+		<string id="search.noresult">很抱歉沒有符合的資料</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">動作</string>
+		<string id="category.adult">成人</string>
+		<string id="category.adventure">冒險</string>
+		<string id="category.animation">卡通</string>
+		<string id="category.anime">動漫</string>
+		<string id="category.comedy">喜劇</string>
+		<string id="category.crime">犯罪</string>
+		<string id="category.documentary">紀錄片</string>
+		<string id="category.drama">劇情</string>
+		<string id="category.family">溫馨</string>
+		<string id="category.fantasy">奇幻</string>
+		<string id="category.filmnoir">灰色電影</string>
+		<string id="category.horror">恐怖</string>
+		<string id="category.jamesbond">龐德系列</string>
+		<string id="category.musicvideo">音樂錄影帶</string>
+		<string id="category.musical">歌舞</string>
+		<string id="category.mystery">神秘</string>
+		<string id="category.romance">羅曼蒂克</string>
+		<string id="category.scifi">科幻</string>
+		<string id="category.short">短片</string>
+		<string id="category.thriller">驚悚</string>
+		<string id="category.tvshows">電視節目</string>
+		<string id="category.war">戰爭</string>
+		<string id="category.western">西部片</string>
+		<string id="category.xrated">色情片</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">影片資料</string>
+		<string id="movie.actors">演員</string>
+		<string id="movie.category">影片類型</string>
+		<string id="movie.year">年份</string>
+		<string id="movie.title">片名</string>
+		<string id="movie.alttitle">中文片名</string>
+		<string id="movie.grade">影片評價</string>
+		<string id="movie.director">導演</string>
+		<string id="movie.country">國別</string>
+		<string id="movie.runtime">片長</string>
+		<string id="movie.minutes">分鐘</string>
+		<string id="movie.plot">簡介</string>
+		<string id="movie.noplot">目前尚無簡介</string>
+		<string id="movie.covers">封面</string>
+		<string id="movie.available">目前的影片數量</string>
+		<string id="movie.media">影片格式</string>
+		<string id="movie.num">碟片數量</string>
+		<string id="movie.date">建檔日期</string>
+		<string id="movie.owner">影片擁有者</string>
+		<string id="movie.details">我的影片</string>
+		<string id="movie.mediatype">影片格式</string>
+		<string id="movie.comment">註解</string>
+		<string id="movie.private">不顯示於網站上</string>
+		<string id="movie.screenshots">影片抓圖</string>
+		<string id="movie.noscreens">目前沒有圖片</string>
+		<string id="movie.show">顯示</string>
+		<string id="movie.hide">隱藏</string>
+		<string id="movie.change">更改資訊</string>
+		<string id="movie.nocovers">沒有任何封面圖片</string>
+		<string id="movie.bycat">影片分類</string>
+		<string id="movie.currcat">現在的分類</string>
+		<string id="movie.textview">文字模式</string>
+		<string id="movie.imageview">圖片模式</string>
+		<string id="movie.mineonly">只顯示屬於我的影片</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">觀看詳細資料</string>
+		<string id="imdb.plot">影片簡介</string>
+		<string id="imdb.gallery">劇照</string>
+		<string id="imdb.trailers">預告片</string>
+		<string id="imdb.links">連結IMDB</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">分區</string>
+		<string id="dvd.format">影像格式</string>
+		<string id="dvd.aspect">格式</string>
+		<string id="dvd.audio">音效</string>
+		<string id="dvd.subtitles">字幕</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">資料匯出</string>
+		<string id="mymovies.excel">匯出成 Excel</string>
+		<string id="mymovies.xml">匯出成 XML</string>
+		<string id="mymovies.xmlthumbs">匯出縮圖為 XML</string>
+		<string id="mymovies.join">加入影片</string>
+		<string id="mymovies.joinsuser">從誰新增</string>
+		<string id="mymovies.joinsmedia">挑選影片媒體</string>
+		<string id="mymovies.joinscat">挑選影片類型</string>
+		<string id="mymovies.joinshow">搜尋</string>
+		<string id="mymovies.noresults">並無符合的資料</string>
+		<string id="mymovies.textall">預覽 (文字模式)</string>
+		<string id="mymovies.pwall">預覽 (圖片模式)</string>
+		<string id="mymovies.pwmovies">預覽 (影片)</string>
+		<string id="mymovies.pwtv">預覽 (電視劇)</string>
+		<string id="mymovies.pwblue">預覽 (Blue movies)</string>
+		<string id="mymovies.j1">我所有但別人沒有的影片</string>
+		<string id="mymovies.j2">其他人所擁有但我沒有的影片</string>
+		<string id="mymovies.j3">我與其他人皆有的影片</string>
+		<string id="mymovies.overview">目前影片瀏覽 </string>
+		<string id="mymovies.helppicker">不知道要看什麼影片麼</string>
+		<string id="mymovies.helppickerinfo">不知道看什麼影片好麼? 讓系統幫您?</string>
+		<string id="mymovies.find">開始尋找</string>
+		<string id="mymovies.friends">我的影片借給了誰?</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">基本資料</string>
+		<string id="manager.copy">影片類型</string>
+		<string id="manager.1copy">碟片數量</string>
+		<string id="manager.sel">挑選演員</string>
+		<string id="manager.stars">星</string>
+		<string id="manager.addmedia">新增</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">挑選您要新增影片的方法</string>
+		<string id="addmovie.imdb">從IMDB的網站</string>
+		<string id="addmovie.imdbtitle">輸入影片名稱</string>
+		<string id="addmovie.manual">手動輸入</string>
+		<string id="addmovie.listed">從資料庫現有的影片中挑選新增</string>
+		<string id="addmovie.xml">使用XML檔案匯入</string>
+		<string id="addmovie.xmlfile">選擇XML檔案來匯入:</string>
+		<string id="addmovie.xmlnote">(請注意,只能使用 XML 格式的檔案匯入 另外可以使 影片管理 中的匯出功能將影片匯出為XML檔案)</string>
+		<string id="addmovie.maxfilesize">檔案限制</string>
+		<string id="addmovie.listedstep1">步驟1:選擇您清單中所沒有的影片&lt;/br&gt;您可以於下個步驟選擇影片類型</string>
+		<string id="addmovie.listedstep2">步驟2:選擇適合的影片類型</string>
+		<string id="addmovie.selected">選擇影片名稱</string>
+		<string id="addmovie.notitles">目前並無其他使用者新增的影片</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">從 XML 檔案匯入影片</string>
+		<string id="xml.contains">XML 檔案包含 %d 部影片</string>
+		<string id="xml.info1">按下確定確定匯入</string>
+		<string id="xml.info2">如果想要匯入包含影片封面、縮圖，你&lt;br/&gt;必須&lt;br/&gt;有含有縮圖資訊的 XML 檔案!&lt;br/&gt;&lt;br/&gt;你必須先勾選下&lt;br/&gt;選擇包含縮圖資訊的XML檔</string>
+		<string id="xml.thumbnails">選擇包含縮圖資訊的XML檔案</string>
+		<string id="xml.list">&gt;匯入影片清單.</string>
+		<string id="xml.error">XML 檔案中沒有包含任何影片資訊.&lt;br/&gt;檔案有可能損毀或是無效.&lt;br/&gt;&lt;br/&gt;確定檔案是從網站中匯出...</string>
+		<string id="xml.results">XML 匯入結果.</string>
+		<string id="xml.results2">目前從XML檔案匯入以下影片.   總共匯入 %d 部影片.</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">借閱清單</string>
+		<string id="loan.to">借閱者</string>
+		<string id="loan.addusers">請先新增借閱者清單</string>
+		<string id="loan.newuser">新增借閱者</string>
+		<string id="loan.registeruser">建立借閱名單</string>
+		<string id="loan.name">名稱</string>
+		<string id="loan.select">選擇借閱者</string>
+		<string id="loan.movieloans">目前出借的影片 ...</string>
+		<string id="loan.reminder">提醒他該還片了.</string>
+		<string id="loan.history">借閱紀錄</string>
+		<string id="loan.history2">觀看借閱紀錄</string>
+		<string id="loan.since">借閱日期</string>
+		<string id="loan.time">借閱起始日</string>
+		<string id="loan.return">還片</string>
+		<string id="loan.success">成功借閱影片</string>
+		<string id="loan.out">尚未歸還</string>
+		<string id="loan.datein">歸還日期</string>
+		<string id="loan.dateout">借閱日期</string>
+		<string id="loan.period">租借天數</string>
+		<string id="loan.back">回到借閱管理</string>
+		<string id="loan.day">天</string>
+		<string id="loan.days">天</string>
+		<string id="loan.today">今天開始</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">註解</string>
+		<string id="comments.add">新增註解</string>
+		<string id="comments.none">目前無註解</string>
+		<string id="comments.type">輸入你的註解</string>
+		<string id="comments.your">你的註解</string>
+		<string id="comments.post">貼上註解</string>
+		<string id="comments.error">必須登入才能寫註解</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">我已經觀賞</string>
+		<string id="seen.notseenit">尚未觀賞過的影片</string>
+		<string id="seen.seenitclick">標示成已觀賞</string>
+		<string id="seen.notseenitclick">&gt;標示成未觀賞</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">還片提醒</string>
+		<string id="mail.returnmovies1">%s，提醒你該還片了，&lt;br/&gt; 你目前借閱的影片有：</string>
+		<string id="mail.returnmovies2">請盡快將影片歸還給 %s  此郵件為系統自動發送，請勿回覆</string>
+		<string id="mail.notify">&lt;strong&gt;新影片增加&lt;/strong&gt;&lt;br/&gt;點選 &lt;a href=&quot;%s/?page=cd?vcd_id=%s&quot;&gt;此處&lt;/a&gt;前往觀看 ..&lt;br/&gt;&lt;br/&gt;郵件由系統自動發送，請勿回</string>
+		<string id="mail.register">%s, 您已成功於 VCD-db 網站上註冊.&lt;br/&gt;&lt;br/&gt;使用者名稱： %s and 密碼：%s&lt;br/&gt;&lt;br/&gt;點選 &lt;a href=&quot;=%s&quot; target=&quot;_new&quot;&gt;此處&lt;/a&gt;進入VCD-db 網站.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.name">名稱</string>
+		<string id="metadata.desc">敘述</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">關鍵字</string>
+		<string id="misc.grade">IMDB 評分高於</string>
+		<string id="misc.any">不限</string>
+		<string id="misc.tryagain">重試</string>
+		<string id="misc.proceed">處理中</string>
+		<string id="misc.select">選擇</string>
+		<string id="misc.confirm">確定</string>
+		<string id="misc.cancel">取消</string>
+		<string id="misc.attention">注意</string>
+		<string id="misc.status">狀態</string>
+		<string id="misc.success">成 功</string>
+		<string id="misc.failure">失 敗</string>
+		<string id="misc.yes">是</string>
+		<string id="misc.no">否</string>
+		<string id="misc.showmore">更多</string>
+		<string id="misc.change">變更</string>
+		<string id="misc.delete">刪除</string>
+		<string id="misc.update">更新</string>
+		<string id="misc.saveandclose">儲存後關閉視窗</string>
+		<string id="misc.close">關閉視窗</string>
+		<string id="misc.edit">修改</string>
+		<string id="misc.savenext">儲存後編輯下一個</string>
+		<string id="misc.save">儲存</string>
+	</strings>
+</language>
