@@ -66,8 +66,14 @@ class VCDConnection {
 				} elseif ($this->db_type == 'sqlite') {
 					// only the database name is needed
 					$this->db->Connect($this->getSQLitePath());
-
+					
+					
 				} else {
+					
+					if ($this->db_type == 'oci8') {
+						$this->db->charSet = 'AL32UTF8';
+					}
+					
 					$this->db->Connect($this->db_host, $this->db_username, $this->db_password, $this->db_catalog);
 				}
 
