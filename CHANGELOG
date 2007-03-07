@@ -7,13 +7,16 @@ Added   - New popup to display logged user movies sorted by categories name.
 Fixed	- Fixed filmweb.pl fetch for actors with no roles assigned.
 Updated - New filmweb.pl search layout.
 Added   - Oracle database support is now available.
-Updated - The Category view calls improved, alot less queries needed for same results.
+Updated - The Category view calls improved, alot fewer queries needed for same results.
 Added   - Centralized Starlets database, updateable from the "Control Panel".
 Updated - Improved exception handling in the SQL classes.
 Added 	- The Cache folder can now be flushed from the "Control Panel".
 Fixed   - Using Proxy Server now works again with the fetch classes.
 Added   - CURL is now supported by the fetchclasses if url_fopen is disabled.
 Updated - The Excel document headers are now localized.
+Updated - Many minor tweaks here and there.
+Added   - New languages, including Arabic, Czech, Norwegan, Traditional Chinese, Slovak, Slovenian and Ukranian.
+      	  Thanks to everyone who have submitted and/or updated the language files.
 
 0.984
 Added   - New fetch class, bushdvd.com (by request)
