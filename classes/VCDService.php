@@ -2574,13 +2574,13 @@ class MovieServices extends VCDServices {
 	 * @param int $user_id | The Other Owner ID to perform cross join with
 	 * @param int $media_id | The mediatype ID to limit results by
 	 * @param int $category_id | The category type ID to limit results
-	 * @param int $method | The Join method to use, 1,2 or 3 []
+	 * @param int $method | The Join method to use, 1,2 or 3
 	 * @return array
 	 */
 	public static function crossJoin($user_id, $media_id, $category_id, $method) {
 		try {
 			
-			return self::Movie()->crossJoin($user_id, $category_id, $method);
+			return self::Movie()->crossJoin($user_id, $media_id, $category_id, $method);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);
