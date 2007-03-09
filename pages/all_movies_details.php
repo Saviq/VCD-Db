@@ -98,7 +98,7 @@
          $newKey = VCDLanguage::translate($translated);
       }
       else
-         $newKey = $$categoryObj->getName();
+         $newKey = $categoryObj->getName();
       
       print "<tr>";
       print "<td nowrap=\"nowrap\" class=\"".$css_class_cat."\">".$newKey."</td>";
