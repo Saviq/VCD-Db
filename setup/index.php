@@ -137,39 +137,44 @@
 			<td id="r2"></td>
 		</tr>
 		<tr>
-			<td>Verify Session support</td>
+			<td>Verify MBstring module</td>
 			<td id="t3">[pending]</td>
 			<td id="r3"></td>
 		</tr>
 		<tr>
-			<td>Verify Short open tags</td>
+			<td>Verify Session support</td>
 			<td id="t4">[pending]</td>
 			<td id="r4"></td>
 		</tr>
 		<tr>
-			<td>Verify Remote fetch support</td>
+			<td>Verify Short open tags</td>
 			<td id="t5">[pending]</td>
 			<td id="r5"></td>
 		</tr>
 		<tr>
-			<td>Verify File upload support</td>
+			<td>Verify Remote fetch support</td>
 			<td id="t6">[pending]</td>
 			<td id="r6"></td>
 		</tr>
 		<tr>
-			<td>Verify Upload folders</td>
+			<td>Verify File upload support</td>
 			<td id="t7">[pending]</td>
 			<td id="r7"></td>
 		</tr>
 		<tr>
-			<td>Verify Config file</td>
+			<td>Verify Upload folders</td>
 			<td id="t8">[pending]</td>
 			<td id="r8"></td>
 		</tr>
 		<tr>
-			<td>Verify Database support</td>
+			<td>Verify Config file</td>
 			<td id="t9">[pending]</td>
 			<td id="r9"></td>
+		</tr>
+		<tr>
+			<td>Verify Database support</td>
+			<td id="t10">[pending]</td>
+			<td id="r10"></td>
 		</tr>
 	</table>
 	<br/>

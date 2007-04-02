@@ -191,6 +191,18 @@ class Installer {
 					
 					break;
 					
+					
+				case 'mbstring':
+					$results['status'] = (int)function_exists('mb_check_encoding');
+					if (function_exists('mb_check_encoding')) {
+						$results['results'] = "Multibyte String functions enabled";	
+					} else {
+						$results['results'] = "Multibyte String functions NOT enabled";
+					}
+					
+					break;
+					
+					
 				case 'session':
 					$results['status'] = (int)function_exists('session_id');
 					if (function_exists('session_id')) {
