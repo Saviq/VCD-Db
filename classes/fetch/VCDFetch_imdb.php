@@ -23,7 +23,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'title'		=> '<h1>([^\<]*)<span>',
 		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})">([0-9]{4})</a>)',
 		'poster' 	=> '<a name="poster"([^<]*)><img([^<]*)([^<]*)src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>',
-		'director' 	=> '#Directed by.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
+		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
 		'cast' 		=> '<td class="nm"><a href="/name/nm([^"]+)/">([^<]*)</a></td><td class="ddd"> ... </td><td class="char">([^<]*)</td></tr>',
