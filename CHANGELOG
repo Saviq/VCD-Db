@@ -1,7 +1,7 @@
 0.986
 Updated - The Installer now checks for the mbstring extension, Ajax errors were tracked back to mbstring module not being loaded.
 Fixed   - IMDB director is now correctly fetched.
-ass 	- ass
+ass 	- assmo
 
 0.985
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
