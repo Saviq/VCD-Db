@@ -962,7 +962,7 @@ switch ($form) {
 
 
 				// Skip empty metadata
-				if (strcmp($value, "") != 0) {
+				if (strcmp($value, "") != 0 && $metadatatype_id != metadataTypeObj::SYS_NFO) {
 					$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $value));
 					$obj->setMetaDataTypeID($metadatatype_id);
 					$obj->setMediaTypeID($mediatype_id);
@@ -1017,7 +1017,6 @@ switch ($form) {
 								$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
 								$obj->setMetaDataTypeID($metadatatype_id);
 								$obj->setMediaTypeID($mediatype_id);
-
 								// And save to DB
 								SettingsServices::addMetadata($obj, true);
 		      				}
