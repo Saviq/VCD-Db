@@ -33,7 +33,7 @@
     * copyrighted by their respective authors.
     */
 
-   require_once( 'AjaxBase.php' );
+   require_once(dirname(__FILE__) . '/AjaxBase.php' );
 
    /**
     * Ajax client class

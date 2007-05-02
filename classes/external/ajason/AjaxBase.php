@@ -33,7 +33,7 @@
     * copyrighted by their respective authors.
     */
 
-   require_once( 'AjaxException.php' );
+   require_once(dirname(__FILE__) . '/AjaxException.php' );
 
    /**
     * Ajax base class

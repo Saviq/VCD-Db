@@ -33,10 +33,10 @@
     * copyrighted by their respective authors.
     */
 
-   require_once( 'AjaxBase.php' );
-   require_once( 'AjaxResponse.php' );
-   require_once( 'AjaxException.php' );
-   require_once( 'JSON.php' );
+   require_once(dirname(__FILE__) . '/AjaxBase.php' );
+   require_once(dirname(__FILE__) . '/AjaxResponse.php' );
+   require_once(dirname(__FILE__) . '/AjaxException.php' );
+   require_once(dirname(__FILE__) . '/JSON.php' );
 
    /**
     * Ajax server class

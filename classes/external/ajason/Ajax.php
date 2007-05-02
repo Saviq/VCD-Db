@@ -43,9 +43,9 @@
     * to exchange data between server and client.
    **/
 
-   require_once( 'AjaxBase.php' );
-   require_once( 'AjaxClient.php' );
-   require_once( 'AjaxServer.php' );
+   require_once(dirname(__FILE__) . '/AjaxBase.php' );
+   require_once(dirname(__FILE__) . '/AjaxClient.php' );
+   require_once(dirname(__FILE__) . '/AjaxServer.php' );
 
    /**
     * Ajax main class

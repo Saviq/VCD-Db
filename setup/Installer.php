@@ -13,10 +13,14 @@
  * @version $Id$
  */
 
-require_once('../classes/adodb/adodb.inc.php');
-require_once('../classes/adodb/adodb-xmlschema03.inc.php');
-require_once('../classes/adodb/adodb-exceptions.inc.php');
-require_once('../classes/external/ajason/Ajax.php');
+if (!defined('VCDDB_BASE')) {
+	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
+}
+
+require_once(VCDDB_BASE.'/classes/adodb/adodb.inc.php');
+require_once(VCDDB_BASE.'/classes/adodb/adodb-xmlschema03.inc.php');
+require_once(VCDDB_BASE.'/classes/adodb/adodb-exceptions.inc.php');
+require_once(VCDDB_BASE.'/classes/external/ajason/Ajax.php');
 
 
 class Installer {
