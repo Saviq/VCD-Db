@@ -26,7 +26,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
-	'cast'		=> 'class=\"filmActor\"[^>]+>([^<]+)</a>([^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)</div>)?',
+	'cast'		=> 'class=\"filmActor\"[^>]+>([^<]+)</a>([^>]+>[^>]+>[^>]+>[^"]+"filmRole">([^<]+)<)?',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
 	'plot'		=> '#"justify">(.*?)</li>#'
