@@ -15,7 +15,7 @@
  */
 
 ?>
-<?PHP
+<?php
 
 class vcdSQL extends VCDConnection {
 
@@ -1395,24 +1395,30 @@ class vcdSQL extends VCDConnection {
 			foreach ($rs as $row) {
 
 				if (is_numeric($imdbgrade)) {
+					
 					if ($row[5] >= $imdbgrade) {
 						$item = array('id' => $row[0], 'title' => $row[1], 'cat_id' => $row[2],
 									  'year' => $row[3], 'media_id' => $row[4], 'rating' => $row[5]);
+									  
+					// Update the titles from lowercase to UcFirst if Postgres
+					if ($this->isPostgres()) {
+							$item['title'] = ucwords($item['title']);
 					}
+					array_push($results, $item);
+									  
+					}
+					
 				} else {
 					$item = array('id' => $row[0], 'title' => $row[1], 'cat_id' => $row[2],
 								  'year' => $row[3], 'media_id' => $row[4], 'rating' => $row[5]);
 								  
+					// Update the titles from lowercase to UcFirst if Postgres
+					if ($this->isPostgres()) {
+							$item['title'] = ucwords($item['title']);
+					}
+					array_push($results, $item);
 				}
 				
-				// Update the titles from lowercase to UcFirst if Postgres
-				if ($this->isPostgres()) {
-						$item['title'] = ucwords($item['title']);
-				}
-				array_push($results, $item);
-				
-
-
 			}
 
 			$rs->Close();
