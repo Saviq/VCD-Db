@@ -1093,7 +1093,7 @@
 			
 			if ($CURRENT_PAGE == 'deletemovies') {
 
-				require_once('forms/deletemovies.php');
+				require_once('forms/deleteMovies.php');
 				
 			}
 			
