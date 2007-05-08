@@ -330,7 +330,7 @@ function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $tit
 				print "<option value=\"".$data['id']."\">".$data['name']."</option>";
 			}
 	}
-	print "</select>";
+	
 }
 
 

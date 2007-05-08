@@ -83,6 +83,7 @@
 		<li><a href="./?page=users">Users</a></li>
 		<li><a href="./?page=roles">User roles</a></li>
 		<li><a href="./?page=properties">User properties</a></li>
+		<li><a href="./?page=deletemovies">Delete movies</a></li>
 		<li><a href="./?page=settings">Web settings</a></li>
 		<li><a href="./?page=xmlfeeds">XML feeds</a></li>
 		<li><hr style="height:1px;"/><a href="./?page=versioncheck">Check for new version</a></li>
@@ -1085,6 +1086,14 @@
 			if ($CURRENT_PAGE == 'pornstarsync') {
 
 				require_once('forms/pornstarsync.php');
+				
+			}
+			
+			
+			
+			if ($CURRENT_PAGE == 'deletemovies') {
+
+				require_once('forms/deletemovies.php');
 				
 			}
 			

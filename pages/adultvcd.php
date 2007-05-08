@@ -230,7 +230,7 @@
 			print "<h2>".VCDLanguage::translate('movie.similar')."</h2>";
 			print "<form name=\"sim\" action=\"get\"><select name=\"similar\" size=\"1\" onchange=\"goSimilar(this.form)\">";
 			evalDropdown($simArr, 0, true, VCDLanguage::translate('misc.select'));
-			print "</form><br/>";
+			print "</select></form><br/>";
 		}
 
 	?>

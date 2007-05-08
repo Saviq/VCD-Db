@@ -220,6 +220,17 @@ class userObj extends userRoleObj implements XMLable {
 		return $this->isDirectoryUser;
 	}
 	
+	
+	/**
+	 * Get the objects id and name for list processing
+	 *
+	 * @return array
+	 */
+	public function getList() {
+        return array("id"   => $this->user_id,
+                     "name" => $this->fullname);
+	}
+	
 	/**
 	 * Get the XML representation of the user object
 	 *

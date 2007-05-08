@@ -29,6 +29,15 @@ function showLayer() {
 }
 
 
+function checkDeletion(form) {
+	if (form.owner.selectedIndex == 0) {
+		alert('You must select the owner');
+		form.owner.focus();
+		return false;
+	}
+	return true;
+}
+
 function SaveModeEdit(file_id) {
 	uri = "./?page=languages&mode=edit&recordID="+file_id+"&type=safe";
 	location.href = uri;

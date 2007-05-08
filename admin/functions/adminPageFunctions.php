@@ -176,7 +176,7 @@ function cleanItem(&$item) {
  * @param string $recordType
  */
 function deleteRecord($recordID, $recordType) {
-	if (!is_numeric($recordID))
+	if (!isset($recordID))
 		return;
 
 	switch ($recordType) {
@@ -216,6 +216,18 @@ function deleteRecord($recordID, $recordType) {
 				print "<script>history.back(-1)</script>";
 		break;
 
+		
+		case 'deletemovies':
+			
+			$items = explode('|', $recordID);
+			$movie_id = $items[0];
+			$media_id = $items[1];
+			$user_id = $items[2];
+						
+			MovieServices::deleteVcdFromUser($movie_id, $media_id, 'full', $user_id);
+			header("Location: ./?page=".$recordType."&deleted"); /* Redirect browser */
+			
+			break;
 	
 		case 'deleteUser';
 
@@ -378,7 +390,8 @@ function getADODBdatePart($datestamp, $format) {
 function showAddRecord($do) {
 
 	if ($do == "versioncheck" || $do == "statistics" || $do == "backup" || $do == "import" || $do == "" ||
-		$do == "statistics" || $do == "roles" || $do == "log" || $do == "viewlog" || $do == "pornstarsync")  {
+		$do == "statistics" || $do == "roles" || $do == "log" || $do == "viewlog" || $do == "pornstarsync" ||
+		$do == "deletemovies")  {
 		return false;
 	}
 
