@@ -152,7 +152,7 @@
 </tr>
 <tr>
 	<td class="tblb"><?=VCDLanguage::translate('movie.title')?>:</td>
-	<td><input type="text" name="title" class="input" value="<?= $vcd->getTitle() ?>" size="40"/></td>
+	<td><input type="text" name="title" class="input" value="<?= htmlspecialchars($vcd->getTitle()) ?>" size="40"/></td>
 </tr>
 <tr>
 	<td class="tblb"><?=VCDLanguage::translate('movie.category')?>:</td>
