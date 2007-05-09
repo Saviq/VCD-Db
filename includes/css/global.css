@@ -112,3 +112,8 @@ P img {
 	margin-left:22px;
 	padding-bottom:0px;
 }
+
+.plottext {
+	padding:0px 5px 0px 5px;
+	text-align: justify;
+}

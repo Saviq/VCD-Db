@@ -615,9 +615,9 @@ function showPlot($strPlot) {
 	$len = strlen($plot);
 	if ($len > $showLen) {
 		$first = substr($plot, 0, $showLen);
-		print "<div style=\"padding-right:20px\" id=\"first\">".$first." ...<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('first');show('rest')\">".VCDLanguage::translate('misc.showmore')." &gt;&gt;</a></div>";
-		print "<div id=\"rest\" style=\"visibility:hidden;display:none;\">".$plot."
-				<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('rest');show('first')\">&lt;&lt; ".VCDLanguage::translate('misc.showless')."</a>";
+		print "<div class=\"plottext\" id=\"first\">".$first." ...<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('first');show('rest')\">".VCDLanguage::translate('misc.showmore')." &gt;&gt;</a></div>";
+		print "<div id=\"rest\" class=\"plottext\" style=\"visibility:hidden;display:none;\">".$plot."
+				<br/>&nbsp;&nbsp;<a href=\"#plot\" onclick=\"hide('rest');show('first')\">&lt;&lt; ".VCDLanguage::translate('misc.showless')."</a></div>";
 
 	} else {
 		print $plot;
