@@ -165,7 +165,10 @@ if ($movie->isAdult()) {
 			foreach ($covers as $cdcoverObj) {
 				if (!$cdcoverObj->isThumbnail()) {
 					$bNoCovers = false;
-					$strCoverHTML .= "<li><a href=\"#\" onclick=\"showcover('".$cdcoverObj->getFilename()."',".(int)$cdcoverObj->isInDB().",".$cdcoverObj->getImageID().")\">".$cdcoverObj->getCoverTypeName() . "</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
+					if($cdcoverObj->isInDB())
+						$strCoverHTML .= "<li><a href=\"vcd_image.php?id=".$cdcoverObj->getImageID()."\" title=\"".$movie->getTitle().": ".$cdcoverObj->getCoverTypeName()."\" rel=\"lytebox[".$movie->getID()."]\">".$cdcoverObj->getCoverTypeName()."</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
+					else						
+						$strCoverHTML .= "<li><a href=\"upload/covers/".$cdcoverObj->getFilename()."\" title=\"".$movie->getTitle().": ".$cdcoverObj->getCoverTypeName()."\" rel=\"lytebox[".$movie->getID()."]\">".$cdcoverObj->getCoverTypeName()."</a> <i>(".human_file_size($cdcoverObj->getFilesize()).")</i></li>";
 				}
 			}
 			$strCoverHTML .= "</ul>";
