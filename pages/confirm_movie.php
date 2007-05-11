@@ -1,63 +1,12 @@
-<?
-global $ajax, $ajaxClient, $ajaxServer;
+<?php
+	global $ajax, $ajaxClient, $ajaxServer;
 ?>
 <script type="text/javascript" src="includes/js/json.js"></script>
 <script type="text/javascript" src="includes/js/ajax.js"></script>
 <script type="text/javascript">
 <?php echo $ajaxClient->getJavaScript(); ?>
-function cutStr(string, maxlen) {
-	return (string.length > maxlen)?string.substring(0,maxlen-3)+'...':string;
-}
-
-function getFieldHTML(data) {
-	var fieldHTML = '';
-	switch(data.type) {
-		case 'file'		: fieldHTML += '<tr><td colspan="2">'+data.label+':<br/><input type="file" name="'+data.id+'" '+'id="'+data.id+'"'+((data.clear)?' clear="true"':'')+'/></td></tr>'; break;
-		case 'text'		: fieldHTML += '<tr><td>'+data.label+':</td><td><input type="text" name="'+data.id+'" size="18"/></td></tr>'; break;
-		case 'select'	: fieldHTML += '<tr><td>'+data.label+':</td><td><select name="'+data.id+'"'+((data.multi)?' multiple size="3"':'')+' class="input">';
-		for (dataID in data.data)
-		if (dataID != '______array') {
-			dataObj = data.data[dataID];
-			fieldHTML += '<option value="'+dataObj.value+'"'+((dataObj.selected)?' selected':'')+'>'+cutStr(dataObj.label, 20)+'</option>';
-		}
-		fieldHTML += '</select></td></tr>'
-		break;
-		default    		: fieldHTML = ""; break;
-	}
-	return fieldHTML;
-}
-
-function processing(start) {
-	button = document.getElementById('confirmButton');
-	button.disabled = start;
-	if (start) {
-		button.style.color='#cccccc';
-		show('processIcon');
-	} else {
-		button.style.color='#000000';
-		show('processIcon');
-	}
-}
-
-function showForms(dataArrArr) {
-	for (dataArrID in dataArrArr) {
-		dataArr = dataArrArr[dataArrID];
-		if (dataArr != '______array') {
-			var html = '';
-			if (dataArr.data) {
-				html += '<table cellspacing="1" cellpadding="1" width="100%" class="plain">';
-				html += '<tr><td class="header" colspan="2">'+dataArr.header+'</td></tr>';
-				for (dataID in dataArr.data) {
-					html += getFieldHTML(dataArr.data[dataID]);
-				}
-				html += '</table>';
-			}
-			document.getElementById(dataArr.query+'Fields').innerHTML = html;
-			processing(false);
-		}
-	}
-}
 </script>
+
 <form name="imdbfetcher" action="exec_form.php?action=moviefetch" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
 <input type="hidden" name="imdb" value="<?=$fetchedObj->getIMDB()?>"/>
 <input type="hidden" name="image" value="<?=$fetchedObj->getImage()?>"/>

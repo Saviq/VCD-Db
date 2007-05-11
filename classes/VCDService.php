@@ -1456,6 +1456,23 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Get metadataObj by ID
+	 *
+	 * @param int $metadata_id | The ID of the metadata to get
+	 * @return metadataObj | The metadata object that is returned
+	 */
+	public static function getMetadataById($metadata_id) {
+		try {
+			
+			return self::Settings()->getMetadataById($metadata_id);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 	/**
 	 * Get all record ID's (movie ID's) that exist with association to a specific metadata name and User ID.
 	 * Returns array of integers (Record ID's)

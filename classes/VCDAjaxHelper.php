@@ -15,9 +15,8 @@
 ?>
 <?php
 
-$SETTINGSClass = new vcd_settings();
-
 class VCDAjaxHelper {
+	
 	private static function formatSelArr($array, $filter = array()) {
 		$data[] = array("value" => "null",
 		"label" => VCDLanguage::translate("misc.select")
@@ -35,7 +34,6 @@ class VCDAjaxHelper {
 		try {
 			$dataArr = array();
 			$queries = explode("|", $queries);
-			global $SETTINGSClass;
 			if($id == 'null') {
 				foreach ($queries as $query) $dataArr[] = array('query' => $query);
 				return $dataArr;
@@ -43,18 +41,17 @@ class VCDAjaxHelper {
 			if(!is_numeric($id)) {
 				throw new AjaxException("mediaTypeID must be numeric");
 			}
-			$mediaTypeObj = $SETTINGSClass->getMediaTypeByID($id);
+			$mediaTypeObj = SettingsServices::getMediaTypeByID($id);
 			foreach($queries as $query) {
 				if($mediaTypeObj instanceof mediaTypeObj) {
 					$data = null;
 					switch ($query) {
 						case 'cover':
-							$cdcoverObj = VCDClassFactory::getInstance('vcd_cdcover');
 							$header = VCDLanguage::translate('movie.covers');
 							if($mediaTypeObj->getParentID() > 0) {
-								$cdcoverArr = $cdcoverObj->getCDcoverTypesOnMediaType($mediaTypeObj->getParentID());
+								$cdcoverArr = CoverServices::getCDcoverTypesOnMediaType($mediaTypeObj->getParentID());
 							} else {
-								$cdcoverArr = $cdcoverObj->getCDcoverTypesOnMediaType($mediaTypeObj->getmediaTypeID());
+								$cdcoverArr = CoverServices::getCDcoverTypesOnMediaType($mediaTypeObj->getmediaTypeID());
 							}
 							foreach($cdcoverArr as $cdcoverObj) {
 								if($cdcoverObj->isThumbnail()) continue;
@@ -65,18 +62,18 @@ class VCDAjaxHelper {
 							}
 							break;
 						case 'meta':
-							$metaDataTypeArr = $SETTINGSClass->getMetadataTypes(VCDUtils::getUserID());
+							$metaDataTypeArr = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
 							$header = VCDLanguage::translate('metadata.my');
 							$user = $_SESSION['user'];
 							if ($user->getPropertyByKey(vcd_user::$PROPERTY_NFO)) {
-								$nfoMeta = $SETTINGSClass->getMetadataById(metadataTypeObj::SYS_NFO);
+								$nfoMeta = SettingsServices::getMetadataById(metadataTypeObj::SYS_NFO);
 								$data[] = array("type" => "file",
 								"id"   => "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO)."|".metadataTypeObj::SYS_NFO."|".$mediaTypeObj->getmediaTypeID(),
 								"label"=> "NFO"
 								);
 							}
 							if ($user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)) {
-								$plyMeta = $SETTINGSClass->getMetadataById(metadataTypeObj::SYS_FILELOCATION);
+								$plyMeta = SettingsServices::getMetadataById(metadataTypeObj::SYS_FILELOCATION);
 								$data[] = array("type" => "file",
 								"clear"=> true,
 								"id"   => "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION)."|".metadataTypeObj::SYS_FILELOCATION."|".$mediaTypeObj->getmediaTypeID(),
@@ -84,7 +81,7 @@ class VCDAjaxHelper {
 								);
 							}
 							if ($user->getPropertyByKey(vcd_user::$PROPERTY_INDEX)) {
-								$idxMeta = $SETTINGSClass->getMetadataById(metadataTypeObj::SYS_MEDIAINDEX);
+								$idxMeta = SettingsServices::getMetadataById(metadataTypeObj::SYS_MEDIAINDEX);
 								$data[] = array("type" => "text",
 								"id"   => "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX)."|".metadataTypeObj::SYS_MEDIAINDEX."|".$mediaTypeObj->getmediaTypeID(),
 								"label"=> "Custom Index"
@@ -107,7 +104,7 @@ class VCDAjaxHelper {
 							foreach ($dvdObj->getRegionList() as $id => $label) {
 								$regArr[$id] = $id.". ".$label;
 							}
-							$dmetaObj = $SETTINGSClass->getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
+							$dmetaObj = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_DEFAULTDVD);
 							if (is_array($dmetaObj) && sizeof($dmetaObj) == 1) {
 								$dvdSettings = unserialize($dmetaObj[0]->getMetadataValue());
 							} else {

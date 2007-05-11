@@ -1301,3 +1301,62 @@ function removeAudio(key) {
 	html += "</ul>";
 	audios.innerHTML = html;
 }
+
+
+/* Functions when adding new movie and changing media type */
+function cutStr(str, maxlen) {
+	try {
+		return (str.length > maxlen)?str.substring(0,maxlen-3)+'...':str;
+	} catch (Exception) {
+		return str;
+	}
+}
+
+function getFieldHTML(data) {
+	var fieldHTML = '';
+	switch(data.type) {
+		case 'file'		: fieldHTML += '<tr><td colspan="2">'+data.label+':<br/><input type="file" name="'+data.id+'" '+'id="'+data.id+'"'+((data.clear)?' clear="true"':'')+'/></td></tr>'; break;
+		case 'text'		: fieldHTML += '<tr><td>'+data.label+':</td><td><input type="text" name="'+data.id+'" size="18"/></td></tr>'; break;
+		case 'select'	: fieldHTML += '<tr><td>'+data.label+':</td><td><select name="'+data.id+'"'+((data.multi)?' multiple size="3"':'')+' class="input">';
+		for (dataID in data.data)
+		if (dataID != '______array') {
+			dataObj = data.data[dataID];
+			fieldHTML += '<option value="'+dataObj.value+'"'+((dataObj.selected)?' selected':'')+'>'+cutStr(dataObj.label, 20)+'</option>';
+		}
+		fieldHTML += '</select></td></tr>'
+		break;
+		default: fieldHTML = ""; break;
+	}
+	return fieldHTML;
+}
+
+function processing(start) {
+	button = document.getElementById('confirmButton');
+	button.disabled = start;
+	if (start) {
+		button.style.color='#cccccc';
+		show('processIcon');
+	} else {
+		button.style.color='#000000';
+		show('processIcon');
+	}
+}
+
+function showForms(dataArrArr) {
+	for (dataArrID in dataArrArr) {
+		dataArr = dataArrArr[dataArrID];
+		if (dataArr != '______array') {
+			var html = '';
+			if (dataArr.data) {
+				html += '<table cellspacing="1" cellpadding="1" width="100%" class="plain">';
+				html += '<tr><td class="header" colspan="2">'+dataArr.header+'</td></tr>';
+				for (dataID in dataArr.data) {
+					html += getFieldHTML(dataArr.data[dataID]);
+				}
+				html += '</table>';
+			}
+			try  { document.getElementById(dataArr.query+'Fields').innerHTML = html; } catch (ex) {}
+			processing(false);
+		}
+	}
+}
