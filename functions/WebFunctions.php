@@ -117,7 +117,7 @@ function display_toggle() {
 
 	<div class="topic"><?=VCDLanguage::translate('misc.toggle')?></div>
 	<div class="forms" align="center">
-	<a href="javascript:show('r-col')">[<?=VCDLanguage::translate('misc.toggle_on')?>]</a>-<a href="javascript:hide('r-col')">[<?=VCDLanguage::translate('misc.toggle_off')?>]</a>
+	<a href="javascript:l(1)">[<?=VCDLanguage::translate('misc.toggle_on')?>]</a>-<a href="javascript:l(0)">[<?=VCDLanguage::translate('misc.toggle_off')?>]</a>
 	</div>
 
 
@@ -549,6 +549,7 @@ function rightbar() {
 	if ($CURRENT_PAGE == '') {
 		// Check if user is logged in and wished to disable sidebar
 		if (VCDUtils::isLoggedIn()) {
+						
 			$arr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), 'frontbar');
 			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
 				return false;

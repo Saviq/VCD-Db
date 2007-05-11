@@ -1,5 +1,11 @@
-<div id="r-col">
 <? 
+
+	if (isset($_COOKIE['rbar']) && $_COOKIE['rbar'] == 0) {
+		print "<div id=\"r-col\" style=\"display:none\">";
+	} else {
+		print "<div id=\"r-col\">";
+	}
+
 	$maxTitlelen = 24;
 	$tv_category = SettingsServices::getCategoryIDByName("tv shows");
 	$xx_category = SettingsServices::getCategoryIDByName("adult");
