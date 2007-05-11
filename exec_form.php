@@ -276,9 +276,6 @@ switch ($form) {
 				// Get the full path including filename after it has been moved
 				$fileLocation = $fileObj->getFileLocation();
 				$fileExtension = $fileObj->getFileExtenstion();
-
-				
-				//die($fileLocation . " og " . $fileExtension );
 				
 	  	   		$im = new Image_Toolbox($fileLocation);
 				$im->newOutputSize(0,140);
@@ -1037,6 +1034,16 @@ switch ($form) {
 		      				exit();
 		      			}
 
+		      			
+		      			// Resize the image if this is thumbnail
+		      			if ($coverType->isThumbnail()) {
+			      			$fileLocation = $fileObj->getFileLocation();
+							$fileExtension = $fileObj->getFileExtenstion();
+				  	   		$im = new Image_Toolbox($fileLocation);
+							$im->newOutputSize(0,140);
+							$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
+		      			}
+		      			
 
 			      		$imginfo = array('', $cd_id, $fileObj->getFileName(), $fileObj->getFileSize(), VCDUtils::getUserID(),
 			      					date(time()), $cover_typeid, $coverType->getCoverTypeName(), '');
