@@ -267,6 +267,22 @@ class vcd_cdcover implements ICdcover {
 	
 	
 	/**
+	 * Get all Covers in VCD-db.  Returns array of cdcoverObj's
+	 *
+	 * @return array
+	 */
+	public function getAllCovers() {
+		try {
+		
+			return $this->SQL->getAllCovers();
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	/**
 	 * Save a new cdcover object to database.
 	 * If same cover object exists in database, the cover object is updated 
 	 * instead of inserting a duplicate entry.

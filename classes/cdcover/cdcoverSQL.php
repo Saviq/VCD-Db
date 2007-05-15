@@ -112,6 +112,31 @@ class cdcoverSQL extends VCDConnection {
 	}
 	
 	
+	public function getAllCovers() {
+		try {
+		
+			$query = "SELECT c.cover_id, c.vcd_id, c.cover_filename, c.cover_filesize, 	
+	 				  c.user_id, c.date_added, c.cover_type_id, t.cover_type_name, c.image_id
+	 				  FROM {$this->TABLE_covers} c, {$this->TABLE_types} t
+	 				  WHERE c.cover_type_id = t.cover_type_id ORDER BY c.cover_id";
+			
+						
+			$rs = $this->db->Execute($query);
+			$objArr = array();
+			foreach ($rs as $row) {
+	    		$obj = new cdcoverObj($row);
+	    		array_push($objArr, $obj);
+			}
+			
+			$rs->Close();
+			return $objArr;
+			
+			
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
+		}
+	}
+	
 	public function getAllCoversForVcd($vcd_id) {
 		try {
 			

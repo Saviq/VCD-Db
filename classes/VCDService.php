@@ -1641,12 +1641,29 @@ class CoverServices extends VCDServices {
 	public static function getCoverById($cover_id) {
 		try {
 			
-			return self::CDcover()->getCoverTypeById($cover_id);
+			return self::CDcover()->getCoverById($cover_id);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);
 		}
 	}
+	
+	
+	/**
+	 * Get all Covers stored in VCD-db.  Returns array of cdcoverObjects
+	 *
+	 * @return array | Array of cdcoverObjects
+	 */
+	public static function getAllCovers() {
+		try {
+			
+			return self::CDcover()->getAllCovers();
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 	
 	/**
 	 * Get all cover objects that belong to a specified movie, returns array of cdcover objects
