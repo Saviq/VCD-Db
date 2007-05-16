@@ -29,6 +29,10 @@
 	if (strcmp($CURRENT_PAGE, "setDefaultRole") == 0) {
 		setDefaultRole($_GET['recordID']);
 	}
+	
+	if (strcmp($CURRENT_PAGE, "executeTask") == 0) {
+		executeTask($_GET['task_id']);
+	}
 			
 	
 ?>
@@ -61,7 +65,7 @@
           <li><a href="./?page=statistics">Statistics</a></li>
           <li><a href="./?page=log">Log</a></li>
           <li><a href="./?page=backup">Backup</a></li>
-          <li><a href="./?page=import">Import</a></li>
+          <li><a href="./?page=tools">Tools</a></li>
           <li><a href="javascript:mailtest()">Test Mail settings</a></li>
           <li><a href="./?">Home</a></li>
         </ul>
@@ -1084,17 +1088,18 @@
 			
 			
 			if ($CURRENT_PAGE == 'pornstarsync') {
-
 				require_once('forms/pornstarsync.php');
-				
 			}
 			
 			
 			
 			if ($CURRENT_PAGE == 'deletemovies') {
-
 				require_once('forms/deleteMovies.php');
-				
+			}
+			
+			
+			if ($CURRENT_PAGE == 'tools') {
+				require_once('forms/tools.php');
 			}
 			
 			

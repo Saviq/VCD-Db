@@ -295,6 +295,13 @@ function checkFields(form) {
 }
 
 
+function runTask(task_id) {
+	if (confirm('Execute task?')) {
+		url = "./?page=executeTask&task_id="+task_id;
+		location.href=url;	
+	}
+}
+
 function Updater() {
 
 	this.totalTransactions = 0;

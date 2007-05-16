@@ -159,6 +159,47 @@ function createDropDown($objArr, $selectName, $firstIndex = "", $cssClass = "",$
 }
 
 
+function executeTask($task_id) {
+	if (is_numeric($task_id)) {
+		
+		switch ($task_id) {
+			
+			case 1:		// Clean up orphan movies
+				
+				break;
+				
+				
+			case 2:		// Move covers from hd to db
+				
+				$affectedCovers = CoverServices::moveCoversToDatabase();
+				$metaObj = new metadataObj();
+				$metaObj->setMetadataTypeName(metadataTypeObj::SYS_TASKS );
+				$metaObj->setMetadataValue(date("m-d-Y H:i:s"));
+				SettingsServices::addMetadata($metaObj);
+				break;
+				
+			case 3:		// Move covers from db to hd
+			
+				$affectedCovers = CoverServices::moveCoversToDisk();
+				$metaObj = new metadataObj();
+				$metaObj->setMetadataTypeName(metadataTypeObj::SYS_TASKS );
+				$metaObj->setMetadataValue(date("m-d-Y H:i:s"));
+				SettingsServices::addMetadata($metaObj);
+				break;
+				
+			case 4:		// Clean up the cache folder
+				
+				break;
+			
+		}
+		
+		
+		header("Location: ./?page=tools&task_id={$task_id}"); /* Redirect browser */
+		
+	}
+}
+
+
 /**
  * Add slashes to the current string
  *
@@ -391,7 +432,7 @@ function showAddRecord($do) {
 
 	if ($do == "versioncheck" || $do == "statistics" || $do == "backup" || $do == "import" || $do == "" ||
 		$do == "statistics" || $do == "roles" || $do == "log" || $do == "viewlog" || $do == "pornstarsync" ||
-		$do == "deletemovies")  {
+		$do == "deletemovies" || $do == "tools")  {
 		return false;
 	}
 

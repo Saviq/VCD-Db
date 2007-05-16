@@ -1793,6 +1793,39 @@ class CoverServices extends VCDServices {
 			parent::handleError($ex);
 		}
 	}
+	
+	
+	/**
+	 * Move all CD-covers in VCD-db from database to harddrive
+	 *
+	 * @return int | The number of affected covers
+	 */
+	public static function moveCoversToDisk() {
+		try {
+			
+			return self::CDcover()->moveCovers(true);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
+	/**
+	 * Move all CD-covers in VCD-db from harddrive to database
+	 *
+	 * @return int | The number of affected covers
+	 */
+	public static function moveCoversToDatabase() {
+		try {
+			
+			return self::CDcover()->moveCovers(false);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
+	
 }
 
 /**

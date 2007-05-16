@@ -434,6 +434,104 @@ class vcd_cdcover implements ICdcover {
 	
 	
 	/**
+	 * Transfer all CDcover from database to disk OR from disk to database.
+	 * Returns the number of moved covers.
+	 *
+	 * @param bool $moveToDisk | if true then move from db to disk, otherwise from disk to db
+	 * @return int | The number of affected covers
+	 */
+	public function moveCovers($moveToDisk=true) {
+		try {
+		
+			// This can take a lot of time .. lets make time
+			@set_time_limit(0);
+			
+			$arr = $this->getAllCovers();
+			$imageCounter = 0;
+			
+			if ($moveToDisk) {
+			
+				foreach ($arr as $cdcoverObj) {
+					if ($cdcoverObj->isInDB()) {
+										
+						// Extract the image from database
+						$imageObj = new VCDImage($cdcoverObj->getImageID());
+						$data = $imageObj->getImageStream($cdcoverObj->getImageID());
+						VCDUtils::write(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$cdcoverObj->getFilename(), $data);
+						
+						// Clone the old object
+						$newCoverObj = clone $cdcoverObj;
+						
+						// Delete the old cover
+						$this->deleteCover($cdcoverObj->getId());
+						
+						$newCoverObj->setCoverID('');
+						$newCoverObj->setImageID('');
+						
+						// Move the cover to right folder
+						if ($newCoverObj->isThumbnail()) {
+							rename(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$newCoverObj->getFilename(), VCDDB_BASE.DIRECTORY_SEPARATOR.THUMBNAIL_PATH.$newCoverObj->getFilename());
+						} else {
+							rename(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$newCoverObj->getFilename(), VCDDB_BASE.DIRECTORY_SEPARATOR.COVER_PATH.$newCoverObj->getFilename());
+						}
+						
+						// Re-import the cover
+						$this->addCover($newCoverObj);
+						
+						// Unset the old objects
+						unset($imageObj);
+						unset($newCoverObj);
+						
+						$imageCounter++;
+			
+					}
+				}		
+			
+				
+			} else {
+				
+				foreach ($arr as $cdcoverObj) {
+					if (!$cdcoverObj->isInDB()) {
+						
+						$imageObj = new VCDImage();
+						if (VCDUtils::getFileExtension($cdcoverObj->getFilename()) == 'gif') {
+							$image_type = "gif";
+						} else {
+	                    	$image_type = "pjpeg";
+	                    }
+	
+	                    
+						// Use File info
+	                    $arrFileInfo = array("name" => $cdcoverObj->getFilename(), "type" => "image/".$image_type."");
+						$image_id = $imageObj->addImageFromPath(VCDDB_BASE.DIRECTORY_SEPARATOR.$cdcoverObj->getImagePath(), $arrFileInfo, true);
+						
+						$newCoverObj = clone $cdcoverObj;
+						$newCoverObj->setImageID($image_id);
+						
+						$this->deleteCover($cdcoverObj->getId());
+						
+						$this->addCover($newCoverObj);
+						
+						// Unset the old objects
+						unset($imageObj);
+						unset($newCoverObj);
+						
+						$imageCounter++;
+					}
+				}
+			}
+			
+			return $imageCounter;
+		
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	
+	
+	/**
 	 * Update the internal cdcoverType cache.
 	 *
 	 */

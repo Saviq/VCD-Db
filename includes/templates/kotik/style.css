@@ -301,6 +301,7 @@ input, select, textarea {
 }
 
 .displist .header {
+	color: #FFFFFF;
 	text-align:left;
 	font-weight:bold;
 }

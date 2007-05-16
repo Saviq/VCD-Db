@@ -228,11 +228,10 @@ class metadataTypeObj {
 	/* Additional system types */
 	CONST SYS_LASTFETCH	   = 19;
 	CONST SYS_DEFAULTDVD   = 20;
-	
+	CONST SYS_TASKS  	   = 21;
 	
 	
 	/* Reserved for later use  */
-	CONST SYS_RESERVED02   = 21;
 	CONST SYS_RESERVED03   = 22;
 	CONST SYS_RESERVED04   = 23;
 	CONST SYS_RESERVED05   = 24;
@@ -383,8 +382,8 @@ class metadataTypeObj {
 			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
 			case self::SYS_NFO:	 	 	 return 'nfo';			 break;
 			case self::SYS_LASTFETCH:	 return 'lastfetch';	 break;
-			case self::SYS_DEFAULTDVD :	 return 'defaultdvd';    break;
-			case self::SYS_RESERVED02 :	 return 'reserved';	     break;
+			case self::SYS_DEFAULTDVD:	 return 'defaultdvd';    break;
+			case self::SYS_TASKS:	 	 return 'tasks';	     break;
 			case self::SYS_RESERVED03 :	 return 'reserved';	     break;
 			case self::SYS_RESERVED04 :	 return 'reserved';	     break;
 			case self::SYS_RESERVED05 :	 return 'reserved';	     break;
