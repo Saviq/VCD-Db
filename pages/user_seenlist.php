@@ -4,6 +4,13 @@
 	$batch = 1;
 	$start = 0;
 		
+	$allPostedFields = array();
+	$allEditedFields = array();
+	if (isset($_POST['allIds'])) {
+		$allPostedFields = explode("|", $_POST['allIds']);
+	}
+	
+	
 	$user_id = VCDUtils::getUserID();
 	if (isset($_POST['save'])) {
 		// Loop through the posted values
@@ -21,6 +28,17 @@
 					$obj = new metadataObj(array('',$value, $user_id, metadataTypeObj::SYS_SEENLIST , '1'));
 					SettingsServices::addMetadata($obj);
 				}
+				
+				array_push($allEditedFields, $value);
+			}
+		}
+		
+		
+		// Then update the ones who were not selected.
+		foreach ($allPostedFields as $itemId) {
+			if (!in_array($itemId, $allEditedFields)) {
+				$obj = new metadataObj(array('',$itemId, $user_id, metadataTypeObj::SYS_SEENLIST , '0'));
+				SettingsServices::addMetadata($obj);
 			}
 		}
 	}
@@ -59,12 +77,14 @@ if ($start > $end) {
 	redirect('?page=private&o=movies&do=seenlist');
 }
 
+$strAllIds = "";
+
 for ($j = $start; $j < $end; $j++) {
 	$obj = $arrMovies[$j];
 	$currRecordCount++;
 	$arr = SettingsServices::getMetadata($obj->getID(), $user_id, 'seenlist');
 	$checked = "";
-	if (is_array($arr) && sizeof($arr) == 1) {
+	if (is_array($arr) && sizeof($arr) == 1 && (strcmp($arr[0]->getMetadataValue(), "1")==0)) {
 		$checked = "checked=\"checked\"";
 	}
 	
@@ -73,6 +93,12 @@ for ($j = $start; $j < $end; $j++) {
 	print "<td nowrap=\"nowrap\">".$obj->showMediaTypes()."</td>";
 	print "<td align=\"right\"><input type=\"checkbox\" ".$checked." size=\"3\" class=\"nof\" value=\"".$obj->getID()."\" class=\"inp\" name=\"seenlist[]\"/></td>";
 	print "</tr>";
+	
+	if ($j == ($end-1)) {
+		$strAllIds .= $obj->getID();
+	} else {
+		$strAllIds .= $obj->getID()."|";
+	}
 	
 	
 }
@@ -115,4 +141,5 @@ for ($j = $start; $j < $end; $j++) {
 
 
 </table>
+<input type="hidden" name="allIds" value="<?php echo $strAllIds?>"/>
 </form>
