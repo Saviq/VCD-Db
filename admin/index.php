@@ -860,7 +860,18 @@
 					printTr();
 			
 					printRow(VCDLog::getLogTypeDescription($obj->getType())) ;
-					printRow($obj->getMessage());
+					
+					if ($obj->getType() == VCDLog::EVENT_TASKS ) {
+						$data = explode("|", $obj->getMessage());
+						if (isset($data[1])) {
+							printRow($data[1]);	
+						}
+					} else {
+						printRow($obj->getMessage());	
+					}
+					
+					
+					
 					printRow($strUserName);	
 					printRow(date("d/m/Y h:i:s", strtotime($obj->getDate())), "", true);
 										

@@ -172,23 +172,33 @@ function executeTask($task_id) {
 			case 2:		// Move covers from hd to db
 				
 				$affectedCovers = CoverServices::moveCoversToDatabase();
-				$metaObj = new metadataObj();
-				$metaObj->setMetadataTypeName(metadataTypeObj::SYS_TASKS );
-				$metaObj->setMetadataValue(date("m-d-Y H:i:s"));
-				SettingsServices::addMetadata($metaObj);
+				$message = $task_id."|"."Moved {$affectedCovers} covers from hd to db.";
+				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				break;
 				
 			case 3:		// Move covers from db to hd
 			
 				$affectedCovers = CoverServices::moveCoversToDisk();
-				$metaObj = new metadataObj();
-				$metaObj->setMetadataTypeName(metadataTypeObj::SYS_TASKS );
-				$metaObj->setMetadataValue(date("m-d-Y H:i:s"));
-				SettingsServices::addMetadata($metaObj);
+				$message = $task_id."|"."Moved {$affectedCovers} covers from db to hd.";
+				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				break;
 				
 			case 4:		// Clean up the cache folder
-				
+				$cacheFolder = BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER;
+				$it = new DirectoryIterator($cacheFolder);
+				$filesToKeep = array('vcddb.db', 'index.html');
+				$iDeletecounter = 0;
+				foreach ($it as $file) {
+					if (!$file->isDir()) {
+						if (!in_array($file->getFileName(), $filesToKeep)) {
+							$fileToDel = $cacheFolder.$file->getFileName();
+							fs_unlink($fileToDel);
+							$iDeletecounter++;
+						}
+					}
+				}	
+				$message = $task_id."|"."Deleted {$iDeletecounter} files from cache folder.";
+				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				break;
 			
 		}
@@ -197,6 +207,29 @@ function executeTask($task_id) {
 		header("Location: ./?page=tools&task_id={$task_id}"); /* Redirect browser */
 		
 	}
+}
+
+/**
+ * Get the date when a specfic task was last ran
+ *
+ * @param int $task_id | The task ID 
+ * @return string | The date or the message to return
+ */
+function getTaskStatus($task_id) {
+	$strLastrun = "Never";
+
+	$logItems = VCDLog::getLogEntries(null,null,VCDLog::EVENT_TASKS );
+	foreach ($logItems as $item) {
+		
+		$arr = explode("|", $item->getMessage());
+		if (sizeof($arr) == 2 && $arr[0]==$task_id) {
+			$strLastrun = date("d/m/Y", strtotime($item->getDate()));
+			break;
+		}
+				
+	}
+	
+	return $strLastrun;
 }
 
 

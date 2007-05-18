@@ -28,6 +28,7 @@ class VCDLog {
 	CONST EVENT_SOAPCALL = 3;
 	CONST EVENT_RSSCALL  = 4;
 	CONST EVENT_EMAILS	 = 5;
+	CONST EVENT_TASKS	 = 6;
 		
 	
 	/**
@@ -35,7 +36,7 @@ class VCDLog {
 	 *
 	 * @var int
 	 */
-	public static $numEventTypes = 5;
+	public static $numEventTypes = 6;
 	
 	
 	/**
@@ -185,6 +186,10 @@ class VCDLog {
 				
 				case VCDLog::EVENT_EMAILS:
 					return "Sent Emails";
+					break;
+					
+				case VCDLog::EVENT_TASKS :
+					return "Tasks";
 					break;
 					
 				default:
