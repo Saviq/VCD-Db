@@ -1304,12 +1304,9 @@ function removeAudio(key) {
 
 
 /* Functions when adding new movie and changing media type */
+
 function cutStr(str, maxlen) {
-	try {
-		return (str.length > maxlen)?str.substring(0,maxlen-3)+'...':str;
-	} catch (Exception) {
-		return str;
-	}
+	return (str.length > maxlen)?str.substring(0,maxlen-3)+'...':str;
 }
 
 function getFieldHTML(data) {
@@ -1360,7 +1357,6 @@ function showForms(dataArrArr) {
 		}
 	}
 }
-
 
 function l(type) {
 	if (type==0) {

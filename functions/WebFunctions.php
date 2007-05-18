@@ -529,6 +529,7 @@ function inc_tooltipjs() {
 	// Frontpage ..
 		?>
 		<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
+		<script src="includes/js/lytebox.js" type="text/javascript"></script>
 		<?
 
 	}

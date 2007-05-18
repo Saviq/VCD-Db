@@ -24,7 +24,6 @@ require_once(dirname(__FILE__).'/classes/includes.php');
 	<link rel="stylesheet" type="text/css" href="<?= VCDUtils::getStyle()?>" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/lytebox.css" media="screen, projection" />
-	<script src="includes/js/lytebox.js" type="text/javascript"></script>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 	<?= VCDUtils::getAlternateLink() ?>
 </head>
