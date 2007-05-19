@@ -35,6 +35,7 @@
 		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('SEEN_LIST','Keep track of movies that I have seen')</query>
 		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('PLAYOPTION','Use client playback options')</query>
 		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO','Use NFO Files?')</query>
+		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO_IMAGE','View NFO files as images?')</query>
 		<query>INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('DEFAULT_IMAGE','Should Image View be default?')</query>
 		
 		<descr>CD Cover Types</descr>

@@ -1069,7 +1069,7 @@ function createDVDDropdown($arrMediaTypes, $selectedIndex = null) {
 }
 
 function drawDVDLayers(vcdObj &$vcdObj, &$metadataArr) {
-
+	
 	// First get all available owners and mediatypes
 	$arrData = $vcdObj->getInstanceArray();
 	if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
@@ -1191,11 +1191,16 @@ function showNFO(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = n
 	if (!is_null($metaDataArr)) {
 		$currMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID(), $userObj->getUserID());
 		// Search for NFO metadata ..
+		$useNfoImage = (bool)$userObj->getPropertyByKey('NFO_IMAGE');
 		if (is_array($currMeta) && sizeof($currMeta) > 0) {
 			foreach ($currMeta as $metadataObj) {
 				if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
 					$nfofile = NFO_PATH . $metadataObj->getMetaDataValue();
-					$js = "window.open('{$nfofile}');";
+					if ($useNfoImage) {
+						$js = "window.open('vcd_image.php?nfo={$metadataObj->getMetaDataId()}');";
+					} else {
+						$js = "window.open('{$nfofile}');";
+					}
 					$img = "<a href=\"#\" onclick=\"{$js};\"><img src=\"images/icon_nfo.gif\" border=\"0\" hspace=\"1\" alt=\"NFO\" align=\"middle\"/></a>";
 					$hasNFO = true;
 					break;
@@ -1213,6 +1218,87 @@ function showNFO(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = n
 }
 
 
+function drawNFOImage($metadata_id) {
+	
+	try {
+	
+	$metaObj = SettingsServices::getMetadataById($metadata_id);
+	if (!$metaObj instanceof metadataObj ) {
+		return;
+	}
+	
+	$nfoFilePath = VCDDB_BASE.DIRECTORY_SEPARATOR.NFO_PATH.$metaObj->getMetadataValue();
+	$nfoFontPath = VCDDB_BASE.DIRECTORY_SEPARATOR.'includes/fonts/terminal.phpfont';
+	
+	
+	if (file_exists($nfoFilePath)) {
+		
+		$filesize =	filesize ($nfoFilePath);
+		$filenum = fopen ($nfoFilePath, "r");
+		$nfoFile = fread ($filenum, $filesize);
+		fclose ($filenum);	
+		
+		if (!file_exists ( $nfoFontPath ) ) {
+			throw new VCDProgramException('The fontfile was not found.');
+		}
+		
+		
+		// Create the image
+		$nfolines = explode ("\n", $nfoFile);
+		$font = imageloadfont ($nfoFontPath);
+
+		$width = 0;
+		$height = 0;
+		$fontwidth 	= ImageFontWidth ($font);
+		$fontheight = ImageFontHeight ($font);
+
+		foreach ( $nfolines as $line ) {
+			if ( (strlen ($line)*$fontwidth) > $width ) {
+				$width = strlen ($line) * $fontwidth;
+			}
+			$height += $fontheight;
+		}
+
+		$width += $fontwidth*2;
+		$height += $fontheight*3;
+
+		$image = ImageCreate ($width, $height);
+
+		$white = ImageColorAllocate ($image, 255,255,255);
+		imagecolortransparent ($image, $white);
+
+		$black = ImageColorAllocate ($image, 0, 0, 0);
+
+		$i = $fontheight;
+		foreach ( $nfolines as $line ) {
+			ImageString ($image, $font , $fontwidth, $i, $line, $black);
+			$i += $fontheight;
+		}
+
+		$poweredby = "powered by VCD-db (c) vcddb.konni.com";
+		$wid = ($width - ($fontwidth*strlen($poweredby) ) ) / 2;
+		ImageString ($image, $font , $wid, $i, $poweredby, $black);
+
+		ImageAlphaBlending($image, true);
+		
+		Header("Content-type: image/png"); 
+		header('Content-Disposition: inline; filename="'.$metaObj->getMetadataValue().'.png"');
+		header("Content-Transfer-Encoding: binary\n");
+		ImagePNG ($image);   
+		ImageDestroy($image);
+		
+		
+		
+	} else {
+		throw new VCDInvalidArgumentException('NFO File not found.');
+	}
+	
+	} catch (Exception $ex) {
+		VCDException::display($ex);
+	}
+	
+}
+ 
 function getLocalizedCategoryName($category_name) {
 
 	$baseMap = getCategoryMapping();

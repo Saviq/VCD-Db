@@ -4,6 +4,9 @@ if (isset($_GET['o'])) {
 	require_once(VCDDB_BASE.'/classes/external/powergraph.php');
 	drawGraph($_GET['o']);
 	exit();
+} elseif (isset($_GET['nfo']) && is_numeric($_GET['nfo'])) {
+	drawNFOImage($_GET['nfo']);
+	exit();
 }
 $image_id = $_GET['id'];
 $CLASSImage = new VCDImage($image_id);
