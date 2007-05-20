@@ -36,14 +36,13 @@
 			// Check if we are authenticating to LDAP or DB
 			if ((bool)LDAP_AUTH) {
 				$LDAPAuthClass = new VCDLdapAuthentication();
-				return $LDAPAuthClass->Authenticate($username, $password);
+				return $LDAPAuthClass->Authenticate($username, $password, $save_session);
 			}
 			
 			$password = md5($password);
 			
-		
-			$USERclass = VCDClassFactory::getInstance("vcd_user");
-			$userObj = $USERclass->getUserByUsername($username);
+			VCDServices::disableErrorHandler();
+			$userObj = UserServices::getUserByUsername($username);
 			
 			if ($userObj instanceof userObj) {
 				
@@ -51,8 +50,10 @@
 					// We have a valid user ...
 					
 					// Lets add his session to the DB if user want's to be remembered
-					if ($save_session)
-						$USERclass->addSession(session_id(),$userObj->getUserID());
+					if ($save_session) {
+						UserServices::addSession(session_id(),$userObj->getUserID());
+					}
+						
 											
 					// return the user 
 					return $userObj;
@@ -84,74 +85,68 @@
 		 *
 		 */
 		public static final function checkCookie() {
-			
-			
+
 			try {
 			
-			SiteCookie::extract('vcd_cookie');
-
-			// Check if we find the desired values in the cookie
-			if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) {
-				$old_sessionid = $_COOKIE['session_id'];			
-				$user_id 	   = $_COOKIE['session_uid'];
-				$session_time  = $_COOKIE['session_time'];
-				
-				$USERClass = VCDClassFactory::getInstance("vcd_user");
-				if ($USERClass->isValidSession($old_sessionid, $session_time, $user_id)) {
+				SiteCookie::extract('vcd_cookie');
+				VCDServices::disableErrorHandler();
+	
+				// Check if we find the desired values in the cookie
+				if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) {
+					$old_sessionid = $_COOKIE['session_id'];			
+					$user_id 	   = $_COOKIE['session_uid'];
+					$session_time  = $_COOKIE['session_time'];
 					
-					//Update users cookie
-					SiteCookie::extract("vcd_cookie");
-					if (isset($_COOKIE['language'])) {
-						$sess_lang = $_COOKIE['language'];	
-					}
-					
-					
-					$Cookie = new SiteCookie("vcd_cookie");
-					$Cookie->clear();
-					$Cookie->put("session_id", $old_sessionid);	
-					$Cookie->put("session_time", VCDUtils::getmicrotime());
-					$Cookie->put("session_uid", $user_id);
-											
-					$Cookie->put("language", $sess_lang);
-					$Cookie->set();
-					
-					
-					// And finally log the user in and add userObj to session
-					$user = $USERClass->getUserByID($user_id);
-					
-					// Check if user has been deleted from last visit .
-					if ($user instanceof userObj ) {
-						$_SESSION['user'] = $user;
-					} else {
-						// Invalidate the cookie ...
+					if (UserServices::isValidSession($old_sessionid, $session_time, $user_id)) {
+						
+						//Update users cookie
+						SiteCookie::extract("vcd_cookie");
+						if (isset($_COOKIE['language'])) {
+							$sess_lang = $_COOKIE['language'];	
+						}
+						
+						
+						$Cookie = new SiteCookie("vcd_cookie");
 						$Cookie->clear();
+						$Cookie->put("session_id", $old_sessionid);	
+						$Cookie->put("session_time", VCDUtils::getmicrotime());
+						$Cookie->put("session_uid", $user_id);
+												
 						$Cookie->put("language", $sess_lang);
 						$Cookie->set();
 						
-						// Throw new Exception to notify user of the deleted account.
-						VCDException::display("User account has been disabled.");
-						redirect();
+						
+						// And finally log the user in and add userObj to session
+						$user = UserServices::getUserByID($user_id);
+						
+						// Check if user has been deleted from last visit .
+						if ($user instanceof userObj ) {
+							$_SESSION['user'] = $user;
+						} else {
+							// Invalidate the cookie ...
+							$Cookie->clear();
+							$Cookie->put("language", $sess_lang);
+							$Cookie->set();
+							
+							// Throw new Exception to notify user of the deleted account.
+							VCDException::display("User account has been disabled.");
+							redirect();
+						}
+						
+						
+						
+						// Check if we are supposed to log this event ..
+						if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
+							VCDLog::addEntry(VCDLog::EVENT_LOGIN, "User authenticated from cookie");
+						}
+											
+						
 					}
-					
-					
-					
-					// Check if we are supposed to log this event ..
-					if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
-						VCDLog::addEntry(VCDLog::EVENT_LOGIN, "User authenticated from cookie");
-					}
-										
 					
 				}
-				
-				unset($USERClass);
-				
-			}
-			
 			} catch (Exception $ex) {
 				VCDException::display($ex->getMessage());
 			}
-			
-			
 		}
 		
 		
@@ -170,14 +165,11 @@
 					}
 				}
 				
-				
 				return false;
 				
 			} else {
 				return false;
 			} 
-				
-				
 		}
 		
 		
@@ -332,7 +324,7 @@
 		 * @param string $password
 		 * @param bool $save_session
 		 */
-		final function Authenticate($username, $password) {
+		final function Authenticate($username, $password, $save_session = false) {
 			try {
 			
 				
@@ -454,9 +446,8 @@
 				// Now we have a userObj ready but we need a userObj with valid userid
 				// Check if this user has logged in before and then use that userObj, otherwise
 				// we need to save this user to DB, fetch it again and then we have a valid user.
-				
-				$CLASSUser = VCDClassFactory::getInstance('vcd_user');
-				$dbUserObj = $CLASSUser->getUserByUsername($username);
+				UserServices::disableErrorHandler();
+				$dbUserObj = UserServices::getUserByUsername($username);
 								
 				if ($dbUserObj instanceof userObj ) {
 					// User found, we will check if information needs updating.
@@ -473,7 +464,13 @@
 					}
 					
 					if ($needsUpdate) {
-						$CLASSUser->updateUser($dbUserObj);
+						UserServices::updateUser($dbUserObj);
+					}
+					
+					
+					// Lets add his session to the DB if user want's to be remembered
+					if ($save_session) {
+						UserServices::addSession(session_id(),$dbUserObj->getUserID());
 					}
 					
 					return $dbUserObj;
@@ -481,11 +478,16 @@
 					
 				} else {
 					// Save this user to the database, since this is the first time he is logging in.
-					$CLASSUser->addUser($userObj);
-					return $CLASSUser->getUserByUsername($username);
+					UserServices::addUser($userObj);
+					$userObj = UserServices::getUserByUsername($username);
+					
+					// Lets add his session to the DB if user want's to be remembered
+					if ($save_session) {
+						UserServices::addSession(session_id(),$userObj->getUserID());
+					}
+					
+					return $userObj;
 				}
-				
-				
 			
 			
 			} catch (Exception $ex) {
