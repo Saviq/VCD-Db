@@ -377,9 +377,9 @@ class VCDXMLImporter {
 				}
 			
 				// Delegate the vcdObj to the facade
-				$ClassVcd = VCDClassFactory::getInstance('vcd_movie');
+				MovieServices::disableErrorHandler();
 				try {
-					$iResults = $ClassVcd->addVcd($vcdObj, false);
+					$iResults = MovieServices::addVcd($vcdObj, false);
 				} catch (Exception $vex) {
 					VCDUtils::write(TEMP_FOLDER."import_errors.txt", $vex->getMessage(). '\n', true);
 					$status = "0";
@@ -457,13 +457,14 @@ class VCDXMLImporter {
 
 			$filename = (string)$element->filename;
 			$data = (string)$element->data;
-			$ClassCovers = VCDClassFactory::getInstance('vcd_cdcover');
 			$cdCoverObj = null;
+			
+			CoverServices::disableErrorHandler();
 						
 			// Check if the data is not null and then write the image to temp folder
 			if ((strlen($data) > 0) && VCDUtils::write(TEMP_FOLDER.$filename, base64_decode($data))) {
 				$cdCoverObj = new cdcoverObj();
-				$coverTypeObj = $ClassCovers->getCoverTypeByName("thumbnail");
+				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
 				$cdCoverObj->setCoverTypeID($coverTypeObj->getCoverTypeID());
 				$cdCoverObj->setCoverTypeName("Thumbnail");
 				$cdCoverObj->setFilename($filename);
@@ -486,36 +487,28 @@ class VCDXMLImporter {
 	private function createMovieObject(SimpleXMLElement $element) {
 		try {
 		
-			$ClassSettings = VCDClassFactory::getInstance('vcd_settings');
-			$ClassPorn = VCDClassFactory::getInstance("vcd_pornstar");
-			$adult_cat = $ClassSettings->getCategoryIDByName('adult');
-		    
+			VCDServices::disableErrorHandler();
+			$adult_cat = SettingsServices::getCategoryIDByName('adult');
 			
 			
    			// Create the basic CD obj
 			$basic = array('', utf8_decode((string)$element->title), (string)$element->category_id, (string)$element->year);
 			$vcd = new vcdObj($basic);
 			
-			// Add 1 instance
-			$mediaTypeObj = $ClassSettings->getMediaTypeByID((string)$element->mediatype_id);
+			// Add 1 instance | Find the media type by name
+			$mediaTypeObj = SettingsServices::getMediaTypeByName((string)$element->mediatype);
+			
 			if (is_null($mediaTypeObj)) {
 				
-				// Non existing media type .. at least not found by ID
-				// try a lookup by name
-				
-				$mediaTypeObj = $ClassSettings->getMediaTypeByName((string)$element->mediatype);
-				if (is_null($mediaTypeObj)) {
-					// Still no luck .. then lets create mediatype
-					$newMediaTypeObj = new mediaTypeObj(array('',(string)$element->mediatype,'','Created by XML importer.'));
-					$ClassSettings->addMediaType($newMediaTypeObj);
-					$mediaTypeObj = $ClassSettings->getMediaTypeByName((string)$element->mediatype);
-				}
+				// Non existing media type ..then lets create mediatype
+				$newMediaTypeObj = new mediaTypeObj(array('',(string)$element->mediatype,'null','Created by XML importer.'));
+				SettingsServices::addMediaType($newMediaTypeObj);
+				$mediaTypeObj = SettingsServices::getMediaTypeByName((string)$element->mediatype);
 			}
 			
 			$vcd->addInstance($_SESSION['user'], $mediaTypeObj, (string)$element->cds, (string)$element->dateadded);
 			
-			
-			$movieCatObj = $ClassSettings->getMovieCategoryByID((string)$element->category_id);
+			$movieCatObj = SettingsServices::getMovieCategoryByID((string)$element->category_id);
 			if ($movieCatObj instanceof movieCategoryObj ) {
 				$vcd->setMovieCategory($movieCatObj);
 			} 		   			
@@ -533,14 +526,14 @@ class VCDXMLImporter {
    				if (isset($pornstars)) {
    					foreach ($pornstars as $pornstar) {
    						$starObj = null;
-   						$starObj = $ClassPorn->getPornstarByName((string)$pornstar->name);
+   						$starObj = PornstarServices::getPornstarByName((string)$pornstar->name);
    						
    						if ($starObj instanceof pornstarObj ) {
    							$vcd->addPornstars($starObj);
    						} else {
    							// Star was not found in DB | create the entry
    							$s = new pornstarObj(array('',(string)$pornstar->name, (string)$pornstar->homepage, ''));
-   							$vcd->addPornstars($ClassPorn->addPornstar($s));
+   							$vcd->addPornstars(PornstarServices::addPornstar($s));
    						}
    					}
    				}
@@ -550,15 +543,15 @@ class VCDXMLImporter {
    				// Set the studio if any
    				$studio = $element->studio;
    				if (sizeof($studio) > 0) {
-   					$studioObj = $ClassPorn->getStudioByName((string)$studio->name);
+   					$studioObj = PornstarServices::getStudioByName((string)$studio->name);
    					if ($studioObj instanceof studioObj ) {
    						$vcd->setStudioID($studioObj->getID());
    					} else {
    						$studioObj = new studioObj(array('', (string)$studio->name));
-   						$ClassPorn->addStudio($studioObj);
+   						PornstarServices::addStudio($studioObj);
    						
    						// Find the just added studioObj
-   						$studioObj = $ClassPorn->getStudioByName((string)$studio->name);
+   						$studioObj = PornstarServices::getStudioByName((string)$studio->name);
    						// And add it to the movie
    						if ($studioObj instanceof studioObj ) {
    							$vcd->setStudioID($studioObj->getID());
@@ -568,10 +561,13 @@ class VCDXMLImporter {
    				}
    				
    				
-   				$sourceSiteObj = $ClassSettings->getSourceSiteByID((string)$element->sourcesite_id);
-				if ($sourceSiteObj instanceof sourceSiteObj ) {
-					$source_id = $sourceSiteObj->getsiteID();		
-				}
+   				try {
+   					$sourceSiteObj = SettingsServices::getSourceSiteByID((string)$element->sourcesite_id);
+					if ($sourceSiteObj instanceof sourceSiteObj ) {
+						$source_id = $sourceSiteObj->getsiteID();		
+					}
+   				} catch (Exception $ex) {}
+					
 				
 				// Add the adult categories if any
 				$adult_categories = $element->adult_category->category;
@@ -609,10 +605,12 @@ class VCDXMLImporter {
 	   				
 	   				}
 	   				
-	   			$sourceSiteObj = $ClassSettings->getSourceSiteByID((string)$element->sourcesite_id);
-				if ($sourceSiteObj instanceof sourceSiteObj ) {
-					$source_id = $sourceSiteObj->getsiteID();		
-				}
+	   			try {
+		   			$sourceSiteObj = SettingsServices::getSourceSiteByID((string)$element->sourcesite_id);
+					if ($sourceSiteObj instanceof sourceSiteObj ) {
+						$source_id = $sourceSiteObj->getsiteID();		
+					}
+	   			} catch(Exception $ex) {}
 				
    			}
 
@@ -714,15 +712,15 @@ class VCDXMLImporter {
 			
 				$xmlDoc = simplexml_load_file(TEMP_FOLDER.$xmlFilename);
 				$sourceSites = $xmlDoc->sourcesites->sourcesite;
-				$CLASSSettings = VCDClassFactory::getInstance('vcd_settings');
 				foreach ($sourceSites as $sourceSiteXML) {
 					
 					$sourceSiteObj = sourceSiteObj::__loadFromXML($sourceSiteXML);
 					
 					// Check if this sourcesite exists ..
-					if (is_null($CLASSSettings->getSourceSiteByAlias($sourceSiteObj->getAlias()))) {
+					SettingsServices::disableErrorHandler();
+					if (is_null(SettingsServices::getSourceSiteByAlias($sourceSiteObj->getAlias()))) {
 						// Create the sourceSite since it was not found.
-						$CLASSSettings->addSourceSite($sourceSiteObj);
+						SettingsServices::addSourceSite($sourceSiteObj);
 					}
 					
 					//VCDUtils::write(TEMP_FOLDER."ssobj.txt", print_r($sourceSiteObj, true), true);
@@ -973,8 +971,7 @@ class VCDXMLExporter {
 	private static function getXMLSourceSites() {
 		$xml = "<sourcesites>";
 		
-		$CLASSSettings = new vcd_settings();
-		foreach($CLASSSettings->getSourceSites() as $sourceSiteObj) {
+		foreach(SettingsServices::getSourceSites() as $sourceSiteObj) {
 			$xml .= $sourceSiteObj->toXML();
 		}
 		
@@ -993,11 +990,10 @@ class VCDXMLExporter {
 	private static function getXMLMovies($iUserID = null) {
 		
 		$xml = "<vcdmovies>";
-		$CLASSVcd = VCDClassFactory::getInstance("vcd_movie");
 		if (!is_null($iUserID)) {
-			$arrMovies = $CLASSVcd->getAllVcdByUserId($iUserID, false);
+			$arrMovies = MovieServices::getAllVcdByUserId($iUserID, false);
 		} else {
-			$arrMovies = $CLASSVcd->getAllVcdByUserId(VCDUtils::getUserID(), false);				
+			$arrMovies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID(), false);				
 		}
 						
 		foreach ($arrMovies as $vcdObj) { $xml .= $vcdObj->toXML();	}
