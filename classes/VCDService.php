@@ -917,7 +917,7 @@ class SettingsServices extends VCDServices {
 	public static function getCategoryIDByName($name) {
 		try {
 			
-			return self::Settings()->getCategoryIDByName($name);
+			return self::Settings()->getCategoryIDByName($name, true);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

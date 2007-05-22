@@ -4,6 +4,7 @@ Fixed   - [#004] IMDB director is now correctly fetched.
 Fixed   - [#020] Fixed the installer to work with open_basedir restrictions 
 Fixed   - [#013] Fixed a bug in the advanced search.
 Added	- [#011] Changed the image presentation method. It's neat now ;).
+Fixed	- [#017] Fixed category auto-selection.
 
 0.985
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
