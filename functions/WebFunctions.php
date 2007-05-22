@@ -162,33 +162,38 @@ function display_moviecategories() {
 		$curr_catid = $_GET['category_id'];
 	}
 
+	$arrSorted = array();
+	
 	if (sizeof($categories) > 0) {
+		
 		foreach ($categories as $category) {
 			$cssclass = "nav";
-			if ($category->getID() == $curr_catid) {
-				$cssclass = "navon";
-			}
-			if ($category->getID() == $adult_id) {
-				if (VCDUtils::showAdultContent()) {
-					print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
-				}
+			if ($category->getID() == $curr_catid) { $cssclass = "navon"; }
+			if ($category->getID() == $adult_id && VCDUtils::showAdultContent()) {
+				$html = "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 			} else {
-				print "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
+				$html = "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 			}
+			array_push($arrSorted, array($category->getName(true), $html));
 		}
+		
+		asort($arrSorted);
+		foreach ($arrSorted as $item) {
+			print $item[1];
+		}
+		
 	} else {
 		print "<ul><li>".VCDLanguage::translate('misc.nocats')."</li></ul>";
 	}
 
 }
 
-/*  display pager for scrolling through recordsets on page */
 /**
- * Enter description here...
+ * Display pager for scrolling through recordsets on page 
  *
- * @param unknown $totalRecords
- * @param unknown $current_pos
- * @param unknown $url
+ * @param int $totalRecords | Total records
+ * @param int $current_pos | Current position in recordset
+ * @param string $url
  */
 function pager($totalRecords, $current_pos, $url) {
 
@@ -236,16 +241,16 @@ function pager($totalRecords, $current_pos, $url) {
 }
 
 /**
- * Enter description here...
+ * Javascript helper do hide html layer
  *
- * @param unknown $layername
+ * @param string $layername | The layer to hide
  */
 function hidelayer($layername) {
 	print "<script>hide('".$layername."')</script>";
 }
 
 /**
- * Enter description here...
+ * Display the search form
  *
  */
 function display_search() {
