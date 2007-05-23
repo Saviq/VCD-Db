@@ -17,10 +17,12 @@
 
 class VCDAjaxHelper {
 	
-	private static function formatSelArr($array, $filter = array()) {
-		$data[] = array("value" => "null",
-		"label" => VCDLanguage::translate("misc.select")
-		);
+	private static function formatSelArr($array, $filter = array(), $multi = false) {
+		if(!$multi) {
+			$data[] = array("value" => "null",
+			"label" => VCDLanguage::translate("misc.select")
+			);		
+		}
 		foreach ($array as $id => $label) {
 			$data[] = array("value" => $id,
 			"label" => $label,
@@ -130,15 +132,17 @@ class VCDAjaxHelper {
 							"label" => VCDLanguage::translate('dvd.aspect'),
 							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAspectRatios(), array($dvdSettings['aspect']))
 							);
-							$data[] = array("id" => "meta|".metaDataTypeObj::SYS_DVDAUDIO."|".metaDataTypeObj::SYS_DVDAUDIO."|".$mediaTypeObj->getmediaTypeID()."[]",
+							$data[] = array("type" => "select",
+							"id" => "meta|".metaDataTypeObj::SYS_DVDAUDIO."|".metaDataTypeObj::SYS_DVDAUDIO."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.audio'),
 							"multi" => true,
-							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAudioList(), explode("##", $dvdSettings['audio']))
+							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAudioList(), explode("##", $dvdSettings['audio']), true)
 							);
-							$data[] = array("id" => "meta|".metaDataTypeObj::SYS_DVDSUBS."|".metaDataTypeObj::SYS_DVDSUBS."|".$mediaTypeObj->getmediaTypeID()."[]",
+							$data[] = array("type" => "select",
+							"id" => "meta|".metaDataTypeObj::SYS_DVDSUBS."|".metaDataTypeObj::SYS_DVDSUBS."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.subtitles'),
 							"multi" => true,
-							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("##", $dvdSettings['subs']))
+							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("##", $dvdSettings['subs']), true)
 							);
 
 
