@@ -51,6 +51,8 @@ class VCDLanguage {
 		$this->init();
 		if (!is_null($strLanguageID)) {
 			$this->load($strLanguageID);
+		} else if (!isset($_SESSION['vcdlang'])) {
+			$this->load($this->detectBrowserLanguage());
 		}
 	}
 	
@@ -81,6 +83,8 @@ class VCDLanguage {
 			throw $ex;
 		}
 	}
+	
+	
 	
 	/**
 	 * Try to load languages based on restrictions if any ..
@@ -240,7 +244,7 @@ class VCDLanguage {
 	/**
 	 * Check if the primary language is English
 	 *
-	 * @return unknown
+	 * @return bool
 	 */
 	public function isEnglish() {
 		return strcmp(self::PRIMARY_LANGINDEX, $this->primaryLanguage->getID() == 0);
@@ -309,6 +313,46 @@ class VCDLanguage {
 	public static function translate($key) {
 		return VCDClassFactory::getInstance('VCDLanguage')->doTranslate($key);
 	}
+	
+	
+	/**
+	 * Try to detect the default browser language if no language has been selected.
+	 *
+	 * @return string | The best match for language ID
+	 */
+	private function detectBrowserLanguage() {
+		try {
+		
+			$pref=array();
+		    foreach(split(',', $_SERVER["HTTP_ACCEPT_LANGUAGE"]) as $lang) {
+		        if (preg_match('/^([a-z]+).*?(?:;q=([0-9.]+))?/i', $lang.';q=1.0', $split) && isset($split[2])) {
+		        	$pref[sprintf("%f%d", $split[2], rand(0,9999))]=strtolower($split[1]);
+		        }
+		    }
+		    krsort($pref);
+		    
+		    $a = array();
+		    $b = array();
+		    foreach ($this->arrLanguages as $langObj) {
+		    	$tokens = explode('_', $langObj->getID());
+		    	array_push($a, $tokens[0]);
+		    	$b[$tokens[0]] = $langObj->getID();
+		    }
+		    
+		    $items = array_merge(array_intersect($pref, $a), $a);
+		    $bestMatch = array_shift($items);
+		    	    		    
+		    if (isset($b[$bestMatch])) {
+		    	return $b[$bestMatch];
+		    } else {
+		    	return self::FALLBACK_ID;
+		    }
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 	
 
 	/**
