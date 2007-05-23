@@ -29,7 +29,7 @@
 
 
 <div id="newObj" style="display: none;">
-<form name="new" method="POST">
+<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
 <input type="hidden" name="media_id" value="<?=$mediaObj->getmediaTypeID()?>">
 <table class="add">
 <tr>

@@ -1,7 +1,7 @@
 <h1>VCD-db log options</h1>
 
 
-<form name="log" method="post">
+<form name="log" method="post" action="<?= $_SERVER['REQUEST_URI']?>">
 
 <table cellpadding="0" cellspacing="1" border="0" class="datatable" width="100%">
 <tr>

@@ -21,7 +21,7 @@
 	
 ?>
 <div id="newObj" style="display: none;">
-<form name="new" method="POST">
+<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
 <? 
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$coverTypeObj->getCoverTypeID()."\">";

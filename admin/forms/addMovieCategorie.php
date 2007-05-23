@@ -1,5 +1,5 @@
 <div id="newObj" style="display: none;">
-<form name="new" method="POST">
+<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
 <table class="add">
 <tr>
 	<td>Name:</td>

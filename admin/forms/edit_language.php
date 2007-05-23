@@ -10,7 +10,7 @@
 
 <style>.txt { width:100%;height:300px;font-size:1em;font-family:arial}</style>
 <div id="newObj" style="display: none;">
-<form name="new" method="POST">
+<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
 <table class="add" width="100%">
 <tr>
 	<td>Edit language file</td>
