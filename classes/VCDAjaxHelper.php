@@ -130,14 +130,12 @@ class VCDAjaxHelper {
 							"label" => VCDLanguage::translate('dvd.aspect'),
 							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAspectRatios(), array($dvdSettings['aspect']))
 							);
-							$data[] = array("type" => "select",
-							"id" => "meta|".metaDataTypeObj::SYS_DVDAUDIO."|".metaDataTypeObj::SYS_DVDAUDIO."|".$mediaTypeObj->getmediaTypeID()."[]",
+							$data[] = array("id" => "meta|".metaDataTypeObj::SYS_DVDAUDIO."|".metaDataTypeObj::SYS_DVDAUDIO."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.audio'),
 							"multi" => true,
 							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAudioList(), explode("##", $dvdSettings['audio']))
 							);
-							$data[] = array("type" => "select",
-							"id" => "meta|".metaDataTypeObj::SYS_DVDSUBS."|".metaDataTypeObj::SYS_DVDSUBS."|".$mediaTypeObj->getmediaTypeID()."[]",
+							$data[] = array("id" => "meta|".metaDataTypeObj::SYS_DVDSUBS."|".metaDataTypeObj::SYS_DVDSUBS."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.subtitles'),
 							"multi" => true,
 							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("##", $dvdSettings['subs']))
