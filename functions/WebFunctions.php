@@ -169,8 +169,14 @@ function display_moviecategories() {
 		foreach ($categories as $category) {
 			$cssclass = "nav";
 			if ($category->getID() == $curr_catid) { $cssclass = "navon"; }
-			if ($category->getID() == $adult_id && VCDUtils::showAdultContent()) {
-				$html = "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
+			if ($category->getID() == $adult_id) {
+				
+				if (VCDUtils::showAdultContent()) {
+					$html = "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";					
+				} else {
+					continue;
+				}
+			
 			} else {
 				$html = "<span class=\"".$cssclass."\"><a href=\"./?page=category&amp;category_id=".$category->getID()."\" class=\"navx\">" . $category->getName(true) . "</a></span>";
 			}
@@ -275,7 +281,7 @@ function display_search() {
 }
 
 /**
- * Enter description here...
+ * Call page reload, and close window.self
  *
  */
 function reloadandclose($frontpage=false) {
@@ -287,14 +293,13 @@ function reloadandclose($frontpage=false) {
 }
 
 
-/* Uses the getList from the Object to dynamicly create dropdown  */
 /**
- * Enter description here...
+ * Uses the getList from the Object to dynamicly create dropdown
  *
- * @param unknown $arrObjects
- * @param unknown $selected_index
- * @param unknown $showtitle
- * @param unknown $title
+ * @param array $arrObjects
+ * @param int $selected_index
+ * @param bool $showtitle
+ * @param string $title
  */
 function evalDropdown($arrObjects, $selected_index = -1, $showtitle = true, $title = "") {
 
@@ -372,11 +377,11 @@ function evalDropdown2($arrObjects, $id, $selected_index = -1, $showtitle = true
 
 
 /**
- * Enter description here...
+ * Display the pornstarlinks for the manager window
  *
- * @param unknown $pornstar_id
- * @param unknown $pornstar_name
- * @param unknown $movie_id
+ * @param int $pornstar_id
+ * @param string $pornstar_name
+ * @param int $movie_id
  */
 function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 		?>
@@ -403,9 +408,9 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 }
 
 /**
- * Enter description here...
+ * Get the category mapping
  *
- * @return unknown
+ * @return array
  */
 function getCategoryMapping() {
 	$mapping = array(
