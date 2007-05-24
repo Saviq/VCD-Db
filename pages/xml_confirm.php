@@ -104,7 +104,7 @@
     <br/><br/>
     
     
-    <form name="thumbupload" action="./?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
+    <form name="thumbupload" action="index.php?page=private&o=add&source=xml" method="POST" enctype="multipart/form-data">
     &nbsp;&nbsp;&nbsp;<input type="button" class="input" id="xmlClick" value="<?=VCDLanguage::translate('misc.confirm')?>" onclick="_doCall()"/>
     &nbsp; <input type="button" id="xmlCancel" onclick="clearXML('<?=$xmlImportedFileName?>')" value="<?=VCDLanguage::translate('misc.cancel')?>" class="input"/>
     <input type="hidden" name="xml_filename" id="xml_filename" value="<?=$xmlImportedFileName?>"/>
