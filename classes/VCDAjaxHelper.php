@@ -136,13 +136,13 @@ class VCDAjaxHelper {
 							"id" => "meta|".metaDataTypeObj::SYS_DVDAUDIO."|".metaDataTypeObj::SYS_DVDAUDIO."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.audio'),
 							"multi" => true,
-							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAudioList(), explode("##", $dvdSettings['audio']), true)
+							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getAudioList(), explode("#", $dvdSettings['audio']), true)
 							);
 							$data[] = array("type" => "select",
 							"id" => "meta|".metaDataTypeObj::SYS_DVDSUBS."|".metaDataTypeObj::SYS_DVDSUBS."|".$mediaTypeObj->getmediaTypeID()."[]",
 							"label" => VCDLanguage::translate('dvd.subtitles'),
 							"multi" => true,
-							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("##", $dvdSettings['subs']), true)
+							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("#", $dvdSettings['subs']), true)
 							);
 
 
