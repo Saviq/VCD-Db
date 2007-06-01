@@ -442,11 +442,9 @@ abstract class VCDFetch {
 			$this->writeToCache($url);
 		}
 
-		// Only do the conversion if iconv is installed ..
-		if (function_exists('iconv')) {
-			if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && (VCDUtils::getCharSet() != $enc[1])) $this->fetchContents = iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $this->fetchContents);
-		}
-
+		// Only do the conversion if needed ..
+		if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && strcasecmp(VCDUtils::getCharSet(), $enc[1]) != 0)
+			$this->fetchContents = mb_convert_encoding($this->fetchContents, VCDUtils::getCharSet(), $enc[1]);
 		return $results;
 
 	}
@@ -725,7 +723,7 @@ abstract class VCDFetch {
 		if(file_exists($cacheFileName)) {
 			$this->isCached = true;
 			$site = implode("", file($cacheFileName));
-			if (ereg('"text/html; *charset=([^"]+)"', $site, $enc) && (VCDUtils::getCharSet() != $enc[1])) return(iconv($enc[1], VCDUtils::getCharSet()."//TRANSLIT", $site));
+			if (ereg('"text/html; *charset=([^"]+)"', $site, $enc) && strcasecmp(VCDUtils::getCharSet(), $enc[1]) != 0) return(mb_convert_encoding($site, $enc[1], VCDUtils::getCharSet()));
 			else return($site);
 		} else {
 			return null;

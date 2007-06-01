@@ -55,7 +55,8 @@ class VCDFetch_ofdb extends VCDFetch {
 
 	public function search($title) {
 	
-		if ((VCDUtils::getCharSet() != $this->serverCharset)) $title = iconv(VCDUtils::getCharSet()."//TRANSLIT", $this->serverCharset, $title);
+		if (strcasecmp(VCDUtils::getCharSet(), $this->serverCharset)!= 0)
+			$title = mb_convert_encoding($title, $this->serverCharset, VCDUtils::getCharSet());
 		return parent::search($title);
 	}
 

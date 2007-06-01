@@ -102,10 +102,9 @@ class lastRSS {
 				$out[1] = strtr($out[1], array('<![CDATA['=>'', ']]>'=>''));
 			}
 
-			// If code page is set convert character encoding to required
-			if ($this->cp != '')
-				//$out[1] = $this->MyConvertEncoding($this->rsscp, $this->cp, $out[1]);
-				$out[1] = iconv($this->rsscp, $this->cp.'//TRANSLIT', $out[1]);
+			// If code page is set and different than required convert character encoding to required
+			if ($this->cp != '' && strcasecmp($this->rsscp,$this->cp) != 0)
+				$out[1] = mb_convert_encoding($out[1], $this->cp, $this->rsscp);
 			// Return result
 			return trim($out[1]);
 		} else {
