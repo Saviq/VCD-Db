@@ -1,10 +1,29 @@
 0.986
+Added   - New Tools section in the admin panel for maintainance.
+Fixed   - Mediatype detection in the XMLIMporter fixed.
+Added   - Film.Tv.It fetch class added (contributed by Gian).
+Added   - Screenshots can now be uploaded or fetched in the movie manager.
+Added   - 2 New themes contributed, jenny and kotik.
+Added   - Cookie now remembers the toggle of the right sidebar.
+Fixed   - Default DVD settings are now properly inserted when adding a new DVD.
+Fixed   - Movie category sitebar is now always alphabetically sorted.
+Fixed   - The admin panel and other VCD-db components now works 100% on IIS.
 Updated - The Installer now checks for the mbstring extension, Ajax errors were tracked back to mbstring module not being loaded.
+Fixed   - [#003] NFO Files upload fixed.
 Fixed   - [#004] IMDB director is now correctly fetched.
-Fixed   - [#020] Fixed the installer to work with open_basedir restrictions 
-Fixed   - [#013] Fixed a bug in the advanced search.
+Added   - [#006] Browser language is now automatocally detected.
+Fixed   - [#007] Double quotes in movie manager produces errors.
+Fixed   - [#010] Thumbnails are now being resized when uploaded through the movie manager.
 Added	- [#011] Changed the image presentation method. It's neat now ;).
+Fixed   - [#013] Fixed a bug in the advanced search.
+Added   - [#015] ofdb.de fetch class added (contributed by Jochen Schales).
 Fixed	- [#017] Fixed category auto-selection.
+Added   - [#019] NFO files can now be viewed as images.
+Fixed   - [#020] Fixed the installer to work with open_basedir restrictions 
+Added   - [#022] Images can now be moved from Disk to Database or vice versa from the admin panel.
+Fixed   - [#023] Items can now been taken of the seenlist.
+Fixed   - [#024] Autologin problem with LDAP authentication fixed.
+Fixed   - [#027] Iconv calls replaced by mb_convert_encoding when iconv function is not available.
 
 0.985
 Fixed   - Fixed the Yahoo fetch class, cast members are now properly populated.
