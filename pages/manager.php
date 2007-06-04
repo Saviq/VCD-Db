@@ -187,11 +187,12 @@
 <? } else { ?>
 <tr>
 	<td class="tblb"><?=VCDLanguage::translate('movie.screenshots')?>:</td>
-	<td>
-	<select name="screenshots" class="input" size="1">
-		<option value="0"><?=VCDLanguage::translate('misc.no')?></option>
-		<option value="1" <? if (MovieServices::getScreenshots($vcd->getID())) {echo "selected";} ?>><?=VCDLanguage::translate('misc.yes')?></option>
-	</select>
+	<td><?php if (MovieServices::getScreenshots($vcd->getID())) {
+		print VCDLanguage::translate('misc.yes'); 
+	} else { 
+		print VCDLanguage::translate('misc.no'); 
+	} ?>
+	&nbsp;&nbsp;&nbsp;<a href="#" onclick="addScreenshots(<?=$cd_id?>)">[<?=VCDLanguage::translate('manager.addmedia')?>]</a>
 	</td>
 </tr>
 <? } ?>

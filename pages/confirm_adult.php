@@ -8,7 +8,7 @@
 		$pic = TEMP_FOLDER.$fetchedObj->getImage(); 
 		$picname = $fetchedObj->getImage();
 	}
-	$picture = "<img src=\"{$pic}\" border=\"0\" class=\"imgx\">";
+	$picture = "<img src=\"{$pic}\" border=\"0\" class=\"imgx\"/>";
 
 
 ?>
@@ -28,7 +28,7 @@
 			</tr>
 			<tr>
 				<td class="tblb">Studio:</td>
-				<td><select name="studio" class="plain" size="1">
+				<td><select name="studio" class="plain" size="1" style="width:190px;">
 					<?
 						$studio_fetchID = "";
 						$studio = PornstarServices::getStudioByName($fetchedObj->getStudio());
@@ -110,7 +110,7 @@
 			<table cellspacing="0" cellpadding="2" border="0">
 			<tr>
 				<td>
-					<select name="available" id="available" size=8 style="width:110px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');" class="plain">
+					<select name="available" id="available" size="8" style="width:100px;" onDblClick="moveOver(this.form, 'available', 'choiceBox');" class="plain">
 					<?
 						evalDropdown(PornstarServices::getSubCategories(), -1, false);
 					?>
@@ -121,7 +121,7 @@
 					<input type="button" value="&lt;&lt;" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input" style="width:25px;"/>
 				</td>
 				<td>
-					<select multiple name="choiceBox" id="choiceBox" style="width:110px;" size="8" class="plain">
+					<select multiple name="choiceBox" id="choiceBox" style="width:100px;" size="8" class="plain">
 					<?
 						$valid_categories = PornstarServices::getValidCategories($fetchedObj->getCategories());
 						evalDropdown($valid_categories, -1, false);

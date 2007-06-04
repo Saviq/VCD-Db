@@ -912,12 +912,13 @@ class SettingsServices extends VCDServices {
 	 * Get the ID of a specific movieCategory object by using its name as identifier.
 	 *
 	 * @param string $name | The name of the moviecategory object to seek by
+	 * @param bool $localized | Is the category name translated ?
 	 * @return int | Returns the ID of the movieCategory object
 	 */
-	public static function getCategoryIDByName($name) {
+	public static function getCategoryIDByName($name, $localized=false) {
 		try {
 			
-			return self::Settings()->getCategoryIDByName($name, true);
+			return self::Settings()->getCategoryIDByName($name, $localized);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

@@ -1,6 +1,9 @@
 <?
 	$pid = $_GET['pornstar_id'];
 	$pornstarObj = PornstarServices::getPornstarByID($pid);
+	if (!$pornstarObj instanceof pornstarObj ) {
+		redirect();
+	}
 ?>
 <h1>Pornstar | <?=$pornstarObj->getName()?></h1>
 

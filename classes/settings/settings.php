@@ -780,7 +780,8 @@ class vcd_settings implements ISettings {
 	/**
 	 * Get a moviecategory_id by name
 	 *
-	 * @param string $category_name
+	 * @param string $category_name | The category name
+	 * @param bool $localized | Is the category name in English or not
 	 * @return int
 	 */
 	public function getCategoryIDByName($category_name, $localized=false) {

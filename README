@@ -8,12 +8,12 @@ INSTALLATION
 1)  Unzip the VCD-db file on your webserver. 
 2)  You must have a database access / or use SQLite as a backend. 
 3)  Create an empty database.
-	At the moment the following databases are supported 
+	At the moment the following database types are supported 
 	a) MySQL (3.x/4.x/5.x) 
 	b) Microsoft SQL (7, 2000 and 2005) 
 	c) Postgre SQL 7.4, 7.5, 8, 8.1 (Even without OID's enabled)
 	d) IBM DB2 (7.2 and up) 
-	e) Oracle
+	e) Oracle 9/10g
 	f) SQLite
 	
 4)  If your webserver is on a Win32 box this step is unneccassary,
@@ -40,9 +40,10 @@ INSTALLATION
 
 UPGRADING
 
-Upgrading from 0.984
+Upgrading from 0.984 or 0.985
 	- At last a painless upgrade :) 
 	  Simply overwrite all existing files from the new zip/tar file.
+	  Open the vcddb/setup/upgrade.php on your server to finish the upgrade.
 	  Delete the setup folder and start using VCD-db again.
 
 Upgrading from 0.983 or 0.982
@@ -67,6 +68,7 @@ Upgrading from 0.983 or 0.982
 		D) Finally we need to update one entry in the vcd_MetaDataTypes table, you can do that with the 
 		   following SQL query on the table vcd_MetaDataTypes ..
 		   UPDATE `vcd_MetaDataTypes` SET `type_name` = 'defaultdvd', `type_description` = 'Default DVD Settings' WHERE type_id =20
+		E)  Open the vcddb/setup/upgrade.php on your server to finish the upgrade.
 	  4) Thats it .. you can now enjoy your updated VCD-db :), ps. sorry for being lazy and not writing an update script :)
 	  5) If you want to do some cleaning up .. you can delete the folder classes/languages.  The new language system
 	  	 uses XML files stored in /includes/languages/

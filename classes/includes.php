@@ -15,7 +15,7 @@
 ?>
 <?php
 	// Define the current VCD-db version revision
-	define("VCDDB_VERSION","0.985");
+	define("VCDDB_VERSION","0.986");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
 	if (file_exists(VCDDB_BASE.'/config.php')) {
 		require_once(VCDDB_BASE.'/config.php');

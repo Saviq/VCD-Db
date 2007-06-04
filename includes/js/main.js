@@ -587,8 +587,13 @@ function jumpTo(pornstarname, web) {
 }
 
 function addActors(cd_id) {
-	var url = './editactors.php?&id='+cd_id+'';
+	var url = './editactors.php?id='+cd_id+'';
 	window.open(url, 'addactors', 'height=300,width=420,top=200,left=250');
+}
+
+function addScreenshots(cd_id) {
+	var url = './addscreenshots.php?id='+cd_id;
+	window.open(url, 'addscreens', 'height=300,width=420,top=200,left=250');
 }
 
 function changePornstar(pornstar_id) {

@@ -1,4 +1,6 @@
 0.986
+Fixed   - Directors are now populated the imdb fetch.
+Fixed   - Search with extended characters thew errors.
 Added   - New Tools section in the admin panel for maintainance.
 Fixed   - Mediatype detection in the XMLIMporter fixed.
 Added   - Film.Tv.It fetch class added (contributed by Gian).
