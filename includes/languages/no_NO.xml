@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Topp brukere</string>
 		<string id="menu.wishlistpublic">Andre sine ønskelister</string>
 		<string id="menu.statistics">Statistikk</string>
+		<string id="menu.showallusersmovies">Alle Filmer</string>
 
 
 		<!-- login based strings -->
@@ -59,6 +60,7 @@
 		<string id="userproperties.seen_list">Hold oversikt over filmer jeg har sett?</string>
 		<string id="userproperties.playoption">Bruk klient avspillingsfunksjon?</string>
 		<string id="userproperties.nfo">Bruk NFO filer?</string>
+		<string id="userproperties.default_image">Skal bildevisning være standard?</string>
 
 
 		<!-- strings for user settings -->
@@ -70,6 +72,8 @@
 		<string id="usersettings.selectrss">Velg RSS feeder</string>
 		<string id="usersettings.pagelook">Utseende</string>
 		<string id="usersettings.pagemode">Velg standard mal:</string>
+		<string id="usersettings.updated">Bruker informasjon oppdatert</string>
+		<string id="usersettings.update_failed">Feil ved oppdateringen</string>
 		<string id="usersettings.list">Ignoreringsliste</string>
 		<string id="usersettings.desc">Ignorere alle filmer fra følgende brukere:</string>
 
@@ -203,6 +207,7 @@
 		<string id="mymovies.find">Finn en film</string>
 		<string id="mymovies.notseen">Tilby kun filmer jeg ikke har sett</string>
 		<string id="mymovies.friends">Venner som låner filmer</string>
+		<string id="mymovies.overviewdetail">Oversikt over samlingen</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -221,6 +226,7 @@
 		<string id="manager.sel">Valgte skuespillere</string>
 		<string id="manager.stars">Stjerner</string>
 		<string id="manager.browse">Bla gjennom for fillokasjon</string>
+		<string id="manager.addmedia">Tilføy</string>
 
 
 		<!-- Add new movie based strings -->
@@ -240,6 +246,7 @@
 		<string id="addmovie.selected">Valgte titler</string>
 		<string id="addmovie.infolist">Dobbelklikk på en tittel for å velge tittelen, eller bruk pilene.&lt;br/&gt;Du kan bruke tastaturet for å hurtig finne titler.</string>
 		<string id="addmovie.notitles">Ingen andre brukere har lagt til filmer i VCD-db</string>
+		<string id="addmovie.id">Legge til en tittel</string>
 
 
 		<!-- strings for XML actions -->
@@ -335,6 +342,18 @@
 		<string id="seen.notseenitclick">Trykk for å marker som usett</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Dagen`s Raport</string>
+		<string id="statistics.top_movies">Filmer i databasen</string>
+		<string id="statistics.top_cats">Topp Kategorier</string>
+		<string id="statistics.top_act">Mest aktive katogorier</string>
+		<string id="statistics.top_covers">Cover i databasen</string>
+		<string id="statistics.total">Total</string>
+		<string id="statistics.today">Lagt til idag</string>
+		<string id="statistics.week">Lagt til de siste 7 dagene</string>
+		<string id="statistics.month">lagt til de siste 30 dagene</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
 		<string id="mail.returntopic">Lånepåminnelse</string>
 		<string id="mail.returnmovies1">%s, bare ville minne deg på å levere tilbake mine filmer.&lt;br/&gt;Du har fremdeles følgende filmer :&lt;br/&gt;&lt;br/&gt;</string>
@@ -394,5 +413,10 @@
 		<string id="misc.savenext">Lagre og endre neste</string>
 		<string id="misc.save">Lagre</string>
 		<string id="misc.seen">Sett</string>
+		<string id="misc.footer">Lastet siden på %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Sjekk ut den offisielle VCD-db hjemmesiden</string>
+		<string id="misc.toggle">Skift visning</string>
+		<string id="misc.toggle_on">På</string>
+		<string id="misc.toggle_off">Av</string>
 	</strings>
 </language>

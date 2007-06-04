@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Najlepsi użytkownicy</string>
 		<string id="menu.wishlistpublic">Listy życzeń innych</string>
 		<string id="menu.statistics">Statystyki</string>
+		<string id="menu.showallusersmovies">Wszystkie filmy</string>
 
 
 		<!-- login based strings -->
@@ -206,6 +207,7 @@
 		<string id="mymovies.find">Szukaj filmu</string>
 		<string id="mymovies.notseen">Pokaż tylko filmy, których nie widziałem</string>
 		<string id="mymovies.friends">Ludzie, którym pożyczam filmy</string>
+		<string id="mymovies.overviewdetail">Szczegółowy przegląd kolekcji</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,6 +246,7 @@
 		<string id="addmovie.selected">Wybrane tytuły</string>
 		<string id="addmovie.infolist">Kliknij dwukrotnie na tytule filmu lub użyj strzałek.&lt;br/&gt;Użyj klawiatury, by szybko znaleźć film.</string>
 		<string id="addmovie.notitles">Nikt inny nie dodał filmów do bazy.</string>
+		<string id="addmovie.id">Podany ciąg jest numerem ID</string>
 
 
 		<!-- strings for XML actions -->

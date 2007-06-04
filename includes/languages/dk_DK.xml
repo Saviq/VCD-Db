@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Topbrugere</string>
 		<string id="menu.wishlistpublic">Andres ønskelister</string>
 		<string id="menu.statistics">Statistikker</string>
+		<string id="menu.showallusersmovies">Alle filmer</string>
 
 
 		<!-- login based strings -->
@@ -206,6 +207,7 @@
 		<string id="mymovies.find">Find en film</string>
 		<string id="mymovies.notseen">Foreslå kun film jeg ikke har set</string>
 		<string id="mymovies.friends">Mine venner som låner CDer</string>
+		<string id="mymovies.overviewdetail">Detalje overblik over samling</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,6 +246,7 @@
 		<string id="addmovie.selected">Valgte titler</string>
 		<string id="addmovie.infolist">Dobbelt klik på en titel for at vælge den eller brug piletasterne.&lt;br/&gt;Du kan bruge tastaturet til hutrigt at finde en titel.</string>
 		<string id="addmovie.notitles">Ingen andre brugere har tilføjet film til VCD-db</string>
+		<string id="addmovie.id">Input er en Id</string>
 
 
 		<!-- strings for XML actions -->

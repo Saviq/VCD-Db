@@ -35,6 +35,7 @@
 		<!-- Register based strings -->
 		<string id="register.title">會員註冊</string>
 		<string id="register.fullname">帳號名稱</string>
+		<string id="register.email">Email</string>
 		<string id="register.again">確認密碼</string>
 		<string id="register.disabled">抱歉‧目前暫時不開放會員註冊</string>
 		<string id="register.ok">註冊成功‧請重新登入</string>

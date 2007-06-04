@@ -24,13 +24,14 @@
 		<string id="menu.wishlist">Min Önskelista</string>
 		<string id="menu.categories">Kategorier</string>
 		<string id="menu.rss">Egna RSS Streams</string>
-		<string id="menu.controlpanel">Kontroll Panel</string>
+		<string id="menu.controlpanel">Kontrollpanel</string>
 		<string id="menu.register">Registrera</string>
 		<string id="menu.logout">Logga Ut</string>
 		<string id="menu.submit">Genomför</string>
 		<string id="menu.topusers">Topp Användare</string>
 		<string id="menu.wishlistpublic">Andras Önskelista</string>
 		<string id="menu.statistics">Statistik</string>
+		<string id="menu.showallusersmovies">Alla Filmer</string>
 
 
 		<!-- login based strings -->
@@ -212,6 +213,7 @@
 		<string id="mymovies.find">Sök en Film</string>
 		<string id="mymovies.notseen">Föreslå endast filmer jag inte sett.</string>
 		<string id="mymovies.friends">Mina Vänner som Lånar Filmer</string>
+		<string id="mymovies.overviewdetail">Detaljerad överblick av samlingen</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -253,6 +255,7 @@
 		<string id="addmovie.infolist">Dubbelklicka på namnet för att välja eller använd piltangenterna.&lt;br/&gt;Du kan använda tangentbordet för att
 							snabbt hitta rätt film.</string>
 		<string id="addmovie.notitles">Ingen annan användare är registrerad</string>
+		<string id="addmovie.id">Inmatningen är ett Id</string>
 
 
 		<!-- strings for XML actions -->

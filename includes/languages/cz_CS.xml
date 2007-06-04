@@ -243,5 +243,49 @@
 
 		<!-- strings for DVD empire based fetch -->
 		<string id="dvdempire.stars">Pornohvězda</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Filmy na půjčení</string>
+		<string id="loan.to">Půjč filmy</string>
+		<string id="loan.addusers">Přidej nějaké na půjčování pro pokračování</string>
+		<string id="loan.name">Meno</string>
+		<string id="loan.select">Vybrat dlužníka</string>
+		<string id="loan.movieloans">Půjčené filmy...</string>
+		<string id="loan.reminder">Poslat připomenutí</string>
+		<string id="loan.history">Historie půjček</string>
+		<string id="loan.history2">Zobraz historii pôžičiek</string>
+		<string id="loan.since">Od</string>
+		<string id="loan.time">Čas od</string>
+		<string id="loan.return">Vrátit kópii</string>
+		<string id="loan.success">Úspešně půjčené filmy</string>
+		<string id="loan.out">Nevrácené</string>
+		<string id="loan.datein">Půjčené</string>
+		<string id="loan.dateout">Vrácené</string>
+		<string id="loan.period">Délka půjčky</string>
+		<string id="loan.back">Návrat na půjčky</string>
+		<string id="loan.day">den</string>
+		<string id="loan.days">dní</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Komentáře</string>
+		<string id="comments.add">Přidat komentář</string>
+		<string id="comments.none">Žádné komentáře</string>
+		<string id="comments.type">Napište svůj komentář</string>
+		<string id="comments.your">Tvůj komentář</string>
+		<string id="comments.post">Napsat komentář</string>
+		<string id="comments.error">Musíš být prihlášený pro psaní komentářů</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.own">Vlastním kopii filmu</string>
+		<string id="wishlist.notown">Nevlastním kópii filmu</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Jméno</string>
+		<string id="pornstar.web">Webstránka</string>
+		<string id="pornstar.moviecount">Počet filmů</string>
 	</strings>
 </language>
