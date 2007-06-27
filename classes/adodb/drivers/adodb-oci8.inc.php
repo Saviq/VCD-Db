@@ -275,7 +275,7 @@ NATSOFT.DOMAIN =
 	{
 		if (empty($d) && $d !== 0) return 'null';
 		
-		if (is_string($d)) $d = ADORecordSet::UnixDate($d);
+		if (is_string($d)) $d = $this->UnixDate($d); //ADORecordSet::UnixDate($d);
 		return "TO_DATE(".adodb_date($this->fmtDate,$d).",'".$this->NLS_DATE_FORMAT."')";
 	}
 
@@ -742,7 +742,7 @@ NATSOFT.DOMAIN =
 	{
 		if ($this->fnExecute) {
 			$fn = $this->fnExecute;
-			$ret =& $fn($this,$sql,$inputarr);
+			$ret = $fn($this,$sql,$inputarr);
 			if (isset($ret)) return $ret;
 		}
 		if ($inputarr) {
