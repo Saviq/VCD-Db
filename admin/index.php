@@ -168,7 +168,13 @@
 				printRow($cdcoverTypeObj->getCoverTypeName());
 				printRow($cdcoverTypeObj->getCoverTypeDescription());
 				printEditRow($cdcoverTypeObj->getCoverTypeID(), $CURRENT_PAGE);
-				printDeleteRow($cdcoverTypeObj->getCoverTypeID(), $CURRENT_PAGE, "Delete covertype?");
+				
+				if (!$cdcoverTypeObj->isThumbnail()) {
+					printDeleteRow($cdcoverTypeObj->getCoverTypeID(), $CURRENT_PAGE, "Delete covertype?");	
+				} else {
+					printRow();
+				}
+				
 				
 				printTr(false);
 				
