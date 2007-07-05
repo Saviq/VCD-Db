@@ -14,7 +14,6 @@
 ?>
 <?
 require_once(dirname(__FILE__).'/classes/includes.php');
-
 if (!VCDUtils::isLoggedIn()) {
 	die("Unauthorized Access");
 }
@@ -827,6 +826,7 @@ switch ($form) {
 	     }
 
 	     // Check if user has updated his cd item
+	     $instanceUpdated = false;
 	     $arrCopies = $vcd->getInstancesByUserID(VCDUtils::getUserID());
 	     if (sizeof($arrCopies) > 0) {
 			$arrMediaTypes = $arrCopies['mediaTypes'];
@@ -849,6 +849,7 @@ switch ($form) {
 						if (!$double) {
 							// Either media type or numCD's have been updated .. update entry to DB
 							MovieServices::updateVcdInstance($cd_id, $postedMediaType, $media_id, $postedCDCount, $arrNumcds[$i]);
+							$instanceUpdated = true;
 						}
 					}
 			}
@@ -876,105 +877,109 @@ switch ($form) {
 	     	}
 	     }
 
-
-	    // Update metadata
-	    if (isset($_POST['custom_index'])) {
-	    	// add or update ?
-	    	$metaArr = SettingsServices::getMetadata($vcd->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX );
-	    	if (sizeof($metaArr) == 1) {
-	    		$obj = $metaArr[0];
-	    		$obj->setMetadataValue($_POST['custom_index']);
-	    		SettingsServices::updateMetadata($obj);
-	    	} else {
-	    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX , $_POST['custom_index']));
-	    		SettingsServices::addMetadata($obj);
-	    	}
-	    }
-
-	    if (isset($_POST['filepath'])) {
-	    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_FILELOCATION , $_POST['filepath']));
-	    	SettingsServices::addMetadata($obj);
-	    }
-
-
-	    // Check for DVD Specific metadata
-	    $is_dvd = false;
-	    if (isset($_POST['current_dvd']) && is_numeric($_POST['current_dvd'])) {
-	    	// This is DVD typed media type
-	    	$is_dvd = true;
-
-	    	$curr_dvd = $_POST['current_dvd'];
-	    	$next_dvd = null;
-	    	if (isset($_POST['selected_dvd']) && is_numeric($_POST['selected_dvd'])) {
-	    		$next_dvd = $_POST['selected_dvd'];
-	    	}
-
-	    	$dvd_region = $_POST['dvdregion'];
-	    	$dvd_format = $_POST['dvdformat'];
-	    	$dvd_aspect = $_POST['dvdaspect'];
-	    	$audio_list = $_POST['audio_list'];
-	    	$sub_list = $_POST['sub_list'];
-
-	    	$arrDVDMeta = array();
-	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
-	    	array_push($arrDVDMeta, $obj);
-	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
-	    	array_push($arrDVDMeta, $obj);
-	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
-	    	array_push($arrDVDMeta, $obj);
-	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
-	    	array_push($arrDVDMeta, $obj);
-	    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
-	    	array_push($arrDVDMeta, $obj);
-	    	foreach ($arrDVDMeta as $metadataObj) {
-	    		$metadataObj->setMediaTypeID($curr_dvd);
-	    		$metadataObj->setMetadataTypeName(metadataTypeObj::getSystemTypeMapping($metadataObj->getMetadataTypeID()));
-	    	}
-
-	    	// Add / Update the DVD metadata
-	    	SettingsServices::addMetadata($arrDVDMeta, true);
-
-
-	    }
-
-
-
-	    // Handle metadata
-	    $arrMetaData = array();
-		foreach ($_POST as $key => $value) {
-			if ((int)substr_count($key, 'meta') == 1) {
-		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
-		 	}
-		}
-
-		if (sizeof($arrMetaData) > 0) {
-			$metadataCommit = array();
-			foreach ($arrMetaData as $itemArr) {
-				$key   = $itemArr['key'];
-				$value = $itemArr['value'];
-				$entry = explode("|", $key);
-				$metadataName = $entry[1];
-				$metadatatype_id = $entry[2];
-				$mediatype_id = $entry[3];
-
-
-				// Skip empty metadata
-				if (strcmp($value, "") != 0 && $metadatatype_id != metadataTypeObj::SYS_NFO) {
-					$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $value));
-					$obj->setMetaDataTypeID($metadatatype_id);
-					$obj->setMediaTypeID($mediatype_id);
-					array_push($metadataCommit, $obj);
+	     
+	     
+	    // If instance has been changed, the metadata has already been updated.
+	    if (!$instanceUpdated) {
+	     
+		    // Update metadata
+		    if (isset($_POST['custom_index'])) {
+		    	// add or update ?
+		    	$metaArr = SettingsServices::getMetadata($vcd->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX );
+		    	if (sizeof($metaArr) == 1) {
+		    		$obj = $metaArr[0];
+		    		$obj->setMetadataValue($_POST['custom_index']);
+		    		SettingsServices::updateMetadata($obj);
+		    	} else {
+		    		$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX , $_POST['custom_index']));
+		    		SettingsServices::addMetadata($obj);
+		    	}
+		    }
+	
+		    if (isset($_POST['filepath'])) {
+		    	$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_FILELOCATION , $_POST['filepath']));
+		    	SettingsServices::addMetadata($obj);
+		    }
+	
+	
+		    // Check for DVD Specific metadata
+		    $is_dvd = false;
+		    if (isset($_POST['current_dvd']) && is_numeric($_POST['current_dvd'])) {
+		    	// This is DVD typed media type
+		    	$is_dvd = true;
+	
+		    	$curr_dvd = $_POST['current_dvd'];
+		    	$next_dvd = null;
+		    	if (isset($_POST['selected_dvd']) && is_numeric($_POST['selected_dvd'])) {
+		    		$next_dvd = $_POST['selected_dvd'];
+		    	}
+	
+		    	$dvd_region = $_POST['dvdregion'];
+		    	$dvd_format = $_POST['dvdformat'];
+		    	$dvd_aspect = $_POST['dvdaspect'];
+		    	$audio_list = $_POST['audio_list'];
+		    	$sub_list = $_POST['sub_list'];
+	
+		    	$arrDVDMeta = array();
+		    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
+		    	array_push($arrDVDMeta, $obj);
+		    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
+		    	array_push($arrDVDMeta, $obj);
+		    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
+		    	array_push($arrDVDMeta, $obj);
+		    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
+		    	array_push($arrDVDMeta, $obj);
+		    	$obj = new metadataObj(array('', $cd_id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
+		    	array_push($arrDVDMeta, $obj);
+		    	foreach ($arrDVDMeta as $metadataObj) {
+		    		$metadataObj->setMediaTypeID($curr_dvd);
+		    		$metadataObj->setMetadataTypeName(metadataTypeObj::getSystemTypeMapping($metadataObj->getMetadataTypeID()));
+		    	}
+	
+		    	// Add / Update the DVD metadata
+		    	SettingsServices::addMetadata($arrDVDMeta, true);
+	
+	
+		    }
+	
+	
+	
+		    // Handle metadata
+		    $arrMetaData = array();
+			foreach ($_POST as $key => $value) {
+				if ((int)substr_count($key, 'meta') == 1) {
+			 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
+			 	}
+			}
+	
+			if (sizeof($arrMetaData) > 0) {
+				$metadataCommit = array();
+				foreach ($arrMetaData as $itemArr) {
+					$key   = $itemArr['key'];
+					$value = $itemArr['value'];
+					$entry = explode("|", $key);
+					$metadataName = $entry[1];
+					$metadatatype_id = $entry[2];
+					$mediatype_id = $entry[3];
+	
+	
+					// Skip empty metadata
+					if (strcmp($value, "") != 0 && $metadatatype_id != metadataTypeObj::SYS_NFO) {
+						$obj = new metadataObj(array('',$cd_id, VCDUtils::getUserID(), $metadataName, $value));
+						$obj->setMetaDataTypeID($metadatatype_id);
+						$obj->setMediaTypeID($mediatype_id);
+						array_push($metadataCommit, $obj);
+					}
+	
 				}
-
+	
+	
+				SettingsServices::addMetadata($metadataCommit, true);
 			}
 
 
-			SettingsServices::addMetadata($metadataCommit, true);
-		}
 
-
-
-
+	    }
 
 
 		// Set the allowed extensions for the upload
@@ -1058,7 +1063,7 @@ switch ($form) {
 
 		MovieServices::updateVcd($vcd);
 
-
+		
 	    if (isset($_POST['update'])) {
 	    	if ($errors) {
 	    		print "<script>alert('Errors occurred');history.back(-1)</script>";

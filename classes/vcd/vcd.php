@@ -641,6 +641,17 @@ class vcd_movie implements IVcd  {
 
 				$user_id = VCDUtils::getUserID();
 				$this->SQL->updateVcdInstance($user_id, $vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
+				
+				
+				// Then we must update the existing metadata on the cd if any
+				$ArrMetaData = $this->Settings()->getMetadata($vcd_id, $user_id, '', $old_mediaid);
+				if (is_array($ArrMetaData) && sizeof($ArrMetaData) > 0) {
+					foreach ($ArrMetaData as $metadataObj) {
+						$metadataObj->setMediaTypeID($new_mediaid);
+						$this->Settings()->updateMetadata($metadataObj);
+					}
+				}
+				
 
 			} else {
 				throw new VCDInvalidArgumentException('Invalid parameters');

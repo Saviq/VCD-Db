@@ -1016,8 +1016,12 @@ class settingsSQL extends VCDConnection  {
 	public function updateMetadata(metadataObj $obj) {
 		try {
 
-		$query = "UPDATE $this->TABLE_metadata SET metadata_value = ".$this->db->qstr($obj->getMetadataValue())."
-				 WHERE metadata_id = " . $obj->getMetadataID();
+		$query = "UPDATE $this->TABLE_metadata SET metadata_value = ".$this->db->qstr($obj->getMetadataValue());
+		if (is_numeric($obj->getMediaTypeID()) && $obj->getMediaTypeID() > 0) {
+			$query .= ", mediatype_id = " . $obj->getMediaTypeID();
+		}
+		$query .= " WHERE metadata_id = " . $obj->getMetadataID();
+			
 		$this->db->Execute($query);
 
 		} catch (Exception $ex) {

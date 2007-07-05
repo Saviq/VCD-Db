@@ -1445,12 +1445,13 @@ class SettingsServices extends VCDServices {
 	 * @param int $record_id | The ID of the movie that the metadata belongs to
 	 * @param int $user_id | The Owner ID of the metadata entries.
 	 * @param string $metadata_name | The name of the metadata to filter by
+	 * @param int $mediatype_id | MediaType ID of movieObj.  This forces deeper check.
 	 * @return array
 	 */
-	public static function getMetadata($record_id, $user_id, $metadata_name) {
+	public static function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 		try {
 			
-			return self::Settings()->getMetadata($record_id, $user_id, $metadata_name);
+			return self::Settings()->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

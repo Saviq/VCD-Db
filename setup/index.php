@@ -1,4 +1,5 @@
 <?php
+	error_reporting(E_ALL);
 	require_once('Installer.php');
 	// Create Ajax class instance
 	$ajax = new Ajax(); 

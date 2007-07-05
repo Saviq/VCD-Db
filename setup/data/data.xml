@@ -66,6 +66,10 @@
 		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('SVCD',13,'Ripped with digital boxes')</query>
 		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Telecine',2,'')</query>
 		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Telesync',4,'SVCD telesync')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('Blu-ray',1,'Blu-ray High definition DVD')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('HD DVD',1,'High definition DVD')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('UMD',1,'UMD for PSP')</query>
+		<query>INSERT INTO vcd_MediaTypes (media_type_name,parent_id,media_type_description) VALUES ('WMV HD',1,'Windows Media High Definition Video')</query>
 
 		<descr>Covers allowed on Media Types</descr>
 		<query>INSERT INTO vcd_CoversAllowedOnMediatypes VALUES (8, 5)</query>
@@ -129,6 +133,7 @@
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('BushDVD','bush','http://www.bushdvd.com','http://www.bushdvd.com/stock_detail.asp?Title_ID=#','1','VCDFetch_bush', 'bushdvd.gif')</query>
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Film.Tv.It','filmtv','http://www.film.tv.it','http://www.film.tv.it/scheda.php?film=#','1','VCDFetch_filmtv', 'filmtvit.gif')</query>
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Online Filmdatenbank','ofdb','http://www.ofdb.de','http://www.ofdb.de/view.php?page=film&amp;fid=#&amp;full=1','1','VCDFetch_ofdb', 'ofdb.jpg')</query>
+		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Amazon.com','amazon','http://www.amazon.com','http://www.amazon.com/dp/#','1','VCDFetch_amazon', 'amazon.gif')</query>
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Internet Adult Film Database','iafd','http://www.iafd.com/',null,'0')</query>
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('CDcovers.cc','CDCovers.cc','http://www.cdcovers.cc',null,'0')</query>
 		<query transform="2">INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable) VALUES ('Rotten Tomatos','Rotten Tomatoes','http://rottentomatoes.com',null,'0')</query>
