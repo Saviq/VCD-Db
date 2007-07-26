@@ -22,7 +22,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'org_title'	=> '#<span class=\"otherTitle\">([^<]+)</span>#',
 	'alt_title'	=> '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
-	'poster'	=> '#div id="filmPhoto">[^"]+"([^"]+)" gemius=#',
+	'poster'	=> '#div id="filmPhoto">[^"]+"([^"?]+)[^"]+" gemius=#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
 	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
