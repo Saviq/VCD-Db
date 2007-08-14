@@ -102,6 +102,15 @@ class movieCategoryObj implements XMLable {
                  	"name" => $this->getName(true));
 	}
 
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array('category_id' => $this->category_id, 'category_name' => $this->category_name, 
+			'category_count' => $this->category_count);
+	}
 
 
 }

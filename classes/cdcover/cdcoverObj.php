@@ -229,15 +229,28 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	public function showImage($prefix = "") {
 		if (isset($this->image_id) && $this->image_id > 0) {
 			// image is in DB
-			print "<img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+			if (VCDDB_USEPROXY==1) {
+				print "<img src=\"".VCDDB_SOAPPROXY.$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+			} else {
+				print "<img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+			}
+			
 		} else {
 			// image is on disk
 			if ($this->isThumbnail()) {
-				print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+				if (VCDDB_USEPROXY==1) {
+					print "<img src=\"".VCDDB_SOAPPROXY.$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+				} else {
+					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+				}
+				
 			} else {
-				print "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
+				if (VCDDB_USEPROXY==1) {
+					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".VCDDB_SOAPPROXY.$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
+				} else {
+					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
+				}
 			}
-
 		}
 	}
 
@@ -384,6 +397,20 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	}
 
 
+	public function toSoapEncoding() {
+		return array(
+			'cover_id'				=> $this->cover_id,
+			'covertype_id' 			=> $this->covertype_id,
+			'coverTypeDescription' 	=> $this->coverTypeDescription,
+			'covertypeName'			=> $this->covertypeName,
+			'date_added'			=> $this->date_added,
+			'filename'				=> $this->filename,
+			'filesize'				=> $this->filesize,
+			'image_id'				=> $this->image_id,
+			'owner_id'				=> $this->owner_id,
+			'vcd_id'				=> $this->vcd_id
+		);
+	}
 
 	/**
 	 * Get cover image as binary stream for the xml stream.
@@ -403,7 +430,7 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 			return base64_encode($vcdImage->getImageStream($this->image_id));
 		} else {
 
-			$filepath = VCDDB_BASE.'/'.THUMBNAIL_PATH.$this->filename;
+			$filepath = VCDDB_BASE.DIRECTORY_SEPARATOR.THUMBNAIL_PATH.$this->filename;
 
 			if (fs_file_exists($filepath)) {
 

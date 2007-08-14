@@ -589,6 +589,47 @@ class vcdObj extends cdObj implements XMLable {
 	}
 	
 	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+				
+		$imdbObj = null;
+		if (!is_null($this->imdbObj)) {
+			$imdbObj = $this->imdbObj->toSoapEncoding();
+		}
+		
+		$movieCatData = null;
+		if ($this->moviecategoryobj instanceof movieCategoryObj ) {
+			$movieCatData = $this->moviecategoryobj->toSoapEncoding();
+		}
+			
+		return array(
+			'arrComments'		=> VCDSoapTools::EncodeArray($this->arrComments),
+			'arrDate_added'		=> $this->arrDate_added,
+			'arrDisc_count'		=> $this->arrDisc_count,
+			'arrMetadata'		=> VCDSoapTools::EncodeArray($this->arrMetadata),
+			'arrPorncategories'	=> VCDSoapTools::EncodeArray($this->arrPorncategories),
+			'arrPornstars'		=> VCDSoapTools::EncodeArray($this->arrPornstars),
+			'category_id'		=> $this->category_id,
+			'coversObjArr'		=> VCDSoapTools::EncodeArray($this->coversObjArr),
+			'external_id'		=> $this->external_id,
+			'id'				=> $this->id,
+			'imdbObj'			=> $imdbObj,
+			'mediaTypeObjArr'	=> VCDSoapTools::EncodeArray($this->mediaTypeObjArr),
+			'moviecategoryobj'	=> $movieCatData,
+			'ownersObjArr'		=> VCDSoapTools::EncodeArray($this->ownersObjArr),
+			'screenshots'		=> $this->screenshots,
+			'source_id'			=> $this->source_id,
+			'studio_id'			=> $this->studio_id,
+			'title'				=> $this->title,
+			'year'				=> $this->year
+		);
+	}
+	
+	
 	/* One time only needed function for insertion of a new vcdObj */
 	/**
 	 * Get the userid of the owner of this movie's instance

@@ -15,7 +15,7 @@
 ?>
 <?php
 	// Define the current VCD-db version revision
-	define("VCDDB_VERSION","0.986");
+	define("VCDDB_VERSION","0.990-svn");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
 	if (file_exists(VCDDB_BASE.'/config.php')) {
 		require_once(VCDDB_BASE.'/config.php');
@@ -30,6 +30,7 @@
 	require_once(dirname(__FILE__) . '/XMLable.php');
 	require_once(dirname(__FILE__) . '/VCDClassFactory.php');
 	require_once(dirname(__FILE__) . '/VCDService.php');
+	require_once(dirname(__FILE__) . '/VCDSoapProxy.php');
 
 	/* External Libraries */
 	require_once(dirname(__FILE__) . '/external/cookie/SiteCookieClass.php');

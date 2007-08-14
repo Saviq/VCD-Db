@@ -790,9 +790,10 @@ class vcd_movie implements IVcd  {
 	 */
 	public function getCategoryCount($category_id, $isAdult = false, $user_id = -1) {
 		try {
-		
+			
 			if (!is_numeric($user_id)) {
-				throw new VCDInvalidArgumentException('User Id must be numeric');
+				$user_id = -1;
+				//throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
 			
 			return $this->SQL->getCategoryCount($category_id, $user_id);
@@ -981,7 +982,7 @@ class vcd_movie implements IVcd  {
 			if (!is_numeric($category_id)) {
 				throw new VCDInvalidArgumentException('Category Id must be numeric');
 			}	
-			
+						
 			if ($category_id == 0) {
 				return $this->SQL->getCompleteTopTenList($arrFilter);
 			} else {
@@ -1315,6 +1316,24 @@ class vcd_movie implements IVcd  {
 		} catch (Exception $ex) {
 			throw $ex;
 		}	
+	}
+	
+	
+	/**
+	 * Get list of duplicate movies in the database
+	 *
+	 * @return array | Returns array of duplicate movie data
+	 */
+	public function getDuplicationList()
+	{
+		try {
+			
+			$catTv = $this->Settings()->getCategoryIDByName('Tv Shows');
+			return $this->SQL->getDuplicationList($catTv);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
 
 

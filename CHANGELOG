@@ -1,3 +1,6 @@
+0.990
+Added   - Soap Proxy/Provider interface to VCD-db instead of using direct database connection.
+
 0.986
 Fixed   - Directors are now populated the imdb fetch.
 Fixed   - Search with extended characters thew errors.

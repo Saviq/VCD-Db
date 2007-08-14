@@ -1,0 +1,1652 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<definitions name="http://vcddb.konni.com" 
+	targetNamespace="urn:http://vcddb.konni.com" 
+	xmlns:typens="urn:http://vcddb.konni.com" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:http://vcddb.konni.com">
+		<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ 		<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+ 			<xsd:complexType name="ArrayOfString">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfDecimal">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="decimal[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="borrowerObj">
+				<xsd:all>
+					<xsd:element name="email" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfBorrowerObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:borrowerObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="commentObj">
+				<xsd:all>
+					<xsd:element name="comment" type="xsd:string"/>
+					<xsd:element name="date" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="isPrivate" type="xsd:boolean"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+					<xsd:element name="owner_name" type="xsd:string"/>
+					<xsd:element name="vcd_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfCommentObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:commentObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="mediaTypeObj">
+				<xsd:all>
+					<xsd:element name="children" type="typens:ArrayOfMediaTypeObj"/>
+					<xsd:element name="media_type_description" type="xsd:string"/>
+					<xsd:element name="media_type_id" type="xsd:decimal"/>
+					<xsd:element name="media_type_name" type="xsd:string"/>
+					<xsd:element name="parent_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMediaTypeObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:mediaTypeObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="metadataTypeObj">
+				<xsd:all>
+					<xsd:element name="desc" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="level" type="xsd:decimal"/>
+					<xsd:element name="name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMetadataTypeObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:metadataTypeObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="movieCategoryObj">
+				<xsd:all>
+					<xsd:element name="category_count" type="xsd:decimal"/>
+					<xsd:element name="category_id" type="xsd:decimal"/>
+					<xsd:element name="category_name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMovieCategoryObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:movieCategoryObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="rssObj">
+				<xsd:all>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="isSitefeed" type="xsd:boolean"/>
+					<xsd:element name="isXrated" type="xsd:boolean"/>
+					<xsd:element name="name" type="xsd:string"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+					<xsd:element name="url" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMovieRssObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:rssObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="sourceSiteObj">
+				<xsd:all>
+					<xsd:element name="isFetchable" type="xsd:boolean"/>
+					<xsd:element name="site_alias" type="xsd:string"/>
+					<xsd:element name="site_classname" type="xsd:string"/>
+					<xsd:element name="site_getCommand" type="xsd:string"/>
+					<xsd:element name="site_homepage" type="xsd:string"/>
+					<xsd:element name="site_id" type="xsd:decimal"/>
+					<xsd:element name="site_image" type="xsd:string"/>
+					<xsd:element name="site_name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfSourceSiteObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:sourceSiteObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="metadataObj">
+				<xsd:all>
+					<xsd:element name="mediatype_id" type="xsd:decimal"/>
+					<xsd:element name="metadata_id" type="xsd:decimal"/>
+					<xsd:element name="metadata_value" type="xsd:string"/>
+					<xsd:element name="metatype_description" type="xsd:string"/>
+					<xsd:element name="metatype_id" type="xsd:decimal"/>
+					<xsd:element name="metatype_level" type="xsd:string"/>
+					<xsd:element name="metatype_name" type="xsd:string"/>
+					<xsd:element name="record_id" type="xsd:decimal"/>
+					<xsd:element name="user_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMetadataObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:metadataObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="settingsObj">
+				<xsd:all>
+					<xsd:element name="description" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="isProtected" type="xsd:boolean"/>
+					<xsd:element name="key" type="xsd:string"/>
+					<xsd:element name="type" type="xsd:string"/>
+					<xsd:element name="value" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfSettingsObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:settingsObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="statisticsObj">
+				<xsd:all>
+					<xsd:element name="ArrAllCats" type="typens:ArrayOfMovieCategoryObj"/>
+					<xsd:element name="ArrMonthlyCats" type="typens:ArrayOfMovieCategoryObj"/>
+					<xsd:element name="mostactive_users" type="xsd:string"/>
+					<xsd:element name="movies_addedmonth" type="xsd:decimal"/>
+					<xsd:element name="movies_addedtoday" type="xsd:decimal"/>
+					<xsd:element name="movies_addedweek" type="xsd:decimal"/>
+					<xsd:element name="total_covers" type="xsd:decimal"/>
+					<xsd:element name="total_coversthismonth" type="xsd:decimal"/>
+					<xsd:element name="total_coversthisweek" type="xsd:decimal"/>
+					<xsd:element name="total_movies" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfStatisticsObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:statisticsObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="loanObj">
+				<xsd:all>
+					<xsd:element name="loan_id" type="xsd:decimal"/>
+					<xsd:element name="cd_id" type="xsd:decimal"/>
+					<xsd:element name="cd_title" type="xsd:string"/>
+					<xsd:element name="borrowerObj" type="typens:borrowerObj"/>
+					<xsd:element name="date_out" type="xsd:dateTime"/>
+					<xsd:element name="date_in" type="xsd:dateTime"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfLoanObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:loanObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+		</xsd:schema>
+	</types>
+	<message name="SoapSettingsServices..addBorrower">
+		<part name="obj" type="typens:borrowerObj"/>
+	</message>
+	<message name="SoapSettingsServices..addBorrowerResponse"/>
+	<message name="SoapSettingsServices..addComment">
+		<part name="obj" type="typens:commentObj"/>
+	</message>
+	<message name="SoapSettingsServices..addCommentResponse"/>
+	<message name="SoapSettingsServices..addMediaType">
+		<part name="mediaTypeObj" type="typens:mediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..addMediaTypeResponse"/>
+	<message name="SoapSettingsServices..addMetadata">
+		<part name="arrObj" type="typens:ArrayOfMetadataObj"/>
+	</message>
+	<message name="SoapSettingsServices..addMetadataResponse"/>
+	<message name="SoapSettingsServices..addMetadataType">
+		<part name="obj" type="typens:metadataTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..addMetadataTypeResponse">
+		<part name="SoapSettingsServices..addMetadataTypeReturn" type="typens:metadataTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..addMovieCategory">
+		<part name="obj" type="typens:movieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..addMovieCategoryResponse"/>
+	<message name="SoapSettingsServices..addRssfeed">
+		<part name="obj" type="typens:rssObj"/>
+	</message>
+	<message name="SoapSettingsServices..addRssfeedResponse"/>
+	<message name="SoapSettingsServices..addSettings">
+		<part name="settings" type="typens:ArrayOfSettingsObj"/>
+	</message>
+	<message name="SoapSettingsServices..addSettingsResponse"/>
+	<message name="SoapSettingsServices..addSourceSite">
+		<part name="obj" type="typens:sourceSiteObj"/>
+	</message>
+	<message name="SoapSettingsServices..addSourceSiteResponse"/>
+	<message name="SoapSettingsServices..addToWishList">
+		<part name="vcd_id" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..addToWishListResponse"/>
+	<message name="SoapSettingsServices..deleteBorrower">
+		<part name="obj" type="typens:borrowerObj"/>
+	</message>
+	<message name="SoapSettingsServices..deleteBorrowerResponse"/>
+	<message name="SoapSettingsServices..deleteComment">
+		<part name="comment_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteCommentResponse"/>
+	<message name="SoapSettingsServices..deleteMediaType">
+		<part name="mediatype_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteMediaTypeResponse">
+		<part name="SoapSettingsServices..deleteMediaTypeReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..deleteMetadata">
+		<part name="metadata_id" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..deleteMetadataResponse"/>
+	<message name="SoapSettingsServices..deleteMetaDataType">
+		<part name="type_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteMetaDataTypeResponse"/>
+	<message name="SoapSettingsServices..deleteMovieCategory">
+		<part name="category_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteMovieCategoryResponse"/>
+	<message name="SoapSettingsServices..deleteNFO">
+		<part name="metadata_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteNFOResponse"/>
+	<message name="SoapSettingsServices..deleteSettings">
+		<part name="settings_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteSettingsResponse">
+		<part name="SoapSettingsServices..deleteSettingsReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..deleteSourceSite">
+		<part name="source_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..deleteSourceSiteResponse"/>
+	<message name="SoapSettingsServices..delFeed">
+		<part name="feed_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..delFeedResponse"/>
+	<message name="SoapSettingsServices..getAllCommentsByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getAllCommentsByUserIDResponse">
+		<part name="SoapSettingsServices..getAllCommentsByUserIDReturn" type="typens:ArrayOfCommentObj"/>
+	</message>
+	<message name="SoapSettingsServices..getAllCommentsByVCD">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getAllCommentsByVCDResponse">
+		<part name="SoapSettingsServices..getAllCommentsByVCDReturn" type="typens:ArrayOfCommentObj"/>
+	</message>
+	<message name="SoapSettingsServices..getAllMediatypes"/>
+	<message name="SoapSettingsServices..getAllMediatypesResponse">
+		<part name="SoapSettingsServices..getAllMediatypesReturn" type="typens:ArrayOfMediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getAllMovieCategories"/>
+	<message name="SoapSettingsServices..getAllMovieCategoriesResponse">
+		<part name="SoapSettingsServices..getAllMovieCategoriesReturn" type="typens:ArrayOfMovieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..getAllSettings"/>
+	<message name="SoapSettingsServices..getAllSettingsResponse">
+		<part name="SoapSettingsServices..getAllSettingsReturn" type="typens:ArrayOfSettingsObj"/>
+	</message>
+	<message name="SoapSettingsServices..getBorrowerByID">
+		<part name="borrower_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getBorrowerByIDResponse">
+		<part name="SoapSettingsServices..getBorrowerByIDReturn" type="typens:borrowerObj"/>
+	</message>
+	<message name="SoapSettingsServices..getBorrowersByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getBorrowersByUserIDResponse">
+		<part name="SoapSettingsServices..getBorrowersByUserIDReturn" type="typens:ArrayOfBorrowerObj"/>
+	</message>
+	<message name="SoapSettingsServices..getCategoriesInUseByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getCategoriesInUseByUserIDResponse">
+		<part name="SoapSettingsServices..getCategoriesInUseByUserIDReturn" type="typens:ArrayOfMovieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..getCategoryIDByName">
+		<part name="name" type="xsd:string"/>
+		<part name="localized" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..getCategoryIDByNameResponse">
+		<part name="SoapSettingsServices..getCategoryIDByNameReturn" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getCommentByID">
+		<part name="SoapSettingsServices..comment_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getCommentByIDResponse">
+		<part name="SoapSettingsServices..getCommentByIDReturn" type="typens:commentObj"/>
+	</message>
+	<message name="SoapSettingsServices..getLoans">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="show_returned" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..getLoansResponse">
+		<part name="SoapSettingsServices..getLoansReturn" type="typens:ArrayOfLoanObj"/>
+	</message>
+	<message name="SoapSettingsServices..getLoansByBorrowerID">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="borrower_id" type="xsd:decimal"/>
+		<part name="show_returned" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..getLoansByBorrowerIDResponse">
+		<part name="SoapSettingsServices..getLoansByBorrowerIDReturn" type="typens:ArrayOfLoanObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaCountByCategory">
+		<part name="category_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaCountByCategoryResponse">
+		<part name="SoapSettingsServices..getMediaCountByCategoryReturn" type="typens:ArrayOfString"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaCountByCategoryAndUserID">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="category_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaCountByCategoryAndUserIDResponse">
+		<part name="SoapSettingsServices..getMediaCountByCategoryAndUserIDReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypeByID">
+		<part name="media_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypeByIDResponse">
+		<part name="SoapSettingsServices..getMediaTypeByIDReturn" type="typens:mediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypeByName">
+		<part name="name" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypeByNameResponse">
+		<part name="SoapSettingsServices..getMediaTypeByNameReturn" type="typens:mediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypesInUse"/>
+	<message name="SoapSettingsServices..getMediaTypesInUseResponse">
+		<part name="SoapSettingsServices..getMediaTypesInUseReturn" type="typens:ArrayOfMediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypesInUseByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypesInUseByUserIDResponse">
+		<part name="SoapSettingsServices..getMediaTypesInUseByUserIDReturn" type="typens:ArrayOfMediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypesOnCD">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMediaTypesOnCDResponse">
+		<part name="SoapSettingsServices..getMediaTypesOnCDReturn" type="typens:ArrayOfMediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadata">
+		<part name="record_id" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="metadata_name" type="xsd:string"/>
+		<part name="mediatype_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadataResponse">
+		<part name="SoapSettingsServices..getMetadataReturn" type="typens:ArrayOfMetadataObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadataById">
+		<part name="metadata_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadataByIdResponse">
+		<part name="SoapSettingsServices..getMetadataByIdReturn" type="typens:metadataObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadataTypes">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMetadataTypesResponse">
+		<part name="SoapSettingsServices..getMetadataTypesReturn" type="typens:ArrayOfMetadataTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMovieCategoriesInUse"/>
+	<message name="SoapSettingsServices..getMovieCategoriesInUseResponse">
+		<part name="SoapSettingsServices..getMovieCategoriesInUseReturn" type="typens:ArrayOfMovieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..getMovieCategoryByID">
+		<part name="category_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getMovieCategoryByIDResponse">
+		<part name="SoapSettingsServices..getMovieCategoryByIDReturn" type="typens:movieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..getRecordIDsByMetadata">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="metadata_name" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getRecordIDsByMetadataResponse">
+		<part name="SoapSettingsServices..getRecordIDsByMetadataReturn" type="typens:ArrayOfDecimal"/>
+	</message>
+	<message name="SoapSettingsServices..getRssfeed">
+		<part name="feed_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getRssfeedResponse">
+		<part name="SoapSettingsServices..getRssfeedReturn" type="typens:rssObj"/>
+	</message>
+	<message name="SoapSettingsServices..getRssFeedsByUserId">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getRssFeedsByUserIdResponse">
+		<part name="SoapSettingsServices..getRssFeedsByUserIdReturn" type="typens:ArrayOfMovieRssObj"/>
+	</message>
+	<message name="SoapSettingsServices..getSettingsByID">
+		<part name="settings_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getSettingsByIDResponse">
+		<part name="SoapSettingsServices..getSettingsByIDReturn" type="typens:settingsObj"/>
+	</message>
+	<message name="SoapSettingsServices..getSettingsByKey">
+		<part name="key" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getSettingsByKeyResponse">
+		<part name="SoapSettingsServices..getSettingsByKeyReturn" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getSourceSiteByAlias">
+		<part name="alias" type="xsd:string"/>
+	</message>
+	<message name="SoapSettingsServices..getSourceSiteByAliasResponse">
+		<part name="SoapSettingsServices..getSourceSiteByAliasReturn" type="typens:sourceSiteObj"/>
+	</message>
+	<message name="SoapSettingsServices..getSourceSiteByID">
+		<part name="source_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getSourceSiteByIDResponse">
+		<part name="SoapSettingsServices..getSourceSiteByIDReturn" type="typens:sourceSiteObj"/>
+	</message>
+	<message name="SoapSettingsServices..getSourceSites"/>
+	<message name="SoapSettingsServices..getSourceSitesResponse">
+		<part name="SoapSettingsServices..getSourceSitesReturn" type="typens:ArrayOfSourceSiteObj"/>
+	</message>
+	<message name="SoapSettingsServices..getStatsObj"/>
+	<message name="SoapSettingsServices..getStatsObjResponse">
+		<part name="SoapSettingsServices..getStatsObjReturn" type="typens:statisticsObj"/>
+	</message>
+	<message name="SoapSettingsServices..getUserStatistics">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getUserStatisticsResponse">
+		<part name="SoapSettingsServices..getUserStatisticsReturn" type="typens:ArrayOfStatisticsObj"/>
+	</message>
+	<message name="SoapSettingsServices..getWishList">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..getWishListResponse">
+		<part name="SoapSettingsServices..getWishListReturn" type="typens:ArrayOfString"/>
+	</message>
+	<message name="SoapSettingsServices..isOnWishList">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..isOnWishListResponse">
+		<part name="SoapSettingsServices..isOnWishListReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..isPublicWishLists">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..isPublicWishListsResponse">
+		<part name="SoapSettingsServices..isPublicWishListsReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapSettingsServices..loanCDs">
+		<part name="borrower_id" type="xsd:decimal"/>
+		<part name="arrMovieIDs" type="typens:ArrayOfDecimal"/>
+	</message>
+	<message name="SoapSettingsServices..loanCDsResponse"/>
+	<message name="SoapSettingsServices..loanReturn">
+		<part name="loan_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..loanReturnResponse"/>
+	<message name="SoapSettingsServices..removeFromWishList">
+		<part name="vcd_id" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapSettingsServices..removeFromWishListResponse"/>
+	<message name="SoapSettingsServices..updateBorrower">
+		<part name="obj" type="typens:borrowerObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateBorrowerResponse"/>
+	<message name="SoapSettingsServices..updateMediaType">
+		<part name="mediaTypeObj" type="typens:mediaTypeObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateMediaTypeResponse"/>
+	<message name="SoapSettingsServices..updateMetadata">
+		<part name="obj" type="typens:metadataObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateMetadataResponse"/>
+	<message name="SoapSettingsServices..updateMovieCategory">
+		<part name="obj" type="typens:movieCategoryObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateMovieCategoryResponse"/>
+	<message name="SoapSettingsServices..updateRssfeed">
+		<part name="obj" type="typens:rssObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateRssfeedResponse"/>
+	<message name="SoapSettingsServices..updateSettings">
+		<part name="obj" type="typens:settingsObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateSettingsResponse"/>
+	<message name="SoapSettingsServices..updateSourceSite">
+		<part name="sourceSiteObj" type="typens:sourceSiteObj"/>
+	</message>
+	<message name="SoapSettingsServices..updateSourceSiteResponse"/>
+	<portType name="SettingsServicesPortType">
+		<documentation>
+			Provide the Web UI access to the Settings Services.
+		</documentation>
+		<operation name="SoapSettingsServices..addBorrower">
+			<documentation>
+				Add new borrower to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addBorrower"/>
+			<output message="typens:SoapSettingsServices..addBorrowerResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addComment">
+			<documentation>
+				Add a new comment.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addComment"/>
+			<output message="typens:SoapSettingsServices..addCommentResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addMediaType">
+			<documentation>
+				Add new mediaType object to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addMediaType"/>
+			<output message="typens:SoapSettingsServices..addMediaTypeResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addMetadata">
+			<documentation>
+				Add new medata object to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addMetadata"/>
+			<output message="typens:SoapSettingsServices..addMetadataResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addMetadataType">
+			<documentation>
+				Add a new metadatatype object to the database, returns the same object with populated ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addMetadataType"/>
+			<output message="typens:SoapSettingsServices..addMetadataTypeResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addMovieCategory">
+			<documentation>
+				Add new movieCategory object to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addMovieCategory"/>
+			<output message="typens:SoapSettingsServices..addMovieCategoryResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addRssfeed">
+			<documentation>
+				Add new Rss Feed to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addRssfeed"/>
+			<output message="typens:SoapSettingsServices..addRssfeedResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addSettings">
+			<documentation>
+				Add new settings object to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addSettings"/>
+			<output message="typens:SoapSettingsServices..addSettingsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addSourceSite">
+			<documentation>
+				Add new sourceSite object to VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addSourceSite"/>
+			<output message="typens:SoapSettingsServices..addSourceSiteResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..addToWishList">
+			<documentation>
+				Add a movie to users wishlist.
+			</documentation>
+			<input message="typens:SoapSettingsServices..addToWishList"/>
+			<output message="typens:SoapSettingsServices..addToWishListResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteBorrower">
+			<documentation>
+				Delete a specific borrower object
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteBorrower"/>
+			<output message="typens:SoapSettingsServices..deleteBorrowerResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteComment">
+			<documentation>
+				Delete comment.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteComment"/>
+			<output message="typens:SoapSettingsServices..deleteCommentResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMediaType">
+			<documentation>
+				Delete a mediaType object from VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteMediaType"/>
+			<output message="typens:SoapSettingsServices..deleteMediaTypeResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMetadata">
+			<documentation>
+				Delete a specific metadata.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteMetadata"/>
+			<output message="typens:SoapSettingsServices..deleteMetadataResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMetaDataType">
+			<documentation>
+				Delete a user defined metadata type
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteMetaDataType"/>
+			<output message="typens:SoapSettingsServices..deleteMetaDataTypeResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMovieCategory">
+			<documentation>
+				Delete a movieCategory object from VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteMovieCategory"/>
+			<output message="typens:SoapSettingsServices..deleteMovieCategoryResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteNFO">
+			<documentation>
+				Delete NFO file
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteNFO"/>
+			<output message="typens:SoapSettingsServices..deleteNFOResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteSettings">
+			<documentation>
+				Delete specific settings object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteSettings"/>
+			<output message="typens:SoapSettingsServices..deleteSettingsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..deleteSourceSite">
+			<documentation>
+				Delete specific sourceSite object from VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..deleteSourceSite"/>
+			<output message="typens:SoapSettingsServices..deleteSourceSiteResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..delFeed">
+			<documentation>
+				Delete a specific Rss feed
+			</documentation>
+			<input message="typens:SoapSettingsServices..delFeed"/>
+			<output message="typens:SoapSettingsServices..delFeedResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getAllCommentsByUserID">
+			<documentation>
+				Get all comments by specific user ID, returns array of comment objects.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getAllCommentsByUserID"/>
+			<output message="typens:SoapSettingsServices..getAllCommentsByUserIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getAllCommentsByVCD">
+			<documentation>
+				Get all comments that have been made on a specific movie.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getAllCommentsByVCD"/>
+			<output message="typens:SoapSettingsServices..getAllCommentsByVCDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getAllMediatypes">
+			<documentation>
+				Get all mediaType objects in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getAllMediatypes"/>
+			<output message="typens:SoapSettingsServices..getAllMediatypesResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getAllMovieCategories">
+			<documentation>
+				Get all movieCategory objects available in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getAllMovieCategories"/>
+			<output message="typens:SoapSettingsServices..getAllMovieCategoriesResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getAllSettings">
+			<documentation>
+				Get all Settings objects in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getAllSettings"/>
+			<output message="typens:SoapSettingsServices..getAllSettingsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getBorrowerByID">
+			<documentation>
+				Get a specific borrower object by the object ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getBorrowerByID"/>
+			<output message="typens:SoapSettingsServices..getBorrowerByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getBorrowersByUserID">
+			<documentation>
+				Get all the borrower objects created by a specific User.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getBorrowersByUserID"/>
+			<output message="typens:SoapSettingsServices..getBorrowersByUserIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getCategoriesInUseByUserID">
+			<documentation>
+				Get all movieCategory objects in use by specific User ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getCategoriesInUseByUserID"/>
+			<output message="typens:SoapSettingsServices..getCategoriesInUseByUserIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getCategoryIDByName">
+			<documentation>
+				Get the ID of a specific movieCategory object by using its name as identifier.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getCategoryIDByName"/>
+			<output message="typens:SoapSettingsServices..getCategoryIDByNameResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getCommentByID">
+			<documentation>
+				Get a specific comment by ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getCommentByID"/>
+			<output message="typens:SoapSettingsServices..getCommentByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getLoans">
+			<documentation>
+				Get all the loan objects belonging to a specific VCD-db User.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getLoans"/>
+			<output message="typens:SoapSettingsServices..getLoansResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getLoansByBorrowerID">
+			<documentation>
+				Get all loan entries by a specific borrower.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getLoansByBorrowerID"/>
+			<output message="typens:SoapSettingsServices..getLoansByBorrowerIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaCountByCategory">
+			<documentation>
+				Get the count of media's in the specified movie category
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaCountByCategory"/>
+			<output message="typens:SoapSettingsServices..getMediaCountByCategoryResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaCountByCategoryAndUserID">
+			<documentation>
+				Get the movie count of all movies belonging to a specific category.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaCountByCategoryAndUserID"/>
+			<output message="typens:SoapSettingsServices..getMediaCountByCategoryAndUserIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypeByID">
+			<documentation>
+				Get specific mediaType object by ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaTypeByID"/>
+			<output message="typens:SoapSettingsServices..getMediaTypeByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypeByName">
+			<documentation>
+				Get a specific mediaType object by it's name.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaTypeByName"/>
+			<output message="typens:SoapSettingsServices..getMediaTypeByNameResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesInUse">
+			<documentation>
+				Get all media types that are being used by the system
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaTypesInUse"/>
+			<output message="typens:SoapSettingsServices..getMediaTypesInUseResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesInUseByUserID">
+			<documentation>
+				Get collection of mediatype objects that user uses in all his movies.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaTypesInUseByUserID"/>
+			<output message="typens:SoapSettingsServices..getMediaTypesInUseByUserIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesOnCD">
+			<documentation>
+				Get all mediatype objects that are available on the specified movie object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMediaTypesOnCD"/>
+			<output message="typens:SoapSettingsServices..getMediaTypesOnCDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadata">
+			<documentation>
+				Get metadata based on param conditions.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMetadata"/>
+			<output message="typens:SoapSettingsServices..getMetadataResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadataById">
+			<documentation>
+				Get metadataObj by ID
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMetadataById"/>
+			<output message="typens:SoapSettingsServices..getMetadataByIdResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadataTypes">
+			<documentation>
+				Get all known metadatatypes from database.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMetadataTypes"/>
+			<output message="typens:SoapSettingsServices..getMetadataTypesResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMovieCategoriesInUse">
+			<documentation>
+				Get collection of all movieCategory objects that are in use in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMovieCategoriesInUse"/>
+			<output message="typens:SoapSettingsServices..getMovieCategoriesInUseResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getMovieCategoryByID">
+			<documentation>
+				Get a specific movieCategory object by category ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getMovieCategoryByID"/>
+			<output message="typens:SoapSettingsServices..getMovieCategoryByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getRecordIDsByMetadata">
+			<documentation>
+				Get all record ID's (movie ID's) that exist with association to a specific metadata name and User ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getRecordIDsByMetadata"/>
+			<output message="typens:SoapSettingsServices..getRecordIDsByMetadataResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getRssfeed">
+			<documentation>
+				Get specific Rss feed by the feed ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getRssfeed"/>
+			<output message="typens:SoapSettingsServices..getRssfeedResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getRssFeedsByUserId">
+			<documentation>
+				Get All Rss Feeds that belong to specific User.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getRssFeedsByUserId"/>
+			<output message="typens:SoapSettingsServices..getRssFeedsByUserIdResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getSettingsByID">
+			<documentation>
+				Get specific settings object by ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getSettingsByID"/>
+			<output message="typens:SoapSettingsServices..getSettingsByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getSettingsByKey">
+			<documentation>
+				Get specific settings string by key.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getSettingsByKey"/>
+			<output message="typens:SoapSettingsServices..getSettingsByKeyResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSiteByAlias">
+			<documentation>
+				Get specific sourceSite object by the sourcesite Alias.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getSourceSiteByAlias"/>
+			<output message="typens:SoapSettingsServices..getSourceSiteByAliasResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSiteByID">
+			<documentation>
+				Get specific sourceSite object by ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getSourceSiteByID"/>
+			<output message="typens:SoapSettingsServices..getSourceSiteByIDResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSites">
+			<documentation>
+				Get all sourcesite objects in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getSourceSites"/>
+			<output message="typens:SoapSettingsServices..getSourceSitesResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getStatsObj">
+			<documentation>
+				Get the statistics object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getStatsObj"/>
+			<output message="typens:SoapSettingsServices..getStatsObjResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getUserStatistics">
+			<documentation>
+				Get statistics by a specified user ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getUserStatistics"/>
+			<output message="typens:SoapSettingsServices..getUserStatisticsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..getWishList">
+			<documentation>
+				Get a wishlist by User ID.
+			</documentation>
+			<input message="typens:SoapSettingsServices..getWishList"/>
+			<output message="typens:SoapSettingsServices..getWishListResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..isOnWishList">
+			<documentation>
+				Check is a specified movie is on users wishlist.
+			</documentation>
+			<input message="typens:SoapSettingsServices..isOnWishList"/>
+			<output message="typens:SoapSettingsServices..isOnWishListResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..isPublicWishLists">
+			<documentation>
+				Check if the users wishlist is public
+			</documentation>
+			<input message="typens:SoapSettingsServices..isPublicWishLists"/>
+			<output message="typens:SoapSettingsServices..isPublicWishListsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..loanCDs">
+			<documentation>
+				Flag specific movies as loaned in the loan system.
+			</documentation>
+			<input message="typens:SoapSettingsServices..loanCDs"/>
+			<output message="typens:SoapSettingsServices..loanCDsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..loanReturn">
+			<documentation>
+				Returns a specific movie from a loan, using the ID of the loan entry.
+			</documentation>
+			<input message="typens:SoapSettingsServices..loanReturn"/>
+			<output message="typens:SoapSettingsServices..loanReturnResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..removeFromWishList">
+			<documentation>
+				Remove a movie from users wishlist.
+			</documentation>
+			<input message="typens:SoapSettingsServices..removeFromWishList"/>
+			<output message="typens:SoapSettingsServices..removeFromWishListResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateBorrower">
+			<documentation>
+				Update a borrower object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateBorrower"/>
+			<output message="typens:SoapSettingsServices..updateBorrowerResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateMediaType">
+			<documentation>
+				Update a specific mediaType object in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateMediaType"/>
+			<output message="typens:SoapSettingsServices..updateMediaTypeResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateMetadata">
+			<documentation>
+				Update a specific metadata.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateMetadata"/>
+			<output message="typens:SoapSettingsServices..updateMetadataResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateMovieCategory">
+			<documentation>
+				Update a movieCategory object in VCD-db.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateMovieCategory"/>
+			<output message="typens:SoapSettingsServices..updateMovieCategoryResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateRssfeed">
+			<documentation>
+				Update a specific Rss feed.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateRssfeed"/>
+			<output message="typens:SoapSettingsServices..updateRssfeedResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateSettings">
+			<documentation>
+				Update specific settings object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateSettings"/>
+			<output message="typens:SoapSettingsServices..updateSettingsResponse"/>
+		</operation>
+		<operation name="SoapSettingsServices..updateSourceSite">
+			<documentation>
+				Update a specific sourceSite object.
+			</documentation>
+			<input message="typens:SoapSettingsServices..updateSourceSite"/>
+			<output message="typens:SoapSettingsServices..updateSourceSiteResponse"/>
+		</operation>
+	</portType>
+	<binding name="SettingsServicesBinding" type="typens:SettingsServicesPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="SoapSettingsServices..addBorrower">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addComment">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addMediaType">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addMetadata">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addMetadataType">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addMovieCategory">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addRssfeed">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addSettings">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addSourceSite">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..addToWishList">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteBorrower">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteComment">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMediaType">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMetadata">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMetaDataType">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteMovieCategory">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteNFO">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteSettings">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..deleteSourceSite">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..delFeed">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getAllCommentsByUserID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getAllCommentsByVCD">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getAllMediatypes">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getAllMovieCategories">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getAllSettings">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getBorrowerByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getBorrowersByUserID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getCategoriesInUseByUserID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getCategoryIDByName">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getCommentByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getLoans">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getLoansByBorrowerID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaCountByCategory">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaCountByCategoryAndUserID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypeByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypeByName">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesInUse">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesInUseByUserID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMediaTypesOnCD">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadata">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadataById">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMetadataTypes">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMovieCategoriesInUse">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getMovieCategoryByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getRecordIDsByMetadata">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getRssfeed">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getRssFeedsByUserId">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getSettingsByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getSettingsByKey">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSiteByAlias">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSiteByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getSourceSites">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getStatsObj">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getUserStatistics">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..getWishList">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..isOnWishList">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..isPublicWishLists">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..loanCDs">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..loanReturn">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..removeFromWishList">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateBorrower">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateMediaType">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateMetadata">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateMovieCategory">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateRssfeed">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateSettings">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapSettingsServices..updateSourceSite">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="http://vcddb.konni.comService">
+		<port name="SettingsServicesPort" binding="typens:SettingsServicesBinding">
+			<soap:address location="http://konni/vcddb/proxy/settings.php"/>
+		</port>
+	</service>
+</definitions>

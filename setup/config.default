@@ -122,4 +122,25 @@ define("VSIZE_XMLTHUMBS", 	30);
 **/
 define("STYLE",			"includes/templates/default/");
 define("RSS_CACHE_TIME",	7200);
+
+
+/**
+   These constants are used if you are using the VCD-db SOAP interface, meaning that
+   you can either provide another VCD-db instance with data or consume data from another
+   VCD-db website via webservices.
+  
+  These constants consist of the following keys ...
+  -----------------------------------------------------------------
+  VCDDB_USEPROXY	Use remote VCD-db website as a data provider
+  VCDDB_SOAPPROXY	The Url to the remote VCD-db website (must end with /)
+  VCDDB_SOAPSECRET	The shared secret key used to verify permission to use the SOAP interface
+  CACHE_MANAGER		Cache data if cache modules are installed, can be XCACHE or MEMCACHE
+ 
+**/
+
+define("VCDDB_USEPROXY", "0");
+define("VCDDB_SOAPPROXY", "http://domain.com/vcddb/");
+define("VCDDB_SOAPSECRET", "");
+define("CACHE_MANAGER", "");
+
 ?>

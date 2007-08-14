@@ -165,6 +165,25 @@ class sourceSiteObj implements XMLable {
 		return $xmlstr;
 	}
 	
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'site_id' => $this->site_id,
+			'site_name' => $this->site_name,
+			'site_alias' => $this->site_alias,
+			'site_homepage' => $this->site_homepage,
+			'site_getCommand' => $this->site_getCommand,
+			'isFetchable' => $this->isFetchable,
+			'site_classname' => $this->site_classname,
+			'site_image' => $this->site_image
+		);
+	}
+	
 
 
 

@@ -124,6 +124,18 @@ class userRoleObj implements XMLable {
 	}
 
 
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'role_id'			=> $this->role_id,
+			'role_name'			=> $this->role_name,
+			'role_description' 	=> $this->role_description
+		);
+	}
 
 }
 

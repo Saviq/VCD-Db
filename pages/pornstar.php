@@ -12,9 +12,8 @@ var messages = new Array();
 
 <? 
 	$i = 0;
-	$CLASSCovers = VCDClassFactory::getInstance('vcd_cdcover');
 	foreach ($pornstarObj->getMovies() as $id => $title) {
-		$arrCovers = $CLASSCovers->getAllCoversForVcd($id);
+		$arrCovers = CoverServices::getAllCoversForVcd($id);
 		foreach ($arrCovers as $obj) {
 			if ($obj->isThumbnail()) {
 				print "messages[".$i++."] = [\"".$obj->getImagePath()."\", 145, 205];\n ";

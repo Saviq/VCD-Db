@@ -336,6 +336,28 @@ class imdbObj extends fetchedObj implements XMLable {
 			return $xmlstr;
 	}
 
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'id'		=> $this->getIMDB(),
+			'title'		=> $this->title, 
+			'altTitle'	=> $this->alt_title1,
+			'image'		=> $this->image,
+			'year'		=> $this->year, 
+			'plot'		=> $this->plot,
+			'director'	=> $this->director, 
+			'cast'		=> $this->cast,
+			'rating'	=> $this->rating,
+			'runtime'	=> $this->runtime,
+			'country'	=> $this->country,
+			'genre'		=> $this->genre
+		);
+	}
 
 	/**
 	 * Format the cast in XML compatible manner.

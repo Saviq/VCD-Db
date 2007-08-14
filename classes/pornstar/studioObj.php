@@ -89,6 +89,19 @@ class studioObj implements XMLable {
 		
 		return $xmlstr;
 	}
+	
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'id' => $this->getID(),
+			'name' => $this->getName()
+		);
+	}
 
 }
 

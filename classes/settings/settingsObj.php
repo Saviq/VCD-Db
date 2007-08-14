@@ -141,7 +141,22 @@ class settingsObj implements XMLable {
 		$xmlstr .= "</setting>\n";
 		
 		return $xmlstr;
+	}
 	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'id'	=> $this->id,
+			'key'   => $this->key,
+			'value' => $this->value,
+			'description' => $this->description,
+			'isProtected ' => $this->isProtected(),
+			'type' => $this->type
+		);
 	}
 }
 

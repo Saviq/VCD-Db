@@ -29,6 +29,12 @@ printRow("Clean up the cache folder");
 printRow(getTaskStatus(4));
 printRow("<a href=\"javascript:runTask(4);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
 printTr(false);
+
+printTr();
+printRow("Fix duplicate entries");
+printRow(getTaskStatus(4));
+printRow("<a href=\"javascript:runTask(5);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
+printTr(false);
 			
 printTableClose();
 

@@ -27,7 +27,7 @@ class VCDException extends Exception {
 	public function __construct($message = null, $code = 0) { 
 		
 		if (is_null($this->getName())) {
- 	      $this->setName(get_class($self));
+ 	      $this->setName(get_class($this));
  	    }
  	    
 		parent::__construct($message, $code);
@@ -203,5 +203,29 @@ class VCDProgramException extends VCDException {
 		parent::__construct($message, $code);
 	}
 }	
+
+/**
+ * Exception that occur when user has not permissions to call the 
+ * a function that requires user to be logged in.
+ *
+ */
+class VCDSecurityException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}	
+
+/**
+ * Exceptions that ocurr during HTTP-SOAP transactions.
+ *
+ */
+class VCDSoapException extends VCDException {
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}
 
 ?>

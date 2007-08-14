@@ -221,7 +221,7 @@ class pornstarUpdater {
 	 */
 	public function __construct($wsdl)
 	{
-		$this->soapClient = new nusoapclient($wsdl, true);
+		$this->soapClient = new nusoap_client($wsdl, true);
 	}	
 	
 	
@@ -287,12 +287,6 @@ class pornstarUpdater {
 				case 'incoming':
 								
 					$response = $this->soapClient->call('GetPornstarByName', $param);
-					
-					/*
-					if ($this->soapClient->fault) {
-						throw new Exception($this->soapClient->faultstring);
-					}
-					*/
 					
 					if (!isset($response['name'])) {
 						$failmsg = "Failed to get " . $pornstarData['name'];

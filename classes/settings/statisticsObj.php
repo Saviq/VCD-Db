@@ -24,7 +24,7 @@ class statisticsObj {
 	private $movies_addedweek;
 	private $movies_addedmonth;
 	
-	private $ArrMontlyCats = array();
+	private $ArrMonthlyCats = array();
 	private $ArrAllCats = array();
 			
 	private $mostactive_users;
@@ -130,7 +130,7 @@ class statisticsObj {
 	 * @param array $arrcats
 	 */
 	public function setBiggestMonhtlyCats($arrcats) {
-		$this->ArrMontlyCats = $arrcats;
+		$this->ArrMonthlyCats = $arrcats;
 	}
 	
 	/**
@@ -148,7 +148,7 @@ class statisticsObj {
 	 * @return array
 	 */
 	public function getBiggestMonhtlyCats() {
-		return $this->ArrMontlyCats;
+		return $this->ArrMonthlyCats;
 	}
 	
 	/**
@@ -204,6 +204,36 @@ class statisticsObj {
 	}
 	
 	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		
+		$arr1 = array();
+		$arr2 = array();
+		foreach ($this->ArrAllCats as $obj) {
+			array_push($arr1, $obj->toSoapEncoding());
+		}
+		foreach ($this->ArrMonthlyCats as $obj2) {
+			array_push($arr2, $obj2->toSoapEncoding());
+		}
+		
+		
+		
+		return array(
+			'ArrAllCats' =>  $arr1,
+			'ArrMonthlyCats' => $arr2,
+			'mostactive_users' => $this->mostactive_users,
+			'movies_addedmonth' => $this->movies_addedmonth,
+			'movies_addedtoday' => $this->movies_addedtoday,
+			'movies_addedweek' => $this->movies_addedweek,
+			'total_covers' => $this->total_covers,
+			'total_coversthismonth' => $this->total_coversthismonth,
+			'total_coversthisweek' => $this->total_coversthisweek,
+			'total_movies' => $this->total_movies);
+	}
 	
 }
 

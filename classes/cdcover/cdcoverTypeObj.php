@@ -132,7 +132,14 @@ class cdcoverTypeObj implements XMLable {
 		$xmlstr .= "</cdcovertype>\n";
 		
 		return $xmlstr;
+	}
 	
+	public function toSoapEncoding() {
+		return array(
+			'covertype_id' 			=> $this->covertype_id,
+			'coverTypeDescription' 	=> $this->coverTypeDescription,
+			'covertypeName'			=> $this->covertypeName,
+		);
 	}
 		
 		

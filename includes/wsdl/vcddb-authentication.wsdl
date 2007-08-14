@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<definitions name="http://vcddb.konni.com" targetNamespace="urn:http://vcddb.konni.com" xmlns:typens="urn:http://vcddb.konni.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<message name="SoapAuthenticationServices..authenticate">
+		<part name="username" type="xsd:string"/>
+		<part name="password" type="xsd:string"/>
+	</message>
+	<message name="SoapAuthenticationServices..authenticateResponse">
+		<part name="SoapAuthenticationServices..authenticateReturn" type="xsd:boolean"/>
+	</message>
+	<portType name="SoapAuthenticationServicePortType">
+		<operation name="SoapAuthenticationServices..authenticate">
+			<documentation>
+				Authenticate user via webservice call
+			</documentation>
+			<input message="typens:SoapAuthenticationServices..authenticate"/>
+			<output message="typens:SoapAuthenticationServices..authenticateResponse"/>
+		</operation>
+	</portType>
+	<binding name="SoapAuthenticationServiceBinding" type="typens:SoapAuthenticationServicePortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="SoapAuthenticationServices..authenticate">
+			<soap:operation soapAction="urn:SoapAuthenticationServiceAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="http://vcddb.konni.comService">
+		<port name="SoapAuthenticationServicePort" binding="typens:SoapAuthenticationServiceBinding">
+			<soap:address location="http://konni/vcddb/proxy/authentication.php"/>
+		</port>
+	</service>
+</definitions>

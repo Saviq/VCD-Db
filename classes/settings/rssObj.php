@@ -179,6 +179,22 @@ class rssObj {
 	public function setAsSiteFeed($bSitefeed) {
 		$this->isSitefeed = (int)$bSitefeed;
 	}
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'id' => $this->id,
+			'isSitefeed' => $this->isSitefeed,
+			'isXrated'	=> $this->isXrated,
+			'name' => $this->name,
+			'owner_id' => $this->owner_id,
+			'url' => $this->url
+		);
+	}
 
 }
 ?>

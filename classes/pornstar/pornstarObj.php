@@ -172,7 +172,7 @@ class pornstarObj implements XMLable {
 	 *
 	 * @return array
 	 */
-	public function &getMovies() {
+	public function getMovies() {
 		return $this->movies;
 	}
 	
@@ -231,12 +231,23 @@ class pornstarObj implements XMLable {
 	public function showImage($prefix = "") {
 		
 		$filenotfoundImage = "notfoundimagestar.gif";
-		if (!file_exists($prefix.PORNSTARIMAGE_PATH.$this->image) && isset($this->image)) { 
-			print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/{$filenotfoundImage}\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
-		} else if (isset($this->image) && strlen($this->image) > 3) {
-			print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+		
+		if (VCDDB_USEPROXY==1) {
+			
+			if (isset($this->image) && strlen($this->image) > 3) {
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".VCDDB_SOAPPROXY.$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+			} else {
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			}	
+			
 		} else {
-			print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			if (!file_exists($prefix.PORNSTARIMAGE_PATH.$this->image) && isset($this->image)) { 
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/{$filenotfoundImage}\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			} else if (isset($this->image) && strlen($this->image) > 3) {
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+			} else {
+				print "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			}	
 		}
 	}
 	
@@ -255,8 +266,34 @@ class pornstarObj implements XMLable {
 		$xmlstr .= "</pornstar>\n";
 		
 		return $xmlstr;
-
 	}
+	
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		
+		$moviedata = array();
+		if (is_array($this->movies)) {
+			foreach ($this->movies as $id => $title) {
+				array_push($moviedata, $id.'|'.$title);
+			}
+		}
+		
+		return array(
+			'biography' => $this->getBiography(),
+			'homepage' => $this->getHomepage(),
+			'id' => $this->getID(),
+			'image' => $this->getImageName(),
+			'movie_count' => $this->getMovieCount(),
+			'movies' => $moviedata,
+			'name' => $this->getName()
+		);
+	}
+	
 }
 
 

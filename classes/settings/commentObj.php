@@ -149,7 +149,23 @@ class commentObj implements XMLable {
 		$xmlstr .= "</comment>\n";
 		
 		return $xmlstr;
-			
+	}
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'comment'	 => utf8_encode($this->comment),
+			'date'		 => $this->date,
+			'id'		 => $this->id,
+			'isPrivate'  => $this->isPrivate,
+			'owner_id'	 => $this->owner_id,
+			'owner_name' => utf8_encode($this->owner_name),
+			'vcd_id'	 => $this->vcd_id
+		);
 	}
 	
 }

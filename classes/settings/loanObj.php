@@ -28,7 +28,11 @@ class loanObj {
 	private $borroweObj;
 
 		
-	
+	/**
+	 * Class constructor
+	 *
+	 * @param array $dataArr
+	 */
 	public function __construct($dataArr) {
 		$this->loan_id    	  = $dataArr[0];
 		$this->cd_id 	  	  = $dataArr[1];
@@ -146,6 +150,23 @@ class loanObj {
 		} else {
 		
 		}
+	}
+	
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'loan_id' 		=> $this->loan_id,
+			'cd_id'			=> $this->cd_id,
+			'cd_title'		=> $this->cd_title,
+			'borrowerObj'	=> $this->borroweObj,
+			'date_out'		=> $this->date_out,
+			'date_in'		=> $this->date_in
+		);
 	}
 	
 

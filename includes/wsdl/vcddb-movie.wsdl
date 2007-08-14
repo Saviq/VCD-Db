@@ -1,0 +1,865 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<definitions name="http://vcddb.konni.com" 
+	targetNamespace="urn:http://vcddb.konni.com" 
+	xmlns:typens="urn:http://vcddb.konni.com" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:http://vcddb.konni.com">
+		<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ 		<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+ 			<xsd:complexType name="ArrayOfString">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfDecimal">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="decimal[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfDateTimes">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="dateTime[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="vcdObj">
+				<xsd:all>
+					<xsd:element name="arrComments" type="typens:ArrayOfCommentObj"/>
+					<xsd:element name="arrDate_added" type="typens:ArrayOfDateTimes"/>
+					<xsd:element name="arrDisc_count" type="typens:ArrayOfDecimal"/>
+					<xsd:element name="arrMetadata" type="typens:ArrayOfMetadataObj"/>
+					<xsd:element name="arrPorncategories" type="typens:ArrayOfPorncategoryObj"/>
+					<xsd:element name="arrPornstars" type="typens:ArrayOfPornstarObj"/>
+					<xsd:element name="category_id" type="xsd:decimal"/>
+					<xsd:element name="coversObjArr" type="typens:ArrayOfCdcoverObj"/>
+					<xsd:element name="external_id" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="imdbObj" type="typens:imdbObj"/>
+					<xsd:element name="mediaTypeObjArr" type="typens:ArrayOfMediaTypeObj"/>
+					<xsd:element name="moviecategoryobj" type="typens:movieCategoryObj"/>
+					<xsd:element name="ownersObjArr" type="typens:ArrayOfUserUserObj"/>
+					<xsd:element name="screenshots" type="xsd:boolean"/>
+					<xsd:element name="source_id" type="xsd:decimal"/>
+					<xsd:element name="studio_id" type="xsd:decimal"/>
+					<xsd:element name="title" type="xsd:string"/>
+					<xsd:element name="year" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="imdbObj">
+				<xsd:all>
+					<xsd:element name="id" type="string"/>
+					<xsd:element name="title" type="string"/>
+					<xsd:element name="altTitle" type="string"/>
+					<xsd:element name="image" type="string"/>
+					<xsd:element name="year" type="string"/>
+					<xsd:element name="plot" type="string"/>
+					<xsd:element name="director" type="string"/>
+					<xsd:element name="cast" type="string"/>
+					<xsd:element name="rating" type="string"/>
+					<xsd:element name="runtime" type="string"/>
+					<xsd:element name="country" type="string"/>
+					<xsd:element name="genre" type="string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfVcdObj">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:vcdObj[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="movieCategoryObj">
+				<xsd:all>
+					<xsd:element name="category_count" type="xsd:decimal"/>
+					<xsd:element name="category_id" type="xsd:decimal"/>
+					<xsd:element name="category_name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="commentObj">
+				<xsd:all>
+					<xsd:element name="comment" type="xsd:string"/>
+					<xsd:element name="date" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="isPrivate" type="xsd:boolean"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+					<xsd:element name="owner_name" type="xsd:string"/>
+					<xsd:element name="vcd_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfCommentObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:commentObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="metadataObj">
+				<xsd:all>
+					<xsd:element name="mediatype_id" type="xsd:decimal"/>
+					<xsd:element name="metadata_id" type="xsd:decimal"/>
+					<xsd:element name="metadata_value" type="xsd:string"/>
+					<xsd:element name="metatype_description" type="xsd:string"/>
+					<xsd:element name="metatype_id" type="xsd:decimal"/>
+					<xsd:element name="metatype_level" type="xsd:string"/>
+					<xsd:element name="metatype_name" type="xsd:string"/>
+					<xsd:element name="record_id" type="xsd:decimal"/>
+					<xsd:element name="user_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMetadataObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:metadataObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="porncategoryObj">
+				<xsd:all>
+					<xsd:element name="id" type="xsd:string"/>
+					<xsd:element name="name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfPorncategoryObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:porncategoryObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="pornstarObj">
+				<xsd:all>
+					<xsd:element name="biography" type="xsd:string"/>
+					<xsd:element name="homepage" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:string"/>
+					<xsd:element name="image" type="xsd:string"/>
+					<xsd:element name="movie_count" type="xsd:string"/>
+					<xsd:element name="movies" type="typens:ArrayOfString"/>
+					<xsd:element name="name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfPornstarObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:pornstarObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="cdcoverObj">
+				<xsd:all>
+					<xsd:element name="cover_id" type="xsd:decimal"/>
+					<xsd:element name="covertype_id" type="xsd:decimal"/>
+					<xsd:element name="coverTypeDescription" type="xsd:string"/>
+					<xsd:element name="covertypeName" type="xsd:string"/>
+					<xsd:element name="date_added" type="xsd:string"/>
+					<xsd:element name="filename" type="xsd:string"/>
+					<xsd:element name="filesize" type="xsd:double"/>
+					<xsd:element name="image_id" type="xsd:decimal"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+					<xsd:element name="vcd_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfCdcoverObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:cdcoverObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="mediaTypeObj">
+				<xsd:all>
+					<xsd:element name="children" type="typens:ArrayOfMediaTypeObj"/>
+					<xsd:element name="media_type_description" type="xsd:string"/>
+					<xsd:element name="media_type_id" type="xsd:decimal"/>
+					<xsd:element name="media_type_name" type="xsd:string"/>
+					<xsd:element name="parent_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMediaTypeObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:mediaTypeObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="userPropertiesObj">
+				<xsd:all>
+					<xsd:element name="property_description" type="xsd:string"/>
+					<xsd:element name="property_id" type="xsd:decimal"/>
+					<xsd:element name="property_name" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfUserPropertiesObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userPropertiesObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="userObj">
+				<xsd:all>
+					<xsd:element name="dateCreated" type="xsd:dateTime"/>
+					<xsd:element name="email" type="xsd:string"/>
+					<xsd:element name="fullname" type="xsd:string"/>
+					<xsd:element name="isDeleted" type="xsd:boolean"/>
+					<xsd:element name="isDirectoryUser" type="xsd:boolean"/>
+					<xsd:element name="password" type="xsd:string"/>
+					<xsd:element name="role_description" type="xsd:string"/>
+					<xsd:element name="role_id" type="xsd:decimal"/>
+					<xsd:element name="role_name" type="xsd:string"/>
+					<xsd:element name="user_id" type="xsd:decimal"/>
+					<xsd:element name="username" type="xsd:string"/>
+					<xsd:element name="userPropertiesArr" type="typens:ArrayOfUserPropertiesObj"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfUserUserObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+		</xsd:schema>
+	</types>
+	<message name="SoapMovieServices..addVcd">
+		<part name="obj" type="typens:vcdObj"/>
+	</message>
+	<message name="SoapMovieServices..addVcdResponse">
+		<part name="SoapMovieServices..addVcdReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..addVcdToUser">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="vcd_id" type="xsd:decimal"/>
+		<part name="mediatype" type="xsd:decimal"/>
+		<part name="cds" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..addVcdToUserResponse"/>
+	<message name="SoapMovieServices..advancedSearch">
+		<part name="title" type="xsd:string"/>
+		<part name="category" type="xsd:decimal"/>
+		<part name="year" type="xsd:decimal"/>
+		<part name="mediatype" type="xsd:decimal"/>
+		<part name="owner" type="xsd:decimal"/>
+		<part name="imdbgrade" type="xsd:float"/>
+	</message>
+	<message name="SoapMovieServices..advancedSearchResponse">
+		<part name="SoapMovieServices..advancedSearchReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..crossJoin">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="media_id" type="xsd:decimal"/>
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="method" type="xsd:string"/>
+	</message>
+	<message name="SoapMovieServices..crossJoinResponse">
+		<part name="SoapMovieServices..crossJoinReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..deleteVcdFromUser">
+		<part name="vcd_id" type="xsd:decimal"/>
+		<part name="media_id" type="xsd:decimal"/>
+		<part name="mode" type="xsd:string"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..deleteVcdFromUserResponse">
+		<part name="SoapMovieServices..deleteVcdFromUserReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapMovieServices..getAllVcdByUserId">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="simple" type="xsd:boolean"/>
+	</message>
+	<message name="SoapMovieServices..getAllVcdByUserIdResponse">
+		<part name="SoapMovieServices..getAllVcdByUserIdReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getAllVcdForList">
+		<part name="excluded_userid" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getAllVcdForListResponse">
+		<part name="SoapMovieServices..getAllVcdForListReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getCategoryCount">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getCategoryCountResponse">
+		<part name="SoapMovieServices..getCategoryCountReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getCategoryCountFiltered">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getCategoryCountFilteredResponse">
+		<part name="SoapMovieServices..getCategoryCountFilteredReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getDuplicationList"/>
+	<message name="SoapMovieServices..getDuplicationListResponse">
+		<part name="SoapMovieServices..getDuplicationListReturn" type="typens:ArrayOfString"/>
+	</message>
+	<message name="SoapMovieServices..getLatestVcdsByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="count" type="xsd:decimal"/>
+		<part name="simple" type="xsd:boolean"/>
+	</message>
+	<message name="SoapMovieServices..getLatestVcdsByUserIDResponse">
+		<part name="SoapMovieServices..getLatestVcdsByUserIDReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getMovieCount">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getMovieCountResponse">
+		<part name="SoapMovieServices..getMovieCountReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getPrintViewList">
+		<part name="user_id" type="xsd:decimal"/>
+		<part name="list_type" type="xsd:string"/>
+	</message>
+	<message name="SoapMovieServices..getPrintViewListResponse">
+		<part name="SoapMovieServices..getPrintViewListReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getRandomMovie">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="use_seenlist" type="xsd:boolean"/>
+	</message>
+	<message name="SoapMovieServices..getRandomMovieResponse">
+		<part name="SoapMovieServices..getRandomMovieReturn" type="typens:vcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getScreenshots">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getScreenshotsResponse">
+		<part name="SoapMovieServices..getScreenshotsReturn" type="xsd:boolean"/>
+	</message>
+	<message name="SoapMovieServices..getSimilarMovies">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getSimilarMoviesResponse">
+		<part name="SoapMovieServices..getSimilarMoviesReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getTopTenList">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="arrFilter" type="typens:ArrayOfDecimal"/>
+	</message>
+	<message name="SoapMovieServices..getTopTenListResponse">
+		<part name="SoapMovieServices..getTopTenListReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByAdultCategory">
+		<part name="category_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByAdultCategoryResponse">
+		<part name="SoapMovieServices..getVcdByAdultCategoryReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByAdultStudio">
+		<part name="studio_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByAdultStudioResponse">
+		<part name="SoapMovieServices..getVcdByAdultStudioReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByCategory">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="start" type="xsd:decimal"/>
+		<part name="end" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByCategoryResponse">
+		<part name="SoapMovieServices..getVcdByCategoryReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByCategoryFiltered">
+		<part name="category_id" type="xsd:decimal"/>
+		<part name="start" type="xsd:decimal"/>
+		<part name="end" type="xsd:decimal"/>
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByCategoryFilteredResponse">
+		<part name="SoapMovieServices..getVcdByCategoryFilteredReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByID">
+		<part name="movie_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdByIDResponse">
+		<part name="SoapMovieServices..getVcdByIDReturn" type="typens:vcdObj"/>
+	</message>
+	<message name="SoapMovieServices..getVcdForListByIds">
+		<part name="arrIDs" type="typens:ArrayOfDecimal"/>
+	</message>
+	<message name="SoapMovieServices..getVcdForListByIdsResponse">
+		<part name="SoapMovieServices..getVcdForListByIdsReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..markVcdWithScreenshots">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..markVcdWithScreenshotsResponse"/>
+	<message name="SoapMovieServices..search">
+		<part name="keyword" type="xsd:string"/>
+		<part name="method" type="xsd:string"/>
+	</message>
+	<message name="SoapMovieServices..searchResponse">
+		<part name="SoapMovieServices..searchReturn" type="typens:ArrayOfVcdObj"/>
+	</message>
+	<message name="SoapMovieServices..updateVcd">
+		<part name="obj" type="typens:vcdObj"/>
+	</message>
+	<message name="SoapMovieServices..updateVcdResponse"/>
+	<message name="SoapMovieServices..updateVcdInstance">
+		<part name="vcd_id" type="xsd:decimal"/>
+		<part name="new_mediaid" type="xsd:decimal"/>
+		<part name="old_mediaid" type="xsd:decimal"/>
+		<part name="new_numcds" type="xsd:decimal"/>
+		<part name="oldnumcds" type="xsd:decimal"/>
+	</message>
+	<message name="SoapMovieServices..updateVcdInstanceResponse"/>
+	<portType name="MovieServicesPortType">
+		<documentation>
+			Provide the Web UI access to the Movie Services.
+		</documentation>
+		<operation name="SoapMovieServices..addVcd">
+			<documentation>
+				Create a new movie object, returns the ID of the newly created movie object.
+			</documentation>
+			<input message="typens:SoapMovieServices..addVcd"/>
+			<output message="typens:SoapMovieServices..addVcdResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..addVcdToUser">
+			<documentation>
+				Add a new instance of a vcd object to user.
+			</documentation>
+			<input message="typens:SoapMovieServices..addVcdToUser"/>
+			<output message="typens:SoapMovieServices..addVcdToUserResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..advancedSearch">
+			<documentation>
+				Perform advanced search, where filters can be applied.
+			</documentation>
+			<input message="typens:SoapMovieServices..advancedSearch"/>
+			<output message="typens:SoapMovieServices..advancedSearchResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..crossJoin">
+			<documentation>
+				Perform a cross join of movies by the logged-in user and some other Owner ID.
+			</documentation>
+			<input message="typens:SoapMovieServices..crossJoin"/>
+			<output message="typens:SoapMovieServices..crossJoinResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..deleteVcdFromUser">
+			<documentation>
+				Remove user from the owner list of a specific movie.
+			</documentation>
+			<input message="typens:SoapMovieServices..deleteVcdFromUser"/>
+			<output message="typens:SoapMovieServices..deleteVcdFromUserResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getAllVcdByUserId">
+			<documentation>
+				Get all vcd objects that belong to a specific owner ID.
+			</documentation>
+			<input message="typens:SoapMovieServices..getAllVcdByUserId"/>
+			<output message="typens:SoapMovieServices..getAllVcdByUserIdResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getAllVcdForList">
+			<documentation>
+				Get all vcd objects for lists creations.
+			</documentation>
+			<input message="typens:SoapMovieServices..getAllVcdForList"/>
+			<output message="typens:SoapMovieServices..getAllVcdForListResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getCategoryCount">
+			<documentation>
+				Get count of all vcd objects that belong to a specified category.
+			</documentation>
+			<input message="typens:SoapMovieServices..getCategoryCount"/>
+			<output message="typens:SoapMovieServices..getCategoryCountResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getCategoryCountFiltered">
+			<documentation>
+				Get the number of movies for selected category after user filter has been applied.
+			</documentation>
+			<input message="typens:SoapMovieServices..getCategoryCountFiltered"/>
+			<output message="typens:SoapMovieServices..getCategoryCountFilteredResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getDuplicationList">
+			<documentation>
+				Get list of duplicate movies in the database
+			</documentation>
+			<input message="typens:SoapMovieServices..getDuplicationList"/>
+			<output message="typens:SoapMovieServices..getDuplicationListResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getLatestVcdsByUserID">
+			<documentation>
+				Get list of users vcd objects, ordered by creation date DESC.
+			</documentation>
+			<input message="typens:SoapMovieServices..getLatestVcdsByUserID"/>
+			<output message="typens:SoapMovieServices..getLatestVcdsByUserIDResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getMovieCount">
+			<documentation>
+				Get the number of movies that user owns
+			</documentation>
+			<input message="typens:SoapMovieServices..getMovieCount"/>
+			<output message="typens:SoapMovieServices..getMovieCountResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getPrintViewList">
+			<documentation>
+				Get all vcd objects by User ID for printview.
+			</documentation>
+			<input message="typens:SoapMovieServices..getPrintViewList"/>
+			<output message="typens:SoapMovieServices..getPrintViewListResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getRandomMovie">
+			<documentation>
+				Find a random vcd object, params $category_id and $use_seenlist are optional.
+			</documentation>
+			<input message="typens:SoapMovieServices..getRandomMovie"/>
+			<output message="typens:SoapMovieServices..getRandomMovieResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getScreenshots">
+			<documentation>
+				Check if the movie has some screenshots.
+			</documentation>
+			<input message="typens:SoapMovieServices..getScreenshots"/>
+			<output message="typens:SoapMovieServices..getScreenshotsResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getSimilarMovies">
+			<documentation>
+				Get similiar movies as an array of vcd objects.
+			</documentation>
+			<input message="typens:SoapMovieServices..getSimilarMovies"/>
+			<output message="typens:SoapMovieServices..getSimilarMoviesResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getTopTenList">
+			<documentation>
+				Get the Top Ten list of latest movies.
+			</documentation>
+			<input message="typens:SoapMovieServices..getTopTenList"/>
+			<output message="typens:SoapMovieServices..getTopTenListResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByAdultCategory">
+			<documentation>
+				Get vcd objects that are marked adult, and that are in a specific adult category.
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdByAdultCategory"/>
+			<output message="typens:SoapMovieServices..getVcdByAdultCategoryResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByAdultStudio">
+			<documentation>
+				Get all vcd objects that are linked to a specific adult studio.
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdByAdultStudio"/>
+			<output message="typens:SoapMovieServices..getVcdByAdultStudioResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByCategory">
+			<documentation>
+				Get all vcd objects that belong to a certain category ID.
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdByCategory"/>
+			<output message="typens:SoapMovieServices..getVcdByCategoryResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByCategoryFiltered">
+			<documentation>
+				Get all vcd objects that belong to a certain category ID.
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdByCategoryFiltered"/>
+			<output message="typens:SoapMovieServices..getVcdByCategoryFilteredResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByID">
+			<documentation>
+				Get movie by ID
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdByID"/>
+			<output message="typens:SoapMovieServices..getVcdByIDResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..getVcdForListByIds">
+			<documentation>
+				Get specific movies by ID's.
+			</documentation>
+			<input message="typens:SoapMovieServices..getVcdForListByIds"/>
+			<output message="typens:SoapMovieServices..getVcdForListByIdsResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..markVcdWithScreenshots">
+			<documentation>
+				Set the screenshot flag on a specified movie object.
+			</documentation>
+			<input message="typens:SoapMovieServices..markVcdWithScreenshots"/>
+			<output message="typens:SoapMovieServices..markVcdWithScreenshotsResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..search">
+			<documentation>
+				Search the database.
+			</documentation>
+			<input message="typens:SoapMovieServices..search"/>
+			<output message="typens:SoapMovieServices..searchResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..updateVcd">
+			<documentation>
+				Update movie
+			</documentation>
+			<input message="typens:SoapMovieServices..updateVcd"/>
+			<output message="typens:SoapMovieServices..updateVcdResponse"/>
+		</operation>
+		<operation name="SoapMovieServices..updateVcdInstance">
+			<documentation>
+				Update instance of a movie object, updated the media type and the cd count.
+			</documentation>
+			<input message="typens:SoapMovieServices..updateVcdInstance"/>
+			<output message="typens:SoapMovieServices..updateVcdInstanceResponse"/>
+		</operation>
+	</portType>
+	<binding name="MovieServicesBinding" type="typens:MovieServicesPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="SoapMovieServices..addVcd">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..addVcdToUser">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..advancedSearch">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..crossJoin">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..deleteVcdFromUser">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getAllVcdByUserId">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getAllVcdForList">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getCategoryCount">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getCategoryCountFiltered">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getDuplicationList">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getLatestVcdsByUserID">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getMovieCount">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getPrintViewList">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getRandomMovie">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getScreenshots">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getSimilarMovies">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getTopTenList">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByAdultCategory">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByAdultStudio">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByCategory">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByCategoryFiltered">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdByID">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..getVcdForListByIds">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..markVcdWithScreenshots">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..search">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..updateVcd">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapMovieServices..updateVcdInstance">
+			<soap:operation soapAction="urn:MovieServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="vcddb.konni.comService">
+		<port name="MovieServicesPort" binding="typens:MovieServicesBinding">
+			<soap:address location="http://konni"/>
+		</port>
+	</service>
+</definitions>

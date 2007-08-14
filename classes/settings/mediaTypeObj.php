@@ -170,6 +170,27 @@ class mediaTypeObj implements XMLable {
 		return $xmlstr;
 	}
 	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		
+		$children = array();
+		foreach ($this->children as $obj) {
+			array_push($children, $obj->toSoapEncoding());
+		}
+		
+		return array(
+			'media_type_id' => $this->media_type_id,
+			'media_type_name' => $this->media_type_name,
+			'media_type_description' => $this->media_type_description,
+			'parent_id' => $this->parent_id,
+			'children' => $children
+		);
+	}
+	
 
 
 

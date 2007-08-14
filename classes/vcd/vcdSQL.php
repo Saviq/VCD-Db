@@ -1056,6 +1056,55 @@ class vcdSQL extends VCDConnection {
 		}
 	}
 
+	
+	
+	public function getDuplicationList($ignore_id) {
+		try {
+			
+						
+			if (is_numeric($ignore_id)) {
+				$query = "SELECT external_id, COUNT(external_id) AS numocc FROM ".$this->TABLE_vcdtosources." s 
+					  INNER JOIN ".$this->TABLE_vcd." v ON v.vcd_id = s.vcd_id and v.category_id <> ".$ignore_id."
+					  GROUP BY external_id HAVING ( COUNT(external_id) > 1 )";	
+			} else {
+				$query = "SELECT external_id, COUNT(external_id) AS numocc FROM ".$this->TABLE_vcdtosources." s 
+					  INNER JOIN ".$this->TABLE_vcd." v ON v.vcd_id = s.vcd_id 
+					  GROUP BY external_id HAVING ( COUNT(external_id) > 1 )";
+			}
+		
+			
+			$entryQuery = "SELECT v.vcd_id, s.site_id from ".$this->TABLE_vcd." v 
+						  INNER JOIN ".$this->TABLE_vcdtosources." s ON s.vcd_id = v.vcd_id
+						  WHERE s.external_id = '%s' ORDER BY vcd_id ASC";
+			
+			$resultArr = array();
+			$rs = $this->db->Execute($query);
+			if ($rs) {
+				foreach ($rs as $row) {
+					$external_id = $row[0];
+					$query = sprintf($entryQuery, $external_id);
+					$listResults = $this->db->Execute($query);
+					if ($listResults) {
+						$list = array();
+						foreach ($listResults as $rows) {
+							array_push($list, $this->getVcdByID($rows[0]));
+						}
+						if (sizeof($list) > 0) {
+							array_push($resultArr, $list);
+						}
+					}
+				}
+			}
+			
+			return $resultArr;
+			
+			
+		} catch (Exception $ex) {
+			throw new VCDException($ex->getMessage(), $ex->getCode());
+		}
+	}
+
+	
 	public function getPrintViewList($user_id, $arr_use = null, $arr_exclude = null, $thumbnail_id) {
 		try {
 

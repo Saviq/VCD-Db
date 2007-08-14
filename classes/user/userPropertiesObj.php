@@ -89,6 +89,18 @@ class userPropertiesObj implements XMLable {
 	}
 	
 
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'property_id'			=>	$this->property_id,
+			'property_name' 		=> $this->property_name,
+			'property_description'  => $this->property_description
+		);
+	}
 
 
 }

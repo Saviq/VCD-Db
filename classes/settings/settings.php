@@ -814,6 +814,10 @@ class vcd_settings implements ISettings {
 	public function getBorrowerByID($borrower_id) {
 		try {
 
+			if (!VCDUtils::isLoggedIn()) {
+				throw new VCDSecurityException('Unauthorized function call.');
+			}
+			
 			if (!is_numeric($borrower_id)) {
 				throw new VCDInvalidArgumentException('Borrower Id must be numeric');
 			}
@@ -1262,7 +1266,12 @@ class vcd_settings implements ISettings {
 				throw new VCDInvalidArgumentException('Movie Id must be numeric');
 			}
 
-			return $this->SQL->isOnWishList($vcd_id, VCDUtils::getUserID());
+			$user_id = VCDUtils::getUserID();
+			if (is_null($user_id)) {
+				throw new VCDException('User is not logged in.');
+			}
+			
+			return $this->SQL->isOnWishList($vcd_id, $user_id);
 
 		} catch (Exception $ex) {
 			throw $ex;

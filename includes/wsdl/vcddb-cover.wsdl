@@ -1,0 +1,492 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<definitions name="http://vcddb.konni.com" 
+	targetNamespace="urn:http://vcddb.konni.com" 
+	xmlns:typens="urn:http://vcddb.konni.com" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<types>
+		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:http://vcddb.konni.com">
+		<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ 		<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+	 		<xsd:complexType name="ArrayOfString">
+				  <xsd:complexContent>
+					   <xsd:restriction base="SOAP-ENC:Array">
+					    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+					   </xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfDecimal">
+			  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="decimal[]"/>
+				   </xsd:restriction>
+			</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="cdcoverObj">
+				<xsd:all>
+					<xsd:element name="cover_id" type="xsd:decimal"/>
+					<xsd:element name="covertype_id" type="xsd:decimal"/>
+					<xsd:element name="coverTypeDescription" type="xsd:string"/>
+					<xsd:element name="covertypeName" type="xsd:string"/>
+					<xsd:element name="date_added" type="xsd:string"/>
+					<xsd:element name="filename" type="xsd:string"/>
+					<xsd:element name="filesize" type="xsd:double"/>
+					<xsd:element name="image_id" type="xsd:decimal"/>
+					<xsd:element name="owner_id" type="xsd:decimal"/>
+					<xsd:element name="vcd_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfCdcoverObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:cdcoverObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="cdcoverTypeObj">
+				<xsd:all>
+					<xsd:element name="covertype_id" type="xsd:decimal"/>
+					<xsd:element name="coverTypeDescription" type="xsd:string"/>
+					<xsd:element name="covertypeName" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfCdcoverTypeObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:cdcoverTypeObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="mediaTypeObj">
+				<xsd:all>
+					<xsd:element name="children" type="typens:ArrayOfMediaTypeObj"/>
+					<xsd:element name="media_type_description" type="xsd:string"/>
+					<xsd:element name="media_type_id" type="xsd:decimal"/>
+					<xsd:element name="media_type_name" type="xsd:string"/>
+					<xsd:element name="parent_id" type="xsd:decimal"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfMediaTypeObj">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:mediaTypeObj[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
+		</xsd:schema>
+	</types>
+	<message name="SoapCoverServices..addCover">
+		<part name="obj" type="typens:cdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..addCoverResponse"/>
+	<message name="SoapCoverServices..addCoverType">
+		<part name="obj" type="typens:cdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..addCoverTypeResponse"/>
+	<message name="SoapCoverServices..addCoverTypesToMedia">
+		<part name="mediaTypeID" type="xsd:decimal"/>
+		<part name="coverTypeIDArr" type="typens:ArrayOfDecimal"/>
+	</message>
+	<message name="SoapCoverServices..addCoverTypesToMediaResponse"/>
+	<message name="SoapCoverServices..deleteCover">
+		<part name="cover_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..deleteCoverResponse"/>
+	<message name="SoapCoverServices..deleteCoverType">
+		<part name="type_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..deleteCoverTypeResponse"/>
+	<message name="SoapCoverServices..getAllCovers"/>
+	<message name="SoapCoverServices..getAllCoversResponse">
+		<part name="SoapCoverServices..getAllCoversReturn" type="typens:ArrayOfCdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllCoversForVcd">
+		<part name="vcd_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getAllCoversForVcdResponse">
+		<part name="SoapCoverServices..getAllCoversForVcdReturn" type="typens:ArrayOfCdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllCoverTypes"/>
+	<message name="SoapCoverServices..getAllCoverTypesResponse">
+		<part name="SoapCoverServices..getAllCoverTypesReturn" type="typens:ArrayOfCdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllCoverTypesForVcd">
+		<part name="mediatype_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getAllCoverTypesForVcdResponse">
+		<part name="SoapCoverServices..getAllCoverTypesForVcdReturn" type="typens:ArrayOfCdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllowedCoversForVcd">
+		<part name="mediaTypeObjArr" type="typens:ArrayOfMediaTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllowedCoversForVcdResponse">
+		<part name="SoapCoverServices..getAllowedCoversForVcdReturn" type="typens:ArrayOfCdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getAllThumbnailsForXMLExport">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getAllThumbnailsForXMLExportResponse">
+		<part name="SoapCoverServices..getAllThumbnailsForXMLExportReturn" type="typens:ArrayOfCdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..getCDcoverTypesOnMediaType">
+		<part name="mediaType_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getCDcoverTypesOnMediaTypeResponse">
+		<part name="SoapCoverServices..getCDcoverTypesOnMediaTypeReturn" type="typens:ArrayOfCdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getCoverById">
+		<part name="cover_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getCoverByIdResponse">
+		<part name="SoapCoverServices..getCoverByIdReturn" type="typens:cdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..getCoverTypeById">
+		<part name="covertype_id" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..getCoverTypeByIdResponse">
+		<part name="SoapCoverServices..getCoverTypeByIdReturn" type="typens:cdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..getCoverTypeByName">
+		<part name="name" type="xsd:string"/>
+	</message>
+	<message name="SoapCoverServices..getCoverTypeByNameResponse">
+		<part name="SoapCoverServices..getCoverTypeByNameReturn" type="typens:cdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..moveCoversToDatabase"/>
+	<message name="SoapCoverServices..moveCoversToDatabaseResponse">
+		<part name="moveCoversToDatabaseReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..moveCoversToDisk"/>
+	<message name="SoapCoverServices..moveCoversToDiskResponse">
+		<part name="SoapCoverServices..moveCoversToDiskReturn" type="xsd:decimal"/>
+	</message>
+	<message name="SoapCoverServices..updateCover">
+		<part name="obj" type="typens:cdcoverObj"/>
+	</message>
+	<message name="SoapCoverServices..updateCoverResponse"/>
+	<message name="SoapCoverServices..updateCoverType">
+		<part name="obj" type="typens:cdcoverTypeObj"/>
+	</message>
+	<message name="SoapCoverServices..updateCoverTypeResponse"/>
+	<portType name="CoverServicesPortType">
+		<documentation>
+			Provide the Web UI access to the Cover Services.
+		</documentation>
+		<operation name="SoapCoverServices..addCover">
+			<documentation>
+				Add a new cover to VCD-db
+			</documentation>
+			<input message="typens:SoapCoverServices..addCover"/>
+			<output message="typens:SoapCoverServices..addCoverResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..addCoverType">
+			<documentation>
+				Add a new coverType object
+			</documentation>
+			<input message="typens:SoapCoverServices..addCoverType"/>
+			<output message="typens:SoapCoverServices..addCoverTypeResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..addCoverTypesToMedia">
+			<documentation>
+				Assign a new coverType object to a specified mediaType.
+			</documentation>
+			<input message="typens:SoapCoverServices..addCoverTypesToMedia"/>
+			<output message="typens:SoapCoverServices..addCoverTypesToMediaResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..deleteCover">
+			<documentation>
+				Delete a specific cover from VCD-db
+			</documentation>
+			<input message="typens:SoapCoverServices..deleteCover"/>
+			<output message="typens:SoapCoverServices..deleteCoverResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..deleteCoverType">
+			<documentation>
+				Delete a specific cover type object
+			</documentation>
+			<input message="typens:SoapCoverServices..deleteCoverType"/>
+			<output message="typens:SoapCoverServices..deleteCoverTypeResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllCovers">
+			<documentation>
+				Get all Covers stored in VCD-db.
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllCovers"/>
+			<output message="typens:SoapCoverServices..getAllCoversResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoversForVcd">
+			<documentation>
+				Get all cover objects that belong to a specified movie, returns array of cdcover objects
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllCoversForVcd"/>
+			<output message="typens:SoapCoverServices..getAllCoversForVcdResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoverTypes">
+			<documentation>
+				Get all cover types in VCD-db, returns array of coverType objects
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllCoverTypes"/>
+			<output message="typens:SoapCoverServices..getAllCoverTypesResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoverTypesForVcd">
+			<documentation>
+				Get all coverTypes used by this specific movie, returns array of coverType objects
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllCoverTypesForVcd"/>
+			<output message="typens:SoapCoverServices..getAllCoverTypesForVcdResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllowedCoversForVcd">
+			<documentation>
+				Get all cdcoverType objects associated with incoming mediaType objects.
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllowedCoversForVcd"/>
+			<output message="typens:SoapCoverServices..getAllowedCoversForVcdResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getAllThumbnailsForXMLExport">
+			<documentation>
+				Get all thumbnails that the specified user has created in VCD-db, returns array of cdcover objects.
+			</documentation>
+			<input message="typens:SoapCoverServices..getAllThumbnailsForXMLExport"/>
+			<output message="typens:SoapCoverServices..getAllThumbnailsForXMLExportResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getCDcoverTypesOnMediaType">
+			<documentation>
+				Get All coverType associated with the specified mediaType ID, returns array of cdcoverType objects.
+			</documentation>
+			<input message="typens:SoapCoverServices..getCDcoverTypesOnMediaType"/>
+			<output message="typens:SoapCoverServices..getCDcoverTypesOnMediaTypeResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getCoverById">
+			<documentation>
+				The a specific cover by ID
+			</documentation>
+			<input message="typens:SoapCoverServices..getCoverById"/>
+			<output message="typens:SoapCoverServices..getCoverByIdResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getCoverTypeById">
+			<documentation>
+				Get coverType object by ID
+			</documentation>
+			<input message="typens:SoapCoverServices..getCoverTypeById"/>
+			<output message="typens:SoapCoverServices..getCoverTypeByIdResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..getCoverTypeByName">
+			<documentation>
+				Get coverType object by Name
+			</documentation>
+			<input message="typens:SoapCoverServices..getCoverTypeByName"/>
+			<output message="typens:SoapCoverServices..getCoverTypeByNameResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..moveCoversToDatabase">
+			<documentation>
+				Move all CD-covers in VCD-db from harddrive to database
+			</documentation>
+			<input message="typens:SoapCoverServices..moveCoversToDatabase"/>
+			<output message="typens:SoapCoverServices..moveCoversToDatabaseResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..moveCoversToDisk">
+			<documentation>
+				Move all CD-covers in VCD-db from database to harddrive
+			</documentation>
+			<input message="typens:SoapCoverServices..moveCoversToDisk"/>
+			<output message="typens:SoapCoverServices..moveCoversToDiskResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..updateCover">
+			<documentation>
+				Update cover object
+			</documentation>
+			<input message="typens:SoapCoverServices..updateCover"/>
+			<output message="typens:SoapCoverServices..updateCoverResponse"/>
+		</operation>
+		<operation name="SoapCoverServices..updateCoverType">
+			<documentation>
+				Update specific coverType object
+			</documentation>
+			<input message="typens:SoapCoverServices..updateCoverType"/>
+			<output message="typens:SoapCoverServices..updateCoverTypeResponse"/>
+		</operation>
+	</portType>
+	<binding name="CoverServicesBinding" type="typens:CoverServicesPortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="SoapCoverServices..addCover">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..addCoverType">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..addCoverTypesToMedia">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..deleteCover">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..deleteCoverType">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllCovers">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoversForVcd">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoverTypes">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllCoverTypesForVcd">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllowedCoversForVcd">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getAllThumbnailsForXMLExport">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getCDcoverTypesOnMediaType">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getCoverById">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getCoverTypeById">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..getCoverTypeByName">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..moveCoversToDatabase">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..moveCoversToDisk">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..updateCover">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="SoapCoverServices..updateCoverType">
+			<soap:operation soapAction="urn:CoverServicesAction"/>
+			<input>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="vcddb.konni.comService">
+		<port name="CoverServicesPort" binding="typens:CoverServicesBinding">
+			<soap:address location="http://konni"/>
+		</port>
+	</service>
+</definitions>

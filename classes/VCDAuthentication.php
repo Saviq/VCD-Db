@@ -37,6 +37,13 @@
 			if ((bool)LDAP_AUTH) {
 				$LDAPAuthClass = new VCDLdapAuthentication();
 				return $LDAPAuthClass->Authenticate($username, $password, $save_session);
+			} elseif (VCDDB_USEPROXY) {
+				$SoapAuthClass = new SoapAuthenticationProxy();
+				if ($SoapAuthClass->authenticate($username, $password)) {
+					return UserServices::getUserByUsername($username);
+				} else {
+					return null;
+				}
 			}
 			
 			$password = md5($password);

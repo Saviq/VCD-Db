@@ -252,6 +252,35 @@ class userObj extends userRoleObj implements XMLable {
 	}
 	
 	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		
+		$props = array();
+		foreach ($this->userPropertiesArr as $propObj) {
+			array_push($props, $propObj->toSoapEncoding());
+		}
+		
+		return array(
+			'dateCreated'	   	=> $this->dateCreated,
+			'email'			   	=> $this->email,
+			'fullname'		   	=> utf8_encode($this->fullname),
+			'isDeleted'		   	=> (bool)$this->isDeleted,
+			'isDirectoryUser'  	=> (bool)$this->isDirectoryUser,
+			'password'		   	=> $this->password,
+			'role_description' 	=> $this->role_description,
+			'role_id'		   	=> $this->role_id,
+			'role_name'		   	=> $this->role_name,
+			'user_id'		   	=> $this->user_id,
+			'username'			=> $this->username,
+			'userPropertiesArr' => $props
+		);
+	}
+	
+	
 }
 
 ?>

@@ -2105,7 +2105,7 @@ class PornstarServices extends VCDServices {
 	 * Assign movie to studio object.
 	 *
 	 * @param int $studio_id | The ID of the studio object
-	 * @param itn $vcd_id | The ID of the movie object.
+	 * @param int $vcd_id | The ID of the movie object.
 	 */
 	public static function addMovieToStudio($studio_id, $vcd_id) {
 		try {
@@ -2790,6 +2790,22 @@ class MovieServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Get list of duplicate movies in the database
+	 *
+	 * @return array | Returns array of duplicate movie data
+	 */
+	public static function getDuplicationList() {
+		try {
+			
+			return self::Movie()->getDuplicationList();
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 }
 
 
@@ -2800,8 +2816,8 @@ class MovieServices extends VCDServices {
 abstract class VCDServices {
 	
 	private static $forwardError = false;
-	
-	
+	protected static $isWebserviceCall = false;
+		
 	/**
 	 * Disable the Web UI error handling, useful for Ajax and SOAP calls
 	 *
@@ -2824,12 +2840,17 @@ abstract class VCDServices {
 	}
 	
 	/**
-	 * Get an instantce of the vcd_movie class
+	 * Get an instance of the vcd_movie class
 	 *
 	 * @return vcd_movie
 	 */
 	protected static function Movie() {
-		return VCDClassFactory::getInstance('vcd_movie');
+		if (self::usingProxy()) {
+			return VCDClassFactory::getInstance('SoapMovieProxy');
+		} else {
+			return VCDClassFactory::getInstance('vcd_movie');	
+		}
+		
 	}
 
 	/**
@@ -2838,7 +2859,11 @@ abstract class VCDServices {
 	 * @return vcd_user
 	 */
 	protected static function User() {
-		return VCDClassFactory::getInstance('vcd_user');
+		if (self::usingProxy()) {
+			return VCDClassFactory::getInstance('SoapUserProxy');
+		} else {
+			return VCDClassFactory::getInstance('vcd_user');
+		}
 	}
 	
 	/**
@@ -2847,7 +2872,12 @@ abstract class VCDServices {
 	 * @return vcd_pornstar
 	 */
 	protected static function Pornstar() {
-		return VCDClassFactory::getInstance('vcd_pornstar');
+		
+		if (self::usingProxy()) {
+			return VCDClassFactory::getInstance('SoapPornstarProxy');
+		} else {
+			return VCDClassFactory::getInstance('vcd_pornstar');
+		}
 	}
 	
 	/**
@@ -2856,7 +2886,11 @@ abstract class VCDServices {
 	 * @return vcd_cdcover
 	 */
 	protected static function CDcover() {
-		return VCDClassFactory::getInstance('vcd_cdcover');
+		if (self::usingProxy()) {
+			return VCDClassFactory::getInstance('SoapCoverProxy');
+		} else {
+			return VCDClassFactory::getInstance('vcd_cdcover');	
+		}
 	}
 	
 	/**
@@ -2865,8 +2899,17 @@ abstract class VCDServices {
 	 * @return vcd_settings
 	 */
 	protected static function Settings() {
-		return VCDClassFactory::getInstance('vcd_settings');
+		if (self::usingProxy()) {
+			return VCDClassFactory::getInstance('SoapSettingsProxy');	
+		} else {
+			return VCDClassFactory::getInstance('vcd_settings');	
+		}
 	}
+	
+	protected static function usingProxy() {
+		return (bool)(VCDDB_USEPROXY == 1 && !self::$isWebserviceCall);
+	}
+	
 }
 
 ?>

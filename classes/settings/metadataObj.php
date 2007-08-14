@@ -190,8 +190,29 @@ class metadataObj extends metadataTypeObj implements XMLable {
 		return $xmlstr;
 		
 	}
+	
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'mediatype_id' => $this->mediatype_id,
+			'metadata_id'  => $this->metadata_id,
+			'metadata_value' => $this->metadata_value,
+			'metatype_description' => $this->metatype_description,
+			'metatype_id' => $this->metatype_id,
+			'metatype_level' => $this->metatype_level,
+			'metatype_name' => $this->metatype_name,
+			'record_id' => $this->record_id,
+			'user_id' => $this->user_id);
+	}
 
 }
+
+
 
 
 /**
@@ -352,6 +373,23 @@ class metadataTypeObj {
 		return $this->metatype_description;
 	}
 
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'desc' => $this->metatype_description,
+			'id'	=> $this->metatype_id,
+			'level' => $this->metatype_level,
+			'name' => $this->metatype_name
+		);
+	}
+	
+	
+	
 
 	/**
 	 * Get the string mapping for the current SYSTEM constant.

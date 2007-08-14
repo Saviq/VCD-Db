@@ -200,6 +200,28 @@ function executeTask($task_id) {
 				$message = $task_id."|"."Deleted {$iDeletecounter} files from cache folder.";
 				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				break;
+				
+				
+			case 5:		// Fix and update duplicate entries
+				$list = MovieServices::getDuplicationList();
+
+				if (sizeof($list) > 0) {
+					
+					foreach ($list as $listArray) {
+						foreach ($listArray as $movieObj) {
+							print $movieObj->getTitle() . "<br>";
+						}
+						print "<hr>";
+					}
+					
+				}
+				
+				
+				die('<br>done');
+			
+			
+			
+				break;
 			
 		}
 		

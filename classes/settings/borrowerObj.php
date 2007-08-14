@@ -98,9 +98,24 @@ class borrowerObj {
 	 * @return array
 	 */
 	public function getList() {
-    return array("id"   => $this->id,
+    	return array("id"   => $this->id,
                  "name" => $this->name);
 	}
+	
+	/**
+	 * Get this object as SOAP encoded array
+	 *
+	 * @return array
+	 */
+	public function toSoapEncoding() {
+		return array(
+			'email' => $this->email,
+			'id' => $this->id,
+			'name' => utf8_encode($this->name),
+			'owner_id' => $this->owner_id
+		);
+	}
+	
 	
 }
 ?>
