@@ -100,6 +100,8 @@ class VCDLog {
 	public static function isInLogList($EVENT_TYPE) {
 		try {
 		
+			if (VCDDB_USEPROXY==1) {return false;}
+			
 			if (is_array(self::$logItems)) {
 				return in_array($EVENT_TYPE, self::$logItems);
 			}

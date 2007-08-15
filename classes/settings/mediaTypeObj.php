@@ -64,8 +64,7 @@ class mediaTypeObj implements XMLable {
 		if (!isset($this->parent_id)) {
 			return $this->getName();
 		} else {
-			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-			$parent_name = $SETTINGSClass->getMediaTypeByID($this->parent_id)->getName();
+			$parent_name = SettingsServices::getMediaTypeByID($this->parent_id)->getName();
 			return $parent_name . " " . $this->getName();
 		}
 		

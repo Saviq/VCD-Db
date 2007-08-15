@@ -32,8 +32,15 @@ printTr(false);
 
 printTr();
 printRow("Fix duplicate entries");
-printRow(getTaskStatus(4));
+printRow(getTaskStatus(5));
 printRow("<a href=\"javascript:runTask(5);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
+printTr(false);
+			
+
+printTr();
+printRow("Fix broken pornstar images");
+printRow(getTaskStatus(6));
+printRow("<a href=\"javascript:runTask(6);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
 printTr(false);
 			
 printTableClose();

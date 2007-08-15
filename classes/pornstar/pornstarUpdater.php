@@ -425,7 +425,10 @@ class pornstarUpdater {
 				case 'serverupdate':
 				case 'clientserverupdate':
 					PornstarServices::disableErrorHandler();
-					$pornstarObj = PornstarServices::getPornstarByName($data['name']);
+					$pornstarObj = PornstarServices::getPornstarByName(trim($data['name']));
+					if (!$pornstarObj instanceof pornstarObj ) {
+						return array();
+					}
 					$param = array(
 						'name' => utf8_encode(trim($pornstarObj->getName())),
 						'biography' =>  utf8_encode($pornstarObj->getBiography()),

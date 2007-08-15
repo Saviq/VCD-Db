@@ -222,6 +222,32 @@ function executeTask($task_id) {
 			
 			
 				break;
+				
+				
+				
+			case 6:		// Fix broken pornstar images
+				
+				$stars = PornstarServices::getAllPornstars();
+				$updateCounter = 0;
+				foreach ($stars as $star) {
+					$img = $star->getImageName();
+					if ($img != '') {
+						$img= 'upload/pornstars/'.$img;
+						$size = filesize($img);
+						$kb = $size/1024;
+						if ($kb < 3) {
+						   $star->setImageName('');	
+						   PornstarServices::updatePornstar($star);
+						   fs_unlink($img);
+						   $updateCounter++;
+						}
+					}
+				}
+				
+				$message = $task_id."|"."Fixed {$updateCounter} pornstar images.";
+				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
+				break;
+				
 			
 		}
 		
