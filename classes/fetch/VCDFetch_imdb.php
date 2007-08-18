@@ -40,13 +40,14 @@ class VCDFetch_imdb extends VCDFetch {
 
 
 	private $servername = 'akas.imdb.com';
-	private $searchpath = '/find?q=[$]';
+	private $searchpath = '/find?s=tt&q=[$]';
 	private $itempath   = '/title/tt[$]/';
 
 
 	public function __construct() {
 		$this->setSiteName("imdb");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
+		$this->useSnoopy();
 	}
 
 
