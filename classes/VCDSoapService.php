@@ -1,5 +1,4 @@
 <? 
-//error_reporting(E_ALL | E_NOTICE | E_STRICT);
 
 
 class VCDSoapService extends VCDServices {
@@ -26,11 +25,21 @@ class VCDSoapService extends VCDServices {
 	 */
 	private static $userObj = null;
 	
+	/**
+	 * Class constructor
+	 *
+	 * @param string $wsdl | The wsdl file to load
+	 */
 	public function __construct($wsdl) {
 		try {
 			
 			$this->checkCredentials();
-			$_wsdl = new wsdl(VCDDB_BASE.'/includes/wsdl/'.$wsdl);
+			if ($this->checkWSDLCache($wsdl)) {
+				$_wsdl = new wsdl(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$wsdl);
+			} else {
+				$_wsdl = new wsdl(VCDDB_BASE.'/includes/wsdl/'.$wsdl);	
+			}
+			
 			$this->server = new nusoap_server($_wsdl);
 			$this->server->soap_defencoding = 'UTF-8';
 			parent::$isWebserviceCall = true;
@@ -40,10 +49,40 @@ class VCDSoapService extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Provide service to the webservice caller
+	 *
+	 * @param string $request | The SOAP Request
+	 */
 	public function provideService($request) {
 		$this->server->service($request);
 	}
 	
+	/**
+	 * Check the cache folder for wsdl file, if not generate new one
+	 * with the correct endpoint url.
+	 *
+	 * @param string $wsdl | The wsdl file to use
+	 * @return bool | Returns true if file exist in the cache folder
+	 */
+	private function checkWSDLCache($wsdl) {
+		$wsdlFile = VCDDB_BASE.'/includes/wsdl/'.$wsdl;
+		if (file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$wsdl)) {
+			return true;
+		}
+		$tempUri = '<soap:address location="http://tempuri"/>';
+		$proto = "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
+		$uri = $proto.$_SERVER['HTTP_HOST'].$_SERVER[PHP_SELF];
+		$newUri = "<soap:address location=\"{$uri}\"/>";
+		$wsdlData = str_replace($tempUri,$newUri, file_get_contents($wsdlFile));
+		return VCDUtils::write(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$wsdl, $wsdlData);
+		
+	}
+	
+	/**
+	 * Check the HTTP header for credentials
+	 *
+	 */
 	private function checkCredentials() {
 		try {
 		
@@ -79,10 +118,6 @@ class SoapMovieServices extends MovieServices {
 	 */
 	public static function getVcdByID($movie_id) {
 		try {
-			
-			
-			//$obj = parent::getVcdByID($movie_id)->toSoapEncoding();
-			//throw new VCDException(print_r($obj, true));
 			
 			return parent::getVcdByID($movie_id)->toSoapEncoding();
 			
@@ -1045,6 +1080,16 @@ class SoapSettingsServices extends SettingsServices {
 			
 			return VCDSoapTools::EncodeArray(parent::getMovieCategoriesInUse());
 			
+		} catch (Exception $ex) {
+			return new soap_fault('1', 'Server', $ex->getMessage());
+		}
+	}
+	
+	public static function getMovieCategoryByID($category_id) {
+		try {
+		
+			return parent::getMovieCategoryByID($category_id)->toSoapEncoding();
+				
 		} catch (Exception $ex) {
 			return new soap_fault('1', 'Server', $ex->getMessage());
 		}

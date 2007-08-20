@@ -266,7 +266,7 @@
 				}
 			}
 			
-			print "<form method=\"post\" name=\"available\">";	
+			print "<form method=\"post\" name=\"available\" action=\"".$_SERVER['REQUEST_URI']."\">";	
 		
 			
 			if (sizeof($arrFiles) > 0 ) {

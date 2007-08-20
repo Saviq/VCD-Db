@@ -599,9 +599,9 @@
 			</output>
 		</operation>
 	</binding>
-	<service name="http://vcddb.konni.comService">
+	<service name="UserService">
 		<port name="UserServicesPort" binding="typens:UserServicesBinding">
-			<soap:address location="http://dev.konni.com/vcddb-ws/proxy/user.php"/>
+			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
 </definitions>

@@ -29,9 +29,9 @@
 			</output>
 		</operation>
 	</binding>
-	<service name="http://vcddb.konni.comService">
+	<service name="AuthenticationService">
 		<port name="SoapAuthenticationServicePort" binding="typens:SoapAuthenticationServiceBinding">
-			<soap:address location="http://konni/vcddb/proxy/authentication.php"/>
+			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
 </definitions>

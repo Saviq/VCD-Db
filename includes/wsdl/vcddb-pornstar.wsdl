@@ -687,9 +687,9 @@ the porncategory match is pushed to the result array.
 			</output>
 		</operation>
 	</binding>
-	<service name="http://vcddb.konni.comService">
+	<service name="PornstarService">
 		<port name="PornstarServicesPort" binding="typens:PornstarServicesBinding">
-			<soap:address location="http://dev.konni.com/vcddb-ws/proxy/pornstar.php"/>
+			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
 </definitions>

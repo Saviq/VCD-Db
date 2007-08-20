@@ -484,9 +484,9 @@
 			</output>
 		</operation>
 	</binding>
-	<service name="vcddb.konni.comService">
+	<service name="CoverService">
 		<port name="CoverServicesPort" binding="typens:CoverServicesBinding">
-			<soap:address location="http://konni"/>
+			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
 </definitions>

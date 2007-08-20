@@ -1644,9 +1644,9 @@
 			</output>
 		</operation>
 	</binding>
-	<service name="http://vcddb.konni.comService">
+	<service name="SettingsService">
 		<port name="SettingsServicesPort" binding="typens:SettingsServicesBinding">
-			<soap:address location="http://konni/vcddb/proxy/settings.php"/>
+			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
 </definitions>
