@@ -1,5 +1,20 @@
-<? 
-
+<?php
+/**
+ * VCD-db - a web based VCD/DVD Catalog system
+ * Copyright (C) 2003-2007 Konni - konni.com
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ * 
+ * @author  Hákon Birgisson <konni@konni.com>
+ * @package Kernel
+ * @version $Id: VCDSoapService.php 1062 2007-07-05 15:10:11Z konni $
+ * @since  0.990
+  */
+?>
+<?php
 
 class VCDSoapService extends VCDServices {
 
@@ -414,8 +429,7 @@ class SoapMovieServices extends MovieServices {
 								   $owner = null, $imdbgrade = null) {
 		try {
 			
-			return VCDSoapTools::EncodeArray(parent::advancedSearch($title, $category, $year, 
-				$mediatype, $owner, $imdbgrade));
+			return parent::advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
 			
 		} catch (Exception $ex) {
 			return new soap_fault('1', 'Server', $ex->getMessage());

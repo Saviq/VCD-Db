@@ -8,14 +8,13 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  HÃ¡kon Birgisson <konni@konni.com>
+ * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
- * @version $Id: VCDSoapService.php 1062 2007-07-05 15:10:11Z konni $
+ * @version $Id: VCDSoapProxy.php 1062 2007-07-05 15:10:11Z konni $
  * @since  0.990
   */
 ?>
 <?php
-//error_reporting(E_ALL | E_NOTICE | E_STRICT);
 
 require_once(dirname(__FILE__).'/VCDCache.php');
 
@@ -38,6 +37,10 @@ abstract class VCDProxy {
 	private $cachedData = null;
 	
 	
+	/**
+	 * Class constructor
+	 *
+	 */
 	protected function __construct() {
 		try { 
 			
@@ -46,7 +49,6 @@ abstract class VCDProxy {
             }
 			
 			$this->proxy = new nusoap_client($this->wsdl, true, false,false,false,false, $this->timeout, $this->responseTimeout);
-			$this->proxy->forceEndpoint = $this->proxyUri;
 			$this->proxy->soap_defencoding = 'UTF-8';
 			
 			$error = $this->proxy->getError();
@@ -59,10 +61,23 @@ abstract class VCDProxy {
 		}
 	}
 	
+	/**
+	 * Override non existing functions and throws error.
+	 *
+	 * @param string $func
+	 * @param array $params
+	 */
 	protected function __call($func, $params) {
 		throw new VCDProgramException('Function ' . $func . ' is not implemented');
 	}
 	
+	/**
+	 * Call the remote webservice
+	 *
+	 * @param string $action | The remtote method to call
+	 * @param array $params | The parameters to send
+	 * @return mixed | The webservice call results
+	 */
 	protected function call($action, $params) {
 		try {
 			
@@ -95,7 +110,14 @@ abstract class VCDProxy {
 			throw $ex;
 		}
 	}
-		
+
+	/**
+	 * Check for cached data if the cache manager is being used.
+	 *
+	 * @param string $func | The function name mapped to cache ID
+	 * @param array $params | The parameters used to invoke the functions
+	 * @return mixed
+	 */
 	private function checkCache($func, $params) {
 		try {
 
@@ -121,6 +143,13 @@ abstract class VCDProxy {
 		}
 	}
 	
+	/**
+	 * Add data to cache
+	 *
+	 * @param mixed $data | The data to store in the cache
+	 * @param string $func | The id of the cached item
+	 * @param array $params | The parameters that were used to invoke the function
+	 */
 	private function addToCache($data, $func, $params) {
 		try {
 			
@@ -140,6 +169,11 @@ abstract class VCDProxy {
 		}
 	}
 	
+	/**
+	 * Check the wsdl cache before fetching the wsdl remotely
+	 *
+	 * @param string $wsdlLocation
+	 */
 	private function checkWSDLCache($wsdlLocation) {
         $filename = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.md5($wsdlLocation).'.wsdl';
         if (file_exists($filename)) {
@@ -883,13 +917,11 @@ class SoapMovieProxy extends VCDProxy {
 								   $owner = null, $imdbgrade = null) {
 		try {
 			
+			
 			$data = $this->invoke('advancedSearch',array('title' => $title, 'category' => $category,
 				'year' => $year, 'mediatype' => $mediatype, 'owner' => $owner, 'imdbgrade' => $imdbgrade));
-			$results = array();
-			foreach ($data as $obj) {
-				array_push($results, VCDSoapTools::GetVcdObj($obj));
-			}
-			return $results;
+			
+			return $data;
 			
 		} catch (Exception $ex) {
 			throw $ex;

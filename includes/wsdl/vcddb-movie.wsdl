@@ -230,6 +230,25 @@
 				   </xsd:restriction>
 				  </xsd:complexContent>
 			</xsd:complexType>
+			<xsd:complexType name="advancedSearchResults">
+				<xsd:all>
+					<xsd:element name="id" type="xsd:decimal"/>
+					<xsd:element name="title" type="xsd:string"/>
+					<xsd:element name="cat_id" type="xsd:decimal"/>
+					<xsd:element name="year" type="xsd:decimal"/>
+					<xsd:element name="media_id" type="xsd:decimal"/>
+					<xsd:element name="rating" type="xsd:float"/>
+					<xsd:element name="category" type="xsd:string"/>
+					<xsd:element name="media_type" type="xsd:string"/>
+				</xsd:all>
+			</xsd:complexType>
+			<xsd:complexType name="ArrayOfAdvancedSearchResults">
+				  <xsd:complexContent>
+				   <xsd:restriction base="SOAP-ENC:Array">
+				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:advancedSearchResults[]"/>
+				   </xsd:restriction>
+				  </xsd:complexContent>
+			</xsd:complexType>
 		</xsd:schema>
 	</types>
 	<message name="SoapMovieServices..addVcd">
@@ -254,7 +273,7 @@
 		<part name="imdbgrade" type="xsd:float"/>
 	</message>
 	<message name="SoapMovieServices..advancedSearchResponse">
-		<part name="SoapMovieServices..advancedSearchReturn" type="typens:ArrayOfVcdObj"/>
+		<part name="SoapMovieServices..advancedSearchReturn" type="typens:ArrayOfAdvancedSearchResults"/>
 	</message>
 	<message name="SoapMovieServices..crossJoin">
 		<part name="user_id" type="xsd:decimal"/>
