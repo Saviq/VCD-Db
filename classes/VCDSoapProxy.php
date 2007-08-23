@@ -48,13 +48,29 @@ abstract class VCDProxy {
                 $this->checkWSDLCache($this->wsdl);
             }
 			
-			$this->proxy = new nusoap_client($this->wsdl, true, false,false,false,false, $this->timeout, $this->responseTimeout);
-			$this->proxy->soap_defencoding = 'UTF-8';
+            if (extension_loaded('soap')) {
+                       	
+            	if (VCDUtils::isLoggedIn()) {
+					$userObj = $_SESSION['user'];
+					$this->proxy = new SoapClient($this->wsdl, 
+						array('login' => $userObj->getUsername(), 
+							'password' => $userObj->getPassword()));
+				} else {
+					$this->proxy = new SoapClient($this->wsdl);
+				}
+            	
+            } else {
+            	
+            	$this->proxy = new nusoap_client($this->wsdl, true, false,false,false,false, $this->timeout, $this->responseTimeout);
+				$this->proxy->soap_defencoding = 'UTF-8';
+				$error = $this->proxy->getError();
+				if ($error) {
+					throw new VCDProgramException($error);	
+				}	
+				
+            }
+            
 			
-			$error = $this->proxy->getError();
-			if ($error) {
-				throw new VCDProgramException($error);	
-			}
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -86,20 +102,32 @@ abstract class VCDProxy {
 				return $this->cachedData;	
 			}
 			
-			if (VCDUtils::isLoggedIn()) {
-				$userObj = $_SESSION['user'];
-				$this->proxy->setCredentials($userObj->getUsername(), $userObj->getPassword(), 'basic');
-			}
 			
-			$result = $this->proxy->call($action, $params, $this->namespace, $this->soapaction);
-			
-			if ($this->proxy->fault) {
-				throw new VCDSoapException($this->proxy->faultstring, $this->proxy->fault);
-			}
-			
-			$error = $this->proxy->getError();
-			if ($error) {
-				throw new VCDProgramException("Action: ".$action . "<break>Error: ".$error);
+			if ($this->proxy instanceof SoapClient ) {
+
+				$result = $this->proxy->__soapCall($action, $params);
+				if (is_soap_fault($result)) {
+					throw new VCDProgramException("Action: ".$action . "<break>Error: ".$result->faultstring, $result->faultcode);
+				}
+					
+			} else {
+
+				if (VCDUtils::isLoggedIn()) {
+					$userObj = $_SESSION['user'];
+					$this->proxy->setCredentials($userObj->getUsername(), $userObj->getPassword(), 'basic');
+				}
+				
+				$result = $this->proxy->call($action, $params, $this->namespace, $this->soapaction);
+				
+				if ($this->proxy->fault) {
+					throw new VCDSoapException($this->proxy->faultstring, $this->proxy->fault);
+				}
+				
+				$error = $this->proxy->getError();
+				if ($error) {
+					throw new VCDProgramException("Action: ".$action . "<break>Error: ".$error);
+				}
+				
 			}
 			
 			$this->addToCache($result, $action, $params);
@@ -3131,6 +3159,10 @@ class VCDSoapTools {
 	 */
 	public static final function GetPornstarObj($data) {
 		
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
+		
 		if (!(isset($data['id']) && isset($data['name']))) {
 			return null;
 		}
@@ -3156,10 +3188,16 @@ class VCDSoapTools {
 	}
 		
 	public static final function GetPornCategoryObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new porncategoryObj(array($data['id'], $data['name']));
 	}
 	
 	public static final function GetStudioObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		if (isset($data['id']) && isset($data['name'])) {
 			return new studioObj(array($data['id'], $data['name']));	
 		} else {
@@ -3168,23 +3206,37 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetSettingsObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new settingsObj(array($data['id'],$data['key'],
 			$data['value'],$data['description'],$data['isProtected'], $data['type']));
 	}
 	
 	public static final function GetMetadataObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new metadataObj(array($data['metadata_id'], $data['record_id'], $data['user_id'],
 			$data['metatype_name'], $data['metadata_value'], $data['mediatype_id'], $data['metatype_id'],
 			$data['user_id'], $data['metatype_description']));
 	}
 
 	public static final function GetSourceSiteObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new sourceSiteObj(array($data['site_id'], $data['site_name'], $data['site_alias'], 
 			$data['site_homepage'], $data['site_getCommand'],$data['isFetchable'], $data['site_classname'],
 			$data['site_image']));
 	}
 	
 	public static final function GetMovieCategoryObj($data) {
+		
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
+		
 		$obj = new movieCategoryObj(array($data['category_id'], $data['category_name']));
 		if (isset($data['category_count']) && is_numeric($data['category_count'])) {
 			$obj->setCategoryCount($data['category_count']);
@@ -3194,6 +3246,9 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetUserObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		$obj = new userObj(array($data['user_id'], $data['username'], $data['password'],
 			$data['fullname'], $data['email'], $data['role_id'], $data['role_name'],
 			$data['isDeleted'], $data['dateCreated']));
@@ -3208,7 +3263,9 @@ class VCDSoapTools {
 	
 	
 	public static final function GetImdbObj($data) {
-		
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		if (!is_array($data)) {
 			return null;
 		}
@@ -3224,6 +3281,9 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetVcdObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		$obj = new vcdObj(array($data['id'], $data['title'], $data['category_id'], $data['year']));
 		
 		$imdbObj = self::GetImdbObj($data['imdbObj']);
@@ -3283,50 +3343,80 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetUserRole($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new userRoleObj(array($data['role_id'], $data['role_name'], $data['role_description']));
 	}
 	
 	
 	public static final function GetUserPropertyObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new userPropertiesObj(array($data['property_id'], $data['property_name'], $data['property_description']));
 	}
 	
 	public static final function GetBorrowerObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new borrowerObj(array($data['id'], $data['owner_id'], $data['name'], $data['email']));
 	}
 	
 	public static final function GetRssObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new rssObj(array($data['id'], $data['owner_id'], $data['name'],
 			$data['url'], $data['isXrated'], $data['isSitefeed']));
 	}
 	
 	public static final function GetMetadataTypeObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new metadataTypeObj(array($data['id'], $data['name'], $data['desc'], $data['level']));
 	}
 	
 	public static final function GetCommentObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new commentObj(array($data['id'], $data['vcd_id'], $data['owner_id'], $data['date'],
 			$data['comment'], $data['isPrivate'], $data['owner_name']));
 	}
 	
 	public static final function GetCoverObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new cdcoverObj(array($data['cover_id'],$data['vcd_id'],$data['filename'],
 			$data['filesize'],$data['owner_id'],$data['date_added'],$data['covertype_id'],
 			$data['covertypeName'],$data['image_id']));
 	}
 		
 	public static final function GetCoverTypeObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new cdcoverTypeObj(array($data['covertype_id'],$data['covertypeName'],
 			$data['coverTypeDescription']));
 	}
 	
 	public static final function GetLoanObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		return new borrowerObj(array($data['loan_id'],$data['cd_id'],
 			$data['cd_title'],self::GetBorrowerObj($data['borrowerObj']),
 			$data['date_out'],$data['date_in'],));
 	}
 	
 	public static final function GetStatsObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		$obj = new statisticsObj();
 		$allCats = array();
 		foreach ($data['ArrAllCats'] as $typeObj) {
@@ -3351,6 +3441,9 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetMediaTypeObj($data) {
+		if ($data instanceof stdClass ) {
+			$data = (array)$data;
+		}
 		$obj = new mediaTypeObj(array($data['media_type_id'],$data['media_type_name'],
 			$data['parent_id'], $data['media_type_description']));
 		
