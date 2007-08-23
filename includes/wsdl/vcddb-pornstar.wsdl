@@ -53,7 +53,7 @@
 			</xsd:complexType>
 			<xsd:complexType name="studioObj">
 				<xsd:all>
-					<xsd:element name="id" type="xsd:string"/>
+					<xsd:element name="id" type="xsd:decimal"/>
 					<xsd:element name="name" type="xsd:string"/>
 				</xsd:all>
 			</xsd:complexType>

@@ -1045,7 +1045,11 @@ switch ($form) {
 			      			$fileLocation = $fileObj->getFileLocation();
 							$fileExtension = $fileObj->getFileExtenstion();
 				  	   		$im = new Image_Toolbox($fileLocation);
-							$im->newOutputSize(0,140);
+				  	   		if ($category == SettingsServices::getCategoryIDByName('adult')) {
+				  	   			$im->newOutputSize(0,190);	
+				  	   		} else {
+				  	   			$im->newOutputSize(0,140);	
+				  	   		}
 							$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
 		      			}
 		      			

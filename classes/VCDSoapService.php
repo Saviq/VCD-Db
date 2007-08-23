@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id: VCDSoapService.php 1062 2007-07-05 15:10:11Z konni $
  * @since  0.990
@@ -428,6 +428,12 @@ class SoapMovieServices extends MovieServices {
 	public static function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
 								   $owner = null, $imdbgrade = null) {
 		try {
+						
+			if ($category==0) {$category=null;}
+			if ($year==0) {$year=null;}
+			if ($mediatype==0) {$mediatype=null;}
+			if ($owner==0) {$owner=null;}
+			if ($imdbgrade==0) {$imdbgrade=null;}
 			
 			return parent::advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
 			
@@ -956,6 +962,20 @@ class SoapSettingsServices extends SettingsServices {
 		}
 	}
 	
+	public static function addMetadata($arrObj) {
+		try {
+			
+			$inArr = array();
+			foreach ($arrObj as $obj) {
+				array_push($inArr, VCDSoapTools::GetMetadataObj($obj));
+			}
+			parent::addMetadata($inArr);
+			
+		} catch (Exception $ex) {
+			return new soap_fault('1', 'Server', $ex->getMessage());
+		}
+	}
+	
 	public static function getSettingsByID($settings_id) {
 		try {
 			return parent::getSettingsByID($settings_id)->toSoapEncoding();
@@ -1344,7 +1364,12 @@ class SoapPornstarServices extends PornstarServices {
 	public static function getPornstarByName($name) {
 		try {
 			
-			return parent::getPornstarByName($name)->toSoapEncoding();
+			$obj = parent::getPornstarByName($name);
+			if ($obj instanceof pornstarObj ) {
+				return $obj->toSoapEncoding();	
+			} else {
+				return null;
+			}
 			
 		} catch (Exception $ex) {
 			return new soap_fault('1', 'Server', $ex->getMessage());
@@ -1418,7 +1443,12 @@ class SoapPornstarServices extends PornstarServices {
 	public static function getStudioByName($studio_name) {
 		try { 
 			
-			return parent::getStudioByName($studio_name)->toSoapEncoding();
+			$obj = parent::getStudioByName($studio_name);
+			if ($obj instanceof studioObj ) {
+				return $obj->toSoapEncoding();
+			} else {
+				return null;
+			}
 		
 		} catch (Exception $ex) {
 			return new soap_fault('1', 'Server', $ex->getMessage());
@@ -1431,7 +1461,12 @@ class SoapPornstarServices extends PornstarServices {
 	public static function getStudioByMovieID($vcd_id) {
 		try { 
 			
-			return parent::getStudioByMovieID($vcd_id)->toSoapEncoding();
+			$obj = parent::getStudioByMovieID($vcd_id);
+			if ($obj instanceof studioObj ) {
+				return $obj->toSoapEncoding();
+			} else {
+				return null;
+			}
 		
 		} catch (Exception $ex) {
 			return new soap_fault('1', 'Server', $ex->getMessage());

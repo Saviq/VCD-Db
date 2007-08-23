@@ -8,7 +8,7 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  * 
- * @author  Hákon Birgisson <konni@konni.com>
+ * @author  HÃ¡kon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id: VCDSoapProxy.php 1062 2007-07-05 15:10:11Z konni $
  * @since  0.990
@@ -2829,7 +2829,7 @@ class SoapSettingsProxy extends VCDProxy {
 	 */
 	public function addComment(commentObj $obj) {
 		try {
-			
+						
 			$this->invoke('addComment', array('obj' => $obj->toSoapEncoding()));
 			
 		} catch (Exception $ex) {
@@ -3131,6 +3131,10 @@ class VCDSoapTools {
 	 */
 	public static final function GetPornstarObj($data) {
 		
+		if (!(isset($data['id']) && isset($data['name']))) {
+			return null;
+		}
+		
 		$obj = new pornstarObj(
 			array($data['id'], 
 				$data['name'], 
@@ -3156,7 +3160,11 @@ class VCDSoapTools {
 	}
 	
 	public static final function GetStudioObj($data) {
-		return new studioObj(array($data['id'], $data['name']));
+		if (isset($data['id']) && isset($data['name'])) {
+			return new studioObj(array($data['id'], $data['name']));	
+		} else {
+			return null;
+		}
 	}
 	
 	public static final function GetSettingsObj($data) {

@@ -45,7 +45,7 @@
 			<xsd:complexType name="commentObj">
 				<xsd:all>
 					<xsd:element name="comment" type="xsd:string"/>
-					<xsd:element name="date" type="xsd:string"/>
+					<xsd:element name="date" type="xsd:dateTime"/>
 					<xsd:element name="id" type="xsd:decimal"/>
 					<xsd:element name="isPrivate" type="xsd:boolean"/>
 					<xsd:element name="owner_id" type="xsd:decimal"/>
