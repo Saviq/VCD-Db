@@ -22,7 +22,7 @@ class settingsObj implements XMLable {
 	private $key;
 	private $value;
 	private $description;
-	private $isProtected;
+	private $isProtected = true;
 	private $type;
 	
     /**
@@ -84,7 +84,11 @@ class settingsObj implements XMLable {
 	 * @return bool
 	 */
 	public function isProtected() {
-		return $this->isProtected;
+		if (is_bool($this->isProtected)) {
+			return $this->isProtected;
+		} else {
+			return true;
+		}
 	}
 	
 	/**
@@ -150,12 +154,12 @@ class settingsObj implements XMLable {
 	 */
 	public function toSoapEncoding() {
 		return array(
+			'description' => $this->description,	
 			'id'	=> $this->id,
+			'isProtected' => $this->isProtected(),
 			'key'   => $this->key,
-			'value' => $this->value,
-			'description' => $this->description,
-			'isProtected ' => $this->isProtected(),
-			'type' => $this->type
+			'type' => $this->type,
+			'value' => $this->value
 		);
 	}
 }

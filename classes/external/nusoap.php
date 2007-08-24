@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ERROR);
+error_reporting(E_ALL);
 /*
 $Id$
 
@@ -72,7 +72,7 @@ require_once('class.soap_server.php');*/
 
 // class variable emulation
 // cf. http://www.webkreator.com/php/techniques/php-static-class-variables.html
-$GLOBALS['_transient']['static']['nusoap_base']->globalDebugLevel = 9;
+//$GLOBALS['_transient']['static']['nusoap_base']->globalDebugLevel = 9;
 
 /**
 *
@@ -3546,6 +3546,14 @@ class nusoap_server extends nusoap_base {
 	 * @access private
 	 */
 	var $operations = array();
+	
+	
+	/** mapping from operation-names to different functions and or class-methods
+     * @var array
+     * @access protected
+     */
+	var $operationMapping = array();
+	
 	/**
 	 * wsdl instance (if one)
 	 * @var mixed
@@ -3892,31 +3900,49 @@ class nusoap_server extends nusoap_base {
 			$this->debug('in invoke_method, no WSDL to validate method');
 		}
 
+		
+		// look if we have to map the operationname to an different local function 
+	    // or class-methodname
+	    if (sizeof($this->operationMapping)>0) {
+	      $this->debug('check if mapping for method-name is needed: methodname=' . $this->methodname);
+	      if (isset($this->operationMapping[$this->methodname])) { 
+	        // Yes we have a dedicated mapping for this
+	        $methodToCall = $this->operationMapping[$this->methodname];
+	        $this->debug('dedicated mapping found: new methodname=' . $methodToCall);
+	      } elseif (isset($this->operationMapping["*"])) {
+	        // we had no real hit, but we have a general mapping
+	        $methodToCall = $this->operationMapping["*"].$this->methodname;
+	        $this->debug('general mapping found: new methodname=' . $methodToCall);
+	      } else $methodToCall = $this->methodname;
+	    } 
+	    else $methodToCall = $this->methodname;
+		
+		
 		// if a . is present in $this->methodname, we see if there is a class in scope,
 		// which could be referred to. We will also distinguish between two deliminators,
 		// to allow methods to be called a the class or an instance
 		$class = '';
 		$method = '';
-		if (strpos($this->methodname, '..') > 0) {
+		if (strpos($methodToCall, '..') > 0) {
 			$delim = '..';
-		} else if (strpos($this->methodname, '.') > 0) {
+		} else if (strpos($methodToCall, '.') > 0) {
 			$delim = '.';
 		} else {
 			$delim = '';
 		}
 
-		if (strlen($delim) > 0 && substr_count($this->methodname, $delim) == 1 &&
-			class_exists(substr($this->methodname, 0, strpos($this->methodname, $delim)))) {
+		if (strlen($delim) > 0 && substr_count($methodToCall, $delim) == 1 &&
+	      class_exists(substr($methodToCall, 0, strpos($methodToCall, $delim)))) {
 			// get the class and method name
-			$class = substr($this->methodname, 0, strpos($this->methodname, $delim));
-			$method = substr($this->methodname, strpos($this->methodname, $delim) + strlen($delim));
+			$class = substr($methodToCall, 0, strpos($methodToCall, $delim));
+			$method = substr($methodToCall, strpos($methodToCall, $delim) + strlen($delim));
 			$this->debug("in invoke_method, class=$class method=$method delim=$delim");
 		}
 
 		// does method exist?
 		if ($class == '') {
-			if (!function_exists($this->methodname)) {
-				$this->debug("in invoke_method, function '$this->methodname' not found!");
+			if (!function_exists($methodToCall)) {
+   			    $this->debug("in invoke_method, function '$methodToCall' not found!");
 				$this->result = 'fault: method not found';
 				$this->fault('SOAP-ENV:Client',"method '$this->methodname' not defined in service");
 				return;
@@ -3949,7 +3975,7 @@ class nusoap_server extends nusoap_base {
 		if (!function_exists('call_user_func_array')) {
 			if ($class == '') {
 				$this->debug('in invoke_method, calling function using eval()');
-				$funcCall = "\$this->methodreturn = $this->methodname(";
+				$funcCall = "\$this->methodreturn = $methodToCall(";
 			} else {
 				if ($delim == '..') {
 					$this->debug('in invoke_method, calling class method using eval()');
@@ -3978,7 +4004,7 @@ class nusoap_server extends nusoap_base {
 		} else {
 			if ($class == '') {
 				$this->debug('in invoke_method, calling function using call_user_func_array()');
-				$call_arg = "$this->methodname";	// straight assignment changes $this->methodname to lower case after call_user_func_array()
+				$call_arg = "$methodToCall";	// straight assignment changes $this->methodname to lower case after call_user_func_array()
 			} elseif ($delim == '..') {
 				$this->debug('in invoke_method, calling class method using call_user_func_array()');
 				$call_arg = array ($class, $method);
@@ -4060,7 +4086,8 @@ class nusoap_server extends nusoap_base {
 			if ($this->opData['style'] == 'rpc') {
 				$this->debug('style is rpc for serialization: use is ' . $this->opData['output']['use']);
 				if ($this->opData['output']['use'] == 'literal') {
-					$payload = '<'.$this->methodname.'Response xmlns="'.$this->methodURI.'">'.$return_val.'</'.$this->methodname."Response>";
+					// http://www.ws-i.org/Profiles/BasicProfile-1.1-2004-08-24.html R2735 says no namespace here
+					$payload = '<'.$this->methodname.'Response>'.$return_val.'</'.$this->methodname."Response>";
 				} else {
 					$payload = '<ns1:'.$this->methodname.'Response xmlns:ns1="'.$this->methodURI.'">'.$return_val.'</ns1:'.$this->methodname."Response>";
 				}
@@ -4294,7 +4321,7 @@ class nusoap_server extends nusoap_base {
 	/**
 	* register a service function with the server
 	*
-	* @param    string $name the name of the PHP function, class.method or class..method
+	* @param    string $name the name of the PHP function, class.method or class..method (see $realName too)
 	* @param    array $in assoc array of input values: key = param name, value = param type
 	* @param    array $out assoc array of output values: key = param name, value = param type
 	* @param	mixed $namespace the element namespace for the method or false
@@ -4303,9 +4330,10 @@ class nusoap_server extends nusoap_base {
 	* @param	mixed $use optional (encoded|literal) or false
 	* @param	string $documentation optional Description to include in WSDL
 	* @param	string $encodingStyle optional (usually 'http://schemas.xmlsoap.org/soap/encoding/' for encoded)
+	* @param    string $realName when set, $name will be used as external operation-name and $realName will hold the internal mapping to the real called function or class-method (contains PHP function, class.method or class..method)
 	* @access   public
 	*/
-	function register($name,$in=array(),$out=array(),$namespace=false,$soapaction=false,$style=false,$use=false,$documentation='',$encodingStyle=''){
+	function register($name,$in=array(),$out=array(),$namespace=false,$soapaction=false,$style=false,$use=false,$documentation='',$encodingStyle='',$realName='') {
 		global $HTTP_SERVER_VARS;
 
 		if($this->externalWSDLURL){
@@ -4361,6 +4389,7 @@ class nusoap_server extends nusoap_base {
         if($this->wsdl){
         	$this->wsdl->addOperation($name,$in,$out,$namespace,$soapaction,$style,$use,$documentation,$encodingStyle);
 	    }
+	    if (! empty($realName)) $this->operationMapping[$name]=$realName;
 		return true;
 	}
 
@@ -4460,6 +4489,45 @@ class nusoap_server extends nusoap_base {
             'location'=>$endpoint,
             'bindingType'=>'http://schemas.xmlsoap.org/wsdl/soap/');
     }
+    
+    
+     /**
+   * Set a class-mapping for service operations
+   *
+   * @access public
+   * @param string $classname  Classname to use for the operation(s)
+   * @param boolean $callstatic  "true" to call the method static, or false to call it from an created class-instance (constructor without parameters required)
+   * @param string $operationname  name of the server-operation for which this mapping is created, or NULL to use this for all service-operations
+   * @param string $methodname  when a operationname is used then the class-methodname can be changed too to "redirect" calls to a different class-method
+   * @example "$server->setClass4Operation("TestClass",false);" will call all operations on an instance from TestClass
+   * @example "$server->setClass4Operation("TestClass",true,"testOp","real_method");" will call "TestClass::real_method(...)" for the operation "testOp"
+   */
+  function setClass4Operation($classname,$callstatic=false,$operationname=NULL,$methodname=NULL) {
+    // build string to be used to call in method invoce_method
+    $calldetails=$classname;
+    if ($callstatic) $calldetails .= "..";
+      else $calldetails .= ".";
+    if (! empty($operationname)) {
+      if (! empty($methodname)) $calldetails .= $methodname;
+        else $calldetails .= $operationname;
+    } else $operationname = "*";
+    $this->operationMapping[$operationname] = $calldetails;
+    $this->debug("add operation-mapping for class-methods: " . $operationname . " => " . $calldetails);
+  }
+  
+  /**
+   * Set a function-mapping for service operations to "redirect" calls to a different php-function
+   *
+   * @access public
+   * @param string $operationname  name of the server-operation for which this mapping is created
+   * @param string $methodname  name of the php-function-name to be called instead of the operation-name
+   * @example "$server->setFunction4Operation("foo","bar");" will call function "bar(...)" for the operation "foo"
+   */
+  function setFunction4Operation($operationname,$functionname) {
+    $this->operationMapping[$operationname] = $functionname;
+    $this->debug("add operation-mapping for function: " . $operationname . " => " . $functionname);
+  }
+    
 }
 
 /**
@@ -7266,7 +7334,8 @@ class nusoap_client extends nusoap_base  {
 			if ($use == 'literal') {
 				$this->debug("wrapping RPC request with literal method element");
 				if ($namespace) {
-					$payload = "<$operation xmlns=\"$namespace\">" . $payload . "</$operation>";
+					// http://www.ws-i.org/Profiles/BasicProfile-1.1-2004-08-24.html R2735 says no namespace here
+					$payload = "<$operation>" . $payload . "</$operation>";
 				} else {
 					$payload = "<$operation>" . $payload . "</$operation>";
 				}

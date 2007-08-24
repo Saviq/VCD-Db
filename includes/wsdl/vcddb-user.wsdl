@@ -73,316 +73,316 @@
 			</xsd:complexType>
 		</xsd:schema>
 	</types>
-	<message name="SoapUserServices..addProperty">
+	<message name="addProperty">
 		<part name="obj" type="typens:userPropertiesObj"/>
 	</message>
-	<message name="SoapUserServices..addPropertyResponse">
-		<part name="SoapUserServices..addPropertyReturn"/>
+	<message name="addPropertyResponse">
+		<part name="addPropertyReturn"/>
 	</message>
-	<message name="SoapUserServices..addPropertyToUser">
+	<message name="addPropertyToUser">
 		<part name="property_id" type="xsd:decimal"/>
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..addPropertyToUserResponse">
-		<part name="SoapUserServices..addPropertyToUserReturn"/>
+	<message name="addPropertyToUserResponse">
+		<part name="addPropertyToUserReturn"/>
 	</message>
-	<message name="SoapUserServices..addSession">
+	<message name="addSession">
 		<part name="session_id" type="xsd:string"/>
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..addSessionResponse">
-		<part name="SoapUserServices..addSessionReturn"/>
+	<message name="addSessionResponse">
+		<part name="addSessionReturn"/>
 	</message>
-	<message name="SoapUserServices..addUser">
+	<message name="addUser">
 		<part name="userObj" type="typens:userObj"/>
 	</message>
-	<message name="SoapUserServices..addUserResponse">
+	<message name="addUserResponse">
 		<part name="addUserReturn" type="xsd:boolean"/>
 	</message>
-	<message name="SoapUserServices..deleteProperty">
+	<message name="deleteProperty">
 		<part name="property_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..deletePropertyResponse">
-		<part name="SoapUserServices..deletePropertyReturn"/>
+	<message name="deletePropertyResponse">
+		<part name="deletePropertyReturn"/>
 	</message>
-	<message name="SoapUserServices..deletePropertyOnUser">
+	<message name="deletePropertyOnUser">
 		<part name="property_id" type="xsd:decimal"/>
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..deletePropertyOnUserResponse">
-		<part name="SoapUserServices..deletePropertyOnUserReturn"/>
+	<message name="deletePropertyOnUserResponse">
+		<part name="deletePropertyOnUserReturn"/>
 	</message>
-	<message name="SoapUserServices..deleteUser">
+	<message name="deleteUser">
 		<part name="user_id" type="xsd:decimal"/>
 		<part name="erase_data" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..deleteUserResponse">
-		<part name="SoapUserServices..deleteUserReturn"/>
+	<message name="deleteUserResponse">
+		<part name="deleteUserReturn"/>
 	</message>
-	<message name="SoapUserServices..deleteUserRole">
+	<message name="deleteUserRole">
 		<part name="role_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..deleteUserRoleResponse">
-		<part name="SoapUserServices..deleteUserRoleReturn" type="xsd:boolean"/>
+	<message name="deleteUserRoleResponse">
+		<part name="deleteUserRoleReturn" type="xsd:boolean"/>
 	</message>
-	<message name="SoapUserServices..getActiveUsers"/>
-	<message name="SoapUserServices..getActiveUsersResponse">
+	<message name="getActiveUsers"/>
+	<message name="getActiveUsersResponse">
 		<part name="getActiveUsersReturn" type="typens:ArrayOfUserUserObj"/>
 	</message>
-	<message name="SoapUserServices..getAllProperties"/>
-	<message name="SoapUserServices..getAllPropertiesResponse">
-		<part name="SoapUserServices..getAllPropertiesReturn" type="typens:ArrayOfUserPropertiesObj"/>
+	<message name="getAllProperties"/>
+	<message name="getAllPropertiesResponse">
+		<part name="getAllPropertiesReturn" type="typens:ArrayOfUserPropertiesObj"/>
 	</message>
-	<message name="SoapUserServices..getAllUserRoles"/>
-	<message name="SoapUserServices..getAllUserRolesResponse">
-		<part name="SoapUserServices..getAllUserRolesReturn" type="typens:ArrayOfUserUserRoleObj"/>
+	<message name="getAllUserRoles"/>
+	<message name="getAllUserRolesResponse">
+		<part name="getAllUserRolesReturn" type="typens:ArrayOfUserUserRoleObj"/>
 	</message>
-	<message name="SoapUserServices..getAllUsers"/>
-	<message name="SoapUserServices..getAllUsersResponse">
-		<part name="SoapUserServices..getAllUsersReturn" type="typens:ArrayOfUserUserObj"/>
+	<message name="getAllUsers"/>
+	<message name="getAllUsersResponse">
+		<part name="getAllUsersReturn" type="typens:ArrayOfUserUserObj"/>
 	</message>
-	<message name="SoapUserServices..getAllUsersInRole">
+	<message name="getAllUsersInRole">
 		<part name="role_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..getAllUsersInRoleResponse">
-		<part name="SoapUserServices..getAllUsersInRoleReturn" type="typens:ArrayOfUserUserObj"/>
+	<message name="getAllUsersInRoleResponse">
+		<part name="getAllUsersInRoleReturn" type="typens:ArrayOfUserUserObj"/>
 	</message>
-	<message name="SoapUserServices..getAllUsersWithProperty">
+	<message name="getAllUsersWithProperty">
 		<part name="property_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..getAllUsersWithPropertyResponse">
-		<part name="SoapUserServices..getAllUsersWithPropertyReturn" type="typens:ArrayOfUserUserObj"/>
+	<message name="getAllUsersWithPropertyResponse">
+		<part name="getAllUsersWithPropertyReturn" type="typens:ArrayOfUserUserObj"/>
 	</message>
-	<message name="SoapUserServices..getDefaultRole"/>
-	<message name="SoapUserServices..getDefaultRoleResponse">
-		<part name="SoapUserServices..getDefaultRoleReturn" type="typens:userRoleObj"/>
+	<message name="getDefaultRole"/>
+	<message name="getDefaultRoleResponse">
+		<part name="getDefaultRoleReturn" type="typens:userRoleObj"/>
 	</message>
-	<message name="SoapUserServices..getPropertyById">
+	<message name="getPropertyById">
 		<part name="property_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..getPropertyByIdResponse">
-		<part name="SoapUserServices..getPropertyByIdReturn" type="typens:userPropertiesObj"/>
+	<message name="getPropertyByIdResponse">
+		<part name="getPropertyByIdReturn" type="typens:userPropertiesObj"/>
 	</message>
-	<message name="SoapUserServices..getPropertyByKey">
+	<message name="getPropertyByKey">
 		<part name="property_key" type="xsd:string"/>
 	</message>
-	<message name="SoapUserServices..getPropertyByKeyResponse">
-		<part name="SoapUserServices..getPropertyByKeyReturn" type="typens:userPropertiesObj"/>
+	<message name="getPropertyByKeyResponse">
+		<part name="getPropertyByKeyReturn" type="typens:userPropertiesObj"/>
 	</message>
-	<message name="SoapUserServices..getUserByID">
+	<message name="getUserByID">
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..getUserByIDResponse">
-		<part name="SoapUserServices..getUserByIDReturn" type="typens:userObj"/>
+	<message name="getUserByIDResponse">
+		<part name="getUserByIDReturn" type="typens:userObj"/>
 	</message>
-	<message name="SoapUserServices..getUserByUsername">
+	<message name="getUserByUsername">
 		<part name="user_name" type="xsd:string"/>
 	</message>
-	<message name="SoapUserServices..getUserByUsernameResponse">
-		<part name="SoapUserServices..getUserByUsernameReturn" type="typens:userObj"/>
+	<message name="getUserByUsernameResponse">
+		<part name="getUserByUsernameReturn" type="typens:userObj"/>
 	</message>
-	<message name="SoapUserServices..getUserTopList"/>
-	<message name="SoapUserServices..getUserTopListResponse">
-		<part name="SoapUserServices..getUserTopListReturn" type="typens:ArrayOfString"/>
+	<message name="getUserTopList"/>
+	<message name="getUserTopListResponse">
+		<part name="getUserTopListReturn" type="typens:ArrayOfString"/>
 	</message>
-	<message name="SoapUserServices..isValidSession">
+	<message name="isValidSession">
 		<part name="session_id" type="xsd:string"/>
 		<part name="session_time" type="xsd:string"/>
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..isValidSessionResponse">
-		<part name="SoapUserServices..isValidSessionReturn" type="xsd:boolean"/>
+	<message name="isValidSessionResponse">
+		<part name="isValidSessionReturn" type="xsd:boolean"/>
 	</message>
-	<message name="SoapUserServices..setDefaultRole">
+	<message name="setDefaultRole">
 		<part name="role_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapUserServices..setDefaultRoleResponse">
-		<part name="SoapUserServices..setDefaultRoleReturn"/>
+	<message name="setDefaultRoleResponse">
+		<part name="setDefaultRoleReturn"/>
 	</message>
-	<message name="SoapUserServices..updateProperty">
+	<message name="updateProperty">
 		<part name="obj" type="typens:userPropertiesObj"/>
 	</message>
-	<message name="SoapUserServices..updatePropertyResponse">
-		<part name="SoapUserServices..updatePropertyReturn"/>
+	<message name="updatePropertyResponse">
+		<part name="updatePropertyReturn"/>
 	</message>
-	<message name="SoapUserServices..updateUser">
+	<message name="updateUser">
 		<part name="userObj" type="typens:userObj"/>
 	</message>
-	<message name="SoapUserServices..updateUserResponse">
-		<part name="SoapUserServices..updateUserReturn" type="xsd:boolean"/>
+	<message name="updateUserResponse">
+		<part name="updateUserReturn" type="xsd:boolean"/>
 	</message>
 	<portType name="UserServicesPortType">
-		<operation name="SoapUserServices..addProperty">
+		<operation name="addProperty">
 			<documentation>
 				Add new userProperty object to VCD-db.
 			</documentation>
-			<input message="typens:SoapUserServices..addProperty"/>
-			<output message="typens:SoapUserServices..addPropertyResponse"/>
+			<input message="typens:addProperty"/>
+			<output message="typens:addPropertyResponse"/>
 		</operation>
-		<operation name="SoapUserServices..addPropertyToUser">
+		<operation name="addPropertyToUser">
 			<documentation>
 				Add new userProperty to a specific user.
 			</documentation>
-			<input message="typens:SoapUserServices..addPropertyToUser"/>
-			<output message="typens:SoapUserServices..addPropertyToUserResponse"/>
+			<input message="typens:addPropertyToUser"/>
+			<output message="typens:addPropertyToUserResponse"/>
 		</operation>
-		<operation name="SoapUserServices..addSession">
+		<operation name="addSession">
 			<documentation>
 				Store the users session after user has requested to be remembered during login.
 			</documentation>
-			<input message="typens:SoapUserServices..addSession"/>
-			<output message="typens:SoapUserServices..addSessionResponse"/>
+			<input message="typens:addSession"/>
+			<output message="typens:addSessionResponse"/>
 		</operation>
-		<operation name="SoapUserServices..addUser">
+		<operation name="addUser">
 			<documentation>
 				Add new User to VCD-db, returns true on success otherwise false
 			</documentation>
-			<input message="typens:SoapUserServices..addUser"/>
-			<output message="typens:SoapUserServices..addUserResponse"/>
+			<input message="typens:addUser"/>
+			<output message="typens:addUserResponse"/>
 		</operation>
-		<operation name="SoapUserServices..deleteProperty">
+		<operation name="deleteProperty">
 			<documentation>
 				Delete a specific user Property object.
 			</documentation>
-			<input message="typens:SoapUserServices..deleteProperty"/>
-			<output message="typens:SoapUserServices..deletePropertyResponse"/>
+			<input message="typens:deleteProperty"/>
+			<output message="typens:deletePropertyResponse"/>
 		</operation>
-		<operation name="SoapUserServices..deletePropertyOnUser">
+		<operation name="deletePropertyOnUser">
 			<documentation>
 				Remove specific property from the selected User.
 			</documentation>
-			<output message="typens:SoapUserServices..deletePropertyOnUserResponse"/>
+			<output message="typens:deletePropertyOnUserResponse"/>
 		</operation>
-		<operation name="SoapUserServices..deleteUser">
+		<operation name="deleteUser">
 			<documentation>
 				Delete User
 			</documentation>
-			<input message="typens:SoapUserServices..deleteUser"/>
-			<output message="typens:SoapUserServices..deleteUserResponse"/>
+			<input message="typens:deleteUser"/>
+			<output message="typens:deleteUserResponse"/>
 		</operation>
-		<operation name="SoapUserServices..deleteUserRole">
+		<operation name="deleteUserRole">
 			<documentation>
 				Delete a specific user role, error is thrown is some user/s is still using this role.
 			</documentation>
-			<input message="typens:SoapUserServices..deleteUserRole"/>
-			<output message="typens:SoapUserServices..deleteUserRoleResponse"/>
+			<input message="typens:deleteUserRole"/>
+			<output message="typens:deleteUserRoleResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getActiveUsers">
+		<operation name="getActiveUsers">
 			<documentation>
 				Get all users that have added a movie to VCD-db, return array of User objects
 			</documentation>
-			<input message="typens:SoapUserServices..getActiveUsers"/>
-			<output message="typens:SoapUserServices..getActiveUsersResponse"/>
+			<input message="typens:getActiveUsers"/>
+			<output message="typens:getActiveUsersResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getAllProperties">
+		<operation name="getAllProperties">
 			<documentation>
 				Get all user properties in VCD-db.
 			</documentation>
-			<input message="typens:SoapUserServices..getAllProperties"/>
-			<output message="typens:SoapUserServices..getAllPropertiesResponse"/>
+			<input message="typens:getAllProperties"/>
+			<output message="typens:getAllPropertiesResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getAllUserRoles">
+		<operation name="getAllUserRoles">
 			<documentation>
 				Get all user roles in VCD-db.
 			</documentation>
-			<input message="typens:SoapUserServices..getAllUserRoles"/>
-			<output message="typens:SoapUserServices..getAllUserRolesResponse"/>
+			<input message="typens:getAllUserRoles"/>
+			<output message="typens:getAllUserRolesResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getAllUsers">
+		<operation name="getAllUsers">
 			<documentation>
 				Get all Users in VCD-db, returns array of User objects
 			</documentation>
-			<input message="typens:SoapUserServices..getAllUsers"/>
-			<output message="typens:SoapUserServices..getAllUsersResponse"/>
+			<input message="typens:getAllUsers"/>
+			<output message="typens:getAllUsersResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getAllUsersInRole">
+		<operation name="getAllUsersInRole">
 			<documentation>
 				Get all users in specific role.
 			</documentation>
-			<input message="typens:SoapUserServices..getAllUsersInRole"/>
-			<output message="typens:SoapUserServices..getAllUsersInRoleResponse"/>
+			<input message="typens:getAllUsersInRole"/>
+			<output message="typens:getAllUsersInRoleResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getAllUsersWithProperty">
+		<operation name="getAllUsersWithProperty">
 			<documentation>
 				Get all users that are associated to a a specific userProperty, returns array of User objects.
 			</documentation>
-			<input message="typens:SoapUserServices..getAllUsersWithProperty"/>
-			<output message="typens:SoapUserServices..getAllUsersWithPropertyResponse"/>
+			<input message="typens:getAllUsersWithProperty"/>
+			<output message="typens:getAllUsersWithPropertyResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getDefaultRole">
+		<operation name="getDefaultRole">
 			<documentation>
 				Get the default role assigned to new users that are created/registered in VCD-db.
 			</documentation>
-			<input message="typens:SoapUserServices..getDefaultRole"/>
-			<output message="typens:SoapUserServices..getDefaultRoleResponse"/>
+			<input message="typens:getDefaultRole"/>
+			<output message="typens:getDefaultRoleResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getPropertyById">
+		<operation name="getPropertyById">
 			<documentation>
 				Get specific userProperties object by ID.
 			</documentation>
-			<input message="typens:SoapUserServices..getPropertyById"/>
-			<output message="typens:SoapUserServices..getPropertyByIdResponse"/>
+			<input message="typens:getPropertyById"/>
+			<output message="typens:getPropertyByIdResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getPropertyByKey">
+		<operation name="getPropertyByKey">
 			<documentation>
 				Get specific userProperty object by the property key.
 			</documentation>
-			<input message="typens:SoapUserServices..getPropertyByKey"/>
-			<output message="typens:SoapUserServices..getPropertyByKeyResponse"/>
+			<input message="typens:getPropertyByKey"/>
+			<output message="typens:getPropertyByKeyResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getUserByID">
+		<operation name="getUserByID">
 			<documentation>
 				Get user By ID
 			</documentation>
-			<input message="typens:SoapUserServices..getUserByID"/>
-			<output message="typens:SoapUserServices..getUserByIDResponse"/>
+			<input message="typens:getUserByID"/>
+			<output message="typens:getUserByIDResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getUserByUsername">
+		<operation name="getUserByUsername">
 			<documentation>
 				Get User by specific username
 			</documentation>
-			<input message="typens:SoapUserServices..getUserByUsername"/>
-			<output message="typens:SoapUserServices..getUserByUsernameResponse"/>
+			<input message="typens:getUserByUsername"/>
+			<output message="typens:getUserByUsernameResponse"/>
 		</operation>
-		<operation name="SoapUserServices..getUserTopList">
+		<operation name="getUserTopList">
 			<documentation>
 				Get the users with most movie count in database.
 			</documentation>
-			<input message="typens:SoapUserServices..getUserTopList"/>
-			<output message="typens:SoapUserServices..getUserTopListResponse"/>
+			<input message="typens:getUserTopList"/>
+			<output message="typens:getUserTopListResponse"/>
 		</operation>
-		<operation name="SoapUserServices..isValidSession">
+		<operation name="isValidSession">
 			<documentation>
 				Check if the specified session in valid for authentication.
 			</documentation>
-			<input message="typens:SoapUserServices..isValidSession"/>
-			<output message="typens:SoapUserServices..isValidSessionResponse"/>
+			<input message="typens:isValidSession"/>
+			<output message="typens:isValidSessionResponse"/>
 		</operation>
-		<operation name="SoapUserServices..setDefaultRole">
+		<operation name="setDefaultRole">
 			<documentation>
 				Assign a specific role as a default role to new users.
 			</documentation>
-			<input message="typens:SoapUserServices..setDefaultRole"/>
-			<output message="typens:SoapUserServices..setDefaultRoleResponse"/>
+			<input message="typens:setDefaultRole"/>
+			<output message="typens:setDefaultRoleResponse"/>
 		</operation>
-		<operation name="SoapUserServices..updateProperty">
+		<operation name="updateProperty">
 			<documentation>
 				Update specific userProperties object.
 			</documentation>
-			<input message="typens:SoapUserServices..updateProperty"/>
-			<output message="typens:SoapUserServices..updatePropertyResponse"/>
+			<input message="typens:updateProperty"/>
+			<output message="typens:updatePropertyResponse"/>
 		</operation>
-		<operation name="SoapUserServices..updateUser">
+		<operation name="updateUser">
 			<documentation>
 				Update User, return true on success otherwise false
 			</documentation>
-			<input message="typens:SoapUserServices..updateUser"/>
-			<output message="typens:SoapUserServices..updateUserResponse"/>
+			<input message="typens:updateUser"/>
+			<output message="typens:updateUserResponse"/>
 		</operation>
 	</portType>
 	<binding name="UserServicesBinding" type="typens:UserServicesPortType">
 		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<operation name="SoapUserServices..addProperty">
+		<operation name="addProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -391,7 +391,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..addPropertyToUser">
+		<operation name="addPropertyToUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -400,7 +400,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..addSession">
+		<operation name="addSession">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -409,7 +409,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..addUser">
+		<operation name="addUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -418,7 +418,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..deleteProperty">
+		<operation name="deleteProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -427,7 +427,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..deletePropertyOnUser">
+		<operation name="deletePropertyOnUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -436,7 +436,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..deleteUser">
+		<operation name="deleteUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -445,7 +445,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..deleteUserRole">
+		<operation name="deleteUserRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -454,7 +454,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getActiveUsers">
+		<operation name="getActiveUsers">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -463,7 +463,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getAllProperties">
+		<operation name="getAllProperties">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -472,7 +472,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getAllUserRoles">
+		<operation name="getAllUserRoles">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -481,7 +481,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getAllUsers">
+		<operation name="getAllUsers">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -490,7 +490,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getAllUsersInRole">
+		<operation name="getAllUsersInRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -499,7 +499,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getAllUsersWithProperty">
+		<operation name="getAllUsersWithProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -508,7 +508,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getDefaultRole">
+		<operation name="getDefaultRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -517,7 +517,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getPropertyById">
+		<operation name="getPropertyById">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -526,7 +526,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getPropertyByKey">
+		<operation name="getPropertyByKey">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -535,7 +535,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getUserByID">
+		<operation name="getUserByID">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -544,7 +544,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getUserByUsername">
+		<operation name="getUserByUsername">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -553,7 +553,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..getUserTopList">
+		<operation name="getUserTopList">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -562,7 +562,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..isValidSession">
+		<operation name="isValidSession">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -571,7 +571,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..setDefaultRole">
+		<operation name="setDefaultRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -580,7 +580,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..updateProperty">
+		<operation name="updateProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -589,7 +589,7 @@
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapUserServices..updateUser">
+		<operation name="updateUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>

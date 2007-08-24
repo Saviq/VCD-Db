@@ -228,7 +228,7 @@ class SoapCoverProxy extends VCDProxy {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	
@@ -584,7 +584,7 @@ class SoapMovieProxy extends VCDProxy {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	
@@ -949,6 +949,9 @@ class SoapMovieProxy extends VCDProxy {
 			$data = $this->invoke('advancedSearch',array('title' => $title, 'category' => $category,
 				'year' => $year, 'mediatype' => $mediatype, 'owner' => $owner, 'imdbgrade' => $imdbgrade));
 			
+			foreach ($data as &$item) {
+				$item = (array)$item;
+			}
 			return $data;
 			
 		} catch (Exception $ex) {
@@ -1170,7 +1173,7 @@ class SoapUserProxy extends VCDProxy {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	
@@ -1610,7 +1613,7 @@ class SoapAuthenticationProxy extends VCDProxy  {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	public function authenticate($username, $password) {
@@ -1638,7 +1641,7 @@ class SoapPornstarProxy extends VCDProxy  {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	public function getPornstarByID($pornstar_id) {
@@ -1936,7 +1939,7 @@ class SoapSettingsProxy extends VCDProxy {
 	}
 	
 	protected function invoke($action, $params) {
-		return $this->call($this->classPrefix.'..'.$action, $params);
+		return $this->call($action, $params);
 	}
 	
 	

@@ -66,366 +66,366 @@
 			</xsd:complexType>
 		</xsd:schema>
 	</types>
-	<message name="SoapPornstarServices..addAdultCategory">
+	<message name="addAdultCategory">
 		<part name="obj" type="typens:porncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..addAdultCategoryResponse"/>
-	<message name="SoapPornstarServices..addCategoryToMovie">
+	<message name="addAdultCategoryResponse"/>
+	<message name="addCategoryToMovie">
 		<part name="vcd_id" type="xsd:decimal"/>
 		<part name="category_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..addCategoryToMovieResponse"/>
-	<message name="SoapPornstarServices..addMovieToStudio">
+	<message name="addCategoryToMovieResponse"/>
+	<message name="addMovieToStudio">
 		<part name="studio_id" type="xsd:decimal"/>
 		<part name="vcd_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..addMovieToStudioResponse"/>
-	<message name="SoapPornstarServices..addPornstar">
+	<message name="addMovieToStudioResponse"/>
+	<message name="addPornstar">
 		<part name="obj" type="typens:pornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..addPornstarResponse">
-		<part name="SoapPornstarServices..addPornstarReturn" type="typens:pornstarObj"/>
+	<message name="addPornstarResponse">
+		<part name="addPornstarReturn" type="typens:pornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..addPornstarToMovie">
+	<message name="addPornstarToMovie">
 		<part name="pornstar_id" type="xsd:decimal"/>
 		<part name="movie_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..addPornstarToMovieResponse"/>
-	<message name="SoapPornstarServices..addStudio">
+	<message name="addPornstarToMovieResponse"/>
+	<message name="addStudio">
 		<part name="obj" type="typens:studioObj"/>
 	</message>
-	<message name="SoapPornstarServices..addStudioResponse"/>
-	<message name="SoapPornstarServices..deleteAdultCategory">
+	<message name="addStudioResponse"/>
+	<message name="deleteAdultCategory">
 		<part name="category_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deleteAdultCategoryResponse"/>
-	<message name="SoapPornstarServices..deleteMovieFromCategories">
+	<message name="deleteAdultCategoryResponse"/>
+	<message name="deleteMovieFromCategories">
 		<part name="vcd_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deleteMovieFromCategoriesResponse"/>
-	<message name="SoapPornstarServices..deleteMovieFromStudio">
+	<message name="deleteMovieFromCategoriesResponse"/>
+	<message name="deleteMovieFromStudio">
 		<part name="vcd_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deleteMovieFromStudioResponse"/>
-	<message name="SoapPornstarServices..deletePornstar">
+	<message name="deleteMovieFromStudioResponse"/>
+	<message name="deletePornstar">
 		<part name="pornstar_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deletePornstarResponse">
-		<part name="SoapPornstarServices..deletePornstarReturn" type="xsd:anyType"/>
+	<message name="deletePornstarResponse">
+		<part name="deletePornstarReturn" type="xsd:anyType"/>
 	</message>
-	<message name="SoapPornstarServices..deletePornstarFromMovie">
+	<message name="deletePornstarFromMovie">
 		<part name="pornstar_id" type="xsd:decimal"/>
 		<part name="movie_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deletePornstarFromMovieResponse"/>
-	<message name="SoapPornstarServices..deleteStudio">
+	<message name="deletePornstarFromMovieResponse"/>
+	<message name="deleteStudio">
 		<part name="studio_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..deleteStudioResponse"/>
-	<message name="SoapPornstarServices..getAllPornstars"/>
-	<message name="SoapPornstarServices..getAllPornstarsResponse">
-		<part name="SoapPornstarServices..getAllPornstarsReturn" type="typens:ArrayOfPornstarObj"/>
+	<message name="deleteStudioResponse"/>
+	<message name="getAllPornstars"/>
+	<message name="getAllPornstarsResponse">
+		<part name="getAllPornstarsReturn" type="typens:ArrayOfPornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..getAllStudios"/>
-	<message name="SoapPornstarServices..getAllStudiosResponse">
-		<part name="SoapPornstarServices..getAllStudiosReturn" type="typens:ArrayOfStudioObj"/>
+	<message name="getAllStudios"/>
+	<message name="getAllStudiosResponse">
+		<part name="getAllStudiosReturn" type="typens:ArrayOfStudioObj"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarByID">
+	<message name="getPornstarByID">
 		<part name="pornstar_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarByIDResponse">
-		<part name="SoapPornstarServices..getPornstarByIDReturn" type="typens:pornstarObj"/>
+	<message name="getPornstarByIDResponse">
+		<part name="getPornstarByIDReturn" type="typens:pornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarByName">
+	<message name="getPornstarByName">
 		<part name="name" type="xsd:string"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarByNameResponse">
-		<part name="SoapPornstarServices..getPornstarByNameReturn" type="typens:pornstarObj"/>
+	<message name="getPornstarByNameResponse">
+		<part name="getPornstarByNameReturn" type="typens:pornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsAlphabet">
+	<message name="getPornstarsAlphabet">
 		<part name="active_only" type="xsd:boolean"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsAlphabetResponse">
-		<part name="SoapPornstarServices..getPornstarsAlphabetReturn" type="typens:ArrayOfString"/>
+	<message name="getPornstarsAlphabetResponse">
+		<part name="getPornstarsAlphabetReturn" type="typens:ArrayOfString"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsByLetter">
+	<message name="getPornstarsByLetter">
 		<part name="letter" type="xsd:string"/>
 		<part name="active_only" type="xsd:boolean"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsByLetterResponse">
-		<part name="SoapPornstarServices..getPornstarsByLetterReturn" type="typens:ArrayOfPornstarObj"/>
+	<message name="getPornstarsByLetterResponse">
+		<part name="getPornstarsByLetterReturn" type="typens:ArrayOfPornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsByMovieID">
+	<message name="getPornstarsByMovieID">
 		<part name="movie_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getPornstarsByMovieIDResponse">
-		<part name="SoapPornstarServices..getPornstarsByMovieIDReturn" type="typens:ArrayOfPornstarObj"/>
+	<message name="getPornstarsByMovieIDResponse">
+		<part name="getPornstarsByMovieIDReturn" type="typens:ArrayOfPornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByID">
+	<message name="getStudioByID">
 		<part name="studio_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByIDResponse">
-		<part name="SoapPornstarServices..getStudioByIDReturn" type="typens:studioObj"/>
+	<message name="getStudioByIDResponse">
+		<part name="getStudioByIDReturn" type="typens:studioObj"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByMovieID">
+	<message name="getStudioByMovieID">
 		<part name="vcd_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByMovieIDResponse">
-		<part name="SoapPornstarServices..getStudioByMovieIDReturn" type="typens:studioObj"/>
+	<message name="getStudioByMovieIDResponse">
+		<part name="getStudioByMovieIDReturn" type="typens:studioObj"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByName">
+	<message name="getStudioByName">
 		<part name="studio_name" type="xsd:string"/>
 	</message>
-	<message name="SoapPornstarServices..getStudioByNameResponse">
-		<part name="SoapPornstarServices..getStudioByNameReturn" type="typens:studioObj"/>
+	<message name="getStudioByNameResponse">
+		<part name="getStudioByNameReturn" type="typens:studioObj"/>
 	</message>
-	<message name="SoapPornstarServices..getStudiosInUse"/>
-	<message name="SoapPornstarServices..getStudiosInUseResponse">
-		<part name="SoapPornstarServices..getStudiosInUseReturn" type="typens:ArrayOfStudioObj"/>
+	<message name="getStudiosInUse"/>
+	<message name="getStudiosInUseResponse">
+		<part name="getStudiosInUseReturn" type="typens:ArrayOfStudioObj"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategories"/>
-	<message name="SoapPornstarServices..getSubCategoriesResponse">
-		<part name="SoapPornstarServices..getSubCategoriesReturn" type="typens:ArrayOfPorncategoryObj"/>
+	<message name="getSubCategories"/>
+	<message name="getSubCategoriesResponse">
+		<part name="getSubCategoriesReturn" type="typens:ArrayOfPorncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategoriesByMovieID">
+	<message name="getSubCategoriesByMovieID">
 		<part name="vcd_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategoriesByMovieIDResponse">
-		<part name="SoapPornstarServices..getSubCategoriesByMovieIDReturn" type="typens:ArrayOfPorncategoryObj"/>
+	<message name="getSubCategoriesByMovieIDResponse">
+		<part name="getSubCategoriesByMovieIDReturn" type="typens:ArrayOfPorncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategoriesInUse"/>
-	<message name="SoapPornstarServices..getSubCategoriesInUseResponse">
-		<part name="SoapPornstarServices..getSubCategoriesInUseReturn" type="typens:ArrayOfPorncategoryObj"/>
+	<message name="getSubCategoriesInUse"/>
+	<message name="getSubCategoriesInUseResponse">
+		<part name="getSubCategoriesInUseReturn" type="typens:ArrayOfPorncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategoryByID">
+	<message name="getSubCategoryByID">
 		<part name="category_id" type="xsd:decimal"/>
 	</message>
-	<message name="SoapPornstarServices..getSubCategoryByIDResponse">
-		<part name="SoapPornstarServices..getSubCategoryByIDReturn" type="typens:porncategoryObj"/>
+	<message name="getSubCategoryByIDResponse">
+		<part name="getSubCategoryByIDReturn" type="typens:porncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..getValidCategories">
+	<message name="getValidCategories">
 		<part name="arrCategoryNames" type="typens:ArrayOfString"/>
 	</message>
-	<message name="SoapPornstarServices..getValidCategoriesResponse">
-		<part name="SoapPornstarServices..getValidCategoriesReturn" type="typens:ArrayOfPorncategoryObj"/>
+	<message name="getValidCategoriesResponse">
+		<part name="getValidCategoriesReturn" type="typens:ArrayOfPorncategoryObj"/>
 	</message>
-	<message name="SoapPornstarServices..updatePornstar">
+	<message name="updatePornstar">
 		<part name="obj" type="typens:pornstarObj"/>
 	</message>
-	<message name="SoapPornstarServices..updatePornstarResponse"/>
+	<message name="updatePornstarResponse"/>
 	<portType name="PornstarServicesPortType">
 		<documentation>
 			Provide the Web UI access to the Pornstar Services.
 		</documentation>
-		<operation name="SoapPornstarServices..addAdultCategory">
+		<operation name="addAdultCategory">
 			<documentation>
 				Add new porncategory object to VCD-db
 			</documentation>
-			<input message="typens:SoapPornstarServices..addAdultCategory"/>
-			<output message="typens:SoapPornstarServices..addAdultCategoryResponse"/>
+			<input message="typens:addAdultCategory"/>
+			<output message="typens:addAdultCategoryResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..addCategoryToMovie">
+		<operation name="addCategoryToMovie">
 			<documentation>
 				Assign movie to a specific adult category.
 			</documentation>
-			<input message="typens:SoapPornstarServices..addCategoryToMovie"/>
-			<output message="typens:SoapPornstarServices..addCategoryToMovieResponse"/>
+			<input message="typens:addCategoryToMovie"/>
+			<output message="typens:addCategoryToMovieResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..addMovieToStudio">
+		<operation name="addMovieToStudio">
 			<documentation>
 				Assign movie to studio object.
 			</documentation>
-			<input message="typens:SoapPornstarServices..addMovieToStudio"/>
-			<output message="typens:SoapPornstarServices..addMovieToStudioResponse"/>
+			<input message="typens:addMovieToStudio"/>
+			<output message="typens:addMovieToStudioResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..addPornstar">
+		<operation name="addPornstar">
 			<documentation>
 				Add a new pornstar to VCD-db.
 			</documentation>
-			<input message="typens:SoapPornstarServices..addPornstar"/>
-			<output message="typens:SoapPornstarServices..addPornstarResponse"/>
+			<input message="typens:addPornstar"/>
+			<output message="typens:addPornstarResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..addPornstarToMovie">
+		<operation name="addPornstarToMovie">
 			<documentation>
 				Add pornstar to the cast list of a specific movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..addPornstarToMovie"/>
-			<output message="typens:SoapPornstarServices..addPornstarToMovieResponse"/>
+			<input message="typens:addPornstarToMovie"/>
+			<output message="typens:addPornstarToMovieResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..addStudio">
+		<operation name="addStudio">
 			<documentation>
 				Add new studio object to VCD-db
 			</documentation>
-			<input message="typens:SoapPornstarServices..addStudio"/>
-			<output message="typens:SoapPornstarServices..addStudioResponse"/>
+			<input message="typens:addStudio"/>
+			<output message="typens:addStudioResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deleteAdultCategory">
+		<operation name="deleteAdultCategory">
 			<documentation>
 				Delete a specific adult category object from VCD-db.
 			</documentation>
-			<input message="typens:SoapPornstarServices..deleteAdultCategory"/>
-			<output message="typens:SoapPornstarServices..deleteAdultCategoryResponse"/>
+			<input message="typens:deleteAdultCategory"/>
+			<output message="typens:deleteAdultCategoryResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deleteMovieFromCategories">
+		<operation name="deleteMovieFromCategories">
 			<documentation>
 				Remove all adult categories from the specific movie object.
 			</documentation>
-			<input message="typens:SoapPornstarServices..deleteMovieFromCategories"/>
-			<output message="typens:SoapPornstarServices..deleteMovieFromCategoriesResponse"/>
+			<input message="typens:deleteMovieFromCategories"/>
+			<output message="typens:deleteMovieFromCategoriesResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deleteMovieFromStudio">
+		<operation name="deleteMovieFromStudio">
 			<documentation>
 				Remove studio assignment from a movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..deleteMovieFromStudio"/>
-			<output message="typens:SoapPornstarServices..deleteMovieFromStudioResponse"/>
+			<input message="typens:deleteMovieFromStudio"/>
+			<output message="typens:deleteMovieFromStudioResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deletePornstar">
+		<operation name="deletePornstar">
 			<documentation>
 				Delete pornstar from VCD-db, return true if operation secceds otherwise false.
 			</documentation>
-			<input message="typens:SoapPornstarServices..deletePornstar"/>
-			<output message="typens:SoapPornstarServices..deletePornstarResponse"/>
+			<input message="typens:deletePornstar"/>
+			<output message="typens:deletePornstarResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deletePornstarFromMovie">
+		<operation name="deletePornstarFromMovie">
 			<documentation>
 				Delete pornstar from the cast list of a movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..deletePornstarFromMovie"/>
-			<output message="typens:SoapPornstarServices..deletePornstarFromMovieResponse"/>
+			<input message="typens:deletePornstarFromMovie"/>
+			<output message="typens:deletePornstarFromMovieResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..deleteStudio">
+		<operation name="deleteStudio">
 			<documentation>
 				Delete a studio object from VCD-db
 			</documentation>
-			<input message="typens:SoapPornstarServices..deleteStudio"/>
-			<output message="typens:SoapPornstarServices..deleteStudioResponse"/>
+			<input message="typens:deleteStudio"/>
+			<output message="typens:deleteStudioResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getAllPornstars">
+		<operation name="getAllPornstars">
 			<documentation>
 				Get all pornstars in VCD-db, returns array of pornstar objects
 			</documentation>
-			<input message="typens:SoapPornstarServices..getAllPornstars"/>
-			<output message="typens:SoapPornstarServices..getAllPornstarsResponse"/>
+			<input message="typens:getAllPornstars"/>
+			<output message="typens:getAllPornstarsResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getAllStudios">
+		<operation name="getAllStudios">
 			<documentation>
 				Get all adult studios.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getAllStudios"/>
-			<output message="typens:SoapPornstarServices..getAllStudiosResponse"/>
+			<input message="typens:getAllStudios"/>
+			<output message="typens:getAllStudiosResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarByID">
+		<operation name="getPornstarByID">
 			<documentation>
 				Get a pornstar object by ID
 			</documentation>
-			<input message="typens:SoapPornstarServices..getPornstarByID"/>
-			<output message="typens:SoapPornstarServices..getPornstarByIDResponse"/>
+			<input message="typens:getPornstarByID"/>
+			<output message="typens:getPornstarByIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarByName">
+		<operation name="getPornstarByName">
 			<documentation>
 				Get a pornstar object by the pornstar Name
 			</documentation>
-			<input message="typens:SoapPornstarServices..getPornstarByName"/>
-			<output message="typens:SoapPornstarServices..getPornstarByNameResponse"/>
+			<input message="typens:getPornstarByName"/>
+			<output message="typens:getPornstarByNameResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsAlphabet">
+		<operation name="getPornstarsAlphabet">
 			<documentation>
 				Get the alphabet entries of the first letter of pornstar names.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getPornstarsAlphabet"/>
-			<output message="typens:SoapPornstarServices..getPornstarsAlphabetResponse"/>
+			<input message="typens:getPornstarsAlphabet"/>
+			<output message="typens:getPornstarsAlphabetResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsByLetter">
+		<operation name="getPornstarsByLetter">
 			<documentation>
 				Get pornstars that start with the specified letter in the alphabet.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getPornstarsByLetter"/>
-			<output message="typens:SoapPornstarServices..getPornstarsByLetterResponse"/>
+			<input message="typens:getPornstarsByLetter"/>
+			<output message="typens:getPornstarsByLetterResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsByMovieID">
+		<operation name="getPornstarsByMovieID">
 			<documentation>
 				Get all pornstars that have been added to the cast list of a specific movie,
 returns array of pornstar objects.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getPornstarsByMovieID"/>
-			<output message="typens:SoapPornstarServices..getPornstarsByMovieIDResponse"/>
+			<input message="typens:getPornstarsByMovieID"/>
+			<output message="typens:getPornstarsByMovieIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByID">
+		<operation name="getStudioByID">
 			<documentation>
 				Get a specific studio object by ID.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getStudioByID"/>
-			<output message="typens:SoapPornstarServices..getStudioByIDResponse"/>
+			<input message="typens:getStudioByID"/>
+			<output message="typens:getStudioByIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByMovieID">
+		<operation name="getStudioByMovieID">
 			<documentation>
 				Get the studio object that has been assigned to the specified movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getStudioByMovieID"/>
-			<output message="typens:SoapPornstarServices..getStudioByMovieIDResponse"/>
+			<input message="typens:getStudioByMovieID"/>
+			<output message="typens:getStudioByMovieIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByName">
+		<operation name="getStudioByName">
 			<documentation>
 				Get a specific studio object by studio name.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getStudioByName"/>
-			<output message="typens:SoapPornstarServices..getStudioByNameResponse"/>
+			<input message="typens:getStudioByName"/>
+			<output message="typens:getStudioByNameResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getStudiosInUse">
+		<operation name="getStudiosInUse">
 			<documentation>
 				Get a list of all the studios that are at least assigned to 1 movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getStudiosInUse"/>
-			<output message="typens:SoapPornstarServices..getStudiosInUseResponse"/>
+			<input message="typens:getStudiosInUse"/>
+			<output message="typens:getStudiosInUseResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategories">
+		<operation name="getSubCategories">
 			<documentation>
 				Get all pornacategories, returns array of porncategory objects.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getSubCategories"/>
-			<output message="typens:SoapPornstarServices..getSubCategoriesResponse"/>
+			<input message="typens:getSubCategories"/>
+			<output message="typens:getSubCategoriesResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoriesByMovieID">
+		<operation name="getSubCategoriesByMovieID">
 			<documentation>
 				Get all porncategories that have been assigned to a specific movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getSubCategoriesByMovieID"/>
-			<output message="typens:SoapPornstarServices..getSubCategoriesByMovieIDResponse"/>
+			<input message="typens:getSubCategoriesByMovieID"/>
+			<output message="typens:getSubCategoriesByMovieIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoriesInUse">
+		<operation name="getSubCategoriesInUse">
 			<documentation>
 				Get all porncategory objects that are at least used once by any movie.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getSubCategoriesInUse"/>
-			<output message="typens:SoapPornstarServices..getSubCategoriesInUseResponse"/>
+			<input message="typens:getSubCategoriesInUse"/>
+			<output message="typens:getSubCategoriesInUseResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoryByID">
+		<operation name="getSubCategoryByID">
 			<documentation>
 				Get a specific porncategory object by ID.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getSubCategoryByID"/>
-			<output message="typens:SoapPornstarServices..getSubCategoryByIDResponse"/>
+			<input message="typens:getSubCategoryByID"/>
+			<output message="typens:getSubCategoryByIDResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..getValidCategories">
+		<operation name="getValidCategories">
 			<documentation>
 				Searches in the names for the current adult categories, if a name is found in the incoming list
 the porncategory match is pushed to the result array.
 			</documentation>
-			<input message="typens:SoapPornstarServices..getValidCategories"/>
-			<output message="typens:SoapPornstarServices..getValidCategoriesResponse"/>
+			<input message="typens:getValidCategories"/>
+			<output message="typens:getValidCategoriesResponse"/>
 		</operation>
-		<operation name="SoapPornstarServices..updatePornstar">
+		<operation name="updatePornstar">
 			<documentation>
 				Update the specified pornstar object.
 			</documentation>
-			<input message="typens:SoapPornstarServices..updatePornstar"/>
-			<output message="typens:SoapPornstarServices..updatePornstarResponse"/>
+			<input message="typens:updatePornstar"/>
+			<output message="typens:updatePornstarResponse"/>
 		</operation>
 	</portType>
 	<binding name="PornstarServicesBinding" type="typens:PornstarServicesPortType">
 		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
-		<operation name="SoapPornstarServices..addAdultCategory">
+		<operation name="addAdultCategory">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -434,7 +434,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..addCategoryToMovie">
+		<operation name="addCategoryToMovie">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -443,7 +443,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..addMovieToStudio">
+		<operation name="addMovieToStudio">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -452,7 +452,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..addPornstar">
+		<operation name="addPornstar">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -461,7 +461,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..addPornstarToMovie">
+		<operation name="addPornstarToMovie">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -470,7 +470,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..addStudio">
+		<operation name="addStudio">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -479,7 +479,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deleteAdultCategory">
+		<operation name="deleteAdultCategory">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -488,7 +488,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deleteMovieFromCategories">
+		<operation name="deleteMovieFromCategories">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -497,7 +497,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deleteMovieFromStudio">
+		<operation name="deleteMovieFromStudio">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -506,7 +506,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deletePornstar">
+		<operation name="deletePornstar">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -515,7 +515,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deletePornstarFromMovie">
+		<operation name="deletePornstarFromMovie">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -524,7 +524,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..deleteStudio">
+		<operation name="deleteStudio">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -533,7 +533,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getAllPornstars">
+		<operation name="getAllPornstars">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -542,7 +542,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getAllStudios">
+		<operation name="getAllStudios">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -551,7 +551,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarByID">
+		<operation name="getPornstarByID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -560,7 +560,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarByName">
+		<operation name="getPornstarByName">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -569,7 +569,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsAlphabet">
+		<operation name="getPornstarsAlphabet">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -578,7 +578,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsByLetter">
+		<operation name="getPornstarsByLetter">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -587,7 +587,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getPornstarsByMovieID">
+		<operation name="getPornstarsByMovieID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -596,7 +596,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByID">
+		<operation name="getStudioByID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -605,7 +605,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByMovieID">
+		<operation name="getStudioByMovieID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -614,7 +614,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getStudioByName">
+		<operation name="getStudioByName">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -623,7 +623,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getStudiosInUse">
+		<operation name="getStudiosInUse">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -632,7 +632,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategories">
+		<operation name="getSubCategories">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -641,7 +641,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoriesByMovieID">
+		<operation name="getSubCategoriesByMovieID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -650,7 +650,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoriesInUse">
+		<operation name="getSubCategoriesInUse">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -659,7 +659,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getSubCategoryByID">
+		<operation name="getSubCategoryByID">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -668,7 +668,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..getValidCategories">
+		<operation name="getValidCategories">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
@@ -677,7 +677,7 @@ the porncategory match is pushed to the result array.
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
 			</output>
 		</operation>
-		<operation name="SoapPornstarServices..updatePornstar">
+		<operation name="updatePornstar">
 			<soap:operation soapAction="urn:PornstarServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>

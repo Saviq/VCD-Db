@@ -32,9 +32,7 @@ require_once(dirname(__FILE__) . '/vcd/vcdFacade.php');
  */
 class UserServices extends VCDServices {
 	
-	// Deny instantiation of the class 
-	private function __construct() {}
-	
+		
 	/**
 	 * Get user By ID
 	 *
@@ -429,8 +427,6 @@ class UserServices extends VCDServices {
  */
 class SettingsServices extends VCDServices {
 	
-	// Deny instantiation of the class 
-	private function __construct() {}
 	
 	/**
 	 * Get all Settings objects in VCD-db.  Returns array of Settings objects.
@@ -1523,8 +1519,6 @@ class SettingsServices extends VCDServices {
  */
 class CoverServices extends VCDServices {
 	
-	// Deny instantiation of the class 
-	private function __construct() {}
 	
 	/**
 	 * Get all cover types in VCD-db, returns array of coverType objects
@@ -1840,8 +1834,6 @@ class CoverServices extends VCDServices {
  */
 class PornstarServices extends VCDServices {
 	
-	// Deny instantiation of the class 
-	private function __construct() {}
 	
 	/**
 	 * Get all pornstars in VCD-db, returns array of pornstar objects
@@ -2317,8 +2309,6 @@ class PornstarServices extends VCDServices {
  */
 class MovieServices extends VCDServices {
 	
-	// Deny instantiation of the class 
-	private function __construct() {}
 		
 	/**
 	 * Get movie by ID
