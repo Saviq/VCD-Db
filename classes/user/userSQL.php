@@ -125,7 +125,7 @@ class userSQL extends VCDConnection  {
 				  user_fullname = ".$this->db->qstr($userObj->getFullname()).",
 				  user_email = ".$this->db->qstr($userObj->getEmail()).",
 			      role_id = ".$userObj->getRoleID().",
-				  is_deleted = ".$userObj->isDeleted()."
+				  is_deleted = ".(int)$userObj->isDeleted()."
 				  WHERE user_id = ".$userObj->getUserID()."";
 		
 		$this->db->Execute($query);

@@ -36,6 +36,13 @@ abstract class VCDProxy {
 	
 	private $cachedData = null;
 	
+	/**
+	 * Force the use of NuSoap even if phpsoap is available
+	 *
+	 * @var bool
+	 */
+	private $forceNuSoap = false;
+	
 	
 	/**
 	 * Class constructor
@@ -48,29 +55,38 @@ abstract class VCDProxy {
                 $this->checkWSDLCache($this->wsdl);
             }
 			
-            if (extension_loaded('soap')) {
+            if (!$this->forceNuSoap && extension_loaded('soap')) {
                        	
             	if (VCDUtils::isLoggedIn()) {
 					$userObj = $_SESSION['user'];
 					$this->proxy = new SoapClient($this->wsdl, 
 						array('login' => $userObj->getUsername(), 
-							'password' => $userObj->getPassword()));
+							'password' => $userObj->getPassword(),
+							'encoding' => 'UTF-8'));
 				} else {
-					$this->proxy = new SoapClient($this->wsdl);
+					$this->proxy = new SoapClient($this->wsdl, 
+						array('login' => 'vcddb',
+							'password' => VCDDB_SOAPSECRET,
+							'encoding' => 'UTF-8'));
+					
 				}
             	
             } else {
             	
             	$this->proxy = new nusoap_client($this->wsdl, true, false,false,false,false, $this->timeout, $this->responseTimeout);
 				$this->proxy->soap_defencoding = 'UTF-8';
+				if (VCDUtils::isLoggedIn()) {
+					$userObj = $_SESSION['user'];
+					$this->proxy->setCredentials($userObj->getUsername(), $userObj->getPassword(), 'basic');
+				} else {
+					$this->proxy->setCredentials('vcddb', VCDDB_SOAPSECRET, 'basic');
+				}
 				$error = $this->proxy->getError();
 				if ($error) {
-					throw new VCDProgramException($error);	
-				}	
-				
+					throw new VCDProgramException($error);
+				}
             }
-            
-			
+
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -105,17 +121,19 @@ abstract class VCDProxy {
 			
 			if ($this->proxy instanceof SoapClient ) {
 
-				$result = $this->proxy->__soapCall($action, $params);
+				try {
+					$result = $this->proxy->__soapCall($action, $params);
+				} catch (Exception $ex) {
+					throw new SoapFault($ex->getMessage(), $ex->getMessage(), 'Server');
+				}
+				
 				if (is_soap_fault($result)) {
 					throw new VCDProgramException("Action: ".$action . "<break>Error: ".$result->faultstring, $result->faultcode);
 				}
 					
 			} else {
 
-				if (VCDUtils::isLoggedIn()) {
-					$userObj = $_SESSION['user'];
-					$this->proxy->setCredentials($userObj->getUsername(), $userObj->getPassword(), 'basic');
-				}
+				
 				
 				$result = $this->proxy->call($action, $params, $this->namespace, $this->soapaction);
 				
@@ -139,6 +157,8 @@ abstract class VCDProxy {
 		}
 	}
 
+	
+	
 	/**
 	 * Check for cached data if the cache manager is being used.
 	 *
@@ -468,8 +488,9 @@ class SoapCoverProxy extends VCDProxy {
 			$data = $this->invoke('getAllowedCoversForVcd', 
 				array('mediaTypeObjArr' => VCDSoapTools::EncodeArray($mediaTypeObjArr)));
 			$results = array();
+			
 			foreach ($data as $item) {
-				array_push($results, VCDSoapTools::GetCoverTypeOb($item));
+				array_push($results, VCDSoapTools::GetCoverTypeObj($item));
 			}
 			return $results;
 			
@@ -1749,8 +1770,13 @@ class SoapPornstarProxy extends VCDProxy  {
 		}
 	}
 	
-	
-	
+	public function addMovieToStudio($studio_id, $vcd_id) {	
+		try {
+			$this->invoke('addMovieToStudio', array('studio_id' => $studio_id, 'vcd_id' => $vcd_id));
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
 	
 	public function addStudio(studioObj $obj) {
 		try {
@@ -1882,6 +1908,15 @@ class SoapPornstarProxy extends VCDProxy  {
 		}
 	}
 	
+	
+	public function addPornstar(pornstarObj $obj) {
+		try {
+			return VCDSoapTools::GetPornstarObj(
+				$this->invoke('addPornstar', array('obj' => $obj->toSoapEncoding())));
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
 	
 	public function addAdultCategory(porncategoryObj $obj) {
 		try {
@@ -2876,7 +2911,7 @@ class SoapSettingsProxy extends VCDProxy {
 	public function deleteComment($comment_id) {
 		try {
 			
-			$this->invoke('deleteComment', array('comment_id',$comment_id));
+			$this->invoke('deleteComment', array('comment_id' => $comment_id));
 			
 		} catch (Exception $ex) {
 			throw $ex;

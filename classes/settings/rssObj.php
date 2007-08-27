@@ -150,7 +150,11 @@ class rssObj {
 	 * @return bool
 	 */
 	public function isAdultFeed() {
-		return $this->isXrated;
+		if (is_bool($this->isXrated)) {
+			return false;
+		} else {
+			return $this->isXrated;	
+		}
 	}
 	
 	/**
@@ -188,8 +192,8 @@ class rssObj {
 	public function toSoapEncoding() {
 		return array(
 			'id' => $this->id,
-			'isSitefeed' => $this->isSitefeed,
-			'isXrated'	=> $this->isXrated,
+			'isSitefeed' => $this->isVcddbFeed(),
+			'isXrated'	=> $this->isAdultFeed(),
 			'name' => $this->name,
 			'owner_id' => $this->owner_id,
 			'url' => $this->url

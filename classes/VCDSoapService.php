@@ -31,7 +31,7 @@ class VCDSoapService extends VCDServices {
 	 *
 	 * @var nusoap_server
 	 */
-	private $server = null;
+	private static $server = null;
 	
 	/**
 	 * The current user that is connected
@@ -39,6 +39,14 @@ class VCDSoapService extends VCDServices {
 	 * @var userObj
 	 */
 	private static $userObj = null;
+	
+	
+	/**
+	 * Force the use of NuSoap even if phpsoap is available
+	 *
+	 * @var bool
+	 */
+	private static $forceNuSoap = false;
 	
 	/**
 	 * Class constructor
@@ -48,9 +56,7 @@ class VCDSoapService extends VCDServices {
 	public function __construct($wsdl) {
 		try {
 			
-			$this->checkCredentials();
-
-			if (extension_loaded('soap')) {
+			if (!self::$forceNuSoap && extension_loaded('soap')) {
 				$this->initPhpSoap($wsdl);				
 			} else {
 				$this->initNuSoap($wsdl);
@@ -59,7 +65,7 @@ class VCDSoapService extends VCDServices {
 			parent::$isWebserviceCall = true;
 			
 		} catch (Exception $ex) {
-			throw new VCDSoapException($ex->getMessage(), $ex->getCode());
+			return self::handleSoapError($ex);
 		}
 	}
 	
@@ -69,10 +75,17 @@ class VCDSoapService extends VCDServices {
 	 * @param string $request | The SOAP Request
 	 */
 	public function provideService($request) {
-		if (extension_loaded('soap')) {
-			$this->server->handle($request);
-		} else {
-			$this->server->service($request);
+		try {
+			
+			$this->checkCredentials();
+			
+			if (!self::$forceNuSoap && extension_loaded('soap')) {
+				self::$server->handle($request);
+			} else {
+				self::$server->service($request);
+			}
+		} catch (Exception $ex) {
+			return self::handleSoapError($ex);
 		}
 	}
 	
@@ -89,9 +102,9 @@ class VCDSoapService extends VCDServices {
 			} else {
 				$_wsdl = new wsdl(VCDDB_BASE.'/includes/wsdl/'.$wsdl);	
 			}
-			$this->server = new nusoap_server($_wsdl);
-			$this->server->soap_defencoding = 'UTF-8';
-			$this->server->setClass4Operation($this->getHandler($wsdl), true);
+			self::$server = new nusoap_server($_wsdl);
+			self::$server->soap_defencoding = 'UTF-8';
+			self::$server->setClass4Operation($this->getHandler($wsdl), true);
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -113,8 +126,8 @@ class VCDSoapService extends VCDServices {
 				$_wsdl = VCDDB_BASE.'/includes/wsdl/'.$wsdl;	
 			}
 				
-			$this->server = new SoapServer($_wsdl);
-			$this->server->setClass($this->getHandler($wsdl));
+			self::$server = new SoapServer($_wsdl);
+			self::$server->setClass($this->getHandler($wsdl));
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -202,20 +215,22 @@ class VCDSoapService extends VCDServices {
 					// Add userObj to session
 					$_SESSION['user'] = $userObj;
 					self::$userObj = $userObj;
-				} else {
+				} elseif (!((strcmp($username,'vcddb') == 0) && (strcmp($password,VCDDB_SOAPSECRET)==0))) {
 					throw new VCDSecurityException('Invalid Credentials.');
 				}
+			} else {
+				throw new VCDSecurityException('Invalid Credentials.');
 			}
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
 	
-	private function handleSoapError(Exception $ex) {
+	public static function handleSoapError(Exception $ex) {
 	
-		if (extension_loaded('soap')) {
-			return new SoapFault($ex->getCode(), $ex->getMessage(), 'server', $ex->getTraceAsString());
+		if (!self::$forceNuSoap && extension_loaded('soap')) {
+			return self::$server->fault((string)$ex->getCode(), $ex->getMessage(), 'Server', $ex->getTraceAsString());
 		} else {
 			return new soap_fault('1', 'Server', $ex->getMessage());
 		}
@@ -238,7 +253,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getVcdByID($movie_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -254,7 +269,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::addVcd(VCDSoapTools::GetVcdObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -269,7 +284,7 @@ class SoapMovieServices extends MovieServices {
 			parent::updateVcd(VCDSoapTools::GetVcdObj());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -288,7 +303,7 @@ class SoapMovieServices extends MovieServices {
 			parent::updateVcdInstance($vcd_id, $new_mediaid, $old_mediaid, $new_numcds, $oldnumcds);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -311,7 +326,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::deleteVcdFromUser($vcd_id, $media_id, $mode, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -331,7 +346,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getVcdByCategory($category_id, $start, $end, $user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -351,7 +366,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getVcdByCategoryFiltered($category_id, $start, $end, $user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -369,7 +384,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getAllVcdByUserId($user_id, $simple));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -388,7 +403,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getLatestVcdsByUserID($user_id, $count, $simple));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -404,7 +419,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getAllVcdForList($excluded_userid));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -420,7 +435,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getVcdForListByIds($arrIDs));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -438,7 +453,7 @@ class SoapMovieServices extends MovieServices {
 			parent::addVcdToUser($user_id, $vcd_id, $mediatype, $cds);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -456,7 +471,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getCategoryCount($category_id, false, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -473,7 +488,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getCategoryCountFiltered($category_id, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -492,7 +507,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getTopTenList($category_id, $arrFilter));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -510,7 +525,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::search($keyword, $method));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -539,7 +554,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -562,7 +577,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::crossJoin($user_id, $media_id, $category_id, $method));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -581,7 +596,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getPrintViewList($user_id, $list_type));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -598,7 +613,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getRandomMovie($category_id, $use_seenlist)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -615,7 +630,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getSimilarMovies($vcd_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -631,7 +646,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getMovieCount($user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -648,7 +663,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getVcdByAdultCategory($category_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -665,7 +680,7 @@ class SoapMovieServices extends MovieServices {
 			return VCDSoapTools::EncodeArray(parent::getVcdByAdultStudio($studio_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -680,7 +695,7 @@ class SoapMovieServices extends MovieServices {
 			parent::markVcdWithScreenshots($vcd_id);;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -696,7 +711,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getScreenshots($vcd_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -712,7 +727,7 @@ class SoapMovieServices extends MovieServices {
 			return parent::getDuplicationList();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 }
@@ -735,7 +750,7 @@ class SoapAuthenticationServices {
 			}
 	
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 }
@@ -754,7 +769,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCoverTypes());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -770,7 +785,7 @@ class SoapCoverServices extends CoverServices {
 			parent::addCoverType(VCDSoapTools::GetCoverTypeObj($obj));;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -785,7 +800,7 @@ class SoapCoverServices extends CoverServices {
 			parent::deleteCoverType($type_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -801,7 +816,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCoverTypesForVcd($mediatype_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -817,7 +832,7 @@ class SoapCoverServices extends CoverServices {
 			return parent::getCoverTypeById($covertype_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -833,7 +848,7 @@ class SoapCoverServices extends CoverServices {
 			return parent::getCoverTypeByName($name)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -848,7 +863,7 @@ class SoapCoverServices extends CoverServices {
 			parent::updateCoverType(VCDSoapTools::GetCoverTypeObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -864,7 +879,7 @@ class SoapCoverServices extends CoverServices {
 			return parent::getCoverById($cover_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -880,7 +895,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCovers());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -897,7 +912,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCoversForVcd($vcd_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -912,7 +927,7 @@ class SoapCoverServices extends CoverServices {
 			parent::addCover(VCDSoapTools::GetCoverObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -927,7 +942,7 @@ class SoapCoverServices extends CoverServices {
 			parent::deleteCover($cover_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -942,7 +957,7 @@ class SoapCoverServices extends CoverServices {
 			parent::updateCover(VCDSoapTools::GetCoverObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -965,7 +980,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllowedCoversForVcd($arrMediaTypes));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -982,7 +997,7 @@ class SoapCoverServices extends CoverServices {
 			parent::addCoverTypesToMedia($mediaTypeID, $coverTypeIDArr);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -998,7 +1013,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getCDcoverTypesOnMediaType($mediaType_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1015,7 +1030,7 @@ class SoapCoverServices extends CoverServices {
 			return VCDSoapTools::EncodeArray(parent::getAllThumbnailsForXMLExport($user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1031,7 +1046,7 @@ class SoapCoverServices extends CoverServices {
 			return parent::moveCoversToDisk();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1046,7 +1061,7 @@ class SoapCoverServices extends CoverServices {
 			return parent::moveCoversToDatabase();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1055,11 +1070,12 @@ class SoapCoverServices extends CoverServices {
 class SoapSettingsServices extends SettingsServices {
 	
 	
+	
 	public static function getSettingsByKey($key) {
 		try {
 			return parent::getSettingsByKey($key);
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1073,7 +1089,7 @@ class SoapSettingsServices extends SettingsServices {
 			parent::addMetadata($inArr);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1081,7 +1097,7 @@ class SoapSettingsServices extends SettingsServices {
 		try {
 			return parent::getSettingsByID($settings_id)->toSoapEncoding();
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1089,7 +1105,7 @@ class SoapSettingsServices extends SettingsServices {
 		try {
 			parent::updateSettings(VCDSoapTools::GetSettingsObj($obj));
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1099,7 +1115,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getAllSettings());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1109,7 +1125,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getMetadata($record_id, $user_id, $metadata_name, $mediatype_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1119,7 +1135,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getSourceSites());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1127,7 +1143,7 @@ class SoapSettingsServices extends SettingsServices {
 		try {
 			return parent::getSourceSiteByID($source_id)->toSoapEncoding();
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1137,7 +1153,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getSourceSiteByAlias($alias)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1147,7 +1163,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getAllMediatypes());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1157,7 +1173,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getMediaTypeByName($name)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1167,7 +1183,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getMediaTypeByID($media_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1184,7 +1200,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getMediaCountByCategory($category_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1194,7 +1210,7 @@ class SoapSettingsServices extends SettingsServices {
 			parent::addMediaType(VCDSoapTools::GetMediaTypeObj($mediaTypeObj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1206,7 +1222,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getAllMovieCategories());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1216,7 +1232,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getMovieCategoriesInUse());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1226,7 +1242,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getMovieCategoryByID($category_id)->toSoapEncoding();
 				
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1236,7 +1252,7 @@ class SoapSettingsServices extends SettingsServices {
 			parent::addMovieCategory(VCDSoapTools::GetMovieCategoryObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1246,7 +1262,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getCategoryIDByName($name, $localized);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1256,7 +1272,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getStatsObj()->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1267,7 +1283,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getUserStatistics($user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1277,7 +1293,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getRssFeedsByUserId($user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1287,7 +1303,7 @@ class SoapSettingsServices extends SettingsServices {
 			parent::addRssfeed(VCDSoapTools::GetRssObj($data));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1297,7 +1313,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getRssfeed($feed_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1307,7 +1323,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::isPublicWishLists($user_id);
 					
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1318,7 +1334,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getBorrowerByID($borrower_id)->toSoapEncoding();
 				
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1335,7 +1351,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getBorrowersByUserID($user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1347,11 +1363,11 @@ class SoapSettingsServices extends SettingsServices {
 	 */
 	public static function addComment($obj) {
 		try {
-			
+				
 			parent::addComment(VCDSoapTools::GetCommentObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1366,7 +1382,7 @@ class SoapSettingsServices extends SettingsServices {
 			parent::deleteComment($comment_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1382,7 +1398,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::getCommentByID($comment_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1398,7 +1414,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCommentsByUserID($user_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1415,7 +1431,7 @@ class SoapSettingsServices extends SettingsServices {
 			return VCDSoapTools::EncodeArray(parent::getAllCommentsByVCD($vcd_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1432,7 +1448,7 @@ class SoapSettingsServices extends SettingsServices {
 			return parent::isOnWishList($vcd_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1453,7 +1469,7 @@ class SoapSettingsServices extends SettingsServices {
 			return $results;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1469,7 +1485,7 @@ class SoapPornstarServices extends PornstarServices {
 			return parent::getPornstarByID($pornstar_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1484,7 +1500,7 @@ class SoapPornstarServices extends PornstarServices {
 			}
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1495,7 +1511,26 @@ class SoapPornstarServices extends PornstarServices {
 			parent::addAdultCategory($porncategoryObj);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function addPornstar($obj) {
+		try {
+			
+			$pornstarObj = VCDSoapTools::GetPornstarObj($obj);
+			parent::addPornstar($pornstarObj)->toSoapEncoding();
+						
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function addMovieToStudio($studio_id, $vcd_id) {	
+		try {
+			parent::addMovieToStudio($studio_id, $vcd_id);
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1505,7 +1540,7 @@ class SoapPornstarServices extends PornstarServices {
 			parent::addStudio(VCDSoapTools::GetStudioObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1513,7 +1548,7 @@ class SoapPornstarServices extends PornstarServices {
 		try {
 			parent::updatePornstar(VCDSoapTools::GetPornstarObj($obj));
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1525,7 +1560,7 @@ class SoapPornstarServices extends PornstarServices {
 			parent::deleteStudio($studio_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1537,7 +1572,7 @@ class SoapPornstarServices extends PornstarServices {
 			parent::deleteAdultCategory($category_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1548,7 +1583,7 @@ class SoapPornstarServices extends PornstarServices {
 			return parent::getStudioByID($studio_id)->toSoapEncoding();
 		
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1563,7 +1598,7 @@ class SoapPornstarServices extends PornstarServices {
 			}
 		
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1581,7 +1616,7 @@ class SoapPornstarServices extends PornstarServices {
 			}
 		
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1596,7 +1631,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 		
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1610,7 +1645,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 		
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1628,7 +1663,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 				
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1644,7 +1679,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 				
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1655,7 +1690,7 @@ class SoapPornstarServices extends PornstarServices {
 			return parent::getPornstarsAlphabet($active_only);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1669,7 +1704,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 				
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1684,7 +1719,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1694,7 +1729,7 @@ class SoapPornstarServices extends PornstarServices {
 			return parent::getSubCategoryByID($category_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1708,7 +1743,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1722,7 +1757,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1738,7 +1773,7 @@ class SoapPornstarServices extends PornstarServices {
 			return $data;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 }
@@ -1757,7 +1792,7 @@ class SoapUserServices extends UserServices  {
 			return parent::getUserByID($user_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1773,7 +1808,7 @@ class SoapUserServices extends UserServices  {
 			return parent::updateUser(VCDSoapTools::GetUserObj($userObj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1789,7 +1824,7 @@ class SoapUserServices extends UserServices  {
 			return parent::deleteUser($user_id, $erase_data);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1806,7 +1841,7 @@ class SoapUserServices extends UserServices  {
 			return parent::addUser(VCDSoapTools::GetUserObj($userObj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1821,7 +1856,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getAllUsers());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1836,7 +1871,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getActiveUsers());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1852,7 +1887,7 @@ class SoapUserServices extends UserServices  {
 			return parent::getUserByUsername($user_name)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1868,7 +1903,7 @@ class SoapUserServices extends UserServices  {
 			parent::addSession($session_id, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1887,7 +1922,7 @@ class SoapUserServices extends UserServices  {
 			return parent::isValidSession($session_id, $session_time, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 			
@@ -1902,7 +1937,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getAllUserRoles());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1918,7 +1953,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getAllUsersInRole($role_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1936,7 +1971,7 @@ class SoapUserServices extends UserServices  {
 			return parent::deleteUserRole($role_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1951,7 +1986,7 @@ class SoapUserServices extends UserServices  {
 			return parent::getDefaultRole()->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1966,7 +2001,7 @@ class SoapUserServices extends UserServices  {
 			parent::setDefaultRole($role_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 
@@ -1981,7 +2016,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getAllProperties());
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -1997,7 +2032,7 @@ class SoapUserServices extends UserServices  {
 			return parent::getPropertyById($property_id)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2013,7 +2048,7 @@ class SoapUserServices extends UserServices  {
 			return parent::getPropertyByKey($property_key)->toSoapEncoding();
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2028,7 +2063,7 @@ class SoapUserServices extends UserServices  {
 			parent::addProperty(VCDSoapTools::GetUserPropertyObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2043,7 +2078,7 @@ class SoapUserServices extends UserServices  {
 			parent::deleteProperty($property_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2058,7 +2093,7 @@ class SoapUserServices extends UserServices  {
 			parent::updateProperty(VCDSoapTools::GetUserPropertyObj($obj));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 			
@@ -2074,7 +2109,7 @@ class SoapUserServices extends UserServices  {
 			parent::addPropertyToUser($property_id, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2090,7 +2125,7 @@ class SoapUserServices extends UserServices  {
 			parent::deletePropertyOnUser($property_id, $user_id);
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2106,7 +2141,7 @@ class SoapUserServices extends UserServices  {
 			return VCDSoapTools::EncodeArray(parent::getAllUsersWithProperty($property_id));
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
@@ -2127,7 +2162,7 @@ class SoapUserServices extends UserServices  {
 			return $fixedArr;
 			
 		} catch (Exception $ex) {
-			return $this->handleSoapError($ex);
+			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	

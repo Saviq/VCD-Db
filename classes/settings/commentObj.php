@@ -24,7 +24,7 @@ class commentObj implements XMLable {
 	private $owner_name;
 	private $date;
 	private $comment;
-	private $isPrivate;
+	private $isPrivate = false;
 
 
 	/**
@@ -33,17 +33,22 @@ class commentObj implements XMLable {
 	 * @param array $dataArr
 	 */
 	public function __construct($dataArr) {
+		
 		if (is_array($dataArr)) {
 			$this->id 		   = $dataArr[0];
 			$this->vcd_id      = $dataArr[1];
 			$this->owner_id	   = $dataArr[2];
 			$this->date        = $dataArr[3];
-			$this->comment 	   = $dataArr[4];
+			$this->comment 	   = utf8_encode($dataArr[4]);
 			$this->isPrivate   = $dataArr[5];
 			
 			if (isset($dataArr[6])) {
 				$this->owner_name = $dataArr[6];
 			}
+		}
+		
+		if (!is_bool($this->isPrivate)) {
+			$this->isPrivate = false;
 		}
 	}
 
@@ -133,7 +138,11 @@ class commentObj implements XMLable {
 	 * @return bool
 	 */
 	public function isPrivate() {
-		return $this->isPrivate;
+		if (!is_bool($this->isPrivate)) {
+			return false;
+		} else {
+			return $this->isPrivate;	
+		}
 	}
 	
 
@@ -158,10 +167,10 @@ class commentObj implements XMLable {
 	 */
 	public function toSoapEncoding() {
 		return array(
-			'comment'	 => utf8_encode($this->comment),
+			'comment'	 => $this->comment,
 			'date'		 => $this->date,
 			'id'		 => $this->id,
-			'isPrivate'  => $this->isPrivate,
+			'isPrivate'  => (bool)$this->isPrivate,
 			'owner_id'	 => $this->owner_id,
 			'owner_name' => utf8_encode($this->owner_name),
 			'vcd_id'	 => $this->vcd_id
