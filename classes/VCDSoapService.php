@@ -77,7 +77,9 @@ class VCDSoapService extends VCDServices {
 	public function provideService($request) {
 		try {
 			
-			$this->checkCredentials();
+			if (!isset($_GET['wsdl'])) {
+				$this->checkCredentials();
+			}
 			
 			if (!self::$forceNuSoap && extension_loaded('soap')) {
 				self::$server->handle($request);
@@ -204,29 +206,70 @@ class VCDSoapService extends VCDServices {
 	private function checkCredentials() {
 		try {
 		
+			$username = null;
+			$password = null;
+			
 			if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW'])) {
 				
 				$username = $_SERVER['PHP_AUTH_USER'];
 				$password = $_SERVER['PHP_AUTH_PW']; 	
-				$userObj = UserServices::getUserByUsername($username);
-				if ($userObj instanceof userObj && !$userObj->isDeleted() 
-					&& strcmp($userObj->getPassword(),$password) == 0) {
-					// We have a valid user ...
-					// Add userObj to session
-					$_SESSION['user'] = $userObj;
-					self::$userObj = $userObj;
-				} elseif (!((strcmp($username,'vcddb') == 0) && (strcmp($password,VCDDB_SOAPSECRET)==0))) {
-					throw new VCDSecurityException('Invalid Credentials.');
+								
+				
+				if ((strcmp($username,'vcddb') == 0) && (strcmp($password,VCDDB_SOAPSECRET)==0)) {
+					return;
+				} else {
+					
+					$userObj = UserServices::getUserByUsername($username);
+					if ($userObj instanceof userObj && !$userObj->isDeleted() 
+						&& strcmp($userObj->getPassword(),$password) == 0) {
+						// We have a valid user ...
+						// Add userObj to session
+						$_SESSION['user'] = $userObj;
+						self::$userObj = $userObj;
+						return;
+					} else {
+						throw new VCDSecurityException('Invalid Credentials.');
+					}
 				}
 			} else {
-				throw new VCDSecurityException('Invalid Credentials.');
+				$this->sendAuthHeader();
 			}
+			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);
 		}
 	}
 	
+	/**
+	 * Send 401 Auth header if HTTP Auth request did not follow
+	 *
+	 */
+	private function sendAuthHeader() {
+		header('HTTP/1.0 401 Unauthorized');
+    	header('WWW-Authenticate: Basic realm="VCD-db WebServices"');
+    	session_write_close();
+   		@ob_end_clean();
+    	header('Content-type: application/xml');
+	   	die($this->getInvalidAuthResponse());
+    }
 	
+	
+    /**
+     * Generate the error message as XML-SOAP Exception when no auth header is supplied.
+     *
+     * @return string
+     */
+	private function getInvalidAuthResponse() {
+		$err = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode>1</faultcode><faultstring>No credentials supplied.</faultstring><faultactor>Client</faultactor><detail>Error</detail></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+		return $err;
+	}
+	
+	/**
+	 * Handle Exception and transform them to SOAP exception.
+	 *
+	 * @param Exception $ex | The Exception to handle
+	 * @return string | The XML-SOAP exception that is returned
+	 */
 	public static function handleSoapError(Exception $ex) {
 	
 		if (!self::$forceNuSoap && extension_loaded('soap')) {
@@ -235,6 +278,24 @@ class VCDSoapService extends VCDServices {
 			return new soap_fault('1', 'Server', $ex->getMessage());
 		}
 	}
+	
+	
+	/**
+	 * Check if the current has permission to perform a restricted operation.
+	 *
+	 */
+	public static function isAdmin() {
+		try {
+
+			if (!(VCDUtils::isLoggedIn() && (self::$$userObj->isAdmin()))) {
+				throw new VCDSecurityException('Unauthorized to use this method.');
+			}
+		
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 	
 }
 
@@ -797,6 +858,7 @@ class SoapCoverServices extends CoverServices {
 	public static function deleteCoverType($type_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::deleteCoverType($type_id);
 			
 		} catch (Exception $ex) {
@@ -860,6 +922,7 @@ class SoapCoverServices extends CoverServices {
 	public static function updateCoverType($obj) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::updateCoverType(VCDSoapTools::GetCoverTypeObj($obj));
 			
 		} catch (Exception $ex) {
@@ -1043,6 +1106,7 @@ class SoapCoverServices extends CoverServices {
 	public static function moveCoversToDisk() {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return parent::moveCoversToDisk();
 			
 		} catch (Exception $ex) {
@@ -1058,6 +1122,7 @@ class SoapCoverServices extends CoverServices {
 	public static function moveCoversToDatabase() {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return parent::moveCoversToDatabase();
 			
 		} catch (Exception $ex) {
@@ -1103,7 +1168,10 @@ class SoapSettingsServices extends SettingsServices {
 	
 	public static function updateSettings($obj) {
 		try {
+			
+			VCDSoapService::isAdmin();
 			parent::updateSettings(VCDSoapTools::GetSettingsObj($obj));
+			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);
 		}
@@ -1557,6 +1625,7 @@ class SoapPornstarServices extends PornstarServices {
 	public static function deleteStudio($studio_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::deleteStudio($studio_id);
 			
 		} catch (Exception $ex) {
@@ -1569,6 +1638,7 @@ class SoapPornstarServices extends PornstarServices {
 	public static function deleteAdultCategory($category_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::deleteAdultCategory($category_id);
 			
 		} catch (Exception $ex) {
@@ -1821,6 +1891,7 @@ class SoapUserServices extends UserServices  {
 	public static function deleteUser($user_id, $erase_data = false) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return parent::deleteUser($user_id, $erase_data);
 			
 		} catch (Exception $ex) {
@@ -1838,6 +1909,7 @@ class SoapUserServices extends UserServices  {
 	public static function addUser($userObj) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return parent::addUser(VCDSoapTools::GetUserObj($userObj));
 			
 		} catch (Exception $ex) {
@@ -1968,6 +2040,7 @@ class SoapUserServices extends UserServices  {
 	public static function deleteUserRole($role_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return parent::deleteUserRole($role_id);
 			
 		} catch (Exception $ex) {
@@ -1998,6 +2071,7 @@ class SoapUserServices extends UserServices  {
 	public static function setDefaultRole($role_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::setDefaultRole($role_id);
 			
 		} catch (Exception $ex) {
@@ -2075,6 +2149,7 @@ class SoapUserServices extends UserServices  {
 	public static function deleteProperty($property_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			parent::deleteProperty($property_id);
 			
 		} catch (Exception $ex) {
