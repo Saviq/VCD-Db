@@ -74,6 +74,7 @@ class UserServices extends VCDServices {
 	public static function deleteUser($user_id, $erase_data = false) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			self::User()->deleteUser($user_id, $erase_data);
 			
 		} catch (Exception $ex) {
@@ -221,6 +222,7 @@ class UserServices extends VCDServices {
 	public static function deleteUserRole($role_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			return self::User()->deleteUserRole($role_id);
 			
 		} catch (Exception $ex) {
@@ -251,6 +253,7 @@ class UserServices extends VCDServices {
 	public static function setDefaultRole($role_id) {
 		try {
 			
+			VCDSoapService::isAdmin();
 			self::User()->setDefaultRole($role_id);
 			
 		} catch (Exception $ex) {
