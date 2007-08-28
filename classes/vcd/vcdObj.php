@@ -450,8 +450,6 @@ class vcdObj extends cdObj implements XMLable {
 	 *
 	 */
 	public function displayCopies(&$arrMetaData= null) {
-		
-		;
 				
 		print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
 		print "<tr><td>".VCDLanguage::translate('movie.media')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".VCDLanguage::translate('movie.num')."</td><td>".VCDLanguage::translate('movie.date')."</td><td>".VCDLanguage::translate('movie.owner')."</td></tr>";

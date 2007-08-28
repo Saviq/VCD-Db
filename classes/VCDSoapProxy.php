@@ -3274,6 +3274,10 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
+				
+		if (!isset($data['category_name'])) {
+			return null;
+		}
 		
 		$obj = new movieCategoryObj(array($data['category_id'], $data['category_name']));
 		if (isset($data['category_count']) && is_numeric($data['category_count'])) {
@@ -3308,7 +3312,8 @@ class VCDSoapTools {
 			return null;
 		}
 		
-		$cast = ereg_replace(10,13,$data['cast']);
+		//$cast = ereg_replace(10,13,$data['cast']);
+		$cast = $data['cast'];
 		
 		$obj = new imdbObj(array($data['id'],$data['title'],$data['altTitle'],$data['altTitle'],$data['image'],
 			$data['year'],$data['plot'],$data['director'],$cast,$data['rating'],$data['runtime'],
@@ -3329,7 +3334,12 @@ class VCDSoapTools {
 			$obj->setIMDB($imdbObj);
 		}
 		
-		$obj->setMovieCategory(self::GetMovieCategoryObj($data['moviecategoryobj']));
+		
+		$movieCatObj = self::GetMovieCategoryObj($data['moviecategoryobj']);
+		if ($movieCatObj instanceof movieCategoryObj ) {
+			$obj->setMovieCategory($movieCatObj);
+		}
+		
 		$obj->setSourceSite($data['source_id'], $data['external_id']);
 		
 		

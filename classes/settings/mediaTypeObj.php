@@ -61,13 +61,12 @@ class mediaTypeObj implements XMLable {
 	 * @return string
 	 */
 	public function getDetailedName() {
-		if (!isset($this->parent_id)) {
-			return $this->getName();
-		} else {
+		if (isset($this->parent_id) && is_numeric($this->parent_id)) {
 			$parent_name = SettingsServices::getMediaTypeByID($this->parent_id)->getName();
 			return $parent_name . " " . $this->getName();
+		} else {
+			return $this->getName();
 		}
-		
 	}
 		
 	/**
