@@ -112,7 +112,7 @@
 					<xsd:element name="metadata_value" type="xsd:string"/>
 					<xsd:element name="metatype_description" type="xsd:string"/>
 					<xsd:element name="metatype_id" type="xsd:decimal"/>
-					<xsd:element name="metatype_level" type="xsd:string"/>
+					<xsd:element name="metatype_level" type="xsd:decimal"/>
 					<xsd:element name="metatype_name" type="xsd:string"/>
 					<xsd:element name="record_id" type="xsd:decimal"/>
 					<xsd:element name="user_id" type="xsd:decimal"/>

@@ -342,7 +342,7 @@ class SoapMovieServices extends MovieServices {
 	public static function updateVcd($obj) {
 		try {
 			
-			parent::updateVcd(VCDSoapTools::GetVcdObj());
+			parent::updateVcd(VCDSoapTools::GetVcdObj($obj));
 			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);
@@ -1158,6 +1158,17 @@ class SoapSettingsServices extends SettingsServices {
 		}
 	}
 	
+	public static function addMetaDataType($obj) {
+		try {
+			
+			parent::addMetadataType(VCDSoapTools::GetMetadataTypeObj($obj));
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	
 	public static function getSettingsByID($settings_id) {
 		try {
 			return parent::getSettingsByID($settings_id)->toSoapEncoding();
@@ -1191,6 +1202,26 @@ class SoapSettingsServices extends SettingsServices {
 		try {
 			
 			return VCDSoapTools::EncodeArray(parent::getMetadata($record_id, $user_id, $metadata_name, $mediatype_id));
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function deleteMetaDataType($type_id) {
+		try {
+			
+			parent::deleteMetaDataType($type_id);
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function getMetadataTypes($user_id) {
+		try {
+			
+			return VCDSoapTools::EncodeArray(parent::getMetadataTypes($user_id));
 			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);

@@ -3171,10 +3171,16 @@ class SoapSettingsProxy extends VCDProxy {
 		try {
 			
 			$data = $this->invoke('getMetadataTypes', array('user_id' => $user_id));
+			
+			
+			
 			$results = array();
 			foreach ($data as $obj) {
 				array_push($results, VCDSoapTools::GetMetadataTypeObj($obj));
 			}
+			
+			
+			
 			return $results;
 			
 		} catch (Exception $ex) {
@@ -3255,9 +3261,15 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
+		
+		$level = 0;
+		if (isset($data['metatype_level']) && is_numeric($data['metatype_level'])) {
+			$level = (int)$data['metatype_level'];
+		}
+		
 		return new metadataObj(array($data['metadata_id'], $data['record_id'], $data['user_id'],
 			$data['metatype_name'], $data['metadata_value'], $data['mediatype_id'], $data['metatype_id'],
-			$data['user_id'], $data['metatype_description']));
+			$level, $data['metatype_description']));
 	}
 
 	public static final function GetSourceSiteObj($data) {
@@ -3343,6 +3355,13 @@ class VCDSoapTools {
 		$obj->setSourceSite($data['source_id'], $data['external_id']);
 		
 		
+		if (is_array($data['arrMetadata'])) {
+			foreach ($data['arrMetadata'] as $metaObj) {
+				$obj->addMetaData(self::GetMetadataObj($metaObj));
+			}
+		}
+		
+		
 		if (is_array($data['ownersObjArr'])) {
 			for ($i=0;$i<sizeof($data['ownersObjArr']);$i++) {
 				$obj->addInstance(
@@ -3424,7 +3443,8 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
-		return new metadataTypeObj(array($data['id'], $data['name'], $data['desc'], $data['level']));
+		
+		return new metadataTypeObj($data['id'], $data['name'], $data['desc'], $data['level']);
 	}
 	
 	public static final function GetCommentObj($data) {
