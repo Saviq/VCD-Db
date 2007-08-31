@@ -1286,6 +1286,46 @@ class SoapSettingsServices extends SettingsServices {
 		}
 	}
 	
+	public static function getMediaTypesInUseByUserID($user_id)	{
+		try {
+			
+			$data = parent::getMediaTypesInUseByUserID($user_id);
+			$stringArray = array();
+			foreach ($data as $item) {
+				$stringArray[] = implode("|", $item);
+			}
+			return $stringArray;
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function getMediaCountByCategoryAndUserID($user_id, $category_id) {
+		try {
+			
+			$data = parent::getMediaCountByCategoryAndUserID($user_id, $category_id);
+			$stringArray = array();
+			foreach ($data as $item) {
+				$stringArray[] = implode("|", $item);
+			}
+			return $stringArray;
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function getCategoriesInUseByUserID($user_id) {
+		try {
+			
+			return VCDSoapTools::EncodeArray(parent::getCategoriesInUseByUserID($user_id));
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
 	
 	/**
 	 * Get the count of media's in the specified movie category
@@ -1376,10 +1416,20 @@ class SoapSettingsServices extends SettingsServices {
 	}
 	
 
-	public static function getUserStatistics($user_id) {
+	public static function getUserStatistics($user_id, $type) {
 		try {
 			
-			return parent::getUserStatistics($user_id);
+			$arrValidTypes = array('year','category','media');
+			if (!in_array($type, $arrValidTypes)) {
+				throw new VCDConstraintException($type . " is not a valid option.");
+			}
+			
+			$data = parent::getUserStatistics($user_id);
+			$results = array();
+			foreach ($data[$type] as $item) {
+				$results[] = implode("|", $item);
+			}
+			return $results;
 			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);
@@ -1437,6 +1487,47 @@ class SoapSettingsServices extends SettingsServices {
 		}
 	}
 	
+	public static function addBorrower($obj) {
+		try {
+
+			parent::addBorrower(VCDSoapTools::GetBorrowerObj($obj));
+				
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function updateBorrower($obj) {
+		try {
+
+			parent::updateBorrower(VCDSoapTools::GetBorrowerObj($obj));
+					
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+		
+	public static function loanCDs($borrower_id, $arrMovieIDs) {
+		try {
+			
+			parent::loanCDs($borrower_id, $arrMovieIDs);
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function getLoans($user_id, $show_returned) {
+		try {
+			
+			return VCDSoapTools::EncodeArray(parent::getLoans($user_id, $show_returned));
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	
 	/**
 	 * Get all the borrower objects created by a specific User.
 	 * Returns array of borrower objects.
@@ -1454,6 +1545,15 @@ class SoapSettingsServices extends SettingsServices {
 		}
 	}
 	
+	public static function getLoansByBorrowerID($user_id, $borrower_id, $show_returned = false) {
+		try {
+			
+			return VCDSoapTools::EncodeArray(parent::getLoansByBorrowerID($user_id, $borrower_id, $show_returned));
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
 	
 	/**
 	 * Add a new comment.

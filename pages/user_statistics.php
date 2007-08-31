@@ -20,8 +20,8 @@
 	
 	if ($useGD) {
 	
-		require_once('classes/external/powergraph.php');
-		
+		require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/external/powergraph.php');
+		 
 		$skin = 1;
 		$type = 5;
 		

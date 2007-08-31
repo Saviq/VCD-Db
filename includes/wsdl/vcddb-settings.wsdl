@@ -386,7 +386,7 @@
 		<part name="category_id" type="xsd:decimal"/>
 	</message>
 	<message name="getMediaCountByCategoryAndUserIDResponse">
-		<part name="getMediaCountByCategoryAndUserIDReturn" type="xsd:decimal"/>
+		<part name="getMediaCountByCategoryAndUserIDReturn" type="typens:ArrayOfString"/>
 	</message>
 	<message name="getMediaTypeByID">
 		<part name="media_id" type="xsd:decimal"/>
@@ -408,7 +408,7 @@
 		<part name="user_id" type="xsd:decimal"/>
 	</message>
 	<message name="getMediaTypesInUseByUserIDResponse">
-		<part name="getMediaTypesInUseByUserIDReturn" type="typens:ArrayOfMediaTypeObj"/>
+		<part name="getMediaTypesInUseByUserIDReturn" type="typens:ArrayOfString"/>
 	</message>
 	<message name="getMediaTypesOnCD">
 		<part name="vcd_id" type="xsd:decimal"/>
@@ -500,9 +500,10 @@
 	</message>
 	<message name="getUserStatistics">
 		<part name="user_id" type="xsd:decimal"/>
+		<part name="type" type="xsd:string"/>
 	</message>
 	<message name="getUserStatisticsResponse">
-		<part name="getUserStatisticsReturn" type="typens:ArrayOfStatisticsObj"/>
+		<part name="getUserStatisticsReturn" type="typens:ArrayOfString"/>
 	</message>
 	<message name="getWishList">
 		<part name="user_id" type="xsd:decimal"/>

@@ -1474,7 +1474,7 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (!is_numeric($user_id)) {
-				throw new VCDInvalidArgumentException('User Id musr be numeric');
+				throw new VCDInvalidArgumentException('User Id must be numeric');
 			}
 				
 			return $this->SQL->getUserStatistics($user_id);

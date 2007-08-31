@@ -319,17 +319,22 @@ class settingsSQL extends VCDConnection  {
 	public function getMediaTypesInUseByUserID($user_id) {
 		try {
 
-		$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
-				  FROM $this->TABLE_mediatypes m
-				  INNER JOIN $this->TABLE_vcdtousers u ON m.media_type_id = u.media_type_id
-					AND u.user_id = ".$user_id."
-				  GROUP BY m.media_type_id, m.media_type_name
-				  ORDER BY m.media_type_id";
-
-		$rs = $this->db->Execute($query);
-		$arr = $rs->GetRows();
-		$rs->Close( );
-		return $arr;
+			$query = "SELECT m.media_type_id, m.media_type_name, COUNT(u.media_type_id) AS media_count
+					  FROM $this->TABLE_mediatypes m
+					  INNER JOIN $this->TABLE_vcdtousers u ON m.media_type_id = u.media_type_id
+						AND u.user_id = ".$user_id."
+					  GROUP BY m.media_type_id, m.media_type_name
+					  ORDER BY m.media_type_id";
+	
+			$rs = $this->db->Execute($query);
+			$results = array();
+			if ($rs) {
+				foreach ($rs as $row) {
+					$results[] = array($row[0], $row[1], $row[2]);
+				}
+			}
+			
+			return $results;
 
 		} catch (Exception $ex) {
 			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
@@ -358,15 +363,23 @@ class settingsSQL extends VCDConnection  {
 	public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {
 
-		$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count
-				  FROM $this->TABLE_vcd v
-				  INNER JOIN $this->TABLE_vcdtousers u ON v.vcd_id = u.vcd_id
-					AND u.user_id = ".$user_id."
-				  LEFT OUTER JOIN $this->TABLE_mediatypes m ON u.media_type_id = m.media_type_id
-				  WHERE v.category_id = ".$category_id."
-				  GROUP BY u.media_type_id";
-
-		return $this->db->Execute($query)->getArray();
+			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) AS media_count
+					  FROM $this->TABLE_vcd v
+					  INNER JOIN $this->TABLE_vcdtousers u ON v.vcd_id = u.vcd_id
+						AND u.user_id = ".$user_id."
+					  LEFT OUTER JOIN $this->TABLE_mediatypes m ON u.media_type_id = m.media_type_id
+					  WHERE v.category_id = ".$category_id."
+					  GROUP BY u.media_type_id";
+	
+			$rs = $this->db->Execute($query);
+			$results = array();
+			if ($rs) {
+				foreach ($rs as $row) {
+					$results[] = array($row[0], $row[1]);
+				}
+			}
+			
+			return $results;
 
 		} catch (Exception $ex) {
 			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
@@ -1373,44 +1386,56 @@ class settingsSQL extends VCDConnection  {
 		try {
 
 			$stat_array = array();
-
+			
+			// Year Data
 			$query = "SELECT v.year as year, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 					  u.user_id = ".$user_id." GROUP BY v.year
 					  ORDER BY v.year DESC";
 
-			$arr = $this->db->Execute($query)->GetArray();
-			if (is_array($arr) && sizeof($arr) > 0) {
-				$stat_array['year'] = $arr;
+			$rs = $this->db->Execute($query);
+			$data = array();
+			if ($rs) {
+				foreach ($rs as $row) {
+					$data[] = array($row[0],$row[1]);
+				}
 			}
+			$stat_array['year'] = $data;
+			
 
 
-
+			// Category data
 			$query = "SELECT v.category_id, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 					  u.user_id = ".$user_id." GROUP BY v.category_id
 					  ORDER BY num DESC";
-
-			$arr = $this->db->Execute($query)->GetArray();
-			if (is_array($arr) && sizeof($arr) > 0) {
-				$stat_array['category'] = $arr;
+			
+			$rs = $this->db->Execute($query);
+			$data = array();
+			if ($rs) {
+				foreach ($rs as $row) {
+					$data[] = array($row[0], $row[1]);
+				}
 			}
+			$stat_array['category'] = $data;
 
 
-
+			// Media data			
 			$query = "SELECT u.media_type_id, COUNT(v.vcd_id) as num FROM $this->TABLE_vcd v,
 					  $this->TABLE_vcdtousers u WHERE v.vcd_id = u.vcd_id AND
 					  u.user_id = ".$user_id." GROUP BY u.media_type_id
 					  ORDER BY num DESC";
 
-			$arr = $this->db->Execute($query)->GetArray();
-			if (is_array($arr) && sizeof($arr) > 0) {
-				$stat_array['media'] = $arr;
+			$rs = $this->db->Execute($query);
+			$data = array();
+			if ($rs) {
+				foreach ($rs as $row) {
+					$data[] = array($row[0], $row[1]);
+				}
 			}
-
+			
+			$stat_array['media'] = $data;
 			return $stat_array;
-
-
 
 		} catch (Exception $ex) {
 			throw new VCDSqlException($ex->getMessage(), $ex->getCode());

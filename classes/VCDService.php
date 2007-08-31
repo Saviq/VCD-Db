@@ -728,8 +728,8 @@ class SettingsServices extends VCDServices {
 	}
 	
 	/**
-	 * Get collection of mediatype objects that user uses in all his movies.
-	 * Return array of mediaType objects.
+	 * Get array of mediatype data that user uses in all his movies.
+	 * Return array of data
 	 *
 	 * @param int $user_id | The User ID to seek mediaType objects by.
 	 * @return array
@@ -782,7 +782,7 @@ class SettingsServices extends VCDServices {
 	 *
 	 * @param int $user_id | The User ID of the user to get results from
 	 * @param int $category_id | The ID of the category to filter by
-	 * @return int
+	 * @return array
 	 */
 	public static function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {

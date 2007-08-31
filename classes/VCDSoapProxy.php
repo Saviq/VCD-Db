@@ -765,7 +765,7 @@ class SoapMovieProxy extends VCDProxy {
 	public function getAllVcdByUserId($user_id, $simple = true) {
 		try {
 			
-			$data = $this->invoke('getVcdByCategoryFiltered',array('user_id' => $user_id, 'simple' => $simple));
+			$data = $this->invoke('getAllVcdByUserId',array('user_id' => $user_id, 'simple' => $simple));
 			$results = array();
 			foreach ($data as $obj) {
 				array_push($results, VCDSoapTools::GetVcdObj($obj));
@@ -2310,7 +2310,7 @@ class SoapSettingsProxy extends VCDProxy {
 	
 	/**
 	 * Get collection of mediatype objects that user uses in all his movies.
-	 * Return array of mediaType objects.
+	 * Return array of stats data.
 	 *
 	 * @param int $user_id | The User ID to seek mediaType objects by.
 	 * @return array
@@ -2320,8 +2320,8 @@ class SoapSettingsProxy extends VCDProxy {
 			
 			$data = $this->invoke('getMediaTypesInUseByUserID', array('user_id' => $user_id));
 			$results = array();
-			foreach ($data as $obj) {
-				array_push($results, VCDSoapTools::GetMediaTypeObj($obj));
+			foreach ($data as $item) {
+				array_push($results, explode("|", $item));
 			}
 			
 			return $results;
@@ -2380,7 +2380,13 @@ class SoapSettingsProxy extends VCDProxy {
 	public function getMediaCountByCategoryAndUserID($user_id, $category_id) {
 		try {
 			
-			return $this->invoke('getMediaCountByCategoryAndUserID', array('user_id' => $user_id, 'category_id' => $category_id));
+			$data = $this->invoke('getMediaCountByCategoryAndUserID', array('user_id' => $user_id, 'category_id' => $category_id));
+			$results = array();
+			foreach ($data as $item) {
+				array_push($results, explode("|", $item));
+			}
+			
+			return $results;
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -3002,11 +3008,17 @@ class SoapSettingsProxy extends VCDProxy {
 	public function getUserStatistics($user_id) {
 		try {
 			
-			$data = $this->invoke('getUserStatistics', array('user_id' => $user_id));
+			$arrValidTypes = array('year','category','media');
 			$results = array();
-			foreach ($data as $obj) {
-				array_push($results, VCDSoapTools::GetStatsObj($obj));
+			foreach ($arrValidTypes as $type) {
+				$data = $this->invoke('getUserStatistics', array('user_id' => $user_id, 'type' => $type));	
+				$itemResults = array();
+				foreach ($data as $item) {
+					$itemResults[] = explode("|", $item);
+				}
+				$results[$type] = $itemResults;
 			}
+			
 			return $results;
 			
 		} catch (Exception $ex) {
@@ -3476,7 +3488,7 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
-		return new borrowerObj(array($data['loan_id'],$data['cd_id'],
+		return new loanObj(array($data['loan_id'],$data['cd_id'],
 			$data['cd_title'],self::GetBorrowerObj($data['borrowerObj']),
 			$data['date_out'],$data['date_in'],));
 	}
