@@ -3243,6 +3243,12 @@ class VCDSoapTools {
 		return $obj;
 	}
 		
+	/**
+	 * Get porncategoryObj from soap data
+	 *
+	 * @param array $data
+	 * @return pornCategoryObj
+	 */
 	public static final function GetPornCategoryObj($data) {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
@@ -3250,6 +3256,12 @@ class VCDSoapTools {
 		return new porncategoryObj(array($data['id'], $data['name']));
 	}
 	
+	/**
+	 * Get studioObj from soap data
+	 *
+	 * @param array $data
+	 * @return studioObj
+	 */
 	public static final function GetStudioObj($data) {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
@@ -3380,10 +3392,15 @@ class VCDSoapTools {
 					self::GetUserObj($data['ownersObjArr'][$i]),
 					self::GetMediaTypeObj($data['mediaTypeObjArr'][$i]),
 					$data['arrDisc_count'][$i],
-					$data['arrDate_added'][$i]
+					self::EvalDate($data['arrDate_added'][$i])
 				);
 			}
+		} 
+		
+		if (is_null($obj->getDateAdded()) && is_array($data['arrDate_added']) && sizeof($data['arrDate_added'])==1) {
+			$obj->setDateAdded(self::EvalDate($data['arrDate_added'][0]));
 		}
+		
 		
 		if (is_array($data['coversObjArr'])) {
 			$covers = array();
@@ -3463,7 +3480,7 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
-		return new commentObj(array($data['id'], $data['vcd_id'], $data['owner_id'], $data['date'],
+		return new commentObj(array($data['id'], $data['vcd_id'], $data['owner_id'], self::EvalDate($data['date']),
 			$data['comment'], $data['isPrivate'], $data['owner_name']));
 	}
 	
@@ -3549,6 +3566,15 @@ class VCDSoapTools {
 			return $data;
 		} catch (Exception $ex) {
 			throw $ex;
+		}
+	}
+	
+	
+	private static final function EvalDate($dateTime) {
+		if (strlen($dateTime)==10) {
+			return @ADOConnection::UnixDate($dateTime);
+		} else {
+			return @ADOConnection::UnixTimeStamp($dateTime);
 		}
 	}
 	

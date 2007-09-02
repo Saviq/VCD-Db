@@ -439,7 +439,7 @@ class vcdObj extends cdObj implements XMLable {
 		if (is_array($this->arrDate_added) && sizeof($this->arrDate_added) > 0) {
 			return date('d-m-Y', $this->arrDate_added[0]);
 		} else {
-			return "";
+			return null;
 		}
 	}
 
