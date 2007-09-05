@@ -139,7 +139,7 @@ define("RSS_CACHE_TIME",	7200);
 
 define("VCDDB_USEPROXY", "0");
 define("VCDDB_SOAPPROXY", "http://domain.com/vcddb/");
-define("VCDDB_SOAPSECRET", "");
+define("VCDDB_SOAPSECRET", "soap.secret");
 define("CACHE_MANAGER", "");
 
 ?>

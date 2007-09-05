@@ -700,7 +700,8 @@ class Installer {
 				'ldap.domain'		=> self::getConfigValue($objConfig, 's_ldapad'),
 				'proxy.enable'		=> self::getConfigValue($objConfig, 'useproxy', 0),
 				'proxy.hostname'	=> self::getConfigValue($objConfig, 's_proxyhost', 0),
-				'proxy.port'		=> self::getConfigValue($objConfig, 's_proxyport', "8080")
+				'proxy.port'		=> self::getConfigValue($objConfig, 's_proxyport', "8080"),
+				'soap.secret'		=> substr(md5(uniqid(mt_rand(),true)),0, 6)
 			);
 			
 			
