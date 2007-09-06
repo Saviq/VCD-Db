@@ -39,7 +39,7 @@
 		
 		// But .. has this account been deleted ?
 		if ($user->isDeleted()) {
-			redirect('./?page=badlogin&account=disabled'); /* Redirect browser */ 
+			redirect('?page=badlogin&account=disabled'); /* Redirect browser */ 
 			exit();
 		}
 				
@@ -72,7 +72,7 @@
 		
 	} else {
 		// authentication failed
-		redirect('./?page=badlogin'); /* Redirect browser */ 
+		redirect('?page=badlogin'); /* Redirect browser */ 
 	}
 	
 ?>

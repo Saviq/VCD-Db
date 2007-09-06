@@ -83,12 +83,12 @@ class VCDConnection {
 
 			} catch (Exception $e) {
 
-				$this->redirect('./error.php?type=db');
+				$this->redirect('error.php?type=db');
 				exit();
 			}
 
 		} else {
-			$this->redirect('./error.php?type=db');
+			$this->redirect('error.php?type=db');
 			exit();
 		}
 

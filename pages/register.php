@@ -28,7 +28,7 @@
 		
 			// save the user in session
 			$_SESSION['new_user'] = $userObj;
-			redirect('./?page=welcome');
+			redirect('?page=welcome');
 		} 
 	}
 

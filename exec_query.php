@@ -350,7 +350,7 @@ switch ($form) {
 	case 'addtowishlist':
 		$id = $_GET['vcd_id'];		
 		SettingsServices::addToWishList($id, VCDUtils::getUserID());
-		redirect("./?page=cd&vcd_id=".$id);
+		redirect("?page=cd&vcd_id=".$id);
 		break;
 		
 	case 'deletefromwishlist':

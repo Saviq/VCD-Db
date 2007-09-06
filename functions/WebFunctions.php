@@ -498,21 +498,20 @@ function server_url()
  *
  * @param unknown $relative_url
  */
-function redirect($relative_url = '.?')
+function redirect($relative_url = '?')
 {
-   $url = server_url() . dirname($_SERVER['PHP_SELF']);
-	if (!strcmp(dirname($_SERVER['PHP_SELF']), "/") == 0) {
-		$url .= "/";
-	}
+   
+	$url = str_replace(basename($_SERVER['PHP_SELF']),'',
+	    sprintf('http%s://%s%s',(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 's': ''),
+    	$_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF']));
+	
    $url .= $relative_url;
       
    if (!headers_sent())
    {
        header("Location: $url");
        exit();
-   }
-   else
-   {
+   } else {
        print "<script>location.href='".$url."'</script>";
        exit();
    }
