@@ -1345,7 +1345,7 @@ class vcdSQL extends VCDConnection {
 		}
 	}
 
-	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade) {
+	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $showadult = false) {
 		try {
 
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id, i.rating
@@ -1406,6 +1406,17 @@ class vcdSQL extends VCDConnection {
 		}
 
 
+		// Skip adult titles if requested
+		if (!$showadult) {
+			$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
+			$adult_cat = $SETTINGSClass->getCategoryIDByName('Adult');	
+			if ($bCon) {
+				$query .= " AND v.category_id <> ".$adult_cat."";
+			} else {
+				$query .= " WHERE v.category_id <> ".$adult_cat."";
+			}
+		}
+		
 		$commentColumn = "c.comment";
 		if ($this->isOracle()) {
 			$commentColumn = "c.comments";

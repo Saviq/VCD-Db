@@ -1107,8 +1107,11 @@ class vcd_movie implements IVcd  {
 	public function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
 	$owner = null, $imdbgrade = null) {
 		try {
+			
+			// are adult categories in use ? and if so does user want to see them ?
+			$showadult = VCDUtils::showAdultContent();
 
-			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
+			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $showadult);
 
 			// Check if user is logged in and is using custom index
 			if (VCDUtils::isLoggedIn() && !is_null($title)) {

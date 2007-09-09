@@ -276,8 +276,13 @@
 					   <br/><i style=\"display:block\">".$commObj->getComment(true)."</i></li>";
 					}
 				} else {
-					print "<li>".$commObj->getOwnerName()."  <a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>
+					if (VCDUtils::isLoggedIn() && $commObj->getOwnerID() == VCDUtils::getUserID())	{
+						print "<li>".$commObj->getOwnerName()."  <a href=\"#\" onclick=\"location.href='exec_query.php?action=delComment&amp;cid=".$commObj->getID()."'\"><img src=\"images/icon_del.gif\" alt=\"Delete comment\" align=\"absmiddle\" border=\"0\"/></a>
 					   <br/><i style=\"display:block\">".$commObj->getComment(true)."</i></li>";
+					} else  {
+						print "<li>".$commObj->getOwnerName()." <br/><i style=\"display:block\">".$commObj->getComment(true)."</i></li>";
+					}
+					
 				}
 
 

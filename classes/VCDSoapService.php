@@ -56,12 +56,17 @@ class VCDSoapService extends VCDServices {
 	public function __construct($wsdl) {
 		try {
 			
+			if (!defined('VCDDB_SOAPSECRET') || (defined('VCDDB_SOAPSECRET') && strcmp(VCDDB_SOAPSECRET,"")==0)) {
+				die($this->getInvalidAuthResponse('Server password is not set! Cannot provide service.'));
+			}
+			
 			if (!self::$forceNuSoap && extension_loaded('soap')) {
 				$this->initPhpSoap($wsdl);				
 			} else {
 				$this->initNuSoap($wsdl);
 			}
 		
+					
 			parent::$isWebserviceCall = true;
 			
 		} catch (Exception $ex) {
@@ -250,19 +255,21 @@ class VCDSoapService extends VCDServices {
     	session_write_close();
    		@ob_end_clean();
     	header('Content-type: application/xml');
-	   	die($this->getInvalidAuthResponse());
+	   	die($this->getInvalidAuthResponse('No credentials supplied.'));
     }
 	
 	
     /**
      * Generate the error message as XML-SOAP Exception when no auth header is supplied.
      *
+     * @param string $message | The error message to send
      * @return string
      */
-	private function getInvalidAuthResponse() {
-		$err = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode>1</faultcode><faultstring>No credentials supplied.</faultstring><faultactor>Client</faultactor><detail>Error</detail></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+	private function getInvalidAuthResponse($message) {
+		$err = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode>1</faultcode><faultstring>{$message}</faultstring><faultactor>Client</faultactor><detail>Error</detail></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>";
 		return $err;
 	}
+
 	
 	/**
 	 * Handle Exception and transform them to SOAP exception.

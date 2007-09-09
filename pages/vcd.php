@@ -7,7 +7,13 @@ if (!$movie instanceof vcdObj ) {
 }
 
 if ($movie->isAdult()) {
-	require_once(dirname(__FILE__) . '/adultvcd.php');
+	if (VCDUtils::showAdultContent()) {
+		require_once(dirname(__FILE__) . '/adultvcd.php');	
+	} else {
+		redirect();
+	}
+	
+	
 } else {
 	$imdb = $movie->getIMDB();
 
