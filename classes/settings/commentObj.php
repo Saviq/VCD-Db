@@ -39,7 +39,7 @@ class commentObj implements XMLable {
 			$this->vcd_id      = $dataArr[1];
 			$this->owner_id	   = $dataArr[2];
 			$this->date        = $dataArr[3];
-			$this->comment 	   = utf8_encode($dataArr[4]);
+			$this->comment 	   = $dataArr[4];
 			$this->isPrivate   = $dataArr[5];
 			
 			if (isset($dataArr[6])) {
