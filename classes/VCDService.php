@@ -2796,6 +2796,24 @@ class MovieServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Merge movies to fix duplicate conflicts
+	 *
+	 * @param int $masterID | The movie ID that conflicts will be merged to
+	 * @param array $arrToBeMerged | Array of movie id's to merge to the $masterID ID
+	 * @return bool | Returns true on success otherwise false
+	 */
+	public static function mergeMovies($masterID, $arrToBeMerged) {
+		try {
+			
+			return self::Movie()->mergeMovies($masterID, $arrToBeMerged);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 }
 
 

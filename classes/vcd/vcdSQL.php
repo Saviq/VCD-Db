@@ -723,11 +723,11 @@ class vcdSQL extends VCDConnection {
 	}
 
 
-	public function addVcdToUser($user_id, $vcd_id, $mediatype, $cds) {
+	public function addVcdToUser($user_id, $vcd_id, $mediatype_id, $cds) {
 		try {
 
 		$query = "INSERT INTO $this->TABLE_vcdtouser (vcd_id, user_id, media_type_id, disc_count, date_added)
-				  VALUES (".$vcd_id.", ".$user_id.", ".$mediatype.", ".$cds.",  ".$this->db->DBTimeStamp(time()).")";
+				  VALUES (".$vcd_id.", ".$user_id.", ".$mediatype_id.", ".$cds.",  ".$this->db->DBTimeStamp(time()).")";
 		return $this->db->Execute($query);
 
 		} catch (Exception $ex) {

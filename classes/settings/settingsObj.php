@@ -35,7 +35,7 @@ class settingsObj implements XMLable {
 		$this->key 		   = $dataArr[1];
 		$this->value 	   = $dataArr[2];
 		$this->description = $dataArr[3];
-		$this->isProtected = $dataArr[4];
+		$this->isProtected = (bool)$dataArr[4];
 		$this->type		   = $dataArr[5];
 	}
 	

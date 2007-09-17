@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 require_once(dirname(__FILE__).'/cdObj.php');
 require_once(dirname(__FILE__).'/vcdObj.php');
 require_once(dirname(__FILE__).'/fetchedObj.php');
@@ -668,6 +668,7 @@ class vcd_movie implements IVcd  {
 	 * Delete a movie entry from user in database. If $mode is set to 'full' all records about that movie is deleted.
 	 * Should not be called unless the specified user_id is the only owner of the movie.  
 	 * If $mode is set to 'single', the record linking to the user is the only thing that will be deleted.  
+	 * If $mode is set to 'semi' all records about that movie is deleted except the external data like IMDB data.
 	 * Returns true on success otherwise false.
 	 *
 	 * @param int $vcd_id
@@ -691,12 +692,17 @@ class vcd_movie implements IVcd  {
 				$user_id = VCDUtils::getUserID();
 			}
 
-			if ($mode == 'full') {
+			if ($mode == 'full' || $mode == 'semi') {
 
 				$delObj = $this->getVcdByID($vcd_id);
 				if ($delObj instanceof vcdObj ) {
 
-					$external_id = $delObj->getExternalID();
+					if ($mode == 'full') {
+						$external_id = $delObj->getExternalID();	
+					} else {
+						$external_id = -1;	
+					}
+					
 
 					// Delete the user Copy
 					$this->SQL->deleteVcdFromUser($user_id, $vcd_id, $media_id);
@@ -1333,6 +1339,107 @@ class vcd_movie implements IVcd  {
 			
 			$catTv = $this->Settings()->getCategoryIDByName('Tv Shows');
 			return $this->SQL->getDuplicationList($catTv);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+
+	
+	/**
+	 * Merge movies to fix duplicate conflicts
+	 *
+	 * @param int $masterID | The movie ID that conflicts will be merged to
+	 * @param array $arrToBeMerged | Array of movie id's to merge to the $masterID ID
+	 * @return bool | Returns true on success otherwise false
+	 */
+	public function mergeMovies($masterID, $arrToBeMerged) {
+		try {
+			
+			if (!is_numeric($masterID)) {
+				throw new VCDInvalidArgumentException('Master ID to merge with must be numeric');
+			}
+			
+			if (!is_array($arrToBeMerged) || sizeof($arrToBeMerged)==0) {
+				throw new VCDInvalidArgumentException('Parameter must be an Array with movie ids');
+			}
+			
+			foreach ($arrToBeMerged as $movieID) {
+				
+				$vcdObj = $this->getVcdByID($movieID);
+				$comments = $this->Settings()->getAllCommentsByVCD($movieID);
+				$covers = $vcdObj->getCovers();
+				$metadata = $this->Settings()->getMetadata($movieID);
+				
+				// Get the instances of the item to be merged
+				$instances = $vcdObj->getInstanceArray();
+				$owners = $instances['owners'];
+				$arrFinishedUsers = array();
+				
+				for ($i=0;$i<sizeof($owners);$i++)  {
+					$ownerId = $owners[$i]->getUserID();
+					if (in_array($ownerId, $arrFinishedUsers)) {
+						continue;
+					}
+									
+					$userInstances = $vcdObj->getInstancesByUserID($ownerId);
+					
+					$userMediaTypes = $userInstances['mediaTypes'];
+					$userDiscCounts = $userInstances['discs'];
+					for ($j=0;$j<sizeof($userMediaTypes);$j++) {
+						$currMediaTypeID = $userMediaTypes[$j]->getmediaTypeID();
+						$currDicsCount = $userDiscCounts[$j];
+						// Transfer the instance to the Master item
+						$this->SQL->addVcdToUser($ownerId, $masterID, 
+							$currMediaTypeID, $currDicsCount);
+							
+						// Delete the user entry of the merged movie
+						$this->deleteVcdFromUser($movieID, $currMediaTypeID, 'single', $ownerId);
+					}
+					// Flag the ownerID as finished
+					array_push($arrFinishedUsers, $ownerId);
+					
+					
+				}
+				
+				// Update the metadata
+				foreach ($metadata as $metaDataObj) {
+					$metaDataObj->setRecordID($masterID);
+					$this->Settings()->updateMetadata($metaDataObj);
+				}
+			
+			
+				// Add the comments to the Master item and delete it from the current movie
+				foreach ($comments as $commentObj) {
+					$commentObj->setVcdID($masterID);
+					$this->Settings()->addComment($commentObj);
+					$this->Settings()->deleteComment($commentObj->getID());
+				}
+				
+				// Build ID array of the existing cover type ID's
+				$masterCovers = $this->Cover()->getAllCoversForVcd($masterID);
+				$arrExistingCoverTypeIDs = array();
+				foreach ($masterCovers as $coverObj) {
+					array_push($arrExistingCoverTypeIDs, $coverObj->getCoverTypeID());
+				}
+			
+				
+				// Move the covers to the new item, but not override existing covers
+				foreach ($covers as $coverObj) {
+					if (!in_array($coverObj->getCoverTypeID(), $arrExistingCoverTypeIDs)) {
+						$coverObj->setVcdId($masterID);
+						$this->Cover()->updateCover($coverObj);	
+					}
+				}
+			}
+			
+			$status = true;
+			// Finally hard-delete the merged movies but spare the external sourcesite data.
+			foreach ($arrToBeMerged as $movieID) {
+				$status &= $this->deleteVcdFromUser($movieID, -1, 'semi');
+			}
+		
+			return $status;
 			
 		} catch (Exception $ex) {
 			throw $ex;

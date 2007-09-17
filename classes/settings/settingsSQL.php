@@ -916,7 +916,8 @@ class settingsSQL extends VCDConnection  {
 			
 		$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, $commentColumn, isPrivate)
 				  VALUES (".$obj->getVcdID().", ".$obj->getOwnerID().", ".$this->db->DBDate(time()).",
-				  ".$this->db->qstr($obj->getComment()).", ".(int)$obj->isPrivate().")";
+				  ".$this->db->qstr($obj->getComment()).", ".(bool)$obj->isPrivate().")";
+		
 		$this->db->Execute($query);
 
 		} catch (Exception $ex) {
@@ -1003,6 +1004,7 @@ class settingsSQL extends VCDConnection  {
     		array_push($arrObj, $obj);
 		}
 		$rs->Close();
+		
 		return $arrObj;
 
 		} catch (Exception $ex) {
@@ -1030,6 +1032,10 @@ class settingsSQL extends VCDConnection  {
 		try {
 
 		$query = "UPDATE $this->TABLE_metadata SET metadata_value = ".$this->db->qstr($obj->getMetadataValue());
+		
+		if (is_numeric($obj->getRecordID()) && $obj->getRecordID() > 0) {
+			$query .= ", record_id = " . $obj->getRecordID();
+		}
 		if (is_numeric($obj->getMediaTypeID()) && $obj->getMediaTypeID() > 0) {
 			$query .= ", mediatype_id = " . $obj->getMediaTypeID();
 		}

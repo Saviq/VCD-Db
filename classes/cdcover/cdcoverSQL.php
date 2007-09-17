@@ -210,6 +210,7 @@ class cdcoverSQL extends VCDConnection {
 					  cover_filename = ".$this->db->qstr($cdcoverObj->getFilename()).",
 					  cover_filesize = ".$cdcoverObj->getFilesize().",
 					  user_id = ".$cdcoverObj->getOwnerId().",
+					  vcd_id = ".$cdcoverObj->getVcdId().",
 					  date_added = ".$this->db->DBDate(time())."
 					  WHERE cover_id = ".$cdcoverObj->getId()."";
 			

@@ -39,7 +39,7 @@ class sourceSiteObj implements XMLable {
 		$this->site_alias 		= $dataArr[2];
 		$this->site_homepage 	= $dataArr[3];
 		$this->site_getCommand  = $dataArr[4];
-		$this->isFetchable 		= $dataArr[5];
+		$this->isFetchable 		= (bool)$dataArr[5];
 		$this->site_classname   = $dataArr[6];
 		$this->site_image		= $dataArr[7];
 	}

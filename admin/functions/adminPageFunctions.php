@@ -206,23 +206,16 @@ function executeTask($task_id) {
 				$list = MovieServices::getDuplicationList();
 
 				if (sizeof($list) > 0) {
-					
-					foreach ($list as $listArray) {
-						foreach ($listArray as $movieObj) {
-							print $movieObj->getTitle() . "<br>";
-						}
-						print "<hr>";
-					}
-					
+					// Store the list in session for further processing
+					$_SESSION['duplicatelist'] = $list;
+					header("Location: ./?page=tools&task_id={$task_id}&do=process"); /* Redirect browser */
+					exit();
+				} else {
+					$message = $task_id."|"."No duplicates found to process.";
+					VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				}
 				
-				
-				die('<br>done');
-			
-			
-			
 				break;
-				
 				
 				
 			case 6:		// Fix broken pornstar images
