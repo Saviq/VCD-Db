@@ -916,7 +916,7 @@ class settingsSQL extends VCDConnection  {
 			
 		$query = "INSERT INTO $this->TABLE_comments (vcd_id, user_id, comment_date, $commentColumn, isPrivate)
 				  VALUES (".$obj->getVcdID().", ".$obj->getOwnerID().", ".$this->db->DBDate(time()).",
-				  ".$this->db->qstr($obj->getComment()).", ".(bool)$obj->isPrivate().")";
+				  ".$this->db->qstr($obj->getComment()).", ".(int)$obj->isPrivate().")";
 		
 		$this->db->Execute($query);
 

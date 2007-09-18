@@ -1,6 +1,6 @@
 <?
 	require_once("../classes/includes.php");
-	if (!VCDUtils::isLoggedIn()) {
+	if (!VCDUtils::isLoggedIn() ) {
 		VCDException::display("User must be logged in");
 		print "<script>self.close();</script>";
 		exit();
@@ -37,6 +37,15 @@
 
 	$bIMDB = false;
 	$vcd = MovieServices::getVcdByID($cd_id);
+	
+	
+	if (!$user->isAdmin() && !VCDUtils::isOwner($vcd)) {
+		VCDException::display("Access denied.");
+		print "<script>self.close();</script>";
+		exit();
+	}
+	
+	
 	if ($vcd->getIMDB() instanceof imdbObj ) {
 		$imdb = $vcd->getIMDB();
 		$bIMDB = true;
