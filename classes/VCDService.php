@@ -2825,13 +2825,21 @@ abstract class VCDServices {
 	
 	private static $forwardError = false;
 	protected static $isWebserviceCall = false;
-		
+			
 	/**
 	 * Disable the Web UI error handling, useful for Ajax and SOAP calls
 	 *
 	 */
 	public static function disableErrorHandler() {
 		self::$forwardError = true;
+	}
+	
+	/**
+	 * Re-enable the Web UI error handler after disableErrorHandler() has been used.
+	 *
+	 */
+	public static function enableErrorHander() {
+		self::$forwardError = false;
 	}
 	
 	/**
@@ -2915,7 +2923,11 @@ abstract class VCDServices {
 	}
 	
 	protected static function usingProxy() {
-		return (bool)(VCDDB_USEPROXY == 1 && !self::$isWebserviceCall);
+		if (!defined('VCDDB_USEPROXY')) {
+			return false;
+		} else {
+			return (bool)(VCDDB_USEPROXY == 1 && !self::$isWebserviceCall);	
+		}
 	}
 	
 }

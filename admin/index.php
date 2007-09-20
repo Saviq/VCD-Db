@@ -110,8 +110,15 @@
           Version: <?=VCDDB_VERSION?><br>
           OS: <?=PHP_OS?><br>
 		  Host: <?=$_SERVER['SERVER_NAME']?><br>
-          DB Type: <?= DB_TYPE ?><br>
-          DB Host: <?= DB_HOST ?>
+		  <?php if (defined('VCDDB_USEPROXY') && VCDDB_USEPROXY == 1) { ?>
+			DB Type: webservices<br>
+         	DB Host: none<br>
+		  <?php } else { ?>
+		  	DB Type: <?php echo DB_TYPE ?><br>
+         	DB Host: <?php echo DB_HOST ?>
+		  <?php } ?>
+		  
+          
           
           
           </p>
@@ -821,7 +828,14 @@
 					$updated = true;
 				}
 				
-				require_once('forms/log.php');				
+				if (defined('VCDDB_USEPROXY') && VCDDB_USEPROXY == 1) {
+					print "<h1>VCD-db log options</h1>";
+					print "Log options are not available when using webservices as a backend.<br/>";
+					print "The log can however be viewed at the webservice backend &gt; <a target=\"_new\" href=\"".VCDDB_SOAPPROXY."\">".VCDDB_SOAPPROXY."</a>";
+				} else {
+					require_once('forms/log.php');
+				}
+				
 			}
 			
 			

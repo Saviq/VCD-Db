@@ -83,6 +83,12 @@
 	<td><a href="./exec_query.php?action=export&amp;type=excel"><?= VCDLanguage::translate('mymovies.excel') ?></a> <br/></td>
 </tr>
 <tr>
+	<td width="4%"><img src="images/icon_pdf.gif" border="0" alt="PDF" hspace="2"/></td>
+	<td width="4%">&nbsp;</td>
+	<td width="4%">&nbsp;</td>
+	<td><a href="./exec_query.php?action=export&amp;type=pdf"><?= VCDLanguage::translate('mymovies.pdf') ?></a> <br/></td>
+</tr>
+<tr>
 	<td><a href="./exec_query.php?action=export&amp;type=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;type=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
 	<td><a href="./exec_query.php?action=export&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>

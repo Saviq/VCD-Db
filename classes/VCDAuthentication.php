@@ -96,7 +96,6 @@
 			try {
 			
 				SiteCookie::extract('vcd_cookie');
-				VCDServices::disableErrorHandler();
 	
 				// Check if we find the desired values in the cookie
 				if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) {

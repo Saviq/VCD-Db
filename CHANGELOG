@@ -1,5 +1,11 @@
 0.990
-Added   - Soap Proxy/Provider interface to VCD-db instead of using direct database connection.
+Fixed   - [#36] Media Index was not being populated in the Excel reports
+Fixed   - [#28] Medium data/metadata was not correctly updated when changing medium type
+Fixed   - [#14] Slash/Backslash problems in url with Windows installations in IIS6
+Updated - [#34] Further isolation and prevention of adult data being accessed when not authorized to do so.
+Fixed   - [#29] When IMDB search returned only 1 results, that could result in a system hang.
+Added   - [#37] Export collection list in PDF format is now available.
+Added   - Soap Proxy/Provider interface to VCD-db as an option instead of using direct database connection.
 
 0.986
 Fixed   - Directors are now populated the imdb fetch.

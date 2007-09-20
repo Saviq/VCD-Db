@@ -12,7 +12,7 @@
  * @version $Id$
  */
 ?>
-<? 
+<?php
 require_once(dirname(__FILE__).'/classes/includes.php');
 
 
@@ -90,6 +90,11 @@ switch ($form) {
 		if (strcmp($method, "excel") == 0) {
 			generateExcel();
 		}	
+		
+		if (strcmp($method, "pdf") == 0) {
+			require_once(dirname(__FILE__) . '/classes/external/pdf/tcpdf.php');
+			generatePDF();
+		}
 	
 		if (strcmp($method, "xml") == 0) {
 			
@@ -398,7 +403,7 @@ switch ($form) {
 	<link rel="stylesheet" type="text/css" href="includes/templates/default/style.css"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
-<body <?if ($reload_and_close) { reloadandclose($reload_tofrontpage); } ?>>
+<body <?php if ($reload_and_close) { reloadandclose($reload_tofrontpage); } ?>>
 
  
 

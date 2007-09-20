@@ -723,7 +723,6 @@ class VCDXMLImporter {
 						SettingsServices::addSourceSite($sourceSiteObj);
 					}
 					
-					//VCDUtils::write(TEMP_FOLDER."ssobj.txt", print_r($sourceSiteObj, true), true);
 					
 				}
 				unset($xmlDoc);
