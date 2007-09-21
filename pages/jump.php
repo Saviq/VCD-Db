@@ -9,6 +9,8 @@
 		$formname = "littlesearch";
 	} elseif($goto == "searchextreme") {
 		$formname = "quickie";
+	} elseif($goto == "google") {
+		$formname = "qs";
 	} elseif($goto == "eurobabe") {
 		$formname = "eurobabe";
 	}
@@ -58,9 +60,15 @@
 		<input type="hidden" name="searchstring" value="<?=$pornstar?>">
 		</form>
 		<?
+	} elseif($goto == "google") {
+		?>
+		<form action="http://images.google.com/images" method="get" name="qs" target="_self">
+		<input type=text name=q size=41 maxlength=2048 value="<?=$pornstar?>" title="">
+		</form>
+		<?
 	} elseif($goto == "eurobabe") {
 		?>
-		<form method="post" action="http://www.eurobabeindex.com/cgi-bin/search.py" name="eurobabe" target="_self">
+		<form method="post" action="http://www.eurobabeindex.com/modules/search.py" name="eurobabe" target="_self">
 		<input type="hidden" name="text" value="<?=$pornstar?>">
 		<input type="hidden" name="what" value="Search Babe">
 		</form>
