@@ -38,8 +38,7 @@
 	require_once(dirname(__FILE__) . '/external/excel/ExcelGen.php');
 	require_once(dirname(__FILE__) . '/external/lastRSS.php');
 	include_once(dirname(__FILE__) . '/external/Image_Toolbox.class.php');
-
-
+	
 
 	/* Common Functions*/
 	require_once(VCDDB_BASE . '/functions/WebFunctions.php');
@@ -56,6 +55,7 @@
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
 	require_once(dirname(__FILE__) . '/VCDXMLImporter.php');
 	require_once(dirname(__FILE__) . '/VCDFileUpload.php');
+	require_once(dirname(__FILE__) . '/VCDPages.php');
 	require_once(dirname(__FILE__) . '/fetch/VCDFetch.php');
 
 

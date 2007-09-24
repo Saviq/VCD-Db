@@ -174,6 +174,19 @@ class VCDUtils {
 		}
 	}
 
+	/**
+	 * Get the currently logged in userObj
+	 *
+	 * @return userObj
+	 */
+	static function getCurrentUser() {
+		if (VCDUtils::isLoggedIn()) {
+			return $_SESSION['user'];
+		} else {
+			return null;
+		}
+	}
+	
 
 	/**
 	 * Check if the user is using a filter to filter out movies by specific user.

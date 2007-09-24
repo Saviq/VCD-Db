@@ -251,6 +251,41 @@ class pornstarObj implements XMLable {
 		}
 	}
 	
+	
+	
+		/**
+	 * Print the HTML IMG string for this pornstars thumbnail image.
+	 *
+	 * Param prefix can point to a folder down in the tree if desireable.
+	 *
+	 * @param string $prefix
+	 */
+	public function getImageLink($prefix = "") {
+		
+		$filenotfoundImage = "notfoundimagestar.gif";
+		$image = "";
+		
+		if (VCDDB_USEPROXY==1) {
+			
+			if (isset($this->image) && strlen($this->image) > 3) {
+				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".VCDDB_SOAPPROXY.$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+			} else {
+				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			}	
+			
+		} else {
+			if (!file_exists($prefix.PORNSTARIMAGE_PATH.$this->image) && isset($this->image)) { 
+				$image =  "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/{$filenotfoundImage}\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			} else if (isset($this->image) && strlen($this->image) > 3) {
+				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+			} else {
+				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
+			}	
+		}
+		return $image;
+	}
+	
+	
 	/**
 	 * Get this object as XML
 	 *

@@ -398,6 +398,9 @@ function make_pornstarlinks($pornstar_id, $pornstar_name, $movie_id) {
 			<a href="javascript:jumpTo('<?=$pornstar_name ?>','eurobabe')"><img src="../images/eurobabe.gif" border="0" alt="Search eurobabeindex.com for <?=$pornstar_name ?>"/></a>
 		</td>
 		<td>
+			<a href="javascript:jumpTo('<?=$pornstar_name ?>','google')"><img src="../images/g.gif" border="0" alt="Search Google images for <?=$pornstar_name ?>"/></a>
+		</td>
+		<td>
 			<a href="javascript:changePornstar(<?=$pornstar_id ?>)">[<?=VCDLanguage::translate('misc.change')?>]</a>
 		</td>
 		<td>
