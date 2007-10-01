@@ -1,0 +1,48 @@
+<h2>Pornstars</h2>
+
+{if is_array($alphabet) && count($alphabet)>0} 
+
+<div align="center">
+{foreach from=$alphabet item=letter}<a href="?page=pornstars&amp;view={$view}&amp;l={$letter}&amp;viewmode={$mode}">{$letter}</a><img src="images/dot.gif" border="0" align="absmiddle" hspace="5"/>{/foreach}
+</div>
+
+{else}
+	No Pornstars found in database.
+{/if}
+
+
+<hr/>
+<div align="center">
+	<span class="bold">666 pornstars</span> begin with letter {$selectedLetter} 
+	(<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}">Text view</a> / 
+	<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=img">Image view</a>)
+</div>
+
+
+{* List of pornstars of chosen letter *}
+{if $viewmode eq 'images'}
+
+	<div id="actorimages">
+	{foreach from=$pornstars item=pornstarImage}
+		{$pornstarImage}
+	{/foreach}
+	</div>
+
+{elseif $viewmode eq 'list'}
+
+	<table cellspacing="0" cellpadding="0" border="0" width="100%" class="displist">
+	<tr>
+		<td class="header" width="70%">{$translate.pornstar.name}</td>
+		<td class="header">{$translate.pornstar.web}</td>
+		<td class="header">{$translate.pornstar.moviecount}</td>
+	</tr>
+	{foreach from=$pornstars item=pornstar key=id}
+	<tr>
+		<td><a href="./?page=pornstar&amp;pornstar_id={$id}">{$pornstar.name}</a></td>
+		<td nowrap>{$pornstar.homepage}</td>
+		<td>{$pornstar.count}</td>
+	</tr>
+	{/foreach}
+	</table>
+
+{/if}

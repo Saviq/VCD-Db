@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+* Page properties:
+* standalone: Is the page embedded in the main look? [optional] (default yes)
+* auth:       Does the page require valid user [optional] (default no)
+* name:       The page identifier
+* handler:    The controller to handle the page
+* template:   The smarty template behind the page [optinal] (requred for controllers that need to display content)
+* action:     The page parameter used to trigger the controller
+-->
+<vcdviews>
+<pages>
+	<!-- Pages that require no authentication  -->
+	
+	<page standalone="false" auth="false">
+		<name>Frontpage</name>
+		<handler>VCDFrontPage</handler>
+		<template>page.frontpage.tpl</template>
+	</page>
+	
+	<page standalone="false" auth="false">
+		<name>Register</name>
+		<handler>VCDPageRegister</handler>
+		<template>page.register.tpl</template>
+		<action>register</action>
+	</page>
+	<page standalone="false" auth="false">
+		<name>Login</name>
+		<handler>VCDPageLogin</handler>
+		<template>page.login.tpl</template>
+		<action>login</action>
+	</page>
+		
+	<page standalone="false" auth="false">
+		<name>CategoryList</name>
+		<handler>VCDPageCategoryList</handler>
+		<template>page.categorylist.tpl</template>
+		<action>category</action>
+	</page>
+	
+	<page standalone="false" auth="false">
+		<name>Movie</name>
+		<handler>VCDPageMovie</handler>
+		<template>page.item.movie.tpl</template>
+		<action>cd</action>
+	</page>
+	
+	<page standalone="false" auth="false">
+		<name>Pornstar</name>
+		<handler>VCDPagePornstar</handler>
+		<template>page.pornstar.tpl</template>
+		<action>pornstar</action>
+	</page>
+	
+	<page standalone="false" auth="true">
+		<name>Pornstars</name>
+		<handler>VCDPagePornstars</handler>
+		<template>page.pornstars.tpl</template>
+		<action>pornstars</action>
+	</page>
+	
+	
+	<page standalone="true" auth="false">
+		<name>File</name>
+		<handler>VCDPageFileHandler</handler>
+		<action>file</action>
+	</page>
+	
+	
+	<!-- Search pages -->
+	<page standalone="false" auth="false">
+		<name>Search</name>
+		<handler>VCDPageSearch</handler>
+		<template>page.search.tpl</template>
+		<action>search</action>
+	</page>
+	<page standalone="false" auth="false">
+		<name>AdvancedSearch</name>
+		<handler>VCDPageSearchAdvanced</handler>
+		<template>page.search.advanced.tpl</template>
+		<action>detailed_search</action>
+	</page>
+	
+	
+	<!-- Pages that require authenticated users  -->
+	<page standalone="false" auth="true">
+		<name>Settings</name>
+		<handler>VCDPageUserSettings</handler>
+		<template>page.user.settings.tpl</template>
+		<action>settings</action>
+	</page>
+	<page standalone="false" auth="true">
+		<name>Statistics</name>
+		<handler>VCDPageUserStatistics</handler>
+		<template>page.user.statistics.tpl</template>
+		<action>stats</action>
+	</page>
+	<page standalone="false" auth="true">
+		<name>Seenlist</name>
+		<handler>VCDPageUserSeenlist</handler>
+		<template>page.user.seenlist.tpl</template>
+	</page>
+	<page standalone="false" auth="true">
+		<name>MoviePicker</name>
+		<handler>VCDPageUserRandomMovie</handler>
+		<template>page.user.randomitem.tpl</template>
+	</page>
+	
+	
+</pages>
+<!-- 
+* Define the modules that can reside within any page 
+* VCDBasePage is the Controller for all modules.
+
+* Module properties:
+* name:       The module identifier
+* template:   The smarty template behind the module
+* enabled:    Is the module enabled?
+-->
+<modules>
+	<module name="Search" template="module.search.tpl" enabled="true"/>
+	<module name="TopUsers" template="module.topusers.tpl" enabled="true"/>
+	<module name="CategoryList" template="module.categorylist.tpl" enabled="true"/>
+	<module name="UserMenu" template="module.usermenu.tpl" auth="true" enabled="true"/>
+	<module name="Login" template="module.login.tpl" auth="false" enabled="true"/>
+	<module name="LanguageSelection" template="module.languageselection.tpl" enabled="true"/>
+	<module name="TopTenLists" template="module.toptenlist.tpl" enabled="true"/>
+	<module name="SidebarToggler" template="module.sidebartoggler.tpl" enabled="true"/>
+	<module name="PornstarLinks" template="module.pornstars.tpl" auth="true" enabled="true"/>
+</modules>
+</vcdviews>
