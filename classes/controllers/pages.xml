@@ -24,13 +24,23 @@
 		<template>page.register.tpl</template>
 		<action>register</action>
 	</page>
+	
 	<page standalone="false" auth="false">
 		<name>Login</name>
 		<handler>VCDPageLogin</handler>
 		<template>page.login.tpl</template>
 		<action>login</action>
 	</page>
+	
+	<page standalone="false" auth="false">
+		<name>Authenticate</name>
+		<handler>VCDPageAuthenticate</handler>
+		<template>page.authenticate.tpl</template>
+		<action>authenticate</action>
+	</page>
 		
+	
+	
 	<page standalone="false" auth="false">
 		<name>CategoryList</name>
 		<handler>VCDPageCategoryList</handler>

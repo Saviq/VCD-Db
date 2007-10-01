@@ -21,7 +21,7 @@
 
 <div class="topic">{$translate.login.login}</div>
 <div class="forms">   
-<form name="login" method="post" action="authenticate.php">
+<form name="login" method="post" action="?page=authenticate">
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 <tr>
 	<td>{$translate.login.username}:<br/><input type="text" name="username" maxlength="50" class="dashed"/></td>
