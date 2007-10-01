@@ -252,6 +252,15 @@ class VCDLanguage {
 	
 	
 	/**
+	 * Get the ID of the primary/selected langauge
+	 *
+	 * @return string
+	 */
+	public function getPrimaryLanguageID() {
+		return $this->primaryLanguage->getID();
+	}
+	
+	/**
 	 * Print out the language selection HTML dropdown box.
 	 *
 	 * @return string
@@ -323,6 +332,10 @@ class VCDLanguage {
 	private function detectBrowserLanguage() {
 		try {
 		
+			if (!isset($_SERVER["HTTP_ACCEPT_LANGUAGE"])) {
+				return self::FALLBACK_ID;
+			}
+			
 			$pref=array();
 		    foreach(split(',', $_SERVER["HTTP_ACCEPT_LANGUAGE"]) as $lang) {
 		        if (preg_match('/^([a-z]+).*?(?:;q=([0-9.]+))?/i', $lang.';q=1.0', $split) && isset($split[2])) {

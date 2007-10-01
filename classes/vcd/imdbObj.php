@@ -270,6 +270,7 @@ class imdbObj extends fetchedObj implements XMLable {
 	public function formatCast($cast)	{
 		$cast = ereg_replace(13,"<br>",$cast);
 
+		$strData = "";
 		$pieces = explode("<br>", $cast);
 		$st		= count($pieces);
 		$counter = 0;
@@ -279,7 +280,7 @@ class imdbObj extends fetchedObj implements XMLable {
 				$role = str_replace('....','',$role);
 
 				$imdb = explode(" ",$tmp[0]); // the IMDB url
-				$tmp[0] = "<a href=\"search.php?searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
+				$tmp[0] = "<a href=\"?page=search&amp;searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
 				$actor = trim($tmp[0]);
 
 				// Create imdb url for actor
@@ -290,9 +291,12 @@ class imdbObj extends fetchedObj implements XMLable {
 				} else {
 					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_new\">[imdb]</a>";
 				}
-				print "<span class=\"item\"><strong>$actor</strong>&nbsp;&nbsp;$urlid<br/>$role</span>";
+				$strData .= "<span class=\"item\"><strong>$actor</strong>&nbsp;&nbsp;$urlid<br/>$role</span>";
 			}
+			
+		return $strData;
 	}
+	
 
 
 	/**

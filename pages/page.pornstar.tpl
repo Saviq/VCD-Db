@@ -11,13 +11,13 @@ messages[{$i.index}] = ['{$i.image}', 145, 205];
 		<tr>
 			<td valign="top" width="170">{$image}<br/><div align="center"><strong>{$iafdlink}</strong></div></td>
 			<td valign="top" style="padding-left:3px;text-indent:0px">
-				<strong>{$translate_pornstar_name}:</strong>{$name}<br/>
-				<strong>{$translate_pornstar_web}:</strong> {$homepage}<br/>
-				<strong>{$translate_pornstar_moviecount}:</strong> {$moviecount}<br/><br/>
+				<strong>{$translate.pornstar.name}:</strong>{$name}<br/>
+				<strong>{$translate.pornstar.web}:</strong> {$homepage}<br/>
+				<strong>{$translate.pornstar.moviecount}:</strong> {$moviecount}<br/><br/>
 				
 				<ul>
 				{foreach from=$movies key=id item=i}
-  					<li onmouseover="doTooltip(event,{$i.index})" onmouseout="hideTip()"><a href="./?page=cd&amp;vcd_id={$id}">{$i.title}</a></li>
+  					<li onmouseover="doTooltip(event,{$i.index})" onmouseout="hideTip()"><a href="?page=cd&amp;vcd_id={$id}">{$i.title}</a></li>
 				{/foreach}
 				</ul>
 				

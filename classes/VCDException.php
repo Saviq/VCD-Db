@@ -217,6 +217,19 @@ class VCDSecurityException extends VCDException {
 	}
 }	
 
+
+/**
+ * Exception that occurs when input data is incorrect or missing.
+ *
+ */
+class VCDInvalidInputException extends VCDException {
+
+	public function __construct ($message = null, $code = 0) {
+		$this->setName(get_class($this));
+		parent::__construct($message, $code);
+	}
+}	
+
 /**
  * Exceptions that ocurr during HTTP-SOAP transactions.
  *

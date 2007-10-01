@@ -11,12 +11,15 @@
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
  * @version $Id$
+ * @todo Move the External libs to the callers file .. to reduce load time.
  */
 ?>
 <?php
 	// Define the current VCD-db version revision
 	define("VCDDB_VERSION","0.990-svn");
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
+	checkEnvironment();
+	
 	if (file_exists(VCDDB_BASE.'/config.php')) {
 		require_once(VCDDB_BASE.'/config.php');
 	} else {
@@ -24,7 +27,7 @@
 		exit();
 	}
 
-	checkEnvironment();
+	
 
 	require_once(dirname(__FILE__) . '/VCDConnection.php');
 	require_once(dirname(__FILE__) . '/XMLable.php');
@@ -55,8 +58,13 @@
 	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
 	require_once(dirname(__FILE__) . '/VCDXMLImporter.php');
 	require_once(dirname(__FILE__) . '/VCDFileUpload.php');
-	require_once(dirname(__FILE__) . '/VCDPages.php');
 	require_once(dirname(__FILE__) . '/fetch/VCDFetch.php');
+	
+	/* Presentation Layer and Controller */
+	require_once(dirname(__FILE__) . '/VCDPageController.php');
+	require_once(dirname(__FILE__) . '/VCDPage.php');
+	require_once(dirname(__FILE__) . '/controllers/VCDBasePage.php');
+	
 
 
 	/* RSS */

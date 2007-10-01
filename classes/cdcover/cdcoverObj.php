@@ -221,37 +221,40 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	}
 
 	/**
-	 * Prints out the HTML image tag for display-ing the current cdcover object.
+	 * Returns the HTML image tag for display-ing the current cdcover object.
 	 * Param prefix can be forexample path below like "../"
 	 *
 	 * @param string $prefix
+	 * @return string | The img src source
 	 */
 	public function showImage($prefix = "") {
+		$html = "";
 		if (isset($this->image_id) && $this->image_id > 0) {
 			// image is in DB
 			if (VCDDB_USEPROXY==1) {
-				print "<img src=\"".VCDDB_SOAPPROXY.$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+				$html = "<img src=\"".VCDDB_SOAPPROXY.$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
 			} else {
-				print "<img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+				$html = "<img src=\"".$prefix."?page=file&amp;cover_id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
 			}
 			
 		} else {
 			// image is on disk
 			if ($this->isThumbnail()) {
 				if (VCDDB_USEPROXY==1) {
-					print "<img src=\"".VCDDB_SOAPPROXY.$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+					$html = "<img src=\"".VCDDB_SOAPPROXY.$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
 				} else {
-					print "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+					$html = "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
 				}
 				
 			} else {
 				if (VCDDB_USEPROXY==1) {
-					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".VCDDB_SOAPPROXY.$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
+					$html = "<a name=\"".$this->covertypeName."\"></a><img src=\"".VCDDB_SOAPPROXY.$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
 				} else {
-					print "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
+					$html = "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
 				}
 			}
 		}
+		return $html;
 	}
 
 
@@ -325,17 +328,19 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	 * @param string $url
 	 * @param string $title
 	 * @param string $prefix
+	 * 
+	 * @return string | Returns the IMG src
 	 */
-	public function showCategoryImageAndLink($url, $title = "", $prefix = "") {
+	public function getCategoryImageAndLink($url, $title = "", $prefix = "") {
 		if (isset($this->image_id) && $this->image_id > 0) {
 			// image is in DB
-			print "<a href=\"$url\"><img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" name=\"".$this->covertypeName."\"  width=\"100\" height=\"145\" title=\"$title\" class=\"imgx\" border=\"0\"/></a>";
+			return "<a href=\"$url\"><img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" name=\"".$this->covertypeName."\"  width=\"100\" height=\"145\" title=\"$title\" class=\"imgx\" border=\"0\"/></a>";
 		} else {
 			// image is on disk
 			if ($this->isThumbnail()) {
-				print "<a href=\"$url\"><img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" width=\"100\" height=\"145\" title=\"$title\" alt=\"$title\" border=\"0\"/></a>";
+				return "<a href=\"$url\"><img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" width=\"100\" height=\"145\" title=\"$title\" alt=\"$title\" border=\"0\"/></a>";
 			} else {
-				print "<a href=\"$url\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a>";
+				return "<a href=\"$url\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a>";
 			}
 
 		}
@@ -420,10 +425,6 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	 * @return string
 	 */
 	public function getCoverAsBinary() {
-
-		if (!$this->isThumbnail()) {
-			return false;
-		}
 
 		if ($this->isInDB()) {
 			$vcdImage = new VCDImage();
