@@ -527,11 +527,16 @@ class userSQL extends VCDConnection  {
 				  GROUP BY u.user_name
 				  ORDER BY count DESC";
 		$rs = $this->db->Execute($query);
+		
+		$results = array();
+		
 		if ($rs && $rs->RecordCount() > 0) {
-			return $rs->GetArray();
+			foreach ($rs as $row) {
+				array_push($results,array('username'=>$row[0],'count'=>$row[1]));
+			}
 		}
 		
-		return null;
+		return $results;
 		
 		} catch (Exception $ex) {
 			throw new VCDSqlException($ex->getMessage(), $ex->getCode());

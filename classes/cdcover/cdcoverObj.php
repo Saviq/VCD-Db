@@ -243,7 +243,7 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 				if (VCDDB_USEPROXY==1) {
 					$html = "<img src=\"".VCDDB_SOAPPROXY.$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
 				} else {
-					$html = "<img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
+					$html = "<img src=\"?page=file&amp;cover_id={$this->cover_id}\" class=\"imgx\" alt=\"\" border=\"0\"/>";
 				}
 				
 			} else {

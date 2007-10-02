@@ -115,6 +115,12 @@
 		<handler>VCDPageUserRandomMovie</handler>
 		<template>page.user.randomitem.tpl</template>
 	</page>
+	<page standalone="false" auth="true">
+		<name>NewMovieSelection</name>
+		<handler>VCDPageUserAddItemSelection</handler>
+		<template>page.user.add.choices.tpl</template>
+		<action>new</action>
+	</page>
 	
 	
 </pages>

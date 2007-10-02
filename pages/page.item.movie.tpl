@@ -142,7 +142,39 @@
 
 	<div id="copies">
 	<h2>{$translate.movie.available}:</h2>
-		Availables copy logic here
+	{if is_array($itemCopies) && count($itemCopies)>0}
+		{foreach from=$itemCopies item=i}
+		
+			<div id="{$i.layer}" class="dvdetails">
+			<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
+			<tr>
+				<td nowrap="nowrap" width="15%">{$translate.dvd.region}:</td>
+				<td>{$i.region}</td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap">{$translate.dvd.format}:</td>
+				<td>{$i.format}</td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap">{$translate.dvd.aspect}>:</td>
+				<td>{$i.aspect}</td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap" valign="top">{$translate.dvd.audio}:</td>
+				<td valign="top">{$i.audio}</td>
+			</tr>
+			<tr>
+				<td nowrap="nowrap" valign="top">{$translate.dvd.subtitles}:</td>
+				<td valign="top">{$i.subs}</td>
+			</tr>
+			</table>
+			</div>
+		
+		
+		{/foreach}
+	
+	{/if}
+	
 	</div>
 
 

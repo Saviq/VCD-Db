@@ -1636,7 +1636,7 @@ class vcd_settings implements ISettings {
 	 * @param int $mediatype_id | MediaType ID of movieObj.  This forces deeper check.
 	 * @return array
 	 */
-	public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
+	public function getMetadata($record_id, $user_id = null, $metadata_name, $mediatype_id = null) {
 		try {
 			
 	 		if (is_numeric($record_id) && is_numeric($user_id)) {

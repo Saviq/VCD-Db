@@ -148,7 +148,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	private function setViewMode() {
 		$mode = $this->getParam('viewmode');
 		if (is_null($mode)) {
-			return (strcmp($_SESSION['viewmode'],'img')==0);
+			return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);
 		}
 		
 		if (strcmp($mode,'img')==0) {

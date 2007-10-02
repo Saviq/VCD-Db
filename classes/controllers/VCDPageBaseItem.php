@@ -159,7 +159,104 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	private function doCopiesList() {
 		
+		$metadata = SettingsServices::getMetadata($this->itemObj->getID(), null, null, null);
+		$layerResults = $this->getstuff($this->itemObj, $metadata);
+				
+		$this->assign('itemCopies', $layerResults);
+		
 	}
+	
+	
+	private function getstuff(cdobj &$vcdObj, &$metadataArr) {
+		
+		$results = array();
+		
+		// First get all available owners and mediatypes
+		$arrData = $vcdObj->getInstanceArray();
+		if (isset($arrData['owners']) && isset($arrData['mediatypes'])) {
+	
+			$arrOwners = $arrData['owners'];
+			$arrMediatypes = $arrData['mediatypes'];
+			$i = 0;
+	
+			foreach ($arrMediatypes as $mediaTypeObj) {
+	
+				if ($mediaTypeObj instanceof mediaTypeObj && VCDUtils::isDVDType(array($mediaTypeObj))) {
+	
+					$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metadataArr, $mediaTypeObj->getmediaTypeID(), $arrOwners[$i]->getUserId());
+					$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
+	
+					if (is_array($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
+	
+						$dvdObj = new dvdObj();
+	
+						$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDREGION);
+						$dvd_format = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDFORMAT);
+						$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDASPECT);
+						$dvd_audio  = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDAUDIO);
+						$dvd_subs   = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDSUBS);
+	
+						if (strcmp($dvd_region, "") != 0) {
+							//$dvd_region = $dvd_region.". (". $dvdObj->getRegion($dvd_region) . ")";
+							$dvd_region = $dvd_region. ".";
+						}
+	
+						if (strcmp($dvd_aspect, "") != 0) {
+							$dvd_aspect = $dvdObj->getAspectRatio($dvd_aspect);
+						}
+	
+						if (strcmp($dvd_audio, "") != 0) {
+							$arrAudio = explode("#", $dvd_audio);
+							$dvd_audio = "<ul class=\"ulnorm\">";
+							foreach ($arrAudio as $audioType) {
+								$dvd_audio .= "<li class=\"linorm\">" . $dvdObj->getAudio($audioType) . "</li>";
+							}
+							$dvd_audio .= "</ul>";
+						}
+	
+						if (strcmp($dvd_subs, "") != 0) {
+							$arrSubs = explode("#", $dvd_subs);
+							$dvd_subs = "<ul class=\"ulnorm\">";
+							foreach ($arrSubs as $subTitle) {
+								$imgsource = $dvdObj->getCountryFlag($subTitle);
+								$langName = $dvdObj->getLanguage($subTitle);
+								$img = "<img src=\"{$imgsource}\" alt=\"{$langName}\" hspace=\"1\"/>";
+								$dvd_subs .= "<li class=\"linorm\">".$img . " " . $langName . "</li>";
+							}
+							$dvd_subs .= "</ul>";
+						}
+	
+						$divid = "x". $mediaTypeObj->getmediaTypeID()."x".$arrOwners[$i]->getUserId();
+						
+						$results[] = array(
+							'layer'	 => $divid,
+							'region' => $dvd_subs,
+							'format' => $dvd_format,
+							'aspect' => $dvd_aspect,
+							'audio'	 => $dvd_audio,
+							'subs'	 => $dvd_subs
+						);
+					}
+				}
+				$i++;
+			}
+		} 
+		
+		return $results;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Assign the "Add to wishlist" link to the view
@@ -176,8 +273,13 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	private function doSimilarList() {
 		
 		$list = MovieServices::getSimilarMovies($this->itemObj->getID());
+		$results = array();
 		if (is_array($list) && sizeof($list) > 0) {
-			$this->assign('itemSimilar',$list);
+			$results[null] = VCDLanguage::translate('misc.select');
+			foreach ($list as $obj) {
+				$results[$obj->getId()] = $obj->getTitle();
+			}
+			$this->assign('itemSimilar',$results);
 		}
 		
 	}

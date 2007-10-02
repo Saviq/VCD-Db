@@ -73,14 +73,11 @@ class VCDPageFileHandler extends VCDBasePage {
 				
 			} else {
 				
-				// Check covertype
-				$coverType = $cover->getCoverTypeName();
-				if (strcmp($coverType,'thumbnail')==0) {
+				if (strcmp(strtolower($cover->getCoverTypeName()),'thumbnail')==0) {
 					$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.THUMBNAIL_PATH.$cover->getFilename();
 				} else {
 					$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.COVER_PATH.$cover->getFilename();
 				}
-				
 				$this->streamFile($fullpath);
 				
 			}

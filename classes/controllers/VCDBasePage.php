@@ -169,11 +169,15 @@ class VCDBasePage extends VCDPage {
 	
 	private function doTopUserModule() {
 		$list = UserServices::getUserTopList();
+		
 		$results = array();
 		$maxentries = 6;
-		for ($i=0;($i<sizeof($list) && ($i<=$maxentries) );$i++) {
-			$results[] = array('name' => $list[$i]['user_name'], 'count' => $list[$i]['count']);
+		if (is_array($list)) {
+			for ($i=0;($i<sizeof($list) && ($i<=$maxentries) );$i++) {
+				$results[] = array('name' => $list[$i]['username'], 'count' => $list[$i]['count']);
+			}
 		}
+		
 	
 		$this->assign('topuserList',$results);
 	}
