@@ -127,7 +127,8 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
 			$imgpercent = $percent*$multiplier;
-			$img = "<img src=\"images/bar.gif\" height=\"10\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
+			$img = "<img src=\"images/bar.gif\" height=\"10\" title=\"{$percent}%\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
+			
 			
 			$results[$subArr[0]] = array(
 				'id' => $subArr[0],
@@ -151,7 +152,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
 			$imgpercent = $percent*$multiplier;
-			$img = "<img src=\"images/bar.gif\" height=\"10\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
+			$img = "<img src=\"images/bar.gif\" height=\"10\" title=\"{$percent}%\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
 			
 			$results[$subArr[0]] = array(
 				'id' => $subArr[0],
@@ -178,7 +179,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
 			$imgpercent = $percent*$multiplier;
-			$img = "<img src=\"images/bar.gif\" height=\"10\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
+			$img = "<img src=\"images/bar.gif\" height=\"10\" alt=\"{$percent}%\" title=\"{$percent}%\" width=\"{$imgpercent}%\" border=\"0\"/>";
 			
 			$results[] = array(
 				'id' => 0,

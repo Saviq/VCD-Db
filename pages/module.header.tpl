@@ -4,11 +4,11 @@
 <div id="hdr" align="center"></div>
 <div id="bar">
 {if $isAuthenticated}
-	<a href="?page=private&o=settings">{$user.fullname}</a>
+	<a href="?page=private&amp;o=settings">{$user.fullname}</a>
 	{if $isAdmin}
 		| <a href="#" onclick="openAdminConsole()">{$translate.menu.controlpanel}</a>
 	{/if}
-	| <a href="?do=logout">{$translate.menu.logout}
+	| <a href="?do=logout">{$translate.menu.logout}</a>
 {/if}
 
 {if !$isAuthenticated && $canRegister} 

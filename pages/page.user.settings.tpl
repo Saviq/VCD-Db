@@ -8,12 +8,12 @@ echo $ajaxClient->getJavaScript();
 {/php}
 </script>
 
-<form name="user" method="post" action="{$smarty.server.SCRIPT_NAME}?page=private&o=settings&action=updateprofile">
+<form name="user" method="post" action="{$smarty.server.SCRIPT_NAME}?page=private&amp;o=settings&amp;action=updateprofile">
 <h1>{$translate.menu.settings}</h1>
 <fieldset id="settings" title="{$translate.menu.settings}">
 <table width="100%" border="0" cellspacing="1" cellpadding="1" class="displist">
 <tr>
-	<td width="35%">{$translate.register_fullname}:</td>
+	<td width="35%">{$translate.register.fullname}:</td>
 	<td><input type="text" name="name" value="{$fullname}"/></td>
 </tr>
 <tr>
@@ -34,16 +34,16 @@ echo $ajaxClient->getJavaScript();
 {foreach from=$properties key=id item=i}
 <tr>
 	<td nowrap="nowrap">{$i.description}</td>
-	<td><input type="checkbox" name="property[]" class="nof" value="{$id}" {$i.checked}>&nbsp;{$i.extra}</td>
+	<td><input type="checkbox" name="property[]" class="nof" value="{$id}" {$i.checked}/>&nbsp;{$i.extra}</td>
 </tr>
 {/foreach}
 <tr>
 	<td><div class="info">{$message}</div>&nbsp;</td>
-	<td><input type="submit" value="{$translate.misc.update}"></td>
+	<td><input type="submit" value="{$translate.misc.update}"/></td>
 </tr>
 </table>
-</form>
 </fieldset>
+</form>
 <br/>
 
 
@@ -294,4 +294,4 @@ echo $ajaxClient->getJavaScript();
 </table>
 </form>
 </fieldset>
-</br>
+<br/>

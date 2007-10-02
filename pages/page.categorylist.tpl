@@ -5,9 +5,9 @@
 	&nbsp;<span class="bold">{$translate.movie.currcat}</span>&nbsp; ({$movieCategoryCount} {$translate.misc.movies}) 
 	
 	{if $imageMode}
-		(<a href="#" onclick="viewMode({$categoryId}, 'text', {$categoryPage})">{$translate.movie.textview}</a> / {$translate.movie.imageview})
+		(<a href="?page=category&amp;category_id={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=text">{$translate.movie.textview}</a> / {$translate.movie.imageview})
 	{else}
-		{$translate.movie.textview} / (<a href="#" onclick="viewMode({$categoryId}, 'image', {$categoryPage})">{$translate.movie.imageview}</a>)
+		{$translate.movie.textview} / (<a href="?page=category&amp;category_id={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=img">{$translate.movie.imageview}</a>)
 	{/if}
 	{if $isAuthenticated}
 		{if $smarty.session.mine}
@@ -17,6 +17,8 @@
 	| <input type="checkbox" class="nof" onclick="showonlymine({$categoryId})" {$mineChecked}/> {$translate.movie.mineonly}
 	{/if}
 
+	{$categoryPager}
+	
 	{if $imageMode}
 		<hr/>
 		<div id="actorimages">
@@ -33,7 +35,7 @@
 		</tr>
 		{foreach from=$movieCategoryList item=i}
 		<tr>
-		   <td width="70%"><a href="?page=cd&amp;vcd_id={$i.id}">{$i.title}</a></td>
+		   <td width="70%"><a href="?page=cd&amp;vcd_id={$i.id}">{$i.title|escape}</a></td>
 	       <td nowrap="nowrap">{$i.year}</td>
            <td nowrap="nowrap">{$i.mediatypes}</td>
 	   </tr>
