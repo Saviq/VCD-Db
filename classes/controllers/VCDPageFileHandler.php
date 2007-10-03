@@ -27,8 +27,10 @@ class VCDPageFileHandler extends VCDBasePage {
 		parent::__construct($node);
 
 		
-		if (!is_null($this->getParam('cover_id') && is_numeric($this->getParam('cover_id')))) {
+		if ((!is_null($this->getParam('cover_id')) && (is_numeric($this->getParam('cover_id'))))) {
 			$this->doImage($this->getParam('cover_id'));
+		} elseif ((!is_null($this->getParam('nfo')) && (is_numeric($this->getParam('nfo'))))) {
+			$this->doNfo($this->getParam('nfo'));
 		}
 		
 		
@@ -42,7 +44,76 @@ class VCDPageFileHandler extends VCDBasePage {
 	 * Show NFO file in browser
 	 *
 	 */
-	private function doNfo() {
+	private function doNfo($metadata_id) {
+		
+		$metaObj = SettingsServices::getMetadataById($metadata_id);
+		if (!$metaObj instanceof metadataObj ) {
+			return;
+		}
+		
+		$nfoFilePath = VCDDB_BASE.DIRECTORY_SEPARATOR.NFO_PATH.$metaObj->getMetadataValue();
+		$nfoFontPath = VCDDB_BASE.DIRECTORY_SEPARATOR.'includes/fonts/terminal.phpfont';
+		
+		
+		if (file_exists($nfoFilePath)) {
+			
+			$filesize =	filesize ($nfoFilePath);
+			$filenum = fopen ($nfoFilePath, "r");
+			$nfoFile = fread ($filenum, $filesize);
+			fclose ($filenum);	
+			
+			if (!file_exists ( $nfoFontPath ) ) {
+				throw new VCDProgramException('The fontfile was not found.');
+			}
+			
+			
+			// Create the image
+			$nfolines = explode ("\n", $nfoFile);
+			$font = imageloadfont ($nfoFontPath);
+	
+			$width = 0;
+			$height = 0;
+			$fontwidth 	= ImageFontWidth ($font);
+			$fontheight = ImageFontHeight ($font);
+	
+			foreach ( $nfolines as $line ) {
+				if ( (strlen ($line)*$fontwidth) > $width ) {
+					$width = strlen ($line) * $fontwidth;
+				}
+				$height += $fontheight;
+			}
+	
+			$width += $fontwidth*2;
+			$height += $fontheight*3;
+	
+			$image = ImageCreate ($width, $height);
+	
+			$white = ImageColorAllocate ($image, 255,255,255);
+			imagecolortransparent ($image, $white);
+	
+			$black = ImageColorAllocate ($image, 0, 0, 0);
+	
+			$i = $fontheight;
+			foreach ( $nfolines as $line ) {
+				ImageString ($image, $font , $fontwidth, $i, $line, $black);
+				$i += $fontheight;
+			}
+	
+			$poweredby = "powered by VCD-db (c) vcddb.konni.com";
+			$wid = ($width - ($fontwidth*strlen($poweredby) ) ) / 2;
+			ImageString ($image, $font , $wid, $i, $poweredby, $black);
+	
+			ImageAlphaBlending($image, true);
+			
+			Header("Content-type: image/png"); 
+			header('Content-Disposition: inline; filename="'.$metaObj->getMetadataValue().'.png"');
+			header("Content-Transfer-Encoding: binary\n");
+			ImagePNG ($image);   
+			ImageDestroy($image);
+			exit();
+			
+			
+		} 
 		
 	}
 	

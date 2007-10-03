@@ -51,8 +51,38 @@ class VCDPageUserSettings extends VCDBasePage {
 					
 	}
 	
+	
+	/**
+	 * Handle _GET Calls to the VIEW
+	 *
+	 */
+	private function doGet() {
+		try {
+			
+			// Handle edit borrower
+			if (strcmp($this->getParam('edit'),"borrower")==0) {
+				$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
+				if ($borrowerObj instanceof borrowerObj ) {
+					$this->assign('editBorrower', true);
+					$this->assign('borrowerName', $borrowerObj->getName());
+					$this->assign('borrowerEmail', $borrowerObj->getEmail());
+					$this->assign('borrowerId', $borrowerObj->getID());
+					$this->assign('selectedBorrower',$borrowerObj->getID());
+				}
+			}
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+	}
+	
+	
+	
+	/**
+	 * Populate the default DVD settings
+	 *
+	 */
 	private function doDVDSettings() {
-		
 		
 		
 		$dvdObj = new dvdObj();
@@ -102,6 +132,10 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 	}
 	
+	/**
+	 * Assign the frontpage settings
+	 *
+	 */
 	private function doFrontpageSettings() {
 				
 		$metaObjA = SettingsServices::getMetadata(0, VCDUtils::getUserID(), 'frontstats');
@@ -140,6 +174,11 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 	}
 	
+	
+	/**
+	 * Assign the feedlist
+	 *
+	 */
 	private function doFeedList() {
 	
 		$arrFeeds = SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID());
@@ -165,6 +204,10 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 	}
 	
+	/**
+	 * Populate and assign the borrowers list.
+	 *
+	 */
 	private function doBorrowers() {
 		
 		$results = array();
@@ -180,10 +223,18 @@ class VCDPageUserSettings extends VCDBasePage {
 
 	}
 	
+	/**
+	 * Populate all CSS style templates available
+	 *
+	 */
 	private function doTemplates() {
 		$this->assign('templates', VCDUtils::getStyleTemplates());
 	}
 	
+	/**
+	 * Populate the users properties list.
+	 *
+	 */
 	private function doProperties() {
 		
 		$properties = UserServices::getAllProperties();
@@ -225,29 +276,9 @@ class VCDPageUserSettings extends VCDBasePage {
 	
 	}
 	
-	private function doGet() {
-		try {
-			
-			// Handle edit borrower
-			if (strcmp($this->getParam('edit'),"borrower")==0) {
-				$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
-				if ($borrowerObj instanceof borrowerObj ) {
-					$this->assign('editBorrower', true);
-					$this->assign('borrowerName', $borrowerObj->getName());
-					$this->assign('borrowerEmail', $borrowerObj->getEmail());
-					$this->assign('borrowerId', $borrowerObj->getID());
-					$this->assign('selectedBorrower',$borrowerObj->getID());
-				}
-			}
-			
-		} catch (Exception $ex) {
-			VCDException::display($ex);
-		}
-	}
 	
-	private function doPost() {
-		
-	}
+	
+	
 	
 	
 	/**
@@ -279,6 +310,10 @@ class VCDPageUserSettings extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Update the user profile.
+	 *
+	 */
 	private function updateUser()	{
 		$userObj = VCDUtils::getCurrentUser();
 		
@@ -322,7 +357,7 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 		if (UserServices::updateUser($userObj)) {
 			// update the user in session as well
-			$_SESSION['user'] = $user;
+			$_SESSION['user'] = $userObj;
 			VCDUtils::setMessage("(".VCDLanguage::translate('usersettings.updated').")");
 		} else {
 			VCDUtils::setMessage("(".VCDLanguage::translate('usersettings.update_failed').")");

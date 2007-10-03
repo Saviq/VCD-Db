@@ -53,7 +53,7 @@
 			{if $isOwner || $isAdmin}
 			<tr>
 				<td>&nbsp;</td>
-				<td><a href="#" onclick="loadManager({$itemId})">{$translate.movie.change}</a></td>
+				<td><a href="#" onclick="loadManager({$itemId});return false">{$translate.movie.change}</a></td>
 			</tr>
 			{/if}
 			{if $isAuthenticated || $isOwner}
@@ -142,8 +142,10 @@
 
 	<div id="copies">
 	<h2>{$translate.movie.available}:</h2>
-	{if is_array($itemCopies) && count($itemCopies)>0}
-		{foreach from=$itemCopies item=i}
+	{if is_array($itemLayers) && count($itemLayers)>0}
+	
+		{** These are the onmouseover layers **}
+		{foreach from=$itemLayers item=i}
 		
 			<div id="{$i.layer}" class="dvdetails">
 			<table width="280" cellpadding="1" cellspacing="1" border="0" class="dvdspecs">
@@ -156,7 +158,7 @@
 				<td>{$i.format}</td>
 			</tr>
 			<tr>
-				<td nowrap="nowrap">{$translate.dvd.aspect}>:</td>
+				<td nowrap="nowrap">{$translate.dvd.aspect}:</td>
 				<td>{$i.aspect}</td>
 			</tr>
 			<tr>
@@ -172,8 +174,33 @@
 		
 		
 		{/foreach}
-	
 	{/if}
+	
+	{if is_array($itemCopies) && count($itemCopies)>0}
+		{** This is the itemcopy table **}
+		
+		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td>{$translate.movie.media}</td>
+			<td width="1%">&nbsp;</td>
+			<td width="1%">&nbsp;</td>
+			<td>{$translate.movie.num}</td>
+			<td>{$translate.movie.date}</td>
+			<td>{$translate.movie.owner}</td>
+		</tr>
+		{foreach from=$itemCopies item=i}
+		<tr>
+			<td>{$i.mediatype}</td>
+			<td align="center">{$i.dvdspecs}</td>
+			<td align="center">{$i.nfo}</td>
+			<td>{$i.cdcount}</td>
+			<td>{$i.date}</td>
+			<td>{$i.owner}</td>
+		</tr>
+		{/foreach}
+		</table>
+	{/if}
+	
 	
 	</div>
 
@@ -202,7 +229,7 @@
 
 
 	<div id="comments">
-	<h2>{$translate.comments.comments} (<a href="javascript:show('newcomment')">{$translate.comments.add}</a>)</h2>
+	<h2>{$translate.comments.comments} (<a href="#" onclick="javascript:show('newcomment');return false">{$translate.comments.add}</a>)</h2>
 	</div>
 
 	<div id="newcomment" style="padding-left:15px;visibility:hidden;display:none">
@@ -211,7 +238,7 @@
 	{else}
 
 		<span class="bold">{$translate.comments.type}:</span>
-		<form name="newcomment" method="post" action="exec_form.php?action=addcomment">
+		<form name="newcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=addcomment">
 		<input type="hidden" name="vcd_id" value="{$itemId}"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>
@@ -241,7 +268,7 @@
 			(<i>Private comment</i>)
 		{/if}
 		{if $i.isOwner}
-			<a href="#" onclick="location.href='exec_query.php?action=delComment&amp;cid={$i.id}'">
+			<a href="#" onclick="location.href='{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=delComment&amp;cid={$i.id}'">
 			<img src="images/icon_del.gif" alt="Delete comment" align="absmiddle" border="0"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>
@@ -279,3 +306,4 @@
 </tr>
 </table>
 <script src="includes/js/lytebox.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>

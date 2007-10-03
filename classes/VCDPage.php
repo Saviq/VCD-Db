@@ -65,7 +65,7 @@ abstract class VCDPage extends Smarty  {
 	
 	/**
 	 * Get a value from url parameter that is passed to the page.
-	 * If $param does not exists, null is returned.
+	 * If $param does not exists or is an emptry string, null is returned.
 	 *
 	 * @param string $param | The parameter name
 	 * @param boolean $isPost | Ids the parameter from _POST[] or  _GET[]
@@ -73,13 +73,13 @@ abstract class VCDPage extends Smarty  {
 	 * @return string | The paramter value
 	 */
 	protected function getParam($param, $isPost=false, $defaultValue=null) {
-		
+				
 		if ($isPost) {
-			if (isset($_POST[$param])) {
+			if (isset($_POST[$param]) && (strcmp($_POST[$param],'') != 0)) {
 				return $_POST[$param];
-			}			
+			} 			
 		} else {
-			if (isset($_GET[$param]) && strcmp($_GET[$param],"") != 0) {
+			if (isset($_GET[$param]) && (strcmp($_GET[$param],'') != 0)) {
 				return $_GET[$param];
 			}
 		}

@@ -42,7 +42,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
 		parent::__construct($node);
-
+		
 		// load the requested item
 		$this->loadItem();
 		$this->doCoreElements();
@@ -55,8 +55,23 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 * Handle all POST requests to this controller.
 	 */
 	public function handleRequest() {
+		if (!VCDUtils::isLoggedIn()) {
+			return;
+		}
 		
+		$action = $this->getParam('action');
+		if (!is_null($action)) {
+					
+			switch ($action) {
+				case 'addcomment':
+					$this->doAddComment();
+					break;
+			
+				default:
+					break;
+			}
 		
+		}
 	}
 	
 	
@@ -160,14 +175,44 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	private function doCopiesList() {
 		
 		$metadata = SettingsServices::getMetadata($this->itemObj->getID(), null, null, null);
-		$layerResults = $this->getstuff($this->itemObj, $metadata);
-				
-		$this->assign('itemCopies', $layerResults);
+		$layerResults = $this->doCopiesItemLayers($this->itemObj, $metadata);
+		$this->assign('itemLayers', $layerResults);
+		
+		
+		$itemInstances = $this->itemObj->getInstanceArray();
+		$ownersList = $itemInstances['owners'];
+		$mediaList = $itemInstances['mediatypes'];
+		
+		$results = array();
+		for ($i=0; $i<sizeof($ownersList); $i++) {
+			
+			$mediaTypeObj = $mediaList[$i];
+			$ownerObj = $ownersList[$i];
+			
+			$results[] = array(
+				'owner'		=> $ownerObj->getUserName(),
+				'date'		=> 'somedate',
+				'cdcount'	=> 4,
+				'mediatype' => $mediaTypeObj->getDetailedName(),
+				'dvdspecs'	=> $this->doCopiesDvdList($ownerObj,$mediaTypeObj,$metadata),
+				'nfo'		=> $this->doCopiesNfoList($ownerObj, $mediaTypeObj, $metadata)
+			);
+		}
+		
+		$this->assign('itemCopies', $results);
+		
 		
 	}
 	
 	
-	private function getstuff(cdobj &$vcdObj, &$metadataArr) {
+	/**
+	 * Create the HTML for the hidden layers that are activated onmouseover in the list
+	 *
+	 * @param cdobj $vcdObj
+	 * @param array $metadataArr | The metadata array
+	 * @return string | The generated HTML
+	 */
+	private function doCopiesItemLayers(cdobj &$vcdObj, &$metadataArr) {
 		
 		$results = array();
 		
@@ -230,7 +275,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 						
 						$results[] = array(
 							'layer'	 => $divid,
-							'region' => $dvd_subs,
+							'region' => $dvd_region,
 							'format' => $dvd_format,
 							'aspect' => $dvd_aspect,
 							'audio'	 => $dvd_audio,
@@ -247,12 +292,73 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Generate the Image and associated layer call for the available copies
+	 *
+	 * @param userObj $userObj
+	 * @param mediaTypeObj $mediaTypeObj
+	 * @param array $metaDataArr
+	 * @return string
+	 */
+	private function doCopiesDvdList(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
+
+		$divid = "";
+		$arrDVDMeta = null;
+		if (!is_null($metaDataArr)) {
+			$arrDVDMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID(), $userObj->getUserID());
+			$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
+			$divid = "x".$mediaTypeObj->getmediaTypeID() ."x". $userObj->getUserId();
+		}
+		$dhtml = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
+		$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
+	
+		if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
+			return $img;
+		} else {
+			return "&nbsp;";
+		}
+	}
+
+
+	/**
+	 * Create placeholder for the NFO file associated with the movie instance
+	 *
+	 * @param userObj $userObj
+	 * @param mediaTypeObj $mediaTypeObj
+	 * @param array $metaDataArr
+	 * @return string
+	 */
+	private function doCopiesNfoList(userObj $userObj, mediaTypeObj $mediaTypeObj, &$metaDataArr = null) {
+	
+		$hasNFO = false;
+		if (!is_null($metaDataArr)) {
+			$currMeta = metadataTypeObj::filterByMediaTypeID($metaDataArr, $mediaTypeObj->getmediaTypeID(), $userObj->getUserID());
+			// Search for NFO metadata ..
+			$useNfoImage = (bool)$userObj->getPropertyByKey('NFO_IMAGE');
+			if (is_array($currMeta) && sizeof($currMeta) > 0) {
+				foreach ($currMeta as $metadataObj) {
+					if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
+						$nfofile = NFO_PATH . $metadataObj->getMetaDataValue();
+						if ($useNfoImage) {
+							$js = "window.open('?page=file&amp;nfo={$metadataObj->getMetaDataId()}');return false;";
+						} else {
+							$js = "window.open('{$nfofile}');return false;";
+						}
+						$img = "<a href=\"#\" onclick=\"{$js};\"><img src=\"images/icon_nfo.gif\" border=\"0\" hspace=\"1\" alt=\"NFO\" align=\"middle\"/></a>";
+						$hasNFO = true;
+						break;
+					}
+				}
+			}
+		}
 	
 	
-	
-	
-	
-	
+		if ($hasNFO) {
+			return $img;
+		} else {
+			return "&nbsp;";
+		}
+	}
 	
 	
 	
@@ -361,6 +467,34 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		}
 		
 	}
+	
+	
+	/**
+	 * 
+	 * 
+	 * Internal POST methods below ..
+	 * 
+	 * 
+	 */
+	
+	
+	private function doAddComment() {
+	
+		$comment = $this->getParam('comment',true);
+		$private = $this->getParam('private',true, '0');
+		$itemId = $this->getParam('vcd_id',true);
+						
+		if ((!is_null($comment) && !is_null($itemId) && (is_numeric($itemId)))) {
+			$commentObj = new commentObj(array('',$itemId, VCDUtils::getUserID(), '', VCDUtils::stripHTML($comment), $private));
+			SettingsServices::addComment($commentObj);
+		}
+		
+		redirect('?page=cd&amp;vcd_id='.$itemId);
+		
+		
+	}
+	
+	
 	
 }
 ?>
