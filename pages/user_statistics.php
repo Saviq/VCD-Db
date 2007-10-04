@@ -23,7 +23,7 @@
 		require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/external/powergraph.php');
 		 
 		$skin = 1;
-		$type = 5;
+		$type = 1;
 		
 		$PG = new PowerGraphic();
 		$PG->title = VCDLanguage::translate('movie.category');

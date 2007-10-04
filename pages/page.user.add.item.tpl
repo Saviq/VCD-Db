@@ -1,4 +1,6 @@
+<h1>{$sourceSiteName} - {$smarty.post.searchTitle} ...</h1>
 
+{** Display the search results ... if any **}
 {if is_array($fetchList) && count($fetchList)>0} 
 
 	<ul>
@@ -10,6 +12,18 @@
 	{/foreach}
 	</ul>
 
+	
+{** We have an item **}
+{elseif $isFetched}
+	
+	{if $itemAdult}
+		{include file='page.user.add.confirm.adult.tpl'}
+	{else} 
+		{include file='page.user.add.confirm.tpl'}
+	{/if}
+
+
+{** Search returned no results **}
 {else}
 
 No results

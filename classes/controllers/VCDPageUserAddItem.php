@@ -18,6 +18,19 @@
 
 class VCDPageUserAddItem extends VCDBasePage {
 	
+	/**
+	 * The sourceSiteObj that is being used
+	 *
+	 * @var sourceSiteObj
+	 */
+	private $sourceSiteObj = null;
+	
+	/**
+	 * The Fetchclass that is being used
+	 *
+	 * @var VCDFetch
+	 */
+	private $fetchClass = null;
 	
 	public function __construct(_VCDPageNode $node) {
 		
@@ -71,6 +84,34 @@ class VCDPageUserAddItem extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Display selected fetched object
+	 *
+	 */
+	private function doFetchItem() {
+		
+		if (!is_null($this->fetchClass)) {
+			
+			// Initilize the fetched object
+			$this->fetchClass->fetchItemByID();
+		 	$this->fetchClass->fetchValues();
+		 	$obj = $this->fetchClass->getFetchedObject();
+		 	$obj->setSourceSite($this->sourceSiteObj->getsiteID());
+		 	
+		 	
+		 	//displayFetchedObject($obj);
+				
+		 	
+		 	
+		 	// Notify the UI that we have an object
+		 	$this->assign('isFetched',true);
+			
+			
+		}
+		
+		
+		
+	}
 	
 	
 	private function doFetchSiteResults($sourceSite, $searchTitle) {
@@ -81,13 +122,14 @@ class VCDPageUserAddItem extends VCDBasePage {
 		if (!($sourceObj instanceof sourceSiteObj)) {
 			throw new VCDProgramException('Invalid source site: ' . $sourceSite);
 		}
+		$this->sourceSiteObj = $sourceObj;
 		
 		$className = $sourceObj->getClassName();
 		$fetchClass = VCDClassFactory::loadClass($className);
 		if (!($fetchClass instanceof VCDFetch)) {
 			throw new VCDProgramException("Class {$className} could not be loaded.");
 		}
-		
+		$this->fetchClass = $fetchClass;
 		
 		// Fetch class data seems all ok .. lets continue
 		
@@ -105,22 +147,19 @@ class VCDPageUserAddItem extends VCDBasePage {
 		// Make the fetchClass search it's site ..
 		$fetchResults =	$fetchClass->Search($searchTitle);
 		if ($fetchResults == VCDFetch::SEARCH_EXACT) {
-		 	$fetchClass->fetchItemByID();
-		 	$fetchClass->fetchValues();
-		 	$obj = $fetchClass->getFetchedObject();
-		 	$obj->setSourceSite($sourceObj->getsiteID());
-		 	//displayFetchedObject($obj);
+			
+			$this->doFetchItem();
+			
+		 	
 		} else {
 	 		$results = $fetchClass->showSearchResults();
 	 		$this->assign('fetchList', $results);
+	 		$this->assign('sourceSiteName', $sourceObj->getName());
 	 		
 		}
-		
-			
-		
-		
-		
 	}
+
+	
 	
 	
 }
