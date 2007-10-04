@@ -243,10 +243,8 @@ class VCDRss {
 	
 	
 	
-	public function showRemoteVcddbFeed($name, $url) {
+	public function getRemoteVcddbFeed($name, $url) {
 	
-		// Flush errors ..
-		error_reporting(0);
 		
 		// Check for cached feed if cache is enabled.
 		$this->cache_folder = CACHE_FOLDER;
@@ -270,42 +268,6 @@ class VCDRss {
 		}
 		
 		
-		
-		if ($xml && isset($xml->error)) {
-			print $xml->error;
-			return;
-		}
-		if (!$xml) {
-			print "<p>RSS Feed not found for ".$name.", site maybe down.</p>";
-			return;
-		} 
-		
-		$items = $xml->channel->item;
-	    $title = $xml->channel->title;
-	    $link = $xml->channel->link;
-		
-	    $pos = strpos($title, "(");
-				if ($pos === false) { 
-				    $img = "<img src=\"images/rsssite.gif\" align=\"absmiddle\" title=\"VCD Site feed\" border=\"0\"/>&nbsp;";
-				} else {
-					$img = "<img src=\"images/rssuser.gif\" align=\"absmiddle\" title=\"VCD User feed\" border=\"0\"/>&nbsp;";
-				}
-	    
-	    print "<p class=normal><strong>".$img."<a href=\"".$link."\" target=\"new\">".utf8_decode($title)."</a></strong>";
-	    print "<ul>";
-		foreach ($items as $item) {
-							
-			print "<li><a href=\"$item->link\" target=\"new\">". utf8_decode($item->title)."</a>";
-			if (isset($item->description)) {
-				print " <a href=\"$item->description\" target=\"new\">[link]</a>";
-			}
-			
-			print "</li>";	
-		}
-		
-		print "</ul></p>";
-		
-		
 		// Check if we need to write the results to cache because the existing one was to old.
 		if ($this->use_cache && !$xmlLoaded) {
 			$serialized = serialize($xml->asXML());
@@ -316,8 +278,8 @@ class VCDRss {
 		}
 		
 			
-		// Reset error reporting
-		error_reporting(ini_get('error_reporting'));
+		return $xml;
+		
 	}
 	
 

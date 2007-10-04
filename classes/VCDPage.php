@@ -19,8 +19,8 @@
 require_once(dirname(__FILE__) . '/external/smarty/Smarty.class.php');
 
 
-//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
-error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
+error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
+//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
  
 
 abstract class VCDPage extends Smarty  {

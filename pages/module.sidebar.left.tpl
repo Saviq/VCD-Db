@@ -45,7 +45,9 @@
 
 {include file='module.search.tpl'}
 
+{if $smarty.get.page eq ''}
 {include file='module.toggler.tpl'}
+{/if}
 
 {include file='module.topusers.tpl'}
 

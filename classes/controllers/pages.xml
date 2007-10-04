@@ -128,6 +128,12 @@
 		<action>stats</action>
 	</page>
 	<page standalone="false" auth="true">
+		<name>Rss Feeds</name>
+		<handler>VCDPageUserRss</handler>
+		<template>page.user.rss.tpl</template>
+		<action>rss</action>
+	</page>
+	<page standalone="false" auth="true">
 		<name>Seenlist</name>
 		<handler>VCDPageUserSeenlist</handler>
 		<template>page.user.seenlist.tpl</template>

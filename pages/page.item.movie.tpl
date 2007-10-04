@@ -268,7 +268,7 @@
 			(<i>Private comment</i>)
 		{/if}
 		{if $i.isOwner}
-			<a href="#" onclick="location.href='{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=delComment&amp;cid={$i.id}'">
+			<a href="#" onclick="location.href='{$smarty.server.SCRIPT_NAME}?page=cd&action=delComment&cid={$i.id}'">
 			<img src="images/icon_del.gif" alt="Delete comment" align="absmiddle" border="0"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>
