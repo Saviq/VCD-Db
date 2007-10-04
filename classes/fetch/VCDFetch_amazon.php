@@ -196,7 +196,7 @@ class VCDFetch_amazon extends VCDFetch {
 
 		$results = parent::generateSimpleSearchResults($regx,1,2);
 		
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 					
 	}
 	

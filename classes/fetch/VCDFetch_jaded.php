@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class VCDFetch_jaded extends VCDFetch {
 	
 	
@@ -157,7 +157,7 @@ class VCDFetch_jaded extends VCDFetch {
 
 		$results = parent::generateSimpleSearchResults($regx,1,2);
 		
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 					
 	}
 	

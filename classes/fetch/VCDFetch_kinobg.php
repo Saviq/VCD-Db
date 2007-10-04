@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 class VCDFetch_kinobg extends VCDFetch {
 
 
@@ -59,7 +59,7 @@ class VCDFetch_kinobg extends VCDFetch {
 		$this->setMaxSearchResults(50);
 	    $regx = '<a href=\"film.php\?id=([0-9]+)([^\<]*)\"><strong>([^\<]*)</strong></a><br>([^>]*)>([^>]*)>([^\<]*)';
 		$results = parent::generateSimpleSearchResults($regx, 1,3,6);
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 	}
 
 

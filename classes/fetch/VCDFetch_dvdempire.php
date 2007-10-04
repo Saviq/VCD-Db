@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class VCDFetch_dvdempire extends VCDFetch {
 	
 	
@@ -161,7 +161,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 		$regx = 'item_id=([^"]+)">([^<]*)</a>';
 		$results = parent::generateSimpleSearchResults($regx, 1, 2);
 						
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 					
 	}
 	

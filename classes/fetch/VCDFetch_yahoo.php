@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 class VCDFetch_yahoo extends VCDFetch {
 
 
@@ -250,7 +250,7 @@ class VCDFetch_yahoo extends VCDFetch {
 
 		$results = parent::generateSimpleSearchResults($regx,1,2,3);
 
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 
 
 	}

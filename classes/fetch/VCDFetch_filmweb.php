@@ -14,7 +14,8 @@
  * @version $Id$
  */
 
-?><?
+?>
+<?php
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(

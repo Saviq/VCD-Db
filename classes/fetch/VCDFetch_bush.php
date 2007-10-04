@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class VCDFetch_bush extends VCDFetch {
 	
 	
@@ -154,7 +154,7 @@ class VCDFetch_bush extends VCDFetch {
 		$regx = 'class="tgTitle">([^<]*)</td></tr><tr><td valign="top" align="center" class="tgImage"><div style="margin-top:5px;"><a href="stock_detail.asp([^<]*)Title_ID=([0-9]{1,6})">';
 		$results = parent::generateSimpleSearchResults($regx,3,1);
 		
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 					
 	}
 	

@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 class VCDFetch_filmtv extends VCDFetch {
 
 	protected $regexArray = array(
@@ -53,7 +53,7 @@ class VCDFetch_filmtv extends VCDFetch {
 		$this->setMaxSearchResults(50);
 		$regx = 'scheda\.php\?film=([0-9]+)[^<]*\">[^\>]*>([^<]*)</a>[^(]*\(([^)]*))';
 		$results = parent::generateSimpleSearchResults($regx, 1,2,3);
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 	}
 
 	protected function processResults() {

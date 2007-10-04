@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 require_once(VCDDB_BASE.'/classes/external/snoopy/Snoopy.class.php');
 
 if (!defined('CACHE_FOLDER')) {
@@ -304,8 +304,7 @@ abstract class VCDFetch {
 	 */
 	protected function generateSearchSelection($arrSearchResults) {
 		if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) {
-			print "No search results to generate from.";
-			return;
+			return null;
 		}
 
 		$testItem = $arrSearchResults[0];
@@ -315,6 +314,9 @@ abstract class VCDFetch {
 
 
 		$extUrl = "http://".$this->fetchDomain.$this->fetchItemPath;
+		
+		return $arrSearchResults;
+		/*
 		print "<ul>";
 		foreach ($arrSearchResults as $item) {
 			$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->siteID}&amp;fid={$item['id']}";
@@ -323,6 +325,7 @@ abstract class VCDFetch {
 			print $str;
 		}
 		print "<ul>";
+		*/
 
 	}
 

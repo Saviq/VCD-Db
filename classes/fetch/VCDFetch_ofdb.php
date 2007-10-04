@@ -64,7 +64,7 @@ class VCDFetch_ofdb extends VCDFetch {
 		$this->setMaxSearchResults(50);
 		$regx = '<a href=\"view\.php\?page=film.fid=([0-9]+)([^\<]*)\">([^\<\(]*)[^(]*\(([0-9]{4})\)</a>';
 		$results = parent::generateSimpleSearchResults($regx, 1, 3, 4);
-		parent::generateSearchSelection($results);
+		return parent::generateSearchSelection($results);
 	}
 
 
