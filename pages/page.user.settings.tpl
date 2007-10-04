@@ -113,7 +113,7 @@ echo $ajaxClient->getJavaScript();
 {else}
 	<p>{$translate.rss.none}</p>
 {/if}
-<p><input type="button" value="{$translate.rss_add}" onclick="addFeed()"/></p>
+<p><input type="button" value="{$translate.rss.add}" onclick="addFeed('vcddb');return false"/></p>
 </fieldset>
 <br/>
 
@@ -156,7 +156,7 @@ echo $ajaxClient->getJavaScript();
 <tr>
 	<td>&nbsp;</td>
 	<td><input type="submit" value="{$translate.misc.update}" onclick="checkFieldsRaw(this.form,'rssChoices', 'rss_list')"/> 
-		&nbsp; <input type="button" value="{$translate.rss.add}" onclick="addPrivateFeed()"/>
+		&nbsp; <input type="button" value="{$translate.rss.add}" onclick="addFeed('site');return false"/>
 	</td>
 </tr>
 </table>

@@ -625,14 +625,19 @@ function del_actor(pornstar_id, movie_id) {
 }
 
 
-function addFeed() {
-	var url = './pages/addRssFeed.php';
-	window.open(url, 'RSSFEED', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,height=250,width=350,top=200,left=250');
-}
-
-function addPrivateFeed() {
-	var url = './pages/addRssFeedP.php';
-	window.open(url, 'RSSFEEDP', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,height=80,width=300,top=200,left=250');
+function addFeed(type) {
+	if (type == 'vcddb') {
+		var url = '?page=addrss&type=vcddb';
+		window.open(url, 'Rss', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,height=250,width=350,top=200,left=250');	
+	} else if (type == 'site') {
+		var url = '?page=addrss&type=site';
+		window.open(url, 'Rss', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,height=80,width=300,top=200,left=250');
+	} else {
+		return false;	
+	}
+			
+	
+	
 }
 
 
@@ -653,7 +658,7 @@ function rssCheck(form) {
 
 function deleteFeed(id) {
 	if (confirm('Sure you want to delete ?')) {
-		url = 'exec_query.php?action=delrss&rss_id='+id;
+		url = '?page=settings&action=delrss&rss_id='+id;
 		location.href = url;
 	}
 }
@@ -982,7 +987,7 @@ function showonlymine(cat_id) {
 }
 
 function adjustPlayer() {
-	var url = './pages/player.php';
+	var url = '?page=private&o=player';
 	window.open(url, 'PLAYER', 'height=250,width=400,top=200,left=250');
 }
 
@@ -1030,12 +1035,12 @@ function checkIt(string)
 function filebrowse(param, destField) {
 	try {
 		if (destField == null) {
-			var url = 'filebrowse.php?from='+param;
+			var url = '?page=playerbrowse&from='+param;
 		} else {
-			var url = 'filebrowse.php?from='+param+'&field='+destField;
+			var url = '?page=playerbrowse&from='+param+'&field='+destField;
 		}
 
-		window.open(url, 'FILEBROWSE', 'height=60,width=380,top=200,left=250');
+		window.open(url, 'FileBrowser', 'height=60,width=380,top=200,left=250');
 
 	} catch (Ex) {}
 }

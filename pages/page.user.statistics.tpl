@@ -20,9 +20,9 @@
 	{foreach from=$categoryList item=i}
 	<tr>
 		<td colspan="2" width="130"><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
-		<td width="30" align="right">{$i.count}</td>
+		<td width="30" align="right">{$i.countx}</td>
 		<td width="72%" nowrap="nowrap">
-			<img src="images/bar_l.gif" height="10" alt="{$i.alt}" border="0"/>{$i.image}<img src="images/bar_r.gif" height="10" alt="{$i.alt}" border="0"/>
+			<img src="images/bar_l.gif" height="10" alt="{$i.alt}" border="0"/>{$i.imagex}<img src="images/bar_r.gif" height="10" alt="{$i.alt}" border="0"/>
 		</td>
 	</tr>
 	{/foreach}

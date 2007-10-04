@@ -10,7 +10,7 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
- * @version $Id: VCDPage.php 1066 2007-08-15 17:05:56Z konni $
+ * @version $Id: VCDPageUserSettings.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
@@ -70,6 +70,15 @@ class VCDPageUserSettings extends VCDBasePage {
 					$this->assign('selectedBorrower',$borrowerObj->getID());
 				}
 			}
+			
+			
+			// Delete Rss Feed
+			if (strcmp($this->getParam('action'),"delrss")==0) {
+				$this->deleteRss();
+				redirect('?page=settings');
+				exit();
+			}
+			
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -250,7 +259,7 @@ class VCDPageUserSettings extends VCDBasePage {
 			}
 	
 			if ($propertyObj->getpropertyName() == 'PLAYOPTION' && $userObj->getPropertyByKey($propertyObj->getpropertyName())) {
-				$data = "<a href=\"#\" onclick=\"adjustPlayer()\">(".VCDLanguage::translate('usersettings.player').")</a>";
+				$data = "<a href=\"#\" onclick=\"adjustPlayer();return false\">(".VCDLanguage::translate('usersettings.player').")</a>";
 			}
 	
 			if (!($propertyObj->getpropertyName() == 'SHOW_ADULT' && !VCDUtils::showAdultContent(true))) {
@@ -287,28 +296,52 @@ class VCDPageUserSettings extends VCDBasePage {
 	 */
 	public function handleRequest() {
 		
-		$deligate = true;
+		$action = $this->getParam('action');
+		if (is_null($action)) {
+			return;
+		}
 		
 		try {
 			
-			// Check if user profile is being updated
-			if (strcmp($this->getParam('action'),'updateprofile')==0) {
-				$this->updateUser();
-				$deligate = false;
+			
+			switch ($action) {
+				case 'updateprofile':
+					// Update user's profile
+					$this->updateUser();			
+					break;
+			
+				default:
+					break;
 			}
+			
+			
+			
 			
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex,true);
 		}
 		
-		
-		// Deligate to parent if the request was not meant for this Controller
-		if ($deligate) {
-			parent::handleRequest();	
-		}
 	}
 	
+	
+	/**
+	 * Delete rss feed from users profile
+	 *
+	 */
+	private function deleteRss() {
+		
+		$id = $this->getParam('rss_id');
+		if (!is_null($id) && is_numeric($id)) {
+			
+			// check if current user is actually the owner of this item
+			$rssObj = SettingsServices::getRssfeed($id);
+			if ($rssObj instanceof rssObj && ($rssObj->getOwnerId()==VCDUtils::getUserID())) {
+				SettingsServices::delFeed($id);
+			}
+			
+		}
+	}
 	
 	/**
 	 * Update the user profile.

@@ -29,6 +29,11 @@ class VCDBasePage extends VCDPage {
 	private $templateBottom = 'page.basepage.bottom.tpl';
 	
 		
+	/**
+	 * Class contructor, loads the confing and forces the pages/views to handle $_POST requests.
+	 *
+	 * @param _VCDPageNode $node
+	 */
 	public function __construct(_VCDPageNode $node) {
 		
 		$this->config = $node;
@@ -52,10 +57,17 @@ class VCDBasePage extends VCDPage {
 	}
 	
 	
+	/**
+	 * Display contents from the Smarty templates to the browser
+	 *
+	 * @param string $template
+	 */
 	public function render($template=null) {
 		
 		if ($this->config->isStandalone()) {
 			
+			$this->assign('pageCharset', VCDUtils::getCharSet());
+			$this->assign('pageStyle', VCDUtils::getStyle());
 			parent::render();
 			
 		} else {			
@@ -69,18 +81,28 @@ class VCDBasePage extends VCDPage {
 	}
 	
 	
+	/**
+	 * Render the layout contents above the main content
+	 *
+	 */
 	private function renderPageTop() {
-		
-		//$this->display($this->templateTop);
 		parent::render($this->templateTop);
 	}
 	
+	
+	/**
+	 * * Render the layout contents below the main content
+	 *
+	 */
 	private function renderPageBottom() {
-		//$this->display($this->templateBottom);
 		parent::render($this->templateBottom);
 	}
 	
 	
+	/**
+	 * Initialize and assign base variables needed by all pages/views
+	 *
+	 */
 	private function initPage() {
 		
 		$this->assign('pageCharset', VCDUtils::getCharSet());
@@ -88,6 +110,12 @@ class VCDBasePage extends VCDPage {
 		
 		if (VCDUtils::isLoggedIn()) {
 			$this->assign('isAuthenticated', true);
+			
+			// Check weither to display Rss menuitem
+			if (sizeof(SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
+				$this->assign('showRssFeeds',true);
+			}
+			
 			if (VCDUtils::getCurrentUser()->isAdmin()) {
 				$this->assign('isAdmin', true);
 			}
@@ -103,6 +131,10 @@ class VCDBasePage extends VCDPage {
 		
 	}
 	
+	/**
+	 * Display the categoryList module
+	 *
+	 */
 	private function doCategorylistModule() {
 				
 		$categories = SettingsServices::getMovieCategoriesInUse();
@@ -133,6 +165,10 @@ class VCDBasePage extends VCDPage {
 		$this->assign('categoryList',$arrSorted);
 	}
 	
+	/**
+	 * Display the Search module
+	 *
+	 */
 	private function doSearchModule() {
 		
 		$searchTypes = array('title' => VCDLanguage::translate('search.title'),
@@ -149,6 +185,10 @@ class VCDBasePage extends VCDPage {
 	}
 	
 	
+	/**
+	 * Display the header module
+	 *
+	 */
 	private function doHeaderModule() {
 		
 		$languageObj = VCDClassFactory::loadClass('VCDLanguage');
@@ -167,6 +207,10 @@ class VCDBasePage extends VCDPage {
 	}
 	
 	
+	/**
+	 * Display the TopUsersList module
+	 *
+	 */
 	private function doTopUserModule() {
 		$list = UserServices::getUserTopList();
 		
@@ -182,6 +226,10 @@ class VCDBasePage extends VCDPage {
 		$this->assign('topuserList',$results);
 	}
 	
+	/**
+	 * Display the pornstar pages module
+	 *
+	 */
 	private function doPornstarModule() {
 		if (VCDUtils::showAdultContent()) {
 			$this->assign('showAdult',true);	

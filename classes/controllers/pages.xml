@@ -99,6 +99,28 @@
 		<template>page.user.settings.tpl</template>
 		<action>settings</action>
 	</page>
+	<page standalone="true" auth="true">
+		<name>Player</name>
+		<handler>VCDPageUserPlayer</handler>
+		<template>window.user.player.tpl</template>
+		<action>player</action>
+	</page>
+	<page standalone="true" auth="true">
+		<name>PlayerBrowser</name>
+		<handler>VCDPageUserPlayerBrowse</handler>
+		<template>window.user.player.browse.tpl</template>
+		<action>playerbrowse</action>
+	</page>
+	<page standalone="true" auth="true">
+		<name>AddRss</name>
+		<handler>VCDPageUserAddRss</handler>
+		<template>window.user.rss.tpl</template>
+		<action>addrss</action>
+	</page>
+	
+	
+	
+	
 	<page standalone="false" auth="true">
 		<name>Statistics</name>
 		<handler>VCDPageUserStatistics</handler>

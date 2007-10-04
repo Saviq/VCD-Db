@@ -19,8 +19,8 @@
 require_once(dirname(__FILE__) . '/external/smarty/Smarty.class.php');
 
 
-error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
-//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
+//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
+error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
  
 
 abstract class VCDPage extends Smarty  {
@@ -75,11 +75,11 @@ abstract class VCDPage extends Smarty  {
 	protected function getParam($param, $isPost=false, $defaultValue=null) {
 				
 		if ($isPost) {
-			if (isset($_POST[$param]) && (strcmp($_POST[$param],'') != 0)) {
+			if (isset($_POST[$param]) && (!empty($_POST[$param]))) {
 				return $_POST[$param];
 			} 			
 		} else {
-			if (isset($_GET[$param]) && (strcmp($_GET[$param],'') != 0)) {
+			if (isset($_GET[$param]) && (!empty($_GET[$param]))) {
 				return $_GET[$param];
 			}
 		}
