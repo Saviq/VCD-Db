@@ -146,7 +146,7 @@ class imdbObj extends fetchedObj implements XMLable {
 	 * @return string
 	 */
 	public function getDirectorLink() {
-		$directorLink =  "<a href=\"search.php?searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
+		$directorLink =  "<a href=\"?page=search&searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
 		$imdb = explode(" ", $this->director);
 		// Create imdb url for director
 		if (isset($imdb[2])) {

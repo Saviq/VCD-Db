@@ -1,19 +1,19 @@
 {if $isAuthenticated}
 <div class="topic">{$translate.menu.mine}</div>
-<span class="nav"><a href="?page=private&amp;o=settings" class="navx">{$translate.menu.settings}</a></span>
+<span class="nav"><a href="?page=settings" class="navx">{$translate.menu.settings}</a></span>
 {if not $isViewer}
-<span class="nav"><a href="?page=private&amp;o=movies" class="navx">{$translate.menu.movies}</a></span>
-<span class="nav"><a href="?page=private&amp;o=new" class="navx">{$translate.menu.addmovie}</a></span>
-<span class="nav"><a href="?page=private&amp;o=loans" class="navx">{$translate.menu.loansystem}</a></span>
+<span class="nav"><a href="?page=movies" class="navx">{$translate.menu.movies}</a></span>
+<span class="nav"><a href="?page=new" class="navx">{$translate.menu.addmovie}</a></span>
+<span class="nav"><a href="?page=loans" class="navx">{$translate.menu.loansystem}</a></span>
 {/if}
 {if $showWishlists}
-<span class="nav"><a href="?page=private&amp;o=publicwishlist" class="navx">{$translate.menu.wishlistpublic}</span>
+<span class="nav"><a href="?page=publicwishlist" class="navx">{$translate.menu.wishlistpublic}</span>
 {/if}
-<span class="nav"><a href="?page=private&amp;o=wishlist" class="navx">{$translate.menu.wishlist}</a></span>
-<span class="nav"><a href="?page=private&amp;o=stats" class="navx">{$translate.menu.statistics}</a></span>
+<span class="nav"><a href="?page=wishlist" class="navx">{$translate.menu.wishlist}</a></span>
+<span class="nav"><a href="?page=stats" class="navx">{$translate.menu.statistics}</a></span>
 <span class="nav"><a href="#" onclick="showAllMoviesDetailed()" class="navx">{$translate.menu.showallusersmovies}</a></span>
 {if $showRssFeeds}
-<span class="nav"><a href="?page=private&amp;o=rss" class="navx">{$translate.menu.rss}</a></span>
+<span class="nav"><a href="?page=rss" class="navx">{$translate.menu.rss}</a></span>
 {/if}
 	
 

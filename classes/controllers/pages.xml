@@ -150,6 +150,13 @@
 		<action>new</action>
 	</page>
 	
+	<page standalone="false" auth="true">
+		<name>Add Movie</name>
+		<handler>VCDPageUserAddItem</handler>
+		<template>page.user.add.item.tpl</template>
+		<action>add</action>
+	</page>
+	
 	
 </pages>
 <!-- 

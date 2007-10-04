@@ -81,11 +81,11 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	private function handleGetRequest() {
 		
 		$action = $this->getParam('action');
-		
+				
 		if (!is_null($action)) {
-						
-			switch ($action) {
-				case 'delComment':
+				
+			switch (strtolower($action)) {
+				case 'delcomment':
 					$this->doDeleteComment();
 					break;
 			
@@ -500,6 +500,10 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	
 	
+	/**
+	 * Add new comment
+	 *
+	 */
 	private function doAddComment() {
 	
 		$comment = $this->getParam('comment',true);
@@ -511,13 +515,19 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			SettingsServices::addComment($commentObj);
 		}
 		
-		redirect('?page=cd&amp;vcd_id='.$itemId);
+		redirect('?page=cd&vcd_id='.$itemId);
+		exit();
 		
 		
 	}
 	
+	/**
+	 * Delete comment
+	 *
+	 */
 	private function doDeleteComment() {
-
+				
+				
 		$comment_id = $this->getParam('cid');
 		if (!is_null($comment_id) && is_numeric($comment_id)) {
 			
@@ -525,7 +535,8 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			if (($commentObj instanceof commentObj) && ($commentObj->getOwnerID() == VCDUtils::getUserID())) {
 				$vcd_id = $commentObj->getVcdID();
 				SettingsServices::deleteComment($comment_id);
-				redirect("?page=cd&vcd_id={$vcd_id}");
+				redirect('?page=cd&vcd_id='.$vcd_id);
+				exit();
 			}
 		}
 	}

@@ -301,6 +301,7 @@ abstract class VCDFetch {
 	 * The array $arrSearchResults must be assoc and contain key [id] and [title].
 	 *
 	 * @param array $arrSearchResults
+	 * @return array | Array of search results
 	 */
 	protected function generateSearchSelection($arrSearchResults) {
 		if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) {
@@ -314,19 +315,15 @@ abstract class VCDFetch {
 
 
 		$extUrl = "http://".$this->fetchDomain.$this->fetchItemPath;
+				
 		
-		return $arrSearchResults;
-		/*
-		print "<ul>";
-		foreach ($arrSearchResults as $item) {
-			$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->siteID}&amp;fid={$item['id']}";
-			$info = str_replace('[$]', $item['id'], $extUrl);
-			$str = "<li><a href=\"{$link}\">{$item['title']}</a>".(isset($item['year'])?" ({$item['year']})":"")."&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a></li>";
-			print $str;
+		// Add keys needed by the template engine ..
+		for ($i=0;$i<sizeof($arrSearchResults);$i++) {
+			$arrSearchResults[$i]['fetchlink'] = "?page=add&amp;source=webfetch&site={$this->siteID}&amp;fid=".$arrSearchResults[$i]['id'];
+			$arrSearchResults[$i]['sourcelink'] = str_replace('[$]', $arrSearchResults[$i]['id'], $extUrl);
 		}
-		print "<ul>";
-		*/
-
+				
+		return $arrSearchResults;
 	}
 
 

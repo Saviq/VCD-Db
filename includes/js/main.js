@@ -671,6 +671,11 @@ function deleteMetaType(id) {
 	}
 }
 
+function deleteComment(id) {
+	url = '?page=cd&action=delComment&cid='+id;
+	location.href = url;
+}
+
 
 function doTooltip(e, num) {
   if ( typeof Tooltip == "undefined" || !Tooltip.ready ) return;

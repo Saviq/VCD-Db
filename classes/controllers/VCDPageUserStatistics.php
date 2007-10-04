@@ -106,7 +106,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 	}
 	
 	private function doTables() {
-	
+		
 		$arrStats = SettingsServices::getUserStatistics(VCDUtils::getUserID());
 		$movieCount = MovieServices::getMovieCount(VCDUtils::getUserID());
 		$mapping = getCategoryMapping();
@@ -119,6 +119,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 	
 				
 		$results = array();
+		
 		foreach ($arrCats as $subArr) {
 			$categoryName = SettingsServices::getMovieCategoryByID($subArr[0])->getName(true);
 			if (!$altLang && key_exists($categoryName, $mapping)) {
@@ -131,17 +132,15 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			
 			
 			$results[$subArr[0]] = array(
+				'image' => $img,
 				'id' => $subArr[0],
 				'name' => $categoryName,
-				'count' => $num,
-				'image' => $img
-			);
+				'count' => $num);
 		}
 		
-		$this->assign('categoryList', $results);
+		$this->assign('statsCategoryList', $results);
 		
-		
-		
+				
 		$results = array();
 		$arrMedia = $arrStats['media'];
 		$highest = round((($arrMedia[0][1]/$movieCount)*100),1);
@@ -162,11 +161,12 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			);
 		}
 		
-		$this->assign('mediaList', $results);
+		$this->assign('statsMediaList', $results);
 		
 		
 		
 		$results = array();
+		
 		$arrYears = $arrStats['year'];
 		// We have to brute force to find the highest entry
 		$highest = 0;
@@ -189,7 +189,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			);
 		}
 				
-		$this->assign('yearList', $results);
+		$this->assign('statsYearList', $results);
 		$this->assign('movieCount', $movieCount);
 		
 				
