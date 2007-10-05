@@ -69,6 +69,7 @@ class VCDPageController {
 		
 		if (self::$controllerInstance instanceof VCDPage ) {
 			self::$controllerInstance->render();
+			self::$controllerInstance->renderPage();
 		}
 	}
 	

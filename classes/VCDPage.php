@@ -28,6 +28,7 @@ abstract class VCDPage extends Smarty  {
 	private $template = null;
 	private $debug = false;
 	private static $pageBuffer;
+	private $tidy = false;
 	
 	protected function __construct($template, $doTranslate = true) {
 	
@@ -87,7 +88,7 @@ abstract class VCDPage extends Smarty  {
 	}
 	
 	/**
-	 * Render the current template to browser.
+	 * Render the current template to the internal pagebuffer.
 	 * if $template is NULL $this->template is used.
 	 *
 	 * @param string $template | The template to render. 
@@ -100,7 +101,28 @@ abstract class VCDPage extends Smarty  {
 		}
 		
 		$base = dirname($_SERVER['PHP_SELF']).'/';
-		print $this->rewriteRelative($buffer,$base);
+		self::$pageBuffer .= $this->rewriteRelative($buffer,$base);
+		
+	}
+	
+	
+	public function renderPage() {
+		
+		if ($this->tidy && extension_loaded('tidy')) {
+			// Specify configuration
+			$config = array(
+			           'indent'         => true,
+			           'output-xhtml'   => true,
+			           'wrap'           => 200);
+			
+			// Tidy
+			$tidy = new tidy;
+			$tidy->parseString(self::$pageBuffer, $config, 'utf8');
+			$tidy->cleanRepair();
+			print $tidy;
+		} else {
+			print self::$pageBuffer;
+		}
 	}
 	
 	/**

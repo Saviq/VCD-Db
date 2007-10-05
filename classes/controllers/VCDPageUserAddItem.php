@@ -36,6 +36,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 		parent::__construct($node);
 		
+		
+		if (sizeof($_POST) == 0) {
+			$this->handleRequest();
+		}
+		
 
 	}
 	
@@ -62,6 +67,7 @@ class VCDPageUserAddItem extends VCDBasePage {
 						// Show the selected fetched item
 						$site   = $this->getParam('site');
 						$itemId = $this->getParam('fid');
+						$this->doFetchItem($site, $itemId);
 					}
 					
 					break;
@@ -88,23 +94,48 @@ class VCDPageUserAddItem extends VCDBasePage {
 	 * Display selected fetched object
 	 *
 	 */
-	private function doFetchItem() {
+	private function doFetchItem($sourceSite, $sourceId) {
+		
+		$this->doInitFetch($sourceSite);
 		
 		if (!is_null($this->fetchClass)) {
 			
 			// Initilize the fetched object
-			$this->fetchClass->fetchItemByID();
+			$this->fetchClass->fetchItemByID($sourceId);
 		 	$this->fetchClass->fetchValues();
-		 	$obj = $this->fetchClass->getFetchedObject();
-		 	$obj->setSourceSite($this->sourceSiteObj->getsiteID());
+		 	$fetchedObj = $this->fetchClass->getFetchedObject();
+		 	$fetchedObj->setSourceSite($this->sourceSiteObj->getsiteID());
 		 	
 		 	
-		 	//displayFetchedObject($obj);
+		 	// Handle the thumbnail
+		 	// Generic Fetched Object actions ..
+			if (strcmp($fetchedObj->getImage(), "") != 0) {
+				$filename = VCDUtils::grabImage($fetchedObj->getImage());
+				// Check if we need to resize the thumbnail ..
+				list($width, $height) = getimagesize(TEMP_FOLDER.$filename);
+				if ((int)$width > 135) {
+					// Image to big .. resize it
+					$im = new Image_Toolbox(TEMP_FOLDER.$filename);
+					if ($fetchedObj instanceof adultObj ) {
+						$im->newOutputSize(135,0);
+					} else {
+						$im->newOutputSize(0,140);
+					}
+					$newFilename ="x".$filename;
+					$im->save(TEMP_FOLDER.$newFilename, 'jpg');
+					unset($im);
+					fs_unlink($filename);
+					$filename = $newFilename;
+				}
+				$fetchedObj->setImage($filename);
+			}
 				
 		 	
 		 	
 		 	// Notify the UI that we have an object
 		 	$this->assign('isFetched',true);
+		 	
+		 	$this->assign('title', $fetchedObj->getTitle());
 			
 			
 		}
@@ -117,20 +148,8 @@ class VCDPageUserAddItem extends VCDBasePage {
 	private function doFetchSiteResults($sourceSite, $searchTitle) {
 				
 		
-		// Load the correct fetch class
-		$sourceObj = SettingsServices::getSourceSiteByAlias($sourceSite);
-		if (!($sourceObj instanceof sourceSiteObj)) {
-			throw new VCDProgramException('Invalid source site: ' . $sourceSite);
-		}
-		$this->sourceSiteObj = $sourceObj;
 		
-		$className = $sourceObj->getClassName();
-		$fetchClass = VCDClassFactory::loadClass($className);
-		if (!($fetchClass instanceof VCDFetch)) {
-			throw new VCDProgramException("Class {$className} could not be loaded.");
-		}
-		$this->fetchClass = $fetchClass;
-		
+		$this->doInitFetch($sourceSite);
 		// Fetch class data seems all ok .. lets continue
 		
 		
@@ -145,20 +164,40 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 
 		// Make the fetchClass search it's site ..
-		$fetchResults =	$fetchClass->Search($searchTitle);
+		$fetchResults =	$this->fetchClass->Search($searchTitle);
 		if ($fetchResults == VCDFetch::SEARCH_EXACT) {
 			
 			$this->doFetchItem();
 			
 		 	
 		} else {
-	 		$results = $fetchClass->showSearchResults();
+	 		$results = $this->fetchClass->showSearchResults();
 	 		$this->assign('fetchList', $results);
-	 		$this->assign('sourceSiteName', $sourceObj->getName());
+	 		$this->assign('sourceSiteName', $this->sourceSiteObj->getName());
 	 		
 		}
 	}
 
+	
+	
+	
+	private function doInitFetch($sourceSite) {
+	
+		// Load the correct fetch class
+		$sourceObj = SettingsServices::getSourceSiteByAlias($sourceSite);
+		if (!($sourceObj instanceof sourceSiteObj)) {
+			throw new VCDProgramException('Invalid source site: ' . $sourceSite);
+		}
+		$this->sourceSiteObj = $sourceObj;
+		
+		$className = $sourceObj->getClassName();
+		$fetchClass = VCDClassFactory::loadClass($className);
+		if (!($fetchClass instanceof VCDFetch)) {
+			throw new VCDProgramException("Class {$className} could not be loaded.");
+		}
+		$this->fetchClass = $fetchClass;
+		
+	}
 	
 	
 	

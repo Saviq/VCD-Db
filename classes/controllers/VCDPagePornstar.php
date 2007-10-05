@@ -44,7 +44,7 @@ class VCDPagePornstar extends VCDBasePage {
 			$arrCovers = CoverServices::getAllCoversForVcd($id);
 			foreach ($arrCovers as $obj) {
 				if ($obj->isThumbnail()) {
-					$scriptItems[] = array('index' => $i++, 'image' => $obj->getImagePath());
+					$scriptItems[] = array('index' => $i++, 'image' => '?page=file&amp;cover_id='.$obj->getId());
 					$hasThumb = true;
 					continue;
 				}	

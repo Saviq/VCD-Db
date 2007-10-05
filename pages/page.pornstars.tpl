@@ -3,7 +3,7 @@
 {if is_array($alphabet) && count($alphabet)>0} 
 
 <div align="center">
-{foreach from=$alphabet item=letter}<a href="?page=pornstars&amp;view={$view}&amp;l={$letter}&amp;viewmode={$mode}">{$letter}</a><img src="images/dot.gif" border="0" align="absmiddle" hspace="5"/>{/foreach}
+{foreach from=$alphabet item=letter}<a href="?page=pornstars&amp;view={$view}&amp;l={$letter}&amp;viewmode={$mode}">{$letter}</a><img src="images/dot.gif" border="0" hspace="5" vspace="2"/>{/foreach}
 </div>
 
 {else}
@@ -34,12 +34,12 @@
 	<tr>
 		<td class="header" width="70%">{$translate.pornstar.name}</td>
 		<td class="header">{$translate.pornstar.web}</td>
-		<td class="header">{$translate.pornstar.moviecount}</td>
+		<td class="header" nowrap="nowrap">{$translate.pornstar.moviecount}</td>
 	</tr>
 	{foreach from=$pornstars item=pornstar key=id}
 	<tr>
 		<td><a href="./?page=pornstar&amp;pornstar_id={$id}">{$pornstar.name}</a></td>
-		<td nowrap>{$pornstar.homepage}</td>
+		<td>{$pornstar.homepage}</td>
 		<td>{$pornstar.count}</td>
 	</tr>
 	{/foreach}

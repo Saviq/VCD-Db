@@ -27,3 +27,8 @@ messages[{$i.index}] = ['{$i.image}', 145, 205];
 <p>
 {$biography|nl2br}
 </p>
+
+
+<script src="includes/js/dw_event.js" type="text/javascript"></script>
+<script src="includes/js/dw_viewport.js" type="text/javascript"></script>
+<script src="includes/js/dw_tooltip.js" type="text/javascript"></script>
