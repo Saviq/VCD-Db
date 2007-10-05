@@ -33,6 +33,10 @@ class VCDPageSearch extends VCDBasePage {
 		$method = $this->getParam('by', false,'title');
 		
 		
+		if (is_null($searchString)) {
+			return;
+		}
+		
 		// remember last search method
 		$_SESSION['searchkey'] = $method;
 		
