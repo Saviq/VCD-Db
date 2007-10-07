@@ -8,7 +8,7 @@ echo $ajaxClient->getJavaScript();
 {/php}
 </script>
 
-<form name="user" method="post" action="{$smarty.server.SCRIPT_NAME}?page=private&amp;o=settings&amp;action=updateprofile">
+<form name="user" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=updateprofile">
 <h1>{$translate.menu.settings}</h1>
 <fieldset id="settings" title="{$translate.menu.settings}">
 <table width="100%" border="0" cellspacing="1" cellpadding="1" class="displist">
@@ -171,7 +171,7 @@ echo $ajaxClient->getJavaScript();
 
 
 
-<form name="frmSubtitles" id="frmSubtitles" method="post" action="exec_form.php?action=update_dvdsettings">
+<form name="frmSubtitles" id="frmSubtitles" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_dvdsettings">
 <fieldset id="dvdsettings"  name="defaultdvd">
 <legend class="bold">Default DVD settings</legend>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
@@ -258,13 +258,13 @@ echo $ajaxClient->getJavaScript();
 
 <fieldset id="mainset" title="{$translate.metadata.my}">
 <legend class="bold">{$translate.metadata.my}</legend>
-<form name="metadata" method="post" action="exec_form.php?action=addmetadata">
+<form name="metadata" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=addmetadata">
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
 	<td valign="top" width="60%">
-	{if is_array($metadata) && count($metadata) > 0}
+	{if is_array($myMetadata) && count($myMetadata) > 0}
 		<table cellspacing="1" cellpadding="1" border="0" class="displist" width="100%">
-		{foreach from=$metadata key=id item=i}
+		{foreach from=$myMetadata key=id item=i}
 			<tr>
 				<td>{counter}</td>
 				<td>{$i.name}</td>

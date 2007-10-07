@@ -48,6 +48,9 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 		// populate the default DVD Settings
 		$this->doDVDSettings();
+		
+		// populate my metadata
+		$this->doMetadata();
 					
 	}
 	
@@ -79,12 +82,39 @@ class VCDPageUserSettings extends VCDBasePage {
 				exit();
 			}
 			
+			// Delete user defined metadataType
+			if (strcmp($this->getParam('action'),"delmetatype")==0) {
+				$this->deleteMetadataType();
+				redirect('?page=settings');
+				exit();
+			}
+			
+			
 			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}
 	}
 	
+	/**
+	 * populate my metadata list
+	 *
+	 */
+	private function doMetadata() {
+		
+		$metadataTypes = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
+		$results = array();
+		foreach ($metadataTypes as $obj) {
+			$results[$obj->getMetadataTypeID()] = 
+				array('name' => $obj-> getMetadataTypeName(), 
+					'desc' => $obj->getMetadataDescription());
+		}
+		
+		$this->assign('myMetadata', $results);
+	
+		
+	}
+
 	
 	
 	/**
@@ -310,6 +340,13 @@ class VCDPageUserSettings extends VCDBasePage {
 					$this->updateUser();			
 					break;
 			
+				case 'addmetadata':
+					$this->addMetadata();
+					break;
+					
+				case 'update_dvdsettings':
+					$this->updateDefaultDVDSettings();
+					break;
 				default:
 					break;
 			}
@@ -324,6 +361,16 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 	}
 	
+	
+	private function deleteMetadataType() {
+		
+		$metadataTypeId = $this->getParam('meta_id');
+		if (!is_null($metadataTypeId) && is_numeric($metadataTypeId)) {
+			// Verification of the request is done in the services.
+			SettingsServices::deleteMetaDataType($metadataTypeId);
+		}
+		
+	}
 	
 	/**
 	 * Delete rss feed from users profile
@@ -342,6 +389,62 @@ class VCDPageUserSettings extends VCDBasePage {
 			
 		}
 	}
+	
+	
+	private function updateDefaultDVDSettings() {
+		
+		$dvd = array();
+		$dvd['format'] = $this->getParam('format',true);
+		$dvd['aspect'] = $this->getParam('aspect',true);
+		$dvd['region'] = $this->getParam('region',true);
+		if (!is_null($this->getParam('dvdaudio',true))) {
+			$dvdaudio = implode('#', array_unique(explode("#", $this->getParam('dvdaudio',true))));
+			$dvd['audio'] = $dvdaudio;
+			if (strrpos($dvd['audio'], "#") == strlen($dvd['audio'])-1) {
+				$dvdaudio = substr($dvd['audio'], 0, strlen($dvd['audio'])-1);
+				$dvd['audio'] = $dvdaudio;
+			}
+
+		}
+		if (!is_null($this->getParam('dvdsubs',true))) {
+			$dvdsubs = implode('#', array_unique(explode("#", $this->getParam('dvdsubs',true))));
+			$dvd['subs'] = $dvdsubs;
+			if (strrpos($dvd['subs'], "#") == strlen($dvd['subs'])-1) {
+				$dvdsubs = substr($dvd['subs'], 0, strlen($dvd['subs'])-1);
+				$dvd['subs'] = $dvdsubs;
+			}
+
+		}
+		
+		$obj = new metadataObj(array('', 0, VCDUtils::getUserID(), 
+			metadataTypeObj::SYS_DEFAULTDVD , serialize($dvd)));
+		SettingsServices::addMetaData($obj);
+		
+		redirect('?page=settings');
+		exit();
+		
+	}
+
+	
+	private function addMetadata() {
+		
+		$metaName = $this->getParam('metadataname',true);
+		$metaDesc = $this->getParam('metadatadescription',true);
+		
+		if (!is_null($metaName) && !is_null($metaDesc)) {
+			
+			$metaName = preg_replace('/\s/', '',trim($metaName));
+			$metaDesc = trim($metaDesc);
+			$obj = new metadataTypeObj('', $metaName, $metaDesc, VCDUtils::getUserID());
+			SettingsServices::addMetaDataType($obj);
+		}
+	
+		redirect('?page=settings');
+		exit();
+				
+	}
+
+	
 	
 	/**
 	 * Update the user profile.

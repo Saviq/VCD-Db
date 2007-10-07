@@ -666,7 +666,7 @@ function deleteFeed(id) {
 function deleteMetaType(id) {
 	var msg = 'Delete metadata type and all data entered within it?';
 	if (confirm(msg)) {
-		url = 'exec_query.php?action=delmetatype&meta_id='+id;
+		url = '?page=settings&action=delmetatype&meta_id='+id;
 		location.href=url;
 	}
 }

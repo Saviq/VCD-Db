@@ -1768,7 +1768,7 @@ class vcd_settings implements ISettings {
 		try {
 
 			if (is_numeric($metatype_id)) {
-				// Check if the user trying to delete the object is actuallt the owner of the metadataType.
+				// Check if the user trying to delete the object is actually the owner of the metadataType.
 				$canDelete = false;
 
 				$metaArr = $this->getMetadataTypes(VCDUtils::getUserID());
