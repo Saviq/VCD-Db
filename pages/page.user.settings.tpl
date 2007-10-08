@@ -73,7 +73,7 @@ echo $ajaxClient->getJavaScript();
 	</td>
 	{if $editBorrower}
 	<td nowrap="nowrap">
-	<form name="update_borrower" action="exec_form.php?action=edit_borrower" method="post">
+	<form name="update_borrower" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_borrower" method="post">
 	<table cellpadding="0" cellspacing="0" border="0" class="list">
 		<tr>
 			<td>{$translate.loan.name}:</td>
@@ -81,7 +81,7 @@ echo $ajaxClient->getJavaScript();
 			<td>{$translate.register.email}:</td>
 			<td><input type="text" size="16" name="borrower_email" value="{$borrowerEmail}"/></td>
 			<td>&nbsp;</td>
-			<td><input type="submit" value="{$translate.misc_update}" id="vista" onclick="return val_borrower(this.form)"/></td>
+			<td><input type="submit" value="{$translate.misc.update}" id="vista" onclick="return val_borrower(this.form)"/></td>
 		</tr>
 	</table>
 	<input type="hidden" name="borrower_id" value="{$borrowerId}"/>

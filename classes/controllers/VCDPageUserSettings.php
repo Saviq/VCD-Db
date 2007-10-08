@@ -347,6 +347,11 @@ class VCDPageUserSettings extends VCDBasePage {
 				case 'update_dvdsettings':
 					$this->updateDefaultDVDSettings();
 					break;
+				
+				case 'update_borrower':
+					$this->updateBorrower();
+					break;
+					
 				default:
 					break;
 			}
@@ -362,6 +367,30 @@ class VCDPageUserSettings extends VCDBasePage {
 	}
 	
 	
+	
+	private function updateBorrower() {
+		
+		$borrower_id = $this->getParam('borrower_id',true);
+		if (is_numeric($borrower_id)) {
+			$borrowerObj = SettingsServices::getBorrowerByID($borrower_id);
+			$borrowerObj->setEmail($this->getParam('borrower_email',true));
+			$borrowerName = $this->getParam('borrower_name',true);
+			if (!is_null($borrowerName) && strlen($borrowerName) > 0) {
+				$borrowerObj->setName($borrowerName);
+			}
+			SettingsServices::updateBorrower($borrowerObj);
+			VCDUtils::setMessage("(".$borrowerObj->getName()." has been updated)");
+		}
+		redirect('?page=settings');
+		exit();
+		
+	}
+	
+	
+	/**
+	 * Delete user defined metadata Type
+	 *
+	 */
 	private function deleteMetadataType() {
 		
 		$metadataTypeId = $this->getParam('meta_id');
