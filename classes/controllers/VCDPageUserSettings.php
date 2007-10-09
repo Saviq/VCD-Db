@@ -27,7 +27,7 @@ class VCDPageUserSettings extends VCDBasePage {
 		$this->assign('fullname', VCDUtils::getCurrentUser()->getFullname());
 		$this->assign('username', VCDUtils::getCurrentUser()->getUsername());
 		$this->assign('email', VCDUtils::getCurrentUser()->getEmail());
-		
+	
 		// Check for get parameters
 		$this->doGet();
 				
@@ -51,6 +51,9 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 		// populate my metadata
 		$this->doMetadata();
+		
+		// populate the ignorelist
+		$this->doIgnoreList();
 					
 	}
 	
@@ -104,18 +107,29 @@ class VCDPageUserSettings extends VCDBasePage {
 		
 		$metadataTypes = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
 		$results = array();
-		foreach ($metadataTypes as $obj) {
-			$results[$obj->getMetadataTypeID()] = 
-				array('name' => $obj-> getMetadataTypeName(), 
-					'desc' => $obj->getMetadataDescription());
+		if (is_array($metadataTypes)) {
+			foreach ($metadataTypes as $obj) {
+				$results[$obj->getMetadataTypeID()] = 
+					array('name' => $obj-> getMetadataTypeName(), 
+						'desc' => $obj->getMetadataDescription());
+			}
+			$this->assign('myMetadata', $results);	
 		}
-		
-		$this->assign('myMetadata', $results);
-	
-		
 	}
 
 	
+	
+	private function doIgnoreList() {
+		
+		if (sizeof(UserServices::getActiveUsers()) > 1) {
+			
+			$this->assign('showIgnoreList',true);
+			
+					
+			
+			
+		}
+	}
 	
 	/**
 	 * Populate the default DVD settings
@@ -352,6 +366,10 @@ class VCDPageUserSettings extends VCDBasePage {
 					$this->updateBorrower();
 					break;
 					
+				case 'update_frontpage':
+					$this->updateFrontpageSettings();
+					break;
+					
 				default:
 					break;
 			}
@@ -368,6 +386,45 @@ class VCDPageUserSettings extends VCDBasePage {
 	
 	
 	
+	/**
+	 * Update the frontpage settings, rss feeds and the right sidebar
+	 *
+	 */
+	private function updateFrontpageSettings() {
+		if (!is_null($this->getParam('stats',true)) && strcmp($this->getParam('stats',true), "yes") == 0) {
+			// User wants to see statistics
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTSTATS, 1));
+		} else {
+			$frontstatsObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTSTATS, 0));
+		}
+
+		if (!is_null($this->getParam('sidebar',true)) && strcmp($this->getParam('sidebar',true), "yes") == 0) {
+			// User wants to see sidebar
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTBAR, 1));
+		} else {
+			$frontbarObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTBAR, 0));
+		}
+
+		if (!is_null($this->getParam('rss_list',true)) && strlen($this->getParam('rss_list',true)) > 1) {
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS, $this->getParam('rss_list',true)));
+		} else {
+			$frontRssObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTRSS , $this->getParam('rss_list',true)));
+		}
+
+		SettingsServices::addMetadata(array($frontbarObj, $frontRssObj, $frontstatsObj));
+
+
+		redirect('?page=settings');
+		exit();
+	
+	}
+	
+	
+	
+	/**
+	 * Update borrower entry
+	 *
+	 */
 	private function updateBorrower() {
 		
 		$borrower_id = $this->getParam('borrower_id',true);
@@ -527,6 +584,10 @@ class VCDPageUserSettings extends VCDBasePage {
 		} else {
 			VCDUtils::setMessage("(".VCDLanguage::translate('usersettings.update_failed').")");
 		}
+		
+		redirect('?page=settings');
+		exit();
+		
 	}
 	
 }

@@ -123,7 +123,7 @@ echo $ajaxClient->getJavaScript();
 
 <fieldset id="mainset" title="{$translate.usersettings.custom}">
 <legend class="bold">{$translate.usersettings.custom}</legend>
-<form name="choiceForm" method="post" action="exec_form.php?action=edit_frontpage">
+<form name="choiceForm" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_frontpage">
 <input type="hidden" name="rss_list" id="rss_list"/>
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="displist">
 <tr>

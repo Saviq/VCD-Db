@@ -117,9 +117,13 @@
 		<template>window.user.rss.tpl</template>
 		<action>addrss</action>
 	</page>
-	
-	
-	
+	<page standalone="false" auth="true">
+		<name>My Movies</name>
+		<handler>VCDPageUserMyMovies</handler>
+		<template>page.user.mymovies.tpl</template>
+		<action>movies</action>
+	</page>
+		
 	
 	<page standalone="false" auth="true">
 		<name>Statistics</name>
