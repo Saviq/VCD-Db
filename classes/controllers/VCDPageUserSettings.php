@@ -59,6 +59,55 @@ class VCDPageUserSettings extends VCDBasePage {
 	
 	
 	/**
+	 * Handle all POST requests to this controller
+	 *
+	 */
+	public function handleRequest() {
+		
+		$action = $this->getParam('action');
+		if (is_null($action)) {
+			return;
+		}
+		
+		try {
+			
+			
+			switch ($action) {
+				case 'updateprofile':
+					// Update user's profile
+					$this->updateUser();			
+					break;
+			
+				case 'addmetadata':
+					$this->addMetadata();
+					break;
+					
+				case 'update_dvdsettings':
+					$this->updateDefaultDVDSettings();
+					break;
+				
+				case 'update_borrower':
+					$this->updateBorrower();
+					break;
+					
+				case 'update_frontpage':
+					$this->updateFrontpageSettings();
+					break;
+					
+				case 'update_ignorelist':
+					$this->updateIgnorelist();
+					break;
+					
+				default:
+					break;
+			}
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
+		}
+	}
+	
+	
+	/**
 	 * Handle _GET Calls to the VIEW
 	 *
 	 */
@@ -119,14 +168,49 @@ class VCDPageUserSettings extends VCDBasePage {
 
 	
 	
+	/**
+	 * Populate the Ignore list
+	 *
+	 */
 	private function doIgnoreList() {
 		
-		if (sizeof(UserServices::getActiveUsers()) > 1) {
+		$arrUsers = UserServices::getActiveUsers();
+		
+		if (sizeof($arrUsers) > 1) {
 			
 			$this->assign('showIgnoreList',true);
 			
-					
 			
+			// Get current ignore list
+			$ignorelist = array();
+			$metaArr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST);
+			if (sizeof($metaArr) > 0) {
+				$ignorelist = split("#", $metaArr[0]->getMetadataValue());
+			}
+			
+			
+			
+			$results = array();
+			// Populate those NOT on the list
+			foreach ($arrUsers as $userObj) {
+				if (!in_array($userObj->getUserID(), $ignorelist)) {
+					if ($userObj->getUserID() != VCDUtils::getUserID()) {
+						$results[$userObj->getUserID()] = $userObj->getUserName();
+					}
+				}
+			}
+			$this->assign('userAvailList',$results);
+			
+		
+			// Populate those on the list	
+			$results = array();
+			foreach ($arrUsers as $userObj) {
+				if (in_array($userObj->getUserID(), $ignorelist)) {
+					$results[$userObj->getUserID()] = $userObj->getUserName();
+				}
+			}
+			
+			$this->assign('userSelList',$results);			
 			
 		}
 	}
@@ -331,57 +415,22 @@ class VCDPageUserSettings extends VCDBasePage {
 	
 	
 	
-	
-	
-	
 	/**
-	 * Handle all POST requests to this controller
+	 * Update the users ignorelist
 	 *
 	 */
-	public function handleRequest() {
-		
-		$action = $this->getParam('action');
-		if (is_null($action)) {
-			return;
+	private function updateIgnorelist() {
+		if (!is_null($this->getParam('id_list',true))) {
+			// Save the ignore list to database
+			$metaObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST , $this->getParam('id_list',true)));
+			SettingsServices::addMetadata($metaObj);
+		} else {
+			// Remove all entries from the ignorelist
+			$metaObj = new metadataObj(array('',0, VCDUtils::getUserID(), metadataTypeObj::SYS_IGNORELIST , ''));
+			SettingsServices::addMetadata($metaObj);
 		}
-		
-		try {
-			
-			
-			switch ($action) {
-				case 'updateprofile':
-					// Update user's profile
-					$this->updateUser();			
-					break;
-			
-				case 'addmetadata':
-					$this->addMetadata();
-					break;
-					
-				case 'update_dvdsettings':
-					$this->updateDefaultDVDSettings();
-					break;
-				
-				case 'update_borrower':
-					$this->updateBorrower();
-					break;
-					
-				case 'update_frontpage':
-					$this->updateFrontpageSettings();
-					break;
-					
-				default:
-					break;
-			}
-			
-			
-			
-			
-			
-		} catch (Exception $ex) {
-			VCDException::display($ex,true);
-		}
-		
+		redirect('?page=settings');
+		exit();
 	}
 	
 	

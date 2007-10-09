@@ -167,7 +167,7 @@ class VCDPageUserAddItem extends VCDBasePage {
 		$fetchResults =	$this->fetchClass->Search($searchTitle);
 		if ($fetchResults == VCDFetch::SEARCH_EXACT) {
 			
-			$this->doFetchItem();
+			$this->doFetchItem($sourceSite,null);
 			
 		 	
 		} else {

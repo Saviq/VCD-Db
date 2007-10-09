@@ -8,11 +8,11 @@
 	<form action="{$smarty.server.SCRIPT_NAME}?page=private&amp;o=add&amp;source=webfetch" method="post" name="imdb" id="imdb">
 	<p class="inner">
 		{$translate.addmovie.imdbtitle}:
-		<input type="text" name="searchTitle" class="input" size="15"/>&nbsp; 
+		<input type="text" name="searchTitle" id="searchTitle" class="input" size="15"/>&nbsp; 
 		{html_options name=fetchsite options=$fetchSiteList selected=$selectedFetchSite}
 		&nbsp;
 		<input type="checkbox" value="1" name="searchIsId" class="nof" title="{$translate.addmovie.id}"/>&nbsp;
-		<input type="submit" value="{$translate.search.search}" class="buttontext"/>
+		<input type="submit" name="searchStart" value="{$translate.search.search}" class="buttontext"/>
 	</p>
 	</form>
 </p>

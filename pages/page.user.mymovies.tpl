@@ -49,25 +49,25 @@
 	<td width="4%"><img src="images/icon_xls.gif" border="0" alt="Excel" hspace="2"/></td>
 	<td width="4%">&nbsp;</td>
 	<td width="4%">&nbsp;</td>
-	<td><a href="?page=file&amp;action=export&amp;type=excel">{$translate.mymovies.excel}</a> <br/></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xls">{$translate.mymovies.excel}</a> <br/></td>
 </tr>
 <tr>
 	<td width="4%"><img src="images/icon_pdf.gif" border="0" alt="PDF" hspace="2"/></td>
 	<td width="4%">&nbsp;</td>
 	<td width="4%">&nbsp;</td>
-	<td><a href="?page=file&amp;action=export&amp;type=pdf">{$translate.mymovies.pdf}</a> <br/></td>
+	<td><a href="?page=file&amp;action=data&amp;t=pdf">{$translate.mymovies.pdf}</a> <br/></td>
 </tr>
 <tr>
-	<td><a href="?page=file&amp;action=export&amp;type=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;type=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;type=xml">{$translate.mymovies.xml}</a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml">{$translate.mymovies.xml}</a></td>
 </tr>
 <tr>
-	<td><a href="?page=file&amp;action=export&amp;filter=thumbs&amp;type=xml"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;filter=thumbs&amp;type=xml&c=tar"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;filter=thumbs&amp;type=xml&c=zip"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
-	<td><a href="?page=file&amp;action=export&amp;filter=thumbs&amp;type=xml">{$translate.mymovies.xmlthumbs}</a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&amp;f=thumbs"><img src="images/icon_xml.gif" border="0" alt="XML" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&c=tar&amp;f=thumbs"><img src="images/icon_tar.gif" border="0" alt="Tar" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&c=zip&amp;f=thumbs"><img src="images/icon_zip.gif" border="0" alt="Zip" hspace="2"/></a></td>
+	<td><a href="?page=file&amp;action=data&amp;t=xml&amp;f=thumbs">{$translate.mymovies.xmlthumbs}</a></td>
 </tr>
 {if $isWindows}
 <tr>

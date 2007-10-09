@@ -231,7 +231,7 @@ echo $ajaxClient->getJavaScript();
 {if $showIgnoreList}
 <fieldset id="mainset" title="{$translate.usersettings.list}">
 <legend class="bold">{$translate.usersettings.list}</legend>
-<form name="ignore" method="post" action="exec_form.php?action=update_ignorelist">
+<form name="ignore" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_ignorelist">
 <input type="hidden" name="id_list" id="id_list"/>
 
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
