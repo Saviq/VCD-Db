@@ -1,6 +1,6 @@
 <?php
 /*
- V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+ V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -55,29 +55,29 @@ function adodb_addslashes($s)
 }
 
 class ADODB_postgres64 extends ADOConnection{
-	public $databaseType = 'postgres64';
-	public $dataProvider = 'postgres';
-	public $hasInsertID = true;
-	public $_resultid = false;
-  	public $concat_operator='||';
-	public $metaDatabasesSQL = "select datname from pg_database where datname not in ('template0','template1') order by 1";
-    public $metaTablesSQL = "select tablename,'T' from pg_tables where tablename not like 'pg\_%'
+	var $databaseType = 'postgres64';
+	var $dataProvider = 'postgres';
+	var $hasInsertID = true;
+	var $_resultid = false;
+  	var $concat_operator='||';
+	var $metaDatabasesSQL = "select datname from pg_database where datname not in ('template0','template1') order by 1";
+    var $metaTablesSQL = "select tablename,'T' from pg_tables where tablename not like 'pg\_%'
 	and tablename not in ('sql_features', 'sql_implementation_info', 'sql_languages',
 	 'sql_packages', 'sql_sizing', 'sql_sizing_profiles') 
 	union 
         select viewname,'V' from pg_views where viewname not like 'pg\_%'";
 	//"select tablename from pg_tables where tablename not like 'pg_%' order by 1";
-	public $isoDates = true; // accepts dates in ISO format
-	public $sysDate = "CURRENT_DATE";
-	public $sysTimeStamp = "CURRENT_TIMESTAMP";
-	public $blobEncodeType = 'C';
-	public $metaColumnsSQL = "SELECT a.attname,t.typname,a.attlen,a.atttypmod,a.attnotnull,a.atthasdef,a.attnum 
+	var $isoDates = true; // accepts dates in ISO format
+	var $sysDate = "CURRENT_DATE";
+	var $sysTimeStamp = "CURRENT_TIMESTAMP";
+	var $blobEncodeType = 'C';
+	var $metaColumnsSQL = "SELECT a.attname,t.typname,a.attlen,a.atttypmod,a.attnotnull,a.atthasdef,a.attnum 
 		FROM pg_class c, pg_attribute a,pg_type t 
 		WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s')) and a.attname not like '....%%'
 AND a.attnum > 0 AND a.atttypid = t.oid AND a.attrelid = c.oid ORDER BY a.attnum";
 
 	// used when schema defined
-	public $metaColumnsSQL1 = "SELECT a.attname, t.typname, a.attlen, a.atttypmod, a.attnotnull, a.atthasdef, a.attnum 
+	var $metaColumnsSQL1 = "SELECT a.attname, t.typname, a.attlen, a.atttypmod, a.attnotnull, a.atthasdef, a.attnum 
 FROM pg_class c, pg_attribute a, pg_type t, pg_namespace n 
 WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
  and c.relnamespace=n.oid and n.nspname='%s' 
@@ -85,28 +85,28 @@ WHERE relkind in ('r','v') AND (c.relname='%s' or c.relname = lower('%s'))
 	AND a.atttypid = t.oid AND a.attrelid = c.oid ORDER BY a.attnum";
 	
 	// get primary key etc -- from Freek Dijkstra
-	public $metaKeySQL = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key 
+	var $metaKeySQL = "SELECT ic.relname AS index_name, a.attname AS column_name,i.indisunique AS unique_key, i.indisprimary AS primary_key 
 	FROM pg_class bc, pg_class ic, pg_index i, pg_attribute a WHERE bc.oid = i.indrelid AND ic.oid = i.indexrelid AND (i.indkey[0] = a.attnum OR i.indkey[1] = a.attnum OR i.indkey[2] = a.attnum OR i.indkey[3] = a.attnum OR i.indkey[4] = a.attnum OR i.indkey[5] = a.attnum OR i.indkey[6] = a.attnum OR i.indkey[7] = a.attnum) AND a.attrelid = bc.oid AND bc.relname = '%s'";
 	
-	public $hasAffectedRows = true;
-	public $hasLimit = false;	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+	var $hasAffectedRows = true;
+	var $hasLimit = false;	// set to true for pgsql 7 only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
 	// below suggested by Freek Dijkstra 
-	public $true = 'TRUE';		// string that represents TRUE for a database
-	public $false = 'FALSE';		// string that represents FALSE for a database
-	public $fmtDate = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
-	public $fmtTimeStamp = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
-	public $hasMoveFirst = true;
-	public $hasGenID = true;
-	public $_genIDSQL = "SELECT NEXTVAL('%s')";
-	public $_genSeqSQL = "CREATE SEQUENCE %s START %s";
-	public $_dropSeqSQL = "DROP SEQUENCE %s";
-	public $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
-	public $random = 'random()';		/// random function
-	public $autoRollback = true; // apparently pgsql does not autorollback properly before php 4.3.4
+	var $true = 'TRUE';		// string that represents TRUE for a database
+	var $false = 'FALSE';		// string that represents FALSE for a database
+	var $fmtDate = "'Y-m-d'";	// used by DBDate() as the default date format used by the database
+	var $fmtTimeStamp = "'Y-m-d H:i:s'"; // used by DBTimeStamp as the default timestamp fmt.
+	var $hasMoveFirst = true;
+	var $hasGenID = true;
+	var $_genIDSQL = "SELECT NEXTVAL('%s')";
+	var $_genSeqSQL = "CREATE SEQUENCE %s START %s";
+	var $_dropSeqSQL = "DROP SEQUENCE %s";
+	var $metaDefaultsSQL = "SELECT d.adnum as num, d.adsrc as def from pg_attrdef d, pg_class c where d.adrelid=c.oid and c.relname='%s' order by d.adnum";
+	var $random = 'random()';		/// random function
+	var $autoRollback = true; // apparently pgsql does not autorollback properly before php 4.3.4
 							// http://bugs.php.net/bug.php?id=25404
 							
-	public $_bindInputArray = false; // requires postgresql 7.3+ and ability to modify database
-	public $disableBlobs = false; // set to true to disable blob checking, resulting in 2-5% improvement in performance.
+	var $_bindInputArray = false; // requires postgresql 7.3+ and ability to modify database
+	var $disableBlobs = false; // set to true to disable blob checking, resulting in 2-5% improvement in performance.
 	
 	// The last (fmtTimeStamp is not entirely correct: 
 	// PostgreSQL also has support for time zones, 
@@ -201,7 +201,7 @@ a different OID if a database must be reloaded. */
 		return @pg_Exec($this->_connectionID, "rollback");
 	}
 	
-	function &MetaTables($ttype=false,$showSchema=false,$mask=false) 
+	function MetaTables($ttype=false,$showSchema=false,$mask=false) 
 	{
 		$info = $this->ServerInfo();
 		if ($info['version'] >= 7.3) {
@@ -224,7 +224,7 @@ select tablename,'T' from pg_tables where tablename like $mask
  union 
 select viewname,'V' from pg_views where viewname like $mask";
 		}
-		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
+		$ret = ADOConnection::MetaTables($ttype,$showSchema);
 		
 		if ($mask) {
 			$this->metaTablesSQL = $save;
@@ -464,7 +464,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 	// for schema support, pass in the $table param "$schema.$tabname".
 	// converts field names to lowercase, $upper is ignored
 	// see http://phplens.com/lens/lensforum/msgs.php?id=14018 for more info
-	function &MetaColumns($table,$normalize=true) 
+	function MetaColumns($table,$normalize=true) 
 	{
 	global $ADODB_FETCH_MODE;
 	
@@ -478,8 +478,8 @@ select viewname,'V' from pg_views where viewname like $mask";
 		$ADODB_FETCH_MODE = ADODB_FETCH_NUM;
 		if ($this->fetchMode !== false) $savem = $this->SetFetchMode(false);
 		
-		if ($schema) $rs =& $this->Execute(sprintf($this->metaColumnsSQL1,$table,$table,$schema));
-		else $rs =& $this->Execute(sprintf($this->metaColumnsSQL,$table,$table));
+		if ($schema) $rs = $this->Execute(sprintf($this->metaColumnsSQL1,$table,$table,$schema));
+		else $rs = $this->Execute(sprintf($this->metaColumnsSQL,$table,$table));
 		if (isset($savem)) $this->SetFetchMode($savem);
 		$ADODB_FETCH_MODE = $save;
 		
@@ -496,7 +496,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 			
 			$rskey = $this->Execute(sprintf($this->metaKeySQL,($table)));
 			// fetch all result in once for performance.
-			$keys =& $rskey->GetArray();
+			$keys = $rskey->GetArray();
 			if (isset($savem)) $this->SetFetchMode($savem);
 			$ADODB_FETCH_MODE = $save;
 			
@@ -578,7 +578,7 @@ select viewname,'V' from pg_views where viewname like $mask";
 		
 	}
 
-	  function &MetaIndexes ($table, $primary = FALSE)
+	  function MetaIndexes ($table, $primary = FALSE)
       {
          global $ADODB_FETCH_MODE;
                 
@@ -770,11 +770,11 @@ WHERE (c2.relname=\'%s\' or c2.relname=lower(\'%s\'))';
 				}
 				$s = "PREPARE $plan ($params) AS ".substr($sql,0,strlen($sql)-2);		
 				//adodb_pr($s);
-				pg_exec($this->_connectionID,$s);
+				$rez = pg_exec($this->_connectionID,$s);
 				//echo $this->ErrorMsg();
 			}
-			
-			$rez = pg_exec($this->_connectionID,$exsql);
+			if ($rez)
+				$rez = pg_exec($this->_connectionID,$exsql);
 		} else {
 			//adodb_backtrace();
 			$rez = pg_exec($this->_connectionID,$sql);
@@ -864,9 +864,9 @@ WHERE (c2.relname=\'%s\' or c2.relname=lower(\'%s\'))';
 --------------------------------------------------------------------------------------*/
 
 class ADORecordSet_postgres64 extends ADORecordSet{
-	public $_blobArr;
-	public $databaseType = "postgres64";
-	public $canSeek = true;
+	var $_blobArr;
+	var $databaseType = "postgres64";
+	var $canSeek = true;
 	function ADORecordSet_postgres64($queryID,$mode=false) 
 	{
 		if ($mode === false) { 
@@ -886,10 +886,10 @@ class ADORecordSet_postgres64 extends ADORecordSet{
 		$this->ADORecordSet($queryID);
 	}
 	
-	function &GetRowAssoc($upper=true)
+	function GetRowAssoc($upper=true)
 	{
 		if ($this->fetchMode == PGSQL_ASSOC && !$upper) return $this->fields;
-		$row =& ADORecordSet::GetRowAssoc($upper);
+		$row = ADORecordSet::GetRowAssoc($upper);
 		return $row;
 	}
 
@@ -925,7 +925,7 @@ class ADORecordSet_postgres64 extends ADORecordSet{
 		 return $this->fields[$this->bind[strtoupper($colname)]];
 	}
 
-	function &FetchField($off = 0) 
+	function FetchField($off = 0) 
 	{
 		// offsets begin at 0
 		

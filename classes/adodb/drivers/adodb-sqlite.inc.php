@@ -1,6 +1,6 @@
 <?php
 /*
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -19,17 +19,17 @@ V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights rese
 if (!defined('ADODB_DIR')) die();
 
 class ADODB_sqlite extends ADOConnection {
-	public $databaseType = "sqlite";
-	public $replaceQuote = "''"; // string to use to replace quotes
-	public $concat_operator='||';
-	public $_errorNo = 0;
-	public $hasLimit = true;	
-	public $hasInsertID = true; 		/// supports autoincrement ID?
-	public $hasAffectedRows = true; 	/// supports affected rows for update/delete?
-	public $metaTablesSQL = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
-	public $sysDate = "adodb_date('Y-m-d')";
-	public $sysTimeStamp = "adodb_date('Y-m-d H:i:s')";
-	public $fmtTimeStamp = "'Y-m-d H:i:s'";
+	var $databaseType = "sqlite";
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $concat_operator='||';
+	var $_errorNo = 0;
+	var $hasLimit = true;	
+	var $hasInsertID = true; 		/// supports autoincrement ID?
+	var $hasAffectedRows = true; 	/// supports affected rows for update/delete?
+	var $metaTablesSQL = "SELECT name FROM sqlite_master WHERE type='table' ORDER BY name";
+	var $sysDate = "adodb_date('Y-m-d')";
+	var $sysTimeStamp = "adodb_date('Y-m-d H:i:s')";
+	var $fmtTimeStamp = "'Y-m-d H:i:s'";
 	
 	function ADODB_sqlite() 
 	{
@@ -78,7 +78,7 @@ class ADODB_sqlite extends ADOConnection {
 	}
 	
 	// mark newnham
-	function &MetaColumns($tab)
+	function MetaColumns($tab)
 	{
 	  global $ADODB_FETCH_MODE;
 	  $false = false;
@@ -190,14 +190,14 @@ class ADODB_sqlite extends ADOConnection {
 		return $rez;
 	}
 	
-	function &SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
+	function SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
 	{
 		$offsetStr = ($offset >= 0) ? " OFFSET $offset" : '';
 		$limitStr  = ($nrows >= 0)  ? " LIMIT $nrows" : ($offset >= 0 ? ' LIMIT 999999999' : '');
 	  	if ($secs2cache)
-	   		$rs =& $this->CacheExecute($secs2cache,$sql."$limitStr$offsetStr",$inputarr);
+	   		$rs = $this->CacheExecute($secs2cache,$sql."$limitStr$offsetStr",$inputarr);
 	  	else
-	   		$rs =& $this->Execute($sql."$limitStr$offsetStr",$inputarr);
+	   		$rs = $this->Execute($sql."$limitStr$offsetStr",$inputarr);
 			
 		return $rs;
 	}
@@ -208,7 +208,7 @@ class ADODB_sqlite extends ADOConnection {
 		
 		Will return false if unable to generate an ID after $MAXLOOPS attempts.
 	*/
-	public $_genSeqSQL = "create table %s (id integer)";
+	var $_genSeqSQL = "create table %s (id integer)";
 	
 	function GenID($seq='adodbseq',$start=1)
 	{	
@@ -248,7 +248,7 @@ class ADODB_sqlite extends ADOConnection {
 		return $this->Execute("insert into $seqname values($start)");
 	}
 	
-	public $_dropSeqSQL = 'drop table %s';
+	var $_dropSeqSQL = 'drop table %s';
 	function DropSequence($seqname)
 	{
 		if (empty($this->_dropSeqSQL)) return false;
@@ -261,7 +261,7 @@ class ADODB_sqlite extends ADOConnection {
 		return @sqlite_close($this->_connectionID);
 	}
 
-	function &MetaIndexes($table, $primary = FALSE, $owner=false)
+	function MetaIndexes($table, $primary = FALSE, $owner=false)
 	{
 		$false = false;
 		// save old fetch mode
@@ -315,8 +315,8 @@ class ADODB_sqlite extends ADOConnection {
 
 class ADORecordset_sqlite extends ADORecordSet {
 
-	public $databaseType = "sqlite";
-	public $bind = false;
+	var $databaseType = "sqlite";
+	var $bind = false;
 
 	function ADORecordset_sqlite($queryID,$mode=false)
 	{
@@ -350,7 +350,7 @@ class ADORecordset_sqlite extends ADORecordSet {
 	}
 
 
-	function &FetchField($fieldOffset = -1)
+	function FetchField($fieldOffset = -1)
 	{
 		$fld = new ADOFieldObject;
 		$fld->name = sqlite_field_name($this->_queryID, $fieldOffset);

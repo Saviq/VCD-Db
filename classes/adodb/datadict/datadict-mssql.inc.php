@@ -1,7 +1,7 @@
 <?php
 
 /**
-  V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+  V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -42,15 +42,15 @@ In ADOdb, named quotes for MS SQL Server use ". From the MSSQL Docs:
 if (!defined('ADODB_DIR')) die();
 
 class ADODB2_mssql extends ADODB_DataDict {
-	public $databaseType = 'mssql';
-	public $dropIndex = 'DROP INDEX %2$s.%1$s';
-	public $renameTable = "EXEC sp_rename '%s','%s'";
-	public $renameColumn = "EXEC sp_rename '%s.%s','%s'";
+	var $databaseType = 'mssql';
+	var $dropIndex = 'DROP INDEX %2$s.%1$s';
+	var $renameTable = "EXEC sp_rename '%s','%s'";
+	var $renameColumn = "EXEC sp_rename '%s.%s','%s'";
 
-	public $typeX = 'TEXT';  ## Alternatively, set it to VARCHAR(4000)
-	public $typeXL = 'TEXT';
+	var $typeX = 'TEXT';  ## Alternatively, set it to VARCHAR(4000)
+	var $typeXL = 'TEXT';
 	
-	//public $alterCol = ' ALTER COLUMN ';
+	//var $alterCol = ' ALTER COLUMN ';
 	
 	function MetaType($t,$len=-1,$fieldobj=false)
 	{

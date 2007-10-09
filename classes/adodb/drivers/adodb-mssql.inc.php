@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -71,37 +71,37 @@ global $ADODB_mssql_date_order;
 }
 
 class ADODB_mssql extends ADOConnection {
-	public $databaseType = "mssql";	
-	public $dataProvider = "mssql";
-	public $replaceQuote = "''"; // string to use to replace quotes
-	public $fmtDate = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d H:i:s'";
-	public $hasInsertID = true;
-	public $substr = "substring";
-	public $length = 'len';
-	public $hasAffectedRows = true;
-	public $metaDatabasesSQL = "select name from sysdatabases where name <> 'master'";
-	public $metaTablesSQL="select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
-	public $metaColumnsSQL = # xtype==61 is datetime
+	var $databaseType = "mssql";	
+	var $dataProvider = "mssql";
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $fmtDate = "'Y-m-d'";
+	var $fmtTimeStamp = "'Y-m-d H:i:s'";
+	var $hasInsertID = true;
+	var $substr = "substring";
+	var $length = 'len';
+	var $hasAffectedRows = true;
+	var $metaDatabasesSQL = "select name from sysdatabases where name <> 'master'";
+	var $metaTablesSQL="select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE','dtproperties'))";
+	var $metaColumnsSQL = # xtype==61 is datetime
 "select c.name,t.name,c.length,
 	(case when c.xusertype=61 then 0 else c.xprec end),
 	(case when c.xusertype=61 then 0 else c.xscale end) 
 	from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
-	public $hasGenID = true;
-	public $sysDate = 'convert(datetime,convert(char,GetDate(),102),102)';
-	public $sysTimeStamp = 'GetDate()';
-	public $_has_mssql_init;
-	public $maxParameterLen = 4000;
-	public $arrayClass = 'ADORecordSet_array_mssql';
-	public $uniqueSort = true;
-	public $leftOuter = '*=';
-	public $rightOuter = '=*';
-	public $ansiOuter = true; // for mssql7 or later
-	public $poorAffectedRows = true;
-	public $identitySQL = 'select @@IDENTITY'; // 'select SCOPE_IDENTITY'; # for mssql 2000
-	public $uniqueOrderBy = true;
-	public $_bindInputArray = true;
+	var $hasTop = 'top';		// support mssql SELECT TOP 10 * FROM TABLE
+	var $hasGenID = true;
+	var $sysDate = 'convert(datetime,convert(char,GetDate(),102),102)';
+	var $sysTimeStamp = 'GetDate()';
+	var $_has_mssql_init;
+	var $maxParameterLen = 4000;
+	var $arrayClass = 'ADORecordSet_array_mssql';
+	var $uniqueSort = true;
+	var $leftOuter = '*=';
+	var $rightOuter = '=*';
+	var $ansiOuter = true; // for mssql7 or later
+	var $poorAffectedRows = true;
+	var $identitySQL = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	var $uniqueOrderBy = true;
+	var $_bindInputArray = true;
 	
 	function ADODB_mssql() 
 	{		
@@ -159,7 +159,7 @@ class ADODB_mssql extends ADOConnection {
 		return $this->GetOne('select @@rowcount');
 	}
 
-	public $_dropSeqSQL = "drop table %s";
+	var $_dropSeqSQL = "drop table %s";
 	
 	function CreateSequence($seq='adodbseq',$start=1)
 	{
@@ -200,14 +200,14 @@ class ADODB_mssql extends ADOConnection {
 	}
 	
 
-	function &SelectLimit($sql,$nrows=-1,$offset=-1, $inputarr=false,$secs2cache=0)
+	function SelectLimit($sql,$nrows=-1,$offset=-1, $inputarr=false,$secs2cache=0)
 	{
 		if ($nrows > 0 && $offset <= 0) {
 			$sql = preg_replace(
 				'/(^\s*select\s+(distinctrow|distinct)?)/i','\\1 '.$this->hasTop." $nrows ",$sql);
-			$rs =& $this->Execute($sql,$inputarr);
+			$rs = $this->Execute($sql,$inputarr);
 		} else
-			$rs =& ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
+			$rs = ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
 	
 		return $rs;
 	}
@@ -328,7 +328,7 @@ class ADODB_mssql extends ADOConnection {
 	}
 	
 	
-	function &MetaIndexes($table,$primary=false)
+	function MetaIndexes($table,$primary=false)
 	{
 		$table = $this->qstr($table);
 
@@ -385,7 +385,7 @@ from sysforeignkeys
 where upper(object_name(fkeyid)) = $table
 order by constraint_name, referenced_table_name, keyno";
 		
-		$constraints =& $this->GetArray($sql);
+		$constraints = $this->GetArray($sql);
 		
 		$ADODB_FETCH_MODE = $save;
 		
@@ -431,7 +431,7 @@ order by constraint_name, referenced_table_name, keyno";
 
 	// "Stein-Aksel Basma" <basma@accelero.no>
 	// tested with MSSQL 2000
-	function &MetaPrimaryKeys($table)
+	function MetaPrimaryKeys($table)
 	{
 	global $ADODB_FETCH_MODE;
 	
@@ -456,14 +456,14 @@ order by constraint_name, referenced_table_name, keyno";
 	}
 
 	
-	function &MetaTables($ttype=false,$showSchema=false,$mask=false) 
+	function MetaTables($ttype=false,$showSchema=false,$mask=false) 
 	{
 		if ($mask) {
 			$save = $this->metaTablesSQL;
 			$mask = $this->qstr(($mask));
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
-		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
+		$ret = ADOConnection::MetaTables($ttype,$showSchema);
 		
 		if ($mask) {
 			$this->metaTablesSQL = $save;
@@ -586,7 +586,7 @@ order by constraint_name, referenced_table_name, keyno";
 		$db->Execute($stmt);
 		
 		@param $stmt Statement returned by Prepare() or PrepareSP().
-		@param $public PHP variable to bind to. Can set to null (for isNull support).
+		@param $var PHP variable to bind to. Can set to null (for isNull support).
 		@param $name Name of stored procedure variable name to bind to.
 		@param [$isOutput] Indicates direction of parameter 0/false=IN  1=OUT  2= IN/OUT. This is ignored in oci8.
 		@param [$maxLen] Holds an maximum length of the variable.
@@ -724,12 +724,14 @@ order by constraint_name, referenced_table_name, keyno";
 	// mssql uses a default date like Dec 30 2000 12:00AM
 	function UnixDate($v)
 	{
-		return ADORecordSet_array_mssql::UnixDate($v);
+		return parent::UnixDate($v);
+		//return ADORecordSet_array_mssql::UnixDate($v);
 	}
 	
 	function UnixTimeStamp($v)
 	{
-		return ADORecordSet_array_mssql::UnixTimeStamp($v);
+		return parent::UnixTimeStamp($v);
+		//return ADORecordSet_array_mssql::UnixTimeStamp($v);
 	}	
 }
 	
@@ -739,9 +741,9 @@ order by constraint_name, referenced_table_name, keyno";
 
 class ADORecordset_mssql extends ADORecordSet {	
 
-	public $databaseType = "mssql";
-	public $canSeek = true;
-	public $hasFetchAssoc; // see http://phplens.com/lens/lensforum/msgs.php?id=6083
+	var $databaseType = "mssql";
+	var $canSeek = true;
+	var $hasFetchAssoc; // see http://phplens.com/lens/lensforum/msgs.php?id=6083
 	// _mths works only in non-localised system
 	
 	function ADORecordset_mssql($id,$mode=false)
@@ -799,7 +801,7 @@ class ADORecordset_mssql extends ADORecordSet {
 		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 		fetchField() is retrieved.	*/
 
-	function &FetchField($fieldOffset = -1) 
+	function FetchField($fieldOffset = -1) 
 	{
 		if ($fieldOffset != -1) {
 			$f = @mssql_fetch_field($this->_queryID, $fieldOffset);

@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -66,8 +66,8 @@ function adodb_pdo_type($t)
 
 class ADODB_pdo_base extends ADODB_pdo {
 
-	public $sysDate = "'?'";
-	public $sysTimeStamp = "'?'";
+	var $sysDate = "'?'";
+	var $sysTimeStamp = "'?'";
 	
 
 	function _init($parentDriver)
@@ -100,23 +100,23 @@ class ADODB_pdo_base extends ADODB_pdo {
 
 
 class ADODB_pdo extends ADOConnection {
-	public $databaseType = "pdo";	
-	public $dataProvider = "pdo";
-	public $fmtDate = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-	public $replaceQuote = "''"; // string to use to replace quotes
-	public $hasAffectedRows = true;
-	public $_bindInputArray = true;	
-	public $_genSeqSQL = "create table %s (id integer)";
-	public $_autocommit = true;
-	public $_haserrorfunctions = true;
-	public $_lastAffectedRows = 0;
+	var $databaseType = "pdo";	
+	var $dataProvider = "pdo";
+	var $fmtDate = "'Y-m-d'";
+	var $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $hasAffectedRows = true;
+	var $_bindInputArray = true;	
+	var $_genSeqSQL = "create table %s (id integer)";
+	var $_autocommit = true;
+	var $_haserrorfunctions = true;
+	var $_lastAffectedRows = 0;
 	
-	public $_errormsg = false;
-	public $_errorno = false;
+	var $_errormsg = false;
+	var $_errorno = false;
 	
-	public $dsnType = '';
-	public $stmt = false;
+	var $dsnType = '';
+	var $stmt = false;
 	
 	function ADODB_pdo()
 	{
@@ -124,7 +124,7 @@ class ADODB_pdo extends ADOConnection {
 	
 	function _UpdatePDO()
 	{
-		$d = &$this->_driver;
+		$d = $this->_driver;
 		$this->fmtDate = $d->fmtDate;
 		$this->fmtTimeStamp = $d->fmtTimeStamp;
 		$this->replaceQuote = $d->replaceQuote;
@@ -133,7 +133,12 @@ class ADODB_pdo extends ADOConnection {
 		$this->random = $d->random;
 		$this->concat_operator = $d->concat_operator;
 		$this->nameQuote = $d->nameQuote;
-		
+				
+		$this->hasGenID = $d->hasGenID;
+		$this->_genIDSQL = $d->_genIDSQL;
+		$this->_genSeqSQL = $d->_genSeqSQL;
+		$this->_dropSeqSQL = $d->_dropSeqSQL;
+
 		$d->_init($this);
 	}
 	
@@ -142,7 +147,7 @@ class ADODB_pdo extends ADOConnection {
 		if (!empty($this->_driver->_hasdual)) $sql = "select $this->sysTimeStamp from dual";
 		else $sql = "select $this->sysTimeStamp";
 		
-		$rs =& $this->_Execute($sql);
+		$rs = $this->_Execute($sql);
 		if ($rs && !$rs->EOF) return $this->UnixTimeStamp(reset($rs->fields));
 		
 		return false;
@@ -387,10 +392,10 @@ class ADODB_pdo extends ADOConnection {
 
 class ADOPDOStatement {
 
-	public $databaseType = "pdo";		
-	public $dataProvider = "pdo";
-	public $_stmt;
-	public $_connectionID;
+	var $databaseType = "pdo";		
+	var $dataProvider = "pdo";
+	var $_stmt;
+	var $_connectionID;
 	
 	function ADOPDOStatement($stmt,$connection)
 	{
@@ -447,9 +452,9 @@ class ADOPDOStatement {
 
 class ADORecordSet_pdo extends ADORecordSet {	
 	
-	public $bind = false;
-	public $databaseType = "pdo";		
-	public $dataProvider = "pdo";
+	var $bind = false;
+	var $databaseType = "pdo";		
+	var $dataProvider = "pdo";
 	
 	function ADORecordSet_pdo($id,$mode=false)
 	{
@@ -501,7 +506,7 @@ class ADORecordSet_pdo extends ADORecordSet {
 	}
 
 	// returns the field object
-	function &FetchField($fieldOffset = -1) 
+	function FetchField($fieldOffset = -1) 
 	{
 		$off=$fieldOffset+1; // offsets begin at 1
 		

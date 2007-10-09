@@ -1,6 +1,6 @@
 <?php
 /*
- V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+ V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -17,10 +17,10 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR."/drivers/adodb-postgres64.inc.php");
 
 class ADODB_postgres7 extends ADODB_postgres64 {
-	public $databaseType = 'postgres7';	
-	public $hasLimit = true;	// set to true for pgsql 6.5+ only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
-	public $ansiOuter = true;
-	public $charSet = true; //set to true for Postgres 7 and above - PG client supports encodings
+	var $databaseType = 'postgres7';	
+	var $hasLimit = true;	// set to true for pgsql 6.5+ only. support pgsql/mysql SELECT * FROM TABLE LIMIT 10
+	var $ansiOuter = true;
+	var $charSet = true; //set to true for Postgres 7 and above - PG client supports encodings
 	
 	function ADODB_postgres7() 
 	{
@@ -34,14 +34,14 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 	
 	// the following should be compat with postgresql 7.2, 
 	// which makes obsolete the LIMIT limit,offset syntax
-	 function &SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
+	 function SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
 	 {
 		 $offsetStr = ($offset >= 0) ? " OFFSET ".((integer)$offset) : '';
 		 $limitStr  = ($nrows >= 0)  ? " LIMIT ".((integer)$nrows) : '';
 		 if ($secs2cache)
-		  	$rs =& $this->CacheExecute($secs2cache,$sql."$limitStr$offsetStr",$inputarr);
+		  	$rs = $this->CacheExecute($secs2cache,$sql."$limitStr$offsetStr",$inputarr);
 		 else
-		  	$rs =& $this->Execute($sql."$limitStr$offsetStr",$inputarr);
+		  	$rs = $this->Execute($sql."$limitStr$offsetStr",$inputarr);
 		
 		return $rs;
 	 }
@@ -72,11 +72,11 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 		ORDER BY
 			t.tgrelid';
 		
-		$rs =& $this->Execute($sql);
+		$rs = $this->Execute($sql);
 		
 		if (!$rs || $rs->EOF) return false;
 		
-		$arr =& $rs->GetArray();
+		$arr = $rs->GetArray();
 		$a = array();
 		foreach($arr as $v) {
 			$data = explode(chr(0), $v['args']);
@@ -163,7 +163,7 @@ class ADODB_postgres7 extends ADODB_postgres64 {
 
 class ADORecordSet_postgres7 extends ADORecordSet_postgres64{
 
-	public $databaseType = "postgres7";
+	var $databaseType = "postgres7";
 	
 	
 	function ADORecordSet_postgres7($queryID,$mode=false) 
@@ -194,7 +194,7 @@ class ADORecordSet_postgres7 extends ADORecordSet_postgres64{
 
 class ADORecordSet_assoc_postgres7 extends ADORecordSet_postgres64{
 
-	public $databaseType = "postgres7";
+	var $databaseType = "postgres7";
 	
 	
 	function ADORecordSet_assoc_postgres7($queryID,$mode=false) 

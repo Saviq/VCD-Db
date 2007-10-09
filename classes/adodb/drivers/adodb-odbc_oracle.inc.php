@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -19,24 +19,24 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
  
 class  ADODB_odbc_oracle extends ADODB_odbc {	
-	public $databaseType = 'odbc_oracle';
- 	public $replaceQuote = "''"; // string to use to replace quotes
-	public $concat_operator='||';
-	public $fmtDate = "'Y-m-d 00:00:00'"; 
-	public $fmtTimeStamp = "'Y-m-d h:i:sA'";
-	public $metaTablesSQL = 'select table_name from cat';
-	public $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
-	public $sysDate = "TRUNC(SYSDATE)";
-	public $sysTimeStamp = 'SYSDATE';
+	var $databaseType = 'odbc_oracle';
+ 	var $replaceQuote = "''"; // string to use to replace quotes
+	var $concat_operator='||';
+	var $fmtDate = "'Y-m-d 00:00:00'"; 
+	var $fmtTimeStamp = "'Y-m-d h:i:sA'";
+	var $metaTablesSQL = 'select table_name from cat';
+	var $metaColumnsSQL = "select cname,coltype,width from col where tname='%s' order by colno";
+	var $sysDate = "TRUNC(SYSDATE)";
+	var $sysTimeStamp = 'SYSDATE';
 	
-	//public $_bindInputArray = false;
+	//var $_bindInputArray = false;
 	
 	function ADODB_odbc_oracle()
 	{
 		$this->ADODB_odbc();
 	}
 		
-	function &MetaTables() 
+	function MetaTables() 
 	{
 		$false = false;
 		$rs = $this->Execute($this->metaTablesSQL);
@@ -50,7 +50,7 @@ class  ADODB_odbc_oracle extends ADODB_odbc {
 		return $arr2;
 	}
 	
-	function &MetaColumns($table) 
+	function MetaColumns($table) 
 	{
 	global $ADODB_FETCH_MODE;
 	
@@ -105,7 +105,7 @@ class  ADODB_odbc_oracle extends ADODB_odbc {
  
 class  ADORecordSet_odbc_oracle extends ADORecordSet_odbc {	
 	
-	public $databaseType = 'odbc_oracle';
+	var $databaseType = 'odbc_oracle';
 	
 	function ADORecordSet_odbc_oracle($id,$mode=false)
 	{

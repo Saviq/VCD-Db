@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -21,23 +21,23 @@ if (!defined('_ADODB_ODBC_LAYER')) {
 
  
 class  ADODB_odbc_mssql extends ADODB_odbc {	
-	public $databaseType = 'odbc_mssql';
-	public $fmtDate = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d H:i:s'";
-	public $_bindInputArray = true;
-	public $metaTablesSQL="select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE'))";
-	public $metaColumnsSQL = "select c.name,t.name,c.length from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
-	public $hasTop = 'top';		// support mssql/interbase SELECT TOP 10 * FROM TABLE
-	public $sysDate = 'GetDate()';
-	public $sysTimeStamp = 'GetDate()';
-	public $leftOuter = '*=';
-	public $rightOuter = '=*';
-	public $substr = 'substring';
-	public $length = 'len';
-	public $ansiOuter = true; // for mssql7 or later
-	public $identitySQL = 'select @@IDENTITY'; // 'select SCOPE_IDENTITY'; # for mssql 2000
-	public $hasInsertID = true;
-	public $connectStmt = 'SET CONCAT_NULL_YIELDS_NULL OFF'; # When SET CONCAT_NULL_YIELDS_NULL is ON, 
+	var $databaseType = 'odbc_mssql';
+	var $fmtDate = "'Y-m-d'";
+	var $fmtTimeStamp = "'Y-m-d H:i:s'";
+	var $_bindInputArray = true;
+	var $metaTablesSQL="select name,case when type='U' then 'T' else 'V' end from sysobjects where (type='U' or type='V') and (name not in ('sysallocations','syscolumns','syscomments','sysdepends','sysfilegroups','sysfiles','sysfiles1','sysforeignkeys','sysfulltextcatalogs','sysindexes','sysindexkeys','sysmembers','sysobjects','syspermissions','sysprotects','sysreferences','systypes','sysusers','sysalternates','sysconstraints','syssegments','REFERENTIAL_CONSTRAINTS','CHECK_CONSTRAINTS','CONSTRAINT_TABLE_USAGE','CONSTRAINT_COLUMN_USAGE','VIEWS','VIEW_TABLE_USAGE','VIEW_COLUMN_USAGE','SCHEMATA','TABLES','TABLE_CONSTRAINTS','TABLE_PRIVILEGES','COLUMNS','COLUMN_DOMAIN_USAGE','COLUMN_PRIVILEGES','DOMAINS','DOMAIN_CONSTRAINTS','KEY_COLUMN_USAGE'))";
+	var $metaColumnsSQL = "select c.name,t.name,c.length from syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id where o.name='%s'";
+	var $hasTop = 'top';		// support mssql/interbase SELECT TOP 10 * FROM TABLE
+	var $sysDate = 'GetDate()';
+	var $sysTimeStamp = 'GetDate()';
+	var $leftOuter = '*=';
+	var $rightOuter = '=*';
+	var $substr = 'substring';
+	var $length = 'len';
+	var $ansiOuter = true; // for mssql7 or later
+	var $identitySQL = 'select SCOPE_IDENTITY()'; // 'select SCOPE_IDENTITY'; # for mssql 2000
+	var $hasInsertID = true;
+	var $connectStmt = 'SET CONCAT_NULL_YIELDS_NULL OFF'; # When SET CONCAT_NULL_YIELDS_NULL is ON, 
 														  # concatenating a null value with a string yields a NULL result
 	
 	function ADODB_odbc_mssql()
@@ -93,7 +93,7 @@ from sysforeignkeys
 where upper(object_name(fkeyid)) = $table
 order by constraint_name, referenced_table_name, keyno";
 		
-		$constraints =& $this->GetArray($sql);
+		$constraints = $this->GetArray($sql);
 		
 		$ADODB_FETCH_MODE = $save;
 		
@@ -115,14 +115,14 @@ order by constraint_name, referenced_table_name, keyno";
 		return $arr2;
 	}
 	
-	function &MetaTables($ttype=false,$showSchema=false,$mask=false) 
+	function MetaTables($ttype=false,$showSchema=false,$mask=false) 
 	{
 		if ($mask) {$this->debug=1;
 			$save = $this->metaTablesSQL;
 			$mask = $this->qstr($mask);
 			$this->metaTablesSQL .= " AND name like $mask";
 		}
-		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
+		$ret = ADOConnection::MetaTables($ttype,$showSchema);
 		
 		if ($mask) {
 			$this->metaTablesSQL = $save;
@@ -130,14 +130,14 @@ order by constraint_name, referenced_table_name, keyno";
 		return $ret;
 	}
 	
-	function &MetaColumns($table)
+	function MetaColumns($table)
 	{
 		$arr = ADOConnection::MetaColumns($table);
 		return $arr;
 	}
 	
 	
-	function &MetaIndexes($table,$primary=false)
+	function MetaIndexes($table,$primary=false)
 	{
 		$table = $this->qstr($table);
 
@@ -196,7 +196,7 @@ order by constraint_name, referenced_table_name, keyno";
 	
 	// "Stein-Aksel Basma" <basma@accelero.no>
 	// tested with MSSQL 2000
-	function &MetaPrimaryKeys($table)
+	function MetaPrimaryKeys($table)
 	{
 	global $ADODB_FETCH_MODE;
 	
@@ -220,14 +220,14 @@ order by constraint_name, referenced_table_name, keyno";
 		return $false;	  
 	}
 	
-	function &SelectLimit($sql,$nrows=-1,$offset=-1, $inputarr=false,$secs2cache=0)
+	function SelectLimit($sql,$nrows=-1,$offset=-1, $inputarr=false,$secs2cache=0)
 	{
 		if ($nrows > 0 && $offset <= 0) {
 			$sql = preg_replace(
 				'/(^\s*select\s+(distinctrow|distinct)?)/i','\\1 '.$this->hasTop." $nrows ",$sql);
-			$rs =& $this->Execute($sql,$inputarr);
+			$rs = $this->Execute($sql,$inputarr);
 		} else
-			$rs =& ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
+			$rs = ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
 			
 		return $rs;
 	}
@@ -296,7 +296,7 @@ order by constraint_name, referenced_table_name, keyno";
  
 class  ADORecordSet_odbc_mssql extends ADORecordSet_odbc {	
 	
-	public $databaseType = 'odbc_mssql';
+	var $databaseType = 'odbc_mssql';
 	
 	function ADORecordSet_odbc_mssql($id,$mode=false)
 	{

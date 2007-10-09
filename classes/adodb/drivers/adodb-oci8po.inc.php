@@ -1,6 +1,6 @@
 <?php
 /*
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim. All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim. All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -23,10 +23,10 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR.'/drivers/adodb-oci8.inc.php');
 
 class ADODB_oci8po extends ADODB_oci8 {
-	public $databaseType = 'oci8po';
-	public $dataProvider = 'oci8';
-	public $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
-	public $metaTablesSQL = "select lower(table_name),table_type from cat where table_type in ('TABLE','VIEW')";
+	var $databaseType = 'oci8po';
+	var $dataProvider = 'oci8';
+	var $metaColumnsSQL = "select lower(cname),coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; //changed by smondino@users.sourceforge. net
+	var $metaTablesSQL = "select lower(table_name),table_type from cat where table_type in ('TABLE','VIEW')";
 	
 	function ADODB_oci8po()
 	{
@@ -76,7 +76,7 @@ class ADODB_oci8po extends ADODB_oci8 {
 
 class ADORecordset_oci8po extends ADORecordset_oci8 {
 
-	public $databaseType = 'oci8po';
+	var $databaseType = 'oci8po';
 	
 	function ADORecordset_oci8po($queryID,$mode=false)
 	{
@@ -98,7 +98,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	}
 	
 	// lowercase field names...
-	function &_FetchField($fieldOffset = -1)
+	function _FetchField($fieldOffset = -1)
 	{
 		 $fld = new ADOFieldObject;
  		 $fieldOffset += 1;
@@ -149,7 +149,7 @@ class ADORecordset_oci8po extends ADORecordset_oci8 {
 	}	
 	
 	/* Optimize SelectLimit() by using OCIFetch() instead of OCIFetchInto() */
-	function &GetArrayLimit($nrows,$offset=-1) 
+	function GetArrayLimit($nrows,$offset=-1) 
 	{
 		if ($offset <= 0) {
 			$arr = $this->GetArray($nrows);

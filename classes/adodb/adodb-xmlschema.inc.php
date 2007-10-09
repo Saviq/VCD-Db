@@ -106,20 +106,20 @@ if( !defined( '_ADODB_LAYER' ) ) {
 class dbObject {
 	
 	/**
-	* public object Parent
+	* var object Parent
 	*/
-	public $parent;
+	var $parent;
 	
 	/**
-	* public string current element
+	* var string current element
 	*/
-	public $currentElement;
+	var $currentElement;
 	
 	/**
 	* NOP
 	*/
 	function dbObject( &$parent, $attributes = NULL ) {
-		$this->parent =& $parent;
+		$this->parent = $parent;
 	}
 	
 	/**
@@ -206,41 +206,41 @@ class dbObject {
 class dbTable extends dbObject {
 	
 	/**
-	* @public string Table name
+	* @var string Table name
 	*/
-	public $name;
+	var $name;
 	
 	/**
-	* @public array Field specifier: Meta-information about each field
+	* @var array Field specifier: Meta-information about each field
 	*/
-	public $fields = array();
+	var $fields = array();
 	
 	/**
-	* @public array List of table indexes.
+	* @var array List of table indexes.
 	*/
-	public $indexes = array();
+	var $indexes = array();
 	
 	/**
-	* @public array Table options: Table-level options
+	* @var array Table options: Table-level options
 	*/
-	public $opts = array();
+	var $opts = array();
 	
 	/**
-	* @public string Field index: Keeps track of which field is currently being processed
+	* @var string Field index: Keeps track of which field is currently being processed
 	*/
-	public $current_field;
+	var $current_field;
 	
 	/**
-	* @public boolean Mark table for destruction
+	* @var boolean Mark table for destruction
 	* @access private
 	*/
-	public $drop_table;
+	var $drop_table;
 	
 	/**
-	* @public boolean Mark field for destruction (not yet implemented)
+	* @var boolean Mark field for destruction (not yet implemented)
 	* @access private
 	*/
-	public $drop_field = array();
+	var $drop_field = array();
 	
 	/**
 	* Iniitializes a new table object.
@@ -249,7 +249,7 @@ class dbTable extends dbObject {
 	* @param array $attributes Array of table attributes.
 	*/
 	function dbTable( &$parent, $attributes = NULL ) {
-		$this->parent =& $parent;
+		$this->parent = $parent;
 		$this->name = $this->prefix($attributes['NAME']);
 	}
 	
@@ -362,9 +362,9 @@ class dbTable extends dbObject {
 	* @param array $attributes Index attributes
 	* @return object dbIndex object
 	*/
-	function &addIndex( $attributes ) {
+	function addIndex( $attributes ) {
 		$name = strtoupper( $attributes['NAME'] );
-		$this->indexes[$name] =& new dbIndex( $this, $attributes );
+		$this->indexes[$name] = new dbIndex( $this, $attributes );
 		return $this->indexes[$name];
 	}
 	
@@ -374,9 +374,9 @@ class dbTable extends dbObject {
 	* @param array $attributes Data attributes
 	* @return object dbData object
 	*/
-	function &addData( $attributes ) {
+	function addData( $attributes ) {
 		if( !isset( $this->data ) ) {
-			$this->data =& new dbData( $this, $attributes );
+			$this->data = new dbData( $this, $attributes );
 		}
 		return $this->data;
 	}
@@ -612,25 +612,25 @@ class dbTable extends dbObject {
 class dbIndex extends dbObject {
 	
 	/**
-	* @public string	Index name
+	* @var string	Index name
 	*/
-	public $name;
+	var $name;
 	
 	/**
-	* @public array	Index options: Index-level options
+	* @var array	Index options: Index-level options
 	*/
-	public $opts = array();
+	var $opts = array();
 	
 	/**
-	* @public array	Indexed fields: Table columns included in this index
+	* @var array	Indexed fields: Table columns included in this index
 	*/
-	public $columns = array();
+	var $columns = array();
 	
 	/**
-	* @public boolean Mark index for destruction
+	* @var boolean Mark index for destruction
 	* @access private
 	*/
-	public $drop = FALSE;
+	var $drop = FALSE;
 	
 	/**
 	* Initializes the new dbIndex object.
@@ -641,7 +641,7 @@ class dbIndex extends dbObject {
 	* @internal
 	*/
 	function dbIndex( &$parent, $attributes = NULL ) {
-		$this->parent =& $parent;
+		$this->parent = $parent;
 		
 		$this->name = $this->prefix ($attributes['NAME']);
 	}
@@ -772,9 +772,9 @@ class dbIndex extends dbObject {
 */
 class dbData extends dbObject {
 	
-	public $data = array();
+	var $data = array();
 	
-	public $row;
+	var $row;
 	
 	/**
 	* Initializes the new dbIndex object.
@@ -785,7 +785,7 @@ class dbData extends dbObject {
 	* @internal
 	*/
 	function dbData( &$parent, $attributes = NULL ) {
-		$this->parent =& $parent;
+		$this->parent = $parent;
 	}
 	
 	/**
@@ -958,24 +958,24 @@ class dbData extends dbObject {
 class dbQuerySet extends dbObject {
 	
 	/**
-	* @public array	List of SQL queries
+	* @var array	List of SQL queries
 	*/
-	public $queries = array();
+	var $queries = array();
 	
 	/**
-	* @public string	String used to build of a query line by line
+	* @var string	String used to build of a query line by line
 	*/
-	public $query;
+	var $query;
 	
 	/**
-	* @public string	Query prefix key
+	* @var string	Query prefix key
 	*/
-	public $prefixKey = '';
+	var $prefixKey = '';
 	
 	/**
-	* @public boolean	Auto prefix enable (TRUE)
+	* @var boolean	Auto prefix enable (TRUE)
 	*/
-	public $prefixMethod = 'AUTO';
+	var $prefixMethod = 'AUTO';
 	
 	/**
 	* Initializes the query set.
@@ -984,7 +984,7 @@ class dbQuerySet extends dbObject {
 	* @param array $attributes Attributes
 	*/
 	function dbQuerySet( &$parent, $attributes = NULL ) {
-		$this->parent =& $parent;
+		$this->parent = $parent;
 			
 		// Overrides the manual prefix key
 		if( isset( $attributes['KEY'] ) ) {
@@ -1216,79 +1216,79 @@ class dbQuerySet extends dbObject {
 class adoSchema {
 	
 	/**
-	* @public array	Array containing SQL queries to generate all objects
+	* @var array	Array containing SQL queries to generate all objects
 	* @access private
 	*/
-	public $sqlArray;
+	var $sqlArray;
 	
 	/**
-	* @public object	ADOdb connection object
+	* @var object	ADOdb connection object
 	* @access private
 	*/
-	public $db;
+	var $db;
 	
 	/**
-	* @public object	ADOdb Data Dictionary
+	* @var object	ADOdb Data Dictionary
 	* @access private
 	*/
-	public $dict;
+	var $dict;
 	
 	/**
-	* @public string Current XML element
+	* @var string Current XML element
 	* @access private
 	*/
-	public $currentElement = '';
+	var $currentElement = '';
 	
 	/**
-	* @public string If set (to 'ALTER' or 'REPLACE'), upgrade an existing database
+	* @var string If set (to 'ALTER' or 'REPLACE'), upgrade an existing database
 	* @access private
 	*/
-	public $upgrade = '';
+	var $upgrade = '';
 	
 	/**
-	* @public string Optional object prefix
+	* @var string Optional object prefix
 	* @access private
 	*/
-	public $objectPrefix = '';
+	var $objectPrefix = '';
 	
 	/**
-	* @public long	Original Magic Quotes Runtime value
+	* @var long	Original Magic Quotes Runtime value
 	* @access private
 	*/
-	public $mgq;
+	var $mgq;
 	
 	/**
-	* @public long	System debug
+	* @var long	System debug
 	* @access private
 	*/
-	public $debug;
+	var $debug;
 	
 	/**
-	* @public string Regular expression to find schema version
+	* @var string Regular expression to find schema version
 	* @access private
 	*/
-	public $versionRegex = '/<schema.*?( version="([^"]*)")?.*?>/';
+	var $versionRegex = '/<schema.*?( version="([^"]*)")?.*?>/';
 	
 	/**
-	* @public string Current schema version
+	* @var string Current schema version
 	* @access private
 	*/
-	public $schemaVersion;
+	var $schemaVersion;
 	
 	/**
-	* @public int	Success of last Schema execution
+	* @var int	Success of last Schema execution
 	*/
-	public $success;
+	var $success;
 	
 	/**
-	* @public bool	Execute SQL inline as it is generated
+	* @var bool	Execute SQL inline as it is generated
 	*/
-	public $executeInline;
+	var $executeInline;
 	
 	/**
-	* @public bool	Continue SQL execution if errors occur
+	* @var bool	Continue SQL execution if errors occur
 	*/
-	public $continueOnError;
+	var $continueOnError;
 	
 	/**
 	* Creates an adoSchema object
@@ -1304,7 +1304,7 @@ class adoSchema {
 		$this->mgq = get_magic_quotes_runtime();
 		set_magic_quotes_runtime(0);
 		
-		$this->db =& $db;
+		$this->db = $db;
 		$this->debug = $this->db->debug;
 		$this->dict = NewDataDictionary( $this->db );
 		$this->sqlArray = array();
@@ -1627,7 +1627,7 @@ class adoSchema {
 	*
 	* @access private
 	*/
-	function &create_parser() {
+	function create_parser() {
 		// Create the parser
 		$xmlParser = xml_parser_create();
 		xml_set_object( $xmlParser, $this );

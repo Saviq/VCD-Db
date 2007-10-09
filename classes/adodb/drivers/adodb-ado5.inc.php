@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -20,22 +20,22 @@ define("_ADODB_ADO_LAYER", 1 );
 
 	
 class ADODB_ado extends ADOConnection {
-	public $databaseType = "ado";	
-	public $_bindInputArray = false;
-	public $fmtDate = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d, h:i:sA'";
-	public $replaceQuote = "''"; // string to use to replace quotes
-	public $dataProvider = "ado";	
-	public $hasAffectedRows = true;
-	public $adoParameterType = 201; // 201 = long varchar, 203=long wide varchar, 205 = long varbinary
-	public $_affectedRows = false;
-	public $_thisTransactions;
-	public $_cursor_type = 3; // 3=adOpenStatic,0=adOpenForwardOnly,1=adOpenKeyset,2=adOpenDynamic
-	public $_cursor_location = 3; // 2=adUseServer, 3 = adUseClient;
-	public $_lock_type = -1;
-	public $_execute_option = -1;
-	public $poorAffectedRows = true; 
-	public $charPage;
+	var $databaseType = "ado";	
+	var $_bindInputArray = false;
+	var $fmtDate = "'Y-m-d'";
+	var $fmtTimeStamp = "'Y-m-d, h:i:sA'";
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $dataProvider = "ado";	
+	var $hasAffectedRows = true;
+	var $adoParameterType = 201; // 201 = long varchar, 203=long wide varchar, 205 = long varbinary
+	var $_affectedRows = false;
+	var $_thisTransactions;
+	var $_cursor_type = 3; // 3=adOpenStatic,0=adOpenForwardOnly,1=adOpenKeyset,2=adOpenDynamic
+	var $_cursor_location = 3; // 2=adUseServer, 3 = adUseClient;
+	var $_lock_type = -1;
+	var $_execute_option = -1;
+	var $poorAffectedRows = true; 
+	var $charPage;
 		
 	function ADODB_ado() 
 	{ 	
@@ -170,7 +170,7 @@ class ADODB_ado extends ADOConnection {
 
 */
 	
-	function &MetaTables()
+	function MetaTables()
 	{
 		$arr= array();
 		$dbc = $this->_connectionID;
@@ -192,7 +192,7 @@ class ADODB_ado extends ADOConnection {
 		return $arr;
 	}
 	
-	function &MetaColumns($table)
+	function MetaColumns($table)
 	{
 		$table = strtoupper($table);
 		$arr= array();
@@ -224,7 +224,7 @@ class ADODB_ado extends ADOConnection {
 	}
 	
 	/* returns queryID or false */
-	function &_query($sql,$inputarr=false) 
+	function _query($sql,$inputarr=false) 
 	{
 		try { // In PHP5, all COM errors are exceptions, so to maintain old behaviour...
 		
@@ -350,13 +350,13 @@ class ADODB_ado extends ADOConnection {
 
 class ADORecordSet_ado extends ADORecordSet {	
 	
-	public $bind = false;
-	public $databaseType = "ado";	
-	public $dataProvider = "ado";	
-	public $_tarr = false; // caches the types
-	public $_flds; // and field objects
-	public $canSeek = true;
-  	public $hideErrors = true;
+	var $bind = false;
+	var $databaseType = "ado";	
+	var $dataProvider = "ado";	
+	var $_tarr = false; // caches the types
+	var $_flds; // and field objects
+	var $canSeek = true;
+  	var $hideErrors = true;
 		  
 	function ADORecordSet_ado($id,$mode=false)
 	{
@@ -370,7 +370,7 @@ class ADORecordSet_ado extends ADORecordSet {
 
 
 	// returns the field object
-	function &FetchField($fieldOffset = -1) {
+	function FetchField($fieldOffset = -1) {
 		$off=$fieldOffset+1; // offsets begin at 1
 		
 		$o= new ADOFieldObject();
@@ -621,6 +621,16 @@ class ADORecordSet_ado extends ADORecordSet {
 				ADOConnection::outp( '<b>'.$f->Name.': currency type not supported by PHP</b>');
 				$this->fields[] = (float) $f->value;
 				break;
+			case 11: //BIT;
+				$val = "";
+				if(is_bool($f->value))	{
+					if($f->value==true) $val = 1;
+					else $val = 0;
+				}
+				if(is_null($f->value)) $val = null;
+				
+				$this->fields[] = $val;
+				break;
 			default:
 				$this->fields[] = $f->value; 
 				break;
@@ -633,7 +643,7 @@ class ADORecordSet_ado extends ADORecordSet {
 		@$rs->MoveNext(); // @ needed for some versions of PHP!
 		
 		if ($this->fetchMode & ADODB_FETCH_ASSOC) {
-			$this->fields = &$this->GetRowAssoc(ADODB_ASSOC_CASE);
+			$this->fields = $this->GetRowAssoc(ADODB_ASSOC_CASE);
 		}
 		return true;
 	}

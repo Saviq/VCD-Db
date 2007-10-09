@@ -1,6 +1,6 @@
 <?php
 /*
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license.
   Whenever there is any discrepancy between the two licenses,
   the BSD license will take precedence.
@@ -22,7 +22,7 @@ if (!defined('ADODB_DIR')) die();
 include_once(ADODB_DIR.'/drivers/adodb-sqlite.inc.php');
 
 class ADODB_sqlitepo extends ADODB_sqlite {
-   public $databaseType = 'sqlitepo';
+   var $databaseType = 'sqlitepo';
 
    function ADODB_sqlitepo()
    {
@@ -36,7 +36,7 @@ class ADODB_sqlitepo extends ADODB_sqlite {
 
 class ADORecordset_sqlitepo extends ADORecordset_sqlite {
 
-   public $databaseType = 'sqlitepo';
+   var $databaseType = 'sqlitepo';
 
    function ADORecordset_sqlitepo($queryID,$mode=false)
    {

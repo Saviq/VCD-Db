@@ -1,6 +1,6 @@
 <?php
 /* 
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim. All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim. All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence. 
@@ -19,26 +19,26 @@ V4.93 10 Oct 2006  (c) 2000-2006 John Lim. All rights reserved.
 if (!defined('ADODB_DIR')) die();
 
 class ADODB_sybase extends ADOConnection {
-	public $databaseType = "sybase";	
-	public $dataProvider = 'sybase';
-	public $replaceQuote = "''"; // string to use to replace quotes
-	public $fmtDate = "'Y-m-d'";
-	public $fmtTimeStamp = "'Y-m-d H:i:s'";
-	public $hasInsertID = true;
-	public $hasAffectedRows = true;
-  	public $metaTablesSQL="select name from sysobjects where type='U' or type='V'";
+	var $databaseType = "sybase";	
+	var $dataProvider = 'sybase';
+	var $replaceQuote = "''"; // string to use to replace quotes
+	var $fmtDate = "'Y-m-d'";
+	var $fmtTimeStamp = "'Y-m-d H:i:s'";
+	var $hasInsertID = true;
+	var $hasAffectedRows = true;
+  	var $metaTablesSQL="select name from sysobjects where type='U' or type='V'";
 	// see http://sybooks.sybase.com/onlinebooks/group-aw/awg0800e/dbrfen8/@ebt-link;pt=5981;uf=0?target=0;window=new;showtoc=true;book=dbrfen8
-	public $metaColumnsSQL = "SELECT c.column_name, c.column_type, c.width FROM syscolumn c, systable t WHERE t.table_name='%s' AND c.table_id=t.table_id AND t.table_type='BASE'";
+	var $metaColumnsSQL = "SELECT c.column_name, c.column_type, c.width FROM syscolumn c, systable t WHERE t.table_name='%s' AND c.table_id=t.table_id AND t.table_type='BASE'";
 	/*
 	"select c.name,t.name,c.length from 
 	syscolumns c join systypes t on t.xusertype=c.xusertype join sysobjects o on o.id=c.id 
 	where o.name='%s'";
 	*/
-	public $concat_operator = '+'; 
-	public $arrayClass = 'ADORecordSet_array_sybase';
-	public $sysDate = 'GetDate()';
-	public $leftOuter = '*=';
-	public $rightOuter = '=*';
+	var $concat_operator = '+'; 
+	var $arrayClass = 'ADORecordSet_array_sybase';
+	var $sysDate = 'GetDate()';
+	var $leftOuter = '*=';
+	var $rightOuter = '=*';
 	
 	function ADODB_sybase() 
 	{			
@@ -151,10 +151,10 @@ class ADODB_sybase extends ADOConnection {
 	}
 	
 	// See http://www.isug.com/Sybase_FAQ/ASE/section6.2.html#6.2.12
-	function &SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
+	function SelectLimit($sql,$nrows=-1,$offset=-1,$inputarr=false,$secs2cache=0) 
 	{
 		if ($secs2cache > 0) {// we do not cache rowcount, so we have to load entire recordset
-			$rs =& ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
+			$rs = ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,$secs2cache);
 			return $rs;
 		}
 		
@@ -165,7 +165,7 @@ class ADODB_sybase extends ADOConnection {
 		if ($offset > 0 && $cnt) $cnt += $offset;
 		
 		$this->Execute("set rowcount $cnt"); 
-		$rs =& ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,0);
+		$rs = ADOConnection::SelectLimit($sql,$nrows,$offset,$inputarr,0);
 		$this->Execute("set rowcount 0");
 		
 		return $rs;
@@ -280,10 +280,10 @@ $ADODB_sybase_mths = array(
 
 class ADORecordset_sybase extends ADORecordSet {	
 
-	public $databaseType = "sybase";
-	public $canSeek = true;
+	var $databaseType = "sybase";
+	var $canSeek = true;
 	// _mths works only in non-localised system
-	public  $_mths = array('JAN'=>1,'FEB'=>2,'MAR'=>3,'APR'=>4,'MAY'=>5,'JUN'=>6,'JUL'=>7,'AUG'=>8,'SEP'=>9,'OCT'=>10,'NOV'=>11,'DEC'=>12);	
+	var  $_mths = array('JAN'=>1,'FEB'=>2,'MAR'=>3,'APR'=>4,'MAY'=>5,'JUN'=>6,'JUL'=>7,'AUG'=>8,'SEP'=>9,'OCT'=>10,'NOV'=>11,'DEC'=>12);	
 
 	function ADORecordset_sybase($id,$mode=false)
 	{
@@ -300,7 +300,7 @@ class ADORecordset_sybase extends ADORecordSet {
 		Get column information in the Recordset object. fetchField() can be used in order to obtain information about
 		fields in a certain query result. If the field offset isn't specified, the next field that wasn't yet retrieved by
 		fetchField() is retrieved.	*/
-	function &FetchField($fieldOffset = -1) 
+	function FetchField($fieldOffset = -1) 
 	{
 		if ($fieldOffset != -1) {
 			$o = @sybase_fetch_field($this->_queryID, $fieldOffset);

@@ -2,7 +2,7 @@
 
 
 /*
-V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights reserved.
+V5.02 24 Sept 2007   (c) 2000-2007 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -12,16 +12,16 @@ V4.93 10 Oct 2006  (c) 2000-2006 John Lim (jlim#natsoft.com.my). All rights rese
 
 class ADODB_pdo_oci extends ADODB_pdo_base {
 
-	public $concat_operator='||';
-	public $sysDate = "TRUNC(SYSDATE)";
-	public $sysTimeStamp = 'SYSDATE';
-	public $NLS_DATE_FORMAT = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
-	public $random = "abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)";
-	public $metaTablesSQL = "select table_name,table_type from cat where table_type in ('TABLE','VIEW')";
-	public $metaColumnsSQL = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; 
+	var $concat_operator='||';
+	var $sysDate = "TRUNC(SYSDATE)";
+	var $sysTimeStamp = 'SYSDATE';
+	var $NLS_DATE_FORMAT = 'YYYY-MM-DD';  // To include time, use 'RRRR-MM-DD HH24:MI:SS'
+	var $random = "abs(mod(DBMS_RANDOM.RANDOM,10000001)/10000000)";
+	var $metaTablesSQL = "select table_name,table_type from cat where table_type in ('TABLE','VIEW')";
+	var $metaColumnsSQL = "select cname,coltype,width, SCALE, PRECISION, NULLS, DEFAULTVAL from col where tname='%s' order by colno"; 
 		
- 	public $_initdate = true;
-	public $_hasdual = true;
+ 	var $_initdate = true;
+	var $_hasdual = true;
 	
 	function _init($parentDriver)
 	{
@@ -32,14 +32,14 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 		}
 	}
 	
-	function &MetaTables($ttype=false,$showSchema=false,$mask=false) 
+	function MetaTables($ttype=false,$showSchema=false,$mask=false) 
 	{
 		if ($mask) {
 			$save = $this->metaTablesSQL;
 			$mask = $this->qstr(strtoupper($mask));
 			$this->metaTablesSQL .= " AND table_name like $mask";
 		}
-		$ret =& ADOConnection::MetaTables($ttype,$showSchema);
+		$ret = ADOConnection::MetaTables($ttype,$showSchema);
 		
 		if ($mask) {
 			$this->metaTablesSQL = $save;
@@ -47,7 +47,7 @@ class ADODB_pdo_oci extends ADODB_pdo_base {
 		return $ret;
 	}
 	
-	function &MetaColumns($table) 
+	function MetaColumns($table) 
 	{
 	global $ADODB_FETCH_MODE;
 	
