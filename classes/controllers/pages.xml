@@ -40,7 +40,6 @@
 	</page>
 		
 	
-	
 	<page standalone="false" auth="false">
 		<name>CategoryList</name>
 		<handler>VCDPageCategoryList</handler>
@@ -48,6 +47,14 @@
 		<action>category</action>
 	</page>
 	
+	<page standalone="false" auth="false">
+		<name>Adult categorylist</name>
+		<handler>VCDPageCategoryListAdult</handler>
+		<template>page.categorylist.tpl</template>
+		<action>adultcategory</action>
+	</page>
+	
+		
 	<page standalone="false" auth="false">
 		<name>Movie</name>
 		<handler>VCDPageItemMovie</handler>

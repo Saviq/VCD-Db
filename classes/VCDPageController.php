@@ -191,6 +191,10 @@ class VCDPageController {
 		 */
 		if (strcmp($action,'cd')==0) {
 
+			if (!isset($_GET['vcd_id'])) {
+				redirect();
+			}
+			
 			$itemId = $_GET['vcd_id'];
 			$category_id = SettingsServices::getCategoryIDByItemId($itemId);
 			

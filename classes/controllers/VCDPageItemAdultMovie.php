@@ -29,6 +29,51 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 			$this->doSourceSiteElements();
 		}
 		
+		// do the pornstar list
+		$this->doActorList();
+		// do the studio item
+		$this->doStudio();
+		// do the adult categories
+		$this->doCategories();
+		
+	}
+	
+	
+	
+	private function doStudio() {
+		$studioObj = PornstarServices::getStudioByMovieID($this->itemObj->getID());
+		if ($studioObj instanceof studioObj ) {
+			$this->assign('itemStudioId', $studioObj->getID());
+			$this->assign('itemStudioName',htmlspecialchars($studioObj->getName()));
+		}
+	}
+	
+	
+	/**
+	 * Assign the adult categories
+	 *
+	 */
+	private function doCategories() {
+		$adultCategories = PornstarServices::getSubCategoriesByMovieID($this->itemObj->getID());
+		if (is_array($adultCategories) && sizeof($adultCategories)>0) {
+			$results = array();
+			foreach ($adultCategories as $cateoryObj) {
+				$results[$cateoryObj->getID()] = $cateoryObj->getName();
+			}
+			$this->assign('itemAdultCategories',$results);
+		}
+	}
+	
+	private function doActorList() {
+
+		$pornstars = PornstarServices::getPornstarsByMovieID($this->itemObj->getID());
+		if (is_array($pornstars)) {
+			$results = array();
+			foreach ($pornstars as $pornstar) {
+				$results[] = array('id' => $pornstar->getID(), 'name' => $pornstar->getName(), 'img' => $pornstar->getImageLink());
+			}
+			$this->assign('itemPornstars',$results);
+		}
 		
 	}
 	

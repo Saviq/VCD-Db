@@ -305,5 +305,5 @@
 	</td>
 </tr>
 </table>
-<script src="includes/js/lytebox.js" type="text/javascript"></script>
-<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
+<script language="javascript" type="text/javascript" src="includes/js/lytebox.js"></script>
+<script language="javascript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
