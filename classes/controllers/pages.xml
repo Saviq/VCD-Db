@@ -50,9 +50,17 @@
 	
 	<page standalone="false" auth="false">
 		<name>Movie</name>
-		<handler>VCDPageMovie</handler>
+		<handler>VCDPageItemMovie</handler>
 		<template>page.item.movie.tpl</template>
 		<action>cd</action>
+	</page>
+	
+	<page standalone="false" auth="false">
+		<name>Adult movie</name>
+		<handler>VCDPageItemAdultMovie</handler>
+		<template>page.item.adultmovie.tpl</template>
+		<action>cd</action>
+		<category>14</category>
 	</page>
 	
 	<page standalone="false" auth="false">
@@ -141,11 +149,13 @@
 		<name>Seenlist</name>
 		<handler>VCDPageUserSeenlist</handler>
 		<template>page.user.seenlist.tpl</template>
+		<action>seen</action>
 	</page>
 	<page standalone="false" auth="true">
 		<name>MoviePicker</name>
 		<handler>VCDPageUserRandomMovie</handler>
 		<template>page.user.randomitem.tpl</template>
+		<action>rand</action>
 	</page>
 	<page standalone="false" auth="true">
 		<name>NewMovieSelection</name>

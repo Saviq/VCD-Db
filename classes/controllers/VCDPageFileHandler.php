@@ -36,12 +36,15 @@ class VCDPageFileHandler extends VCDBasePage {
 		}
 		
 		
-		
-		
-		
+		// We never use the parent functions ..
+		exit();
 	}
 	
 	
+	/**
+	 * Export data
+	 *
+	 */
 	private function doExport() {
 
 		$type = $this->getParam('t');
@@ -50,7 +53,7 @@ class VCDPageFileHandler extends VCDBasePage {
 		
 		switch ($type) {
 			case 'xml':
-				
+				$this->exportXml($filter,$compression);
 				break;
 			
 			case 'xls':
@@ -64,9 +67,50 @@ class VCDPageFileHandler extends VCDBasePage {
 			default:
 				break;
 		}
-		
 	}
 	
+	
+	/**
+	 * Export VCD-db movie data as XML files, optionally compressed
+	 *
+	 * @param string $filter | Use only subset of the data?
+	 * @param string $compression | Which compression to use? 
+	 */
+	private function exportXml($filter=null, $compression=null) {
+		
+		if (!is_null($filter) && strcmp($filter,'thumbs')==0) {
+			
+			switch ($compression) {
+				case 'tar':
+					VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_TGZ);
+					break;
+			
+				case 'zip':
+					VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_ZIP);
+					break;
+					
+				default:
+					VCDXMLExporter::exportThumbnails(VCDXMLExporter::EXP_XML);
+					break;
+			}
+			
+		} else {
+			
+			switch ($compression) {
+				case 'tar':
+					VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_TGZ);
+					break;
+			
+				case 'zip':
+					VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_ZIP);
+					break;
+					
+				default:
+				VCDXMLExporter::exportMovies(VCDXMLExporter::EXP_XML);
+					break;
+			}
+		}
+	}
 	
 	/**
 	 * Export the movie list as Excel document

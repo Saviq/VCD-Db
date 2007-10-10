@@ -801,6 +801,28 @@ class vcd_settings implements ISettings {
 	}
 
 
+	/**
+	 * Get the categoryId of a movie by the movie ID
+	 *
+	 * @param int $itemId | The ID of the item to lookup
+	 * @return int
+	 */
+	public function getCategoryIDByItemId($itemId) {
+		try {	
+		
+			if (!is_numeric($itemId)) {
+				throw new VCDInvalidArgumentException('Item ID must be numeric.');
+			}
+			
+			return $this->SQL->getCategoryIDByItemId($itemId);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	
 	/*
 		Borrowers functions
 	*/

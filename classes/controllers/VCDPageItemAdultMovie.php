@@ -10,14 +10,14 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
- * @version $Id: VCDPageMovie.php 1066 2007-08-15 17:05:56Z konni $
+ * @version $Id: VCDPageItemAdultMovie.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
 require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 
-class VCDPageMovie extends VCDPageBaseItem  {
+class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 	
 	
 	
@@ -27,17 +27,9 @@ class VCDPageMovie extends VCDPageBaseItem  {
 
 		if (!is_null($this->sourceObj))	{
 			$this->doSourceSiteElements();
-			$this->doCast();
 		}
 		
 		
-	}
-	
-	
-	private function doCast() {
-		if (!is_null($this->sourceObj))	{
-			$this->assign('sourceActors', $this->sourceObj->getCast(true));
-		}
 	}
 	
 	

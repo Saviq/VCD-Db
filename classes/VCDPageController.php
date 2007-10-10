@@ -158,16 +158,69 @@ class VCDPageController {
 	 */
 	private function getPageNode($action) {
 		if (is_array(self::$pageNodes)) {
+			$hits = array();
 			foreach (self::$pageNodes as $pageNode) {
 				if (strcmp($pageNode->getAction(),$action)==0) {
+					array_push($hits, $pageNode);
+				}
+			}
+			if (sizeof($hits)==1) {
+				return array_pop($hits);
+			} elseif (sizeof($hits>1)) {
+				return $this->getCorrectNode($action, &$hits);
+			}
+		} 
+		return null;
+	}
+	
+	
+	
+	/**
+	 * When multiple nodes are found for the same action, the correct one has to be
+	 * selected on the condition they where given in the PAGES XML file.
+	 *
+	 * @param string $action | The requested action in the web-application
+	 * @param array $pageNodes | Array of pagenodes that match the requested action.
+	 * @return _VCDPageNode | The correct node
+	 */
+	private function getCorrectNode($action, &$pageNodes) {
+		/*
+		 This time the controller cannot play dum anymore ..
+		 We need to load the cdObj to find out which Controller to load
+		 in the case of page=cd
+		 */
+		if (strcmp($action,'cd')==0) {
+
+			$itemId = $_GET['vcd_id'];
+			$category_id = SettingsServices::getCategoryIDByItemId($itemId);
+			
+			// One of the items in the array has no conditions .. that one is used
+			// if the categoryID condition is not fulfilled.
+			
+			$defaultNode = null;
+			foreach ($pageNodes as $pageNode) {
+				if (is_null($pageNode->getCondition())) {
+					$defaultNode = $pageNode;
+				} 
+				if ($pageNode->getCondition() == $category_id) {
 					return $pageNode;
 				}
 			}
-		} 
-
-		return null;
+					
+			if (is_null($defaultNode)) {
+				throw new VCDProgramException('No default handler defined for action "' . $action . '"');
+			}
+			
+			return $defaultNode;
+			
+		} else {
+			throw new VCDProgramException('Multiple definitions for action "' . $action . '" is invalid.');
+		}
 		
 	}
+ 	
+	
+	
 }
 
 
@@ -185,6 +238,7 @@ class _VCDPageNode {
 	private $handler;
 	private $template = null;
 	private $action;
+	private $condition;
 	
 	/**
 	 * Class constructor
@@ -209,6 +263,9 @@ class _VCDPageNode {
 		}
 		if (isset($element->action)) {
 			$this->action = (string)$element->action;
+		}
+		if (isset($element->category)) {
+			$this->condition = (string)$element->category;
 		}
 	}
 	
@@ -264,6 +321,15 @@ class _VCDPageNode {
 	 */
 	public function isProtected() {
 		return $this->requiresAuth;
+	}
+	
+	/**
+	 * If more than 1 page has the same action .. it may have a condition attribute
+	 *
+	 * @return string
+	 */
+	public function getCondition() {
+		return $this->condition;
 	}
 	
 	

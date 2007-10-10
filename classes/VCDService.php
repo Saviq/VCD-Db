@@ -921,6 +921,23 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	
+	/**
+	 * Get the categoryId of an item by the itemID
+	 *
+	 * @param int $itemId | The itemID to perform the lookup on
+	 * @return int | The category ID of the item
+	 */
+	public static function getCategoryIDByItemId($itemId) {
+		try {
+			
+			return self::Settings()->getCategoryIDByItemId($itemId);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 	/**
 	 * Get all movieCategory objects in use by specific User ID.
 	 * Returns array of movieCategory objects.

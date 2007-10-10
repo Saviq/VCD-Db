@@ -5,6 +5,8 @@
 	global $CURRENT_PAGE parameter.
 */
 
+//$page = new VCDPage($CURRENT_PAGE);
+
 switch ($CURRENT_PAGE) {
 
 	case 'category':
@@ -40,7 +42,8 @@ switch ($CURRENT_PAGE) {
 		
 	case 'register':
 		if (LDAP_AUTH != 1) {
-			require_once(VCDDB_BASE.'/pages/register.php');
+			$page = new VCDPageController($CURRENT_PAGE);
+			//require_once(VCDDB_BASE.'/pages/register.php');
 		} else {
 			redirect();
 		}
@@ -53,6 +56,10 @@ switch ($CURRENT_PAGE) {
 		
 	case 'badlogin':
 		require_once(VCDDB_BASE.'/pages/login_error.php');
+		break;
+		
+	case 'search':
+		$page = new VCDPageController($CURRENT_PAGE);
 		break;
 		
 	case 'reset':
@@ -82,7 +89,15 @@ switch ($CURRENT_PAGE) {
 		if (is_numeric($_GET['pornstar_id'])) {
 			// is this permitted by the administrator ?
 			if (SettingsServices::getSettingsByKey('SITE_ADULT')) {
-				require_once(VCDDB_BASE.'/pages/pornstar.php');
+				//require_once(VCDDB_BASE.'/pages/pornstar.php');
+				
+				$page = new VCDPageController($CURRENT_PAGE);
+				//$page = new VCDPage($CURRENT_PAGE);
+				//include('classes/controllers/VCDPagePornstar.php');
+				//$page = new VCDPagePornstar();
+				
+				//new VCDPagePornstar();
+				
 			} else {
 				redirect();
 				exit();
@@ -105,7 +120,9 @@ switch ($CURRENT_PAGE) {
 		
 			switch ($OPERATION) {
 				case 'settings':
-					require_once(VCDDB_BASE.'/pages/edit_user.php');
+					$page = new VCDPageController('settings');
+					//$page = new VCDPageUserSettings();
+					//require_once(VCDDB_BASE.'/pages/edit_user.php');
 				break;
 
 				case 'new':
@@ -137,7 +154,8 @@ switch ($CURRENT_PAGE) {
 				break;
 				
 				case 'stats':
-					require_once(VCDDB_BASE.'/pages/user_statistics.php');
+					$page = new VCDPageController('stats');
+					//require_once(VCDDB_BASE.'/pages/user_statistics.php');
 				break;
 				
 				

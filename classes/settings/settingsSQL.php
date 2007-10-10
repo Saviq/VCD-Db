@@ -482,6 +482,17 @@ class settingsSQL extends VCDConnection  {
 	}
 
 
+	public function getCategoryIDByItemId($itemId) {
+		try {
+			
+			$query = "SELECT category_id FROM $this->TABLE_vcd WHERE vcd_id = " . $itemId;
+			return $this->db->GetOne($query);
+			
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(),$ex->getCode());
+		}
+	}
+	
 	public function getCategoriesInUseByUserID($user_id) {
 		try {
 
