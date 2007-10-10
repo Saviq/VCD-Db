@@ -43,7 +43,7 @@
 			<tr>
 				{if $isOnWishList}
 					<td>&nbsp;</td>
-					<td><a href="?page=private&amp;o=wishlist">({$translate.wishlist.onlist})</a></td>
+					<td><a href="?page=wishlist">({$translate.wishlist.onlist})</a></td>
 				{else}
 					<td>&nbsp;</td>
 					<td><a href="#" onclick="addtowishlist({$itemId})">{$translate.wishlist.add}</a></td>
