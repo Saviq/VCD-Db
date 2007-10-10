@@ -26,7 +26,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
-		'cast' 		=> '<td class="nm"><a href="/name/nm([^"]+)/">([^<]*)</a></td><td class="ddd"> ... </td><td class="char">([^<]*)</td></tr>',
+		'cast' 		=> '<td class="nm"><a href="/name/nm([^"]+)/">([^<]*)</a></td><td class="ddd"> ... </td><td class="char">(<a href="/character/ch([^<]*)/">([^"]+)</a>|[^<]*)</td>',
 		'runtime' 	=> '([0-9]+) min',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
 		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
@@ -119,7 +119,7 @@ class VCDFetch_imdb extends VCDFetch {
 					$arr = array();
 					foreach ($arrData as $itemArr) {
 						$actor = $itemArr[2];
-						$role = $itemArr[3];
+						$role = strip_tags($itemArr[3]);
 						$result = $actor." .... " .$role;
 						array_push($arr, $result);
 					}
