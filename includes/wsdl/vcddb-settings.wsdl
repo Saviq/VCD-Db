@@ -347,6 +347,9 @@
 	<message name="getCategoryIDByItemIdResponse">
 		<part name="getCategoryIDByItemIdReturn" type="xsd:decimal"/>
 	</message>
+	<message name="getCategoriesInUseByUserID">
+		<part name="user_id" type="xsd:decimal"/>
+	</message>
 	<message name="getCategoriesInUseByUserIDResponse">
 		<part name="getCategoriesInUseByUserIDReturn" type="typens:ArrayOfMovieCategoryObj"/>
 	</message>
