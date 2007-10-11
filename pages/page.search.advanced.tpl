@@ -32,3 +32,34 @@
 </tr>
 </table>
 </form>
+
+
+{if is_array($searchResults) && count($searchResults)>0}
+
+
+<table cellspacing="1" cellpadding="1" border="0" class="displist" width="100%"> 
+<tr>
+	<td class="header">{$translate.movie.title}</td>
+	<td class="header">{$translate.movie.category}</td>
+	<td class="header" nowrap="nowrap">{$translate.movie.year}</td>
+	<td class="header">{$translate.movie.media}</td>
+	<td class="header">{$translate.movie.grade}</td>
+</tr>
+{foreach from=$searchResults item=i}
+<tr>
+	<td><a href="?page=cd&amp;vcd_id={$i.id}">{$i.title}</a></td>
+	<td>{$i.category}</td>
+	<td>{$i.year}</td>
+	<td>{$i.media_type}</td>
+	<td>{$i.rating}</td>
+</tr>		
+{/foreach}
+
+</table>
+
+
+{else}
+
+	<p class="bold">{$translate.search.noresult}</p>
+
+{/if}

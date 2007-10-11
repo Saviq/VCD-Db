@@ -26,6 +26,89 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 		$this->doMediatypeList();
 		$this->doOwnersList();
 		$this->doGradeList();
+		
+		if (!is_null($this->getParam('s'))) {
+			$this->doSearch();
+		}
+	}
+	
+	private function doSearch() {
+
+		$query = base64_decode($this->getParam('s'));
+		$keys = explode(';',$query);
+		$keyset = array();
+		if (is_array($keys)) {
+			foreach ($keys as $key) {
+				if ($key != '') {
+					$pair = explode(':',$key);
+					if (isset($pair[0]) && isset($pair[1])) {
+						$keyset[$pair[0]] = (strcmp($pair[1],'')!=0) ? $pair[1] : null;
+					}
+				}
+			}	
+						
+			// Now we have a key-value pairs to work with ..
+			$title = isset($keyset['title']) ? $keyset['title'] : null;
+			$cat   = isset($keyset['category']) ? $keyset['category'] : null;
+			$year  = isset($keyset['year']) ? $keyset['year'] : null;
+			$media = isset($keyset['mediatype']) ? $keyset['mediatype'] : null;
+			$owner = isset($keyset['owner']) ? $keyset['owner'] : null;
+			$grade = isset($keyset['grade']) ? $keyset['grade'] : null;
+			
+			
+			// Get the search results
+			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade);
+			$this->assign('searchResults',$results);
+			
+			// Set the current search parameters visible
+			$this->doSearchSelection($keyset);
+			
+			
+		} else {
+			redirect('?page=detailed_search');
+		}
+		
+		
+	}
+	
+	
+	private function doSearchSelection($arrSelected) {
+	
+		if (isset($arrSelected['title'])) {
+			$this->assign('searchTitle',$arrSelected['title']);
+		}
+		
+		if (isset($arrSelected['category'])) {
+			$this->assign('selectedCategory',$arrSelected['category']);
+		}
+		
+		if (isset($arrSelected['year'])) {
+			$this->assign('selectedYear',$arrSelected['year']);
+		}
+		
+		if (isset($arrSelected['mediatype'])) {
+			$this->assign('selectedMediatype',$arrSelected['mediatype']);
+		}
+		
+		if (isset($arrSelected['owner'])) {
+			$this->assign('selectedOwner',$arrSelected['owner']);
+		}
+		
+		if (isset($arrSelected['grade'])) {
+			$this->assign('selectedGrade',$arrSelected['grade']);
+		}
+		
+	}
+	
+	public function handleRequest() {
+		
+		$queryBuilder = "";
+		foreach ($_POST as $key => $value) {
+			$queryBuilder .= $key.':'.$value.';';
+		}	
+		redirect('?page=detailed_search&s='.base64_encode($queryBuilder));
+		exit();
+	
 	}
 	
 	private function doGradeList() {
@@ -66,7 +149,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 		$results = array();
 		$results[null] = VCDLanguage::translate('misc.any');
 		for ($i = date("Y"); $i > 1900; $i--) {
-			array_push($results,$i);
+			$results[$i] = $i;
 		}
 		$this->assign('searchYearList', $results);
 	}
