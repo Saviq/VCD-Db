@@ -2534,6 +2534,23 @@ class SoapSettingsProxy extends VCDProxy {
 		}
 	}
 	
+	
+	/**
+	 * Get categoryID on the item by the item ID
+	 *
+	 * @param int $item_id | The item ID
+	 * @return int | The category ID of the item
+	 */
+	public function getCategoryIDByItemId($item_id) {
+		try {
+			
+			return $this->invoke('getCategoryIDByItemId', array('item_id' => $item_id));
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 	/**
 	 * Get all movieCategory objects in use by specific User ID.
 	 * Returns array of movieCategory objects.

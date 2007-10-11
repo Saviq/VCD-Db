@@ -1334,6 +1334,17 @@ class SoapSettingsServices extends SettingsServices {
 	}
 	
 	
+	public static function getCategoryIDByItemId($item_id) {
+		try {
+			
+			return parent::getCategoryIDByItemId($item_id);
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	
 	/**
 	 * Get the count of media's in the specified movie category
 	 *

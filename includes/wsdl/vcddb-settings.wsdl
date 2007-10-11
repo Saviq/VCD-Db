@@ -341,8 +341,11 @@
 	<message name="getBorrowersByUserIDResponse">
 		<part name="getBorrowersByUserIDReturn" type="typens:ArrayOfBorrowerObj"/>
 	</message>
-	<message name="getCategoriesInUseByUserID">
-		<part name="user_id" type="xsd:decimal"/>
+	<message name="getCategoryIDByItemId">
+		<part name="item_id" type="xsd:decimal"/>
+	</message>
+	<message name="getCategoryIDByItemIdResponse">
+		<part name="getCategoryIDByItemIdReturn" type="xsd:decimal"/>
 	</message>
 	<message name="getCategoriesInUseByUserIDResponse">
 		<part name="getCategoriesInUseByUserIDReturn" type="typens:ArrayOfMovieCategoryObj"/>
@@ -813,6 +816,13 @@
 			</documentation>
 			<input message="typens:getMediaTypeByID"/>
 			<output message="typens:getMediaTypeByIDResponse"/>
+		</operation>
+		<operation name="getCategoryIDByItemId">
+			<documentation>
+				Get CategoryID by Item ID
+			</documentation>
+			<input message="typens:getCategoryIDByItemId"/>
+			<output message="typens:getCategoryIDByItemIdResponse"/>
 		</operation>
 		<operation name="getMediaTypeByName">
 			<documentation>
@@ -1465,6 +1475,15 @@
 			</output>
 		</operation>
 		<operation name="getSettingsByID">
+			<soap:operation soapAction="urn:SettingsServicesAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="getCategoryIDByItemId">
 			<soap:operation soapAction="urn:SettingsServicesAction"/>
 			<input>
 				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
