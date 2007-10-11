@@ -50,7 +50,7 @@ class VCDConnection {
 		if (defined('DB_USER')) {
 
 			try {
-				$this->db = &NewADOConnection($this->db_type);
+				$this->db = NewADOConnection($this->db_type);
 
 				// IBM DB2 wants catalog as the first parameter
 				if ($this->db_type == 'db2') {
