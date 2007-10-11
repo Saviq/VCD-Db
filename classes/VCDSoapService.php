@@ -197,7 +197,7 @@ class VCDSoapService extends VCDServices {
 		}
 		$tempUri = '<soap:address location="http://tempuri"/>';
 		$proto = "http" . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "s" : "") . "://";
-		$uri = $proto.$_SERVER['HTTP_HOST'].$_SERVER[PHP_SELF];
+		$uri = $proto.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'];
 		$newUri = "<soap:address location=\"{$uri}\"/>";
 		$wsdlData = str_replace($tempUri,$newUri, file_get_contents($wsdlFile));
 		return VCDUtils::write(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$wsdl, $wsdlData);
