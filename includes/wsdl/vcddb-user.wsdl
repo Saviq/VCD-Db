@@ -1,24 +1,15 @@
-<?xml version='1.0' encoding='UTF-8'?>
-
-<definitions name="http://vcddb.konni.com" 
-	targetNamespace="urn:http://vcddb.konni.com" 
-	xmlns:typens="urn:http://vcddb.konni.com" 
-	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
-	xmlns="http://schemas.xmlsoap.org/wsdl/">
-	<types>
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:typens="urn:http://vcddb.konni.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:http://vcddb.konni.com" name="http://vcddb.konni.com">
+	<wsdl:types>
 		<xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:http://vcddb.konni.com">
-		<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
- 		<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+			<xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+			<xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
 			<xsd:complexType name="ArrayOfString">
-			  <xsd:complexContent>
-				   <xsd:restriction base="SOAP-ENC:Array">
-				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
-				   </xsd:restriction>
-			</xsd:complexContent>
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP-ENC:Array">
+						<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="string[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
 			</xsd:complexType>
 			<xsd:complexType name="userPropertiesObj">
 				<xsd:all>
@@ -28,11 +19,11 @@
 				</xsd:all>
 			</xsd:complexType>
 			<xsd:complexType name="ArrayOfUserPropertiesObj">
-				  <xsd:complexContent>
-				   <xsd:restriction base="SOAP-ENC:Array">
-				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userPropertiesObj[]"/>
-				   </xsd:restriction>
-				  </xsd:complexContent>
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP-ENC:Array">
+						<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userPropertiesObj[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
 			</xsd:complexType>
 			<xsd:complexType name="userObj">
 				<xsd:all>
@@ -51,11 +42,11 @@
 				</xsd:all>
 			</xsd:complexType>
 			<xsd:complexType name="ArrayOfUserUserObj">
-				  <xsd:complexContent>
-				   <xsd:restriction base="SOAP-ENC:Array">
-				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userObj[]"/>
-				   </xsd:restriction>
-				  </xsd:complexContent>
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP-ENC:Array">
+						<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userObj[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
 			</xsd:complexType>
 			<xsd:complexType name="userRoleObj">
 				<xsd:all>
@@ -65,14 +56,14 @@
 				</xsd:all>
 			</xsd:complexType>
 			<xsd:complexType name="ArrayOfUserUserRoleObj">
-				  <xsd:complexContent>
-				   <xsd:restriction base="SOAP-ENC:Array">
-				    <xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userRoleObj[]"/>
-				   </xsd:restriction>
-				  </xsd:complexContent>
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP-ENC:Array">
+						<xsd:attribute ref="SOAP-ENC:arrayType" wsdl:arrayType="typens:userRoleObj[]"/>
+					</xsd:restriction>
+				</xsd:complexContent>
 			</xsd:complexType>
 		</xsd:schema>
-	</types>
+	</wsdl:types>
 	<message name="addProperty">
 		<part name="obj" type="typens:userPropertiesObj"/>
 	</message>
@@ -251,6 +242,7 @@
 			<documentation>
 				Remove specific property from the selected User.
 			</documentation>
+			<input message="typens:deletePropertyOnUser"/>
 			<output message="typens:deletePropertyOnUserResponse"/>
 		</operation>
 		<operation name="deleteUser">
@@ -385,217 +377,217 @@
 		<operation name="addProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="addPropertyToUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="addSession">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="addUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="deleteProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="deletePropertyOnUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="deleteUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="deleteUserRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getActiveUsers">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getAllProperties">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getAllUserRoles">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getAllUsers">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getAllUsersInRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getAllUsersWithProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getDefaultRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getPropertyById">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getPropertyByKey">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getUserByID">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getUserByUsername">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="getUserTopList">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="isValidSession">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="setDefaultRole">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="updateProperty">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 		<operation name="updateUser">
 			<soap:operation soapAction="urn:SoapUserServicesAction"/>
 			<input>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</input>
 			<output>
-				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+				<soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:http://vcddb.konni.com"/>
 			</output>
 		</operation>
 	</binding>
@@ -604,4 +596,4 @@
 			<soap:address location="http://tempuri"/>
 		</port>
 	</service>
-</definitions>
+</wsdl:definitions>
