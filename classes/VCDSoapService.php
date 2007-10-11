@@ -2381,7 +2381,7 @@ class SoapUserServices extends UserServices  {
 			$data = parent::getUserTopList();
 			$fixedArr = array();
 			foreach ($data as $item) {
-				array_push($fixedArr, $item['user_name'].'|'.$item['count']);
+				array_push($fixedArr, $item['username'].'|'.$item['count']);
 			}
 			return $fixedArr;
 			

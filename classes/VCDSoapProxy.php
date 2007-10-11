@@ -1609,7 +1609,8 @@ class SoapUserProxy extends VCDProxy {
 			$data = $this->invoke('getUserTopList', array());
 			$results = array();
 			foreach ($data as $item) {
-				$results[] = explode('|', $item);
+				list($username, $count) = explode('|', $item);
+				$results[] = array('username' => $username, 'count' => $count);
 			}
 			return $results;
 						
