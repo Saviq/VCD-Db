@@ -5,7 +5,7 @@
 
 <p class="outer">
 	<img src="images/icons/transmit.png" border="0"/> {$translate.addmovie.imdb}
-	<form action="{$smarty.server.SCRIPT_NAME}?page=private&amp;o=add&amp;source=webfetch" method="post" name="imdb" id="imdb">
+	<form action="{$smarty.server.SCRIPT_NAME}?page=add&amp;source=webfetch" method="post" name="imdb" id="imdb">
 	<p class="inner">
 		{$translate.addmovie.imdbtitle}:
 		<input type="text" name="searchTitle" id="searchTitle" class="input" size="15"/>&nbsp; 
@@ -17,13 +17,13 @@
 	</form>
 </p>
 
-<p class="outer"><img src="images/icons/film_edit.png" border="0"/> <a href="?page=private&amp;o=add_manually">{$translate.addmovie.manual}</a></p>
+<p class="outer"><img src="images/icons/film_edit.png" border="0"/> <a href="?page=add_manually">{$translate.addmovie.manual}</a></p>
 
-<p class="outer"><img src="images/icons/film_go.png" border="0"/> <a href="?page=private&amp;o=add_listed">{$translate.addmovie.listed}</a></p>
+<p class="outer"><img src="images/icons/film_go.png" border="0"/> <a href="?page=add_listed">{$translate.addmovie.listed}</a></p>
 
 
 <p class="outer"><img src="images/icons/feed.png" border="0"/> {$translate.addmovie.xml}
-<form action="{$smarty.server.SCRIPT_NAME}?page=private&amp;o=add&amp;source=xml" method="post" name="xml" enctype="multipart/form-data">
+<form action="{$smarty.server.SCRIPT_NAME}?page=add&amp;source=xml" method="post" name="xml" enctype="multipart/form-data">
 	<input type="hidden" value="xml" name="xml"/>
 	<p class="inner">
 		{$translate.addmovie.xmlfile}: <input type="file" name="xmlfile" class="input"/>&nbsp;

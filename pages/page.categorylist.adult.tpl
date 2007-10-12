@@ -1,6 +1,8 @@
 {if $byCategory}
+	{assign var='selType' value='category_id'}
 	<h1>Adult films by category</h1>
 {else}
+	{assign var='selType' value='studio_id'}
 	<h1>Adult films by studio</h1>
 {/if}
 
@@ -10,7 +12,7 @@
 	
 <form>
 <span class="bold">Current category</span>&nbsp;
-{html_options id=category name=category options=$currentList selected=$selectedListItem}
+{html_options id=category name=category options=$currentList selected=$selectedListItem onchange="location.href='?page=adultcategory&amp;$selType='+this.value " }
 
 {if $imageMode}
 	(<a href="?page=adultcategory&amp;category_id={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=text">{$translate.movie.textview}</a> / {$translate.movie.imageview})
@@ -19,6 +21,8 @@
 {/if}
 &nbsp; ({$movieCategoryCount} {$translate.misc.movies}) 
 
+
+{$categoryPager}
 
 {if $imageMode}	
 
@@ -37,7 +41,7 @@
 </tr>
 {foreach from=$movieList item=i}
 <tr>
-	<td width="80%"><a href="?page=cd&amp;vcd_id={$i.id}">{$title}</a></td>
+	<td width="80%"><a href="?page=cd&amp;vcd_id={$i.id}">{$i.title}</a></td>
 	<td nowrap="nowrap">{$i.year}</td>
 	<td nowrap="nowrap" align="center">
 	{if $i.screens}

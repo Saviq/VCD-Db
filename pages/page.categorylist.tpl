@@ -30,7 +30,7 @@
 		<table cellspacing="0" cellpadding="0" border="0" width="100%" class="displist">
 		<tr>
 			<td class="header">{$translate.movie.title}</td>
-			<td nowrap="nowrap" class="header">{$translate.movie.year}</td>
+			<td class="header" nowrap="nowrap">{$translate.movie.year}</td>
 			<td class="header" nowrap="nowrap">{$translate.movie.mediatype}</td>
 		</tr>
 		{foreach from=$movieCategoryList item=i}

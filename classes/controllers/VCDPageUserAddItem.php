@@ -69,7 +69,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 						$itemId = $this->getParam('fid');
 						$this->doFetchItem($site, $itemId);
 					}
+					break;
 					
+					
+				case 'xml':
+					$this->doXmlImport();
 					break;
 			
 					
@@ -199,6 +203,10 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 	}
 	
+	
+	
+	private function doXmlImport() {
+	}
 	
 	
 }
