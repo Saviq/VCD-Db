@@ -45,7 +45,7 @@
 					<td><a href="?page=wishlist">({$translate.wishlist.onlist})</a></td>
 				{else}
 					<td>&nbsp;</td>
-					<td><a href="#" onclick="addtowishlist({$itemId})">{$translate.wishlist.add}</a></td>
+					<td><a href="#" onclick="addtowishlist({$itemId});return false;">{$translate.wishlist.add}</a></td>
 				{/if}
 			</tr>
 			{/if}
@@ -55,14 +55,14 @@
 				<td><a href="#" onclick="loadManager({$itemId});return false">{$translate.movie.change}</a></td>
 			</tr>
 			{/if}
-			{if $isAuthenticated || $isOwner}
+			{if $isAuthenticated}
 			<tr>
 				<td>&nbsp;</td>
 				<td>
 				{if $itemSeen}
-					<a href="#"><img src="images/mark_seen.gif" alt="{$translate.seen.notseenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId}, 0)"/></a>{$translate.seen.seenit}
+					<a href="#"><img src="images/mark_seen.gif" alt="{$translate.seen.notseenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId}, 0);return false;"/></a>{$translate.seen.seenit}
 				{else}
-					<a href="#"><img src="images/mark_unseen.gif" alt="{$translate.seen.seenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId}, 1)"/></a>{$translate.seen.notseenit}
+					<a href="#"><img src="images/mark_unseen.gif" alt="{$translate.seen.seenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId}, 1);return false;"/></a>{$translate.seen.notseenit}
 				{/if}
 				</td>
 			</tr>
@@ -73,7 +73,7 @@
 				<td>Play button</td>
 			</tr>
 			<tr>
-				<td colspan="2">Source Logo</td>
+				<td colspan="2">{$itemSourceSiteLogo}</td>
 			</tr>
 			</table>
 
@@ -219,7 +219,7 @@
 	{if !$isAuthenticated}	
 		<span class="bold">{$translate.comments.error}</span>
 	{else}
-		<form name="newcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=addcomment">
+		<form name="newcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
 		<input type="hidden" name="vcd_id" value="{$itemId}"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>
@@ -249,7 +249,7 @@
 			(<i>Private comment</i>)
 		{/if}
 		{if $i.isOwner}
-			<a href="#" onclick="deleteComment({$i.id});return false">
+			<a href="#" onclick="deleteComment({$itemId},{$i.id});return false">
 			<img src="images/icon_del.gif" alt="Delete comment" align="absmiddle" border="0"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>

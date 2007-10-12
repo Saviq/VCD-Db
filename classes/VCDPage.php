@@ -80,7 +80,7 @@ abstract class VCDPage extends Smarty  {
 				return $_POST[$param];
 			} 			
 		} else {
-			if (isset($_GET[$param]) && (!empty($_GET[$param]))) {
+			if (isset($_GET[$param]) && (strcmp($_GET[$param],'')!=0)) {
 				return $_GET[$param];
 			}
 		}

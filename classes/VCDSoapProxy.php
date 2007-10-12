@@ -2850,10 +2850,9 @@ class SoapSettingsProxy extends VCDProxy {
 			$data = $this->invoke('getWishList',array('user_id' => $user_id));
 			$results = array();
 					
-			
 			foreach ($data as $item) {
-				$entry = explode('|',$item);
-				$results[] = array('id' => $entry[0], 'title' => $entry[1], 'mine' => $entry[2]);
+				list($id,$title,$mine) = explode('|',$item);
+				$results[] = array('id' => $id, 'title' => $title, 'mine' => $mine);
 			}
 			
 			return $results;
@@ -3362,7 +3361,7 @@ class VCDSoapTools {
 		if ($data instanceof stdClass ) {
 			$data = (array)$data;
 		}
-		if (!is_array($data)) {
+		if (!is_array($data) || sizeof($data)==0) {
 			return null;
 		}
 		

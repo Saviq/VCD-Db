@@ -88,7 +88,12 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 				case 'delcomment':
 					$this->doDeleteComment();
 					break;
-			
+				case 'seenlist':
+					$this->doSetSeenItem();
+					break;
+				case 'addtowishlist':
+					$this->doAddToWishlist();
+					break;
 				default:
 					break;
 			}
@@ -391,7 +396,11 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 *
 	 */
 	private function doWishlist() {
-		
+		if (VCDUtils::isLoggedIn()) {
+			if (SettingsServices::isOnWishList($this->itemObj->getID())) {
+				$this->assign('isOnWishList',true);		
+			}
+		}
 	}
 	
 	/**
@@ -418,6 +427,12 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	private function doSeenLink() {
 		
+		if (VCDUtils::isLoggedIn() && VCDUtils::getCurrentUser()->getPropertyByKey('SEEN_LIST')) {
+   			$list = SettingsServices::getMetadata($this->itemObj->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_SEENLIST);
+			if (sizeof($list) == 1 && ($list[0]->getMetadataValue() == 1)) {
+				$this->assign('itemSeen',true);
+			}
+		}
 	}
 	
 	/**
@@ -436,6 +451,19 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	private function doSourceSiteLink() {
 		
+		$sourceSiteID = $this->itemObj->getSourceSiteID();
+		$external_id = $this->itemObj->getExternalID();
+		
+		if (is_numeric($sourceSiteID) && strcmp($external_id,'') != 0) {
+			$sourceSiteObj = SettingsServices::getSourceSiteByID($sourceSiteID);	
+			if ($sourceSiteObj instanceof sourceSiteObj ) {
+				$image = "images/logos/".$sourceSiteObj->getImage();
+				$link = str_replace("#", $external_id, $sourceSiteObj->getCommand());
+				$html = "<a href=\"%s\" target=\"_blank\"><img src=\"%s\" border=\"0\"/></a>";
+				$imgstring = sprintf($html, $link, $image);
+				$this->assign('itemSourceSiteLogo',$imgstring);
+			}
+		}
 	}
 	
 	/**
@@ -529,17 +557,58 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 				
 				
 		$comment_id = $this->getParam('cid');
+		$item_id = $this->getParam('vcd_id');
 		if (!is_null($comment_id) && is_numeric($comment_id)) {
 			
 			$commentObj = SettingsServices::getCommentByID($comment_id);
 			if (($commentObj instanceof commentObj) && ($commentObj->getOwnerID() == VCDUtils::getUserID())) {
-				$vcd_id = $commentObj->getVcdID();
 				SettingsServices::deleteComment($comment_id);
-				redirect('?page=cd&vcd_id='.$vcd_id);
+				redirect('?page=cd&vcd_id='.$item_id);
 				exit();
 			}
 		}
 	}
+	
+	
+	/**
+	 * Add or remove item from the users seenlist
+	 *
+	 */
+	private function doSetSeenItem() {
+	
+		$itemId = $this->getParam('vcd_id');
+		$status = $this->getParam('flag');
+		
+		if (VCDUtils::isLoggedIn() && is_numeric($itemId) && is_numeric($status)) {
+			
+			$arr = SettingsServices::getMetadata($itemId, VCDUtils::getUserID(), metadataTypeObj::SYS_SEENLIST);
+			if (is_array($arr) && sizeof($arr) == 1) {
+				// update the Obj
+				$obj = $arr[0];
+				$obj->setMetadataValue($status);
+				SettingsServices::updateMetadata($obj);
+			} else {
+				// create new Obj
+				$obj = new metadataObj(array('',$itemId, VCDUtils::getUserID(), metadataTypeObj::SYS_SEENLIST , $status));
+				SettingsServices::addMetadata($obj);
+			}
+			
+			redirect('?page=cd&vcd_id='.$itemId);
+			exit();
+		}
+	}
+	
+	/**
+	 * Add item to users wishlist
+	 *
+	 */
+	private function doAddToWishlist() {
+		$itemId = $this->getParam('vcd_id');
+		SettingsServices::addToWishList($itemId, VCDUtils::getUserID());
+		redirect("?page=cd&vcd_id=".$itemId);
+		exit();
+	}
+	
 
 }
 ?>

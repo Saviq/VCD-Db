@@ -102,7 +102,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	 * Initilize all the varibles the page needs to calculate which data to display
 	 *
 	 */
-	private function initPage() {
+	protected function initPage() {
 		
 		$this->category_id = $this->getParam('category_id',false,-1);
 		$this->recordsPerPage = SettingsServices::getSettingsByKey("PAGE_COUNT");
@@ -145,7 +145,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	 *
 	 * @return bool
 	 */
-	private function setViewMode() {
+	protected function setViewMode() {
 		$mode = $this->getParam('viewmode');
 		if (is_null($mode)) {
 			return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);

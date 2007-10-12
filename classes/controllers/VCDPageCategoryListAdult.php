@@ -15,6 +15,7 @@
  */
 ?>
 <?php
+require_once(dirname(__FILE__).'/VCDPageCategoryList.php');
 
 class VCDPageCategoryListAdult extends VCDPageCategoryList {
 	

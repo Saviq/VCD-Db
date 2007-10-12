@@ -1681,7 +1681,7 @@ class SoapSettingsServices extends SettingsServices {
 			$results = array();
 			$list = parent::getWishList($user_id);
 			foreach ($list as $item) {
-				array_push($results, $item[0] .'|'.$item[1].'|'.$item[2]);
+				array_push($results, implode('|',$item));
 			}
 			return $results;
 			

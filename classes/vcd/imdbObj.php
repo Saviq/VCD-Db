@@ -146,14 +146,14 @@ class imdbObj extends fetchedObj implements XMLable {
 	 * @return string
 	 */
 	public function getDirectorLink() {
-		$directorLink =  "<a href=\"?page=search&searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
+		$directorLink =  "<a href=\"?page=search&amp;searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
 		$imdb = explode(" ", $this->director);
 		// Create imdb url for director
 		if (isset($imdb[2])) {
-			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_new\">[imdb]</a>";
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_blank\">[imdb]</a>";
 		} elseif(isset($imdb[1])) {
-			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_new\">[imdb]</a>";	} else {
-			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_new\">[imdb]</a>";
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_blank\">[imdb]</a>";	} else {
+			$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_blank\">[imdb]</a>";
 		}
 		return "<strong>".$directorLink."</strong> &nbsp;".$urlid;
 	}
@@ -285,11 +285,11 @@ class imdbObj extends fetchedObj implements XMLable {
 
 				// Create imdb url for actor
 				if (isset($imdb[2])) {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_new\">[imdb]</a>";
+					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_blank\">[imdb]</a>";
 				} elseif(isset($imdb[1])) {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_new\">[imdb]</a>";
+					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_blank\">[imdb]</a>";
 				} else {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_new\">[imdb]</a>";
+					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_blank\">[imdb]</a>";
 				}
 				$strData .= "<span class=\"item\"><strong>$actor</strong>&nbsp;&nbsp;$urlid<br/>$role</span>";
 			}

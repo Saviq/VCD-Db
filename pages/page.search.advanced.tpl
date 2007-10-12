@@ -58,7 +58,7 @@
 </table>
 
 
-{else}
+{elseif $smarty.get.s}
 
 	<p class="bold">{$translate.search.noresult}</p>
 

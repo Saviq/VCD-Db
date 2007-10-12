@@ -852,15 +852,19 @@ class settingsSQL extends VCDConnection  {
 	public function getWishList($user_id) {
 		try {
 
-		$query = "SELECT w.vcd_id, v.title, COUNT(u.user_id) FROM $this->TABLE_wishlist w
+		$query = "SELECT w.vcd_id, v.title, COUNT(u.user_id) AS count FROM $this->TABLE_wishlist w
 				  INNER JOIN $this->TABLE_vcd v ON v.vcd_id = w.vcd_id
 				  LEFT OUTER JOIN $this->TABLE_vcdtousers u ON u.vcd_id = v.vcd_id AND u.user_id = ".$user_id."
 				  WHERE w.user_id = ".$user_id." GROUP BY w.vcd_id, v.title ORDER BY v.title";
 		
 		
 		$rs = $this->db->Execute($query);
+		$results = array();
 		if ($rs && $rs->RecordCount() > 0) {
-			return $rs->GetArray();
+			foreach ($rs as $row) {
+				$results[] = array('id' => $row[0], 'title' => $row[1], 'mine' => $row[2]);
+			}
+			return $results;
 		} else {
 			return null;
 		}

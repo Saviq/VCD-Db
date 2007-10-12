@@ -166,7 +166,7 @@ class VCDPageController {
 			}
 			if (sizeof($hits)==1) {
 				return array_pop($hits);
-			} elseif (sizeof($hits>1)) {
+			} elseif (sizeof($hits)>1) {
 				return $this->getCorrectNode($action, &$hits);
 			}
 		} 
@@ -184,6 +184,7 @@ class VCDPageController {
 	 * @return _VCDPageNode | The correct node
 	 */
 	private function getCorrectNode($action, &$pageNodes) {
+		
 		/*
 		 This time the controller cannot play dum anymore ..
 		 We need to load the cdObj to find out which Controller to load
@@ -193,6 +194,7 @@ class VCDPageController {
 
 			if (!isset($_GET['vcd_id'])) {
 				redirect();
+				exit();
 			}
 			
 			$itemId = $_GET['vcd_id'];

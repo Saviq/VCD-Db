@@ -50,7 +50,7 @@
 	<page standalone="false" auth="false">
 		<name>Adult categorylist</name>
 		<handler>VCDPageCategoryListAdult</handler>
-		<template>page.categorylist.tpl</template>
+		<template>page.categorylist.adult.tpl</template>
 		<action>adultcategory</action>
 	</page>
 	
@@ -170,15 +170,19 @@
 		<template>page.user.add.choices.tpl</template>
 		<action>new</action>
 	</page>
-	
 	<page standalone="false" auth="true">
 		<name>Add Movie</name>
 		<handler>VCDPageUserAddItem</handler>
 		<template>page.user.add.item.tpl</template>
 		<action>add</action>
 	</page>
-	
-	
+	<page standalone="false" auth="true">
+		<name>Wishlist</name>
+		<handler>VCDPageUserWishlist</handler>
+		<template>page.user.wishlist.tpl</template>
+		<action>wishlist</action>
+	</page>
+
 </pages>
 <!-- 
 * Define the modules that can reside within any page 

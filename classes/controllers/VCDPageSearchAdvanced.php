@@ -56,6 +56,13 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			$grade = isset($keyset['grade']) ? $keyset['grade'] : null;
 			
 			
+			// We do not perform the search if no input is specified
+			if (is_null($title) && is_null($cat) && is_null($year) 
+				&& is_null($media) && is_null($owner) && is_null($grade)) {
+					redirect('?page=detailed_search');
+					exit();
+				}
+			
 			// Get the search results
 			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade);
 			$this->assign('searchResults',$results);
@@ -66,6 +73,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			
 		} else {
 			redirect('?page=detailed_search');
+			exit();
 		}
 		
 		

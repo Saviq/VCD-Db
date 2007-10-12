@@ -671,8 +671,8 @@ function deleteMetaType(id) {
 	}
 }
 
-function deleteComment(id) {
-	url = '?page=cd&action=delComment&cid='+id;
+function deleteComment(item_id,id) {
+	url = '?page=cd&vcd_id='+item_id+'&action=delComment&cid='+id;
 	location.href = url;
 }
 
@@ -699,12 +699,12 @@ function wrapTipContent(num) {
 }
 
 function addtowishlist(id) {
-	var url = 'exec_query.php?action=addtowishlist&vcd_id='+id;
+	var url = '?page=cd&vcd_id='+id+'&action=addtowishlist';
 	location.href = url;
 }
 
 function deleteFromWishlist(id) {
-	var url = 'exec_query.php?action=deletefromwishlist&vcd_id='+id;
+	var url = '?page=wishlist&action=delete&vcd_id='+id;
 	location.href = url;
 }
 
@@ -860,7 +860,7 @@ function printView(type) {
 
 
 function markSeen(movie_id, flag) {
-	url = 'exec_query.php?action=seenlist&vcd_id='+movie_id+'&flag='+flag;
+	url = '?page=cd&vcd_id='+movie_id+'&action=seenlist&flag='+flag;
 	location.href = url;
 }
 
