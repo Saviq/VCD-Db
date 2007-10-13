@@ -35,9 +35,15 @@
 			</tr>
 			<tr>
 				<td>{$translate.movie.screenshots}</td>
-				<td>screenshot logic here</td>
+				<td>{if $smarty.get.screens}
+					<a href="?page=cd&amp;vcd_id={$itemId}">{$translate.movie.hide}</a>
+				{elseif $itemScreenshots}
+					<a href="?page=cd&amp;vcd_id={$itemId}&amp;screens=on">{$translate.movie.show}</a>
+				{else}
+					{$translate.movie.noscreens}
+				{/if}
+				</td>
 			</tr>
-			<tr>
 			{if $isAuthenticated}
 			<tr>
 				{if $isOnWishList}
@@ -81,9 +87,11 @@
 		</td>
 	</tr>
 	</table>
-
-	Screenshots enabled logic ..
-
+	{if $smarty.get.screens}
+	<h2>Screenshots</h2>
+	<iframe id="screenshots" width="100%" height="460" src="screens.php?s_id={$itemId}" frameborder="0" scrolling="no"></iframe>
+	{/if}
+		
 
 
 	<h2>{$translate.movie.actors}</h2>
@@ -219,7 +227,7 @@
 	{if !$isAuthenticated}	
 		<span class="bold">{$translate.comments.error}</span>
 	{else}
-		<form name="newcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
+		<form name="addcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
 		<input type="hidden" name="vcd_id" value="{$itemId}"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>

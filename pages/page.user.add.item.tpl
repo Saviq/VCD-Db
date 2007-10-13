@@ -1,4 +1,6 @@
+{if !$smarty.get.site}
 <h1>{$sourceSiteName} - {$smarty.post.searchTitle} ...</h1>
+{/if}
 
 {** Display the search results ... if any **}
 {if is_array($fetchList) && count($fetchList)>0} 

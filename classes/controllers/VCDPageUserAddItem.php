@@ -48,6 +48,24 @@ class VCDPageUserAddItem extends VCDBasePage {
 	
 	public function handleRequest() {
 		
+		
+		// Adding new item in process
+		$action = $this->getParam('action');
+		if (!is_null($action)) {
+			switch ($action) {
+				case 'addadultmovie':
+					$this->doAddAdultMovie();
+					break;
+			
+				default:
+					break;
+			}
+		}
+		
+		
+		
+		
+		// Fetch in process
 		$source = $this->getParam('source');
 		if (!is_null($source)) {
 		
@@ -75,22 +93,13 @@ class VCDPageUserAddItem extends VCDBasePage {
 				case 'xml':
 					$this->doXmlImport();
 					break;
-			
-					
-					
-					
-					
-					
-					
+
 				default:
 					break;
 			}
-			
-			
-		
 		}
 		
-		
+			
 	}
 	
 	
@@ -139,15 +148,138 @@ class VCDPageUserAddItem extends VCDBasePage {
 		 	// Notify the UI that we have an object
 		 	$this->assign('isFetched',true);
 		 	
-		 	$this->assign('title', $fetchedObj->getTitle());
-			
-			
+		 	
+		 	// Tell the UI what kind of fetch item we have
+		 	$this->assign('itemAdult', $this->fetchClass->isAdultSite());
+		 	if ($this->fetchClass->isAdultSite()) {
+		 		$this->doPopulateAdultMovie($fetchedObj);
+		 	} else {
+		 		$this->doPopulateMovie($fetchedObj);
+		 	}
+		 	
+		 	// Store the fetchedObject in session for later usage
+			$_SESSION['_fetchedObj'] = $fetchedObj;
+		 	
+		}
+	}
+	
+	
+	private function doPopulateAdultMovie(adultObj $obj) {
+		
+		$this->assign('itemTitle', $obj->getTitle());
+		$this->assign('itemYear', $obj->getYear());
+		$this->assign('itemId', $obj->getObjectID());
+		
+		// Set the thumbnail
+		if (is_null($obj->getImage())) {
+			$img = '<img src="images/noimage.gif" border="0" class="imgx"/>';
+			$this->assign('itemThumbnail', $img);
+		} else {
+			$src = TEMP_FOLDER.$obj->getImage();
+			$img = '<img src="%s" border="0" class="imgx"/>';
+			$this->assign('itemThumbnail',sprintf($img, $src));
+			$this->assign('itemThumb',$obj->getImage());	
 		}
 		
 		
+		// Set the studios
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.select');
+		$studios = PornstarServices::getAllStudios();
+		foreach ($studios as $studioObj) {
+			$results[$studioObj->getId()] = $studioObj->getName();
+		}
+		$this->assign('studioList',$results);
+		$currStudio = PornstarServices::getStudioByName($obj->getStudio());
+		if ($currStudio instanceof studioObj) {
+			$this->assign('selectedStudio',$currStudio->getID());	
+		}
 		
+		
+		// Set the movie category
+		$results = array();
+		$categories = SettingsServices::getAllMovieCategories();
+		foreach ($categories as $categoryObj) {
+			$results[$categoryObj->getId()] = $categoryObj->getName(true);
+		}
+		asort($results);		
+		$this->assign('itemCategoryList',$results);
+		$this->assign('selectedCategory',SettingsServices::getCategoryIDByName('adult'));
+		
+		
+		
+		// Set the mediaType list
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.select');
+		
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
+			$results[$mediaTypeObj->getmediaTypeID()] = $mediaTypeObj->getDetailedName();
+			if ($mediaTypeObj->getChildrenCount() > 0) {
+				foreach ($mediaTypeObj->getChildren() as $childObj) { 
+					$results[$childObj->getmediaTypeID()] = '&nbsp;&nbsp;'.$childObj->getDetailedName();
+				}
+			}
+		}
+		
+		$this->assign('mediatypeList', $results);
+		
+		
+		
+		// Set the number of cd's list
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.select');
+		for($i=1;$i<11;$i++) {
+			$results[$i] = $i;
+		}
+		$this->assign('cdList',$results);
+		
+		
+		// Set the available adult categories and adult categories from the fetch object
+		$results = array();
+		$fetchedCategories = PornstarServices::getValidCategories($obj->getCategories());
+		if (is_array($fetchedCategories)) {
+			foreach ($fetchedCategories as $adultCategoryObj) {
+				$results[$adultCategoryObj->getId()] = $adultCategoryObj->getName();
+			}
+		}
+		
+		$results2 = array();
+		$subCategories = PornstarServices::getSubCategories();
+		foreach ($subCategories as $adultCategoryObj) {
+			if (!in_array($adultCategoryObj->getName(),$results)) {
+				$results2[$adultCategoryObj->getId()] = $adultCategoryObj->getName();
+			}
+		}
+		
+		$this->assign('subcatsSelectedList',$results);
+		$this->assign('subcatsAvailableList',$results2);
+		
+		
+		
+		// Set the pornstars
+		$results = array();
+		if (is_array($obj->getActors())) {
+			foreach ($obj->getActors() as $id => $name) {
+				$pornstarObj = PornstarServices::getPornstarByName($name);
+					if ($pornstarObj instanceof pornstarObj && $pornstarObj->getName() != '') {
+					$results[] = array('id' => $pornstarObj->getID(), 'name' => $pornstarObj->getName(), 'exists' => true);
+				} else {
+					$results[] = array('name' => $name, 'exists' => false);
+				}
+			}
+			$this->assign('itemActors',$results);
+		}
+	
+		
+		// Set the screenshot count
+		$this->assign('itemScreenshotCount', $obj->getScreenShotCount());
+
 	}
 	
+	
+	private function doPopulateMovie(fetchedObj $obj) {
+		
+	}
 	
 	private function doFetchSiteResults($sourceSite, $searchTitle) {
 				
@@ -206,6 +338,178 @@ class VCDPageUserAddItem extends VCDBasePage {
 	
 	
 	private function doXmlImport() {
+	}
+	
+	
+	
+	private function doAddAdultMovie() {
+		try {
+		
+			// Get the fetchedObj from session and unset it from session
+			$fetchedObj = $_SESSION['_fetchedObj'];
+			unset($_SESSION['_fetchedObj']);
+	
+	
+			// Create the basic CD obj
+			$basic = array("", $_POST['title'], $_POST['category'], $_POST['year']);
+			$vcd = new vcdObj($basic);
+	
+			// Add 1 instance
+			$vcd->addInstance(VCDUtils::getCurrentUser(), SettingsServices::getMediaTypeByID($_POST['mediatype']), $_POST['cds'], mktime());
+	
+			// Set the categoryObj
+			$vcd->setMovieCategory(SettingsServices::getMovieCategoryByID($_POST['category']));
+	
+	
+			// Add the thumbnail as a cover if any was found on IMDB
+			if (isset($_POST['thumbnail'])) {
+				$cover = new cdcoverObj();
+	
+				// Get a Thumbnail CoverTypeObj
+				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
+				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
+				$cover->setCoverTypeName("thumbnail");
+	
+	
+				$cover->setFilename($_POST['thumbnail']);
+				$vcd->addCovers(array($cover));
+			}
+	
+	
+			// Set the source site
+			$sourceSiteObj = SettingsServices::getSourceSiteByID($fetchedObj->getSourceSiteID());
+			if ($sourceSiteObj instanceof sourceSiteObj ) {
+				$vcd->setSourceSite($sourceSiteObj->getsiteID(), $_POST['id']);
+			}
+	
+			// Set the adult studio if any
+			if (isset($_POST['studio']) && is_numeric($_POST['studio'])) {
+				$vcd->setStudioID($_POST['studio']);
+			}
+	
+			// Associate the existing pornstars to the CD
+	
+			// Set the adult categories
+			if (isset($_POST['id_list'])) {
+	     		$adult_categories = split('#',$_POST['id_list']);
+	
+	     		if (sizeof($adult_categories) > 0) {
+					foreach ($adult_categories as $adult_catid) {
+						$catObj = PornstarServices::getSubCategoryByID($adult_catid);
+						if ($catObj instanceof porncategoryObj ) {
+							$vcd->addAdultCategory($catObj);
+						}
+	
+					}
+				}
+	     	}
+	
+	
+	
+			if (isset($_POST['pornstars'])) {
+				$pornstars = array_unique($_POST['pornstars']);
+				foreach ($pornstars as $pornstar_id) {
+					$vcd->addPornstars(PornstarServices::getPornstarByID($pornstar_id));
+				}
+			}
+	
+	
+	
+			// and the new ones after we create them
+			if (isset($_POST['pornstars_new'])) {
+				$pornstars_new = array_unique($_POST['pornstars_new']);
+				foreach ($pornstars_new as $new_names) {
+					$vcd->addPornstars(PornstarServices::addPornstar(new pornstarObj(array("",$new_names, "","",""))));
+				}
+			}
+	
+	
+			// Check what images to fetch
+			$screenFiles = array();
+			if (isset($_POST['imagefetch'])) {
+				$imagefetchArr = $_POST['imagefetch'];
+	
+				foreach ($imagefetchArr as $image_type) {
+					if (strcmp($image_type, "screenshots") == 0) {
+	
+						if (isset($_POST['screenshotcount'])) {
+							$screencount = $_POST['screenshotcount'];
+							$screenFiles = $fetchedObj->getScreenShotImages();
+						}
+	
+	
+					} else {
+	
+						// Fetch the image from the sourceSite
+						$path = $fetchedObj->getImageLocation($image_type);
+						$image_name = VCDUtils::grabImage($path);
+	
+						$cover = new cdcoverObj();
+						$coverTypeObj = CoverServices::getCoverTypeByName($image_type);
+						$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
+						$cover->setCoverTypeName($image_type);
+	
+						$cover->setFilename($image_name);
+	
+						$vcd->addCovers(array($cover));
+	
+					}
+				}
+	
+			}
+	
+	
+	
+			// Forward the movie to the Business layer
+			try {
+				$new_id = MovieServices::addVcd($vcd);
+			} catch (Exception $ex) {
+				VCDException::display($ex, true);
+			}
+	
+			// Was I supposed to grab some screenshots ?
+			if (sizeof($screenFiles) > 0) {
+	
+				// Does the destination folder exist?
+				if (!fs_is_dir(ALBUMS.$new_id)) {
+					if (fs_mkdir(ALBUMS.$new_id, 0755)) {
+	
+						foreach ($screenFiles as $screenshotImage) {
+							VCDUtils::grabImage($screenshotImage, false, ALBUMS.$new_id."/");
+						}
+	
+						// Mark thumbnails to movie in DB
+						MovieServices::markVcdWithScreenshots($new_id);
+	
+					} else {
+						throw new VCDProgramException("Could not create directory ".ALBUMS.$new_id."<break>Check permissions");
+					}
+				}
+	
+	
+			}
+	
+			// Insert the user comments if any ..
+			if (isset($_POST['comment']) && (strlen($_POST['comment']) > 1)) {
+				$is_private = 0;
+				if (isset($_POST['private'])) {
+					$is_private = 1;
+				}
+	
+				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($_POST['comment']), $is_private));
+				SettingsServices::addComment($commObj);
+			}
+	
+	
+			if (is_numeric($new_id) && $new_id != -1) {
+				redirect("?page=cd&vcd_id=".$new_id);
+				exit();
+			}
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
+		
 	}
 	
 	

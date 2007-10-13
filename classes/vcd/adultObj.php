@@ -83,7 +83,7 @@ class adultObj extends fetchedObj implements XMLable {
 	/**
 	 * Get the studio name of the fetched movie.
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	public function getStudio() {
 		return $this->studioName;

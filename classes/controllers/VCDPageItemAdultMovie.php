@@ -35,11 +35,27 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 		$this->doStudio();
 		// do the adult categories
 		$this->doCategories();
+		// Set the screenshot view option
+		$this->doScreenshots();
 		
 	}
 	
 	
+	/**
+	 * Assign screenshots if any
+	 *
+	 */
+	private function doScreenshots() {
+		if (MovieServices::getScreenshots($this->itemObj->getID()) ) {
+			$this->assign('itemScreenshots',true);
+		}
+	}
 	
+	
+	/**
+	 * Assign the studio item
+	 *
+	 */
 	private function doStudio() {
 		$studioObj = PornstarServices::getStudioByMovieID($this->itemObj->getID());
 		if ($studioObj instanceof studioObj ) {
@@ -64,6 +80,10 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 		}
 	}
 	
+	/**
+	 * Assign the actor list
+	 *
+	 */
 	private function doActorList() {
 
 		$pornstars = PornstarServices::getPornstarsByMovieID($this->itemObj->getID());
