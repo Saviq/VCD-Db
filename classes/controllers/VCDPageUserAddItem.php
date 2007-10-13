@@ -338,6 +338,7 @@ class VCDPageUserAddItem extends VCDBasePage {
 	
 	
 	private function doXmlImport() {
+		
 	}
 	
 	
