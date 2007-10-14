@@ -737,8 +737,8 @@ function checkupload(formvalue) {
 	}
 }
 
-function clearXML(filename) {
-	var url = 'exec_query.php?action=cleanxml&filename='+filename;
+function clearXML() {
+	var url = '?page=add&source=xml&action=cleanup';
 	location.href = url;
 }
 

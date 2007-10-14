@@ -104,7 +104,12 @@ class VCDPageAuthenticate extends VCDBasePage {
 			}
 			
 			// Redirect to referee page - N.B. HTTP_REFERER cannot always be trusted
-			header("Location: ".$_SERVER['HTTP_REFERER'].""); /* Redirect browser */ 
+			// Redirect to the frontpage is authentication comes from the register page ..
+			if (!strpos($_SERVER['HTTP_REFERER'],'register')) {
+				header("Location: ".$_SERVER['HTTP_REFERER'].""); /* Redirect browser */ 	
+			} else {
+				redirect();
+			}
 			exit();
 			
 			

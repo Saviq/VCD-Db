@@ -367,6 +367,7 @@ class VCDPageFileHandler extends VCDBasePage {
 				} else {
 					$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.COVER_PATH.$cover->getFilename();
 				}
+				
 				$this->streamFile($fullpath);
 				
 			}

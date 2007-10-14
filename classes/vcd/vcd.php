@@ -335,7 +335,7 @@ class vcd_movie implements IVcd  {
                             if (fs_file_exists($filename)) {
 
                                 $coverObj->setFilesize(fs_filesize($filename));
-                                if (strcmp($coverObj->getCoverTypeName(), "thumbnail") == 0) {
+                                if (strcmp(strtolower($coverObj->getCoverTypeName()), "thumbnail") == 0) {
                                 	fs_rename($filename, THUMBNAIL_PATH . $newname);
                                 } else {
                                 	fs_rename($filename, COVER_PATH . $newname);
@@ -1233,7 +1233,7 @@ class vcd_movie implements IVcd  {
 
 					// Shorten the titles and delete the parent entry
 					$arrList = array();
-					$len = 30;
+					$len = 20;
 					foreach ($arr as $vcdObj) {
 						if ($vcdObj->getID() != $vcd_id) {
 							$vcdObj->setTitle(VCDUtils::shortenText($vcdObj->getTitle(), $len));

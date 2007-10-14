@@ -200,7 +200,7 @@
 		{/foreach}	
 		</ul>
 	{else}
-		<li>{$translate.movie.nocovers}</li>
+		<ul><li>{$translate.movie.nocovers}</li></ul>
 	{/if}
 
 
@@ -215,7 +215,15 @@
 	</ul>
 	</div>
 	<br/>
-	<div id="similar">Similar logic
+	
+	<div id="similar">
+	{if is_array($itemSimilar) && count($itemSimilar)}
+		<h2>{$translate.movie.similar}</h2>
+		<form name="sim" action="get">
+			{html_options name=similar options=$itemSimilar onchange="goSimilar(this.form)"}
+		</form>
+		<br/>
+	{/if}
 	</div>
 	
 	

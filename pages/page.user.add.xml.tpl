@@ -38,13 +38,13 @@ function endCall() {
 	alert('Import completed.');
 }
 	 
- function doCall() {
- 	var xmlfile = document.getElementById('xml_filename').value;
+function doCall() {
+	var xmlfile = document.getElementById('xml_filename').value;
   	var xmlthumbsfile = document.getElementById('xml_thumbfilename').value;
   	for (i=0; i<numDocs;i++) {
 		x_VCDXMLImporter.addMovie(xmlfile, i, xmlthumbsfile, movie_cb); 		
-    }
-  }
+	}
+}
 {/literal}
 </script>
    	
@@ -60,16 +60,16 @@ function endCall() {
 <br/><br/>
 </p>
 
-<form name="thumbupload" action="index.php?page=add&source=xml" method="post" enctype="multipart/form-data">
+<form name="thumbupload" action="index.php?page=add&amp;source=xml" method="post" enctype="multipart/form-data">
 &nbsp;&nbsp;&nbsp;
 <input type="button" class="input" id="xmlClick" value="{$translate.misc.confirm}" onclick="_doCall()"/>
-&nbsp; <input type="button" id="xmlCancel" onclick="clearXML('{$importXmlFilename}')" value="{$translate.misc.cancel}" class="input"/>
+&nbsp; <input type="submit" id="xmlCancel" name="xmlCancel" value="{$translate.misc.cancel}" class="input"/>
 <input type="hidden" name="xml_filename" id="xml_filename" value="{$importXmlFilename}"/>
 <input type="hidden" name="xml_thumbfilename" id="xml_thumbfilename" value="{$importXmlThumbnailFilename}"/>
 
 
    
-{if $importThumbnails}
+{if !$importThumbnails}
 <p>
     <span class="bold" style="color:red">{$translate.misc.attention}</span><br/>
     {$translate.xml.info2}
@@ -118,7 +118,7 @@ function endCall() {
 {if is_array($importTitles) && count($importTitles)>0}
 <ul>
 	{foreach from=$importTitles item=title}
-	<li>{$title}</li>
+	<li>{$title|escape}</li>
 	{/foreach}
 </ul>
 {/if}

@@ -45,7 +45,10 @@ class VCDPageUserAddItem extends VCDBasePage {
 	}
 	
 	
-	
+	/**
+	 * Handle requests to the controller
+	 *
+	 */
 	public function handleRequest() {
 		
 		
@@ -91,6 +94,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 					
 					
 				case 'xml':
+					
+					if (!is_null($this->getParam('xmlCancel',true))) {
+						$this->doXmlCancel();
+					}
+					
 					$this->doXmlImport();
 					break;
 
@@ -164,6 +172,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Populate the confirmation page by the fetched values.
+	 *
+	 * @param adultObj $obj
+	 */
 	private function doPopulateAdultMovie(adultObj $obj) {
 		
 		$this->assign('itemTitle', $obj->getTitle());
@@ -281,6 +294,12 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 	}
 	
+	/**
+	 * Show the searchresults of the fetched object
+	 *
+	 * @param string $sourceSite | The alias of the sourcesite
+	 * @param string $searchTitle | The search title used
+	 */
 	private function doFetchSiteResults($sourceSite, $searchTitle) {
 				
 		
@@ -317,6 +336,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 	
 	
 	
+	/**
+	 * Initialize the fetch
+	 *
+	 * @param string $sourceSite | The alias of the sourceSite being used
+	 */
 	private function doInitFetch($sourceSite) {
 	
 		// Load the correct fetch class
@@ -337,12 +361,96 @@ class VCDPageUserAddItem extends VCDBasePage {
 	
 	
 	
+	/**
+	 * Show contents of the imported XML file.
+	 *
+	 */
 	private function doXmlImport() {
+		try {
+			
+			$xmlImportedFileName = "";
+    		$xmlImportedThumbsFileName = "";
+
+    		
+			// Check for the XML movie file name.
+			if (!is_null($this->getParam('xml_filename',true))) {
+				$xmlImportedFileName = $this->getParam('xml_filename',true);
+			} else {
+				$xmlImportedFileName = VCDXMLImporter::validateXMLMovieImport();
+			}
+			   
+			if (strcmp($xmlImportedFileName, "") == 0) {
+				redirect('?page=new');
+				exit();
+    		}
+    		
+    		$xmlMovieCount = VCDXMLImporter::getXmlMovieCount($xmlImportedFileName);
+    		$hasThumbs = false;
+    	
+    		/** Check for uploaded thumbnails  **/	
+    		if (!is_null($this->getParam('thumbsupdate',true))) {
+    			try {
+    				
+    				$xmlImportedThumbsFileName = VCDXMLImporter::validateXMLThumbsImport();
+    				$hasThumbs = true;
+    				
+    			} catch (Exception $ex) {
+    				VCDException::display($ex->getMessage());
+    			}
+    		}
+        
+	    
+    		// Get the titles from the imported XML document
+    		$xmltitles = VCDXMLImporter::getXmlTitles($xmlImportedFileName);
+    		if (!is_array($xmltitles) || sizeof($xmltitles) == 0) {
+    			$this->assign('importError',true);
+    			return;
+    		}
+    		
+    		
+    		// Assign import status to the UI
+    		$this->assign('importTranslateCount', sprintf(VCDLanguage::translate('xml.contains'),sizeof($xmltitles)));
+    		$this->assign('importXmlFilename', $xmlImportedFileName);    		
+    		$this->assign('importXmlThumbnailFilename',$xmlImportedThumbsFileName);
+   			$this->assign('importThumbnails',$hasThumbs);
+   			$this->assign('importTitles', $xmltitles);
+   			$this->assign('importMovieCount',sizeof($xmltitles));
+    		
+			
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
+		}
+	}
+	
+	
+	
+	/**
+	 * Cancel XML Import and delete Xml files in upload folder
+	 *
+	 */
+	private function doXmlCancel() {
+		
+		$xmlFile = $this->getParam('xml_filename',true);
+		$xmlThumbFile = $this->getParam('xml_thumbfilename',true);
+		if (!is_null($xmlFile)) {
+			unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$xmlFile);
+		}
+		if (!is_null($xmlThumbFile)) {
+			unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$xmlThumbFile);
+		}
+		redirect('?page=new');
+		exit();
 		
 	}
 	
 	
 	
+	/**
+	 * Add adult movie to the database
+	 *
+	 */
 	private function doAddAdultMovie() {
 		try {
 		

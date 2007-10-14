@@ -3,6 +3,14 @@
 {if !$registrationOpen}
 	<p>{$translate.register.disabled}</p>
 	
+
+{elseif $registrationSuccess}
+
+<p class="bold">
+{$registrationUsername}, {$translate.register.ok}
+</p>
+
+	
 {else}
 
 <!-- This is a comment  -->
