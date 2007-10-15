@@ -138,8 +138,6 @@
 		<template>page.user.mymovies.tpl</template>
 		<action>movies</action>
 	</page>
-		
-	
 	<page standalone="false" auth="true">
 		<name>Statistics</name>
 		<handler>VCDPageUserStatistics</handler>
@@ -177,11 +175,26 @@
 		<action>add</action>
 	</page>
 	<page standalone="false" auth="true">
+		<name>Add movie manually</name>
+		<handler>VCDPageUserAddItemManually</handler>
+		<template>page.user.add.item.manually.tpl</template>
+		<action>add_manually</action>
+	</page>
+	
+	<page standalone="false" auth="true">
 		<name>Wishlist</name>
 		<handler>VCDPageUserWishlist</handler>
 		<template>page.user.wishlist.tpl</template>
 		<action>wishlist</action>
 	</page>
+	
+	<page standalone="true" auth="true">
+		<name>Manager</name>
+		<handler>VCDPageItemManager</handler>
+		<template>window.manager.tpl</template>
+		<action>manager</action>
+	</page>
+	
 
 </pages>
 <!-- 
