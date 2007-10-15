@@ -22,6 +22,12 @@ class VCDPageRegister extends VCDBasePage  {
 
 		parent::__construct($node);
 		
+		// Already logged in user has no business using this page ..
+		if (VCDUtils::isLoggedIn()) {
+			redirect();
+			exit();
+		}
+		
 		
 		// Check if registration is enabled
 		$canRegister = SettingsServices::getSettingsByKey("ALLOW_REGISTRATION");
