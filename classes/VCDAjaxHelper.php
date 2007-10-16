@@ -163,6 +163,36 @@ class VCDAjaxHelper {
 			throw $ex;
 		}
 	}
+	
+	
+	public static function getRss($rss_id) {
+	
+		$results = array();
+		$rssFetch = new lastRSS(CACHE_FOLDER, RSS_CACHE_TIME);
+		$obj = SettingsServices::getRssfeed($rss_id);
+		$rss = $rssFetch->Get($obj->getFeedUrl());
+		if ($rss && $rss['items_count'] > 0) {
+			foreach ($rss['items'] as $item) {
+	
+				$hover = $item['description'];
+				$title = $item['title'];
+				$link  = $item['link'];
+				
+				// Sanitize the hover text to keep the javascript good
+				$h = str_replace('&#039;', '', $hover);
+            	$h = str_replace("'", '', $h);
+            	$h = str_replace("\"", '', $h);
+				$h = str_replace("&apos;", '', $h);
+            	$h = str_replace(chr(13), '', $h);
+            	$h = str_replace(chr(10), '', $h);
+            	$hover = $h;
+				
+				$results[] = array('title' => $title, 'link' => $link, 'hover' => $hover);
+			}
+		}
+		return $results;	
+	}
+	
 }
 
 ?>
