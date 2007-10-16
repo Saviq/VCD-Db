@@ -27,10 +27,6 @@
  ======================================================================
 */
 
-/**
-* lastRSS
-* Simple yet powerfull PHP class to parse RSS files.
-*/
 class lastRSS {
 	// -------------------------------------------------------------------
 	// Public properties
@@ -52,10 +48,44 @@ class lastRSS {
 	private $textinputtags = array('title', 'description', 'name', 'link');
 	private $rsscp;
 
+	private $cache_time;
+	private $cache_dir;
+	
+	public function __construct($cachedir=null, $cachetime=null) {
+		if (!is_null($cachedir)) {
+			$this->cache_dir = $cachedir;
+		}
+		if (!is_null($cachetime)) {
+			$this->cache_time = $cachetime;
+		}
+	}
+	
+	
+	/**
+	 * Check if requested rss feed is available in the cache
+	 *
+	 * @param unknown_type $rss_url
+	 */
+	public function isCached($rss_url) {
+		if (!isset($this->cache_dir)) {
+			return false;
+		}
+		
+		if ($this->cache_dir != '') {
+			$cache_file = $this->cache_dir . '/rsscache_' . md5($rss_url);
+			$timedif = @(time() - filemtime($cache_file));
+			if ($timedif < $this->cache_time) {
+				// cached file is fresh enough, return true
+				return true;
+			}
+		}
+		return false;	
+	}
+	
 	// -------------------------------------------------------------------
 	// Parse RSS file and returns associative array.
 	// -------------------------------------------------------------------
-	function Get ($rss_url) {
+	public function Get ($rss_url) {
 		// If CACHE ENABLED
 		if ($this->cache_dir != '') {
 			$cache_file = $this->cache_dir . '/rsscache_' . md5($rss_url);
@@ -89,7 +119,7 @@ class lastRSS {
 	// Modification of preg_match(); return trimed field with index 1
 	// from 'classic' preg_match() array output
 	// -------------------------------------------------------------------
-	function my_preg_match ($pattern, $subject) {
+	private function my_preg_match ($pattern, $subject) {
 		// start regullar expression
 		preg_match($pattern, $subject, $out);
 
@@ -116,7 +146,7 @@ class lastRSS {
 	// -------------------------------------------------------------------
 	// Replace HTML entities &something; by real characters
 	// -------------------------------------------------------------------
-	function unhtmlentities ($string) {
+	public function unhtmlentities ($string) {
 		// Get HTML entities table
 		$trans_tbl = get_html_translation_table (HTML_ENTITIES, ENT_QUOTES);
 		// Flip keys<==>values
@@ -131,7 +161,7 @@ class lastRSS {
 	// Parse() is private method used by Get() to load and parse RSS file.
 	// Don't use Parse() in your scripts - use Get($rss_file) instead.
 	// -------------------------------------------------------------------
-	function Parse ($rss_url) {
+	private function Parse ($rss_url) {
 		// Open and load RSS file
 		if ($f = @fopen($rss_url, 'r')) {
 			$rss_content = '';
