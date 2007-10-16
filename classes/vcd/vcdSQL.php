@@ -992,7 +992,7 @@ class vcdSQL extends VCDConnection {
 	}
 
 
-	public function getSimilarMovies($movie_name, $category_id) {
+	public function getSimilarMovies($movie_name, $category_id, $vcd_id) {
 		try {
 
 			$num = 5;
@@ -1000,7 +1000,7 @@ class vcdSQL extends VCDConnection {
 
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
 					  WHERE v.title LIKE ".$this->db->qstr($searchString)."
-					  AND v.category_id = ".$category_id." ORDER BY v.title";
+					  AND v.category_id = ".$category_id." AND v.vcd_id <> {$vcd_id} ORDER BY v.title";
 
 			$rs = $this->db->Execute($query);
 			$arrVcdObj = array();

@@ -24,7 +24,9 @@ class VCDFrontPage extends VCDBasePage {
 		parent::__construct($node);
 		
 		
-		
+		if (VCDUtils::isLoggedIn()) {
+			$this->doUserRssList();
+		}
 		
 				
 		/*
@@ -35,6 +37,29 @@ class VCDFrontPage extends VCDBasePage {
 		
 	}
 	
+	
+	
+	private function doUserRssList() {
+		
+		$arr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), 'frontrss');
+		if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj) {
+			$feedstring = $arr[0]->getMetadataValue();
+			$feedlist = split("#", $feedstring);
+			$rsscount = sizeof($feedlist);
+			
+			
+			$results = array();
+			foreach ($feedlist as $feedItem) {
+				$obj = SettingsServices::getRssfeed($feedItem);
+				$results[$obj->getId()] = array('name' => $obj->getName(), 'url' => $obj->getFeedUrl());
+			}
+			
+			$this->assign('frontpageFeeds', $results);
+			
+		}
+		
+		
+	}
 	
 	
 	

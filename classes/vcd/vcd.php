@@ -1227,25 +1227,10 @@ class vcd_movie implements IVcd  {
 				// Find out this movie's details
 				$obj = $this->getVcdByID($vcd_id);
 				if ($obj instanceof vcdObj) {
-					$title  = $obj->getTitle();
-					$cat_id = $obj->getCategoryID();
-					$arr = $this->SQL->getSimilarMovies($title, $cat_id);
-
-					// Shorten the titles and delete the parent entry
-					$arrList = array();
-					$len = 20;
-					foreach ($arr as $vcdObj) {
-						if ($vcdObj->getID() != $vcd_id) {
-							$vcdObj->setTitle(VCDUtils::shortenText($vcdObj->getTitle(), $len));
-							array_push($arrList, $vcdObj);
-						}
-					}
-					unset($arr);
-					return $arrList;
+					return $this->SQL->getSimilarMovies($obj->getTitle(), $obj->getCategoryID(), $vcd_id);
 				}
 
 				return null;
-
 			}
 
 			return null;

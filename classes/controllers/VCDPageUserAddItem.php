@@ -56,6 +56,10 @@ class VCDPageUserAddItem extends VCDBasePage {
 		$action = $this->getParam('action');
 		if (!is_null($action)) {
 			switch ($action) {
+				case 'addmovie':
+					$this->doAddMovie();
+					break;
+					
 				case 'addadultmovie':
 					$this->doAddAdultMovie();
 					break;
@@ -115,17 +119,24 @@ class VCDPageUserAddItem extends VCDBasePage {
 	 * Display selected fetched object
 	 *
 	 */
-	private function doFetchItem($sourceSite, $sourceId) {
+	private function doFetchItem($sourceSite, $sourceId, &$_foundObj=null) {
 		
 		$this->doInitFetch($sourceSite);
 		
 		if (!is_null($this->fetchClass)) {
 			
-			// Initilize the fetched object
-			$this->fetchClass->fetchItemByID($sourceId);
-		 	$this->fetchClass->fetchValues();
-		 	$fetchedObj = $this->fetchClass->getFetchedObject();
-		 	$fetchedObj->setSourceSite($this->sourceSiteObj->getsiteID());
+			if (!is_null($_foundObj)) {
+					$fetchedObj = $_foundObj;
+			} else {
+				// Initilize the fetched object
+				$this->fetchClass->fetchItemByID($sourceId);
+			 	$this->fetchClass->fetchValues();
+			 	$fetchedObj = $this->fetchClass->getFetchedObject();
+			 	$fetchedObj->setSourceSite($this->sourceSiteObj->getsiteID());
+			}
+		
+			
+			
 		 	
 		 	
 		 	// Handle the thumbnail
@@ -169,6 +180,63 @@ class VCDPageUserAddItem extends VCDBasePage {
 			$_SESSION['_fetchedObj'] = $fetchedObj;
 		 	
 		}
+	}
+	
+	
+	private function doPopulateCommonFields(fetchedObj $obj) {
+
+		$this->assign('itemTitle', $obj->getTitle());
+		$this->assign('itemYear', $obj->getYear());
+		$this->assign('itemId', $obj->getObjectID());
+		
+		
+		// Set the thumbnail
+		if (is_null($obj->getImage())) {
+			$img = '<img src="images/noimage.gif" border="0" class="imgx"/>';
+			$this->assign('itemThumbnail', $img);
+		} else {
+			$src = TEMP_FOLDER.$obj->getImage();
+			$img = '<img src="%s" border="0" class="imgx"/>';
+			$this->assign('itemThumbnail',sprintf($img, $src));
+			$this->assign('itemThumb',$obj->getImage());	
+		}
+		
+		// Set the movie category
+		$results = array();
+		$categories = SettingsServices::getAllMovieCategories();
+		foreach ($categories as $categoryObj) {
+			$results[$categoryObj->getId()] = $categoryObj->getName(true);
+		}
+		asort($results);
+		$results = array(null => VCDLanguage::translate('misc.select')) + $results;
+		$this->assign('itemCategoryList',$results);
+		
+		
+		// Set the mediaType list
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.select');
+		
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
+			$results[$mediaTypeObj->getmediaTypeID()] = $mediaTypeObj->getDetailedName();
+			if ($mediaTypeObj->getChildrenCount() > 0) {
+				foreach ($mediaTypeObj->getChildren() as $childObj) { 
+					$results[$childObj->getmediaTypeID()] = '&nbsp;&nbsp;'.$childObj->getDetailedName();
+				}
+			}
+		}
+		
+		$this->assign('mediatypeList', $results);
+		
+		
+		
+		// Set the number of cd's list
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.select');
+		for($i=1;$i<11;$i++) {
+			$results[$i] = $i;
+		}
+		$this->assign('cdList',$results);	
+		
 	}
 	
 	
@@ -290,7 +358,40 @@ class VCDPageUserAddItem extends VCDBasePage {
 	}
 	
 	
-	private function doPopulateMovie(fetchedObj $obj) {
+	private function doPopulateMovie(imdbObj $obj) {
+
+		// Populate the common entries ..
+		$this->doPopulateCommonFields($obj);
+		
+		// Populate rest of the fetched object
+		$this->assign('itemTitleFormatted',VCDUtils::titleFormat($obj->getTitle()));
+		$this->assign('itemAltTitle', $obj->getAltTitle());
+		$this->assign('itemRating',$obj->getRating());
+		$this->assign('itemRuntime',$obj->getRuntime());
+		$this->assign('itemDirector',$obj->getDirector());
+		$this->assign('itemCountryList', implode(', ',$obj->getCountry()));
+		$this->assign('itemSelCategoryList',$obj->getGenre());
+		$this->assign('itemPlot',stripslashes(trim($obj->getPlot())));
+		
+		$cast = $obj->getCast(false);
+		if (is_array($cast)) {
+			$this->assign('itemCast',implode(chr(13),$cast));
+		}
+
+		// Set the default category if match is found
+		$categories = $obj->getGenre();
+		if (is_string($categories)) {
+			$categories = explode(',',$categories);
+			foreach ($categories as $key => $value) {
+				$catId = SettingsServices::getCategoryIDByName(trim($value));
+				if ($catId>0) {
+					$this->assign('selectedCategory',$catId);
+					break;
+				}
+			}
+		}
+		
+		
 		
 	}
 	
@@ -322,8 +423,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 		$fetchResults =	$this->fetchClass->Search($searchTitle);
 		if ($fetchResults == VCDFetch::SEARCH_EXACT) {
 			
-			$this->doFetchItem($sourceSite,null);
-			
+			$this->fetchClass->fetchItemByID();
+	 		$this->fetchClass->fetchValues();
+	 		$obj = $this->fetchClass->getFetchedObject();
+	 		$obj->setSourceSite($this->sourceSiteObj->getsiteID());
+	 		$this->doFetchItem($sourceSite,$this->sourceSiteObj->getsiteID(),$obj);
 		 	
 		} else {
 	 		$results = $this->fetchClass->showSearchResults();
@@ -445,6 +549,197 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 	}
 	
+	
+	/**
+	 * Add movie from the fetched form .. to the database 
+	 *
+	 */
+	private function doAddMovie() {
+		try {
+			
+			
+			// Get the fetchedObj from session and unset it from session
+			$fetchedObj = $_SESSION['_fetchedObj'];
+			unset($_SESSION['_fetchedObj']);
+	
+			// Create the basic CD obj
+			$basic = array('', $this->getParam('title',true), $this->getParam('category',true),	$this->getParam('year',true));
+			$vcd = new vcdObj($basic);
+	
+			// Add 1 instance
+			$vcd->addInstance(VCDUtils::getCurrentUser(), SettingsServices::getMediaTypeByID($this->getParam('mediatype',true)), 
+				$this->getParam('cds',true), mktime());
+	
+			// Create the IMDB obj
+			$obj = new imdbObj();
+			$obj->setIMDB($this->getParam('imdb',true));
+			$obj->setTitle($this->getParam('imdbtitle',true));
+			$obj->setAltTitle($this->getParam('alttitle',true));
+			$obj->setYear($this->getParam('year',true));
+			$obj->setImage($this->getParam('image',true));
+			$obj->setDirector($this->getParam('director',true));
+			$obj->setGenre($this->getParam('categories',true));
+			$obj->setRating($this->getParam('rating',true));
+			$obj->setCast($this->getParam('cast',true));
+			$obj->setPlot($this->getParam('plot',true));
+			$obj->setRuntime($this->getParam('runtime',true));
+			$obj->setCountry($this->getParam('country',true));
+	
+			// Add the imdbObj to the VCD
+			$vcd->setIMDB($obj);
+	
+			// Set the source site
+			$sourceSiteObj = SettingsServices::getSourceSiteByID($fetchedObj->getSourceSiteID());
+			if ($sourceSiteObj instanceof sourceSiteObj ) {
+				$vcd->setSourceSite($sourceSiteObj->getsiteID(), $this->getParam('imdb',true));
+			}
+	
+			// Set the default DVD Settings
+			// $VCDClass->addDefaultDVDSettings($vcd);
+	
+			$coverArr = array();
+	
+			// Add the thumbnail as a cover if any was found on IMDB
+			if (!is_null($this->getParam('image',true))) {
+				$cover = new cdcoverObj();
+	
+				// Get a Thumbnail CoverTypeObj
+				$coverTypeObj = CoverServices::getCoverTypeByName("thumbnail");
+				$cover->setCoverTypeID($coverTypeObj->getCoverTypeID());
+				$cover->setCoverTypeName("thumbnail");
+				$cover->setFilename($this->getParam('image',true));
+				$coverArr[] = $cover;
+			}
+	
+			// Set allowed upload file types
+			$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF,
+							VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
+			$VCDUploader = new VCDFileUpload($arrExt);
+	
+			// Process uploaded files
+			if ($VCDUploader->getFileCount() > 0) {
+	
+				for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
+	
+					$fileObj = $VCDUploader->getFileAt($i);
+					$cover_typeid = $fileObj->getHTMLFieldName();
+	
+			      		// Check if this uploaded file is a NFO file ..
+			      		$nfostart = "meta|nfo";
+			      		if (substr_count($cover_typeid, $nfostart) > 0)  {
+	
+			      			// Yeap it's a NFO file
+		      				try {
+	
+		      					// Keep the original filename and do not overwrite
+		      					$fileObj->setRandomFileName(false);
+		      					$fileObj->setOverWrite(false);
+	
+			      				if (!$fileObj->move(NFO_PATH)) {
+			      					VCDException::display("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
+			      					$errors = true;
+			      				} else {
+			      					// Everything is OK ... add the metadata
+									$entry = explode("|", $cover_typeid);
+									$metadataName = $entry[1];
+									$metadatatype_id = $entry[2];
+									$mediatype_id = $entry[3];
+	
+									// Create the MetadataObject
+									$obj = new metadataObj(array('', null, VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
+									$obj->setMetaDataTypeID($metadatatype_id);
+									$obj->setMediaTypeID($mediatype_id);
+									// And add to the vcdObj
+									$vcd->addMetadata($obj);
+			      				}
+	
+		      				} catch (Exception $ex) {
+		      					throw $ex;
+		      				}
+	
+	
+			      		} else {
+			      			$coverType = CoverServices::getCoverTypeById($cover_typeid);
+			      			try {
+			      				$fileObj->move(TEMP_FOLDER);
+			      			} catch (Exception $ex) {
+			      				throw $ex;
+			      			}
+			      			
+							$cover = new cdcoverObj();
+				      		$cover->setCoverTypeID($cover_typeid);
+							$cover->setCoverTypeName($coverType->getCoverTypeName());
+							$cover->setFilename($fileObj->getFileName());
+				      		$coverArr[] = $cover;
+			      		}
+				}
+			}
+	
+			$vcd->addCovers($coverArr);
+	
+		    // Handle metadata
+		    $arrMetaData = array();
+			foreach ($_POST as $key => $value) {
+				if ((int)substr_count($key, 'meta') == 1) {
+			 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
+			 	}
+			}
+	
+			if (sizeof($arrMetaData) > 0) {
+				foreach ($arrMetaData as $itemArr) {
+					$key   = $itemArr['key'];
+					$value = is_array($itemArr['value'])?implode("#",$itemArr['value']):$itemArr['value'];
+					$entry = explode("|", $key);
+					$metadataName = $entry[1];
+					$metadatatype_id = $entry[2];
+					$mediatype_id = $entry[3];
+	
+	
+					// Skip empty metadata
+					if (strcmp($value, "") != 0 && strcmp($value, "null") != 0) {
+						$obj = new metadataObj(array('', null, VCDUtils::getUserID(), $metadataName, $value));
+						$obj->setMetaDataTypeID($metadatatype_id);
+						$obj->setMediaTypeID($mediatype_id);
+						$vcd->addMetadata($obj);
+					}
+	
+				}
+				unset($arrMetaData);
+			}
+	
+			// Forward the movie to the Business layer
+			try {
+				
+				$new_id = MovieServices::addVcd($vcd);
+				
+			} catch (Exception $ex) {
+				throw $ex;
+			}
+	
+			// Insert the user comments if any ..
+			$comment = $this->getParam('comment',true);
+			if (!is_null($comment)) {
+				$is_private = 0;
+				if (!is_null($this->getParam('private',true))) {
+					$is_private = 1;
+				}
+	
+				$commObj = new commentObj(array('', $new_id, VCDUtils::getUserID(), '', VCDUtils::stripHTML($comment), $is_private));
+				SettingsServices::addComment($commObj);
+			}
+	
+			if (is_numeric($new_id) && $new_id != -1) {
+				redirect('?page=cd&vcd_id='.$new_id);
+				exit();
+			}
+			
+			
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
+		}
+	}
 	
 	
 	/**

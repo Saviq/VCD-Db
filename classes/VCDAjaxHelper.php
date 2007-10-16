@@ -89,11 +89,13 @@ class VCDAjaxHelper {
 								"label"=> "Custom Index"
 								);
 							}
-							foreach($metaDataTypeArr as $metaDataTypeObj) {
-								$data[] = array("type" => "text",
-								"id"   => "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID(),
-								"label"=> $metaDataTypeObj->getMetadataTypeName()
-								);
+							if (is_array($metaDataTypeArr)) {
+								foreach($metaDataTypeArr as $metaDataTypeObj) {
+									$data[] = array("type" => "text",
+									"id"   => "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID(),
+									"label"=> $metaDataTypeObj->getMetadataTypeName()
+									);
+								}
 							}
 							break;
 						case 'dvd':

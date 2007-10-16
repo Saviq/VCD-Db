@@ -41,8 +41,9 @@ class VCDPageUserAddItemManually extends VCDBasePage {
 		foreach ($categories as $categoryObj) {
 			$results[$categoryObj->getId()] = $categoryObj->getName(true);
 		}
+		$results[null] = VCDLanguage::translate('misc.select');
 		asort($results);
-		array_unshift($results, VCDLanguage::translate('misc.select'));
+		$results = array(null => VCDLanguage::translate('misc.select')) + $results;
 		$this->assign('itemCategoryList',$results);
 				
 		

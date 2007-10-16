@@ -220,7 +220,7 @@
 	{if is_array($itemSimilar) && count($itemSimilar)}
 		<h2>{$translate.movie.similar}</h2>
 		<form name="sim" action="get">
-			{html_options name=similar options=$itemSimilar onchange="goSimilar(this.form)"}
+			{html_options name=similar options=$itemSimilar|truncate:26:".." onchange="goSimilar(this.form)"}
 		</form>
 		<br/>
 	{/if}

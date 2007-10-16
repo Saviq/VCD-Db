@@ -8,9 +8,9 @@ echo $ajaxClient->getJavaScript();
 {/php}
 </script>
 
-<form name="imdbfetcher" action="exec_form.php?action=moviefetch" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
-<input type="hidden" name="imdb" value="{$remoteId}"/>
-<input type="hidden" name="image" value="{$imageName}"/>
+<form name="imdbfetcher" action="index.php?page=add&amp;action=addmovie" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
+<input type="hidden" name="imdb" value="{$itemId}"/>
+<input type="hidden" name="image" value="{$itemThumb}"/>
 <table cellspacing="0" cellpadding="0" width="100%" border="0" class="displist">
 <tr>
 	<td class="header">{$translate.movie.info}</td>
@@ -21,50 +21,50 @@ echo $ajaxClient->getJavaScript();
 	<!-- Begin IMDB info-->
 	<table cellpadding="0" cellspacing="0" border="0" class="plain" width="100%">
 	<tr>
-		<td rowspan="6" width="105"><img src="{$imagePath}" border="0" class="imgx"/></td>
+		<td rowspan="6" width="105">{$itemThumbnail}</td>
 		<td width="30%">{$translate.movie.title}:</td>
-		<td width="50%"><input type="text" name="title" value="{$titleFormatted}" size="28"/></td>
+		<td width="50%"><input type="text" name="title" value="{$itemTitleFormatted}" size="28"/></td>
 	</tr>
 	<tr>
 		<td>IMDB {$translate.movie.title}:</td>
-		<td><input type="text" name="imdbtitle" value="{$title}" size="28"/></td>
+		<td><input type="text" name="imdbtitle" value="{$itemTitle}" size="28"/></td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.alttitle}:</td>
-		<td><input type="text" name="alttitle" value="{$altTitle}" size="28"/></td>
+		<td><input type="text" name="alttitle" value="{$itemAltTitle}" size="28"/></td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.year}:</td>
-		<td><input type="text" name="year" value="{$year}" size="4"/></td>
+		<td><input type="text" name="year" value="{$itemYear}" size="4"/></td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.grade}:</td>
-		<td><input type="text" name="rating" value="{$rating}" size="2"/> stars</td>
+		<td><input type="text" name="rating" value="{$itemRating}" size="2"/> stars</td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.runtime}:</td>
-		<td><input type="text" name="Runtime" value="{$runtime}" size="4"/> minutes</td>
+		<td><input type="text" name="runtime" value="{$itemRuntime}" size="4"/> minutes</td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.director}: </td>
-		<td colspan="2"><input type="text" name="director" value="{$director}" size="25"/></td>
+		<td colspan="2"><input type="text" name="director" value="{$itemDirector}" size="25"/></td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.country}:</td>
-		<td colspan="2"><input type="text" name="Country" value="{$countryList}" size="40"/></td>
+		<td colspan="2"><input type="text" name="country" value="{$itemCountryList}" size="40"/></td>
 	</tr>
 	<tr>
 		<td nowrap>IMDB {$translate.movie.category}: </td>
-		<td colspan="2"><input type="text" name="categories" value="{$catList}" size="40"/></td>
+		<td colspan="2"><input type="text" name="categories" value="{$itemSelCategoryList}" size="40"/></td>
 	</tr>
 	<tr>
 		<td colspan="3">{$translate.movie.plot}:<br/>
-		<textarea cols="55" rows="5" name="plot">{$plot}</textarea></td>
+		<textarea cols="55" rows="5" name="plot">{$itemPlot}</textarea></td>
 	</tr>
 	<tr>
 		<td colspan="3">{$translate.movie.actors}:<br/>
 		<!-- IMDB Cast -->
-		<textarea cols="55" rows="16" name="cast">{$cast}</textarea>
+		<textarea cols="55" rows="16" name="cast">{$itemCast|escape|stripslashes}</textarea>
 		<!-- End IMDB Cast -->
 		</td>
 	</tr>
@@ -85,11 +85,11 @@ echo $ajaxClient->getJavaScript();
 	</tr>
 	<tr>
 		<td>{$translate.movie.category}:</td>
-		<td>{html_options id=category name=category options=$categoryList selected=$selectedCategory}</td>
+		<td>{html_options id=category name=category options=$itemCategoryList selected=$selectedCategory}</td>
 	</tr>
 	<tr>
 		<td>CD's:</td>
-		<td>{html_options id=cds name=cds options=$countList selected=$selectedCount}</td>
+		<td>{html_options id=cds name=cds options=$cdList}</td>
 	</tr>
 	<tr>
 		<td valign="top">{$translate.movie.comment}:</td>
