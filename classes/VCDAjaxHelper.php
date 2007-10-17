@@ -175,7 +175,7 @@ class VCDAjaxHelper {
 			foreach ($rss['items'] as $item) {
 	
 				$hover = $item['description'];
-				$title = $item['title'];
+				$title = unhtmlentities(str_replace('&apos;', '',$item['title']));
 				$link  = $item['link'];
 				
 				// Sanitize the hover text to keep the javascript good
@@ -190,7 +190,7 @@ class VCDAjaxHelper {
 				$results[] = array('title' => $title, 'link' => $link, 'hover' => $hover);
 			}
 		}
-		return $results;	
+		return array('id' =>  $rss_id, 'items' => $results);
 	}
 	
 }

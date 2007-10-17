@@ -1408,3 +1408,45 @@ function readCookie(name) {
 function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
+
+function vcddbAjax(funcname) {
+	var ajax = new Ajax( "POST", "index.php", false, false);
+	this.class = 'VCDAjaxHelper';
+	this.func = funcname;
+	this.invoke = function() { ajax.callMethod(this.class, this.func, this.invoke.arguments) }
+}
+
+function invokeRss(id) {
+	
+	img = new Image();
+	img.src = 'images/processing.gif'; 
+	img.setAttribute('border',0);
+	img.setAttribute('hspace',140);
+	img.setAttribute('vspace',40);
+	img.setAttribute('title','Loading ...');
+	div = document.getElementById('rss'+id);
+	div.innerHTML = '';
+	div.appendChild(img);
+		
+	obj = new vcddbAjax('getRss');
+	obj.invoke(id,renderRss);
+}
+
+function renderRss(response) {
+	obj = new Object(response);
+	items = obj.items;
+	ul = document.getElementById('rss'+obj.id);
+	ul.innerHTML = '';
+	hover = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('#')";
+	for (i=0;i<items.length;i++) {
+		var li = document.createElement('li');
+		var link = document.createElement('a');
+		var text = document.createTextNode(items[i].title);
+		link.setAttribute('href', items[i].link);
+		link.setAttribute('onmouseover', hover.replace('#',items[i].hover));
+		link.setAttribute('target', '_blank');
+		link.appendChild(text);
+		li.appendChild(link);
+		ul.appendChild(li);
+	}
+}

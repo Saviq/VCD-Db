@@ -38,9 +38,16 @@ class VCDFrontPage extends VCDBasePage {
 			}
 			
 			$this->doUserRssList();
+			
+			$this->registerScript(self::$JS_AJAX);
+			$this->registerScript(self::$JS_JSON);
+			
 		}
 		
-				
+			
+		
+		
+			
 		/*
 		foreach ($this->get_template_vars('moduleList') as $item) {
 			print "module: " . $item . "<br>";
@@ -67,7 +74,9 @@ class VCDFrontPage extends VCDBasePage {
 				
 				if ($this->rssFetch->isCached($obj->getFeedUrl())) {
 					$rssData = $this->doRssItem($obj->getFeedUrl());
-					$items = $rssData['items'];
+					if (isset($rssData['items'])) {
+						$items = $rssData['items'];	
+					}
 				} else {
 					$items = 'notInCache';
 				}

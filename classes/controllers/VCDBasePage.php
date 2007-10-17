@@ -28,6 +28,17 @@ class VCDBasePage extends VCDPage {
 	private $templateTop = 'page.basepage.top.tpl';
 	private $templateBottom = 'page.basepage.bottom.tpl';
 	
+	
+	private $scripts = array();
+	private $scriptblocks = array();
+	
+	/**
+	 * Available java script libs for inclusion.
+	 */
+	protected static $JS_MAIN = 'main.js';
+	protected static $JS_JSON = 'json.js';
+	protected static $JS_AJAX = 'ajax.js';
+	
 		
 	/**
 	 * Class contructor, loads the confing and forces the pages/views to handle $_POST requests.
@@ -64,6 +75,8 @@ class VCDBasePage extends VCDPage {
 	 */
 	public function render($template=null) {
 		
+		$this->initJavascripts();
+		
 		if ($this->config->isStandalone()) {
 			
 			$this->assign('pageCharset', VCDUtils::getCharSet());
@@ -78,7 +91,30 @@ class VCDBasePage extends VCDPage {
 			$this->renderPageBottom();
 			
 		}
+		
+		
+		
 	}
+	
+	
+	/**
+	 * Register a javascript file to be included in the header
+	 *
+	 * @param string $scriptname | The script filename
+	 */
+	protected function registerScript($scriptname) {
+		$this->scripts[] = $scriptname;
+	}
+	
+	/**
+	 * Register javascript block to be included in the header
+	 *
+	 * @param string $scriptblock | The javascriptblock to add
+	 */
+	protected function registerScriptBlock($scriptblock) {
+		$this->scriptblocks[] = $scriptblock;
+	}
+	
 	
 	
 	/**
@@ -100,6 +136,32 @@ class VCDBasePage extends VCDPage {
 	
 	
 	/**
+	 * Include javascript and javascriptblocks that have been added to the template
+	 *
+	 */
+	private function initJavascripts() {
+		$scriptData = '';
+		$scriptBase = '<script src="includes/js/%s" type="text/javascript"></script>%s%s';
+		foreach ($this->scripts as $script) {
+			$scriptData .= sprintf($scriptBase, $script, chr(13),chr(9));
+		}
+		
+		// Next handle scriptblocks
+		if (sizeof($this->scriptblocks) > 0) {
+			$scriptData .= '<script type="text/javascript">';
+			foreach ($this->scriptblocks as $scriptblock) {
+				$scriptData .= $scriptblock.chr(13);
+			}	
+			$scriptData .= chr(13).'</script>';
+		}
+				
+		$this->assign('pageScripts',$scriptData);
+		
+		
+	}
+	
+	
+	/**
 	 * Initialize and assign base variables needed by all pages/views
 	 *
 	 */
@@ -107,7 +169,7 @@ class VCDBasePage extends VCDPage {
 		
 		$this->assign('pageCharset', VCDUtils::getCharSet());
 		$this->assign('pageStyle', VCDUtils::getStyle());
-		
+				
 		if (VCDUtils::isLoggedIn()) {
 			$this->assign('isAuthenticated', true);
 			

@@ -30,6 +30,7 @@ abstract class VCDPage extends Smarty  {
 	private static $pageBuffer;
 	private $tidy = false;
 	
+	
 	protected function __construct($template, $doTranslate = true) {
 	
 		parent::Smarty();
@@ -47,9 +48,6 @@ abstract class VCDPage extends Smarty  {
 			$func = array('VCDPageTransform','translate');
 			$this->register_prefilter($func);
 		}	
-		
-		
-		
 	}
 	
 	/**
@@ -62,6 +60,7 @@ abstract class VCDPage extends Smarty  {
 			throw new VCDProgramException('Template "' . $this->template . '" is missing.');
 		}
 	}
+	
 	
 	
 	/**
