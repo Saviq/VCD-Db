@@ -22,7 +22,7 @@ var Tooltip = {
   t2: null,
   tipID: "tipDiv",
   tip: null,
-  
+      
   init: function() {
     if ( document.createElement && document.body && typeof document.body.appendChild != "undefined" ) {
       var el = document.createElement("DIV");
@@ -30,7 +30,7 @@ var Tooltip = {
       el.id = this.tipID;
       document.body.appendChild(el);
       this.ready = true;
-    }
+    } 
   },
   
   show: function(e, msg) {
@@ -83,4 +83,4 @@ var Tooltip = {
 
 }
 
-Tooltip.init();
+// calling function in main.js

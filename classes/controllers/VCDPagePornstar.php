@@ -15,7 +15,6 @@
  */
 ?>
 <?php
-
 class VCDPagePornstar extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
@@ -27,6 +26,7 @@ class VCDPagePornstar extends VCDBasePage {
 		$pornstarObj = PornstarServices::getPornstarByID($pornstarID);
 		if (!$pornstarObj instanceof pornstarObj ) {
 			redirect();
+			exit();
 		}
 		
 		$this->assign('name', $pornstarObj->getName());
@@ -66,12 +66,16 @@ class VCDPagePornstar extends VCDBasePage {
 		$this->assign('scriptItem', $scriptItems);
 		$this->assign('movies', $movies);
 		
+		// Register needed javascripts
+		$this->registerScript(self::$JS_TOOLTIP);
+		$this->registerScript(self::$JS_VIEWPORT);
+		$this->registerScript(self::$JS_EVENT);
+		
+		
+		
 	
 	}
 	
 	
-	
 }
-
-
 ?>

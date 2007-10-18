@@ -39,7 +39,10 @@ class VCDBasePage extends VCDPage {
 	protected static $JS_JSON = 'json.js';
 	protected static $JS_AJAX = 'ajax.js';
 	
-		
+	protected static $JS_EVENT = 'dw_event.js';
+	protected static $JS_VIEWPORT = 'dw_viewport.js';
+	protected static $JS_TOOLTIP = 'dw_tooltip.js';
+			
 	/**
 	 * Class contructor, loads the confing and forces the pages/views to handle $_POST requests.
 	 *
@@ -142,9 +145,10 @@ class VCDBasePage extends VCDPage {
 	 */
 	private function initJavascripts() {
 		$scriptData = '';
-		$scriptBase = '<script src="includes/js/%s" type="text/javascript"></script>%s%s';
-		foreach ($this->scripts as $script) {
-			$scriptData .= sprintf($scriptBase, $script, chr(13),chr(9));
+		$scriptBase = '<script type="text/javascript" src="includes/js/%s"></script>%s%s';
+		// Display the script array in reverse order, so main.js in always on top
+		for ($i=(sizeof($this->scripts)-1);$i>=0;$i--) {
+			$scriptData .= sprintf($scriptBase, $this->scripts[$i], chr(13),chr(9));
 		}
 		
 		// Next handle scriptblocks

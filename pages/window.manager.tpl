@@ -11,7 +11,7 @@
 	<script type="text/javascript" language="javascript" src="includes/js/js_tabs.js" ></script>
 	
 </head>
-<body onload="window.focus()">
+<body onload="tabInit();window.focus()">
 
 
 <form onSubmit="copyFiles(this);" action="../exec_form.php?action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
@@ -63,7 +63,7 @@
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.title}:</td>
-	<td><input type="text" name="title" class="input" value="{itemTitle}" size="40"/></td>
+	<td><input type="text" name="title" class="input" value="{$itemTitle}" size="40"/></td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.category}:</td>
@@ -91,463 +91,211 @@
 	<td><input type="text" value="{$itemExternalId}" size="8" name="imdb" class="input"/></td>
 </tr>
 {/if}
+<tr>
+{if count($itemCopies) == 0}
+	<td colspan="2"><hr/>{$translate.manager.nocopy}</td>
+{elseif count($itemMediaTypes)==1}
+	<td colspan="2"><hr/><strong>{$translate.manager.copy}</strong></td>
+{else}
+	<td colspan="2"><hr/><strong>{$translate.manager.copies}</strong></td>
+{/if}
+</tr>
 
-{if !$itemCopies || $itemCopies==0}
-
-{elseif}
-
-
-	if (sizeof($arrCopies) == 0) {
-		print "<tr><td colspan=\"2\"><hr/>".VCDLanguage::translate('manager.nocopy')."</td></tr>";
-	} elseif (sizeof($arrMediaTypes) == 1) {
-		print "<tr><td colspan=\"2\"><hr/><strong>".VCDLanguage::translate('manager.copy')."</strong></td></tr>";
-	} else {
-		print "<tr><td colspan=\"2\"><hr/><strong>".VCDLanguage::translate('manager.copies')."</strong></td></tr>";
-	}
-
-
-	if (sizeof($arrCopies) > 0) {
-?>
 <tr>
 	<td colspan="2" valign="top">
+	{if count($itemCopies)>0}
 	<!-- Begin instance table -->
 	<table cellspacing="1" cellpadding="1" border="0" width="100%">
-	<tr><td><?=VCDLanguage::translate('manager.1copy')?></td><td><?=VCDLanguage::translate('movie.mediatype')?></td><td><?=VCDLanguage::translate('movie.num')?></td><td>&nbsp;</td></tr>
-	<?
-		$allMediaTypes =  SettingsServices::getAllMediatypes();
-
-		for ($i = 0; $i < sizeof($arrMediaTypes); $i++) {
-			print "<tr><td>".($i+1)."</td><td>";
-
-			$media_id = $arrMediaTypes[$i]->getmediaTypeID();
-			$cd_count = $arrNumcds[$i];
-
-			print "<select name=\"userMediaType_".$i."\" size=\"1\" class=\"input\">";
-			foreach ($allMediaTypes as $mediaTypeObj) {
-
-				if ($media_id == $mediaTypeObj->getmediaTypeID()) {
-					print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\" selected>".$mediaTypeObj->getDetailedName()."</option>";
-				} else {
-					print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
-				}
-
-
-				if ($mediaTypeObj->getChildrenCount() > 0) {
-					foreach ($mediaTypeObj->getChildren() as $childObj) {
-						if ($media_id == $childObj->getmediaTypeID()) {
-							print "<option value=\"".$childObj->getmediaTypeID()."\" selected>&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
-						} else {
-							print "<option value=\"".$childObj->getmediaTypeID()."\">&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
-						}
-
-
-						}
-					}
-				}
-			print "</select>";
-
-		print "</td><td>";
-		print "<select name=\"usernumcds_".$i."\" class=\"input\" size=\"1\">";
-				for ($j = 1; $j < 10; $j++) {
-					if ($j == $cd_count) {
-						echo "<option value=\"$j\" selected>$j</option>";
-					} else {
-						echo "<option value=\"$j\">$j</option>";
-					}
-
-				}
-		print "</select>";
-
-
-		print "</td><td><a href=\"#\" onclick=\"deleteCopy(".sizeof($arrMediaTypes).",".$vcd->getNumCopies().",".$vcd->getId().",".$media_id.")\"><img src=\"../images/thrashcan.gif\" alt=\"Delete this copy\" border=\"0\"/></a></td>";
-
-		print "</tr>";
-		}
-		print "<tr><td>".($i +1)."</td><td>";
-		print "<select name=\"userMediaType_".$i."\" size=\"1\" class=\"input\">";
-		print "<option value=\"null\" selected>".VCDLanguage::translate('manager.addmedia')."</option>";
-		foreach ($allMediaTypes as $mediaTypeObj) {
-			print "<option value=\"".$mediaTypeObj->getmediaTypeID()."\">".$mediaTypeObj->getDetailedName()."</option>";
-			if ($mediaTypeObj->getChildrenCount() > 0) {
-				foreach ($mediaTypeObj->getChildren() as $childObj) {
-					print "<option value=\"".$childObj->getmediaTypeID()."\">&nbsp;&nbsp;".$childObj->getDetailedName()."</option>";
-				}
-			}
-		}
-		print "</select>";
-
-		print "</td><td>";
-		print "<select name=\"usernumcds_".$i."\" class=\"input\" size=\"1\">";
-		for ($j = 1; $j < 10; $j++) {
-				echo "<option value=\"$j\">$j</option>";
-		}
-		print "</select>";
-
-	?>
-
+	<tr>
+		<td>{$translate.manager.1copy}</td>
+		<td>{$translate.movie.mediatype}</td>
+		<td>{$translate.movie.num}</td>
+		<td>&nbsp;</td>
+	</tr>
+	{foreach from=$itemUserMediaTypes item=i key=key}
+	<tr>
+		<td>{$counter}</td>
+		<td>dropdown type</td>
+		<td>dropdown cd's</td>
+		<td>delete link</td>
+	</tr>
+	{/foreach}
+	<tr>
+		<td>{$counter}</td>
+		<td>dropdown new</td>
+		<td>dropdown fjoldi</td>
+		<td>&nbsp;</td>
+	</tr>
 	</table>
-	<input type="hidden" name="usercdcount" value="<?=$i?>"/>
+	<input type="hidden" name="usercdcount" value="{$itemUserMediaTypesSize}"/>
+	{/if}
 	<!-- End instance table -->
 	</td>
 </tr>
-
-<?  } ?>
-
 </table>
+
+
 </td>
-	<td valign="top" align="right" width="20%">
-	<? $coverObj = $vcd->getCover("thumbnail");
-		if (!is_null($coverObj))
-			$coverObj->showImage('../'); ?>
-	</td>
+	<td valign="top" align="right" width="20%">Cover image</td>
 </tr>
 </table>
+
 </p>
 </div>
 
 <div id="content2" class="content">
 <p>
-<?
-	if ($vcd->isAdult()) { ?>
+
+{if $isAdult}
+<input type="hidden" name="id_list" id="id_list"/>
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
 	<td class="tblb" valign="top">Studio:</td>
-	<td><select name="studio" class="input">
-		<?
-			$studioObj = PornstarServices::getStudioByMovieID($vcd->getID());
-			if ($studioObj instanceof studioObj) {
-				$studio_id = $studioObj->getID();
-			} else {
-				$studio_id = "";
-			}
-			evalDropdown(PornstarServices::getAllStudios(),$studio_id); ?>
-	</select>
-
-	</td>
+	<td>dropdown studio</td>
 </tr>
 <tr>
-	<td class="tblb" valign="top" colspan="2"><?=VCDLanguage::translate('dvdempire.subcat')?>:<br/>
-	<input type="hidden" name="id_list" id="id_list">
-			<table cellspacing="0" cellpadding="2" border="0">
-			<tr>
-				<td>
-					<select name="available" id="available" size=8 style="width:200px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input">
-					<?
-					$result = PornstarServices::getSubCategories();
-					foreach ($result as $porncategoryObj) {
-						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
-					}
-					unset($result);
-					?>
-					</select>
-				</td>
-				<td>
-					<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/><br/>
-					<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
-				</td>
-				<td>
-					<select multiple name="choiceBox" id="choiceBox" style="width:200px;" size="8" onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input">
-					<?
-					$result = PornstarServices::getSubCategoriesByMovieID($vcd->getID());
-					foreach ($result as $porncategoryObj) {
-						print "<option value=\"".$porncategoryObj->getID()."\">".$porncategoryObj->getName()."</option>";
-					}
-					unset($result);
-					?>
-
-					</select>
-				</td>
-			</tr>
-			</table>
+	<td class="tblb" valign="top" colspan="2">{$translate.dvdempire.subcat}:<br/>
+	
+		<table cellspacing="0" cellpadding="2" border="0">
+		<tr>
+			<td>all categories</td>
+			<td>
+				<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/>
+				<br/>
+				<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
+			</td>
+			<td>selected cats</td>
+		</tr>
+		</table>
+		
 	</td>
 </tr>
 </table>
 
 
-	<? } else {  ?>
+{else}
+
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
-	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.title')?>:</td>
-	<td><input type="text" name="imdbtitle" class="input" value="<? if ($bIMDB) echo $imdb->getTitle() ?>" size="45"/></td>
+	<td class="tblb" valign="top">{$translate.movie.title}:</td>
+	<td><input type="text" name="imdbtitle" class="input" value="{$itemSTitle}" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.alttitle')?>:</td>
-	<td><input type="text" name="imdbalttitle" class="input" value="<? if ($bIMDB) echo $imdb->getAltTitle() ?>" size="45"/></td>
+	<td class="tblb" valign="top">{$translate.movie.alttitle}:</td>
+	<td><input type="text" name="imdbalttitle" class="input" value="{$itemSAlttitle}" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb"><?=VCDLanguage::translate('movie.grade')?>:</td>
-	<td><input type="text" name="imdbgrade" class="input" value="<? if ($bIMDB) echo $imdb->getRating() ?>" size="3"/> <?=VCDLanguage::translate('manager.stars')?></td>
+	<td class="tblb">{$translate.movie.grade}:</td>
+	<td><input type="text" name="imdbgrade" class="input" value="{$itemSRating}" size="3"/> {$translate.manager.stars}</td>
 </tr>
 <tr>
-	<td class="tblb"><?=VCDLanguage::translate('movie.runtime')?>:</td>
-	<td><input type="text" name="imdbruntime" class="input" value="<? if ($bIMDB) echo $imdb->getRunTime() ?>" size="3"/> min.</td>
+	<td class="tblb">{$translate.movie.runtime}:</td>
+	<td><input type="text" name="imdbruntime" class="input" value="{$itemSRuntime}" size="3"/> min.</td>
 </tr>
 <tr>
-	<td class="tblb"><?=VCDLanguage::translate('movie.director')?>:</td>
-	<td><input type="text" name="imdbdirector" class="input" value="<? if ($bIMDB) echo $imdb->getDirector() ?>" size="45"/></td>
+	<td class="tblb">{$translate.movie.director}:</td>
+	<td><input type="text" name="imdbdirector" class="input" value="{$itemSDirector}" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb"><?=VCDLanguage::translate('movie.country')?>:</td>
-	<td><input type="text" name="imdbcountries" class="input" value="<? if ($bIMDB) echo $imdb->getCountry() ?>" size="45"/></td>
+	<td class="tblb">{$translate.movie.country}:</td>
+	<td><input type="text" name="imdbcountries" class="input" value="{$itemSCountries}" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top">IMDB <?=VCDLanguage::translate('movie.category')?>:</td>
-	<td><input type="text" name="imdbcategories" class="input" value="<? if ($bIMDB) echo $imdb->getGenre() ?>" size="45"/></td>
+	<td class="tblb" valign="top">IMDB {$translate.movie.category}:</td>
+	<td><input type="text" name="imdbcategories" class="input" value="{$itemSGenres}" size="45"/></td>
 </tr>
 <tr>
-	<td class="tblb" valign="top"><?=VCDLanguage::translate('movie.plot')?>:</td>
-	<td><textarea cols="40" rows="5" name="plot" class="input"><? if ($bIMDB) echo $imdb->getPlot() ?></textarea></td>
+	<td class="tblb" valign="top">{$translate.movie.plot}:</td>
+	<td><textarea cols="40" rows="5" name="plot" class="input">{$itemSPlot}</textarea></td>
 </tr>
 </table>
-<? } ?>
+
+{/if}
 </p>
 </div>
 
 <div id="content3" class="content">
 <div class="flow" align="left">
 <p>
-<? if($vcd->isAdult()) { ?>
-<div align="right"><input type="button" value="<?=VCDLanguage::translate('manager.addact')?>" class="buttontext" title="<?=VCDLanguage::translate('manager.addact')?>" onClick="addActors(<?=$vcd->getID()?>)"/></div>
-<? } ?>
-<?
-	if ($vcd->isAdult()) {
-			$ArrayPornstars = PornstarServices::getPornstarsByMovieID($vcd->getID());
-			if(is_array($ArrayPornstars)) {
-			echo "<table cellspacing=1 cellpadding=1 border=0>";
-				foreach($ArrayPornstars as $pornstar)   {
-					$p_id   = $pornstar->getId();
-					$p_name	= $pornstar->getName();
-
-					echo "<tr><td><li><a href=\"../?page=pornstar&amp;pornstar_id=$p_id\" target=\"_new\">$p_name</a></li></td>";
-					make_pornstarlinks($p_id, $p_name, $vcd->getId());
-					echo "</tr>";
-
-				}
-			echo "</table>";
-		} else {
-			VCDLanguage::translate('movie.noactors');
-		}
-		unset($ArrayPornstars);
-
-
-	} else {
-		?>
-<div align="center">
-<textarea cols="60" rows="15" name="actors" class="input"><? if ($bIMDB) echo $imdb->getCast(false) ?></textarea>
+{if $isAdult}
+<div align="right">
+	<input type="button" value="{$translate.manager.addact}" class="buttontext" title="{$translate.manager.addact}" onClick="addActors({$itemId})"/>
 </div>
-<?
-}
-?>
+
+	{if is_array($itemPornstars) && count($itemPornstars)>0}
+		<table cellspacing="1" cellpadding="1" border="0">
+		{foreach from=$itemPornstars item=i key=key}
+		<tr>
+			<td><li><a href="?page=pornstar&amp;pornstar_id={$key}" target="_blank">{$i.name}</a></li></td>
+			<td>Pornstar links to search eingines come here</td>
+		</tr>
+		{/foreach}
+		</table>
+	{else}
+		{$translate.movie.noactors}
+	{/if}
+
+
+{else}
+
+<div align="center">
+	<textarea cols="60" rows="15" name="actors" class="input">{$itemSCast}</textarea>
+</div>
+
+
+{/if}
+
 <!-- Leikarar enda -->
+
+
 </p>
 </div>
 </div>
 
 <div id="content4" class="content">
-<?
-	// first get all cover types that are allowed on this media type
-	$arrCoverTypes = CoverServices::getAllowedCoversForVcd($vcd->getMediaType());
-?>
-<p><table cellspacing="1" cellpadding="1" border="0">
-<?
-	foreach ($arrCoverTypes as $cdcoverTypeObj) {
-
-		// do we have that cover ?
-		$coverpath = "";
-		$deletecover = "";
-		$coverObj = $vcd->getCover($cdcoverTypeObj->getCoverTypeName());
-		if ($coverObj instanceof cdcoverObj ) {
-			$coverpath = $coverObj->getFilename();
-			$deletecover = "&nbsp;&nbsp;<img src=\"../images/thrashcan.gif\" align=\"absmiddle\" onclick=\"deleteCover(".$coverObj->getId().",".$vcd->getId().")\" alt=\"Delete cover\" border=\"0\"/>";
-		}
-
-
-		print "<tr><td class=\"tblb\" valign=\"top\">".$cdcoverTypeObj->getCoverTypeName()."</td>";
-		print "<td><input type=\"text\" name=\"".$cdcoverTypeObj->getCoverTypeName()."\" size=\"20\" class=\"input\" value=\"".$coverpath."\"/>";
-		print "&nbsp; <input type=\"file\" name=\"".$cdcoverTypeObj->getCoverTypeID()."\" value=\"".$cdcoverTypeObj->getCoverTypeName()."\" size=\"10\" class=\"input\"/>$deletecover</td></tr>";
-	}
-
-?>
-</table></p>
-
-</div>
-
-<? if($showDVDSpecs) { ?>
-<div id="content5" class="content">
-<? require_once('man_dvd.php'); ?>
-</div>
-<? } ?>
-
-<? if ($userMetadata) { ?>
-<div id="content6" class="content">
-<div class="flow" align="left">
 <p>
-<table cellpadding="1" cellspacing="1" border="0">
-<?
-
-	// Since each copy can contain it's own metadata this gets a little tricky.
-	// Finally there we find use for the mediatype_id member of the metadataObj and we use it here
-	// to distinguish the metadata for each media copy.
-
-
-
-	if (!is_null($arrMyMediaTypes)) {
-
-
-		$iCounter = 0;
-
-
-		foreach ($arrMyMediaTypes as $mediaTypeObj) {
-			$iMetaID = -1;
-			print "<tr><td colspan=\"2\" class=\"tblb\"><i>Meta: {$mediaTypeObj->getDetailedName()}</i></td></tr>";
-
-
-			// First print out the System meta types
-			if ($_SESSION['user']->getPropertyByKey('USE_INDEX'))  {
-   				$metaValue = "";
-				foreach ($arrMyMeta as $metadataObj) {
-					if ($metadataObj instanceof metadataObj ) {
-						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_MEDIAINDEX
-						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
-							$metaValue = $metadataObj->getMetadataValue();
-							$iMetaID = $metadataObj->getMetadataID();
-							break;
-						}
-					}
-				}
-
-   				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX )."|".metadataTypeObj::SYS_MEDIAINDEX ."|".$mediaTypeObj->getmediaTypeID();
-				$delImage = "";
-				if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
-					$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
-				}
-
-	   			print "<tr>";
-	   			print "<td class=\"tblb\">Custom Index:</td>";
-	   			print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" size=\"8\" class=\"input\" value=\"{$metaValue}\"/>{$delImage}</td>";
-				print "</tr>";
-			 }
-
-
-			 if ($_SESSION['user']->getPropertyByKey('NFO'))  {
-   				$metaValue = "";
-   				$metaDataID = "";
-				foreach ($arrMyMeta as $metadataObj) {
-					if ($metadataObj instanceof metadataObj ) {
-						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_NFO
-						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
-							$metaValue = $metadataObj->getMetadataValue();
-							$metaDataID = $metadataObj->getMetadataID();
-							break;
-						}
-					}
-				}
-
-   				$fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO)."|".metadataTypeObj::SYS_NFO ."|".$mediaTypeObj->getmediaTypeID();
-
-	   			print "<tr>";
-	   			print "<td class=\"tblb\">NFO:</td>";
-	   			if (strcmp($metaValue, "") == 0) {
-	   				print "<td style=\"padding-left:5px\"><input type=\"file\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$metaValue}\"/></td>";
-	   			} else {
-	   				$deleteNfo = "&nbsp;&nbsp;<img src=\"../images/thrashcan.gif\" align=\"absmiddle\" onclick=\"deleteNFO({$metaDataID},{$cd_id})\" alt=\"Delete NFO\" border=\"0\"/>";
-	   				print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"null\" readonly=\"readonly\" size=\"30\" class=\"input\" value=\"{$metaValue}\"/>{$deleteNfo}</td>";
-	   			}
-
-				print "</tr>";
-			 }
-
-
-
-			if ($_SESSION['user']->getPropertyByKey('PLAYOPTION'))  {
-			   $metaValue = "";
-				foreach ($arrMyMeta as $metadataObj) {
-					if ($metadataObj instanceof metadataObj ) {
-						if ((int)$metadataObj->getMetadataTypeID() === (int)metadataTypeObj::SYS_FILELOCATION
-						&& (int)$metadataObj->getMediaTypeID() === (int)$mediaTypeObj->getmediaTypeID()) {
-							$metaValue = $metadataObj->getMetadataValue();
-							break;
-						}
-					}
-				}
-
-			    $fieldname = "meta|".metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION  )."|".metadataTypeObj::SYS_FILELOCATION  ."|".$mediaTypeObj->getmediaTypeID();
-
-				print "<tr>";
-				print "<td class=\"tblb\">File path:</td>";
-				print "<td style=\"padding-left:5px\"><input type=\"text\" id=\"{$fieldname}\" name=\"{$fieldname}\" size=\"36\" class=\"input\" value=\"{$metaValue}\"/>";
-				print "&nbsp;<img src=\"../images/icon_folder.gif\" border=\"0\" align=\"absmiddle\" title=\"Browse for file\" onclick=\"filebrowse('file', '{$fieldname}')\"/></td>";
-				print "</tr>";
-
-			}
-
-
-
-
-
-			if (is_array($userMetaArray)) {
-				foreach ($userMetaArray as $metaDataTypeObj) {
-
-					$metaValue = "";
-					foreach ($arrMyMeta as $metadataObj) {
-						if ($metadataObj instanceof metadataObj ) {
-							if ($metadataObj->getMetadataTypeID() === $metaDataTypeObj->getMetadataTypeID()
-							&& $metadataObj->getMediaTypeID() === $mediaTypeObj->getmediaTypeID()) {
-								$metaValue = $metadataObj->getMetadataValue();
-								$iMetaID = $metadataObj->getMetadataID();
-							}
-						}
-					}
-
-					$fieldname = "meta|".$metaDataTypeObj->getMetadataTypeName()."|".$metaDataTypeObj->getMetadataTypeID()."|".$mediaTypeObj->getmediaTypeID();
-
-					$delImage = "";
-						if (strcmp($metaValue, "") != 0 && $iMetaID > 0) {
-						$delImage = "&nbsp;<img src=\"../images/icon_del.gif\" align=\"absmiddle\" alt=\"".VCDLanguage::translate('misc.delete')."\" title=\"".VCDLanguage::translate('misc.delete')."\" border=\"0\" onclick=\"deleteMeta({$iMetaID},{$cd_id})\"/>";
-					}
-
-
-					print "<tr>";
-					print "<td class=\"tblb\">{$metaDataTypeObj->getMetadataDescription()}</td>";
-					print "<td style=\"padding-left:5px\"><input type=\"text\" name=\"{$fieldname}\" class=\"input\" size=\"30\" value=\"{$metaValue}\" maxlength=\"150\"/>{$delImage}</td>";
-					print "</tr>";
-				}
-			}
-
-			$iCounter++;
-			if ($iCounter != sizeof($arrMyMediaTypes)) {
-				print "<tr><td colspan=\"2\"><hr/></td></tr>";
-			}
-
-		}
-
-	}
-?>
-</table>
+	<table cellspacing="1" cellpadding="1" border="0">
+	{foreach from=$itemCovers item=i key=key}
+	<tr>
+		<td class="tblb" valign="top">{$i.typename}</td>
+		<td><input type="text" name="{$i.typename}" size="20" class="input" value="{$i.filename}"/></td>
+		<td><input type="file" name="{$i.typeid}" value="{$i.typename}" size="10" class="input"/></td>
+		<td>delete cover link</td>
+	</tr>
+	{/foreach}
+	</table>
 </p>
 </div>
+
+{if $isDVD}
+<div id="content5" class="content">
+	DVD contents
 </div>
-<? } ?>
+{/if}
+
+{if $itemMetadata}
+<div id="content6" class="content">
+	<div class="flow" align="left">
+	<p>
+	<table cellpadding="1" cellspacing="1" border="0">
+		<tr>
+			<td>Metadata table ..</td>
+		</tr>
+	</table>
+	</p>
+	</div>
+</div>
+{/if}
 
 <div id="submitters">
-		<?
-			$dvdCheck = "";
-			$dvdCheck2 = "";
-			if ($showDVDSpecs) {
-				$dvdCheck = "checkFieldsRaw(this.form,'audioChoices','audio_list');checkFieldsRaw(this.form,'langChoices','sub_list');";
-				$dvdCheck2 = "onclick=\"checkFieldsRaw(this.form,'audioChoices','audio_list');checkFieldsRaw(this.form,'langChoices','sub_list');\"";
-			}
-		?>
-
-
-		<? if ($vcd->isAdult()) { ?>
-			<input type="submit" name="update" id="update" value="<?=VCDLanguage::translate('misc.update')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
-			<input type="submit" name="submit" id="submit" value="<?=VCDLanguage::translate('misc.saveandclose')?>" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');<?=$dvdCheck?>"/>
-		<? } else { ?>
-			<input type="submit" name="update" id="update" value="<?=VCDLanguage::translate('misc.update')?>" class="buttontext" <?=$dvdCheck2?>/>
-			<input type="submit" name="submit" id="submit" value="<?=VCDLanguage::translate('misc.saveandclose')?>" class="buttontext" <?=$dvdCheck2?>/>
-		<? } ?>
-		<input type="button" name="close" value="<?=VCDLanguage::translate('misc.close')?>" class="buttontext" onClick="window.close()"/>
+{if $isAdult}
+<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
+<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
+{else}
+<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" />
+<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext"/>
+{/if}
+<input type="button" name="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
 
 </div>
 </form>

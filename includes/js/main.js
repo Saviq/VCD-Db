@@ -678,6 +678,7 @@ function deleteComment(item_id,id) {
 
 
 function doTooltip(e, num) {
+	
   if ( typeof Tooltip == "undefined" || !Tooltip.ready ) return;
   var cntnt = wrapTipContent(num);
   var tip = document.getElementById( Tooltip.tipID );
@@ -1461,4 +1462,16 @@ function playMovie(id) {
 	frame.setAttribute('width',0);
 	frame.setAttribute('style','visibility:hidden');
 	doc.appendChild(frame);
+}
+
+function addLoadEvent(func) {
+  var oldonload = window.onload;
+  if (typeof window.onload != 'function') {
+    window.onload = func;
+  } else {
+    window.onload = function() {
+      oldonload();
+      func();
+    }
+  }
 }
