@@ -32,18 +32,52 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	public function __construct(_VCDPageNode $node) {
 
 		parent::__construct($node);
+		
 		$this->initPage();
 		
 		// Load the correct data in the dropdown list
 		$this->doSelectionList();
 		
 		// Load the selected list view
-		$this->doTextList();
+		if ($this->imageMode) {
+			$this->doImageList();
+		} else {
+			$this->doTextList();	
+		}
 		
 		
 		// Do the pager
 		$this->doPager();
 						
+	}
+	
+	
+	/**
+	 * Populate the image category list
+	 *
+	 */
+	private function doImageList() {
+				
+		$results = array();
+		if ($this->isCategoryList) {
+			$movies = MovieServices::getVcdByAdultCategory($this->list_id);
+		} elseif ($this->isStudioList) {
+			$movies = MovieServices::getVcdByAdultStudio($this->list_id);
+		}
+		
+		
+		$this->recordCount = sizeof($movies);
+		$this->assign('movieCategoryCount', $this->recordCount);
+		$movies = $this->doFilter($movies);
+				
+		foreach ($movies as $movie) {
+			$coverObj = $movie->getCover('thumbnail');
+			if ($coverObj instanceof cdcoverObj ) {
+				$results[] = $coverObj->getCategoryImageAndLink("./?page=cd&amp;vcd_id=".$movie->getID()."",$movie->getTitle());
+			}
+		}
+		
+		$this->assign('movieList', $results);
 	}
 	
 	
@@ -216,9 +250,15 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 		// Assign global vars
 		if ($this->imageMode) {
 			$this->assign('imageMode',true);
-		}
-		
+		} 		
 				
+		if ($this->isStudioList) {
+			$this->assign('viewTitle', 'Current studio');
+			$this->assign('viewType', 'studio_id');
+		} elseif ($this->isCategoryList) {
+			$this->assign('viewTitle', 'Current category');
+			$this->assign('viewType', 'category_id');
+		}
 		
 		
 		$this->assign('categoryId', $this->list_id);
@@ -235,11 +275,22 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	 *
 	 * @return bool
 	 */
-	protected function setViewMode() {
+	/**
+	 * Figure out the current viewmode for the category display style
+	 *
+	 * @return bool
+	 */
+	private function setViewMode() {
 		$mode = $this->getParam('viewmode');
-		if (!is_null($mode) && strcmp($mode,'img'==0)) {
+		if (is_null($mode)) {
+			return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);
+		}
+		
+		if (strcmp($mode,'img')==0) {
+			$_SESSION['viewmode'] = 'img';
 			return true;
-		} else {
+		} elseif (strcmp($mode,'text')==0) {
+			$_SESSION['viewmode'] = 'text';
 			return false;
 		}
 	}

@@ -11,13 +11,13 @@
 
 	
 <form>
-<span class="bold">Current category</span>&nbsp;
+<span class="bold">{$viewTitle}</span>&nbsp;
 {html_options id=category name=category options=$currentList selected=$selectedListItem onchange="location.href='?page=adultcategory&amp;$selType='+this.value " }
 
 {if $imageMode}
-	(<a href="?page=adultcategory&amp;category_id={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=text">{$translate.movie.textview}</a> / {$translate.movie.imageview})
+	(<a href="?page=adultcategory&amp;{$viewType}={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=text">{$translate.movie.textview}</a> / {$translate.movie.imageview})
 {else}
-	{$translate.movie.textview} / (<a href="?page=adultcategory&amp;category_id={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=img">{$translate.movie.imageview}</a>)
+	{$translate.movie.textview} / (<a href="?page=adultcategory&amp;{$viewType}={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=img">{$translate.movie.imageview}</a>)
 {/if}
 &nbsp; ({$movieCategoryCount} {$translate.misc.movies}) 
 

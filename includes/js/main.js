@@ -1411,9 +1411,9 @@ function eraseCookie(name) {
 
 function vcddbAjax(funcname) {
 	var ajax = new Ajax( "POST", "index.php", false, false);
-	this.class = 'VCDAjaxHelper';
-	this.func = funcname;
-	this.invoke = function() { ajax.callMethod(this.class, this.func, this.invoke.arguments) }
+	this.cls = 'VCDAjaxHelper';
+	this.fnc = funcname;
+	this.invoke = function() { ajax.callMethod(this.cls, this.fnc, this.invoke.arguments) }
 }
 
 function invokeRss(id) {
@@ -1449,4 +1449,16 @@ function renderRss(response) {
 		li.appendChild(link);
 		ul.appendChild(li);
 	}
+}
+
+
+function playMovie(id) {
+	var doc = document.body;
+	var frame = document.createElement('iframe');
+	frame.setAttribute('src','?page=launcher&id='+id);
+	frame.setAttribute('id','playframe');
+	frame.setAttribute('height',0);
+	frame.setAttribute('width',0);
+	frame.setAttribute('style','visibility:hidden');
+	doc.appendChild(frame);
 }

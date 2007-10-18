@@ -195,6 +195,13 @@
 		<action>manager</action>
 	</page>
 	
+	<page standalone="true" auth="true">
+		<name>Movie launcher</name>
+		<handler>VCDPageUserMoviePlayer</handler>
+		<template>page.user.item.play.tpl</template>
+		<action>launcher</action>
+	</page>
+	
 
 </pages>
 <!-- 

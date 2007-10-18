@@ -74,9 +74,7 @@ class VCDBasePage extends VCDPage {
 	 * @param string $template
 	 */
 	public function render($template=null) {
-		
-		$this->initJavascripts();
-		
+				
 		if ($this->config->isStandalone()) {
 			
 			$this->assign('pageCharset', VCDUtils::getCharSet());
@@ -84,14 +82,17 @@ class VCDBasePage extends VCDPage {
 			parent::render();
 			
 		} else {			
-					
+						
 			$this->initPage();
+			$this->initJavascripts();
+			
 			$this->renderPageTop();
 			parent::render();
 			$this->renderPageBottom();
 			
 		}
 		
+
 		
 		
 	}
@@ -162,16 +163,20 @@ class VCDBasePage extends VCDPage {
 	
 	
 	/**
-	 * Initialize and assign base variables needed by all pages/views
+	 * Initialize and assign base variables needed by all pages/views that are NOT standalone.
 	 *
 	 */
 	private function initPage() {
 		
 		$this->assign('pageCharset', VCDUtils::getCharSet());
 		$this->assign('pageStyle', VCDUtils::getStyle());
-				
+						
+		// Standalone pages that need main.js must include it manually		
+		$this->registerScript(self::$JS_MAIN);
+		
 		if (VCDUtils::isLoggedIn()) {
 			$this->assign('isAuthenticated', true);
+			$this->assign('pageUsername', VCDUtils::getCurrentUser()->getFullname());
 			
 			// Check weither to display Rss menuitem
 			if (sizeof(SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID()))>0) {

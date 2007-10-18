@@ -140,7 +140,7 @@ abstract class VCDPage extends Smarty  {
 		$html = preg_replace('@\<([^>]*) (href|src)="/([^"]*)"@i', '<\1 \2="' . $server . '\3"', $html);
 		
 		// replace base-relative URLs (rather kludgy, but I couldn't get ! to work)
-		$html = preg_replace('@\<([^>]*) (href|src)="(([^\:"])*|([^"]*:[^/"].*))"@i', '<\1 \2="' . $base . '\3"', $html);
+		$html = preg_replace('@\<([^>]*) (href|src|archive)="(([^\:"])*|([^"]*:[^/"].*))"@i', '<\1 \2="' . $base . '\3"', $html);
 		return $html; 
 	}
 	

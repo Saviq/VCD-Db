@@ -201,20 +201,18 @@
 		</table>
 	{/if}
 	
-	
 	</div>
-
-
+	
 	{if is_array($itemMetadata) && count($itemMetadata)>0}
 		<div id="metadata">
 		<h2>{$translate.metadata.my}</h2>
 		<table cellspacing="0" cellpadding="0" border="0" width="100%">
 		<tr>
-			<td width="20%">{$translate.movie.media}</td>
+			<td width="25%">{$translate.movie.media}</td>
 			<td>{$translate.metadata.type}</td>
 			<td>{$translate.metadata.value}</td>
 		</tr>
-		{foreach from=$itemMetadata item=i}		
+		{foreach from=$itemMetadata item=i key=k}		
 		<tr>
 			<td>{$i.medianame}</td>
 			<td title="{$i.desc}">{$i.name}</td>

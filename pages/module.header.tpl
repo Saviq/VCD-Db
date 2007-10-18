@@ -4,7 +4,7 @@
 <div id="hdr" align="center"></div>
 <div id="bar">
 {if $isAuthenticated}
-	<a href="?page=private&amp;o=settings">{$user.fullname}</a>
+	<a href="?page=settings">{$pageUsername}</a>
 	{if $isAdmin}
 		| <a href="#" onclick="openAdminConsole()">{$translate.menu.controlpanel}</a>
 	{/if}

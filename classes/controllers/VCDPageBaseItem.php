@@ -193,7 +193,45 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	private function doMetadata() {
 		
+		$metadata = SettingsServices::getMetadata($this->itemObj->getID(),VCDUtils::getUserID());
+		// Filter out non user metadata
+		$metadata = metadataTypeObj::filterOutSystemMeta($metadata);
+			
+		if (is_array($metadata) && sizeof($metadata)>0) {
+			
+			foreach ($metadata as $metaObj) { 
+				$results[$metaObj->getMetadataID()] = 
+					array('medianame' => SettingsServices::getMediaTypeByID($metaObj->getMediaTypeID())->getDetailedName(), 
+					'name' => $metaObj->getMetadataName(), 'text' => $this->doMetadataFormat($metaObj));
+			}
+			
+			$this->assign('itemMetadata', $results);
+			
+		}
 	}
+	
+	
+	/**
+	 * Render the display values based on metadataType
+	 *
+	 */
+	private function doMetadataFormat(metadataObj $obj) {
+		
+		
+		
+		switch ($obj->getMetadataTypeID()) {
+			case metadataTypeObj::SYS_FILELOCATION:
+				$cmd = '<a href="#" onclick="return false"><img src="images/icons/control_play.png" title="Play" border="0" onclick="playMovie(%s);return false"/></a>';
+				return sprintf($cmd, $obj->getMetadataID());
+				break;
+		
+			default:
+				return $obj->getMetadataValue();
+				break;
+		}
+		
+	}
+	
 	
 	/**
 	 * Assign list of available copies to the view
@@ -465,6 +503,18 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Display the play option for launchable movies
+	 *
+	 */
+	private function doPlaylist() {
+		
+		
+		
+	}
+	
 	
 	/**
 	 * Assign available covers data to the view

@@ -1461,7 +1461,7 @@ class SettingsServices extends VCDServices {
 	 * @param int $mediatype_id | MediaType ID of movieObj.  This forces deeper check.
 	 * @return array
 	 */
-	public static function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
+	public static function getMetadata($record_id, $user_id, $metadata_name=null, $mediatype_id = null) {
 		try {
 			
 			return self::Settings()->getMetadata($record_id, $user_id, $metadata_name, $mediatype_id);
