@@ -11,7 +11,7 @@
 	<script type="text/javascript" language="javascript" src="includes/js/js_tabs.js" ></script>
 	
 </head>
-<body onload="tabInit();window.focus()">
+<body onload="tabInit();window.focus()" class="nobg">
 
 
 <form onSubmit="copyFiles(this);" action="../exec_form.php?action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
@@ -19,40 +19,39 @@
 
 <div class="tabs">
 <table cellpadding=0 cellspacing=0 border=0 style="width:100%; height:100%">
-	<tr>
-		<td id="tab1" class="tab tabActive" height="18">{$translate.manager.basic}</td>
-		<td id="tab2" class="tab">
-		{if $isAdult}
-			{$translate.manager.empire}
-		{else}
-			{$translate.mananger.imdb}
-		{/if}
-		</td>
-		<td id="tab3" class="tab">{$translate.movie.actors}</td>
-		<td id="tab4" class="tab">Covers</td>
-		{if $isDvdType} 
-		<td id="tab5" class="tab">DVD</td>
-		{/if}
-		{if $hasMetadata}
-		<td id="tab6" class="tab">Meta</td>
-		{/if}
-	</tr>
-	<tr>
-		<td id="t1base" style="height:2px; border-left:solid thin #E0E7EC"></td>
-		<td id="t2base" style="height:2px; background-color:#E0E7EC"></td>
-		<td id="t3base" style="height:2px; background-color:#E0E7EC; border-right:solid thin #E0E7EC"></td>
-		<td id="t4base" style="height:2px; background-color:#E0E7EC"></td>
-		<td id="t5base" style="height:2px; background-color:#E0E7EC"></td>
-		{if $hasMetadata}
-		<td id="t6base" style="height:2px; background-color:#E0E7EC"></td>
-		{/if}
-	</tr>
-	</table>
+<tr>
+	<td id="tab1" class="tab tabActive" height="18">{$translate.manager.basic}</td>
+	<td id="tab2" class="tab">
+	{if $isAdult}
+		{$translate.manager.empire}
+	{else}
+		{$translate.mananger.imdb}
+	{/if}
+	</td>
+	<td id="tab3" class="tab">{$translate.movie.actors}</td>
+	<td id="tab4" class="tab">Covers</td>
+	{if $isDvdType} 
+	<td id="tab5" class="tab">DVD</td>
+	{/if}
+	{if $hasMetadata}
+	<td id="tab6" class="tab">Meta</td>
+	{/if}
+</tr>
+<tr>
+	<td id="t1base" style="height:2px; border-left:solid thin #E0E7EC"></td>
+	<td id="t2base" style="height:2px; background-color:#E0E7EC"></td>
+	<td id="t3base" style="height:2px; background-color:#E0E7EC; border-right:solid thin #E0E7EC"></td>
+	<td id="t4base" style="height:2px; background-color:#E0E7EC"></td>
+	<td id="t5base" style="height:2px; background-color:#E0E7EC"></td>
+	{if $hasMetadata}
+	<td id="t6base" style="height:2px; background-color:#E0E7EC"></td>
+	{/if}
+</tr>
+</table>
 </div>
 
 
 <div id="content1" class="content">
-<p>
 <table cellspacing="0" cellpadding="0" border="0" width="100%">
 <tr>
 	<td valign="top" width="80%">
@@ -139,13 +138,9 @@
 	<td valign="top" align="right" width="20%">Cover image</td>
 </tr>
 </table>
-
-</p>
 </div>
 
 <div id="content2" class="content">
-<p>
-
 {if $isAdult}
 <input type="hidden" name="id_list" id="id_list"/>
 <table cellspacing="1" cellpadding="1" border="0">
@@ -211,12 +206,10 @@
 </table>
 
 {/if}
-</p>
 </div>
 
 <div id="content3" class="content">
 <div class="flow" align="left">
-<p>
 {if $isAdult}
 <div align="right">
 	<input type="button" value="{$translate.manager.addact}" class="buttontext" title="{$translate.manager.addact}" onClick="addActors({$itemId})"/>
@@ -246,25 +239,20 @@
 {/if}
 
 <!-- Leikarar enda -->
-
-
-</p>
 </div>
 </div>
 
 <div id="content4" class="content">
-<p>
-	<table cellspacing="1" cellpadding="1" border="0">
-	{foreach from=$itemCovers item=i key=key}
-	<tr>
-		<td class="tblb" valign="top">{$i.typename}</td>
-		<td><input type="text" name="{$i.typename}" size="20" class="input" value="{$i.filename}"/></td>
-		<td><input type="file" name="{$i.typeid}" value="{$i.typename}" size="10" class="input"/></td>
-		<td>delete cover link</td>
-	</tr>
-	{/foreach}
-	</table>
-</p>
+<table cellspacing="1" cellpadding="1" border="0">
+{foreach from=$itemCovers item=i key=key}
+<tr>
+	<td class="tblb" valign="top">{$i.typename}</td>
+	<td><input type="text" name="{$i.typename}" size="20" class="input" value="{$i.filename}"/></td>
+	<td><input type="file" name="{$i.typeid}" value="{$i.typename}" size="10" class="input"/></td>
+	<td>delete cover link</td>
+</tr>
+{/foreach}
+</table>
 </div>
 
 {if $isDVD}
@@ -273,7 +261,7 @@
 </div>
 {/if}
 
-{if $itemMetadata}
+{if $hasMetadata}
 <div id="content6" class="content">
 	<div class="flow" align="left">
 	<p>
