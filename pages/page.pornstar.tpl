@@ -1,9 +1,10 @@
 <h1>Pornstar | {$name}</h1>
 
+<script type="text/javascript" src="includes/js/wz_tooltip.js"></script>
 <script type="text/javascript">
-var messages = new Array();
+var vImages = new Array();
 {foreach from=$scriptItem item=i}
-messages[{$i.index}] = ['{$i.image}', 145, 205];
+vImages[{$i.index}] = ['{$i.image}',145, 205];
 {/foreach}
 </script>
 
@@ -17,7 +18,8 @@ messages[{$i.index}] = ['{$i.image}', 145, 205];
 		
 	<ul>
 	{foreach from=$movies key=id item=i}
-		<li onmouseover="doTooltip(event,{$i.index})" onmouseout="hideTip()"><a href="?page=cd&amp;vcd_id={$id}">{$i.title}</a></li>
+		<li onmouseover="ImageTip(vImages[{$i.index}])"><a href="?page=cd&amp;vcd_id={$id}">{$i.title}</a></li>
+		
 	{/foreach}
 	</ul>
 	</td>
@@ -26,6 +28,3 @@ messages[{$i.index}] = ['{$i.image}', 145, 205];
 <p>
 {$biography|nl2br}
 </p>
-<script>
-Tooltip.init();
-</script>

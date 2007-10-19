@@ -38,10 +38,7 @@ class VCDBasePage extends VCDPage {
 	protected static $JS_MAIN = 'main.js';
 	protected static $JS_JSON = 'json.js';
 	protected static $JS_AJAX = 'ajax.js';
-	
-	protected static $JS_EVENT = 'dw_event.js';
-	protected static $JS_VIEWPORT = 'dw_viewport.js';
-	protected static $JS_TOOLTIP = 'dw_tooltip.js';
+	protected static $JS_TOOLTIP = 'wz_tooltip.js';
 			
 	/**
 	 * Class contructor, loads the confing and forces the pages/views to handle $_POST requests.

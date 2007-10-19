@@ -230,30 +230,16 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	public function showImage($prefix = "") {
 		$html = "";
 		if (isset($this->image_id) && $this->image_id > 0) {
-			// image is in DB
+			
+			$img = '<img src="%s" alt="" name="%s" class="imgx" border="0"/>';
 			if (VCDDB_USEPROXY==1) {
-				$html = "<img src=\"".VCDDB_SOAPPROXY.$prefix."vcd_image.php?id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+				$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
 			} else {
-				$html = "<img src=\"".$prefix."?page=file&amp;cover_id=".$this->image_id."\" alt=\"\" name=\"".$this->covertypeName."\" class=\"imgx\" border=\"0\"/><br/>";
+				$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
 			}
 			
-		} else {
-			// image is on disk
-			if ($this->isThumbnail()) {
-				if (VCDDB_USEPROXY==1) {
-					$html = "<img src=\"".VCDDB_SOAPPROXY.$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/>";
-				} else {
-					$html = "<img src=\"?page=file&amp;cover_id={$this->cover_id}\" class=\"imgx\" alt=\"\" border=\"0\"/>";
-				}
-				
-			} else {
-				if (VCDDB_USEPROXY==1) {
-					$html = "<a name=\"".$this->covertypeName."\"></a><img src=\"".VCDDB_SOAPPROXY.$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
-				} else {
-					$html = "<a name=\"".$this->covertypeName."\"></a><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" alt=\"\" border=\"0\"/><br/>";
-				}
-			}
 		}
+		
 		return $html;
 	}
 

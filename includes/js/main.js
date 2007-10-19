@@ -1475,3 +1475,13 @@ function addLoadEvent(func) {
     }
   }
 }
+
+
+function ImageTip(data) {
+	var img = '<img src=\"'+data[0]+'\" border="0" width=\"'+data[1]+'\" height=\"'+data[2]+'\"/>';
+	return Tip(doImageTip(data),BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf', WIDTH, data[1], PADDING,5,SHADOW,true)
+}
+
+function doImageTip(data) {
+	return '<img src=\"'+data[0]+'\" border="0" width=\"'+data[1]+'\" height=\"'+data[2]+'\"/>';
+}

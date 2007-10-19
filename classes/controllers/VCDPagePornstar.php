@@ -67,10 +67,11 @@ class VCDPagePornstar extends VCDBasePage {
 		$this->assign('movies', $movies);
 		
 		// Register needed javascripts
-		$this->registerScript(self::$JS_TOOLTIP);
+		//$this->registerScript(self::$JS_TOOLTIP);
+		/*
 		$this->registerScript(self::$JS_VIEWPORT);
 		$this->registerScript(self::$JS_EVENT);
-		
+		*/
 		
 		
 	

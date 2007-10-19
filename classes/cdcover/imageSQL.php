@@ -15,7 +15,7 @@
  */
  
 ?>
-<?PHP
+<?php
 
 class imageSQL extends VCDConnection {
 	

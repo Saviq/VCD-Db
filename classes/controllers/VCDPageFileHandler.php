@@ -374,7 +374,14 @@ class VCDPageFileHandler extends VCDBasePage {
 		if ($cover instanceof cdcoverObj ) {
 			if ($cover->isInDB()) {
 				
+				
+				//die('Image ID = ' . $cover->getImageID());
+				
 				$imageClass = new VCDImage($cover->getImageID());
+				
+				
+				//print_r($imageClass);
+				//exit();
 				
 				@session_write_close();
 				@ob_end_clean();

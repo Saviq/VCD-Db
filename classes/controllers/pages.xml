@@ -188,6 +188,13 @@
 		<action>wishlist</action>
 	</page>
 	
+	<page standalone="false" auth="true">
+		<name>Loans</name>
+		<handler>VCDPageUserLoans</handler>
+		<template>page.user.loans.tpl</template>
+		<action>loans</action>
+	</page>
+	
 	<page standalone="true" auth="true">
 		<name>Manager</name>
 		<handler>VCDPageItemManager</handler>

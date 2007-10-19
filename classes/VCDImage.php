@@ -67,6 +67,7 @@ class VCDImage {
    		
    		
    		if (!is_null($image_id) && is_numeric($image_id)) {
+   			$this->image_id = $image_id;
    			$imagedata = $this->SQL->getImageDetails($image_id);
    			if (is_array($imagedata)) {
    				
