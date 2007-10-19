@@ -40,6 +40,14 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	protected $sourceObj = null;
 	
 	
+	/**
+	 * Skip loading of extendted properties, used by the manager window
+	 *
+	 * @var bool
+	 */
+	protected $skipExtended = false;
+	
+	
 	public function __construct(_VCDPageNode $node) {
 		parent::__construct($node);
 		
@@ -133,18 +141,21 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$this->assign('itemCategoryId',$this->itemObj->getCategoryID());
 		$this->assign('itemCopyCount',$this->itemObj->getNumCopies());
 		
-				
 		// Assign base data
 		$this->doThumbnail();
-		$this->doComments();
 		$this->doMetadata();
 		$this->doCopiesList();
-		$this->doWishlist();
-		$this->doSimilarList();
-		$this->doSeenLink();
-		$this->doManagerLink();
 		$this->doSourceSiteLink();
 		$this->doCovers();
+		
+		if (!$this->skipExtended) {
+			$this->doComments();
+			$this->doWishlist();
+			$this->doSimilarList();
+			$this->doSeenLink();
+			$this->doManagerLink();
+		}
+		
 
 		// Set the item ID
 		$this->assign('itemId', $this->itemObj->getID());

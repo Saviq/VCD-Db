@@ -3,9 +3,19 @@
 
 {if $showgraphs}
 
-	<img src="vcd_image.php?o={$graph1}" alt=""/>
-	<img src="vcd_image.php?o={$graph2}" alt=""/>
-	<img src="vcd_image.php?o={$graph3}" alt=""/>
+	<div id="graphtypes" style="float:right;margin-right:10px">
+		<a href="?page=stats&amp;view=gfx"><img src="images/icons/chart_pie.png" border="0"/></a>
+		<a href="?page=stats&amp;view=gfx&amp;c=2"><img src="images/icons/chart_bar.png" border="0"/></a>
+		<a href="?page=stats&amp;view=gfx&amp;c=3"><img src="images/icons/chart_line.png" border="0"/></a>
+		<a href="?page=stats&amp;view=gfx&amp;c=4"><img src="images/icons/chart_curve.png" border="0"/></a>
+		
+	</div>
+
+	<img src="?page=file&amp;graph={$graph1}" alt=""/>
+	<hr/>
+	<img src="?page=file&amp;graph={$graph2}" alt=""/>
+	<hr/>
+	<img src="?page=file&amp;graph={$graph3}" alt=""/>
 
 {else}
 

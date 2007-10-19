@@ -33,11 +33,38 @@ class VCDPageFileHandler extends VCDBasePage {
 			$this->doNfo($this->getParam('nfo'));
 		} elseif (strcmp($this->getParam('action'),'data')==0) {
 			$this->doExport();
+		} elseif (!is_null($this->getParam('graph'))) {
+			$this->doGraph();
 		}
 		
 		
 		// We never use the parent functions ..
 		exit();
+	}
+	
+	
+	/**
+	 * Generate graphs for the "user statistics" page.
+	 *
+	 */
+	private function doGraph() {
+		
+		// include the graph class
+		require_once(VCDDB_BASE.'/classes/external/powergraph.php');
+		
+		$instructions = $this->getParam('graph');
+		$qs = base64_decode($instructions);
+		$qs = utf8_decode(urldecode($qs));
+		$PG = new PowerGraphic($qs);
+		$PG->drawimg = false;
+		$PG->start();
+	
+		$obj = $PG->create_graphic();
+		header('Content-type: image/png');
+		imagepng($obj);
+		imagedestroy($obj);
+		exit();		
+		
 	}
 	
 	

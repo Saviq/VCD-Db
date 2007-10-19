@@ -25,7 +25,7 @@
 	{if $isAdult}
 		{$translate.manager.empire}
 	{else}
-		{$translate.mananger.imdb}
+		{$translate.manager.imdb}
 	{/if}
 	</td>
 	<td id="tab3" class="tab">{$translate.movie.actors}</td>
@@ -66,11 +66,11 @@
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.category}:</td>
-	<td>categorylist</td>
+	<td>{html_options id=category name=category options=$itemCategoryList selected=$itemCategoryId class="input"}</td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.year}:</td>
-	<td>yearlist</td>
+	<td>{html_options id=year name=year options=$itemYearList selected=$itemYear class="input"}</td>
 </tr>
 {if $isAdult}
 <tr>
@@ -87,7 +87,7 @@
 {else}
 <tr>
 	<td class="tblb">ID</td>
-	<td><input type="text" value="{$itemExternalId}" size="8" name="imdb" class="input"/></td>
+	<td><input type="text" value="{$itemExternalId}" size="8" name="imdb" class="input"/>&nbsp;{$itemSourceSiteName}</td>
 </tr>
 {/if}
 <tr>
@@ -135,7 +135,7 @@
 
 
 </td>
-	<td valign="top" align="right" width="20%">Cover image</td>
+	<td valign="top" align="right" width="20%">{if isset($itemThumbnail)}{$itemThumbnail}{/if}</td>
 </tr>
 </table>
 </div>
@@ -146,20 +146,20 @@
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
 	<td class="tblb" valign="top">Studio:</td>
-	<td>dropdown studio</td>
+	<td>{html_options id=studio name=studio options=$itemStudioList selected=$selectedStudio class="input"}</td>
 </tr>
 <tr>
 	<td class="tblb" valign="top" colspan="2">{$translate.dvdempire.subcat}:<br/>
 	
 		<table cellspacing="0" cellpadding="2" border="0">
 		<tr>
-			<td>all categories</td>
+			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=available name=available options=$subCategoriesAvailable onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input"}</td>
 			<td>
 				<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/>
 				<br/>
 				<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
 			</td>
-			<td>selected cats</td>
+			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=choiceBox name=choiceBox options=$subCategoriesUsed onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input"}</td>
 		</tr>
 		</table>
 		
@@ -173,35 +173,35 @@
 <table cellspacing="1" cellpadding="1" border="0">
 <tr>
 	<td class="tblb" valign="top">{$translate.movie.title}:</td>
-	<td><input type="text" name="imdbtitle" class="input" value="{$itemSTitle}" size="45"/></td>
+	<td><input type="text" name="imdbtitle" class="input" value="{$sourceTitle}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb" valign="top">{$translate.movie.alttitle}:</td>
-	<td><input type="text" name="imdbalttitle" class="input" value="{$itemSAlttitle}" size="45"/></td>
+	<td><input type="text" name="imdbalttitle" class="input" value="{$sourceAlttitle}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.grade}:</td>
-	<td><input type="text" name="imdbgrade" class="input" value="{$itemSRating}" size="3"/> {$translate.manager.stars}</td>
+	<td><input type="text" name="imdbgrade" class="input" value="{$sourceGrade}" size="3"/> {$translate.manager.stars}</td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.runtime}:</td>
-	<td><input type="text" name="imdbruntime" class="input" value="{$itemSRuntime}" size="3"/> min.</td>
+	<td><input type="text" name="imdbruntime" class="input" value="{$sourceRuntime}" size="3"/> min.</td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.director}:</td>
-	<td><input type="text" name="imdbdirector" class="input" value="{$itemSDirector}" size="45"/></td>
+	<td><input type="text" name="imdbdirector" class="input" value="{$sourceDirector}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.country}:</td>
-	<td><input type="text" name="imdbcountries" class="input" value="{$itemSCountries}" size="45"/></td>
+	<td><input type="text" name="imdbcountries" class="input" value="{$sourceCountries}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb" valign="top">IMDB {$translate.movie.category}:</td>
-	<td><input type="text" name="imdbcategories" class="input" value="{$itemSGenres}" size="45"/></td>
+	<td><input type="text" name="imdbcategories" class="input" value="{$sourceCategoryList}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb" valign="top">{$translate.movie.plot}:</td>
-	<td><textarea cols="40" rows="5" name="plot" class="input">{$itemSPlot}</textarea></td>
+	<td><textarea cols="40" rows="5" name="plot" class="input">{$sourcePlot}</textarea></td>
 </tr>
 </table>
 
@@ -217,9 +217,9 @@
 
 	{if is_array($itemPornstars) && count($itemPornstars)>0}
 		<table cellspacing="1" cellpadding="1" border="0">
-		{foreach from=$itemPornstars item=i key=key}
+		{foreach from=$itemPornstars item=name key=key}
 		<tr>
-			<td><li><a href="?page=pornstar&amp;pornstar_id={$key}" target="_blank">{$i.name}</a></li></td>
+			<td><li><a href="?page=pornstar&amp;pornstar_id={$key}" target="_blank">{$name}</a></li></td>
 			<td>Pornstar links to search eingines come here</td>
 		</tr>
 		{/foreach}
@@ -232,7 +232,7 @@
 {else}
 
 <div align="center">
-	<textarea cols="60" rows="15" name="actors" class="input">{$itemSCast}</textarea>
+	<textarea cols="65" rows="15" name="actors" class="input">{$sourceActors}</textarea>
 </div>
 
 

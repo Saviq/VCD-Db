@@ -21,7 +21,99 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 	public function __construct(_VCDPageNode $node) {
 
+		// Tell parent not to load the extended properties
+		$this->skipExtended = true;
 		parent::__construct($node);
+		
+		$this->initPage();
+			
+	}
+	
+	private function initPage() {
+		
+		$this->assign('isAdult', $this->itemObj->isAdult());
+		
+		if (!is_null($this->sourceObj)) {
+			$this->assign('itemExternalId', $this->sourceObj->getObjectID());
+			$sourceName = SettingsServices::getSourceSiteByID($this->itemObj->getSourceSiteID());
+			$this->assign('itemSourceSiteName', '('.$sourceName->getName().')');
+				
+				
+			if (!$this->itemObj->isAdult()) {
+				$this->doSourceSiteElements();
+				// Overwrite the director entry
+				$this->assign('sourceDirector', $this->sourceObj->getDirector());
+				// Overwrite the cast entry
+				$this->assign('sourceActors', $this->sourceObj->getCast(false));
+			} 
+		}
+		
+		
+		
+		if ($this->itemObj->isAdult()) {
+			$this->doAdultData();
+		}
+		
+		
+		$this->doCategoryList();
+		$this->doYearList();
+	}
+	
+	private function doCategoryList() {
+		$categories = getLocalizedCategories(SettingsServices::getAllMovieCategories());
+		
+		$results = array();
+		foreach ($categories as $obj) {
+			$results[$obj['id']] = $obj['name'];
+		}
+
+		$this->assign('itemCategoryList',$results);
+	}
+	
+	private function doYearList() {
+		$results = array();
+		for ($i = date("Y"); $i > 1900; $i--) {
+			$results[$i] = $i;
+		}
+		$this->assign('itemYearList', $results);
+	}
+	
+	private function doAdultData() {
+		
+		// populate studio list
+		$results = array();
+		$studios =  PornstarServices::getAllStudios();
+		foreach ($studios as $studioObj) {
+			$results[$studioObj->getId()] = $studioObj->getName();
+		}
+		$this->assign('itemStudioList', $results);
+		$this->assign('selectedStudio', $this->itemObj->getStudioID());
+		
+		// populate current categories
+		$results = array();
+		$categoriesUsed = PornstarServices::getSubCategoriesByMovieID($this->itemObj->getID());
+		foreach ($categoriesUsed as $categoryObj) {
+			$results[$categoryObj->getId()] = $categoryObj->getName();
+		}
+		$this->assign('subCategoriesUsed', $results);
+				
+		// populate available categories
+		$results2 = array();
+		$categories = PornstarServices::getSubCategories();
+		foreach ($categories as $categoryObj) {
+			$results2[$categoryObj->getId()] = $categoryObj->getName();
+		}
+		$this->assign('subCategoriesAvailable', array_diff($results2, $results));
+		
+		// Set the adult actors
+		$results = array();
+		$pornstars = PornstarServices::getPornstarsByMovieID($this->itemObj->getID());
+		if (is_array($pornstars) && sizeof($pornstars)>0) {
+			foreach ($pornstars as $pornstarObj) {
+				$results[$pornstarObj->getId()] = $pornstarObj->getName();
+			}
+			$this->assign('itemPornstars', $results);
+		}
 		
 		
 	}

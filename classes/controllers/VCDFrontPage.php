@@ -71,7 +71,7 @@ class VCDFrontPage extends VCDBasePage {
 			foreach ($feedlist as $feedItem) {
 				$obj = SettingsServices::getRssfeed($feedItem);
 				
-				
+				$items = null;
 				if ($this->rssFetch->isCached($obj->getFeedUrl())) {
 					$rssData = $this->doRssItem($obj->getFeedUrl());
 					if (isset($rssData['items'])) {

@@ -18,12 +18,22 @@
 
 class VCDPageUserStatistics extends VCDBasePage  {
 	
+	private $graphType = 5;
+	
 	public function __construct(_VCDPageNode $node) {
 		
 		parent::__construct($node);
 		
 		if ($this->getParam('view') == 'gfx') {
+			
+			$options = array(2,3,4,5);
+			$type = $this->getParam('c',false,$this->graphType);
+			if (is_numeric($type) && in_array($type, $options)) {
+				$this->graphType = $type;
+			}
+			
 			$this->doGraphs();
+			
 		} else {
 			$this->doTables();
 		}
@@ -32,12 +42,13 @@ class VCDPageUserStatistics extends VCDBasePage  {
 	}
 	
 	private function doGraphs() {
+		
 		$this->assign('showgraphs',true);
 		
 		require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/external/powergraph.php');
 		 
 		$skin = 1;
-		$type = 5;
+		$type = $this->graphType;
 		
 		$PG = new PowerGraphic();
 		$PG->title = VCDLanguage::translate('movie.category');
@@ -52,11 +63,11 @@ class VCDPageUserStatistics extends VCDBasePage  {
 
 		$i = 0;
 		foreach ($arrCats as $subArr) {
-				$category = SettingsServices::getMovieCategoryByID($subArr[0])->getName(true);
-				$num = $subArr[1];
-				$PG->x[$i] = $category;
-				$PG->y[$i] = $num;		
-				$i++;
+			$category = SettingsServices::getMovieCategoryByID($subArr[0])->getName(true);
+			$num = $subArr[1];
+			$PG->x[$i] = $category;
+			$PG->y[$i] = $num;		
+			$i++;
 		}
 		$qs = base64_encode($PG->create_query_string());
 		$this->assign('graph1', $qs);
@@ -73,11 +84,11 @@ class VCDPageUserStatistics extends VCDBasePage  {
 
 		$i = 0;
 		foreach ($arrCats as $subArr) {
-				$media = SettingsServices::getMediaTypeByID($subArr[0])->getDetailedName();
-				$num = $subArr[1];
-				$PG->x[$i] = $media;
-				$PG->y[$i] = $num;		
-				$i++;
+			$media = SettingsServices::getMediaTypeByID($subArr[0])->getDetailedName();
+			$num = $subArr[1];
+			$PG->x[$i] = $media;
+			$PG->y[$i] = $num;		
+			$i++;
 		}
 		$qs = base64_encode($PG->create_query_string());
 		$this->assign('graph2', $qs);
@@ -94,11 +105,11 @@ class VCDPageUserStatistics extends VCDBasePage  {
 
 		$i = 0;
 		foreach ($arrCats as $subArr) {
-				$year = $subArr[0];
-				$num = $subArr[1];
-				$PG->x[$i] = $year;
-				$PG->y[$i] = $num;		
-				$i++;
+			$year = $subArr[0];
+			$num = $subArr[1];
+			$PG->x[$i] = $year;
+			$PG->y[$i] = $num;		
+			$i++;
 		}
 		$qs = base64_encode($PG->create_query_string());
 		$this->assign('graph3', $qs);
