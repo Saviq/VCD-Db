@@ -239,8 +239,13 @@ class VCDPageUserSettings extends VCDBasePage {
 			$this->assign('selectedFormat', $arrDvdData['format']);
 			$this->assign('selectedAspect', $arrDvdData['aspect']);
 			$this->assign('selectedRegion', $arrDvdData['region']);
-			$this->assign('jsAudio',$arrDvdData['audio']);
-			$this->assign('jsSubs',$arrDvdData['subs']);
+			if (isset($arrDvdData['audio'])) {
+				$this->assign('jsAudio',$arrDvdData['audio']);
+			}
+			if (isset($arrDvdData['subs'])) {
+				$this->assign('jsSubs',$arrDvdData['subs']);
+			}
+			
 			
 			$arrSubs = @explode("#", $arrDvdData['subs']);
 			$arrAudio = @explode("#", $arrDvdData['audio']);
