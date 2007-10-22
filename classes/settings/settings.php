@@ -1518,7 +1518,7 @@ class vcd_settings implements ISettings {
 	 * @param mixed $arrObj
 	 * @param bool $forceCheck | Force to check the mediatypeID field also.
 	 */
-	public function addMetadata($arrObj, $forceCheck = false) {
+	public function addMetadata($arrObj, $forceCheck = true) {
 	 	try {
 
 	 		if ($forceCheck) {
@@ -1667,7 +1667,7 @@ class vcd_settings implements ISettings {
 	 			if (is_numeric($metadata_name)) {
 	 				$mappingName = metadataTypeObj::getSystemTypeMapping($metadata_name);
 	 				if ($mappingName) {
-	 					return $this->SQL->getMetadata($record_id, $user_id, $mappingName);
+	 					return $this->SQL->getMetadata($record_id, $user_id, $mappingName, $mediatype_id);
 	 				} else {
 	 					throw new VCDProgramException('System mapping for metadataType not found.');
 	 				}
