@@ -120,6 +120,14 @@ class VCDPageUserStatistics extends VCDBasePage  {
 		
 		$arrStats = SettingsServices::getUserStatistics(VCDUtils::getUserID());
 		$movieCount = MovieServices::getMovieCount(VCDUtils::getUserID());
+		
+		// Abort if no movies are in database
+		if ($movieCount == 0) {
+			return;
+		}
+			
+		$this->assign('showTables', true);
+		
 		$mapping = getCategoryMapping();
 		$altLang = VCDClassFactory::getInstance('VCDLanguage')->isEnglish();
 				

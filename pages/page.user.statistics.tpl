@@ -17,7 +17,7 @@
 	<hr/>
 	<img src="?page=file&amp;graph={$graph3}" alt=""/>
 
-{else}
+{elseif $showTables}
 
 	{* Categories *}
 	<table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
@@ -78,5 +78,9 @@
 	</tr>
 	{/foreach}
 	</table>
+
+{else}
+	
+	<p>You can use this page after you have added some movies to your collection.</p>
 
 {/if}
