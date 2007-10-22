@@ -70,7 +70,7 @@ class settingsSQL extends VCDConnection  {
 				  settings_key = ".$this->db->qstr($settingsObj->getKey()).",
 				  settings_value = ".$this->db->qstr($settingsObj->getValue()).",
 				  settings_description = ".$this->db->qstr($settingsObj->getDescription()).",
-				  isProtected = ".$settingsObj->isProtected()."
+				  isProtected = ".(int)$settingsObj->isProtected()."
 				  WHERE settings_id = ".$settingsObj->getID()."";
 		$this->db->Execute($query);
 
@@ -88,7 +88,7 @@ class settingsSQL extends VCDConnection  {
 			foreach ($settingsObj as $obj) {
 				$query = "INSERT INTO $this->TABLE_settings (settings_key, settings_value, settings_description, isProtected)
 						  VALUES (".$this->db->qstr($settingsObj->getKey()).",  ".$this->db->qstr($settingsObj->getValue()).",
-						  ".$this->db->qstr($settingsObj->getDescription()).", ".$settingsObj->isProtected().")";
+						  ".$this->db->qstr($settingsObj->getDescription()).", ".(int)$settingsObj->isProtected().")";
 				
 				$this->db->Execute($query);
 			}
@@ -96,7 +96,7 @@ class settingsSQL extends VCDConnection  {
 		} else {
 			$query = "INSERT INTO $this->TABLE_settings (settings_key, settings_value, settings_description, isProtected)
 					  VALUES (".$this->db->qstr($settingsObj->getKey()).",".$this->db->qstr($settingsObj->getValue()).",
-					  ".$this->db->qstr($settingsObj->getDescription()).", ".$settingsObj->isProtected().")";
+					  ".$this->db->qstr($settingsObj->getDescription()).", ".(int)$settingsObj->isProtected().")";
 			$this->db->Execute($query);
 		}
 

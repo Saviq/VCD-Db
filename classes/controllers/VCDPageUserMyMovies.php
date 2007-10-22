@@ -25,6 +25,10 @@ class VCDPageUserMyMovies extends VCDBasePage {
 		
 	}
 	
+	/**
+	 * Initialize basic page variables.
+	 *
+	 */
 	private function initPage() {
 		
 		$this->assign('pageTitle',VCDLanguage::translate('menu.movies'));
@@ -43,6 +47,9 @@ class VCDPageUserMyMovies extends VCDBasePage {
 				case 'keys':
 					$this->doCustomKeys();
 					break;
+				case 'seen':
+					$this->doSeenList();
+					break;
 				default:
 					break;
 			}	
@@ -51,19 +58,49 @@ class VCDPageUserMyMovies extends VCDBasePage {
 	
 	
 	/**
-	 * Assign properties to the custom keys/id's page
+	 * Save the current seenlist that is being posted.
 	 *
 	 */
-	private function doCustomKeys() {
-		$this->assign('pageTitle', VCDLanguage::translate('mymovies.keys'));
-		
-		
-		$currentIndex = $this->getParam('index',false,1);
-		if (!is_numeric($currentIndex)) {
-			$currentIndex = 1;
+	private function saveSeenList() {
+
+		$keyString = $this->getParam('currentIds',true);
+		$checks = $this->getParam('k',true);
+		$keys = explode(':',$keyString);
+
+		// Loop through the keys and set seen bit
+		foreach ($keys as $key) {
+			list($movieid, $mediatypeid) = explode('|',$key);
+			if (key_exists($key, $checks)) {
+				// Mark the movie seen
+				$data = array('',$movieid,VCDUtils::getUserID(),metadataTypeObj::SYS_SEENLIST,'1', $mediatypeid);
+				$metaObj = new metadataObj($data);
+				SettingsServices::addMetadata($metaObj);
+			} else {
+				// Check if movie is marked seen in db .. if so delete the entry
+				$item = SettingsServices::getMetadata($movieid,VCDUtils::getUserID(),metadataTypeObj::SYS_SEENLIST,$mediatypeid);
+				if (is_array($item) && sizeof($item)==1) {
+					$metaId = $item[0]->getMetadataID();
+					SettingsServices::deleteMetadata($metaId);
+				}
+			}
 		}
-		$this->assign('itemPage',$currentIndex);
 		
+		
+		$nextIndex = ((int)$this->getParam('index',false,0))+1;
+		redirect('?page=movies&do=seen&index='.$nextIndex);
+		exit();
+		
+	}
+	
+	
+	/**
+	 * Populate the seenlist controls
+	 *
+	 */
+	private function doSeenList() {
+		
+		$this->assign('pageTitle', VCDLanguage::translate('mymovies.seenlist'));
+				
 		// Get the movie list
 		$movies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID(), true);
 			
@@ -79,6 +116,116 @@ class VCDPageUserMyMovies extends VCDBasePage {
 		$this->assign('pagesList', $indexArray);
 		
 		
+		$currentIndex = $this->getParam('index',false,1);
+		if (!is_numeric($currentIndex) || $currentIndex>$totalPages) {
+			redirect('?page=movies&do=seen');
+			exit();
+		}
+		
+		$this->assign('itemPage',$currentIndex);
+		$btnText = VCDLanguage::translate('misc.savenext'). ' ' . $itemsPerPage;
+					
+		// Generate dataset to work with
+		$results = array();
+		$indexEnd = $itemsPerPage*$currentIndex;
+		$indexStart = $indexEnd - $itemsPerPage;
+		if ($indexEnd > $itemsTotal) {
+			$indexEnd = $itemsTotal;
+			$btnText = VCDLanguage::translate('misc.save');
+		}
+		
+		$arrIds = array();
+		for ($i=$indexStart;$i<$indexEnd;$i++) {
+			$movieObj = $movies[$i];
+			$mediaType = $movieObj->getMediaType();
+			$mediaTypeId = $mediaType[0]->getMediaTypeId();
+			$key = $movieObj->getID()."|".$mediaTypeId;
+			$checked = false;
+			$valueArr = SettingsServices::getMetadata($movieObj->getId(), VCDUtils::getUserID(), 
+				metadataTypeObj::SYS_SEENLIST, $mediaTypeId);
+			if (is_array($valueArr) && sizeof($valueArr)==1) {
+				if ((int)$valueArr[0]->getMetadataValue() == 1) {
+					$checked = true;
+				}
+			}
+			
+			$results[$key] = array('id' => $movieObj->getID(), 'title' => $movieObj->getTitle(), 
+				'mediatype' => $movieObj->showMediaTypes(), 'checked' => $checked);
+			$arrIds[] = $key;
+		}
+		
+		$this->assign('currentList', implode(':',$arrIds));
+		$this->assign('keyList', $results);
+		$this->assign('itemBtnSave',$btnText);
+		
+		
+	
+	}
+	
+	
+	/**
+	 * Save the assigned custom keys
+	 *
+	 */
+	private function saveKeys() {
+		
+		$keys = $this->getParam('k',true);
+		foreach ($keys as $key => $value) {
+			list($id,$mediatype) = explode('|',$key);
+			
+			$data = SettingsServices::getMetadata($id, VCDUtils::getUserID(), metadataTypeObj::SYS_MEDIAINDEX, $mediatype);
+			if (is_array($data) && sizeof($data)==1) {
+				$metaObj = $data[0];
+				if (strcmp(trim($value), '') != 0) {
+					$metaObj->setMetadataValue(trim($value));
+					SettingsServices::updateMetadata($metaObj);
+				} else {
+					// if the value is empty we just delete the metadata
+					SettingsServices::deleteMetadata($metaObj->getMetadataID());
+				}
+			} else {
+				$metaObj = new metadataObj(
+					array('',$id,VCDUtils::getUserID(),metadataTypeObj::SYS_MEDIAINDEX, trim($value), $mediatype));
+				SettingsServices::addMetadata($metaObj);
+				
+			}
+		}
+		
+		$nextIndex = ((int)$this->getParam('index',false,0))+1;
+		redirect('?page=movies&do=keys&index='.$nextIndex);
+		exit();
+		
+	}
+	
+	/**
+	 * Assign properties to the custom keys/id's page
+	 *
+	 */
+	private function doCustomKeys() {
+		$this->assign('pageTitle', VCDLanguage::translate('mymovies.keys'));
+				
+		// Get the movie list
+		$movies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID(), true);
+			
+		// Create the dropdownlist of pageIndex
+		$itemsPerPage = 25;
+		$itemsTotal = sizeof($movies);
+		$indexArray = array();
+		$totalPages = ceil($itemsTotal/$itemsPerPage);
+		for ($i=0;$i<$totalPages;$i++) {
+			$end = (($i*$itemsPerPage)+$itemsPerPage) > $itemsTotal ? $itemsTotal : (($i*$itemsPerPage)+$itemsPerPage);
+			$indexArray[($i+1)] = (($i*$itemsPerPage)+1)." - " . $end;
+		}
+		$this->assign('pagesList', $indexArray);
+		
+		
+		$currentIndex = $this->getParam('index',false,1);
+		if (!is_numeric($currentIndex) || $currentIndex>$totalPages) {
+			redirect('?page=movies&do=keys');
+			exit();
+		}
+		
+		$this->assign('itemPage',$currentIndex);
 		$btnText = VCDLanguage::translate('misc.savenext'). ' ' . $itemsPerPage;
 					
 		// Generate dataset to work with
@@ -95,7 +242,15 @@ class VCDPageUserMyMovies extends VCDBasePage {
 			$mediaType = $movieObj->getMediaType();
 			$mediaTypeId = $mediaType[0]->getMediaTypeId();
 			$key = $movieObj->getID()."|".$mediaTypeId;
-			$results[$key] = array('id' => $movieObj->getID(), 'title' => $movieObj->getTitle(), 'mediatype' => $movieObj->showMediaTypes());
+			$value = '';
+			$valueArr = SettingsServices::getMetadata($movieObj->getId(), VCDUtils::getUserID(), 
+				metadataTypeObj::SYS_MEDIAINDEX, $mediaTypeId);
+			if (is_array($valueArr) && sizeof($valueArr)==1) {
+				$value = $valueArr[0]->getMetadataValue();
+			}
+			
+			$results[$key] = array('id' => $movieObj->getID(), 'title' => $movieObj->getTitle(), 
+				'mediatype' => $movieObj->showMediaTypes(), 'key' => $value);
 		}
 		
 		$this->assign('keyList', $results);
@@ -162,7 +317,11 @@ class VCDPageUserMyMovies extends VCDBasePage {
 		$this->assign('methodList',$results);
 		
 	}
-		
+
+	/**
+	 * Find the diss based on the submitted variables.
+	 *
+	 */
 	private function discJoin() {
 		try {
 			
@@ -208,7 +367,12 @@ class VCDPageUserMyMovies extends VCDBasePage {
 			case 'join':
 				$this->discJoin();
 				break;
-		
+			case 'keys':
+				$this->saveKeys();
+				break;
+			case 'seen':
+				$this->saveSeenList();
+				break;
 			default:
 				break;
 		}

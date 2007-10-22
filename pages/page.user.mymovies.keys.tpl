@@ -10,7 +10,7 @@
 <tr>
 	<td>{$i.title|escape}</td>
 	<td nowrap="nowrap">{$i.mediatype}</td>
-	<td align="right"><input type="text" size="3" value="{$i.key}" class="inp" name="{$k}"/></td>
+	<td align="right"><input type="text" size="3" value="{$i.key}" class="inp" name="k[{$k}]"/></td>
 </tr>
 {/foreach}
 <tr>

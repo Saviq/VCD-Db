@@ -202,6 +202,11 @@ class VCDAjaxHelper {
 			}
 			
 			$folder = VCDDB_BASE.DIRECTORY_SEPARATOR.'upload/screenshots/albums/'.$movie_id;
+			
+			if (!is_dir($folder)) {
+				throw new VCDProgramException('Screenshot folder for movie does not exist.');
+			}
+			
 			$files = array();
 			$it = new DirectoryIterator($folder);
 			foreach ($it as $file) {
