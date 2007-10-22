@@ -1,4 +1,4 @@
-<form name="customkeys" method="post" action="?page=movies&amp;do=seen&amp;index={$itemPage}">
+<form name="customkeys" method="post" action="index.php?page=movies&amp;do=seen&amp;index={$itemPage}">
 
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="tblsmall">
 <tr>
