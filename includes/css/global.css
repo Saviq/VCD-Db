@@ -74,6 +74,13 @@ div#tipDiv {
 div#tipDiv div.img { text-align:center }
 div#tipDiv div.msg { text-align:left; margin-top:4px }
 
+li.lilink a {
+	display:block;
+}
+
+li.lilink a:hover {
+	background-color:#F9F9F9;
+}
 
 
 /* Default DVD settings */

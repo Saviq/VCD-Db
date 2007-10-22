@@ -216,8 +216,8 @@ class pornstarObj implements XMLable {
 	 */
 	public function getIAFD()	{
 		$tname = str_replace(" ", "+", trim($this->name, ""));
-		$iafd = "http://www.iafd.com/ramesearch.asp?searchtype=iafd-perf&searchstring=".$tname;
-		$link = "<a href=\"".$iafd."\" target=\"_new\" title=\"Internet Adult Film Database\">IAFD</a>";
+		$iafd = "http://www.iafd.com/ramesearch.asp?searchtype=iafd-perf&amp;searchstring=".$tname;
+		$link = "<a href=\"".$iafd."\" target=\"_blank\" title=\"Internet Adult Film Database\">IAFD</a>";
 		return $link;
 	}
 	
@@ -253,36 +253,28 @@ class pornstarObj implements XMLable {
 	
 	
 	
-		/**
+	/**
 	 * Print the HTML IMG string for this pornstars thumbnail image.
-	 *
-	 * Param prefix can point to a folder down in the tree if desireable.
-	 *
-	 * @param string $prefix
 	 */
-	public function getImageLink($prefix = "") {
+	public function getImageLink() {
 		
-		$filenotfoundImage = "notfoundimagestar.gif";
-		$image = "";
-		
-		if (VCDDB_USEPROXY==1) {
+		$html = "";
+		if (isset($this->image) && strlen($this->image) > 3) {
 			
-			if (isset($this->image) && strlen($this->image) > 3) {
-				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".VCDDB_SOAPPROXY.$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
+			$img = '<img src="%s" alt="%s" title ="%s" class="imgx" border="0" width="145" height="200"/>';
+			if (VCDDB_USEPROXY==1) {
+				$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;pornstar_id='.$this->id, $this->name, $this->name);
 			} else {
-				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
-			}	
+				$html = sprintf($img, '?page=file&amp;pornstar_id='.$this->id, $this->name, $this->name);
+			}
 			
 		} else {
-			if (!file_exists($prefix.PORNSTARIMAGE_PATH.$this->image) && isset($this->image)) { 
-				$image =  "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/{$filenotfoundImage}\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
-			} else if (isset($this->image) && strlen($this->image) > 3) {
-				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix.PORNSTARIMAGE_PATH . $this->image."\" class=\"imgx\" alt=\"\" title=\"".$this->name."\" width=\"145\" height=\"200\" border=\"0\"/></a>";
-			} else {
-				$image = "<a href=\"./?page=pornstar&amp;pornstar_id=".$this->id."\"><img src=\"".$prefix."images/noimagestar.gif\" border=\"0\" alt=\"\" title=\"".$this->name."\" class=\"imgx\"/></a>";
-			}	
+			$img = '<img src="images/noimagestar.gif" title="%s" class="imgx" alt="%s" border="0"/>';
+			$html = sprintf($img, $this->name, $this->name);
 		}
-		return $image;
+		
+		return $html;
+			
 	}
 	
 	

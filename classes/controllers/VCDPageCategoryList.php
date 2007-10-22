@@ -54,7 +54,7 @@ class VCDPageCategoryList extends VCDBasePage {
 		foreach ($movies as $movie) {
 			$coverObj = $movie->getCover('thumbnail');
 			if ($coverObj instanceof cdcoverObj ) {
-				$results[] = $coverObj->getCategoryImageAndLink("./?page=cd&amp;vcd_id=".$movie->getID()."",$movie->getTitle());
+				$results[] = $coverObj->getCategoryImageAndLink("?page=cd&amp;vcd_id=".$movie->getID(),$movie->getTitle());
 			}
 		}
 		

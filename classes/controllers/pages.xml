@@ -144,6 +144,12 @@
 		<template>page.user.statistics.tpl</template>
 		<action>stats</action>
 	</page>
+	<page standalone="true" auth="true">
+		<name>Print View</name>
+		<handler>VCDPageUserPrintview</handler>
+		<template>page.user.printview.tpl</template>
+		<action>printview</action>
+	</page>
 	<page standalone="false" auth="true">
 		<name>Rss Feeds</name>
 		<handler>VCDPageUserRss</handler>

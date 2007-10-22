@@ -58,6 +58,9 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$this->loadItem();
 		$this->doCoreElements();
 		
+		// Add the lytebox javascript
+		$this->registerScript(self::$JS_LYTE);
+		
 	}
 	
 		
@@ -385,10 +388,11 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			$arrDVDMeta = metadataTypeObj::getDVDMeta($arrDVDMeta);
 			$divid = "x".$mediaTypeObj->getmediaTypeID() ."x". $userObj->getUserId();
 		}
-		$dhtml = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
-		$img = "<img src=\"images/icon_item.gif\" onmouseover=\"{$dhtml}return escape(showDVD('{$divid}'))\" border=\"0\" hspace=\"1\" alt=\"\" align=\"middle\"/>";
+		
+		$src = '<img src="images/icon_item.gif" onmouseover="DvdTip(\'%s\')" border="0" hspace="1" alt="" align="middle"/>';
+		$img = sprintf($src, $divid);
 	
-		if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && sizeof($arrDVDMeta) > 0) {
+		if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && (sizeof($arrDVDMeta) > 0)) {
 			return $img;
 		} else {
 			return "&nbsp;";

@@ -795,12 +795,6 @@ class PowerGraphic {
         return (float)str_replace(",", "", $number);
     }
 
-
-    function draw_credits() {
-        imagestring($this->img, 1, ($this->width-120), ($this->height-10), "Powered by Carlos Reche", $this->color['title']);
-    }
-
-
     function load_color_palette()
     {
         switch ($this->skin)

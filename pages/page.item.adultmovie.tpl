@@ -17,7 +17,7 @@
 		<td valign="top">
 			<table cellspacing="0" cellpadding="0" border="0" width="100%">
 			<tr>
-				<td colspan="2"><strong>{$itemTitle}</strong></td>
+				<td colspan="2" id="mTitle"><strong>{$itemTitle|escape}</strong></td>
 			</tr>
 			<tr>
 				<td width="30%">{$translate.movie.category}:</td>
@@ -35,10 +35,9 @@
 			</tr>
 			<tr>
 				<td>{$translate.movie.screenshots}</td>
-				<td>{if $smarty.get.screens}
-					<a href="?page=cd&amp;vcd_id={$itemId}">{$translate.movie.hide}</a>
-				{elseif $itemScreenshots}
-					<a href="?page=cd&amp;vcd_id={$itemId}&amp;screens=on">{$translate.movie.show}</a>
+				<td>
+				{if $itemScreenshots}
+					<a href="#" onclick="ShowScreenshots({$itemId});return false">{$translate.movie.show}</a>
 				{else}
 					{$translate.movie.noscreens}
 				{/if}
@@ -96,8 +95,8 @@
 
 	<h2>{$translate.movie.actors}</h2>
 	<div id="actorimages" style="padding-left:10px;">
-		{foreach from=$itemPornstars item=i}
-			{$i.img}
+		{foreach from=$itemPornstars item=i key=id}
+			<a href="?page=pornstar&amp;pornstar_id={$i.id}">{$i.img}</a>
 		{/foreach}
 	</div>
 	<br/>
@@ -266,7 +265,7 @@
 		{/if}
 		{if $i.isOwner}
 			<a href="#" onclick="deleteComment({$itemId},{$i.id});return false">
-			<img src="images/icon_del.gif" alt="Delete comment" align="absmiddle" border="0"/></a>
+			<img src="images/icon_del.gif" alt="Delete comment" style="vertical-align: middle;display: inline-block;" border="0"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>
 		{/foreach}
@@ -280,6 +279,4 @@
 	</td>
 </tr>
 </table>
-
-<script language="javascript" type="text/javascript" src="includes/js/lytebox.js"></script>
-<script language="javascript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
+<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>

@@ -38,7 +38,7 @@ class VCDBasePage extends VCDPage {
 	protected static $JS_MAIN = 'main.js';
 	protected static $JS_JSON = 'json.js';
 	protected static $JS_AJAX = 'ajax.js';
-	protected static $JS_TOOLTIP = 'wz_tooltip.js';
+	protected static $JS_LYTE = 'lytebox.js';
 			
 	/**
 	 * Class contructor, loads the confing and forces the pages/views to handle $_POST requests.

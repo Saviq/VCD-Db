@@ -19,7 +19,7 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 
 class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 	
-	
+	private $hasScreenshots = false;	
 	
 	public function __construct(_VCDPageNode $node) {
 				
@@ -38,6 +38,10 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 		// Set the screenshot view option
 		$this->doScreenshots();
 		
+		if ($this->hasScreenshots) {
+			$this->registerScript(self::$JS_JSON);
+			$this->registerScript(self::$JS_AJAX);
+		}
 	}
 	
 	
@@ -48,6 +52,7 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 	private function doScreenshots() {
 		if (MovieServices::getScreenshots($this->itemObj->getID()) ) {
 			$this->assign('itemScreenshots',true);
+			$this->hasScreenshots = true;
 		}
 	}
 	

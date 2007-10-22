@@ -17,8 +17,14 @@
 
  <ul id="rss{$id}">
  {if is_array($i.items) && count($i.items)>0}
+ 	
+	<script>
+	var h{$id} = Array();
+	{foreach from=$i.items item=j key=k}h{$id}[{$k}] = ['{$j.hover}'];{/foreach}
+	</script>
+ 
  	{foreach from=$i.items item=j name=item}
-		<li><a href="{$j.link}" target="_blank" onmouseover="this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('{$j.hover}')">{$j.title}</a></li>
+		<li><a href="{$j.link}" target="_blank" onmouseover="TextTip(h{$id}[{$smarty.foreach.item.index}])">{$j.title}</a></li>
 	{/foreach}
 {elseif $i.items eq 'notInCache'}
 	<script>invokeRss({$id});</script>

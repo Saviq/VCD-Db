@@ -42,7 +42,7 @@ var config = new Object();
 
 
 //===================  GLOBAL TOOPTIP CONFIGURATION  =========================//
-var  tt_Debug	= true		// false or true - recommended: false once you release your page to the public
+var  tt_Debug	= false		// false or true - recommended: false once you release your page to the public
 var  tt_Enabled	= true		// Allows to (temporarily) suppress tooltips, e.g. by providing the user with a button that sets this global variable to false
 var  TagsToTip	= true		// false or true - if true, the script is capable of converting HTML elements to tooltips
 
@@ -53,9 +53,9 @@ var  TagsToTip	= true		// false or true - if true, the script is capable of conv
 // Example: onmouseover="Tip('Tooltip text', LEFT, true, BGCOLOR, '#FF9900', FADEIN, 400)"
 
 config. Above			= false 	// false or true - tooltip above mousepointer?
-config. BgColor 		= '#E4E7FF' // Background color
+config. BgColor 		= '#e6ecff' // Background color
 config. BgImg			= ''		// Path to background image, none if empty string ''
-config. BorderColor 	= '#002299'
+config. BorderColor 	= '#003399'
 config. BorderStyle 	= 'solid'	// Any permitted CSS value, but I recommend 'solid', 'dotted' or 'dashed'
 config. BorderWidth 	= 1
 config. CenterMouse 	= false 	// false or true - center the tip horizontally below (or above) the mousepointer
@@ -79,12 +79,12 @@ config. Left			= false 	// false or true - tooltip on the left of the mouse
 config. OffsetX 		= 14		// Horizontal offset of left-top corner from mousepointer
 config. OffsetY 		= 8 		// Vertical offset
 config. Opacity 		= 100		// Integer between 0 and 100 - opacity of tooltip in percent
-config. Padding 		= 3 		// Spacing between border and content
+config. Padding 		= 2 		// Spacing between border and content
 config. Shadow			= false 	// false or true
 config. ShadowColor 	= '#C0C0C0'
 config. ShadowWidth 	= 5
 config. Sticky			= false 	// Do NOT hide tooltip on mouseout? false or true
-config. TextAlign		= 'left'	// 'left', 'right' or 'justify'
+config. TextAlign		= 'center'	// 'left', 'right' or 'justify'
 config. Title			= ''		// Default title text applied to all tips (no default title: empty string '')
 config. TitleAlign		= 'left'	// 'left' or 'right' - text alignment inside the title bar
 config. TitleBgColor	= ''		// If empty string '', BorderColor will be used

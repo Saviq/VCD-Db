@@ -1411,7 +1411,7 @@ function eraseCookie(name) {
 }
 
 function vcddbAjax(funcname) {
-	var ajax = new Ajax( "POST", "index.php", false, false);
+	var ajax = new Ajax("POST", "index.php", false, false);
 	this.cls = 'VCDAjaxHelper';
 	this.fnc = funcname;
 	this.invoke = function() { ajax.callMethod(this.cls, this.fnc, this.invoke.arguments) }
@@ -1477,6 +1477,61 @@ function addLoadEvent(func) {
 }
 
 
+function ShowScreenshots(movie_id) {
+	try {
+		obj = new vcddbAjax('getScreenshots');
+		obj.invoke(movie_id, doShowScreenshots);
+	} catch (ex) {
+		alert(ex.Message);
+	}
+}
+
+function doShowScreenshots(response) {
+	try {
+		obj = new Object(response);
+		files = obj.files;
+		id = obj.id;
+		title = '';
+		try { title = document.getElementById('mTitle').innerHTML;} 
+			catch (ex) { try { title = document.getElementById('m'+id).innerHTML;} catch(ex) {}
+		}
+		try {
+			oldDiv = document.getElementById('dSlider');
+			oldDiv.innerHTML = '';
+		} catch (ex) {}
+		
+		base = 'upload/screenshots/albums/'+id+'/';
+		doc = document.body;
+	
+		// create container
+		var c = document.createElement('div');
+		c.setAttribute('id','dSlider');
+		c.setAttribute('height',0);
+		c.setAttribute('width',0);
+		c.setAttribute('style','visibility:hidden;display:none;height:0;width:0');
+		doc.appendChild(c);
+		
+		for (i=0;i<files.length;i++) {
+			l = document.createElement('a');
+			l.setAttribute('href',base+files[i]);
+			l.setAttribute('rel','lyteshow[s]');
+			l.setAttribute('title', title +' - Screenshot ' + (i+1));
+			if (i==0) {
+				l.setAttribute('id','startslide');
+			}
+			c.appendChild(l);
+		}
+		
+		var el = document.getElementById('startslide');
+	    myLytebox.updateLyteboxItems();
+	  	myLytebox.start(el,true,false);
+		
+	} catch (e) {
+		alert(e.message);
+	}
+}
+
+
 function ImageTip(data) {
 	var img = '<img src=\"'+data[0]+'\" border="0" width=\"'+data[1]+'\" height=\"'+data[2]+'\"/>';
 	return Tip(doImageTip(data),BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf', WIDTH, data[1], PADDING,5,SHADOW,true)
@@ -1484,4 +1539,18 @@ function ImageTip(data) {
 
 function doImageTip(data) {
 	return '<img src=\"'+data[0]+'\" border="0" width=\"'+data[1]+'\" height=\"'+data[2]+'\"/>';
+}
+
+function TextTip(data) {
+	return Tip(doTextTip(data[0]), SHADOWWIDTH,1,STICKY,1,OFFSETX,-70,WIDTH,250);
+}
+
+function doTextTip(data) {
+	return decodeURI('<div align="center">'+data+'</div>');
+}
+
+function DvdTip(layerid) {
+	//this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
+	return TagToTip(layerid,SHADOWWIDTH,1,ABOVE,true,LEFT,false,FADEIN,150,FADEOUT,150,
+		WIDTH,280,BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf',SHADOW,true,SHADOWWIDTH,1,PADDING,0);
 }

@@ -193,6 +193,31 @@ class VCDAjaxHelper {
 		return array('id' =>  $rss_id, 'items' => $results);
 	}
 	
+	
+	public static function getScreenshots($movie_id) {
+		try {
+			
+			if (!is_numeric($movie_id)) {
+				throw new Exception('Movie id must be numeric');
+			}
+			
+			$folder = VCDDB_BASE.DIRECTORY_SEPARATOR.'upload/screenshots/albums/'.$movie_id;
+			$files = array();
+			$it = new DirectoryIterator($folder);
+			foreach ($it as $file) {
+				if (!$file->isDir()) {
+					$files[] = $file->getFileName();
+				}
+			}
+			
+			return array('id' => $movie_id, 'files' => $files);
+			
+		} catch (Exception $ex) {
+			throw new AjaxException($ex->getMessage());
+		}
+	}
+	
+	
 }
 
 ?>

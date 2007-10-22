@@ -20,7 +20,8 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title' 	  => '<title>Adult DVD Empire - (.*) - Adult DVD',
+		'title' 	  => '<title>Adult DVD Empire - ([^<]*) - Adult DVD',
+		//'title'		  => 'width=\'100%\'>([^<]*)<strong>([^<]*)</strong>',
 		'year'  	  => 'Production Year: ([0-9]{4})',
 		'studio'	  => '&amp;studio_id=([0-9]{1,4})">([^<]*)</a>',
 		'screens'	  => 'topoftabs\">([^<]*) Screen Shots</a>',
@@ -85,7 +86,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 					
 				case 'screens':
 					$screencount = $arrData[1];
-					if (is_numeric($screencount)) {
+					if (is_numeric($screencount) && ($screencount>0)) {
 						$arrScreens = $this->getImagePath('screenshots');
 						for($i=0;$i<$screencount;$i++) {
 							$obj->addScreenShotFile($arrScreens[$i]);
@@ -198,7 +199,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 				// Return array of all screenshots
 				$screenbase = "http://images2.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
 				$screens = array();
-				for($i = 1; $i <= 40 ; $i++) {
+				for($i = 1; $i <= 50 ; $i++) {
 					$path = $screenbase."_".$i."l.jpg";
 					array_push($screens, $path);
 				}

@@ -36,6 +36,7 @@ class VCDPagePornstar extends VCDBasePage {
 		$this->assign('iafdlink', $pornstarObj->getIAFD());
 		$this->assign('image', $pornstarObj->getImageLink());
 		
+		
 		// Generate the javascript items
 		$i = 0;
 		$scriptItems = array();
@@ -65,15 +66,7 @@ class VCDPagePornstar extends VCDBasePage {
 
 		$this->assign('scriptItem', $scriptItems);
 		$this->assign('movies', $movies);
-		
-		// Register needed javascripts
-		//$this->registerScript(self::$JS_TOOLTIP);
-		/*
-		$this->registerScript(self::$JS_VIEWPORT);
-		$this->registerScript(self::$JS_EVENT);
-		*/
-		
-		
+			
 	
 	}
 	

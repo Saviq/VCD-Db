@@ -33,6 +33,7 @@ if (VCDUtils::isLoggedIn()) {
 		$ajax->registerMethod('dvdObj', 'getCountryFlag');
 		$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
 		$ajax->registerMethod('VCDAjaxHelper', 'getRss');
+		$ajax->registerMethod('VCDAjaxHelper', 'getScreenshots');
 	}
 		
 	$ajaxServer = $ajax->getServer();

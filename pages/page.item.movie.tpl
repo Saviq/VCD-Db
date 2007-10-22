@@ -236,7 +236,7 @@
 	{else}
 
 		<span class="bold">{$translate.comments.type}:</span>
-		<form name="newcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
+		<form name="comment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
 		<input type="hidden" name="vcd_id" value="{$itemId}"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>
@@ -267,7 +267,7 @@
 		{/if}
 		{if $i.isOwner}
 			<a href="#" onclick="deleteComment({$itemId},{$i.id});return false">
-			<img src="images/icon_del.gif" alt="Delete comment" align="absmiddle" border="0"/></a>
+			<img src="images/icon_del.gif" alt="Delete comment" border="0" style="vertical-align: middle;display: inline-block;"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>
 		{/foreach}
@@ -303,5 +303,4 @@
 	</td>
 </tr>
 </table>
-<script language="javascript" type="text/javascript" src="includes/js/lytebox.js"></script>
-<script language="javascript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>
+<script language="JavaScript" type="text/javascript" src="includes/js/wz_tooltip.js"></script>

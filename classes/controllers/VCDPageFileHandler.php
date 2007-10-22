@@ -35,6 +35,8 @@ class VCDPageFileHandler extends VCDBasePage {
 			$this->doExport();
 		} elseif (!is_null($this->getParam('graph'))) {
 			$this->doGraph();
+		} elseif (!is_null($this->getParam('pornstar_id'))) {
+			$this->doPornstarImage($this->getParam('pornstar_id'));
 		}
 		
 		
@@ -374,14 +376,7 @@ class VCDPageFileHandler extends VCDBasePage {
 		if ($cover instanceof cdcoverObj ) {
 			if ($cover->isInDB()) {
 				
-				
-				//die('Image ID = ' . $cover->getImageID());
-				
 				$imageClass = new VCDImage($cover->getImageID());
-				
-				
-				//print_r($imageClass);
-				//exit();
 				
 				@session_write_close();
 				@ob_end_clean();
@@ -408,6 +403,28 @@ class VCDPageFileHandler extends VCDBasePage {
 			
 		}
 		exit();
+	}
+	
+	
+	/**
+	 * Display pornstar thumbnail
+	 *
+	 */
+	private function doPornstarImage($pornstar_id) {
+		
+		if (is_numeric($pornstar_id)) {
+			$pornstarObj = PornstarServices::getPornstarByID($pornstar_id);
+			if ($pornstarObj instanceof pornstarObj ) {
+				$image = VCDDB_BASE.DIRECTORY_SEPARATOR.PORNSTARIMAGE_PATH.$pornstarObj->getImageName();
+				// check if file exists ..
+				if (!file_exists($image)) {
+					$image = VCDDB_BASE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'notfoundimagestar.gif';
+				}
+				$this->streamFile($image);	
+				
+			}
+		}
+		
 	}
 	
 	/**

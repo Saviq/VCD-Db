@@ -146,7 +146,7 @@ class imdbObj extends fetchedObj implements XMLable {
 	 * @return string
 	 */
 	public function getDirectorLink() {
-		$directorLink =  "<a href=\"?page=search&amp;searchstring=".$this->director."&amp;by=director\">".$this->director."</a>";
+		$directorLink =  "<a href=\"?page=search&amp;searchstring=".str_replace(' ','+',$this->director)."&amp;by=director\">".$this->director."</a>";
 		$imdb = explode(" ", $this->director);
 		// Create imdb url for director
 		if (isset($imdb[2])) {
@@ -274,25 +274,26 @@ class imdbObj extends fetchedObj implements XMLable {
 		$pieces = explode("<br>", $cast);
 		$st		= count($pieces);
 		$counter = 0;
-			for ($n=0; $n < $st-1; $n++ ) {
-				$tmp = explode("...",$pieces[$n]);
-				$role = strstr($pieces[$n],'....');
-				$role = str_replace('....','',$role);
+		for ($n=0; $n < $st-1; $n++ ) {
+			$tmp = explode("...",$pieces[$n]);
+			$role = strstr($pieces[$n],'....');
+			$role = str_replace('....','',$role);
 
-				$imdb = explode(" ",$tmp[0]); // the IMDB url
-				$tmp[0] = "<a href=\"?page=search&amp;searchstring=".trim($tmp[0])."&amp;by=actor\">".trim($tmp[0])."</a>";
-				$actor = trim($tmp[0]);
+			$imdb = explode(" ",$tmp[0]); // the IMDB url
+			$tmp[0] = "<a href=\"?page=search&amp;searchstring=".str_replace(' ','+',trim($tmp[0]))."&amp;by=actor\">".trim($tmp[0])."</a>";
+			$actor = trim($tmp[0]);
 
-				// Create imdb url for actor
-				if (isset($imdb[2])) {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_blank\">[imdb]</a>";
-				} elseif(isset($imdb[1])) {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_blank\">[imdb]</a>";
-				} else {
-					$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_blank\">[imdb]</a>";
-				}
-				$strData .= "<span class=\"item\"><strong>$actor</strong>&nbsp;&nbsp;$urlid<br/>$role</span>";
+			// Create imdb url for actor
+			if (isset($imdb[2])) {
+				$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[2],+$imdb[0]+$imdb[1]\" target=\"_blank\">[imdb]</a>";
+			} elseif(isset($imdb[1])) {
+				$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[1],+$imdb[0]\" target=\"_blank\">[imdb]</a>";
+			} else {
+				$urlid = "<a href=\"http://us.imdb.com/Name?$imdb[0]\" target=\"_blank\">[imdb]</a>";
 			}
+			$urlid = str_replace(chr(10),'',$urlid);
+			$strData .= "<span class=\"item\"><strong>$actor</strong>&nbsp;&nbsp;$urlid<br/>$role</span>";
+		}
 			
 		return $strData;
 	}

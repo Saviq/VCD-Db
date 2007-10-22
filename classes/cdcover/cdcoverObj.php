@@ -222,22 +222,17 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 
 	/**
 	 * Returns the HTML image tag for display-ing the current cdcover object.
-	 * Param prefix can be forexample path below like "../"
 	 *
-	 * @param string $prefix
 	 * @return string | The img src source
 	 */
-	public function showImage($prefix = "") {
+	public function showImage() {
 		$html = "";
-		if (isset($this->image_id) && $this->image_id > 0) {
 			
-			$img = '<img src="%s" alt="" name="%s" class="imgx" border="0"/>';
-			if (VCDDB_USEPROXY==1) {
-				$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
-			} else {
-				$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
-			}
-			
+		$img = '<img src="%s" alt="" name="%s" class="imgx" border="0"/>';
+		if (VCDDB_USEPROXY==1) {
+			$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
+		} else {
+			$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
 		}
 		
 		return $html;
@@ -311,25 +306,27 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	/**
 	 * Same as function showImageAndLink but is explicitly used for display-ing movie categories.
 	 *
-	 * @param string $url
-	 * @param string $title
-	 * @param string $prefix
+	 * @param string $url | The url behind the image
+	 * @param string $title | The image title
+	 * @param int $width | The image width
+	 * @param int $heigth | The image height
 	 * 
 	 * @return string | Returns the IMG src
 	 */
-	public function getCategoryImageAndLink($url, $title = "", $prefix = "") {
-		if (isset($this->image_id) && $this->image_id > 0) {
-			// image is in DB
-			return "<a href=\"$url\"><img src=\"".$prefix."vcd_image.php?id=".$this->image_id."\" name=\"".$this->covertypeName."\"  width=\"100\" height=\"145\" title=\"$title\" class=\"imgx\" border=\"0\"/></a>";
+	public function getCategoryImageAndLink($url, $title = '', $width=100, $heigth=145) {
+		
+		$html = "";
+		$img = '<img src="%s" alt="%s" title="%s" class="imgx" width="%d" height="%d" border="0"/>';
+		if (VCDDB_USEPROXY==1) {
+			$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
 		} else {
-			// image is on disk
-			if ($this->isThumbnail()) {
-				return "<a href=\"$url\"><img src=\"".$prefix.THUMBNAIL_PATH.$this->filename."\" class=\"imgx\" width=\"100\" height=\"145\" title=\"$title\" alt=\"$title\" border=\"0\"/></a>";
-			} else {
-				return "<a href=\"$url\"><img src=\"".$prefix.COVER_PATH.$this->filename."\" class=\"imgx\" border=\"0\"/></a>";
-			}
-
+			$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
 		}
+				
+				
+		$link = '<a href="%s">%s</a>';
+		return sprintf($link, $url, $html);
+		
 	}
 
 
@@ -388,6 +385,11 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	}
 
 
+	/**
+	 * Get the object SOAP encoded
+	 *
+	 * @return string
+	 */
 	public function toSoapEncoding() {
 		return array(
 			'cover_id'				=> $this->cover_id,

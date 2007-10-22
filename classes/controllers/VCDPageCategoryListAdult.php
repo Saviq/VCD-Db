@@ -35,6 +35,11 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 		
 		$this->initPage();
 		
+		// Register javascripts
+		$this->registerScript(self::$JS_JSON);
+		$this->registerScript(self::$JS_AJAX);
+		$this->registerScript(self::$JS_LYTE);
+		
 		// Load the correct data in the dropdown list
 		$this->doSelectionList();
 		
@@ -44,8 +49,7 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 		} else {
 			$this->doTextList();	
 		}
-		
-		
+				
 		// Do the pager
 		$this->doPager();
 						
@@ -73,7 +77,8 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 		foreach ($movies as $movie) {
 			$coverObj = $movie->getCover('thumbnail');
 			if ($coverObj instanceof cdcoverObj ) {
-				$results[] = $coverObj->getCategoryImageAndLink("./?page=cd&amp;vcd_id=".$movie->getID()."",$movie->getTitle());
+				$results[] = 
+					$coverObj->getCategoryImageAndLink("?page=cd&amp;vcd_id=".$movie->getID(),$movie->getTitle(), 125,185);
 			}
 		}
 		
