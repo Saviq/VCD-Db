@@ -50,12 +50,42 @@ class VCDPageUserMyMovies extends VCDBasePage {
 				case 'seen':
 					$this->doSeenList();
 					break;
+				case 'pick':
+					$this->doPicker();
+					break;
 				default:
 					break;
 			}	
 		
 	}
 	
+	
+	/**
+	 * Help user to pick a movie to watch
+	 *
+	 */
+	private function doPicker() {
+
+		// Ajax enable page
+		$this->registerScript(self::$JS_JSON);
+		$this->registerScript(self::$JS_AJAX);
+		
+		$this->assign('pageTitle', VCDLanguage::translate('mymovies.helppicker'));
+		
+		// Populate the available categories
+		$categories = getLocalizedCategories(SettingsServices::getMovieCategoriesInUse());
+		$adult_id = SettingsServices::getCategoryIDByName('adult');
+		$adultEnabled = VCDUtils::showAdultContent();
+		$results = array();
+		$results[null] = VCDLanguage::translate('misc.any');
+		foreach ($categories as $obj) {
+			if ($adult_id == $obj['id'] && !$adultEnabled) {continue;}
+			$results[$obj['id']] = $obj['name'];
+		}
+		$this->assign('myCategoryList',$results);
+		
+		
+	}
 	
 	/**
 	 * Save the current seenlist that is being posted.

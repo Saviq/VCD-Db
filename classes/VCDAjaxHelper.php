@@ -218,10 +218,34 @@ class VCDAjaxHelper {
 			return array('id' => $movie_id, 'files' => $files);
 			
 		} catch (Exception $ex) {
-			throw new AjaxException($ex->getMessage());
+			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 	}
 	
+	
+	public static function getRandomMovie($category_id, $seenlist=false) {
+		try {
+			
+			$obj = MovieServices::getRandomMovie($category_id, $seenlist);
+			$results = null;
+			if ($obj instanceof cdObj) {
+				$categoryObj = $obj->getCategory();
+				$cover = $obj->getCover('thumbnail');
+				$cover instanceof cdcoverObj ? $cover_id=$cover->getId() : $cover_id=-1;
+				$results = array('title' => $obj->getTitle(),
+					'id' => $obj->getID(),
+					'category_id' => $categoryObj->getID(),
+					'category' => $categoryObj->getName(true),
+					'year' => $obj->getYear(),
+					'cover_id' => $cover_id);
+			} 
+			
+			return $results;
+			
+		} catch (Exception $ex) {
+			throw new AjaxException($ex->getMessage(), $ex->getCode());
+		}
+	}
 	
 }
 

@@ -29,6 +29,7 @@ abstract class VCDPage extends Smarty  {
 	private $debug = false;
 	private static $pageBuffer;
 	private $tidy = false;
+	private $mod_rewrite = true;
 	
 	
 	protected function __construct($template, $doTranslate = true) {
@@ -107,6 +108,10 @@ abstract class VCDPage extends Smarty  {
 	
 	public function renderPage() {
 		
+		if($this->mod_rewrite) {
+			$this->rewriteShortUrls();
+		}
+		
 		if ($this->tidy && extension_loaded('tidy')) {
 			// Specify configuration
 			$config = array(
@@ -122,6 +127,28 @@ abstract class VCDPage extends Smarty  {
 		} else {
 			print self::$pageBuffer;
 		}
+	}
+	
+	private function rewriteShortUrls() {
+		$in = array(
+			"'\?page=cd&amp;vcd_id=([0-9]*)'",
+			"'\?page=category&amp;category_id=([0-9]*)'",
+			"'\?page=pornstar&amp;pornstar_id=([0-9]*)'",
+			"'\?page=search&amp;searchstring=([^\<]*)&amp;by=([^\<]*)'",
+			"'\?page=([^\<]*)'"
+			
+		);
+		
+		$out = array(
+			'v/\\1',
+        	'c/\\1',
+        	'p/\\1',
+        	'search/\\1/\\2',
+        	'page/\\1'
+        	
+		);        
+
+    	self::$pageBuffer = preg_replace($in, $out, &self::$pageBuffer);
 	}
 	
 	/**

@@ -3,7 +3,7 @@ var ie4 = (document.all && !document.getElementById);
 var ie5 = (document.all && document.getElementById);
 var ns6 = (!document.all && document.getElementById);
 
-function show(id){
+function show(id,keepstatus){
 
 	try {
 
@@ -18,7 +18,7 @@ function show(id){
 	// W3C - Explorer 5+ and Netscape 6+
 	else if(ie5 || ns6){
 
-		if (document.getElementById(id).style.visibility == "visible") {
+		if (!keepstatus && document.getElementById(id).style.visibility == "visible") {
 			hide(id);
 			return;
 		}
@@ -881,22 +881,7 @@ function showPage(box, bOpenWindow) {
 }
 
 
-function showSuggestion(form) {
-	try {
 
-		var seen = 0;
-		if (form.onlynotseen != null) {
-			if (form.onlynotseen.checked) {
-				seen = 1;
-			}
-		}
-
-		var category = form.category.options[form.category.selectedIndex].value;
-		var url = 'pages/user_suggestion.php?do=suggest&cat='+category+'&seen='+seen;
-		window.frames.suggestion.location.href = url;
-
-	} catch (Exception) {}
-}
 
 function checkReg(form) {
 
@@ -1531,6 +1516,69 @@ function doShowScreenshots(response) {
 	}
 }
 
+
+function showSuggestion(form) {
+	try {
+		var seen = 0;
+		if (form.onlynotseen != null && form.onlynotseen.checked) {
+			seen = 1;
+		}
+		var category = form.category.options[form.category.selectedIndex].value;
+				
+		show('suggestion',true);
+		hide('noresults');
+		
+		img = new Image();
+		img.src = 'images/processing.gif'; 
+		img.setAttribute('border',0);
+		img.setAttribute('title','Loading ...');
+		img.setAttribute('vspace',60);
+		div = document.getElementById('cover');
+		div.innerHTML = '';
+		div.appendChild(img);
+		
+		obj = new vcddbAjax('getRandomMovie');
+		obj.invoke(category,seen,doShowSuggestion);
+
+	} catch (Exception) {}
+}
+
+function doShowSuggestion(response) {
+	try {
+		
+		if (response == null) {
+			show('noresults',true);
+			hide('suggestion');
+			return;
+		}
+		
+		obj = new Object(response);
+		if (obj.title != 'undefined') {
+			dCover = document.getElementById('cover');
+			dTitle = document.getElementById('title');
+			dCategory = document.getElementById('cat');
+			dYear = document.getElementById('year');	
+			dLink = document.getElementById('link');
+			
+			dTitle.innerHTML = obj.title;
+			dCategory.innerHTML = obj.category;
+			dYear.innerHTML = obj.year;
+			dLink.href = '?page=cd&vcd_id='+obj.id;
+			
+			dCover.innerHTML = '';
+			cover = new Image();
+			cover.src = '?page=file&cover_id='+obj.cover_id;
+			cover.setAttribute('border',0);
+			cover.setAttribute('class','imgx');
+			cover.setAttribute('width',120);
+			dCover.appendChild(cover);
+			
+		} 
+		
+	} catch (ex) {
+		alert(ex.message);
+	}
+}
 
 function ImageTip(data) {
 	var img = '<img src=\"'+data[0]+'\" border="0" width=\"'+data[1]+'\" height=\"'+data[2]+'\"/>';

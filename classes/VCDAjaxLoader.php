@@ -34,6 +34,7 @@ if (VCDUtils::isLoggedIn()) {
 		$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
 		$ajax->registerMethod('VCDAjaxHelper', 'getRss');
 		$ajax->registerMethod('VCDAjaxHelper', 'getScreenshots');
+		$ajax->registerMethod('VCDAjaxHelper', 'getRandomMovie');
 	}
 		
 	$ajaxServer = $ajax->getServer();
