@@ -79,11 +79,11 @@
 		{/if}
 		<li><a href="?page=movies&amp;do=pick">{$translate.mymovies.helppicker}</a></li>
 		
-		<li style="margin-top:20px"><a href="#" onclick="printView('text')">{$translate.mymovies.textall}</a></li>
-		<li><a href="#" onclick="printView('all')">{$translate.mymovies.pwall}</a></li>
-		<li><a href="#" onclick="printView('movies')">{$translate.mymovies.pwmovies}</a></li>
-		<li><a href="#" onclick="printView('tv')">{$translate.mymovies.pwtv}</a></li>
-		<li><a href="#" onclick="printView('blue')">{$translate.mymovies.pwblue}</a></li>
+		<li style="margin-top:20px"><a href="#" onclick="printView('text');return false">{$translate.mymovies.textall}</a></li>
+		<li><a href="#" onclick="printView('all');return false">{$translate.mymovies.pwall}</a></li>
+		<li><a href="#" onclick="printView('movies');return false">{$translate.mymovies.pwmovies}</a></li>
+		<li><a href="#" onclick="printView('tv');return false">{$translate.mymovies.pwtv}</a></li>
+		<li><a href="#" onclick="printView('blue');return false">{$translate.mymovies.pwblue}</a></li>
 
 	</ul>
 	

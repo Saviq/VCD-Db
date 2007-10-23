@@ -855,8 +855,8 @@ function confirmListed(form) {
 
 
 function printView(type) {
-	url = 'pages/printView.php?mode=' + type;
-	window.open(url, 'popup', 'scrollbars=yes, menubar=yes, resizable=yes,height=600,width=830,top=50,left=25');
+	url = '?page=printview&mode=' + type;
+	window.open(url, 'printview', 'scrollbars=yes, menubar=yes, resizable=yes,height=600,width=830,top=50,left=25');
 }
 
 
@@ -1474,6 +1474,12 @@ function ShowScreenshots(movie_id) {
 function doShowScreenshots(response) {
 	try {
 		obj = new Object(response);
+		
+		if (obj.errorCode>0) {
+			alert(obj.errorMessage);
+			return;
+		}
+		
 		files = obj.files;
 		id = obj.id;
 		title = '';
@@ -1566,15 +1572,13 @@ function doShowSuggestion(response) {
 			dLink.href = '?page=cd&vcd_id='+obj.id;
 			
 			dCover.innerHTML = '';
-			cover = new Image();
+			var cover = new Image();
 			cover.src = '?page=file&cover_id='+obj.cover_id;
 			cover.setAttribute('border',0);
 			cover.setAttribute('class','imgx');
 			cover.setAttribute('width',120);
 			dCover.appendChild(cover);
-			
 		} 
-		
 	} catch (ex) {
 		alert(ex.message);
 	}

@@ -1106,7 +1106,7 @@ class vcdSQL extends VCDConnection {
 
 			if (!is_array($arr_exclude)) {
 				// Fetch all movies
-				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
+				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.cover_id
 						  FROM $this->TABLE_vcd v
 						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
 					      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id
@@ -1114,7 +1114,7 @@ class vcdSQL extends VCDConnection {
 						  ORDER BY v.title";
 			} else {
 				// Fetch all movies except those in the exclusion array
-				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
+				$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.cover_id
 						  FROM $this->TABLE_vcd v
 						  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
 					      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id." ";
@@ -1135,7 +1135,7 @@ class vcdSQL extends VCDConnection {
 
 		} elseif (is_array($arr_use)) {
 			// Get movies with category ID's defined in the array
-			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.image_id
+			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.cover_id
 					  FROM $this->TABLE_vcd v
 				      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 					  WHERE ";
@@ -1170,7 +1170,8 @@ class vcdSQL extends VCDConnection {
 					$cobj->setFilename($row[4]);
 
 					if (isset($row[5])) {
-						$cobj->setImageID($row[5]);
+						//$cobj->setImageID($row[5]);
+						$cobj->setCoverID($row[5]);
 					}
 
 					$obj->addCovers(array($cobj));

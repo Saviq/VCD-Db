@@ -29,7 +29,7 @@ abstract class VCDPage extends Smarty  {
 	private $debug = false;
 	private static $pageBuffer;
 	private $tidy = false;
-	private $mod_rewrite = true;
+	private $mod_rewrite = false;
 	
 	
 	protected function __construct($template, $doTranslate = true) {
@@ -134,16 +134,20 @@ abstract class VCDPage extends Smarty  {
 			"'\?page=cd&amp;vcd_id=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)'",
 			"'\?page=pornstar&amp;pornstar_id=([0-9]*)'",
+			"'\?page=file&amp;cover_id=([0-9]*)'",
 			"'\?page=search&amp;searchstring=([^\<]*)&amp;by=([^\<]*)'",
-			"'\?page=([^\<]*)'"
+			"'index.php\?page=([a-zA-Z\\-]*)'",
+			"'\?page=([a-zA-Z\\-]*)'"
 			
 		);
 		
 		$out = array(
-			'v/\\1',
-        	'c/\\1',
-        	'p/\\1',
+			'movie/\\1',
+        	'category/\\1',
+        	'pornstar/\\1',
+        	'file/cover/\\1',
         	'search/\\1/\\2',
+        	dirname($_SERVER['PHP_SELF']).'/page/\\1',
         	'page/\\1'
         	
 		);        

@@ -147,7 +147,7 @@
 	<page standalone="true" auth="true">
 		<name>Print View</name>
 		<handler>VCDPageUserPrintview</handler>
-		<template>page.user.printview.tpl</template>
+		<template>window.user.printview.tpl</template>
 		<action>printview</action>
 	</page>
 	<page standalone="false" auth="true">
