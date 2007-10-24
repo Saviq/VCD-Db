@@ -20,14 +20,18 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 class VCDPageItemManager extends VCDPageBaseItem  {
 		
 	private $tabs = array(
-		'basic'		=> 'basic.tpl',
-		'imdb'		=> 'imdb.tpl',
-		'cast'		=> 'cast.tpl',
-		'covers'	=> 'cover.tpl',
-		'metadata'	=> 'metadata.tpl',
-		'adult'		=> 'adult.tpl',
-		'dvd'		=> 'dvd.tpl'
+		'basic'		=> array('basic.tpl','translate.manager.basic'),
+		'imdb'		=> array('imdb.tpl','translate.manager.imdb'),
+		'cast'		=> array('cast.tpl','translate.movie.actors'),
+		'adultcast'	=> array('cast.adult.tpl','translate.movie.actors'),
+		'covers'	=> array('cover.tpl','Covers'),
+		'metadata'	=> array('metadata.tpl','Metadata'),
+		'adult'		=> array('adult.tpl', 'translate.manager.empire'),
+		'dvd'		=> array('dvd.tpl', 'DVD')
 	);
+	
+	private $tabsMovie = array('basic','imdb','cast','covers','dvd','metadata'); 
+	private $tabsAdultMovie = array('basic','adult','adultcast','covers','dvd','metadata'); 
 	
 	public function __construct(_VCDPageNode $node) {
 
@@ -35,9 +39,84 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->skipExtended = true;
 		parent::__construct($node);
 		
+		
+		$this->initTabs();
+		
 		$this->initPage();
 			
 	}
+	
+	
+	/**
+	 * Dynamically create the tabs for the manager
+	 *
+	 */
+	private function initTabs() {
+		
+		$tabs = $this->getTabsToLoad();
+		$results = array();
+		
+		foreach ($tabs as $name => $item) {
+			$template = 'window.manager.tab.'.$item[0];
+			$title = $item[1];
+			$pos = strpos($title,'translate.');
+			if (!($pos === false)) {
+				$title = VCDLanguage::translate(substr($title,strlen('translate.')));
+			}
+			$results[$name] = array('template' => $template, 'title' => $title);
+		}
+				
+		$this->assign('pageTabs',$results);
+	}
+	
+	
+	/**
+	 * Locate the correct tabs to load, based on item type and user preferences.
+	 *
+	 * @return array | array of tabs to be loaded.
+	 */
+	private function getTabsToLoad() {
+		
+		// Check if DVD tab should be loaded ..
+		$copies = $this->itemObj->getInstancesByUserID(VCDUtils::getUserID());
+		$tabDvd = false;
+		if (is_array($copies) && sizeof($copies) > 0) {
+			$tabDvd = VCDUtils::isDVDType($copies['mediaTypes']);
+		}
+			
+		// Check if metadata tab should be loaded
+		$tabMeta = false;
+		$metadata = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
+		if (is_array($metadata) && sizeof($metadata) > 0) {
+			$tabMeta = true;
+		} else {
+			// Dig deeper .. check if user is using custom Index keys or Playoption
+			if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_NFO) || 
+				(bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || 
+				(bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)) {
+				$tabMeta = true;
+			}
+		}
+	
+		
+		$tabs = array();
+		if ($this->itemObj->isAdult()) {
+			foreach ($this->tabsAdultMovie as $tabName) {
+				if ((strcmp($tabName,'metadata') == 0) && !$tabMeta) continue;
+				if ((strcmp($tabName,'dvd') == 0) && !$tabDvd) continue;
+				$tabs[$tabName] = $this->tabs[$tabName];
+			}	
+		} else {
+			foreach ($this->tabsMovie as $tabName) {
+				if ((strcmp($tabName,'metadata') == 0) && !$tabMeta) continue;
+				if ((strcmp($tabName,'dvd') == 0) && !$tabDvd) continue;
+				$tabs[$tabName] = $this->tabs[$tabName];
+			}	
+		}
+		
+		return $tabs;
+	}
+	
 	
 	private function initPage() {
 		
