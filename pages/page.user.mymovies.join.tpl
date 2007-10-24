@@ -6,7 +6,7 @@
 	
 {else}
 
-<form name="discjoin" method="post" action="?page=movies&amp;do=join">
+<form name="discjoin" method="post" action="{$smarty.server.SCRIPT_NAME}?page=movies&amp;do=join">
 
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="displist">
 <tr>

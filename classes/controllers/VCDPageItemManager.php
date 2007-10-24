@@ -19,6 +19,16 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 
 class VCDPageItemManager extends VCDPageBaseItem  {
 		
+	private $tabs = array(
+		'basic'		=> 'basic.tpl',
+		'imdb'		=> 'imdb.tpl',
+		'cast'		=> 'cast.tpl',
+		'covers'	=> 'cover.tpl',
+		'metadata'	=> 'metadata.tpl',
+		'adult'		=> 'adult.tpl',
+		'dvd'		=> 'dvd.tpl'
+	);
+	
 	public function __construct(_VCDPageNode $node) {
 
 		// Tell parent not to load the extended properties

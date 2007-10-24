@@ -320,7 +320,7 @@
 	private $_bindInputArray = false; /// set to true if ADOConnection.Execute() permits binding of array parameters.
 	private $_evalAll = false;
 	private $_affected = false;
-	private $_logsql = false;
+	protected $_logsql = false;
 	private $_transmode = ''; // transaction mode
 	
 

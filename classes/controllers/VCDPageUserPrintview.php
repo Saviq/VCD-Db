@@ -37,7 +37,7 @@ class VCDPageUserPrintview extends VCDBasePage  {
 	private function doPrintViewImages($listType) {
 		$list = MovieServices::getPrintViewList(VCDUtils::getUserID(), $listType);
 		$results = array();
-		$src = '<img src="?page=file&amp;cover_id=%s"/>';
+		$src = '<img src="?page=file&amp;cover_id=%s" border="0"/>';
 		foreach ($list as $vcdObj) {
 			$img = '';
 			$thumbnail = $vcdObj->getCover('thumbnail');

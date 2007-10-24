@@ -1137,6 +1137,7 @@ class vcdSQL extends VCDConnection {
 			// Get movies with category ID's defined in the array
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.cover_id
 					  FROM $this->TABLE_vcd v
+					  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
 				      LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 					  WHERE ";
 

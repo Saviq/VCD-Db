@@ -8,7 +8,7 @@ echo $ajaxClient->getJavaScript();
 {/php}
 </script>
 
-<form name="imdbfetcher" action="index.php?page=add&amp;action=addmovie" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
+<form name="imdbfetcher" action="{$smarty.server.SCRIPT_NAME}?page=add&amp;action=addmovie" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
 <input type="hidden" name="imdb" value="{$itemId}"/>
 <input type="hidden" name="image" value="{$itemThumb}"/>
 <table cellspacing="0" cellpadding="0" width="100%" border="0" class="displist">

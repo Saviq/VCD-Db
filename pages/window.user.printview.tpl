@@ -34,15 +34,15 @@
 
 {else}
 
-{assign var='cols' value=5}
+{assign var='cols' value=6}
 {math equation="(int)(y/x)" x=$cols y=$itemCount assign=iterations}
-
-<table border="1">
+{math equation="(int)(x/100)" x=$cols assign=width}
+<table border="0" cellpadding="0" cellspacing="1" width="100%">
 {foreach from=$itemList item=i name=list}
 {if $smarty.foreach.list.first}
 <tr>
 {/if}
-	<td align="center"><span class="ptil">{$i.title|truncate:11:".."}</span><br/>{$i.image}</td>
+	<td align="center" width="{$width}"><span class="ptil">{$i.title|truncate:20:".."}</span><br/>{$i.image}</td>
 {if $smarty.foreach.list.last or (((($smarty.foreach.list.iteration) % $cols) == 0) and not $smarty.foreach.list.first)}
 </tr>
 {if not $smarty.foreach.list.last and (int)($smarty.foreach.list.index/$cols) < ($iterations)}

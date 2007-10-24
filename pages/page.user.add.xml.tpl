@@ -60,7 +60,7 @@ function doCall() {
 <br/><br/>
 </p>
 
-<form name="thumbupload" action="index.php?page=add&amp;source=xml" method="post" enctype="multipart/form-data">
+<form name="thumbupload" action="{$smarty.server.SCRIPT_NAME}?page=add&amp;source=xml" method="post" enctype="multipart/form-data">
 &nbsp;&nbsp;&nbsp;
 <input type="button" class="input" id="xmlClick" value="{$translate.misc.confirm}" onclick="_doCall()"/>
 &nbsp; <input type="submit" id="xmlCancel" name="xmlCancel" value="{$translate.misc.cancel}" class="input"/>

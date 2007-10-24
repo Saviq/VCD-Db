@@ -1,6 +1,6 @@
 <h1>Add new movie manually</h1>
 
-<form name="manual" action="?page=add_manually&amp;action=add" method="post" enctype="multipart/form-data">
+<form name="manual" action="{$smarty.server.SCRIPT_NAME}?page=add_manually&amp;action=add" method="post" enctype="multipart/form-data">
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="displist">
 <tr>
 	<td width="20%">{$translate.movie.title}:</td>

@@ -23,8 +23,8 @@
 {if $viewmode eq 'images'}
 
 	<div id="actorimages">
-	{foreach from=$pornstars item=pornstarImage}
-		{$pornstarImage}
+	{foreach from=$pornstars item=i key=k}
+		<a href="?page=pornstar&amp;pornstar_id={$k}" title="{$i.name}">{$i.image}</a>
 	{/foreach}
 	</div>
 

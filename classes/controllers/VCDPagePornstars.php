@@ -18,26 +18,65 @@
 
 class VCDPagePornstars extends VCDBasePage {
 	
+	private $viewMode = 'text';
+	private $letter = 'a';
 	
+	/**
+	 * Class constructor
+	 *
+	 * @param _VCDPageNode $node
+	 */
 	public function __construct(_VCDPageNode $node) {
 		
 		parent::__construct($node);
 		
 		$this->doAlphabetList();
 
+		$this->letter = $this->getParam('l',false,'a');
+		$this->viewMode = $this->getParam('viewmode',false,'text');
+		
 		$this->assign('view',$this->getParam('view'));
-		$this->assign('mode',$this->getParam('viewmode'));
+		$this->assign('mode',$this->viewMode);
 		
 		$letter = $this->getParam('l');
 		if (!is_null($letter)) {
 			$this->assign('selectedLetter',$letter);
-			$this->doTextList($letter);
+			if (strcmp($this->viewMode,'img') == 0) {
+				$this->doImageList($this->letter);
+			} else {
+				$this->doTextList($this->letter);	
+			}
 		}
-		
-
 	}
 	
+	/**
+	 * Populate the image list
+	 *
+	 * @param string $letter | The letter that the pornstar names begin with
+	 */
+	private function doImageList($letter) {
+
+		$active = ($this->getParam('view') == 'active');
+		$pornstars = PornstarServices::getPornstarsByLetter($letter, $active);
+		$this->assign('viewmode', 'images');
+		
+		$results = array();
+		foreach ($pornstars as $pornstarObj) {
+			$results[$pornstarObj->getID()] = array(
+				'name' => $pornstarObj->getName(),
+				'image' => $pornstarObj->getImageLink()
+			);
+		}
+		
+		$this->assign('pornstars', $results);
+		
+	}
 	
+	/**
+	 * Populate the text list
+	 *
+	 * @param string $letter | The letter that the pornstar names begin with
+	 */
 	private function doTextList($letter) {
 	
 		$active = ($this->getParam('view') == 'active');
@@ -58,6 +97,10 @@ class VCDPagePornstars extends VCDBasePage {
 		
 	}
 	
+	/**
+	 * Populate the alphabet navigator list
+	 *
+	 */
 	private function doAlphabetList() {
 		
 		$active = ($this->getParam('view') == 'active');

@@ -1,6 +1,6 @@
 <h2>{$translate.menu.loansystem}</h2>
 
-<form method="post" name="loans" action="?page=loans&ampaction=addloan">
+<form method="post" name="loans" action="{$smarty.server.SCRIPT_NAME}?page=loans&ampaction=addloan">
 <input type="hidden" name="id_list"/>
 <input type="hidden" name="keys" value=""/>
 
