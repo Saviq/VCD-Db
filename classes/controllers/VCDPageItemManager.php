@@ -91,6 +91,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$tabMeta = true;
 		} else {
 			// Dig deeper .. check if user is using custom Index keys or Playoption
+			$user =& VCDUtils::getCurrentUser();
 			if ((bool)$user->getPropertyByKey(vcd_user::$PROPERTY_NFO) || 
 				(bool)$user->getPropertyByKey(vcd_user::$PROPERTY_INDEX) || 
 				(bool)$user->getPropertyByKey(vcd_user::$PROPERTY_PLAYMODE)) {
