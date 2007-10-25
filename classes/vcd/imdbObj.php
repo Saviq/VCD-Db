@@ -280,7 +280,7 @@ class imdbObj extends fetchedObj implements XMLable {
 			$role = str_replace('....','',$role);
 
 			$imdb = explode(" ",$tmp[0]); // the IMDB url
-			$tmp[0] = "<a href=\"?page=search&amp;searchstring=".str_replace(' ','+',trim($tmp[0]))."&amp;by=actor\">".trim($tmp[0])."</a>";
+			$tmp[0] = "<a href=\"?page=search&amp;by=actor&amp;searchstring=".str_replace(' ','+',trim($tmp[0]))."\">".trim($tmp[0])."</a>";
 			$actor = trim($tmp[0]);
 
 			// Create imdb url for actor

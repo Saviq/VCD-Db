@@ -8,7 +8,7 @@
 	</tr>
 	{foreach from=$searchResults item=i}
 	<tr>
-		<td><a href="?page=cd&vcd_id={$i.id}">{$i.title}</a></td>
+		<td><a href="?page=cd&amp;vcd_id={$i.id}">{$i.title}</a></td>
 		<td>{$i.year}</td>
 		<td>{$i.mediatypes}</td>
 	</tr>
