@@ -88,7 +88,10 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		}
 	}
 	
-	
+	/**
+	 * Handle GET requests to the controller.
+	 *
+	 */
 	private function handleGetRequest() {
 		
 		$action = $this->getParam('action');
@@ -261,6 +264,8 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$itemInstances = $this->itemObj->getInstanceArray();
 		$ownersList = $itemInstances['owners'];
 		$mediaList = $itemInstances['mediatypes'];
+		$cdcounts = $itemInstances['discs'];
+		$dates = $itemInstances['dates'];
 		
 		$results = array();
 		for ($i=0; $i<sizeof($ownersList); $i++) {
@@ -270,8 +275,8 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			
 			$results[] = array(
 				'owner'		=> $ownerObj->getUserName(),
-				'date'		=> 'somedate',
-				'cdcount'	=> 4,
+				'date'		=> $dates[$i],
+				'cdcount'	=> $cdcounts[$i],
 				'mediatype' => $mediaTypeObj->getDetailedName(),
 				'dvdspecs'	=> $this->doCopiesDvdList($ownerObj,$mediaTypeObj,$metadata),
 				'nfo'		=> $this->doCopiesNfoList($ownerObj, $mediaTypeObj, $metadata)

@@ -194,7 +194,7 @@
 			<td align="center">{$i.dvdspecs}</td>
 			<td align="center">{$i.nfo}</td>
 			<td>{$i.cdcount}</td>
-			<td>{$i.date}</td>
+			<td>{$i.date|date_format:"%d/%m/%Y"}</td>
 			<td>{$i.owner}</td>
 		</tr>
 		{/foreach}

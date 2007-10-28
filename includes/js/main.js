@@ -317,8 +317,8 @@ function clr()
 }
 
 function createBorrower() {
-	var url = "pages/borrower.php";
-	window.open(url, 'popup', 'height=100,width=200,top=50,left=25');
+	var url = "?page=borrower";
+	window.open(url, 'borrower','height=100,width=200,top=50,left=25');
 }
 
 
@@ -350,16 +350,16 @@ function deleteBorrower(form) {
 }
 
 function val_borrower(form){
-	  if(form.borrower_name.value == "")
+	  if(form.name.value == "")
 	    {
 	    alert("Please enter a name");
-	    form.borrower_name.focus();
+	    form.name.focus();
 	    return false;
 	  }
 
-	  if (!emailCheck(form.borrower_email.value))
+	  if (!emailCheck(form.email.value))
 	  {
-	  	form.borrower_email.focus();
+	  	form.email.focus();
 	  	return false;
 	  }
 

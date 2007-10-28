@@ -215,6 +215,13 @@
 		<action>launcher</action>
 	</page>
 	
+	<page standalone="true" auth="true">
+		<name>New borrower</name>
+		<handler>VCDPageUserBorrower</handler>
+		<template>window.user.borrower.tpl</template>
+		<action>borrower</action>
+	</page>
+	
 
 </pages>
 <!-- 

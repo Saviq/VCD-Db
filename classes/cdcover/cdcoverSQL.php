@@ -15,7 +15,7 @@
  */
  
 ?>
-<?PHP
+<?php
 
 class cdcoverSQL extends VCDConnection {
 	

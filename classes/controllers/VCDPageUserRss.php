@@ -47,13 +47,11 @@ class VCDPageUserRss extends VCDBasePage {
 							
 				$xml = $rssClass->getRemoteVcddbFeed($rssObj->getName(), $rssObj->getFeedUrl());
 				
-				
-				if (isset($xml->error)) {
-					
+				if (is_null($xml)) {
+					$results[$i]['error'] = 'Feed not available.';
+				} elseif (isset($xml->error)) {
 					$results[$i]['error'] = $xml->error;
-					
 				} else {
-				
 					$items = $xml->channel->item;
 				    $title = $xml->channel->title;
 				    $link = $xml->channel->link;
@@ -84,11 +82,6 @@ class VCDPageUserRss extends VCDBasePage {
 			$i++;
 		}
 				
-				
-		
-		
-	
-		
 			
 			$this->assign('rssList', $results);
 		

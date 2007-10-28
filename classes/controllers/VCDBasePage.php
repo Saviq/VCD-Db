@@ -79,6 +79,7 @@ class VCDBasePage extends VCDPage {
 			
 			$this->assign('pageCharset', VCDUtils::getCharSet());
 			$this->assign('pageStyle', VCDUtils::getStyle());
+			$this->initJavascripts();
 			parent::render();
 			
 		} else {			

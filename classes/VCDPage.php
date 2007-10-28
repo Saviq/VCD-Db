@@ -29,7 +29,7 @@ abstract class VCDPage extends Smarty  {
 	private $debug = false;
 	private static $pageBuffer;
 	private $tidy = false;
-	private $mod_rewrite = true;
+	private $mod_rewrite = false;
 	
 	
 	protected function __construct($template, $doTranslate = true) {

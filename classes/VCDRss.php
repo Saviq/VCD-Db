@@ -13,9 +13,7 @@
  * @version $Id$
  */
 ?>
-<?
-
-
+<?php
 
 class VCDRss {
 
@@ -244,7 +242,7 @@ class VCDRss {
 	
 	
 	public function getRemoteVcddbFeed($name, $url) {
-	
+		try {
 		
 		// Check for cached feed if cache is enabled.
 		$this->cache_folder = CACHE_FOLDER;
@@ -264,9 +262,12 @@ class VCDRss {
 		if ($xmlLoaded) {
 			$xml = simplexml_load_string($xml);
 		} else {
-			$xml = simplexml_load_file($url);
+			$xml = @simplexml_load_file($url);
 		}
 		
+		if (!is_object($xml)) {
+			return null;
+		}
 		
 		// Check if we need to write the results to cache because the existing one was to old.
 		if ($this->use_cache && !$xmlLoaded) {
@@ -280,6 +281,9 @@ class VCDRss {
 			
 		return $xml;
 		
+		} catch (Exception $ex) {
+			throw $ex;
+		}
 	}
 	
 

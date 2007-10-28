@@ -14,7 +14,7 @@
  * @version $Id$
  */
  ?>
-<?
+<?php
 
 class pornstarSQL extends VCDConnection {
 	

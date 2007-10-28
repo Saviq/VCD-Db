@@ -13,7 +13,7 @@
 
 <hr/>
 <div align="center">
-	<span class="bold">666 pornstars</span> begin with letter {$selectedLetter} 
+	<span class="bold">{$pornstarCount} pornstars</span> begin with letter {$selectedLetter} 
 	(<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}">Text view</a> / 
 	<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=img">Image view</a>)
 </div>

@@ -478,7 +478,8 @@ class vcdObj extends cdObj implements XMLable {
 	 * @return array
 	 */
 	public function getInstanceArray() {
-		return array('owners' => $this->ownersObjArr, 'mediatypes' => $this->mediaTypeObjArr);
+		return array('owners' => $this->ownersObjArr, 'mediatypes' => $this->mediaTypeObjArr,
+			'discs' => $this->arrDisc_count, 'dates' => $this->arrDate_added);
 	}
 	
 			

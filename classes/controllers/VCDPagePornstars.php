@@ -59,6 +59,7 @@ class VCDPagePornstars extends VCDBasePage {
 		$active = ($this->getParam('view') == 'active');
 		$pornstars = PornstarServices::getPornstarsByLetter($letter, $active);
 		$this->assign('viewmode', 'images');
+		$this->assign('pornstarCount', sizeof($pornstars));
 		
 		$results = array();
 		foreach ($pornstars as $pornstarObj) {
@@ -82,6 +83,7 @@ class VCDPagePornstars extends VCDBasePage {
 		$active = ($this->getParam('view') == 'active');
 		$pornstars = PornstarServices::getPornstarsByLetter($letter, $active);
 		$this->assign('viewmode', 'list');
+		$this->assign('pornstarCount', sizeof($pornstars));
 		
 		$results = array();
 		

@@ -15,7 +15,7 @@
 <p>
 	<span class="bold">Login failed. Try again. </span><br/><br/>
 	Or maybe you have lost your password?<br/>
-	<a href="#" onclick="show('claim')">Click here to get your password</a>
+	<a href="#" onclick="show('claim');return false">Click here to get your password</a>
 </p>
 
 <p>
