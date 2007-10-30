@@ -48,38 +48,34 @@
 
 <br/>
 
-Ef lán ...
-
 <h2>{$translate.loan.movieloans}</h2>
 		
-<table cellspacing="0" cellpadding="0" border="0" width="100%" class="list">
-{foreach from=$loanList item=i name=loan}
+
+{foreach from=$loanList item=i name=loan key=key}
+<fieldset>
+	<legend><strong>{$i.name}</strong> / <a href="{$smarty.server.SCRIPT_NAME}?page=loans&amp;action=reminder&amp;bid={$key}">{$translate.loan.reminder}</a> 
+	/ <a href="{$smarty.server.SCRIPT_NAME}?page=loans&amp;history={$key}">{$translate.loan.history2}</a></legend>
+
+<table cellpadding="1" cellspacing="1" border="0" class="displist" width="100%">
 <tr>
-	<td colspan="6"><strong>{$i.name}</strong> 
-	| <a href="exec_query.php?action=reminder&bid=id">{$translate.loan.reminder}</a> 
-	| <a href=\"./?page=private&o=loans&history=id">{$translate.loan.history2}</a>
-	</td>
-</tr>
-<tr>
+	<td>Nr.</td>
+	<td width="55%">{$translate.movie.title}:</td>
+	<td>{$translate.loan.since}:</td>
+	<td>{$translate.loan.time}:</td>
 	<td>&nbsp;</td>
-	<td class="header">Nr.</td>
-	<td class="header">{$translate.movie.title}:</td>
-	<td class="header">{$translate.loan.since}:</td>
-	<td class="header">{$translate.loan.time}:</td>
-	<td class="header">&nbsp;</td>
 </tr>
 {foreach from=$i.items name=movies item=j}
 <tr>
-	<td>&nbsp;</td>
-	<td>teljari</td>
-	<td><a href="?page=cd&vcd_id=id">{$j.title}</a></td>
-	<td>dagsút</td>
-	<td>daydiff</td>
-	<td><a href="#" onclick="returnloan(number)\">[{$translate.loan.return}]</a></td>
+	<td>{$smarty.foreach.movies.iteration}</td>
+	<td><a href="?page=cd&amp;vcd_id={$j.id}">{$j.title}</a></td>
+	<td>{$j.out|date_format:"%d/%m/%Y"}</td>
+	<td>{$j.since}</td>
+	<td><a href="#" onclick="returnloan({$j.id})\">[{$translate.loan.return}]</a></td>
 </tr>
 {/foreach}
-{/foreach}
 </table>
+</fieldset>
+{/foreach}
 
 
 </form>

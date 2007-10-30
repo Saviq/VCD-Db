@@ -116,7 +116,7 @@ class VCDPageUserLoans extends VCDBasePage {
 					
 					$results[$borrower->getID()]['items'][$loanObj->getLoanID()] = array(
 									'id' => $loanObj->getCDID(), 'title' => $loanObj->getCDTitle(),
-									'in' => $loanObj->getDateIn(), 'out' => $loanObj->getDateOut()
+									'out' => $loanObj->getDateOut(), 'since' => VCDUtils::getDaydiff($loanObj->getDateOut())
 					);
 					
 				} else {
@@ -127,7 +127,7 @@ class VCDPageUserLoans extends VCDBasePage {
 							
 					$results[$borrower->getID()]['items'][$loanObj->getLoanID()] = array(
 						'id' => $loanObj->getCDID(), 'title' => $loanObj->getCDTitle(),
-						'in' => $loanObj->getDateIn(), 'out' => $loanObj->getDateOut()
+						'out' => $loanObj->getDateOut(), 'since' => VCDUtils::getDaydiff($loanObj->getDateOut())
 					);
 				}
 				 
