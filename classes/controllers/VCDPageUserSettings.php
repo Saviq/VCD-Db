@@ -115,7 +115,7 @@ class VCDPageUserSettings extends VCDBasePage {
 		try {
 			
 			// Handle edit borrower
-			if (strcmp($this->getParam('edit'),"borrower")==0) {
+			if (strcmp($this->getParam('edit'),'borrower')==0) {
 				$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
 				if ($borrowerObj instanceof borrowerObj ) {
 					$this->assign('editBorrower', true);
@@ -128,19 +128,23 @@ class VCDPageUserSettings extends VCDBasePage {
 			
 			
 			// Delete Rss Feed
-			if (strcmp($this->getParam('action'),"delrss")==0) {
+			if (strcmp($this->getParam('action'),'delrss')==0) {
 				$this->deleteRss();
 				redirect('?page=settings');
 				exit();
 			}
 			
 			// Delete user defined metadataType
-			if (strcmp($this->getParam('action'),"delmetatype")==0) {
+			if (strcmp($this->getParam('action'),'delmetatype')==0) {
 				$this->deleteMetadataType();
 				redirect('?page=settings');
 				exit();
 			}
 			
+			
+			if (strcmp($this->getParam('action'),'templates')==0) {
+				$this->setSiteTemplate();
+			}
 			
 			
 		} catch (Exception $ex) {
@@ -530,7 +534,10 @@ class VCDPageUserSettings extends VCDBasePage {
 		}
 	}
 	
-	
+	/**
+	 * Update the default DVD settings to use when new movie is added.
+	 *
+	 */
 	private function updateDefaultDVDSettings() {
 		
 		$dvd = array();
@@ -566,6 +573,10 @@ class VCDPageUserSettings extends VCDBasePage {
 	}
 
 	
+	/**
+	 * Add an a new metadata entry to the database
+	 *
+	 */
 	private function addMetadata() {
 		
 		$metaName = $this->getParam('metadataname',true);
@@ -585,6 +596,41 @@ class VCDPageUserSettings extends VCDBasePage {
 	}
 
 	
+	/**
+	 * Update the users css template choice for the UI
+	 *
+	 */
+	private function setSiteTemplate() {
+		
+		$template = $this->getParam('template');
+		
+		// Set the new template in cookie
+		// but we must keep existing data in the cookie
+		SiteCookie::extract('vcd_cookie');
+		$Cookie = new SiteCookie("vcd_cookie");
+		$Cookie->clear();
+		
+		if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) { 
+			$session_id    = $_COOKIE['session_id'];			
+			$user_id 	   = $_COOKIE['session_uid'];
+			$session_time  = $_COOKIE['session_time'];	
+			
+			$Cookie->put("session_id", $session_id);	
+			$Cookie->put("session_time", $session_time);
+			$Cookie->put("session_uid", $user_id);
+		}
+		
+		if (isset($_COOKIE['language'])) {
+			$langname = $_COOKIE['language'];
+			$Cookie->put("language",$langname);
+		}
+				
+		$Cookie->put("template",$template);
+		$Cookie->set();
+			
+		redirect('?page=settings');
+		exit();
+	}
 	
 	/**
 	 * Update the user profile.

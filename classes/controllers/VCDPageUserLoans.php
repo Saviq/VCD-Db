@@ -26,9 +26,44 @@ class VCDPageUserLoans extends VCDBasePage {
 		
 		parent::__construct($node);
 				
-		$this->initPage();
+		$this->doGet();
+		
+		if (!is_null($this->getParam('history'))) {
+			$this->initHistoryPage();
+		} else {
+			$this->initPage();	
+		}
+		
 	
 		
+	}
+	
+	/**
+	 * Handle _GET actions to the controller
+	 */
+	private function doGet() {
+		try {
+			
+			$action = $this->getParam('action');
+			if (is_null($action)) return;
+			
+			switch ($action) {
+				case 'return':
+					$this->returnLoan();
+					break;
+			
+				case 'reminder':
+					$this->sendLoanReminder();
+					break;
+					
+				default:
+					break;
+			}
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
+		}
 	}
 	
 	/**
@@ -42,6 +77,47 @@ class VCDPageUserLoans extends VCDBasePage {
 			$this->addLoan();
 		}
 		
+		
+	}
+	
+	/**
+	 * Send a remainder email to the person who has your movies
+	 *
+	 */
+	private function sendLoanReminder() {
+		
+		$borrower_id = $this->getParam('bid');
+		if (!is_numeric($borrower_id)) {
+			throw new VCDInvalidInputException('Invalid id for borrower.');
+		}
+		
+		$obj = SettingsServices::getBorrowerByID($borrower_id);
+		if ($obj instanceof borrowerObj ) {
+			$loanArr = SettingsServices::getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id);
+			if (VCDUtils::sendMail($obj->getEmail(), VCDLanguage::translate('mail.returntopic'), 
+					createReminderEmailBody($obj->getName(), $loanArr), true)) {
+				VCDUtils::setMessage("(Mail successfully sent to ".$obj->getName().")");
+			} else {
+				VCDUtils::setMessage("(Failed to send mail)");
+			}
+		}
+		redirect('?page=private&o=loans');
+		exit();
+	}
+	
+	/**
+	 * Return a movie that was marked loaned.
+	 *
+	 */
+	private function returnLoan() {
+		$loan_id = $this->getParam('lid');
+		if (!is_numeric($loan_id)) {
+			throw new VCDInvalidInputException('Invalid loan id.');
+		}
+		
+		SettingsServices::loanReturn($loan_id);
+		redirect('?page=loans');
+		exit();
 		
 	}
 	
@@ -72,6 +148,56 @@ class VCDPageUserLoans extends VCDBasePage {
 		}
 	}
 	
+	
+	private function initHistoryPage() {
+		try {
+		
+			$borrower_id = $this->getParam('history');
+			if (!is_numeric($borrower_id)) {
+				throw new VCDInvalidInputException('Invalid borrower id.');
+			}
+						
+			// Check if we have a valid borrower
+			$borrowerObj = SettingsServices::getBorrowerByID($borrower_id);
+			if (!$borrowerObj instanceof borrowerObj ) {
+				redirect('?page=loans');
+				exit();
+			}
+			
+			// Check if current user is the borrower owner
+			if ($borrowerObj->getOwnerID() != VCDUtils::getUserID()) {
+				redirect('?page=loans');
+				exit();
+			}
+			
+			// Populate the borrowers
+			$this->doBorrowers(false);
+			
+			// Populate the loan list
+			$loans = SettingsServices::getLoansByBorrowerID(VCDUtils::getUserID(), $borrower_id, true);
+			$results = array();
+			foreach ($loans as $loanObj) {
+				if ($loanObj->isReturned())	{
+					$in = $loanObj->getDateIn();
+					$duration = VCDUtils::getDaydiff($loanObj->getDateOut(), $loanObj->getDateIn());
+				} else {
+					$in = VCDLanguage::translate('loan.out');
+					$duration = VCDUtils::getDaydiff($loanObj->getDateOut());
+				}
+				
+				$results[$loanObj->getLoanID()] = array('title' => $loanObj->getCDTitle(), 'out' => $loanObj->getDateOut(),
+					'in' => $in, 'duration' => $duration, 'returned' => $loanObj->isReturned());
+			}
+			$this->assign('loanList',$results);
+			
+			$this->assign('loanHistoryTitle', $borrowerObj->getName());
+			
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex, true);
+		}
+	}
+	
 	private function initPage() {
 		
 		// Populate the myMovies list
@@ -80,26 +206,38 @@ class VCDPageUserLoans extends VCDBasePage {
 		
 		$results = array();
 		foreach ($movieList as $obj) {
-			$results[$obj->getId()] = $obj->getTitle();
+			$results[$obj->getId()] = $obj->getTitle() . ' / ' . $obj->showMediaTypes();
 		}
 		$this->assign('myMovieList',$results);
 		
 		
 		// Populate the borrowers list
-		$borrowers = SettingsServices::getBorrowersByUserID(VCDUtils::getUserID());
-		if (is_array($borrowers) && sizeof($borrowers)>0) {
-			$results = array();
-			foreach ($borrowers as $obj) {
-				$results[$obj->getId()] = $obj->getName();
-			}
-			$this->assign('borrowersList', $results);
-		}
+		$this->doBorrowers(true);
 		
 		// Populate the movies in loan list
 		$this->doLoanList($loans);
 		
 	}
 	
+	
+	/**
+	 * Populate the borrowers list
+	 *
+	 * @param bool $useTitle | Set true to use "select borrower" for index 0
+	 */
+	private function doBorrowers($useTitle)	{
+		$borrowers = SettingsServices::getBorrowersByUserID(VCDUtils::getUserID());
+		if (is_array($borrowers) && sizeof($borrowers)>0) {
+			$results = array();
+			if ($useTitle) {
+				$results[null] = VCDLanguage::translate('loan.select');	
+			}
+			foreach ($borrowers as $obj) {
+				$results[$obj->getId()] = $obj->getName();
+			}
+			$this->assign('borrowersList', $results);
+		}
+	}
 	
 	private function doLoanList($loans) {
 				

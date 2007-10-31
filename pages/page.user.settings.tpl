@@ -60,16 +60,14 @@ echo $ajaxClient->getJavaScript();
 
 
 {if is_array($borrowerList) && count($borrowerList) > 0}
-<fieldset id="mainset" title="{$translate.mymovies.friends}">
+<fieldset id="setBorrowers" title="{$translate.mymovies.friends}">
 <legend class="bold">{$translate.mymovies.friends}</legend>
 <table cellpadding="1" cellspacing="1" width="100%" border="0">
 <tr>
 	<td>
-	<form name="borrowForm">
 	{html_options id=borrowers name=borrowers options=$borrowerList selected=$selectedBorrower}
-	&nbsp;<input type="button" value="{$translate.misc.edit}" onclick="changeBorrower(this.form)">
-	<img src="images/icon_del.gif" hspace="4" alt="" align="absmiddle" onclick="deleteBorrower(this.form)" border="0"/>
-	</form>
+	&nbsp;<input type="button" value="{$translate.misc.edit}" onclick="changeBorrower()"/>
+	<img src="images/icon_del.gif" hspace="4" alt="" style="vertical-align: middle;" onclick="deleteBorrower()" border="0"/>
 	</td>
 	{if $editBorrower}
 	<td nowrap="nowrap">
@@ -97,7 +95,7 @@ echo $ajaxClient->getJavaScript();
 
 
 
-<fieldset id="mainset" title="{$translate.rss.title}">
+<fieldset id="setRss" title="{$translate.rss.title}">
 <legend class="bold">{$translate.rss.title}</legend>
 {if is_array($feedList) && count($feedList) > 0}
 	<table cellspacing="1" cellpadding="1" border="0" class="displist" width="100%">
@@ -121,7 +119,7 @@ echo $ajaxClient->getJavaScript();
 
 
 
-<fieldset id="mainset" title="{$translate.usersettings.custom}">
+<fieldset id="setRssCustom" title="{$translate.usersettings.custom}">
 <legend class="bold">{$translate.usersettings.custom}</legend>
 <form name="choiceForm" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_frontpage">
 <input type="hidden" name="rss_list" id="rss_list"/>
@@ -172,7 +170,7 @@ echo $ajaxClient->getJavaScript();
 
 
 <form name="frmSubtitles" id="frmSubtitles" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_dvdsettings">
-<fieldset id="dvdsettings"  name="defaultdvd">
+<fieldset id="dvdsettings">
 <legend class="bold">Default DVD settings</legend>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
@@ -180,7 +178,7 @@ echo $ajaxClient->getJavaScript();
 	<td colspan="2">{html_options id=format name=format options=$formatList selected=$selectedFormat}</td>
 </tr>
 <tr>
-	<td wrap="nowrap">{$translate.dvd.aspect}:</td>
+	<td nowrap="nowrap">{$translate.dvd.aspect}:</td>
 	<td colspan="2">{html_options id=aspect name=aspect options=$aspectList selected=$selectedAspect}</td>
 </tr>
 <tr>
@@ -191,7 +189,7 @@ echo $ajaxClient->getJavaScript();
 <tr>
 	<td valign="top">{$translate.dvd.audio}:</td>
 	<td>{html_options id=audioAvailable name=audioAvailable size="5" options=$audioList style="width:200px;" onDblClick="addAudio(this.form, 'audioAvailable')" class="input"}</td>
-	<td width="60%"><div id="audio" style="height:80px";>
+	<td width="60%"><div id="audio" style="height:80px">
 	{if is_array($selectedAudio) && count($selectedAudio) > 0}
 	<ul>
 	{foreach from=$selectedAudio item=i}
@@ -204,11 +202,11 @@ echo $ajaxClient->getJavaScript();
 <tr>
 	<td valign="top">{$translate.dvd.subtitles}:</td>
 	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList selected=$selectedRegion size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input"}</td>
-	<td><div id="subtitles" style="height:80px;margin-top:5px";>
+	<td><div id="subtitles" style="height:80px;margin-top:5px">
 	{if is_array($selectedSubs) && count($selectedSubs) > 0}
 	<ul>
 	{foreach from=$selectedSubs item=i}
-		<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" align="absmiddle">{$i.name|truncate:12:".."}</li>
+		<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
 	{/foreach}
 	</ul>
 	{/if}
@@ -229,14 +227,14 @@ echo $ajaxClient->getJavaScript();
 
 {*	We only display the ignore list if more than 1 active users	is using VCD-db. *}
 {if $showIgnoreList}
-<fieldset id="mainset" title="{$translate.usersettings.list}">
+<fieldset id="setIgnorelist" title="{$translate.usersettings.list}">
 <legend class="bold">{$translate.usersettings.list}</legend>
 <form name="ignore" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_ignorelist">
 <input type="hidden" name="id_list" id="id_list"/>
 
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
-	<td width="44%" valign="top"">{$translate.usersettings.desc}</td>
+	<td width="44%" valign="top">{$translate.usersettings.desc}</td>
 	<td width="10%">{html_options id=available name=available options=$userAvailList size="5" style="width:100px;" onDblClick="moveOver(this.form, 'available', 'choiceBox')"}</td>
 	<td width="5%" align="center">
 	<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/>
@@ -256,7 +254,7 @@ echo $ajaxClient->getJavaScript();
 
 
 
-<fieldset id="mainset" title="{$translate.metadata.my}">
+<fieldset id="setMetadata" title="{$translate.metadata.my}">
 <legend class="bold">{$translate.metadata.my}</legend>
 <form name="metadata" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=addmetadata">
 <table cellpadding="1" cellspacing="1" border="0" width="100%">

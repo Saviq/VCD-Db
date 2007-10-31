@@ -322,28 +322,30 @@ function createBorrower() {
 }
 
 
-function changeBorrower(form) {
-	var selectedItem = form.borrowers.selectedIndex;
-	var selectedValue = form.borrowers.options[selectedItem].value;
+function changeBorrower() {
+	var selectionObj = document.getElementById('borrowers');
+	var selectedItem = selectionObj.selectedIndex;
+	var selectedValue = selectionObj.options[selectedItem].value;
 
 	if (selectedValue == "null") {
 		alert('Select name to edit');
 		return false;
 	} else {
-		url = "?page=private&o=settings&edit=borrower&bid="+selectedValue+"";
+		url = "?page=settings&edit=borrower&bid="+selectedValue+"";
 		location.href = url;
 	}
 
 }
 
-function deleteBorrower(form) {
-	var selectedItem = document.borrowForm.borrowers.selectedIndex;
-	var selectedValue =document.borrowForm.borrowers.options[selectedItem].value;
+function deleteBorrower() {
+	var selectionObj = document.getElementById('borrowers');
+	var selectedItem = selectionObj.selectedIndex;
+	var selectedValue = selectionObj.options[selectedItem].value;
 	var message = "Delete borrower and all his loan records?";
 
 	if (selectedValue != "null") {
 		if (confirm(message)) {
-			url = "exec_query.php?action=delete_borrower&bid="+selectedValue;
+			url = "?page=settings&action=delborrower&bid="+selectedValue;
 			location.href = url;
 		}
 	}
@@ -525,14 +527,6 @@ if (len<2) {
 }
 
 return true;
-}
-
-
-function returnloan(loan_id) {
-	if (confirm('Return movie ?')) {
-		url = './exec_query.php?action=returnloan&loan_id='+loan_id;
-		location.href = url;
-	}
 }
 
 function goSimilar(form) {
@@ -1109,7 +1103,7 @@ function viewMode(category_id, viewmode, batch) {
 }
 
 function switchTemplate(template) {
-	url = 'exec_query.php?action=templates&name='+template;
+	url = '?page=settings&action=templates&template='+template;
 	location.href = url;
 }
 
