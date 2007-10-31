@@ -114,37 +114,59 @@ class VCDPageUserSettings extends VCDBasePage {
 	private function doGet() {
 		try {
 			
-			// Handle edit borrower
-			if (strcmp($this->getParam('edit'),'borrower')==0) {
-				$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
-				if ($borrowerObj instanceof borrowerObj ) {
-					$this->assign('editBorrower', true);
-					$this->assign('borrowerName', $borrowerObj->getName());
-					$this->assign('borrowerEmail', $borrowerObj->getEmail());
-					$this->assign('borrowerId', $borrowerObj->getID());
-					$this->assign('selectedBorrower',$borrowerObj->getID());
-				}
+			
+			$action = $this->getParam('action');
+			
+			switch ($action) {
+				case 'editborrower':
+					// Handle edit borrower
+					$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
+					if ($borrowerObj instanceof borrowerObj && $borrowerObj->getOwnerID()==VCDUtils::getUserID()) {
+						$this->assign('editBorrower', true);
+						$this->assign('borrowerName', $borrowerObj->getName());
+						$this->assign('borrowerEmail', $borrowerObj->getEmail());
+						$this->assign('borrowerId', $borrowerObj->getID());
+						$this->assign('selectedBorrower',$borrowerObj->getID());
+					} else {
+						redirect('?page=settings');
+					}
+					
+					break;
+					
+				case 'delrss':
+					// Delete RSS feed
+					$this->deleteRss();
+					redirect('?page=settings');
+					break;
+					
+				case 'delmetatype':
+					// Delete metadata
+					$this->deleteMetadataType();
+					redirect('?page=settings');
+					break;
+					
+					
+				case 'templates':
+					// Set site css template
+					$this->setSiteTemplate();
+					break;
+					
+					
+				case 'delborrower':
+					// Delete borrower
+					$borrowerObj = SettingsServices::getBorrowerByID($this->getParam('bid'));
+					if ($borrowerObj instanceof borrowerObj && $borrowerObj->getOwnerID()==VCDUtils::getUserID()) {
+						SettingsServices::deleteBorrower($borrowerObj);
+					}
+					redirect('?page=settings');
+					break;
+					
+			
+				default:
+					break;
 			}
 			
 			
-			// Delete Rss Feed
-			if (strcmp($this->getParam('action'),'delrss')==0) {
-				$this->deleteRss();
-				redirect('?page=settings');
-				exit();
-			}
-			
-			// Delete user defined metadataType
-			if (strcmp($this->getParam('action'),'delmetatype')==0) {
-				$this->deleteMetadataType();
-				redirect('?page=settings');
-				exit();
-			}
-			
-			
-			if (strcmp($this->getParam('action'),'templates')==0) {
-				$this->setSiteTemplate();
-			}
 			
 			
 		} catch (Exception $ex) {

@@ -327,14 +327,10 @@ function changeBorrower() {
 	var selectedItem = selectionObj.selectedIndex;
 	var selectedValue = selectionObj.options[selectedItem].value;
 
-	if (selectedValue == "null") {
-		alert('Select name to edit');
-		return false;
-	} else {
-		url = "?page=settings&edit=borrower&bid="+selectedValue+"";
+	if (selectedValue != '') {
+		url = "?page=settings&action=editborrower&bid="+selectedValue+"";
 		location.href = url;
 	}
-
 }
 
 function deleteBorrower() {
@@ -343,7 +339,7 @@ function deleteBorrower() {
 	var selectedValue = selectionObj.options[selectedItem].value;
 	var message = "Delete borrower and all his loan records?";
 
-	if (selectedValue != "null") {
+	if (selectedValue != '') {
 		if (confirm(message)) {
 			url = "?page=settings&action=delborrower&bid="+selectedValue;
 			location.href = url;
@@ -351,22 +347,19 @@ function deleteBorrower() {
 	}
 }
 
-function val_borrower(form){
-	  if(form.name.value == "")
-	    {
-	    alert("Please enter a name");
-	    form.name.focus();
+function checkBorrower(form){
+	if(form.borrower_name.value == '') {
+		alert('Please enter a name');
+	    form.borrower_name.focus();
 	    return false;
-	  }
-
-	  if (!emailCheck(form.email.value))
-	  {
-	  	form.email.focus();
-	  	return false;
-	  }
-
-	form.vista.disabled = false;
-
+	}
+	if (!emailCheck(form.borrower_email.value)) {
+		form.borrower_email.focus();
+		return false;
+	}
+	
+	form.saveBorrower.disabled = false;
+	return true;
 }
 
 function val_Empire(form) {

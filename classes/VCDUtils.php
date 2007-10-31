@@ -248,7 +248,6 @@ class VCDUtils {
 			$datediff = $date2 - $date1;
 		}
 
-
 		if (floor($datediff/60/60/24) > 0) {
 			if (floor($datediff/60/60/24) == 1) {
 				return floor($datediff/60/60/24) . " ". VCDLanguage::translate('loan.day');
@@ -257,10 +256,10 @@ class VCDUtils {
 			}
 
 		} elseif (floor($datediff/60/60) > 0) {
-			return VCDLanguage::translate('loan.day');
+			return '1 ' .VCDLanguage::translate('loan.day');
 
 		} else {
-			return "1 " . VCDLanguage::translate('loan.days');
+			return '1 ' . VCDLanguage::translate('loan.days');
 
 		}
 	}

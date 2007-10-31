@@ -56,8 +56,7 @@ echo $ajaxClient->getJavaScript();
 {html_options id=template name=template values=$templates output=$templates selected=$smarty.cookies.template onchange="switchTemplate(this.options[this.selectedIndex].value)"}
 </p>
 </fieldset>
-
-
+<br/>
 
 {if is_array($borrowerList) && count($borrowerList) > 0}
 <fieldset id="setBorrowers" title="{$translate.mymovies.friends}">
@@ -70,16 +69,16 @@ echo $ajaxClient->getJavaScript();
 	<img src="images/icon_del.gif" hspace="4" alt="" style="vertical-align: middle;" onclick="deleteBorrower()" border="0"/>
 	</td>
 	{if $editBorrower}
-	<td nowrap="nowrap">
+	<td nowrap="nowrap" width="65%">
 	<form name="update_borrower" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_borrower" method="post">
-	<table cellpadding="0" cellspacing="0" border="0" class="list">
+	<table cellpadding="0" cellspacing="0" border="0" class="list" width="100%">
 		<tr>
 			<td>{$translate.loan.name}:</td>
-			<td><input type="text" size="12" name="borrower_name" value="{$borrowerName}"/></td>
+			<td><input type="text" size="18" name="borrower_name" value="{$borrowerName}"/></td>
 			<td>{$translate.register.email}:</td>
-			<td><input type="text" size="16" name="borrower_email" value="{$borrowerEmail}"/></td>
+			<td><input type="text" size="18" name="borrower_email" value="{$borrowerEmail}"/></td>
 			<td>&nbsp;</td>
-			<td><input type="submit" value="{$translate.misc.update}" id="vista" onclick="return val_borrower(this.form)"/></td>
+			<td><input type="submit" value="{$translate.misc.update}" id="saveBorrower" name="saveBorrower" onclick="return checkBorrower(this.form)"/></td>
 		</tr>
 	</table>
 	<input type="hidden" name="borrower_id" value="{$borrowerId}"/>
