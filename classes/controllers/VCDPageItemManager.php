@@ -19,6 +19,9 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 
 class VCDPageItemManager extends VCDPageBaseItem  {
 		
+	private $metadata = null;
+	private $dvdId = null;
+	
 	private $tabs = array(
 		'basic'		=> array('basic.tpl','translate.manager.basic'),
 		'imdb'		=> array('imdb.tpl','translate.manager.imdb'),
@@ -82,6 +85,16 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$tabDvd = false;
 		if (is_array($copies) && sizeof($copies) > 0) {
 			$tabDvd = VCDUtils::isDVDType($copies['mediaTypes']);
+			
+			// Set the default dvdItemId 
+			if (is_null($this->dvdId)) {
+				foreach ($copies['mediaTypes'] as $mediaTypeObj) {
+					if (VCDUtils::isDVDType(array($mediaTypeObj))) {
+						$this->dvdId = $mediaTypeObj->getmediaTypeID();
+						break;
+					}
+				}
+			}
 		}
 			
 		// Check if metadata tab should be loaded
@@ -138,15 +151,90 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			} 
 		}
 		
+		// Set the metadata
+		$this->metadata = SettingsServices::getMetadata($this->itemObj->getId(), VCDUtils::getUserID(),'');
 		
+		
+		$this->doCategoryList();
+		$this->doYearList();
+		$this->doCovers();
+		$this->doDvdSettings();
 		
 		if ($this->itemObj->isAdult()) {
 			$this->doAdultData();
 		}
 		
 		
-		$this->doCategoryList();
-		$this->doYearList();
+	}
+	
+	
+	private function doDvdSettings() {
+
+		if (is_null($this->dvdId)) {
+			return;
+		}
+		
+		$dvdObj = new dvdObj();
+		$arrDVDMetaObj = metadataTypeObj::filterByMediaTypeID($this->metadata, $this->dvdId);
+		$arrDVDMetaObj = metadataTypeObj::getDVDMeta($arrDVDMetaObj);
+			
+		$dvd_region = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDREGION);
+		$dvd_format = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDFORMAT);
+		$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDASPECT);
+		$dvd_audio =  VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDAUDIO);
+		$dvd_subs =   VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDSUBS);
+		
+		if (strcmp($dvd_audio, '') != 0) {
+			$dvd_audio = explode('#', $dvd_audio);
+		} else {
+			$dvd_audio = array();
+		}
+		
+		if (strcmp($dvd_subs, '') != 0) {
+			$dvd_subs = explode('#', $dvd_subs);
+		} else {
+			$dvd_subs = array();
+		}
+		
+		$this->assign('itemRegionList',$dvdObj->getRegionList());
+		$this->assign('itemRegion', $dvd_region);
+		
+		$this->assign('itemFormatList', $dvdObj->getVideoFormats());
+		$this->assign('itemFormat', $dvd_format);
+		
+		$this->assign('itemAspectList', $dvdObj->getAspectRatios());
+		$this->assign('itemAspect', $dvd_aspect);
+
+		
+		//$this->assign('itemAudioList', array_diff($dvdObj->getAudioList(), $dvd_audio));
+		
+		$this->assign('itemSubtitleList', array_diff($dvdObj->getLanguageList(false), $dvd_subs));
+		
+	}
+	
+	
+	private function doCovers() {
+		
+		$coverTypes = CoverServices::getAllowedCoversForVcd($this->itemObj->getMediaType());
+		if (is_array($coverTypes) && sizeof($coverTypes)>0) {
+			$results = array();
+			foreach ($coverTypes as $coverTypeObj) {
+				$coverFile = '';
+				$coverSize = '';
+				$coverId = '';
+				$cover = $this->itemObj->getCover($coverTypeObj->getCoverTypeName());
+				if ($cover instanceof cdcoverObj ) {
+					$coverFile = $cover->getFilename();
+					$coverSize = human_file_size($cover->getFilesize());
+					$coverId = $cover->getId();
+				}
+				$results[$coverTypeObj->getCoverTypeID()] = array(
+					'type' => $coverTypeObj->getCoverTypeName(), 'file' => $coverFile,
+					'size' => $coverSize, 'id' => $coverId);
+			}
+			$this->assign('itemCovers',$results);
+		}
+		
 	}
 	
 	private function doCategoryList() {

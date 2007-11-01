@@ -31,9 +31,9 @@
 <tr>
 {foreach from=$pageTabs item=i key=k name=base}
 	{if $smarty.foreach.tabs.first}
-	<td id="t{$smarty.foreach.tabs.iteration}base" style="height:2px; border-left:solid thin #E0E7EC"></td>
+	<td id="t{$smarty.foreach.base.iteration}base" style="height:2px; border-left:solid thin #E0E7EC"></td>
 	{else}
-	<td id="t{$smarty.foreach.tabs.iteration}base" style="height:2px; background-color:#E0E7EC"></td>
+	<td id="t{$smarty.foreach.base.iteration}base" style="height:2px; background-color:#E0E7EC"></td>
 	{/if}
 {/foreach}
 </tr>

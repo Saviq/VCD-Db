@@ -149,16 +149,12 @@ class vcdObj extends cdObj implements XMLable {
 	 */
 	public function getCover($covername) {
 		foreach ($this->coversObjArr as $cdcoverObj) {
-			
 			if ($cdcoverObj instanceof cdcoverObj ) {
 			
 				if (strcmp(strtolower($cdcoverObj->getCoverTypeName()), strtolower($covername)) == 0) {
 					return $cdcoverObj;
 				}
-			} else {
-				VCDException::display('Object in CoversArray is not a cdcoverObj!');
-				return false;
-			}
+			} 
 		}
 		
 		return null;

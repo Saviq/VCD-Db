@@ -152,9 +152,9 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$this->doMetadata();
 		$this->doCopiesList();
 		$this->doSourceSiteLink();
-		$this->doCovers();
 		
 		if (!$this->skipExtended) {
+			$this->doCovers();
 			$this->doComments();
 			$this->doWishlist();
 			$this->doSimilarList();

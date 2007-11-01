@@ -30,13 +30,13 @@
 
 	<table cellspacing="0" cellpadding="2" border="0">
 	<tr>
-		<td>{html_options id=audioAvailable name=audioAvailable size="5" options=$itemAspectList class="input" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')"}</td>
+		<td>{html_options id=audioAvailable name=audioAvailable size="5" options=$itemAudioList class="input" style="width:175px;" onDblClick="moveOver(this.form, 'audioAvailable', 'audioChoices')"}</td>
 		<td>
 			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'audioAvailable', 'audioChoices');" class="input" style="margin-bottom:5px;"/>
 			<br/>
 			<input type="button" value="<<" onclick="removeMe(this.form, 'audioAvailable', 'audioChoices');" class="input"/>
 		</td>
-		<td>{html_options id=audioChoices name=audioChoices size="5" options=$itemAspectList selected=$itemAudio class="input" style="width:175px;" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')"}</td>
+		<td>{html_options id=audioChoices name=audioChoices size="5" options=$itemAudioListSelected selected=$audioSelected class="input" style="width:175px;" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')"}</td>
 	</tr>
 	</table>
 
@@ -49,13 +49,13 @@
 	
 	<table cellspacing="0" cellpadding="2" border="0">
 	<tr>
-		<td>{html_options id=langAvailable name=langAvailable size="5" options=$itemFormatList class="input" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')"}</td>
+		<td>{html_options id=langAvailable name=langAvailable size="5" options=$itemSubtitleList class="input" style="width:175px;" onDblClick="moveOver(this.form, 'langAvailable', 'langChoices')"}</td>
 		<td>
 			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'langAvailable', 'langChoices');" class="input" style="margin-bottom:5px;"/>
 			<br/>
 			<input type="button" value="<<" onclick="removeMe(this.form,'langAvailable', 'langChoices');" class="input"/>
 		</td>
-		<td>{html_options id=langChoices name=langChoices options=$itemAspectList selected=$itemLanguages class="input" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')"}</td>
+		<td>{html_options id=langChoices name=langChoices options=$itemSubtitleListSelected selected=$subtitlesSelected class="input" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')"}</td>
 	</tr>
 	</table>
 
