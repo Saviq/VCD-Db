@@ -122,8 +122,10 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 	private function doGradeList() {
 		$results = array();
 		$results[null] = VCDLanguage::translate('misc.any');
-		for ($i = 1; $i < 10; $i+=0.5	) {
-			array_push($results,$i);
+		$counter = 1;
+		while($counter<10) {
+			$results[(string)$counter] = $counter;
+			$counter += 0.5;
 		}
 		$this->assign('searchGradeList', $results);
 	}
