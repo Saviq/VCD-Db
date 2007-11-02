@@ -19,7 +19,25 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 
 class VCDPageItemManager extends VCDPageBaseItem  {
 		
+	/**
+	 * A container for the metadata on the object based on
+	 * the currently logged in user and selected item/movie.
+	 *
+	 * @var array
+	 */
 	private $metadata = null;
+	/**
+	 * A container with all information about the users copy
+	 * of the item/movie.  Assoc array with [mediatypes] and [discs]
+	 *
+	 * @var array
+	 */
+	private $userCopies = null;
+	/**
+	 * The currently selected DVD based medium.
+	 *
+	 * @var int
+	 */
 	private $dvdId = null;
 	
 	private $tabs = array(
@@ -82,6 +100,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		// Check if DVD tab should be loaded ..
 		$copies = $this->itemObj->getInstancesByUserID(VCDUtils::getUserID());
+		$this->userCopies =& $copies;
 		$tabDvd = false;
 		if (is_array($copies) && sizeof($copies) > 0) {
 			$tabDvd = VCDUtils::isDVDType($copies['mediaTypes']);
@@ -159,6 +178,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->doYearList();
 		$this->doCovers();
 		$this->doDvdSettings();
+		$this->doMetadata();
 		
 		if ($this->itemObj->isAdult()) {
 			$this->doAdultData();
@@ -167,12 +187,71 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 	}
 	
+	private function doMetadata() {
+		if (!isset($this->userCopies['mediaTypes']) || !is_array($this->metadata)) return;
+		
+				
+		$results = array();
+		$mediaTypes =& $this->userCopies['mediaTypes'];
+		
+		$metadataObj = new metadataObj();
+		//print_r($this->metadata);
+		
+		// User defined metadata
+		$userMeta = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
+		foreach ($this->metadata as $metadataObj) {
+			switch ($metadataObj->getMetadataTypeID()) {
+				
+				case (int)metadataTypeObj::SYS_MEDIAINDEX: 
+					if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX')) {
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						if ($metadataObj->getMetadataValue() != '' ) {
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
+						}
+					}
+					break;
+					
+				case (int)metadataTypeObj::SYS_NFO:
+					if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO')) {
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						if ($metadataObj->getMetadataValue() != '') {
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
+						}
+					}
+					break;
+				
+				case (int)metadataTypeObj::SYS_FILELOCATION:
+					if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION')) {
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						if ($metadataObj->getMetadataValue() != '') {
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
+						}
+					}
+					break;
+				
+			
+				default:
+					break;
+			}
+		}
+		
+		//print_r($results);
+		//die();
+		
+		$this->assign('itemMetadataList', $results);
+		
+	}
+	
+	private function addMeta(&$arr, $mediatypeId, $metadataId, $key, $value) {
+		$arr[$mediatypeId]['metadata'][$metadataId][$key] = $value;
+	}
 	
 	private function doDvdSettings() {
 
-		if (is_null($this->dvdId)) {
-			return;
-		}
+		if (is_null($this->dvdId)) return;
 		
 		$dvdObj = new dvdObj();
 		$arrDVDMetaObj = metadataTypeObj::filterByMediaTypeID($this->metadata, $this->dvdId);
@@ -196,7 +275,9 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$dvd_subs = array();
 		}
 		
-		$this->assign('itemRegionList',$dvdObj->getRegionList());
+		$results = array();
+		foreach ($dvdObj->getRegionList() as $id => $region) { $results[$id] = $id.". ".$region; }
+		$this->assign('itemRegionList',$results);
 		$this->assign('itemRegion', $dvd_region);
 		
 		$this->assign('itemFormatList', $dvdObj->getVideoFormats());
@@ -205,11 +286,54 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->assign('itemAspectList', $dvdObj->getAspectRatios());
 		$this->assign('itemAspect', $dvd_aspect);
 
+		// Assign audiochannels
+		if (sizeof($dvd_audio)>0) {
+			$selectedAudio = array();
+			foreach ($dvd_audio as $key) { $selectedAudio[$key] = $dvdObj->getAudio($key);}
+			$this->assign('itemAudioListSelected', $selectedAudio);
+			$dvd_audio =& $selectedAudio;
+		}
+		$this->assign('itemAudioList', array_diff($dvdObj->getAudioList(), $dvd_audio));
 		
-		//$this->assign('itemAudioList', array_diff($dvdObj->getAudioList(), $dvd_audio));
-		
+		// Assign subtitles
+		if (sizeof($dvd_subs)>0) {
+			$selectedSubs = array();
+			foreach ($dvd_subs as $key) { $selectedSubs[$key] = $dvdObj->getLanguage($key);}
+			$this->assign('itemSubtitleListSelected', $selectedSubs);
+			$dvd_subs =& $selectedSubs;
+		} 
 		$this->assign('itemSubtitleList', array_diff($dvdObj->getLanguageList(false), $dvd_subs));
+
+		/*
+		Display the current DVD selected media, if user owns only 1 DVD based medium
+		The item is printed out as text, otherwise we need to create a dropdown with
+		the option to also edit the other DVD based mediums.
+		*/
 		
+		$mediaTypes = $this->userCopies['mediaTypes'];
+		if (is_array($mediaTypes)) {
+			if (sizeof($mediaTypes)==1) {
+				$this->assign('itemDvdTypeList', $mediaTypes[0]->getDetailedName());
+			} elseif (sizeof($mediaTypes)>1) {
+				// Could be a mix of dvd types and non dvd types .. need to filter out
+				// non dvd types
+				$dvdTypes = array();
+				foreach ($mediaTypes as $mediaTypeObj) {
+					if (VCDUtils::isDVDType(array($mediaTypeObj))) {
+						$dvdTypes[] = $mediaTypeObj;
+					}
+				}
+				if (sizeof($dvdTypes)==1) {
+					$this->assign('itemDvdTypeList', $dvdTypes[0]->getDetailedName());
+				} else {
+					$results = array();
+					foreach ($dvdTypes as $mediaTypeObj) {
+						$results[$mediaTypeObj->getmediaTypeID()] = $mediaTypeObj->getDetailedName();
+					}
+					$this->assign('itemDvdTypeList', $results);
+				}
+			}
+		}
 	}
 	
 	

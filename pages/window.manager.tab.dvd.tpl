@@ -7,13 +7,18 @@
 <table width="100%" cellpadding="0" cellspacing="1" border="0">
 <tr>
 	<td class="tblb">{$translate.movie.mediatype}:</td>
-	<td>{html_options id=dvdtype name=dvdtype options=$itemDvdTypeList selected=$itemDvdType class="input"}</td>
+	<td>
+	{if is_array($itemDvdTypeList)}
+	{html_options id=dvdtype name=dvdtype options=$itemDvdTypeList selected=$itemDvdType class="input"}</td>
+	{else}
+	{$itemDvdTypeList}
+	{/if}
+	
 </tr>
 <tr>
 	<td class="tblb">{$translate.dvd.region}:</td>
 	<td>{html_options id=dvdregion name=dvdregion options=$itemRegionList selected=$itemRegion class="input"}</td>
 </tr>
-
 <tr>
 	<td class="tblb">{$translate.dvd.format}:</td>
 	<td>{html_options id=dvdformat name=dvdformat options=$itemFormatList selected=$itemFormat class="input"}</td>
@@ -23,7 +28,6 @@
 	<td class="tblb">{$translate.dvd.aspect}:</td>
 	<td>{html_options id=dvdaspect name=dvdaspect options=$itemAspectList selected=$itemAspect class="input"}</td>
 </tr>
-
 <tr>
 	<td class="tblb" valign="top">{$translate.dvd.audio}:</td>
 	<td valign="top">
@@ -36,13 +40,12 @@
 			<br/>
 			<input type="button" value="<<" onclick="removeMe(this.form, 'audioAvailable', 'audioChoices');" class="input"/>
 		</td>
-		<td>{html_options id=audioChoices name=audioChoices size="5" options=$itemAudioListSelected selected=$audioSelected class="input" style="width:175px;" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')"}</td>
+		<td>{html_options id=audioChoices name=audioChoices size="5" options=$itemAudioListSelected class="input" style="width:175px;" onDblClick="removeMe(this.form, 'audioAvailable', 'audioChoices')"}</td>
 	</tr>
 	</table>
 
 	</td>
 </tr>
-
 <tr>
 	<td class="tblb" valign="top">{$translate.dvd.subtitles}:</td>
 	<td valign="top">
@@ -55,7 +58,7 @@
 			<br/>
 			<input type="button" value="<<" onclick="removeMe(this.form,'langAvailable', 'langChoices');" class="input"/>
 		</td>
-		<td>{html_options id=langChoices name=langChoices options=$itemSubtitleListSelected selected=$subtitlesSelected class="input" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')"}</td>
+		<td>{html_options id=langChoices name=langChoices options=$itemSubtitleListSelected class="input" style="width:175px;" size="5" onDblClick="removeMe(this.form,'langAvailable', 'langChoices')"}</td>
 	</tr>
 	</table>
 
