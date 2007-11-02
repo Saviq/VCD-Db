@@ -186,6 +186,13 @@
 		<template>page.user.add.item.manually.tpl</template>
 		<action>add_manually</action>
 	</page>
+	<page standalone="false" auth="true">
+		<name>Add existing movie</name>
+		<handler>VCDPageUserAddItemListed</handler>
+		<template>page.user.add.item.listed.tpl</template>
+		<action>add_listed</action>
+	</page>
+	
 	
 	<page standalone="false" auth="true">
 		<name>Wishlist</name>
