@@ -14,7 +14,7 @@
 <body onload="tabInit();window.focus()" class="nobg">
 
 
-<form onsubmit="copyFiles(this);" action="{$smarty.server.SCRIPT_NAME}?action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
+<form onsubmit="copyFiles(this);" action="{$smarty.server.SCRIPT_NAME}?page=manager&amp;vcd_id={$itemId}&amp;action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
 <input type="hidden" name="cd_id" value=""/>
 
 <div class="tabs">

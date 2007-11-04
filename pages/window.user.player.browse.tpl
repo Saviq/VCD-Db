@@ -9,15 +9,6 @@
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
 <body onload="window.focus()">
-
-{if !$smarty.get.field eq '' }
-	{assign var='jsAction' value='return getFileName(this.form, '{$fieldname}')'}
-{elseif $smarty.get.from eq 'player'}
-	{assign var='jsAction' value='return getPlayerFileName(this.form)'}
-{else}
-	{assign var='jsAction' value='return getFileName(this.form)'}
-{/if}
-
 <h2>{$translate.manager.browse}</h2>
 <form name="browse" action="{$smarty.server.SCRIPT_NAME}" method="post" onsubmit="return false">
 <table cellspacing="1" cellpadding="1" border="0" class="plain">
@@ -27,7 +18,16 @@
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td align="right"><input type="button" value="{$translate.misc.save}" onclick="{$jsAction}"/></td>
+	<td align="right">
+	{if !$smarty.get.field eq ''}
+		<input type="button" value="{$translate.misc.save}" onclick="return getFileName(this.form, '{$fieldname}')"/>
+	{elseif $smarty.get.from eq 'player'}
+		<input type="button" value="{$translate.misc.save}" onclick="return getPlayerFileName(this.form)"/>
+	{else}
+		<input type="button" value="{$translate.misc.save}" onclick="return getFileName(this.form)"/>
+	{/if}
+	<td>
+	</td>
 </tr>
 </table>
 </form>

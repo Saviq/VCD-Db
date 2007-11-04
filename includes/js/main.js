@@ -1127,19 +1127,11 @@ function showDVD(id) {
 	}
 }
 
-function deleteNFO(metadata_id, cd_id) {
-	try {
-		if (metadata_id > 0) {
-			url = '../exec_query.php?action=deleteNFO&meta_id='+metadata_id+'&rid='+cd_id;
-			location.href = url;
-		}
-	} catch (ex) {}
-}
 
-function deleteMeta(metadata_id, cd_id) {
+function deleteMeta(metadata_id, itemId) {
 	try {
 		if (metadata_id > 0) {
-			url = '../exec_query.php?action=deletemeta&meta_id='+metadata_id+'&rid='+cd_id;
+			url = '?page=manager&vcd_id='+itemId+'&action=deletemeta&meta_id='+metadata_id;
 			location.href = url;
 		}
 	} catch (ex) {}

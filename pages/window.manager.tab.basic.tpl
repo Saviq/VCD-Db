@@ -57,18 +57,18 @@
 		<td>{$translate.movie.num}</td>
 		<td>&nbsp;</td>
 	</tr>
-	{foreach from=$itemUserMediaTypes item=i key=key}
+	{foreach from=$itemUserMediaTypes name=usercopies item=i key=key}
 	<tr>
-		<td>{$counter}</td>
-		<td>dropdown type</td>
-		<td>dropdown cd's</td>
-		<td>delete link</td>
+		<td>{$smarty.foreach.usercopies.iteration}</td>
+		<td>{html_options name=$i.mediaid options=$usercopyMediaList selected=$key}</td>
+		<td>{html_options name=$i.yearid options=$usercopyYearList selected=$i.cdcount}</td>
+		<td><a href="#" onclick="deleteCopy(0,0,{$itemId},{0})"><img src="images/thrashcan.gif" alt="Delete this copy" border="0"/></a></td>
 	</tr>
 	{/foreach}
 	<tr>
-		<td>{$counter}</td>
-		<td>dropdown new</td>
-		<td>dropdown fjoldi</td>
+		<td>{$smarty.foreach.usercopies.iteration+1}</td>
+		<td>{html_options name=mediatype options=$usercopyMediaListNew}</td>
+		<td>{html_options name=year options=$usercopyYearList}</td>
 		<td>&nbsp;</td>
 	</tr>
 	</table>

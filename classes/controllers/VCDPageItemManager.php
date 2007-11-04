@@ -60,11 +60,16 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->skipExtended = true;
 		parent::__construct($node);
 		
-		
 		$this->initTabs();
-		
 		$this->initPage();
-			
+	}
+	
+	public function handleRequest() {
+		
+		// The only request to the page is the update function call
+		if (strcmp($this->getParam('action'),'updatemovie')==0) {
+			$this->updateItem();	
+		}
 	}
 	
 	
@@ -176,6 +181,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		$this->doCategoryList();
 		$this->doYearList();
+		$this->doUserCopies();
 		$this->doCovers();
 		$this->doDvdSettings();
 		$this->doMetadata();
@@ -187,68 +193,143 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 	}
 	
+	/**
+	 * Populate the metadata objects
+	 *
+	 */
 	private function doMetadata() {
 		if (!isset($this->userCopies['mediaTypes']) || !is_array($this->metadata)) return;
-		
 				
 		$results = array();
 		$mediaTypes =& $this->userCopies['mediaTypes'];
-		
-		$metadataObj = new metadataObj();
-		//print_r($this->metadata);
+
+		// Set the media types in the result array
+		foreach ($mediaTypes as $mediaTypeObj) {
+			$results[$mediaTypeObj->getmediaTypeID()] = array('name' => $mediaTypeObj->getDetailedName());
+		}
 		
 		// User defined metadata
 		$userMeta = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
+		$userMetaTypeIds = array();
+		if (is_array($userMeta)) {
+			foreach ($userMeta as $metatypeObj) {
+				$userMetaTypeIds[] = $metatypeObj->getMetadataTypeID();
+			}
+		}
+		
 		foreach ($this->metadata as $metadataObj) {
-			switch ($metadataObj->getMetadataTypeID()) {
+			if ($metadataObj->getMediaTypeID()==0) continue;
+			$type_id = $metadataObj->getMetadataTypeID();
+			
+			switch ($type_id) {
 				
 				case (int)metadataTypeObj::SYS_MEDIAINDEX: 
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
 						if ($metadataObj->getMetadataValue() != '' ) {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
 						}
 					}
 					break;
 					
 				case (int)metadataTypeObj::SYS_NFO:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'readonly', true);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
 						}
 					}
 					break;
 				
 				case (int)metadataTypeObj::SYS_FILELOCATION:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
-						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $metadataObj->getMetadataID(), 'delete',true);	
-						}
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
 					}
 					break;
-				
-			
+					
+					
 				default:
+					// Check if metadata type exists in the users profile
+					if (in_array($metadataObj->getMetadataTypeID(),$userMetaTypeIds)) {
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						if ($metadataObj->getMetadataValue() != '') {
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
+						}
+					}
 					break;
 			}
 		}
 		
-		//print_r($results);
-		//die();
+		
+		// Check the results for missing metadata definitions
+		foreach ($mediaTypes as $mediaTypeObj) {
+			if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX') && 
+				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_MEDIAINDEX] )) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'value','');
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'delete',false);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX));
+			}
+			
+			if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO') && 
+				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_NFO] )) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'value','');
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'delete',false);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO));
+			}
+			
+			if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION') && 
+				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_FILELOCATION] )) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'value','');
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'delete',false);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION));
+			}
+			
+			foreach ($userMeta as $metadataObj) {
+				if (!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][$metadataObj->getMetadataTypeID()])) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','');
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName());
+				}
+			}
+			
+		}
 		
 		$this->assign('itemMetadataList', $results);
 		
 	}
 	
-	private function addMeta(&$arr, $mediatypeId, $metadataId, $key, $value) {
-		$arr[$mediatypeId]['metadata'][$metadataId][$key] = $value;
+	/**
+	 * Add metadata entry to the metadata page results
+	 *
+	 * @param array $arr | The page metadata array
+	 * @param int $mediatypeId | The media typeId
+	 * @param int $metadataTypeId | The metadata typeId
+	 * @param int $metadataId | The metadata Id
+	 * @param string $key | The metadata key
+	 * @param mixed $value | The metadata value
+	 */
+	private function addMeta(&$arr, $mediatypeId, $metadataTypeId, $metadataId, $key, $value) {
+		$arr[$mediatypeId]['metadata'][$metadataTypeId][$key] = $value;
+		// Set the id
+		if (!isset($arr[$mediatypeId]['metadata'][$metadataTypeId]['id'])) {
+			$arr[$mediatypeId]['metadata'][$metadataTypeId]['id'] = $metadataId;	
+		}
+		// Set the html id
+		if ((strcmp($key,'name')==0) && (!isset($arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid']))) {
+			$htmlid = 'meta:'.$value.':'.$metadataTypeId.':'.$mediatypeId;
+			$arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid'] = $htmlid;
+		}
 	}
 	
+	/**
+	 * Assign the DVD settings to the page
+	 *
+	 */
 	private function doDvdSettings() {
 
 		if (is_null($this->dvdId)) return;
@@ -337,6 +418,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	}
 	
 	
+	/**
+	 * Assign the covers to the page
+	 *
+	 */
 	private function doCovers() {
 		
 		$coverTypes = CoverServices::getAllowedCoversForVcd($this->itemObj->getMediaType());
@@ -358,6 +443,46 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			}
 			$this->assign('itemCovers',$results);
 		}
+		
+	}
+	
+	
+	private function doUserCopies() {
+		
+	
+		// populate the dropdowns
+		$results = array();
+		$results[null] = VCDLanguage::translate('manager.addmedia');
+		foreach (SettingsServices::getAllMediatypes() as $mediaTypeObj) {
+			$results[$mediaTypeObj->getmediaTypeID()] = $mediaTypeObj->getDetailedName();
+			if ($mediaTypeObj->getChildrenCount() > 0) {
+				foreach ($mediaTypeObj->getChildren() as $childObj) { 
+					$results[$childObj->getmediaTypeID()] = '&nbsp;&nbsp;'.$childObj->getDetailedName();
+				}
+			}
+		}
+		
+		$this->assign('usercopyMediaList', array_slice($results,1));
+		$this->assign('usercopyMediaListNew', $results);
+		
+		$results = array();
+		for($i=1;$i<11;$i++) {
+			$results[$i] = $i;
+		}
+		$this->assign('usercopyYearList', $results);
+				
+		$results = array();
+		$mediatypes = $this->userCopies['mediaTypes'];
+		$discs = $this->userCopies['discs'];
+		for ($i=0;$i<sizeof($mediatypes);$i++) {
+			$results[$mediatypes[$i]->getmediaTypeID()] = array('cdcount' => $discs[$i],
+				'mediaid' => 'userMediaType_'.$i, 'yearid' => 'usernumcds_'.$i);
+		}
+		
+		
+		$this->assign('itemUserMediaTypes',$results);
+		$this->assign('itemUserMediaTypesSize', sizeof($mediatypes));
+		
 		
 	}
 	
@@ -421,5 +546,168 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	}
 	
 	
+	
+	/**
+	 * 
+	 * Update item data functions below
+	 * 
+	 */
+	
+	/**
+	 * Update the item.  Since there are so many things to update, each section
+	 * has it's own update function, this function just calls them one by one.
+	 *
+	 */
+	private function updateItem() {
+		
+		// Load the movie item if it's null
+		if (is_null($this->itemObj)) {
+			$this->loadItem();
+		}
+				
+		// Update the metadata
+		$this->updateMetadata();
+		
+		// Handle uploaded files
+		$this->updateUploadedFiles();
+		
+		
+		// Finally call update in the services
+		MovieServices::updateVcd($this->itemObj);
+	}
+
+
+	
+	/**
+	 *  Handle uploaded files, covers and metadata such as NFO's
+	 *
+	 */
+	private function updateUploadedFiles() {
+		try {
+			
+			// Set the allowed extensions for the upload
+			$arrExt = array(VCDUploadedFile::FILE_JPEG, VCDUploadedFile::FILE_JPG, VCDUploadedFile::FILE_GIF,
+							VCDUploadedFile::FILE_NFO, VCDUploadedFile::FILE_TXT );
+			$VCDUploader = new VCDFileUpload($arrExt);
+	
+			if ($VCDUploader->getFileCount() > 0) {
+	
+				for ($i=0; $i<$VCDUploader->getFileCount(); $i++) {
+					$fileObj = $VCDUploader->getFileAt($i);
+					$cover_typeid = $fileObj->getHTMLFieldName();
+	
+		      		// Check if this uploaded file is a NFO file ..
+		      		$nfostart = "meta:nfo";
+		      		if (substr_count($cover_typeid, $nfostart) > 0)  {
+
+		      			// Yeap it's a NFO file
+	      				try {
+	      					// Keep the original filename and do not overwrite
+	      					$fileObj->setRandomFileName(false);
+	      					$fileObj->setOverWrite(false);
+
+		      				if (!$fileObj->move(NFO_PATH)) {
+		      					throw new VCDException("Could not move NFO file {$fileObj->getFileName()} to NFO folder!");
+		      				} else {
+		      					// Everything is OK ... add the metadata
+								$entry = explode(":", $cover_typeid);
+								$metadataName = $entry[1];
+								$metadatatype_id = $entry[2];
+								$mediatype_id = $entry[3];
+
+								// Create the MetadataObject
+								$obj = new metadataObj(array('',$this->itemObj->getID(), VCDUtils::getUserID(), $metadataName, $fileObj->getFileName()));
+								$obj->setMetaDataTypeID($metadatatype_id);
+								$obj->setMediaTypeID($mediatype_id);
+								// And save to DB
+								SettingsServices::addMetadata($obj, true);
+		      				}
+
+	      				} catch (Exception $ex) {
+	      					VCDException::display($ex,true);
+	      					exit();
+	      				}
+
+
+		      		} else {
+		      			$coverType = CoverServices::getCoverTypeById($cover_typeid);
+
+		      			try {
+		      				$fileObj->move(TEMP_FOLDER);
+		      			} catch (Exception $ex) {
+		      				VCDException::display($ex, true);
+		      				exit();
+		      			}
+
+		      			
+		      			// Resize the image if this is thumbnail
+		      			if ($coverType->isThumbnail()) {
+			      			$fileLocation = $fileObj->getFileLocation();
+							$fileExtension = $fileObj->getFileExtenstion();
+				  	   		$im = new Image_Toolbox($fileLocation);
+				  	   		if ($category == SettingsServices::getCategoryIDByName('adult')) {
+				  	   			$im->newOutputSize(0,190);	
+				  	   		} else {
+				  	   			$im->newOutputSize(0,140);	
+				  	   		}
+							$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
+		      			}
+
+			      		$imginfo = array('', $this->itemObj->getID(), $fileObj->getFileName(), $fileObj->getFileSize(), VCDUtils::getUserID(),
+			      					date(time()), $cover_typeid, $coverType->getCoverTypeName(), '');
+			      		$cdcover = new cdcoverObj($imginfo);
+			      		$this->itemObj->addCovers(array($cdcover));
+		      		}
+				}
+			}
+			
+			
+			
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	/**
+	 * Update/add new metadata
+	 *
+	 */
+	private function updateMetadata() {
+		
+		$arrMetaData = array();
+		foreach ($_POST as $key => $value) {
+			if ((int)substr_count($key, 'meta') == 1) {
+		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
+		 	}
+		}
+
+		$itemId = $this->getParam('vcd_id');
+		
+		if (sizeof($arrMetaData) > 0) {
+			$metadataCommit = array();
+			foreach ($arrMetaData as $itemArr) {
+				$key   = $itemArr['key'];
+				$value = $itemArr['value'];
+				$entry = explode(":", $key);
+				$metadataName = $entry[1];
+				$metadatatype_id = $entry[2];
+				$mediatype_id = $entry[3];
+
+
+				// Skip empty metadata
+				if (strcmp($value, "") != 0 && $metadatatype_id != metadataTypeObj::SYS_NFO) {
+					$obj = new metadataObj(array('',$itemId, VCDUtils::getUserID(), $metadataName, $value));
+					$obj->setMetaDataTypeID($metadatatype_id);
+					$obj->setMediaTypeID($mediatype_id);
+					array_push($metadataCommit, $obj);
+				}
+			}
+			SettingsServices::addMetadata($metadataCommit, true);
+		}
+	}
+
+
+
 }
 ?>

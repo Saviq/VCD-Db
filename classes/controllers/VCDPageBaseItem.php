@@ -217,9 +217,14 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		if (is_array($metadata) && sizeof($metadata)>0) {
 			
 			foreach ($metadata as $metaObj) { 
-				$results[$metaObj->getMetadataID()] = 
-					array('medianame' => SettingsServices::getMediaTypeByID($metaObj->getMediaTypeID())->getDetailedName(), 
-					'name' => $metaObj->getMetadataName(), 'text' => $this->doMetadataFormat($metaObj));
+				if ($metaObj instanceof metadataObj) {
+					$mediatypeObj = SettingsServices::getMediaTypeByID($metaObj->getMediaTypeID());
+					if ($mediatypeObj instanceof mediaTypeObj) {
+						$results[$metaObj->getMetadataID()] = 
+						array('medianame' => $mediatypeObj->getDetailedName(), 
+						'name' => $metaObj->getMetadataName(), 'text' => $this->doMetadataFormat($metaObj));	
+					}
+				}
 			}
 			
 			$this->assign('itemMetadata', $results);
@@ -567,7 +572,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 * If parameter is incorrect, user is redirected to the frontpage.
 	 *
 	 */
-	private function loadItem() {
+	protected function loadItem() {
 		$itemId = $this->getParam('vcd_id');
 		if (!is_numeric($itemId)) {
 			redirect();
