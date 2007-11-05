@@ -83,12 +83,16 @@
 		<template>page.pornstars.tpl</template>
 		<action>pornstars</action>
 	</page>
-	
-	
 	<page standalone="true" auth="false">
 		<name>File</name>
 		<handler>VCDPageFileHandler</handler>
 		<action>file</action>
+	</page>
+	<page standalone="true" auth="false">
+		<name>Language javascript</name>
+		<handler>VCDPageJavascriptStrings</handler>
+		<template>page.javascript.language.tpl</template>
+		<action>strings.js</action>
 	</page>
 	
 	
@@ -192,42 +196,43 @@
 		<template>page.user.add.item.listed.tpl</template>
 		<action>add_listed</action>
 	</page>
-	
-	
 	<page standalone="false" auth="true">
 		<name>Wishlist</name>
 		<handler>VCDPageUserWishlist</handler>
 		<template>page.user.wishlist.tpl</template>
 		<action>wishlist</action>
 	</page>
-	
+	<page standalone="false" auth="true">
+		<name>Public wishlists</name>
+		<handler>VCDPageUserPublicWishlist</handler>
+		<template>page.user.wishlist.public.tpl</template>
+		<action>wishlists</action>
+	</page>
 	<page standalone="false" auth="true">
 		<name>Loans</name>
 		<handler>VCDPageUserLoans</handler>
 		<template>page.user.loans.tpl</template>
 		<action>loans</action>
 	</page>
-	
 	<page standalone="true" auth="true">
 		<name>Manager</name>
 		<handler>VCDPageItemManager</handler>
 		<template>window.manager.tpl</template>
 		<action>manager</action>
 	</page>
-	
 	<page standalone="true" auth="true">
 		<name>Movie launcher</name>
 		<handler>VCDPageUserMoviePlayer</handler>
 		<template>page.user.item.play.tpl</template>
 		<action>launcher</action>
 	</page>
-	
 	<page standalone="true" auth="true">
 		<name>New borrower</name>
 		<handler>VCDPageUserBorrower</handler>
 		<template>window.user.borrower.tpl</template>
 		<action>borrower</action>
 	</page>
+	
 	
 
 </pages>

@@ -7,7 +7,7 @@
 <span class="nav"><a href="?page=loans" class="navx">{$translate.menu.loansystem}</a></span>
 {/if}
 {if $showWishlists}
-<span class="nav"><a href="?page=publicwishlist" class="navx">{$translate.menu.wishlistpublic}</span>
+<span class="nav"><a href="?page=wishlists" class="navx">{$translate.menu.wishlistpublic}</a></span>
 {/if}
 <span class="nav"><a href="?page=wishlist" class="navx">{$translate.menu.wishlist}</a></span>
 <span class="nav"><a href="?page=stats" class="navx">{$translate.menu.statistics}</a></span>

@@ -1100,17 +1100,15 @@ function switchTemplate(template) {
 	location.href = url;
 }
 
-function doManagerSubmit(form) {
-	try {
-		var dvdSelectedMediaID = form.options[form.selectedIndex].value;
-		var dvdBox = document.getElementById('selected_dvd');
-		dvdBox.value = dvdSelectedMediaID;
-		var updateButton = document.getElementById('update');
-		updateButton.click();
+function managerSubmit(form, action) {
+	checkFieldsRaw(form,'audioChoices','audio_list');
+	checkFieldsRaw(form,'langChoices','sub_list');
+}
 
-	} catch (ex) {
-		alert(ex.Message);
-	}
+function setManagerMediaType(obj, movieid) {
+	var id = obj.options[obj.selectedIndex].value;
+	var url = '?page=manager&vcd_id='+movieid+'&dvd='+id;
+	location.href = url;
 }
 
 

@@ -1,6 +1,6 @@
 
 <input type="hidden" id="selected_dvd" name="selected_dvd"/>
-<input type="hidden" id="current_dvd" name="current_dvd" value=""/>
+<input type="hidden" id="current_dvd" name="current_dvd" value="{$itemCurrentDvd}"/>
 <input type="hidden" id="audio_list" name="audio_list" value=""/>
 <input type="hidden" id="sub_list" name="sub_list" value=""/>
 
@@ -9,7 +9,7 @@
 	<td class="tblb">{$translate.movie.mediatype}:</td>
 	<td>
 	{if is_array($itemDvdTypeList)}
-	{html_options id=dvdtype name=dvdtype options=$itemDvdTypeList selected=$itemDvdType class="input"}</td>
+	{html_options id=dvdtype name=dvdtype options=$itemDvdTypeList selected=$itemCurrentDvd class="input" onchange="setManagerMediaType(this,$itemId)"}</td>
 	{else}
 	{$itemDvdTypeList}
 	{/if}

@@ -36,6 +36,7 @@ class VCDBasePage extends VCDPage {
 	 * Available java script libs for inclusion.
 	 */
 	protected static $JS_MAIN = 'main.js';
+	protected static $JS_LANG = '?page=strings.js';
 	protected static $JS_JSON = 'json.js';
 	protected static $JS_AJAX = 'ajax.js';
 	protected static $JS_LYTE = 'lytebox.js';
@@ -144,9 +145,15 @@ class VCDBasePage extends VCDPage {
 	private function initJavascripts() {
 		$scriptData = '';
 		$scriptBase = '<script type="text/javascript" src="includes/js/%s"></script>%s%s';
+		$scriptBaseStrings = '<script type="text/javascript" src="%s" charset="utf-8"></script>%s%s';
 		// Display the script array in reverse order, so main.js in always on top
 		for ($i=(sizeof($this->scripts)-1);$i>=0;$i--) {
-			$scriptData .= sprintf($scriptBase, $this->scripts[$i], chr(13),chr(9));
+			if ($this->scripts[$i] === self::$JS_LANG) {
+				$scriptData .= sprintf($scriptBaseStrings, $this->scripts[$i], chr(13),chr(9));
+			} else {
+				$scriptData .= sprintf($scriptBase, $this->scripts[$i], chr(13),chr(9));
+			}
+			
 		}
 		
 		// Next handle scriptblocks
@@ -173,8 +180,9 @@ class VCDBasePage extends VCDPage {
 		$this->assign('pageCharset', VCDUtils::getCharSet());
 		$this->assign('pageStyle', VCDUtils::getStyle());
 						
-		// Standalone pages that need main.js must include it manually		
+		// Standalone pages that need main.js and/or the language support must include it manually		
 		$this->registerScript(self::$JS_MAIN);
+		$this->registerScript(self::$JS_LANG);
 		
 		if (VCDUtils::isLoggedIn()) {
 			$this->assign('isAuthenticated', true);
@@ -184,6 +192,12 @@ class VCDBasePage extends VCDPage {
 			if (sizeof(SettingsServices::getRssFeedsByUserId(VCDUtils::getUserID()))>0) {
 				$this->assign('showRssFeeds',true);
 			}
+			
+			// Check if weither to display the public wishlist
+			if (SettingsServices::isPublicWishLists(VCDUtils::getUserID())) {
+				$this->assign('showWishlists',true);
+			}
+			
 			
 			if (VCDUtils::getCurrentUser()->isAdmin()) {
 				$this->assign('isAdmin', true);

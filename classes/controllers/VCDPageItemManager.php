@@ -60,6 +60,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->skipExtended = true;
 		parent::__construct($node);
 		
+		if (is_numeric($this->getParam('dvd'))) {
+			$this->dvdId = $this->getParam('dvd');
+		}
+		
 		$this->initTabs();
 		$this->initPage();
 	}
@@ -289,11 +293,13 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION));
 			}
 			
-			foreach ($userMeta as $metadataObj) {
-				if (!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][$metadataObj->getMetadataTypeID()])) {
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','');
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false);
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName());
+			if (is_array($userMeta)) {
+				foreach ($userMeta as $metadataObj) {
+					if (!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][$metadataObj->getMetadataTypeID()])) {
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','');
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false);
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName());
+					}
 				}
 			}
 			
@@ -334,6 +340,9 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 
 		if (is_null($this->dvdId)) return;
 		
+		// Assign the current DVD to the page
+		$this->assign('itemCurrentDvd', $this->dvdId);
+				
 		$dvdObj = new dvdObj();
 		$arrDVDMetaObj = metadataTypeObj::filterByMediaTypeID($this->metadata, $this->dvdId);
 		$arrDVDMetaObj = metadataTypeObj::getDVDMeta($arrDVDMetaObj);
@@ -462,7 +471,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			}
 		}
 		
-		$this->assign('usercopyMediaList', array_slice($results,1));
+		$this->assign('usercopyMediaList', array_slice($results,1, sizeof($results),true));
 		$this->assign('usercopyMediaListNew', $results);
 		
 		$results = array();
@@ -567,6 +576,9 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				
 		// Update the metadata
 		$this->updateMetadata();
+		
+		// Update the DVD settings if any ..
+		$this->updateDvdSettings();
 		
 		// Handle uploaded files
 		$this->updateUploadedFiles();
@@ -707,6 +719,41 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 	}
 
+	private function updateDvdSettings() {
+		
+		$dvdId = $this->getParam('current_dvd',true);
+		if (!is_numeric($dvdId)) return;
+		
+		$id = $this->itemObj->getID();
+		
+		$dvd_region = $this->getParam('dvdregion',true);
+    	$dvd_format = $this->getParam('dvdformat',true);
+    	$dvd_aspect = $this->getParam('dvdaspect',true);
+    	$audio_list = $this->getParam('audio_list',true);
+    	$sub_list = $this->getParam('sub_list',true);
+
+    	$arrDVDMeta = array();
+    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
+    	array_push($arrDVDMeta, $obj);
+    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
+    	array_push($arrDVDMeta, $obj);
+    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
+    	array_push($arrDVDMeta, $obj);
+    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
+    	array_push($arrDVDMeta, $obj);
+    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
+    	array_push($arrDVDMeta, $obj);
+    	foreach ($arrDVDMeta as $metadataObj) {
+    		$metadataObj->setMediaTypeID($dvdId);
+    		$metadataObj->setMetadataTypeName(metadataTypeObj::getSystemTypeMapping($metadataObj->getMetadataTypeID()));
+    	}
+
+    	    	
+    	// Add / Update the DVD metadata
+    	SettingsServices::addMetadata($arrDVDMeta, true);
+		
+	
+	}
 
 
 }

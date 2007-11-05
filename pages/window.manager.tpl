@@ -15,7 +15,6 @@
 
 
 <form onsubmit="copyFiles(this);" action="{$smarty.server.SCRIPT_NAME}?page=manager&amp;vcd_id={$itemId}&amp;action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
-<input type="hidden" name="cd_id" value=""/>
 
 <div class="tabs">
 <table cellpadding=0 cellspacing=0 border=0 style="width:100%; height:100%">
@@ -51,13 +50,14 @@
 
 <div id="submitters">
 {if $isAdult}
-<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
-<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
+	<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
+	<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
 {else}
-<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" />
-<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext"/>
+	<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onclick="managerSubmit(this.form,'update')"/>
+	<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onclick="managerSubmit(this.form,'save')"/>
 {/if}
 <input type="button" name="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
+
 
 </div>
 </form>
