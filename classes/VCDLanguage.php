@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 class VCDLanguage {
 	
 	CONST PRIMARY_LANGINDEX = "languages.xml";
@@ -66,7 +66,7 @@ class VCDLanguage {
 			
 					
 			// Check if a restricted language subset should be used ..
-			if ($this->loadResticted()) {
+			if ($this->loadRestricted()) {
 				return;
 			}
 				
@@ -75,7 +75,7 @@ class VCDLanguage {
 				$xmlStream = simplexml_load_file(self::$LANGUAGE_ROOT.self::PRIMARY_LANGINDEX );
 								
 				foreach ($xmlStream->language as $node) {
-					array_push($this->arrLanguages, new _VCDLanguageItem($node));
+					$this->arrLanguages[] = new _VCDLanguageItem($node);
 				}
 			}
 		
@@ -92,14 +92,14 @@ class VCDLanguage {
 	 *
 	 * @return bool
 	 */
-	private function loadResticted() {
+	private function loadRestricted() {
 		try {
 			
 			$fileroot = str_replace('classes', '', dirname(__FILE__));
 			if (file_exists($fileroot.self::USERSET_LANGINDEX)) {
 				$xmlStream = simplexml_load_file($fileroot.self::USERSET_LANGINDEX);
 				foreach ($xmlStream->language as $node) {
-					array_push($this->arrLanguages, new _VCDLanguageItem($node));
+					$this->arrLanguages[] = new _VCDLanguageItem($node);
 				}
 				$this->isRestricted = true;
 				return true;
@@ -242,6 +242,16 @@ class VCDLanguage {
 	}
 	
 	/**
+	 * Get all translation keys and values for javascripts.
+	 * They all begin with "js." in the xml files.
+	 *
+	 * @return array
+	 */
+	public function doJavascriptKeys() {
+		return $this->primaryLanguage->getJsKeys();
+	}
+	
+	/**
 	 * Check if the primary language is English
 	 *
 	 * @return bool
@@ -323,6 +333,15 @@ class VCDLanguage {
 		return VCDClassFactory::getInstance('VCDLanguage')->doTranslate($key);
 	}
 	
+	
+	/**
+	 * Get keys, only for javascript items.
+	 *
+	 * @return array
+	 */
+	public static function getJavascriptKeys() {
+		return VCDClassFactory::getInstance('VCDLanguage')->doJavascriptKeys();
+	}
 	
 	/**
 	 * Try to detect the default browser language if no language has been selected.
@@ -463,6 +482,7 @@ class _VCDLanguageItem implements ArrayAccess {
 	private $filename;
 
 	private $keys = array();
+	private $jsKeypointer = array();
 	
 	/**
 	 * Function constructor, gets a single SimpleXMLElement from the language.xml index file.
@@ -489,7 +509,11 @@ class _VCDLanguageItem implements ArrayAccess {
 			
 			$xmlStream = simplexml_load_file($file);
 			foreach ($xmlStream->strings->string as $node) {
-				array_push($this->keys, new _VCDLanguageKey($node));
+				$k = new _VCDLanguageKey($node);
+				$this->keys[] = $k;
+				if (strpos($k->getID(),'js.')===0) {
+					$this->jsKeypointer[] = $k;
+				}
 			}
 			
 		} else {
@@ -508,6 +532,18 @@ class _VCDLanguageItem implements ArrayAccess {
 		}
 		
 		return $this->keys;
+	}
+	
+	/**
+	 * Get the javascript only languages keys.
+	 *
+	 * @return array
+	 */
+	public function getJsKeys() {
+		if (sizeof($this->keys) == 0) {
+			$this->loadKeys();
+		}
+		return $this->jsKeypointer;
 	}
 	
 	/**

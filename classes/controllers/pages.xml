@@ -204,7 +204,7 @@
 	</page>
 	<page standalone="false" auth="true">
 		<name>Public wishlists</name>
-		<handler>VCDPageUserPublicWishlist</handler>
+		<handler>VCDPageUserWishlists</handler>
 		<template>page.user.wishlist.public.tpl</template>
 		<action>wishlists</action>
 	</page>

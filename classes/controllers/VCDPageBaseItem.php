@@ -215,6 +215,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$metadata = metadataTypeObj::filterOutSystemMeta($metadata);
 			
 		if (is_array($metadata) && sizeof($metadata)>0) {
+			$results = array();
 			
 			foreach ($metadata as $metaObj) { 
 				if ($metaObj instanceof metadataObj) {

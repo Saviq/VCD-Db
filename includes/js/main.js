@@ -57,12 +57,6 @@ function openAdminConsole() {
 	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
-function showcover(image, db, id) {
-	var url = "pages/cover.php?pic="+image+"&db="+db+"&id="+id+"";
-	window.open(url, 'popup', 'height=200,width=200,top=50,left=25');
-}
-
-
 function loadManager(cd_id) {
 	var page = "pages/manager.php?cd_id="+cd_id+"";
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
@@ -1048,29 +1042,6 @@ function getPlayerFileName(form) {
 }
 
 
-
-function playFile(command) {
-	try {
-
-
-
-
-		if (!document.all) {
-		 	alert ("Sorry but this feature is only\navailable with Internet Explorer.");
-  			return;
-		}
-
-		var ws = new ActiveXObject("WScript.Shell");
-		if (OS == 'Windows') {
-			command = replace(command, "#", "\\");
-			command = replace(command, "|", "\"");
-		}
- 		ws.Exec(command);
-
-	} catch (Exception) {
-		alert('In order for this to work, you must add\nthis website\'s address to your \"Trusted Sites\"\nunder \"Tools > Internet options > Security\"');
-	}
-}
 
 function replace(s, t, u) {
   /*

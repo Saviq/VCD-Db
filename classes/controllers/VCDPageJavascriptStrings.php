@@ -23,6 +23,13 @@ class VCDPageJavascriptStrings extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
 		parent::__construct($node);
+		
+		$jsKeys = VCDLanguage::getJavascriptKeys();
+		$results = array();
+		foreach ($jsKeys as $obj) {
+			$results[substr($obj->getId(),3)] = $obj->getKey();
+		}
+		$this->assign('itemJavascriptKeys',$results);
 	}
 }
 ?>

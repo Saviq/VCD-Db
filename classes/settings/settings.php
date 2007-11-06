@@ -1256,7 +1256,7 @@ class vcd_settings implements ISettings {
 					if (sizeof($wishlistArr) > 0) {
 						foreach ($wishlistArr as $item) {
 							$iown = 0;
-							if (in_array($item['mine'], $ArrVCDids)) {
+							if (in_array($item['id'], $ArrVCDids)) {
 								$iown = 1;
 							}
 							array_push($comparedArr, array('id' => $item['id'], 'title' => $item['title'], 'mine' => $iown));
