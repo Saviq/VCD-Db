@@ -33,7 +33,7 @@
 {else}
 <tr>
 	<td class="tblb">ID</td>
-	<td><input type="text" value="{$itemExternalId}" size="8" name="imdb" class="input"/>&nbsp;{$itemSourceSiteName}</td>
+	<td><input type="text" value="{$itemExternalId}" size="8" name="externalId" class="input"/>&nbsp;{$itemSourceSiteName}</td>
 </tr>
 {/if}
 <tr>
@@ -67,8 +67,8 @@
 	{/foreach}
 	<tr>
 		<td>{$smarty.foreach.usercopies.iteration+1}</td>
-		<td>{html_options name=mediatype options=$usercopyMediaListNew}</td>
-		<td>{html_options name=year options=$usercopyYearList}</td>
+		<td>{html_options name=mediatype_new options=$usercopyMediaListNew}</td>
+		<td>{html_options name=year_new options=$usercopyYearList}</td>
 		<td>&nbsp;</td>
 	</tr>
 	</table>

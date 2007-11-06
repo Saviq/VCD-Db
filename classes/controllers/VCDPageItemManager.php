@@ -574,6 +574,9 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$this->loadItem();
 		}
 				
+		// Update the basic data
+		$this->updateBasics();
+		
 		// Update the metadata
 		$this->updateMetadata();
 		
@@ -589,6 +592,45 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	}
 
 
+	/**
+	 * Update basic data such as title, production year and movie category.
+	 *
+	 */
+	private function updateBasics() {
+		try {
+		
+			$title = $this->getParam('title',true);
+			$year = $this->getParam('year',true);
+			$categoryId = $this->getParam('category',true);
+			$externalId = $this->getParam('externalId',true);
+			
+			if (!is_null($title)) {
+				$this->itemObj->setTitle(trim($title));
+			}
+			
+			if (is_numeric($year)) {
+				$this->itemObj->setYear($year);
+			}
+			
+			if (is_numeric($categoryId)) {
+				$movieCategoryObj = SettingsServices::getMovieCategoryByID($categoryId);
+				if ($movieCategoryObj instanceof movieCategoryObj ) {
+	     			$this->itemObj->setMovieCategory($movieCategoryObj);
+	     		}
+			}
+			
+			if (!is_null($externalId) && ($this->itemObj->getSourceSiteID()>0)) {
+				$this->itemObj->setSourceSite($this->itemObj->getSourceSiteID(), $externalId);
+			}
+			
+	     
+			
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		} 
+	}
+	
 	
 	/**
 	 *  Handle uploaded files, covers and metadata such as NFO's
@@ -657,7 +699,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			      			$fileLocation = $fileObj->getFileLocation();
 							$fileExtension = $fileObj->getFileExtenstion();
 				  	   		$im = new Image_Toolbox($fileLocation);
-				  	   		if ($category == SettingsServices::getCategoryIDByName('adult')) {
+				  	   		if ($this->itemObj->getCategoryID() == SettingsServices::getCategoryIDByName('adult')) {
 				  	   			$im->newOutputSize(0,190);	
 				  	   		} else {
 				  	   			$im->newOutputSize(0,140);	

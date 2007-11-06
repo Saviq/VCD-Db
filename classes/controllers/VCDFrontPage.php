@@ -44,9 +44,64 @@ class VCDFrontPage extends VCDBasePage {
 			
 		}
 		
+		$this->doTopTenLists();
+		
 		
 	}
 	
+	private function doTopTenLists() {
+	
+		// Check if user is logged in and wished to disable sidebar
+		if (VCDUtils::isLoggedIn()) {
+			$arr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), metadataTypeObj::SYS_FRONTBAR);
+			if (is_array($arr) && sizeof($arr) == 1 && $arr[0] instanceof metadataObj && $arr[0]->getMetadataValue() == 0) {
+				return;
+			}
+		}
+		
+		
+		// Gather data for the top ten lists
+		$results = array();
+		$cat_tv = SettingsServices::getCategoryIDByName("tv shows");
+		$cat_xxx = SettingsServices::getCategoryIDByName("adult");
+		
+		// Top Ten list for all movies , except for TV Shows and Adult movies
+		$movies = MovieServices::getTopTenList(0, array($cat_tv,$cat_xxx));
+		if (sizeof($movies) > 0) {
+			$items = array();
+			$results[] = array('name' => VCDLanguage::translate('misc.latestmovies'), 'items' => &$items);
+			foreach ($movies as $obj) { $items[$obj->getId()] = $obj->getTitle();}
+			unset($items);
+		}
+		
+		
+		// Top ten list for TV shows if any ..
+		$movies = MovieServices::getTopTenList($cat_tv);
+		if (sizeof($movies) > 0) {
+			$items = array();
+			$results[] = array('name' => VCDLanguage::translate('misc.latesttv'), 'items' => &$items);
+			foreach ($movies as $obj) { $items[$obj->getId()] = $obj->getTitle();}
+			unset($items);
+		}
+		
+		// Top ten list for adult movies if any ..
+		if (VCDUtils::showAdultContent() && $cat_tv>0) {
+			$movies = MovieServices::getTopTenList($cat_xxx);
+			if (sizeof($movies) > 0) {
+				$items = array();
+				$results[] = array('name' => VCDLanguage::translate('misc.latestblue'), 'items' => &$items);
+				foreach ($movies as $obj) { $items[$obj->getId()] = $obj->getTitle();}
+				unset($items);
+			}
+		}
+		
+		
+		// Display the right sidebar ..
+		if (sizeof($results)>0) {
+			$this->assign('toptenLists',$results);
+			$this->assign('showRightbar',true);
+		}
+	}
 	
 	
 	private function doUserRssList() {
