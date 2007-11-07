@@ -58,7 +58,8 @@ function openAdminConsole() {
 }
 
 function loadManager(cd_id) {
-	var page = "pages/manager.php?cd_id="+cd_id+"";
+	//var page = "pages/manager.php?cd_id="+cd_id+"";
+	var page = '?page=manager&vcd_id='+cd_id;
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
@@ -691,7 +692,7 @@ function deleteFromWishlist(id) {
 }
 
 function deleteCover(cover_id, vcd_id) {
-	var url = '../exec_query.php?action=deletecover&cover_id='+cover_id+'&vcd_id='+vcd_id;
+	var url = '?page=manager&vcd_id='+vcd_id+'&action=deletecover&cover_id='+cover_id;
 	location.href = url;
 }
 

@@ -10,8 +10,8 @@
 <tr>
 	<td style="padding-left:15px">{$j.name}</td>
 	<td>
-	{if $j.name eq 'nfo'}
-		<input type="file" name="{$j.htmlid}" size="27" class="input"/>
+	{if $j.name eq 'nfo' && $j.value eq ''}
+		<input type="file" name="{$j.htmlid}" size="26" class="input"/>
 	{else}
 		<input type="text" value="{$j.value}" size="40" name="{$j.htmlid}" id="{$j.htmlid}" class="input"/> 
 	{/if}

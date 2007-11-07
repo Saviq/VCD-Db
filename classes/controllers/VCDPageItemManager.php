@@ -60,6 +60,9 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->skipExtended = true;
 		parent::__construct($node);
 		
+		// Check for get parameters
+		$this->doGet();
+		
 		if (is_numeric($this->getParam('dvd'))) {
 			$this->dvdId = $this->getParam('dvd');
 		}
@@ -76,6 +79,26 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 	}
 	
+	private function doGet() {
+		$action = $this->getParam('action');
+		
+		switch ($action) {
+			case 'deletecover':
+				$cover_id = $this->getParam('cover_id');
+				if (is_numeric($cover_id)) {
+					CoverServices::deleteCover($cover_id);
+				}
+				
+			case 'deletemeta':
+				$meta_id = $this->getParam('meta_id');
+				if (is_numeric($meta_id)) {
+					SettingsServices::deleteMetadata($meta_id);
+				}
+				
+				break;
+		
+		}
+	}
 	
 	/**
 	 * Dynamically create the tabs for the manager
@@ -585,13 +608,31 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		// Handle uploaded files
 		$this->updateUploadedFiles();
-		
+
+		// Update sourcesite data
+		$this->updateSourcesiteData();
 		
 		// Finally call update in the services
 		MovieServices::updateVcd($this->itemObj);
 	}
 
 
+	private function updateSourcesiteData() {
+		if ((!is_null($this->sourceObj)) && ($this->itemObj->getExternalID() > 0)) {
+			
+			$this->sourceObj->setTitle($this->getParam('imdbtitle',true));
+			$this->sourceObj->setAltTitle($this->getParam('imdbalttitle',true));
+			$this->sourceObj->setRating($this->getParam('imdbgrade',true));
+			$this->sourceObj->setRuntime($this->getParam('imdbruntime',true));
+			$this->sourceObj->setDirector($this->getParam('imdbdirector',true));
+			$this->sourceObj->setCountry($this->getParam('imdbcountries',true));
+			$this->sourceObj->setGenre($this->getParam('imdbcategories',true));
+			$this->sourceObj->setPlot($this->getParam('plot',true));
+			$this->sourceObj->setCast($this->getParam('actors',true));
+			
+		}
+	}
+	
 	/**
 	 * Update basic data such as title, production year and movie category.
 	 *

@@ -58,8 +58,7 @@ class VCDFrontPage extends VCDBasePage {
 				return;
 			}
 		}
-		
-		
+				
 		// Gather data for the top ten lists
 		$results = array();
 		$cat_tv = SettingsServices::getCategoryIDByName("tv shows");
@@ -100,6 +99,11 @@ class VCDFrontPage extends VCDBasePage {
 		if (sizeof($results)>0) {
 			$this->assign('toptenLists',$results);
 			$this->assign('showRightbar',true);
+			
+			// Check if the visibility should be hidden because of a cookie settings
+			if (isset($_COOKIE['rbar']) && $_COOKIE['rbar'] == 0) {
+				$this->assign('rightbarHidden',true);
+			}
 		}
 	}
 	

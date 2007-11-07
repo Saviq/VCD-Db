@@ -3,7 +3,7 @@
 
 {if $isAuthenticated && is_array($frontpageFeeds) && count($frontpageFeeds)>0}
 
-<table border="0" width="100%">
+<table border="0">
 {foreach from=$frontpageFeeds item=i name=rss key=id}
 {if $smarty.foreach.rss.first or ($smarty.foreach.rss.index % 2 == 0)}
 <tr>

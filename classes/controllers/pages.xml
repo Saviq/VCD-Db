@@ -221,6 +221,12 @@
 		<action>manager</action>
 	</page>
 	<page standalone="true" auth="true">
+		<name>Pornstar manager</name>
+		<handler>VCDPagePornstarManager</handler>
+		<template>window.pornstar.manager.tpl</template>
+		<action>pornstarmanager</action>
+	</page>
+	<page standalone="true" auth="true">
 		<name>Movie launcher</name>
 		<handler>VCDPageUserMoviePlayer</handler>
 		<template>page.user.item.play.tpl</template>
