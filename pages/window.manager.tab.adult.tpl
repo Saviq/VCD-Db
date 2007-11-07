@@ -10,13 +10,13 @@
 	
 		<table cellspacing="0" cellpadding="2" border="0">
 		<tr>
-			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=available name=available options=$subCategoriesAvailable onDblClick="moveOver(this.form, 'available', 'choiceBox')" class="input"}</td>
+			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=adultCategoriesAvail name=adultCategoriesAvail options=$subCategoriesAvailable onDblClick="moveOver(this.form, 'adultCategoriesAvail', 'adultCategoriesUsed')" class="input"}</td>
 			<td>
-				<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'available', 'choiceBox');" class="input" style="margin-bottom:5px;"/>
+				<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'adultCategoriesAvail', 'adultCategoriesUsed');" class="input" style="margin-bottom:5px;"/>
 				<br/>
-				<input type="button" value="<<" onclick="removeMe(this.form, 'available', 'choiceBox');" class="input"/>
+				<input type="button" value="<<" onclick="removeMe(this.form, 'adultCategoriesAvail', 'adultCategoriesUsed');" class="input"/>
 			</td>
-			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=choiceBox name=choiceBox options=$subCategoriesUsed onDblClick="removeMe(this.form, 'available', 'choiceBox')" class="input"}</td>
+			<td>{html_options size="8" class="input" style="width:200px;height:185px" id=adultCategoriesUsed name=adultCategoriesUsed options=$subCategoriesUsed onDblClick="removeMe(this.form, 'adultCategoriesAvail', 'adultCategoriesUsed')" class="input"}</td>
 		</tr>
 		</table>
 		

@@ -564,7 +564,7 @@ function IsNumeric(strString)   {
 
 
 function jumpTo(pornstarname, web) {
-	var page = "../pages/jump.php?pornstar="+pornstarname+"&web="+web+"";
+	var page = "?page=jump&pornstar="+pornstarname+"&web="+web+"";
 	window.open(page,'starsearch');
 }
 
@@ -1075,6 +1075,9 @@ function switchTemplate(template) {
 function managerSubmit(form, action) {
 	checkFieldsRaw(form,'audioChoices','audio_list');
 	checkFieldsRaw(form,'langChoices','sub_list');
+	try {
+		checkFieldsRaw(form,'adultCategoriesUsed', 'id_list');		
+	} catch (ex) {}
 }
 
 function setManagerMediaType(obj, movieid) {

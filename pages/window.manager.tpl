@@ -49,15 +49,10 @@
 
 
 <div id="submitters">
-{if $isAdult}
-	<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
-	<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onClick="checkFieldsRaw(this.form,'choiceBox', 'id_list');alert('do extra check')"/>
-{else}
-	<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onclick="managerSubmit(this.form,'update')"/>
-	<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onclick="managerSubmit(this.form,'save')"/>
-{/if}
-<input type="button" name="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
 
+<input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onclick="managerSubmit(this.form,'update')"/>
+<input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onclick="managerSubmit(this.form,'save')"/>
+<input type="button" name="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
 
 </div>
 </form>

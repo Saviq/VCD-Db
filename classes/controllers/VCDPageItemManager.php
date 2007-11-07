@@ -612,11 +612,45 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Update sourcesite data
 		$this->updateSourcesiteData();
 		
+		// Update adult settings
+		$this->updateAdultSettings();
+		
 		// Finally call update in the services
 		MovieServices::updateVcd($this->itemObj);
+			
 	}
 
 
+	/**
+	 * Update the adult settings, such as subcategories and studio information
+	 *
+	 */
+	private function updateAdultSettings()	{
+		if (!$this->itemObj->isAdult()) {return;}
+		
+		$categoryList = $this->getParam('id_list',true);
+		if (!is_null($categoryList)) {
+	     	$subCatArr = split('#',$categoryList);
+	     	foreach ($subCatArr as $adult_catid) {
+	     		$adultCatObj = null;
+	     		if (is_numeric($adult_catid)) {
+	     			$adultCatObj = PornstarServices::getSubCategoryByID($adult_catid);
+	     		}
+	     		if ($adultCatObj instanceof porncategoryObj ) {
+	     			$this->itemObj->addAdultCategory($adultCatObj);
+	     		}
+	     	}
+	     }
+
+	     if (is_numeric($this->getParam('studio',true)))  {
+	     	$this->itemObj->setStudioID($this->getParam('studio',true));
+	     }
+	}
+	
+	/**
+	 * Update the sourceSite data.. such as imdb details
+	 *
+	 */
 	private function updateSourcesiteData() {
 		if ((!is_null($this->sourceObj)) && ($this->itemObj->getExternalID() > 0)) {
 			
