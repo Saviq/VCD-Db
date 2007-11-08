@@ -88,16 +88,27 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				if (is_numeric($cover_id)) {
 					CoverServices::deleteCover($cover_id);
 				}
+				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+				break;
 				
 			case 'deletemeta':
 				$meta_id = $this->getParam('meta_id');
 				if (is_numeric($meta_id)) {
 					SettingsServices::deleteMetadata($meta_id);
 				}
-				
+				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
 				break;
-		
+				
+			case 'removeactor':
+				$actor_id = $this->getParam('actor_id');
+				if (is_numeric($actor_id)) {
+					PornstarServices::deletePornstarFromMovie($actor_id, $this->itemObj->getID());
+				}
+				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+				break;
 		}
+		
+		
 	}
 	
 	/**

@@ -10,7 +10,7 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
- * @version $Id: VCDPagePornstar.php 1066 2007-08-15 17:05:56Z konni $
+ * @version $Id: VCDPagePornstarManager.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
@@ -18,6 +18,11 @@
 
 class VCDPagePornstarManager extends VCDBasePage {
 	
+	/**
+	 * The pornstarObj being used
+	 *
+	 * @var pornstarObj
+	 */
 	private $pornstarObj = null;
 	
 	public function __construct(_VCDPageNode $node) {
@@ -31,8 +36,76 @@ class VCDPagePornstarManager extends VCDBasePage {
 		$this->pornstarObj = $pornstarObj;
 		$this->doPornstar();
 			
+		// Check for _GET requests
+		$this->doGet();
+		
 	}
 		
+	
+	/**
+	 * Handle GET requests to the controller
+	 *
+	 */
+	private function doGet() {
+		$action = $this->getParam('action');
+		switch ($action) {
+			case 'deleteimage':
+				unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.PORNSTARIMAGE_PATH.$this->pornstarObj->getImageName());
+				$this->pornstarObj->setImageName('');
+				PornstarServices::updatePornstar($this->pornstarObj);
+				redirect('?page=pornstarmanager&pornstar_id='.$this->pornstarObj->getID());
+				break;
+			
+			case 'fetchimage':
+				$this->fetchRemoteImage();
+				redirect('?page=pornstarmanager&pornstar_id='.$this->pornstarObj->getID());
+				break;
+				
+			default:
+				break;
+		}
+	}
+	
+	
+	/**
+	 * Fetch image from remote website and use it as a pornstar thumbnail image
+	 *
+	 */
+	private function fetchRemoteImage() {
+		try {
+			
+			$fileLocation = $this->getParam('path');
+			if (is_null($fileLocation)) {
+				throw new VCDInvalidInputException('Remote file location is not set.');
+			}
+			
+			$imageName = VCDUtils::grabImage($fileLocation);
+			
+			if (strlen($imageName) > 3) {
+				$im = new Image_Toolbox(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$imageName);
+				$im->newOutputSize(0,200);
+				$im->save(TEMP_FOLDER.$imageName, 'jpg');
+			}
+					
+			
+			if (rename(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$imageName, VCDDB_BASE.DIRECTORY_SEPARATOR.PORNSTARIMAGE_PATH.$imageName)) {
+				// Success ...
+				$this->pornstarObj->setImageName($imageName);
+				PornstarServices::updatePornstar($this->pornstarObj);
+			} else {
+				throw new VCDException('Could not write image to disk.');
+			}
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
+		}
+	}
+	
+	
+	/**
+	 * Handle _POST request to the controller
+	 *
+	 */
 	public function handleRequest() {
 		try {
 			
@@ -55,12 +128,20 @@ class VCDPagePornstarManager extends VCDBasePage {
 		}
 	}
 	
+	/**
+	 * Update the pornstar instance
+	 *
+	 */
 	private function updatePornstar() {
+		
+		// Set the basic data ..
+		$this->pornstarObj->setName($this->getParam('name',true));
+		$this->pornstarObj->setHomePage($this->getParam('www',true));
+		$this->pornstarObj->setBiography($this->getParam('bio',true));
 		
 		// Check for uploaded file ..
 		$this->handleImageUpload();
-		
-		
+				
 		// Update the pornstar
 		PornstarServices::updatePornstar($this->pornstarObj);
 		
@@ -114,10 +195,15 @@ class VCDPagePornstarManager extends VCDBasePage {
 	 *
 	 */
 	private function doPornstar() {
+		
+		$this->assign('pornstarId', $this->pornstarObj->getID());
 		$this->assign('pornstarName', $this->pornstarObj->getName());
 		$this->assign('pornstarHomepage', $this->pornstarObj->getHomepage());
 		$this->assign('pornstarBiography', $this->pornstarObj->getBiography());
-		$this->assign('pornstarimage', $this->pornstarObj->getImageLink());
+		if (strcmp($this->pornstarObj->getImageName(),'')!=0) {
+			$this->assign('pornstarImage', $this->pornstarObj->getImageLink());
+		}
+		
 	}
 	
 	

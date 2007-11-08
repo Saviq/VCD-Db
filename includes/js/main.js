@@ -579,29 +579,29 @@ function addScreenshots(cd_id) {
 }
 
 function changePornstar(pornstar_id) {
-	var url = './pmanager.php?pornstar_id='+pornstar_id+'';
-	window.open(url, 'PornStarManager', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=350,height=270');
+	var url = '?page=pornstarmanager&pornstar_id='+pornstar_id;
+	window.open(url, 'PornStarManager', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=365,height=270');
 }
 
 function fetchstarimage(star_id) {
 	var promptext = 'Enter exact image url';
 	linktext = prompt(promptext,'');
 	if (linktext != null) {
-		url = '../exec_query.php?action=fetchimage&star_id='+star_id+'&path='+linktext;
+		url = '?page=pornstarmanager&action=fetchimage&pornstar_id='+star_id+'&path='+linktext;
 		location.href = url;
 	}
 }
 
-function delpornstarImage(pornstar_id) {
+function deletePornstarImage(pornstar_id) {
 	if (confirm('Sure you want to delete ?')) {
-		url = '../exec_query.php?action=delimage&star_id='+pornstar_id;
+		url = '?page=pornstarmanager&action=deleteimage&pornstar_id='+pornstar_id;
 		location.href = url;
 	}
 }
 
-function del_actor(pornstar_id, movie_id) {
+function removeActor(pornstar_id, movie_id) {
 	if (confirm('Delete actor from movie?')) {
-		url = '../exec_query.php?action=delactor&actor_id='+pornstar_id+'&movie_id='+movie_id;
+		url = '?page=manager&vcd_id='+movie_id+'&action=removeactor&actor_id='+pornstar_id;
 		location.href = url;
 	}
 }
@@ -1557,4 +1557,8 @@ function DvdTip(layerid) {
 	//this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
 	return TagToTip(layerid,SHADOWWIDTH,1,ABOVE,true,LEFT,false,FADEIN,150,FADEOUT,150,
 		WIDTH,280,BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf',SHADOW,true,SHADOWWIDTH,1,PADDING,0);
+}
+
+function $(id) {
+	return document.getElementById(id);
 }

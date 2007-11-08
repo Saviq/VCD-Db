@@ -29,8 +29,8 @@
 	{if !$pornstarImage}
 	
 	<input type="file" name="userfile" value="userfile" size="10" class="input"/>
-	<input type="button" value="Fetch" class="input" onclick="fetchstarimage({$pornstarId})" title="Click here for paste-ing direct image url on the web to fetch.  Then the image will be automatically downloaded."/>
-	<strong>Resize</strong> <input type="checkbox" name="resize" value="true" title="Check to automatically resize image" checked="checked">
+	<input type="button" value="Fetch" class="input" onclick="fetchstarimage({$pornstarId});return false;" title="Click here for paste-ing direct image url on the web to fetch.  Then the image will be automatically downloaded."/>
+	<strong>Resize</strong> <input type="checkbox" name="resize" value="true" title="Check to automatically resize image" checked="checked"/>
 			
 	{else}
 	<input type="text" name="image" size="25" class="input" value="{$pornstarImageName}"/>
@@ -52,10 +52,9 @@
 	<input type="button" name="close" onclick="window.close()" value="{$translate.misc.close}" class="buttontext"/>
 	&nbsp;
 	<input type="submit" name="save" value="{$translate.misc.saveandclose}" class="buttontext"/>
-	
-	{if $pornstarImageName}
+	{if $pornstarImage}
 	&nbsp;
-	<input type="button" name="delimage" value="Delete image" class="buttontext" onClick="delpornstarImage({$pornstarId})">
+	<input type="button" name="delimage" value="Delete image" class="buttontext" onclick="deletePornstarImage({$pornstarId});return false;"/>
 	{/if}
 	</td>
 </tr>

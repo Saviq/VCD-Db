@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?PHP
+<?php
 
 
 class VCDUtils {
@@ -328,10 +328,9 @@ class VCDUtils {
 
       } else {
 
-      	$fd = fopen($source, "rb");
+      	$fd = @fopen($source, "rb");
       	if (!$fd )	{
-      		VCDException::display("Cant open file at: ".$image_url."");
-      		return false;
+      		throw new VCDException('Cant open file at: '.$image_url);
 	  	}
         $contents = '';
 	  	while (!feof($fd)) {
@@ -361,8 +360,7 @@ class VCDUtils {
       $fd = fopen($dest, "wb");
 
       if ( !$fd ) {
-	  	VCDException::display("Cant write file, check permissions for folder " . $destination);
-	  	return false;
+	  	throw new VCDException('Cant write file, check permissions for folder '. $destination);
 	  }
 
 	  fwrite($fd, $contents);

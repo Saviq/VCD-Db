@@ -15,7 +15,7 @@
 		<td><a href="#" onclick="javascript:jumpTo('{$name}','eurobabe');return false"><img src="images/eurobabe.gif" border="0" alt="Search eurobabeindex.com for {$name}"/></a></td>
 		<td><a href="#" onclick="javascript:jumpTo('{$name}','google');return false"><img src="images/g.gif" border="0" alt="Search Google images for {$name}"/></a></td>
 		<td><a href="#" onclick="javascript:changePornstar({$key});return false">[{$translate.misc.change}]</a></td>
-		<td>&nbsp;&nbsp;<a href="#" onclick="del_actor($key,$itemId)">[{$translate.misc.delete}]</a></td>
+		<td>&nbsp;&nbsp;<a href="#" onclick="removeActor({$key},{$itemId});return false;">[{$translate.misc.delete}]</a></td>
 	</tr>
 	{/foreach}
 	</table>
