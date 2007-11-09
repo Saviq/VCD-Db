@@ -23,13 +23,13 @@ class VCDFetch_cdon extends VCDFetch {
 		'alt_title'	=> 'Originaltitel:</td>([^<]*)<td class=\"moviedetailtext\">([^<]*)</td>',
 		'year'		=> 'Inspelnings.r:</td>([^<]*)<td class=\"moviedetailtext\">([0-9]{4})</td>',
 		'poster'	=> 'moviedetail\" border=\"0\" src=\"([^"]*)" class=\"moviedetail\"',
-		'director'=> 'Regia<\/td>([^>]*>){5}::([^>]*>){4}([^<]*)<\/a>',
+		'director'	=> 'Regiss.r:</td>([^<]*)<td class=\"moviedetailtext\">(<a href=([^<]*)\">([^"]+)</a>)?</td>',
 		'genre' 	=> 'Genere<\/td>[^>]*>([^<]*)<\/td>',
 		'rating' 	=> 'il voto di FilmTV([^"]*"){5}img\/pollici_testata\/([0-9])\.gif',
 		'cast'		=> 'persona=[0-9]+[^>]*>([^<]*)<\/a><\/td>',
 		'runtime' => "Durata<\/td>[^>]*>([^']*)'<\/td>",
 		'country'	=> 'Produzione<\/td>[^>]*>([^<]*)<\/td>',
-		'plot'		=> 'La Trama([^>]*>){3}([^<]*)<'
+		'plot'		=> '<td class=\"moviedetail\">(.*)moviedetailfacts'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
@@ -86,6 +86,23 @@ class VCDFetch_cdon extends VCDFetch {
 				case 'poster':
 					$poster = $arrData[1];
 					$obj->setImage($poster);
+					break;
+					
+				case 'director':
+					if (isset($arrData[4])) {
+						$obj->setDirector($arrData[4]);
+					}
+					
+					break;
+					
+				case 'plot':
+
+					if (isset($arrData[0])) {
+						$plot = utf8_encode(trim(strip_tags($arrData[0])));
+						$plot = str_replace(array('&nbsp;','Se trailer','»', chr(175)),'',$plot);
+						$obj->setPlot($plot);
+					}
+					
 					break;
 
 
