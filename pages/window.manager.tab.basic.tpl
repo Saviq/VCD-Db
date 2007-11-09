@@ -27,7 +27,7 @@
 	{else}
 		{$translate.misc.no}
 	{/if}
-	&nbsp;&nbsp;&nbsp;<a href="#" onclick="addScreenshots({$itemId})">[{$translate.manager.addmedia}]</a>
+	&nbsp;&nbsp;&nbsp;<a href="#" onclick="addScreenshots({$itemId});return false;">[{$translate.manager.addmedia}]</a>
 	</td>
 </tr>
 {else}

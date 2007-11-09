@@ -80,6 +80,13 @@ class VCDBasePage extends VCDPage {
 			
 			$this->assign('pageCharset', VCDUtils::getCharSet());
 			$this->assign('pageStyle', VCDUtils::getStyle());
+			
+			// If a param "close=true" is detected, scriptblock to close window.self 
+			// and reload parent will be triggered.
+			if ($this->getParam('close') == 'true') {
+				$this->registerScriptBlock('try{window.opener.location.reload();self.close();}catch(ex){try{self.close();}catch (ex){}}');
+			}
+			
 			$this->initJavascripts();
 			parent::render();
 			

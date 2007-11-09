@@ -94,12 +94,7 @@
 		<template>page.javascript.language.tpl</template>
 		<action>strings.js</action>
 	</page>
-	<page standalone="true" auth="false">
-		<name>From Launcher</name>
-		<handler>VCDPageExternalUrl</handler>
-		<template>window.pornstar.launcher.tpl</template>
-		<action>jump</action>
-	</page>
+	
 	
 	
 	
@@ -244,6 +239,18 @@
 		<handler>VCDPageUserBorrower</handler>
 		<template>window.user.borrower.tpl</template>
 		<action>borrower</action>
+	</page>
+	<page standalone="true" auth="true">
+		<name>From Launcher</name>
+		<handler>VCDPageExternalUrl</handler>
+		<template>window.pornstar.launcher.tpl</template>
+		<action>jump</action>
+	</page>
+	<page standalone="true" auth="true">
+		<name>Add screenshots</name>
+		<handler>VCDPageScreenshots</handler>
+		<template>window.screenshots.tpl</template>
+		<action>addscreens</action>
 	</page>
 	
 	

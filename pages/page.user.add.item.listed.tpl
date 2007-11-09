@@ -4,12 +4,12 @@
 
 <p>{$translate.addmovie.notitles}</p>
 	
-{else}
+{elseif $smarty.get.action eq ''}
 
 <p class="bold">{$translate.addmovie.listedstep1}</p>
 
 <div style="padding-left:10px;">
-<form action="{$smarty.server.SCRIPT_NAME}?page=add_listed&amp;action=add" method="post" name="choiceForm">
+<form action="{$smarty.server.SCRIPT_NAME}?page=add_listed&amp;action=select" method="post" name="choiceForm">
 <input type="hidden" name="id_list" id="id_list"/>
 <input type="hidden" name="keys" value=""/>
 
@@ -36,5 +36,35 @@
 
 </form>
 </div>
+
+{elseif $smarty.get.action eq 'select'}
+
+<p class="bold">{$translate.addmovie.listedstep2}</p>
+
+<br/>
+
+<form method="post" action="?page=add_listed&amp;action=confirm">
+<table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
+<tr>
+	<td class="bold" width="80%">{$translate.movie.title}</td>
+	<td class="bold" nowrap="nowrap">{$translate.movie.mediatype}</td>
+	<td class="bold" nowrap="nowrap">{$translate.movie.num}</td>
+</tr>
+{foreach from=$movieList item=title key=id name=list}
+{assign var='c' value=$smarty.foreach.list.index}
+<tr>
+	<td>{$title|escape}</td>
+	<td>{html_options id=mediatype_$c name=mediatype_$c options=$mediatypeList}</td>
+	<td>{html_options id=cds_$c name=cds_$c options=$cdList}</td>
+</tr>
+{/foreach}
+</table>
+
+<p align="right" style="padding-right:85px;">
+	<input type="hidden" name="id_list" value="{$smarty.post.id_list}"/>
+	<input type="submit" value="{$translate.misc.confirm}" onclick="return confirmListed(this.form)"/>
+</p>
+
+</form>
 
 {/if}

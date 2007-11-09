@@ -75,7 +75,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		// The only request to the page is the update function call
 		if (strcmp($this->getParam('action'),'updatemovie')==0) {
-			$this->updateItem();	
+			$this->updateItem();
+			
+			// Redirect to the manager if no error occurred
+			redirect('?page=manager&vcd_id='.$this->itemObj->getID());
 		}
 	}
 	

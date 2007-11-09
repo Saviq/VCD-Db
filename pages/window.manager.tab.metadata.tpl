@@ -1,5 +1,4 @@
 <div class="flow" align="left">
-<p>
 <table cellpadding="1" cellspacing="1" border="0">
 {foreach from=$itemMetadataList item=i key=key name=metalist}
 <tr>
@@ -26,6 +25,5 @@
 {/foreach}
 {/foreach}
 </table>
-</p>
 </div>
 
