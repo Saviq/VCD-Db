@@ -45,6 +45,7 @@ class VCDFrontPage extends VCDBasePage {
 		}
 		
 		$this->doTopTenLists();
+		$this->doSiteStatistics();
 		
 		
 	}
@@ -170,7 +171,51 @@ class VCDFrontPage extends VCDBasePage {
 		return $results;
 		
 	}
+
 	
+	/**
+	 * Assign the site statistics data
+	 *
+	 */
+	private function doSiteStatistics() {
+		
+		$adultId = SettingsServices::getCategoryIDByName('adult');
+		$showAdult = VCDUtils::showAdultContent();
+		$stats = SettingsServices::getStatsObj();
+		// Assign data from the statistics objects
+		
+		$this->assign('statsMovieCount',$stats->getMovieCount());
+		$this->assign('statsMovieCountToday',$stats->getMovieTodayCount());
+		$this->assign('statsMovieCountWeek',$stats->getMovieWeeklyCount());
+		$this->assign('statsMovieCountMonth',$stats->getMovieMonthlyCount());
+		
+		$this->assign('statsCoverCount',$stats->getTotalCoverCount());
+		$this->assign('statsCoverCountWeek',$stats->getWeeklyCoverCount());
+		$this->assign('statsCoverCountMonth',$stats->getMonthlyCoverCount());
+		
+		// Overall Top categories
+		$results = array();
+		foreach ($stats->getBiggestCats() as $categoryObj) {
+			if ($categoryObj->getId() == $adultId && !$showAdult) continue;
+			$results[] = array('id' => $categoryObj->getID(), 'name' => $categoryObj->getName(true), 
+				'count' => $categoryObj->getCategoryCount());
+		}
+		$this->assign('statsTopCategories',$results);
+		
+		// Currently most active categories
+		$results = array();
+		foreach ($stats->getBiggestMonhtlyCats() as $categoryObj) {
+			if ($categoryObj->getId() == $adultId && !$showAdult) continue;
+			$results[] = array('id' => $categoryObj->getID(), 'name' => $categoryObj->getName(true), 
+				'count' => $categoryObj->getCategoryCount());
+		}
+		
+		if (sizeof($results)>0) {
+			$this->assign('statsTopCurrentCategories',$results);
+		}
+		
+		
+	}
 	
 }
 

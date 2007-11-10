@@ -13,4 +13,32 @@
 {/foreach}
 </ul>
 {/if}
+
+{if !$rightStatistics}
+<table cellspacing="0" cellpadding="1" border="0" class="list" width="100%">
+{if is_array($statsTopCategories) && count($statsTopCategories)>0}
+<tr>
+	<td class="header" colspan="2">{$translate.statistics.top_cats}</td>
+</tr>
+{foreach from=$statsTopCategories item=i}
+<tr>
+	<td><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
+	<td align="right">{$i.count}</td>
+</tr>
+{/foreach}
+{/if}
+{if is_array($statsTopCurrentCategories) && count($statsTopCurrentCategories)>0}
+<tr>
+	<td class="header" colspan="2">{$translate.statistics.top_act}</td>
+</tr>
+{foreach from=$statsTopCurrentCategories item=i}
+<tr>
+	<td><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
+	<td align="right">{$i.count}</td>
+</tr>
+{/foreach}
+{/if}
+</table>
+{/if}
+
 </div>

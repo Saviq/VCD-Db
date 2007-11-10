@@ -64,7 +64,7 @@ class VCDPageScreenshots extends VCDBasePage  {
 				break;
 		
 			default:
-				redirect('');
+				redirect();
 				break;
 		}
 	}

@@ -155,10 +155,4 @@ if (isset($_POST)) {
 }
 
 
-
-// Show or Hide right sidebar layer ..
-global $showright;
-$showright = true;
-
-
 ?>

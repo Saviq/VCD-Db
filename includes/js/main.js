@@ -791,22 +791,21 @@ function checkManually(form) {
 	return true;
 }
 
-function deleteCopy(usercopies, totalcopies, cd_id, media_id) {
+function deleteCopy(usercopies, totalcopies, id, media_id) {
 	if (totalcopies == 1) {
 		var message = "This is the only copy in the database\nAll movie information will be deleted\nContinue and delete?";
 		if (confirm(message)) {
-			url = '../exec_query.php?action=deletecopy&cd_id='+cd_id+'&media_id='+media_id+'&mode=full';
+			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=full';
 			location.href = url;
-			return;
+		}
+	} else {
+
+		var message = "Delete this copy ?";
+		if (confirm(message)) {
+			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=single';
+			location.href = url;
 		}
 	}
-
-	var message = "Delete this copy ?";
-	if (confirm(message)) {
-		url = '../exec_query.php?action=deletecopy&cd_id='+cd_id+'&media_id='+media_id+'&mode=single';
-		location.href = url;
-	}
-
 }
 
 function checkListed(form) {

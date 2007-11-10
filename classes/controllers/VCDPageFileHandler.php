@@ -480,6 +480,6 @@ class VCDPageFileHandler extends VCDBasePage {
 		
 		return((connection_status()==0) && !connection_aborted());
 		
-		}
+	}
 	
 }

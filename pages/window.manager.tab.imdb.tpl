@@ -5,7 +5,7 @@
 </tr>
 <tr>
 	<td class="tblb" valign="top">{$translate.movie.alttitle}:</td>
-	<td><input type="text" name="imdbalttitle" class="input" value="{$sourceAlttitle}" size="45"/></td>
+	<td><input type="text" name="imdbalttitle" class="input" value="{$sourceAltTitle}" size="45"/></td>
 </tr>
 <tr>
 	<td class="tblb">{$translate.movie.grade}:</td>

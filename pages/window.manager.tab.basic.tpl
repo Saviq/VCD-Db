@@ -62,7 +62,7 @@
 		<td>{$smarty.foreach.usercopies.iteration}</td>
 		<td>{html_options name=$i.mediaid options=$usercopyMediaList selected=$key}</td>
 		<td>{html_options name=$i.yearid options=$usercopyYearList selected=$i.cdcount}</td>
-		<td><a href="#" onclick="deleteCopy(0,0,{$itemId},{0})"><img src="images/thrashcan.gif" alt="Delete this copy" border="0"/></a></td>
+		<td><a href="#" onclick="deleteCopy({$itemUserCount},{$itemTotalCount},{$itemId},{$key});return false;"><img src="images/thrashcan.gif" alt="Delete this copy" border="0"/></a></td>
 	</tr>
 	{/foreach}
 	<tr>
@@ -72,7 +72,7 @@
 		<td>&nbsp;</td>
 	</tr>
 	</table>
-	<input type="hidden" name="usercdcount" value="{$itemUserMediaTypesSize}"/>
+	<input type="hidden" name="usercdcount" value="{$itemUserCount}"/>
 	{/if}
 	<!-- End instance table -->
 	</td>

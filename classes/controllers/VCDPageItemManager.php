@@ -72,13 +72,17 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	}
 	
 	public function handleRequest() {
-		
-		// The only request to the page is the update function call
-		if (strcmp($this->getParam('action'),'updatemovie')==0) {
-			$this->updateItem();
+		try {
+			// The only request to the page is the update function call
+			if (strcmp($this->getParam('action'),'updatemovie')==0) {
+				$this->updateItem();
+				
+				// Redirect to the manager if no error occurred
+				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+			}	
 			
-			// Redirect to the manager if no error occurred
-			redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+		} catch (Exception $ex) {
+			VCDException::display($ex,true);
 		}
 	}
 	
@@ -97,7 +101,13 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			case 'deletemeta':
 				$meta_id = $this->getParam('meta_id');
 				if (is_numeric($meta_id)) {
-					SettingsServices::deleteMetadata($meta_id);
+					// Check if metadata is a NFO item
+					$metadataObj = SettingsServices::getMetadataById($meta_id);
+					if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
+						SettingsServices::deleteNFO($meta_id);
+					} else {
+						SettingsServices::deleteMetadata($meta_id);	
+					}
 				}
 				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
 				break;
@@ -109,6 +119,17 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				}
 				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
 				break;
+				
+			case 'deletecopy':
+				$media_id = $this->getParam('media_id');
+				$mode = $this->getParam('mode',false,'single');
+				if (is_numeric($media_id)) {
+					MovieServices::deleteVcdFromUser($this->itemObj->getID(),
+						$media_id,$mode, VCDUtils::getUserID());
+				}
+				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+				break;
+				
 		}
 		
 		
@@ -527,7 +548,8 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		
 		$this->assign('itemUserMediaTypes',$results);
-		$this->assign('itemUserMediaTypesSize', sizeof($mediatypes));
+		$this->assign('itemUserCount', sizeof($mediatypes));
+		$this->assign('itemTotalCount', $this->itemObj->getNumCopies());
 		
 		
 	}
@@ -609,14 +631,17 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Load the movie item if it's null
 		if (is_null($this->itemObj)) {
 			$this->loadItem();
+			$this->userCopies = $this->itemObj->getInstancesByUserID(VCDUtils::getUserID());
 		}
 				
 		// Update the basic data
 		$this->updateBasics();
 		
-		// Update the metadata
-		$this->updateMetadata();
-		
+		// Update the metadata if instance has not been updated
+		if (!$this->updateInstance()) {
+			$this->updateMetadata();	
+		}
+			
 		// Update the DVD settings if any ..
 		$this->updateDvdSettings();
 		
@@ -882,10 +907,71 @@ class VCDPageItemManager extends VCDPageBaseItem  {
     	    	
     	// Add / Update the DVD metadata
     	SettingsServices::addMetadata($arrDVDMeta, true);
+	}
+	
+	/**
+	 * Update movie instance if it was changed, and/or add new instance if so was selected.
+	 *
+	 * @return bool | true if instance has been updated.
+	 */
+	private function updateInstance() {
+		try {
+			
+			
+			$instanceUpdated = false;
+					
+			if (sizeof($this->userCopies) > 0) {
+				$arrMediaTypes = $this->userCopies['mediaTypes'];
+				$arrNumcds = $this->userCopies['discs'];
+				
+				// Loop through the instances and compare
+				for ($i = 0; $i < sizeof($arrMediaTypes); $i++) {
+					$postedMediaType = $this->getParam('userMediaType_'.$i,true);
+					$media_id = $arrMediaTypes[$i]->getmediaTypeID();
+					$postedCDCount = $this->getParam('usernumcds_'.$i,true);
+					if (!($media_id == $postedMediaType && $arrNumcds[$i] == $postedCDCount)) {
+						
+						for($j = 0; $j < sizeof($arrMediaTypes); $j++) {
+							$MediaType = $arrMediaTypes[$j];
+							if (($MediaType->getmediaTypeID() == $postedMediaType) && ($i != $j)) {
+								throw new VCDProgramException('You cannot add two exact copies.');
+							} 
+						}
+						
+						// Either media type or numCD's have been updated .. update entry to DB
+						MovieServices::updateVcdInstance($this->itemObj->getID(), $postedMediaType, 
+							$media_id, $postedCDCount, $arrNumcds[$i]);
+						$instanceUpdated = true;
+					}
+				}
+			}
+			
+			
+			// Check if user has added a cd item
+			if (!is_null($this->getParam('mediatype_new',true))) {
+				$postedMediaType = $this->getParam('mediatype_new',true);
+				$postedCDCount = $this->getParam('year_new',true);
+				foreach($arrMediaTypes as $MediaType) {
+					if ($MediaType->getmediaTypeID() == $postedMediaType) {
+						throw new VCDProgramException('You cannot add two exact copies.');
+					} 
+					
+					// Add new instance
+					MovieServices::addVcdToUser(VCDUtils::getUserID(), $this->itemObj->getID(), 
+						$postedMediaType, $postedCDCount);
+				}
+			}
+			
+			return $instanceUpdated;
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 		
 	
-	}
-
-
 }
+
+
 ?>
