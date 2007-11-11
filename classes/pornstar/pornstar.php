@@ -149,7 +149,7 @@ class vcd_pornstar implements IPornstar {
 			if ($newPornstarsObj instanceof pornstarObj) {
 				return $newPornstarsObj;
 			} else {
-				// Bug in Postgres, sometimes entry not fount within same transaction ..
+				// Bug in Postgres, sometimes entry not found within same transaction ..
 				$pornstarObj->setID($new_id);
 				return $pornstarObj;
 			}

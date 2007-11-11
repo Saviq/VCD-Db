@@ -524,22 +524,6 @@ function goSimilar(form) {
 	location.href = url;
 }
 
-function Valmynd(box, bOpenWindow) {
-	        val = box.options[box.selectedIndex].value;
-	        box.selectedIndex=0;
-
-	        if ((-1 < box.selectedIndex) && (val.lastIndexOf('nil') > -1 )) {
-	           return true
-	        }
-
-        	if (bOpenWindow)
-	            openWin(val);
-        	else
-	            location.href = val;
-	        return true;
-	    }
-
-
 function openWin(url){
 		vindu = window.open(url);
 }
@@ -569,7 +553,7 @@ function jumpTo(pornstarname, web) {
 }
 
 function addActors(id) {
-	var url = './editactors.php?id='+id;
+	var url = '?page=addpornstars&vcd_id='+id;
 	window.open(url, 'addactors', 'height=300,width=420,top=200,left=250');
 }
 
@@ -950,17 +934,6 @@ function sortSelect(selectToSort, ascendingOrder) {
         optObj.value = myOptions[loop].optValue;
         selectToSort.options.add(optObj);
     }
-}
-
-
-function showonlymine(cat_id) {
-	url = 'exec_query.php?action=onlymine&cat_id='+cat_id;
-	location.href = url;
-}
-
-function adjustPlayer() {
-	var url = '?page=private&o=player';
-	window.open(url, 'PLAYER', 'height=250,width=400,top=200,left=250');
 }
 
 

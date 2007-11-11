@@ -120,12 +120,7 @@
 		<template>page.user.settings.tpl</template>
 		<action>settings</action>
 	</page>
-	<page standalone="true" auth="true">
-		<name>Player</name>
-		<handler>VCDPageUserPlayer</handler>
-		<template>window.user.player.tpl</template>
-		<action>player</action>
-	</page>
+	
 	<page standalone="true" auth="true">
 		<name>PlayerBrowser</name>
 		<handler>VCDPageUserPlayerBrowse</handler>
@@ -251,6 +246,12 @@
 		<handler>VCDPageScreenshots</handler>
 		<template>window.screenshots.tpl</template>
 		<action>addscreens</action>
+	</page>
+	<page standalone="true" auth="true">
+		<name>Pornstar selection</name>
+		<handler>VCDPagePornstarSelector</handler>
+		<template>window.pornstar.select.tpl</template>
+		<action>addpornstars</action>
 	</page>
 	
 	

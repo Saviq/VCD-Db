@@ -1,7 +1,7 @@
 <div class="flow" align="left">
 
 <div align="right">
-	<input type="button" value="{$translate.manager.addact}" class="buttontext" title="{$translate.manager.addact}" onClick="addActors({$itemId})"/>
+	<input type="button" value="{$translate.manager.addact}" class="buttontext" title="{$translate.manager.addact}" onClick="addActors({$itemId});return false;"/>
 </div>
 
 {if is_array($itemPornstars) && count($itemPornstars)>0}

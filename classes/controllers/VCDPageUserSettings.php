@@ -417,10 +417,6 @@ class VCDPageUserSettings extends VCDBasePage {
 				$data = "<a href=\"rss/?rss=".$userObj->getUsername()."\">(".VCDLanguage::translate('usersettings.ownfeed').")</a>";
 			}
 	
-			if ($propertyObj->getpropertyName() == 'PLAYOPTION' && $userObj->getPropertyByKey($propertyObj->getpropertyName())) {
-				$data = "<a href=\"#\" onclick=\"adjustPlayer();return false\">(".VCDLanguage::translate('usersettings.player').")</a>";
-			}
-	
 			if (!($propertyObj->getpropertyName() == 'SHOW_ADULT' && !VCDUtils::showAdultContent(true))) {
 				if ($userObj->getPropertyByKey($propertyObj->getpropertyName())) {
 					$checked = "checked=\"checked\"";
