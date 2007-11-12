@@ -45,7 +45,6 @@
 	/* Common Functions*/
 	require_once(VCDDB_BASE . '/functions/WebFunctions.php');
 	require_once(VCDDB_BASE . '/functions/BackendFunctions.php');
-	require_once(VCDDB_BASE . '/functions/XMLFunctions.php');
 	
 	/* Core Classes */
 	require_once(dirname(__FILE__) . '/VCDUtils.php');
