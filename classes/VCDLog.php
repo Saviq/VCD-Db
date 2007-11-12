@@ -13,9 +13,9 @@
  * @version $Id$
  */
 ?>
-<?
-require_once(dirname(__FILE__).'/settings/logSQL.php');
+<?php
 
+require_once(dirname(__FILE__).'/settings/logSQL.php');
 
 /**
  * The VCD-db log.

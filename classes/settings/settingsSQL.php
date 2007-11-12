@@ -14,7 +14,7 @@
  * @version $Id$
  */
 ?>
-<?PHP
+<?php
 
 class settingsSQL extends VCDConnection  {
 

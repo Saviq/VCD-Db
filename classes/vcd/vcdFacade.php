@@ -15,7 +15,7 @@
  */
  
 ?>
-<?PHP
+<?php
 	
 require_once(dirname(__FILE__).'/vcd.php');
 require_once(dirname(__FILE__).'/vcdSQL.php');

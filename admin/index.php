@@ -99,17 +99,17 @@
 			<li><a href="./?page=porncategories">Porn categories</a></li>
 			<li><a href="./?page=pornstudios">Porn studios</a></li>
 			
-			<? }?>
+			<?php }?>
 		
 	</ul>
 	<br/>
 	 <div class="sideInfo">
           <h3>Site info:</h3>
           <p>
-          Logged in as: <?=$_SESSION['user']->getUsername()?><br>
-          Version: <?=VCDDB_VERSION?><br>
-          OS: <?=PHP_OS?><br>
-		  Host: <?=$_SERVER['SERVER_NAME']?><br>
+          Logged in as: <?php echo $_SESSION['user']->getUsername()?><br>
+          Version: <?php echo VCDDB_VERSION?><br>
+          OS: <?php echo PHP_OS?><br>
+		  Host: <?php echo $_SERVER['SERVER_NAME']?><br>
 		  <?php if (defined('VCDDB_USEPROXY') && VCDDB_USEPROXY == 1) { ?>
 			DB Type: webservices<br>
          	DB Host: none<br>
@@ -135,7 +135,7 @@
 	<?php
 
 			if (showAddRecord($CURRENT_PAGE)) {
-				?><h1><input type="button" class="fast" value="<?=$LAYER_LABEL?>" onClick="toggle('newObj');return false;""></h1><?
+				?><h1><input type="button" class="fast" value="<?php echo $LAYER_LABEL?>" onClick="toggle('newObj');return false;""></h1><?php
 			}
 	
 	
@@ -927,7 +927,7 @@
 				</form>
 				
 				
-				<?
+				<?php
 			}
 			
 			
@@ -1245,7 +1245,7 @@
 				
 				
 				</p>
-				<?
+				<?php
 			}
 			
 			
@@ -1263,7 +1263,7 @@
 if ($CURRENT_PAGE == "viewlog") {
 ?>
 <script language="JavaScript" type="text/javascript" src="../includes/js/wz_tooltip.js"></script> 
-<?
+<?php
 }
 
 ?>

@@ -16,7 +16,7 @@
 <table class="add">
 <tr>
 	<td>Title to search for:</td>
-	<td><input name="title" value="<?=$title?>" type="text" size="30" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="title" value="<?php echo $title?>" type="text" size="30" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Select owner:</td>

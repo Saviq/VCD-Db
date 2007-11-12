@@ -15,7 +15,7 @@
  */
 
 ?>
-<?
+<?php
 /**
 	Class imdbObj
 	Container for the IMDB data on the current movie.

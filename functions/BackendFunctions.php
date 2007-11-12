@@ -14,7 +14,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 
 /**
  * @return bool

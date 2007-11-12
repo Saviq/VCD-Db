@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?PHP
+<?php
 
 class VCDException extends Exception {
 

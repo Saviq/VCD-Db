@@ -15,7 +15,7 @@
  */
  
 ?>
-<?
+<?php
 
 class userSQL extends VCDConnection  {
 	

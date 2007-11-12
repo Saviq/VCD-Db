@@ -44,7 +44,7 @@
 		<form name="password" method="post">
 		<table cellspacing=1 cellpadding=1 border=0 class="add">
 		<tr>
-			<td colspan="2">Change password for <strong><?=$vuser->getUsername() ?></strong><br/><br/></td>
+			<td colspan="2">Change password for <strong><?php echo $vuser->getUsername() ?></strong><br/><br/></td>
 		</tr>
 		<tr>
 			<td width="5%">Password:</td>
@@ -59,7 +59,7 @@
 		</table>
 
 		
-		</form> <?
+		</form> <?php
 	}
 	
 	if (strcmp($WORKING_MODE,"changeRole") == 0) {
@@ -84,10 +84,10 @@
 		?>
 		<div class="add">
 		<form name="roles" method="post">
-		Change role for <strong><?=$vuser->getUsername() ?></strong><br/><br/>
-		<?
+		Change role for <strong><?php echo $vuser->getUsername() ?></strong><br/><br/>
+		<?php
 		createDropDown($roleObjArr,"roles","Select user role","add");
-		?>&nbsp; <input type="submit" value="Submit" class="add" name="save"></form></div> <?
+		?>&nbsp; <input type="submit" value="Submit" class="add" name="save"></form></div> <?php
 		
 	}
 	

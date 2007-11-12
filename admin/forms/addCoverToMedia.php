@@ -5,7 +5,7 @@
 		<div id="newObj" style="display: none;">
 		<strong>Use the edit icon to change values</strong><br/><br/>
 		</div>
-		<?
+		<?php
 
 	} else {
 
@@ -29,12 +29,12 @@
 
 
 <div id="newObj" style="display: none;">
-<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
-<input type="hidden" name="media_id" value="<?=$mediaObj->getmediaTypeID()?>">
+<form name="new" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>">
+<input type="hidden" name="media_id" value="<?php echo $mediaObj->getmediaTypeID()?>">
 <table class="add">
 <tr>
 	<td>Media Type:</td>
-	<td><input name="name" type="text" id="name" value="<?=$mediaObj->getName()?>" onFocus="setBorder(this)" onBlur="clearBorder(this)" readonly></td>
+	<td><input name="name" type="text" id="name" value="<?php echo $mediaObj->getName()?>" onFocus="setBorder(this)" onBlur="clearBorder(this)" readonly></td>
 </tr>
 <tr>
 	<td valign="top" nowrap>Allowed types:</td>

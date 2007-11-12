@@ -27,7 +27,7 @@
 	
 ?>
 <div id="newObj" style="display: none;">
-<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
+<form name="new" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>">
 <?php
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$settingsObj->getID()."\">";
@@ -36,7 +36,7 @@
 <table class="add">
 <tr>
 	<td>Key:</td>
-	<td><input name="key" type="text" size="30" value="<?=$objArr['key']?>" <?=$readonly?> onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="key" type="text" size="30" value="<?php echo $objArr['key']?>" <?php echo $readonly?> onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Value:</td>
@@ -50,18 +50,18 @@
 		
 	?>
 		<select name="value" onFocus="setBorder(this)" onBlur="clearBorder(this)">	
-			<option value="1" <?=$yesSelected?>>True</option>
-			<option value="0" <?=$noSelected?>>False</option>
+			<option value="1" <?php echo $yesSelected?>>True</option>
+			<option value="0" <?php echo $noSelected?>>False</option>
 		</select>
 	<?php } else {?>
-		<input name="value" type="text" size="30" value="<?=$objArr['value']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)">	
-	<?}?>
+		<input name="value" type="text" size="30" value="<?php echo $objArr['value']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)">	
+	<?php }?>
 	
 	</td>
 </tr>
 <tr>
 	<td>Description:</td>
-	<td><input name="description" size="60" value="<?=$objArr['description']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="description" size="60" value="<?php echo $objArr['description']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Protect key:</td>
@@ -73,13 +73,11 @@
 	</td>
 </tr>
 <tr>
-	<td colspan="2"><INPUT type="submit" value="<?=$button_value?>" name="<?=strtolower($button_value)?>" class="save"></td>
+	<td colspan="2"><INPUT type="submit" value="<?php echo $button_value?>" name="<?php echo strtolower($button_value)?>" class="save"></td>
 </tr>
 </table>
 				
 </form>
 <h1></h1>
 </div>
-<?php 
-	unset($objArr);
-?>
+<?php unset($objArr); ?>

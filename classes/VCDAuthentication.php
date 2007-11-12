@@ -180,40 +180,6 @@
 		
 		
 		
-		/**
-		 * Print the HTML for the login box.
-		 *
-		 */
-		public static final function printLoginBox() {
-			
-			if (!VCDUtils::isLoggedIn()) {
-			?>
-			<div class="topic"><?=VCDLanguage::translate('login.login')?></div>
-   			<div class="forms">   
-			<form name="login" method="post" action="./authenticate.php">
-			<table cellspacing="0" cellpadding="0" border="0" width="100%">
-			<tr>
-				<td><?=VCDLanguage::translate('login.username')?>:<br/>
-				<input type="text" name="username" maxlength="50" class="dashed"/></td>
-			</tr>
-			<tr>
-				<td><?=VCDLanguage::translate('login.password')?>:<br/>
-				<input type="password" name="password" maxlength="50" class="dashed"/></td>
-			</tr>
-			<tr>
-				<td><?=VCDLanguage::translate('login.remember')?>: <input type ="checkbox" name="remember" value="1" class="nof"/></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="<?=VCDLanguage::translate('misc.confirm')?>"/></td>
-			</tr>
-			</table>
-			</form>
-			</div>
-			<?
-			
-			}
-			
-		}
 	}
 	
 	

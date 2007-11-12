@@ -13,11 +13,10 @@
  * @version $Id$
  */
 ?>
-<?PHP
+<?php
 /*
 	VCD Application OnLoad functions and commands
 */
-
 session_start();
 $start_time = VCDUtils::getmicrotime(true);
 

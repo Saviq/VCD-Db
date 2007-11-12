@@ -32,7 +32,7 @@
 	
 ?>
 <div id="newObj" style="display: none;">
-<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
+<form name="new" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>">
 <?php
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$objArr['id']."\">";
@@ -41,19 +41,19 @@
 <table class="add">
 <tr>
 	<td>Name:</td>
-	<td><input name="name" size="40" type="text"  value="<?=$objArr['name']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="name" size="40" type="text"  value="<?php echo $objArr['name']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 
 <tr>
 	<td>Url:</td>
-	<td><input name="url" size="90" value="<?=$objArr['url']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="url" size="90" value="<?php echo $objArr['url']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
 	<td>Is xRated:</td>
-	<td><input name="isxrated" type="checkbox" value="<?=$objArr['adult']?>" <?=$check?> onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="isxrated" type="checkbox" value="<?php echo $objArr['adult']?>" <?php echo $check?> onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
-	<td colspan="2"><INPUT type="submit" value="<?=$button_value?>" name="<?=strtolower($button_value)?>" class="save"></td>
+	<td colspan="2"><INPUT type="submit" value="<?php echo $button_value?>" name="<?php echo strtolower($button_value)?>" class="save"></td>
 </tr>
 </table>
 				

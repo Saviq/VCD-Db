@@ -14,7 +14,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 require_once(dirname(__FILE__) . '/external/nusoap.php');
 
 

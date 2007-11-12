@@ -1,7 +1,7 @@
 <h1>VCD-db log options</h1>
 
 
-<form name="log" method="post" action="<?= $_SERVER['REQUEST_URI']?>">
+<form name="log" method="post" action="<?php echo $_SERVER['REQUEST_URI']?>">
 
 <table cellpadding="0" cellspacing="1" border="0" class="datatable" width="100%">
 <tr>
@@ -10,23 +10,23 @@
 </tr>
 <tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
 	<td>Logins</td>
-	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_LOGIN ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) print "checked=\"checked\"" ?>></td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?php echo VCDLog::EVENT_LOGIN ?>" <?php if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) print "checked=\"checked\"" ?>></td>
 </tr>
 <tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
 	<td>Errors</td>
-	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_ERROR ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_ERROR )) print "checked=\"checked\"" ?>></td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?php echo VCDLog::EVENT_ERROR ?>" <?php if (VCDLog::isInLogList(VCDLog::EVENT_ERROR )) print "checked=\"checked\"" ?>></td>
 </tr>
 <tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
 	<td>Webservice calls</td>
-	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_SOAPCALL ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_SOAPCALL )) print "checked=\"checked\"" ?>></td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?php echo VCDLog::EVENT_SOAPCALL ?>" <?php if (VCDLog::isInLogList(VCDLog::EVENT_SOAPCALL )) print "checked=\"checked\"" ?>></td>
 </tr>
 <tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
 	<td>XML Rss calls</td>
-	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_RSSCALL ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_RSSCALL )) print "checked=\"checked\"" ?>></td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?php echo VCDLog::EVENT_RSSCALL ?>" <?php if (VCDLog::isInLogList(VCDLog::EVENT_RSSCALL )) print "checked=\"checked\"" ?>></td>
 </tr>
 <tr onMouseOver="trOn(this)" onMouseOut="trOff(this)">
 	<td>Emails sent from VCD-db</td>
-	<td align="right"><input type="checkbox" name="logoptions[]" value="<?=VCDLog::EVENT_EMAILS ?>" <?if (VCDLog::isInLogList(VCDLog::EVENT_EMAILS )) print "checked=\"checked\"" ?>></td>
+	<td align="right"><input type="checkbox" name="logoptions[]" value="<?php echo VCDLog::EVENT_EMAILS ?>" <?php if (VCDLog::isInLogList(VCDLog::EVENT_EMAILS )) print "checked=\"checked\"" ?>></td>
 </tr>
 </table>
 
@@ -45,7 +45,7 @@ echo $updateMessage;
 
 <h1>Current Log info</h1>
 <p>
-Log entries in database: <?= VCDLog::getLogCount() ?>
+Log entries in database: <?php echo VCDLog::getLogCount() ?>
 </p>
 <?php
 if (VCDLog::getLogCount() > 0) {

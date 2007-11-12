@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 
 if (VCDUtils::isLoggedIn()) {
 

@@ -29,7 +29,7 @@
 	
 ?>
 <div id="newObj" style="display: none;">
-<form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
+<form name="new" method="POST" action="<?php echo $_SERVER['REQUEST_URI']?>">
 <?php
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$propertyObj->getpropertyID()."\">";
@@ -38,15 +38,15 @@
 <table class="add">
 <tr>
 	<td>Name:</td>
-	<td><input name="name" type="text"  value="<?=$objArr['name']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)" <?php if (strcmp($WORKING_MODE, "edit") == 0){ print "readonly"; }?>></td>
+	<td><input name="name" type="text"  value="<?php echo $objArr['name']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)" <?php if (strcmp($WORKING_MODE, "edit") == 0){ print "readonly"; }?>></td>
 </tr>
 
 <tr>
 	<td>Description:</td>
-	<td><input name="description" size="40" value="<?=$objArr['description']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
+	<td><input name="description" size="40" value="<?php echo $objArr['description']?>" type="text" onFocus="setBorder(this)" onBlur="clearBorder(this)"></td>
 </tr>
 <tr>
-	<td colspan="2"><INPUT type="submit" value="<?=$button_value?>" name="<?=strtolower($button_value)?>" class="save"></td>
+	<td colspan="2"><INPUT type="submit" value="<?php echo $button_value?>" name="<?php echo strtolower($button_value)?>" class="save"></td>
 </tr>
 </table>
 				
