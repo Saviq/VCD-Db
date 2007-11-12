@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 /**
 	Class cdObj
 	Root object for the application.

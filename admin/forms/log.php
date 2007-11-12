@@ -31,7 +31,7 @@
 </table>
 
 <p align="right">
-<? 
+<?php
 $updateMessage = "";
 if ($updated) {
 	$updateMessage = "<span id=\"langmessage\" style=\"color:red\">(Selection updated)&nbsp;&nbsp;</span>";
@@ -47,13 +47,13 @@ echo $updateMessage;
 <p>
 Log entries in database: <?= VCDLog::getLogCount() ?>
 </p>
-<? 
+<?php
 if (VCDLog::getLogCount() > 0) {
 ?>
 <p>
 <input type="button" value="View Log" class="button" onclick="location.href='./?page=viewlog'"/> &nbsp; <input type="button" onclick="deleteRecord(0, 'log', 'Clear all log entries?')" value="Empty Log" class="button"/>
 </p>
-<?
+<?php
 }
 ?>
 

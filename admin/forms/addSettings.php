@@ -28,7 +28,7 @@
 ?>
 <div id="newObj" style="display: none;">
 <form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
-<? 
+<?php
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$settingsObj->getID()."\">";
 	}
@@ -41,7 +41,7 @@
 <tr>
 	<td>Value:</td>
 	<td>
-	<? if (isset($objArr['type']) && strcmp($objArr['type'], 'bool') == 0) { 
+	<?php if (isset($objArr['type']) && strcmp($objArr['type'], 'bool') == 0) { 
 			$yesSelected = "";
 			$noSelected = "";	
 			if ($objArr['value'] == 0) {
@@ -53,7 +53,7 @@
 			<option value="1" <?=$yesSelected?>>True</option>
 			<option value="0" <?=$noSelected?>>False</option>
 		</select>
-	<? } else {?>
+	<?php } else {?>
 		<input name="value" type="text" size="30" value="<?=$objArr['value']?>" onFocus="setBorder(this)" onBlur="clearBorder(this)">	
 	<?}?>
 	

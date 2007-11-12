@@ -91,7 +91,10 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 	 */
 	private function doActorList() {
 
-		$pornstars = PornstarServices::getPornstarsByMovieID($this->itemObj->getID());
+		$pornstars = $this->itemObj->getPornstars();
+		if (!is_array($pornstars)) {
+			$pornstars = PornstarServices::getPornstarsByMovieID($this->itemObj->getID());
+		}
 		if (is_array($pornstars)) {
 			$results = array();
 			foreach ($pornstars as $pornstar) {

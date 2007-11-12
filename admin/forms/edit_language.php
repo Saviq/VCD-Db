@@ -17,7 +17,7 @@
 </tr>
 <tr>
 	<td>
-	<? if (isset($_GET['type']) && strcmp($_GET['type'], 'safe') == 0) {
+	<?php if (isset($_GET['type']) && strcmp($_GET['type'], 'safe') == 0) {
 		
 		$header = array("Expression","Value");
 		printTableOpen('100%',0,0);
@@ -33,13 +33,13 @@
 		
 		
 	} else {
-		?><textarea cols="5" rows="5" class="txt" name="langfile"><? print $contents?></textarea></td><?
+		?><textarea cols="5" rows="5" class="txt" name="langfile"><?php print $contents?></textarea></td><?
 	}
 	?>
 	
 </tr>
 </table>
-<? 
+<?php
 if ($langCLASS->isWriteable($_GET['recordID'])) {
 	print "&nbsp;<input type=\"button\" value=\"Edit in safe mode\" onclick=SaveModeEdit({$_GET['recordID']})> &nbsp; <input type=\"submit\" value=\"Update file\" name=\"Update\">";
 } else {

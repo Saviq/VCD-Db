@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 require_once(dirname(__FILE__).'/userRoleObj.php');
 require_once(dirname(__FILE__).'/userPropertiesObj.php');
 

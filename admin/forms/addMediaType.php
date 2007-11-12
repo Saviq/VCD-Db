@@ -28,7 +28,7 @@
 ?>
 <div id="newObj" style="display: none;">
 <form name="new" method="POST" action="<?= $_SERVER['REQUEST_URI']?>">
-<? 
+<?php
 	if (strcmp($WORKING_MODE, "edit") == 0) { 
 		print "<input type=\"hidden\" name=\"id\" value=\"".$mediaTypeObj->getmediaTypeID()."\">";
 	}
@@ -40,7 +40,7 @@
 </tr>
 <tr>
 	<td>Parent:</td>
-	<td><? if (strcmp($WORKING_MODE, "edit") != 0) {
+	<td><?php if (strcmp($WORKING_MODE, "edit") != 0) {
 		createDropDown($mtypes, "parent","Select parent","add", $parent_id); print " (if any)";
 	} else {
 		

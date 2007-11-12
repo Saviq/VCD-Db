@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class settingsObj implements XMLable {
 
 	private $id;

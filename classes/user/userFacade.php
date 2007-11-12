@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 require_once(dirname(__FILE__).'/user.php');
 require_once(dirname(__FILE__).'/userSQL.php');
 

@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<? 
+<?php
 /**
 	Class factory to provide the application with worker 
 	classes needed on demand within the application.

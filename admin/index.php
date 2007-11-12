@@ -55,7 +55,7 @@
 
 <table cellspacing=0 cellpadding=0 border=0 width="100%" align="center" id="admintable">
 <tr>
-	<td colspan="2" align="center" class="admintitle">VCD-db Admin web <? print str_replace("_"," ",$CURRENT_PAGE) ?></td>
+	<td colspan="2" align="center" class="admintitle">VCD-db Admin web <?php print str_replace("_"," ",$CURRENT_PAGE) ?></td>
 </tr>
 <tr>
 	<td colspan="2">
@@ -92,7 +92,7 @@
 		<li><a href="./?page=xmlfeeds">XML feeds</a></li>
 		<li><hr style="height:1px;"/><a href="./?page=versioncheck">Check for new version</a></li>
 		
-		<? 
+		<?php
 			if (SettingsServices::getSettingsByKey('SITE_ADULT')) { ?>
 			<li><hr style="height:1px;"/><a href="./?page=pornstars">Pornstars</a></li>
 			<li style="text-indent:10px"><a href="./?page=pornstarsync">Get updates</a></li>
@@ -132,7 +132,7 @@
 	
 	<td valign="top" class="maintd">
 	
-	<? 
+	<?php
 
 			if (showAddRecord($CURRENT_PAGE)) {
 				?><h1><input type="button" class="fast" value="<?=$LAYER_LABEL?>" onClick="toggle('newObj');return false;""></h1><?
@@ -335,9 +335,9 @@
 			/* Add Settings */
 			if (isset($_POST['save'])) {
 				if (!isset($_POST['protect']))
-					$protected = 0;
+					$protected = false;
 				else 
-					$protected = 1;
+					$protected = true;
 					
 				$data = array("",$_POST['key'],$_POST['value'],$_POST['description'],$protected, "");
 				$obj = new settingsObj($data);

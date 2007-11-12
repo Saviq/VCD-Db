@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class vcdObj extends cdObj implements XMLable {
 
 	/* local variables */

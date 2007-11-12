@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 require_once(dirname(__FILE__).'/userObj.php');
 
 class vcd_user implements IUser {

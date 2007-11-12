@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<? 
+<?php
 
 define("ALBUMS"   ,"upload/screenshots/albums/");
 define("GENERATED","upload/screenshots/generated/");

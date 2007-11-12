@@ -15,7 +15,7 @@
  */
  
 ?>
-<? 
+<?php
 class adultObj extends fetchedObj implements XMLable {
 	
 	private $studioName;
