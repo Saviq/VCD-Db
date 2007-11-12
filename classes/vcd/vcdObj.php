@@ -440,32 +440,7 @@ class vcdObj extends cdObj implements XMLable {
 	}
 
 	
-	
-	/**
-	 * Print out in a table all user copies of this movie.
-	 *
-	 */
-	public function displayCopies(&$arrMetaData= null) {
-				
-		print "<table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">";
-		print "<tr><td>".VCDLanguage::translate('movie.media')."</td><td width=\"1%\">&nbsp;</td><td width=\"1%\">&nbsp;</td><td>".VCDLanguage::translate('movie.num')."</td><td>".VCDLanguage::translate('movie.date')."</td><td>".VCDLanguage::translate('movie.owner')."</td></tr>";
-		for ($i = 0; $i < sizeof($this->ownersObjArr); $i++) {
-			$owner = $this->ownersObjArr[$i];
-			$media = $this->mediaTypeObjArr[$i];
-			print "<tr>";
-			print "<td>".$media->getDetailedName()."</td>";
-			print "<td align=\"center\">".call_user_func('showDVDSpecs', $owner, $media, $arrMetaData)."</td>";
-			print "<td align=\"center\">".call_user_func('showNFO', $owner, $media, $arrMetaData)."</td>";
-			print "<td>".$this->arrDisc_count[$i]."</td>";
-			print "<td>".date("d-m-Y", $this->arrDate_added[$i])."</td>";
-			print "<td>".$owner->getUsername()."</td>";
-			print "</tr>";
-
-			
-		}
-		print "</table>";
-	}
-	
+		
 	
 	/**
 	 * Get both the array of Owners and the array of mediaTypes of this movie instance.

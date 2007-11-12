@@ -13,7 +13,7 @@
  * @version $Id$
  */
 ?>
-<?
+<?php
 require_once(dirname(__FILE__) . '/adodb/adodb-exceptions.inc.php');
 require_once(dirname(__FILE__) . '/adodb/adodb.inc.php');
 
@@ -83,12 +83,12 @@ class VCDConnection {
 
 			} catch (Exception $e) {
 
-				$this->redirect('error.php?type=db');
+				$this->redirect('?page=error&type=db');
 				exit();
 			}
 
 		} else {
-			$this->redirect('error.php?type=db');
+			$this->redirect('?page=error&type=db');
 			exit();
 		}
 

@@ -39,6 +39,13 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	protected $sourceObj = null;
 	
+	/**
+	 * The sourceSite object that the $sourceObj originates from
+	 *
+	 * @var sourceSiteObj
+	 */
+	protected $sourceSiteObj = null;
+	
 	
 	/**
 	 * Skip loading of extendted properties, used by the manager window
@@ -149,9 +156,12 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		
 		// Assign base data
 		$this->doThumbnail();
-		$this->doMetadata();
 		$this->doCopiesList();
 		$this->doSourceSiteLink();
+		
+		if (VCDUtils::isLoggedIn()) {
+			$this->doMetadata();
+		}
 		
 		if (!$this->skipExtended) {
 			$this->doCovers();
@@ -519,13 +529,15 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$external_id = $this->itemObj->getExternalID();
 		
 		if (is_numeric($sourceSiteID) && strcmp($external_id,'') != 0) {
-			$sourceSiteObj = SettingsServices::getSourceSiteByID($sourceSiteID);	
+			$sourceSiteObj = SettingsServices::getSourceSiteByID($sourceSiteID);
+			$this->sourceSiteObj = $sourceSiteObj;
 			if ($sourceSiteObj instanceof sourceSiteObj ) {
 				$image = "images/logos/".$sourceSiteObj->getImage();
 				$link = str_replace("#", $external_id, $sourceSiteObj->getCommand());
 				$html = "<a href=\"%s\" target=\"_blank\"><img src=\"%s\" border=\"0\"/></a>";
 				$imgstring = sprintf($html, $link, $image);
 				$this->assign('itemSourceSiteLogo',$imgstring);
+				$this->assign('itemExternalId',$external_id);
 			}
 		}
 	}

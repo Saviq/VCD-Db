@@ -728,6 +728,55 @@ class VCDUtils {
 	}
 	
 
+	/**
+	 * Get the category mapping
+	 *
+	 * @return array
+	 */
+	static function getCategoryMapping() {
+		$mapping = array(
+			'Action' 		=> 'category.action',
+			'Adult' 		=> 'category.adult',
+			'Adventure' 	=> 'category.adventure',
+			'Animation' 	=> 'category.animation',
+			'Anime / Manga' => 'category.anime',
+			'Comedy' 		=> 'category.comedy',
+			'Crime' 		=> 'category.crime',
+			'Documentary' 	=> 'category.documentary',
+			'Drama' 		=> 'category.drama',
+			'Family' 		=> 'category.family',
+			'Fantasy' 		=> 'category.fantasy',
+			'Film-Noir' 	=> 'category.filmnoir',
+			'Horror' 		=> 'category.horror',
+			'James Bond' 	=> 'category.jamesbond',
+			'Music Video' 	=> 'category.musicvideo',
+			'Musical' 		=> 'category.musical',
+			'Mystery' 		=> 'category.mystery',
+			'Romance' 		=> 'category.romance',
+			'Sci-Fi' 		=> 'category.scifi',
+			'Short' 		=> 'category.short',
+			'Thriller' 		=> 'category.thriller',
+			'Tv Shows' 		=> 'category.tvshows',
+			'War' 			=> 'category.war',
+			'Western' 		=> 'category.western',
+			'X-Rated' 		=> 'category.xrated'
+		);
+		return $mapping;
+	}
+	
+	
+	/**
+	 * Replace HTML entities &something; by real characters
+	 *
+	 * @param string $string
+	 * @return string
+	 */
+	static function unhtmlentities($string)	{
+		$trans_tbl = get_html_translation_table (HTML_ENTITIES);
+		$trans_tbl = array_flip ($trans_tbl);
+		return strtr($string, $trans_tbl);
+	}
+	
 
 }
 

@@ -175,7 +175,7 @@ class VCDAjaxHelper {
 			foreach ($rss['items'] as $item) {
 	
 				$hover = $item['description'];
-				$title = unhtmlentities(str_replace('&apos;', '',$item['title']));
+				$title = VCDUtils::unhtmlentities(str_replace('&apos;', '',$item['title']));
 				$link  = $item['link'];
 				
 				// Sanitize the hover text to keep the javascript good

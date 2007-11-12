@@ -288,9 +288,17 @@
 	{/if}
 	</div>
 
+	{if $showImdbLinks}
 	<div id="imdblinks">
-	{$sourceLinks}
+		<h2>{$translate.imdb.links}</h2>
+		<ul>
+			<li><a href="http://www.imdb.com/Title?{$itemExternalId}" target="_blank">{$translate.imdb.details}</a></li>
+			<li><a href="http://www.imdb.com/Plot?{$itemExternalId}" target=\"_blank"">{$translate.imdb.plot}</a></li>
+			<li><a href="http://www.imdb.com/Gallery?{$itemExternalId}" target="_blank">{$translate.imdb.gallery}</a></li>
+			<li><a href="http://www.imdb.com/Trailers?{$itemExternalId}" target="_blank"">{$translate.imdb.trailers}</a></li>
+		</ul>
 	</div>
+	{/if}
 
 	<div id="similar">
 	{if is_array($itemSimilar) && count($itemSimilar)}

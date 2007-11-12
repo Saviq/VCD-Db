@@ -23,15 +23,10 @@
 	Cannot procceed without database access<br/>
 	Check the <u>connection settings</u> to solve the problem.
 </span>
-<? 
-	if (is_dir('setup')) {
-		?>
-		<br/><br/>
-		<h3 align="center" style="margin-right:100px">For a new installation <a href="setup/">go here</a></h3>
-		<?	
-	}
-?>
-
+{if $showSetup}
+	<br/><br/>
+	<h3 align="center" style="margin-right:100px">For a new installation <a href="setup/">go here</a></h3>
+{/if}
 </p>
 </body>
 </html>

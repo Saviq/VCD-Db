@@ -94,6 +94,12 @@
 		<template>page.javascript.language.tpl</template>
 		<action>strings.js</action>
 	</page>
+	<page standalone="true" auth="false">
+		<name>Error page</name>
+		<handler>VCDPageError</handler>
+		<template>page.error.tpl</template>
+		<action>error</action>
+	</page>
 	
 	
 	

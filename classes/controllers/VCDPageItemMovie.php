@@ -28,15 +28,31 @@ class VCDPageItemMovie extends VCDPageBaseItem  {
 		if (!is_null($this->sourceObj))	{
 			$this->doSourceSiteElements();
 			$this->doCast();
+			$this->doImdbLinks();
 		}
 		
 		
 	}
-	
-	
+		
 	private function doCast() {
 		if (!is_null($this->sourceObj))	{
 			$this->assign('sourceActors', $this->sourceObj->getCast(true));
+		}
+	}
+	
+	
+	private function doImdbLinks() {
+		
+		if (!is_numeric($this->itemObj->getSourceSiteID())) {
+			return;
+		}
+		
+		if (is_null($this->sourceSiteObj)) {
+			$this->sourceSiteObj = SettingsServices::getSourceSiteByID($this->itemObj->getSourceSiteID());
+		}
+		
+		if (strcmp(strtolower($this->sourceSiteObj->getAlias()),'imdb')==0) {
+			$this->assign('showImdbLinks',true);	
 		}
 	}
 	

@@ -128,7 +128,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			
 		$this->assign('showTables', true);
 		
-		$mapping = getCategoryMapping();
+		$mapping = VCDUtils::getCategoryMapping();
 		$altLang = VCDClassFactory::getInstance('VCDLanguage')->isEnglish();
 				
 		$arrCats = $arrStats['category'];
