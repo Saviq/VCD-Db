@@ -20,19 +20,17 @@ class VCDFetch_dvdempire extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title' 	  => '<title>Adult DVD Empire - ([^<]*) - Adult DVD',
-		//'title'		  => 'width=\'100%\'>([^<]*)<strong>([^<]*)</strong>',
+		'title' 	  => '<div class=\"Item_Title\">([^<]*)</div>',
 		'year'  	  => 'Production Year: ([0-9]{4})',
-		'studio'	  => '&amp;studio_id=([0-9]{1,4})">([^<]*)</a>',
-		'screens'	  => 'topoftabs\">([^<]*) Screen Shots</a>',
-		'genre'	 	  => 'site_media_id=([0-9])">([^<]*)</a></nobr>',
-		'cast' 		  => 'sort=2\'>([^<]*)</a>',
+		'studio'	  => 'class=\"Item_StudioProductionRating\">([^<]*)</a>',
+		'screens'	  => 'Screen Shots',
+		'genre'		  => 'CategoryPage.aspx?([^<]*)>([^<]*)</a>',
+		'cast'		  => 'PerformersItems.aspx?([^<]*)type=1">([^<]*)</a>',
 		'thumbnail'	  => null,
 		'frontcover'  => null,
 		'backcover'   => null,
 		'screenshots' => null
 		);
-	
 			
 	protected $multiArray = array(
 		'cast', 'genre', 'poster'
@@ -41,8 +39,8 @@ class VCDFetch_dvdempire extends VCDFetch {
 		
 		
 	private $servername = 'adult.dvdempire.com';
-	private $searchpath = '/exec/v1_search_titles.asp?userid=00000000000001&string=[$]&include_desc=0&used=0&view=1&sort=5';
-	private $itempath   = '/Exec/v1_item.asp?item_id=[$]';
+	private $searchpath = '/SearchTitlesPage.aspx?listview=2&media_id=2&searchstring=[$]&pp=50&sort=5';
+	private $itempath   = '/ItemPage.aspx?item_id=[$]';
 		
 	
 	public function __construct() {
@@ -80,12 +78,13 @@ class VCDFetch_dvdempire extends VCDFetch {
 					break;
 					
 				case 'studio':
-					$studio = $arrData[2];
+					$studio = $arrData[1];
 					$obj->setStudio($studio);
 					break;
 					
 				case 'screens':
-					$screencount = $arrData[1];
+					// Since we don't know the screenshot count any more .. we say 50 :)
+					$screencount = 50;
 					if (is_numeric($screencount) && ($screencount>0)) {
 						$arrScreens = $this->getImagePath('screenshots');
 						for($i=0;$i<$screencount;$i++) {
@@ -106,9 +105,15 @@ class VCDFetch_dvdempire extends VCDFetch {
 					break;
 					
 				case 'cast':
+					$cast = array();
 					foreach ($arrData as $item) {
-						$actor = $item[1];
-						$obj->addActor($actor);
+						$cast[] = trim($item[2]);
+					}
+					$cast = array_unique($cast);
+					foreach ($cast as $actor) {
+						if (!empty($actor)) {
+							$obj->addActor($actor);		
+						}
 					}
 					break;
 					
@@ -159,7 +164,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 	public function showSearchResults() {
 		
 		$this->setMaxSearchResults(50);
-		$regx = 'item_id=([^"]+)">([^<]*)</a>';
+		$regx = 'item_id=([^"]+)&amp;view=0&amp;subview=0">([^<]*)</a>';
 		$results = parent::generateSimpleSearchResults($regx, 1, 2);
 						
 		return parent::generateSearchSelection($results);
