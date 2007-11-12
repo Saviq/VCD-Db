@@ -74,9 +74,6 @@
 	</td>			
 </tr>
 </table>
- 
-<div align="right" class="info">Message</div>
-
 
 <br/>
 

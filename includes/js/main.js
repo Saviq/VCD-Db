@@ -846,6 +846,10 @@ function showPage(box, bOpenWindow) {
 }
 
 
+function showonlymine(cat_id) { 	 
+	url = '?page=category&category_id='+cat_id+'&action=onlymine';
+	location.href = url; 	 
+}
 
 
 function checkReg(form) {

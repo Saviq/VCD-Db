@@ -63,7 +63,7 @@ Add new screenshots for {$itemTitle}
 <form method="post" action="{$smarty.server.SCRIPT_NAME}?page=addscreens&amp;vcd_id={$itemId}&amp;action=fetch">
 Fetch screenshots from remote webserver, add one image per line:
 
-<textarea id="fetcher" name="fetcher" style="width:445px;height:140px"></textarea>
+<textarea id="fetcher" name="fetcher" style="width:406px;height:140px"></textarea>
 <hr/>
 <input type="submit" value="Fetch images" name="doFetch" id="doFetch" class="buttontext" style="float:right"/>
 

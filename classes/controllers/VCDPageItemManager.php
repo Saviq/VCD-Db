@@ -584,6 +584,11 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->assign('itemStudioList', $results);
 		$this->assign('selectedStudio', $this->itemObj->getStudioID());
 		
+		// Check for screenshots
+		if (MovieServices::getScreenshots($this->itemObj->getID()) ) {
+			$this->assign('itemScreenshots',true);
+		}
+		
 		// populate current categories
 		$results = array();
 		$categoriesUsed = PornstarServices::getSubCategoriesByMovieID($this->itemObj->getID());

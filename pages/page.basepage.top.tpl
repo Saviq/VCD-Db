@@ -7,8 +7,10 @@
 	<link rel="stylesheet" type="text/css" href="{$pageStyle}" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/lytebox.css" media="screen, projection" />
+	{if $pageRsslink}
+	<link rel="alternate" type="application/rss+xml" title="VCD-db RSS" href="rss/"/>
+	{/if}
 	{$pageScripts}
-	{$pageRsslink}
 </head>
 <body>
 

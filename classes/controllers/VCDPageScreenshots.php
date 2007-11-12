@@ -80,6 +80,10 @@ class VCDPageScreenshots extends VCDBasePage  {
 			$images = $this->getParam('fetcher',true);
 			$images = explode(chr(13), $images);
 			if (sizeof($images > 0)) {
+
+				if (sizeof($images)==1 && $images[0]=='') {
+					throw new VCDInvalidInputException('Invalid input!');
+				}
 				
 				// Check if the screenshots folder already exist
 				$destFolder = VCDDB_BASE.DIRECTORY_SEPARATOR.ALBUMS.$this->itemObj->getID().DIRECTORY_SEPARATOR;

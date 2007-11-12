@@ -183,6 +183,11 @@ class VCDPageUserAddItem extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Populate common items
+	 *
+	 * @param fetchedObj $obj
+	 */
 	private function doPopulateCommonFields(fetchedObj $obj) {
 
 		$this->assign('itemTitle', $obj->getTitle());
@@ -879,8 +884,12 @@ class VCDPageUserAddItem extends VCDBasePage {
 					if (fs_mkdir(ALBUMS.$new_id, 0755)) {
 	
 						foreach ($screenFiles as $screenshotImage) {
-							VCDUtils::grabImage($screenshotImage, false, ALBUMS.$new_id."/");
+							// We just die gracefully if fetcing screenshot failes ..
+							try {
+								VCDUtils::grabImage($screenshotImage, false, ALBUMS.$new_id."/");
+							} catch (Exception $ex) {}
 						}
+						
 	
 						// Mark thumbnails to movie in DB
 						MovieServices::markVcdWithScreenshots($new_id);

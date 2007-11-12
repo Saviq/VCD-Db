@@ -187,6 +187,11 @@ class VCDBasePage extends VCDPage {
 		$this->assign('pageCharset', VCDUtils::getCharSet());
 		$this->assign('pageStyle', VCDUtils::getStyle());
 						
+		// Check if RSS link should be displayed
+		if ((bool)SettingsServices::getSettingsByKey('RSS_SITE')) {
+			$this->assign('pageRsslink',true);
+		}
+		
 		// Standalone pages that need main.js and/or the language support must include it manually		
 		$this->registerScript(self::$JS_MAIN);
 		$this->registerScript(self::$JS_LANG);

@@ -105,6 +105,10 @@ class VCDPageCategoryList extends VCDBasePage {
 	protected function initPage() {
 		
 		$this->category_id = $this->getParam('category_id',false,-1);
+		if (strcmp($this->getParam('action'),'onlymine')==0) {
+			$this->setViewModeMine();
+		}
+		
 		$this->recordsPerPage = SettingsServices::getSettingsByKey("PAGE_COUNT");
 		$this->page = $this->getParam('batch',false,0);
 		$this->offset = $this->page*$this->recordsPerPage;
@@ -139,6 +143,24 @@ class VCDPageCategoryList extends VCDBasePage {
 		$this->assign('movieCategoryCount', $categoryCount);
 	}
 	
+	
+	/**
+	 * Flag the viewmode "mine" on or off
+	 *
+	 */
+	private function setViewModeMine() {
+		if (isset($_SESSION['mine'])) {
+			if ($_SESSION['mine'] == true) {
+		    	$_SESSION['mine'] = false;
+			} else {
+		    	$_SESSION['mine'] = true;
+			}
+		} else {
+			$_SESSION['mine'] = true;
+		}
+		$url = '?page=category&category_id='.$this->category_id;
+		redirect($url);
+	}
 	
 	/**
 	 * Figure out the current viewmode for the category display style

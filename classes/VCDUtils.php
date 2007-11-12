@@ -594,18 +594,6 @@ class VCDUtils {
 	}
 
 	/**
-	 * Write out the url to the XML feed of VCD-db if XML feeds from VCD-db are allowed.
-	 *
-	 * @return string
-	 */
-	static function getAlternateLink() {
-		if ((bool)SettingsServices::getSettingsByKey('RSS_SITE')) {
-			return "<link rel=\"alternate\" type=\"application/rss+xml\" title=\"VCD-db RSS\" href=rss/>";
-		}
-	}
-
-
-	/**
 	 * Check if any of the mediaTypes in the incoming array matches a DVD based mediaType.
 	 *
 	 * @param array $arrMediaTypes | Array of mediaTypeObjects

@@ -22,7 +22,7 @@
 <tr>
 	<td class="tblb">{$translate.movie.screenshots}:</td>
 	<td>
-	{if $hasScreenshots} 
+	{if $itemScreenshots} 
 		{$translate.misc.yes}
 	{else}
 		{$translate.misc.no}

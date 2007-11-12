@@ -20,7 +20,7 @@
 </tr>
 <tr>
 	<td>Select owner:</td>
-	<td><select name="owner"><?php evalDropdown(UserServices::getActiveUsers(), $owner); ?></select>
+	<td><?php createDropDown(UserServices::getActiveUsers(),'owner','Select','',$owner); ?>
 	
 	</td>
 </tr>
