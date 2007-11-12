@@ -10,7 +10,7 @@
 
 
 {/if}
-{if $loginInvalid}
+{if $loginInvalid || $smarty.get.action eq 'retry'}
 
 <p>
 	<span class="bold">Login failed. Try again. </span><br/><br/>
@@ -19,9 +19,13 @@
 </p>
 
 <p>
+	{if $smarty.get.action eq 'retry'} 
+	<div id="claim" style="padding-left:15px;">
+	{else}
 	<div id="claim" style="padding-left:15px;visibility:hidden">
+	{/if}
 		<span class="bold">Enter username and email</span>
-		<form name="claim" method="post" action="./?page=reset">
+		<form name="claim" method="post" action="{$smarty.server.SCRIPT_NAME}?page=authenticate&amp;action=reset">
 		<table cellpadding="1" cellspacing="1" border="0">
 			<tr>
 				<td>{$translate.login.username}:</td>

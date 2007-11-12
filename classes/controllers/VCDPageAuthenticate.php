@@ -29,7 +29,7 @@ class VCDPageAuthenticate extends VCDBasePage {
 		}
 		
 		// Only accept post ..
-		if (sizeof($_POST)==0) {
+		if (sizeof($_POST)==0 && (strcmp($this->getParam('action'),'retry')!=0)) {
 			redirect();
 			exit();
 		}	
@@ -43,6 +43,13 @@ class VCDPageAuthenticate extends VCDBasePage {
 	 */
 	public function handleRequest() {
 	
+		
+		// Check for the special case where user is requesting new password
+		if (strcmp($this->getParam('action'),'reset')==0) {
+			$this->doResetPassword();
+			exit();
+		}
+		
 		if (is_null($this->getParam('username',true)) || is_null($this->getParam('password',true))) {
 			redirect(); /* Redirect browser - Bad request */ 
 			exit();
@@ -57,7 +64,61 @@ class VCDPageAuthenticate extends VCDBasePage {
 
 	}
 	
+	/**
+	 * Reset password if username and email combination is correct.
+	 *
+	 */
+	private function doResetPassword() {
+		try {
+			
+			$username = $this->getParam('username',true);
+			$email = $this->getParam('email',true);
+			
+			if (!(is_null($username) || is_null($email))) {
+				
+				$obj = UserServices::getUserByUsername($username);
+				if ($obj instanceof userObj && (strcmp($obj->getEmail(),$email) == 0)) {
+					
+					$newpass = substr(VCDUtils::generateUniqueId(),0, 6);
+					$md5newpass = md5($newpass);
+					
+					$body  = "Request for new password was made for your account from computer: " . $_SERVER['REMOTE_ADDR'] . "\n\n";
+					$body .= $obj->getFullname() . ", your new password as requested is ".$newpass . "\n";
+					$body .= "\nGood luck, (The VCD-db)";
+					
+					if ((VCDUtils::sendMail($email, "New password as requested",$body))) {
+						$message  = "New password has been mailed to " . $email . "<break>";
+						$message .= "You can change the password next time you log in.";	
+						
+						// actually update the password since we now know that the email was successfully sent
+						$obj->setPassword($md5newpass);
+						UserServices::updateUser($obj);
+						
+					} else {
+						$message = "The site owner has wrong mail settings defined, cannot sent password";
+					}
+					
+					VCDException::display($message);
+					redirect();
+					
+				} else {
+					throw new VCDProgramException('Invalid username and email combination');
+				}
+							
+			} else {
+				throw new VCDInvalidInputException('You must provide both username and email.');
+			}
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+			redirect('?page=authenticate&action=retry');
+		}
+	}
 	
+	/**
+	 * Authenticate the user.
+	 *
+	 */
 	private function doAuthenticate() {
 	
 		$username = str_replace("'", "", $this->getParam('username',true));
@@ -118,14 +179,8 @@ class VCDPageAuthenticate extends VCDBasePage {
 			$this->assign('loginInvalid',true);
 			return;
 		}
-		
-		
-		
-		
 	}
 	
 	
 }
-
-
 ?>
