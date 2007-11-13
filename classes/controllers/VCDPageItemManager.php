@@ -60,6 +60,12 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->skipExtended = true;
 		parent::__construct($node);
 		
+		
+		// Register javascripts
+		$this->registerScript(self::$JS_TABS);
+		$this->registerScript(self::$JS_MAIN);
+		
+		
 		// Check for get parameters
 		$this->doGet();
 		
@@ -71,14 +77,24 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$this->initPage();
 	}
 	
+	/**
+	 * Handle _POST requests to the controller
+	 *
+	 */
 	public function handleRequest() {
 		try {
 			// The only request to the page is the update function call
 			if (strcmp($this->getParam('action'),'updatemovie')==0) {
 				$this->updateItem();
-				
+
 				// Redirect to the manager if no error occurred
-				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+				if (is_null($this->getParam('submit',true))) {
+					redirect('?page=manager&vcd_id='.$this->itemObj->getID());
+				} else {
+					// Close window and reload parent
+					redirect('?page=manager&close=true&vcd_id='.$this->itemObj->getID());
+				}	
+				
 			}	
 			
 		} catch (Exception $ex) {
@@ -86,6 +102,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 	}
 	
+	/**
+	 * Handle specific _GET actions to the controller
+	 *
+	 */
 	private function doGet() {
 		$action = $this->getParam('action');
 		
@@ -218,6 +238,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	}
 	
 	
+	/**
+	 * Initilize the page default values
+	 *
+	 */
 	private function initPage() {
 		
 		$this->assign('isAdult', $this->itemObj->isAdult());

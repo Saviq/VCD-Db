@@ -48,11 +48,6 @@ class VCDPageController {
 	 */
 	public function __construct($pagename) {
 
-		// TMP Hack to show private pages .. FIX LATER
-		if ($pagename=='private') {
-			$pagename = $_GET['o'];
-		}
-		
 		self::$fileroot = dirname(__FILE__).'/controllers/';
 		
 		try {
@@ -61,7 +56,7 @@ class VCDPageController {
 			$this->loadController($pagename);
 			
 		} catch (VCDSecurityException $sex) {
-			VCDException::display($sex);
+			redirect();			
 		} catch (VCDProgramException $ex) {
 			print $ex->getMessage();
 		}

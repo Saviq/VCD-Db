@@ -7,9 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{$pageStyle}" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/manager.css" media="screen, projection"/>
-	<script type="text/javascript" language="javascript" src="includes/js/main.js" ></script>
-	<script type="text/javascript" language="javascript" src="includes/js/js_tabs.js" ></script>
-	
+	{$pageScripts}
 </head>
 <body onload="tabInit();window.focus()" class="nobg">
 
@@ -17,7 +15,7 @@
 <form onsubmit="copyFiles(this);" action="{$smarty.server.SCRIPT_NAME}?page=manager&amp;vcd_id={$itemId}&amp;action=updatemovie" method="post" name="choiceForm" enctype="multipart/form-data">
 
 <div class="tabs">
-<table cellpadding=0 cellspacing=0 border=0 style="width:100%; height:100%">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%; height:100%">
 <tr>
 {foreach from=$pageTabs item=i key=k name=tabs}
 	{if $smarty.foreach.tabs.first}

@@ -66,8 +66,9 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$this->doCoreElements();
 		
 		// Add the lytebox javascript
-		$this->registerScript(self::$JS_LYTE);
-		
+		if (!$this->skipExtended) {
+			$this->registerScript(self::$JS_LYTE);
+		}
 	}
 	
 		
