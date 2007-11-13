@@ -26,14 +26,13 @@ function Installer()  {
 	this.supportedDBMSKeys = Array('mysql', 'postgres', 'mssql', 'db2', 'sqlite','oci8');
 	this.supportedDBMSValues = Array('MySQL', 'Postgre SQL', 'Microsoft SQL', 'IBM DB2', 'SQLite', 'Oracle');
 	this.availableDBMS = Array();
-	this.checklist = Array('phpversion', 'gd', 'simplexml', 'mbstring', 'session', 'shorttags', 'urlfopen', 'fileupload', 'permissions', 'config', 'database');
+	this.checklist = Array('phpversion', 'gd', 'simplexml', 'mbstring', 'session', 'urlfopen', 'fileupload', 'permissions', 'config', 'database');
 	this.checklistErrorMessages = Array(
 			'VCD-db needs at least PHP version 5.0 or later, please upgrade your PHP binaries.<br/><br/>',
 			'GD libraries need to be enabled for image resizing and graph displays<br/>More details about the GD libs are available at <a href="http://php.net/gd" target="_new">php.net/gd</a><br/><br/>',
 			'By default SimpleXML is loaded, without SimpleXML localization, import/export would not work.  More details about SimpleXML are available at <a href="http://php.net/simplexml" target="_new">php.net/simplexml</a><br/><br/>',
 			'Multibyte String support is needed for UTF-8.  Enable the mbstring module with your php setup.  More details about mbstring are available at <a href="http://php.net/mbstring" target="_new">php.net/mbstring</a><br/><br/>',
 			'Session support should always be enabled with every PHP installation, if not enabled check out <a href="http://php.net/session" target="_new">php.net/session</a> for further details.<br/><br/>',
-			'VCD-db uses short open tags in most of the file, the short_open_tag is enabled by default to fix read more at <a href="http://php.net/manual/en/ini.core.php#ini.short-open-tag" target="_new">read php.net</a> ',
 			'The php.ini setting "allow_url_fopen" must be set to 1, without allow_url_fopen enabled VCD-db cannot fetch data from remote sites!<br/><br/>',
 			'File upload needs to be enabled to import covers, thumbnails and XML processings.  For details to enable file uploads read <a href="http://php.net/manual/en/ini.php" target="_new">php.net/manual/en/ini.php</a><br/><br/>',
 			'Correct folder permissions are crucial for VCD-db to work with fetched content, caching and other things, please chmod your folders correctly.<br/><br/>',
@@ -551,11 +550,6 @@ function Installer()  {
 				break;
 				
 			case Installer.checklist[9]:
-				Installer.writeCheckResults(9,objResults);
-				break;
-				
-				
-			case Installer.checklist[10]:
 				Installer.availableDBMS = objResults.keys;
 				// Populate the available DBMS option list
 				dblist = document.getElementById('dbtype');
@@ -569,7 +563,7 @@ function Installer()  {
 					
 				}
 				
-				Installer.writeCheckResults(10,objResults);
+				Installer.writeCheckResults(9,objResults);
 				break;
 			
 		}
