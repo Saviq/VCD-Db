@@ -51,6 +51,7 @@ class ADODB_db2 extends ADOConnection {
 	var $_lastAffectedRows = 0;
 	var $uCaseTables = true; // for meta* functions, uppercase table names
 	var $hasInsertID = true;
+	var $_errorCode;
 	
     function _insertid()
     {
