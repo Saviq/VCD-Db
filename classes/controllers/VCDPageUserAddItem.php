@@ -10,12 +10,12 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPageUserAddItem.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
-
 class VCDPageUserAddItem extends VCDBasePage {
 	
 	/**
@@ -36,6 +36,9 @@ class VCDPageUserAddItem extends VCDBasePage {
 		
 		parent::__construct($node);
 		
+		// Register javascript
+		$this->registerScript(self::$JS_JSON);
+		$this->registerScript(self::$JS_AJAX);
 		
 		if (sizeof($_POST) == 0) {
 			$this->handleRequest();

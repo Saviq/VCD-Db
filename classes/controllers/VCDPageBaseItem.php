@@ -10,19 +10,18 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPageBaseItem.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
-
 /**
  * This class acts as a base controller for all the different items VCD-db can contain
  * but share common data and methods..
  * 
  *
  */
-
 abstract class VCDPageBaseItem extends VCDBasePage {
 	
 	/**

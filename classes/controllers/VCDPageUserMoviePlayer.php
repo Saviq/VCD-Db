@@ -10,12 +10,12 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPageUserMoviePlayer.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
-
 /**
  * Controlls the page that launches the movie file with the OS associated player.
  * Works on Windows and Linux (KDE,GNOME & XFC).  Applet must be sign and trusted by the client user.

@@ -10,18 +10,21 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPageUserSettings.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
-
 class VCDPageUserSettings extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
 		
 		parent::__construct($node);
 		
+		// Register javascripts
+		$this->registerScript(self::$JS_JSON);
+		$this->registerScript(self::$JS_AJAX);
 		
 		// populate basic userdata
 		$this->assign('fullname', VCDUtils::getCurrentUser()->getFullname());

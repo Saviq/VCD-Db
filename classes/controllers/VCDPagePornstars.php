@@ -10,12 +10,12 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPagePornstars.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
-
 class VCDPagePornstars extends VCDBasePage {
 	
 	private $viewMode = 'text';

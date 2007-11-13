@@ -10,16 +10,14 @@
  * 
  * @author  Hákon Birgisson <konni@konni.com>
  * @package Kernel
+ * @subpackage Controller
  * @version $Id: VCDPageItemMovie.php 1066 2007-08-15 17:05:56Z konni $
  * @since 0.90
  */
 ?>
 <?php
 require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
-
 class VCDPageItemMovie extends VCDPageBaseItem  {
-	
-	
 	
 	public function __construct(_VCDPageNode $node) {
 				
@@ -30,8 +28,6 @@ class VCDPageItemMovie extends VCDPageBaseItem  {
 			$this->doCast();
 			$this->doImdbLinks();
 		}
-		
-		
 	}
 		
 	private function doCast() {

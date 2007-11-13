@@ -15,7 +15,6 @@
  */
 ?>
 <?php
-
 /**
  * The Controller for the UI layer.  All requests and posts pass through here.
  * This is the only entrance to the application by the UI.

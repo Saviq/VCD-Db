@@ -15,13 +15,9 @@
  */
 ?>
 <?php
-
 require_once(dirname(__FILE__) . '/external/smarty/Smarty.class.php');
-
-
-error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
-//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
- 
+//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
+error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
 
 abstract class VCDPage extends Smarty  {
 
@@ -29,7 +25,7 @@ abstract class VCDPage extends Smarty  {
 	private $debug = false;
 	private static $pageBuffer;
 	private $tidy = false;
-	private $mod_rewrite = true;
+	private $mod_rewrite = false;
 	
 	
 	protected function __construct($template, $doTranslate = true) {
