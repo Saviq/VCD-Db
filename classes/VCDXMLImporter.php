@@ -378,6 +378,7 @@ class VCDXMLImporter {
 			
 				// Delegate the vcdObj to the facade
 				MovieServices::disableErrorHandler();
+				$iResults = -1;
 				try {
 					$iResults = MovieServices::addVcd($vcdObj, false);
 				} catch (Exception $vex) {
