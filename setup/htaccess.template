@@ -1,0 +1,35 @@
+Options -Indexes +FollowSymLinks
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+RewriteBase /projects/vcddb/
+
+RewriteRule ^movie/([0-9]+)$ index.php?page=cd&vcd_id=$1	[QSA]
+RewriteRule ^category/([0-9]+)$ index.php?page=category&category_id=$1	[QSA]
+RewriteRule ^category/([0-9]+)/([0-9]+)$ index.php?page=category&category_id=$1&batch=$2 [QSA]
+RewriteRule ^category/([0-9]+)/([0-9]+)/([a-zA-Z\\+]*)$ index.php?page=category&category_id=$1&batch=$2&viewmode=$3 [QSA]
+RewriteRule ^pornstar/([0-9]+)$ index.php?page=pornstar&pornstar_id=$1	[QSA]
+RewriteRule ^search/?(actor|director)/([a-zA-Z\\+]*)$ index.php?page=search&by=$1&searchstring=$2 [QSA]
+RewriteRule ^file/cover/([0-9]+)$ index.php?page=file&cover_id=$1	[QSA]
+RewriteRule ^page/([^\.\?/]+)$ index.php?page=$1	[QSA]
+
+
+
+#RewriteRule ^p/private/movies/([a-zA-Z\\+]*)$ index.php?page=private&o=movies&do=$1
+
+#RewriteRule ^p/([^\.\?/]+)$ index.php?page=$1
+#RewriteRule ^x/([^\.\?/]+)$ $1.php
+
+
+
+#RewriteRule /projects/vcddb/vcd/([0-9]+) /projects/vcddb/index.php?page=cd&id=$1 [QSA]
+
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^([^\.\?/]+)/([A-Za-z_0-9\-]+)$	/gallery/view_photo.php?set_albumName=$1&id=$2	[QSA]
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^([^\.\?/]+)/$	/gallery/$1	[R]
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^([^\.\?/]+)$	/gallery/view_album.php?set_albumName=$1	[QSA]
+</IfModule>
