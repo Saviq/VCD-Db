@@ -1324,7 +1324,7 @@ function eraseCookie(name) {
 }
 
 function vcddbAjax(funcname) {
-	var ajax = new Ajax("POST", "index.php", false, false);
+	var ajax = new Ajax("POST", jxBase, false, false);
 	this.cls = 'VCDAjaxHelper';
 	this.fnc = funcname;
 	this.invoke = function() { ajax.callMethod(this.cls, this.fnc, this.invoke.arguments) }

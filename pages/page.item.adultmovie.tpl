@@ -228,7 +228,7 @@
 	{if !$isAuthenticated}	
 		<span class="bold">{$translate.comments.error}</span>
 	{else}
-		<form name="addcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
+		<form name="addcomment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=addcomment&amp;vcd_id={$itemId}">
 		<input type="hidden" name="vcd_id" value="{$itemId}"/>
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>

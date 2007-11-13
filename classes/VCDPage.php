@@ -29,7 +29,7 @@ abstract class VCDPage extends Smarty  {
 	private $debug = false;
 	private static $pageBuffer;
 	private $tidy = false;
-	private $mod_rewrite = false;
+	private $mod_rewrite = true;
 	
 	
 	protected function __construct($template, $doTranslate = true) {
@@ -132,6 +132,8 @@ abstract class VCDPage extends Smarty  {
 	private function rewriteShortUrls() {
 		$in = array(
 			"'\?page=cd&amp;vcd_id=([0-9]*)'",
+			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)?&amp;viewmode=(img|text)'",
+			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)'",
 			"'\?page=pornstar&amp;pornstar_id=([0-9]*)'",
 			"'\?page=file&amp;cover_id=([0-9]*)'",
@@ -143,6 +145,8 @@ abstract class VCDPage extends Smarty  {
 		
 		$out = array(
 			'movie/\\1',
+        	'category/\\1/\\2/\\3',
+        	'category/\\1/\\2',
         	'category/\\1',
         	'pornstar/\\1',
         	'file/cover/\\1',

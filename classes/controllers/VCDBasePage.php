@@ -115,6 +115,10 @@ class VCDBasePage extends VCDPage {
 	 */
 	protected function registerScript($scriptname) {
 		$this->scripts[] = $scriptname;
+		if ($scriptname == self::$JS_AJAX) {
+			$js = "var jxBase = '%s';";
+			$this->registerScriptBlock(sprintf($js, $_SERVER['SCRIPT_NAME']));
+		}
 	}
 	
 	/**
