@@ -28,12 +28,19 @@ if (function_exists('date_default_timezone_get')) {
 }
 
 // Logout user | But we have to keep the users selected language in session
+// and remember the selected template
 if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
 	$sel_lang = "";
 	if (isset($_SESSION['vcdlang'])) {
 		$sel_lang = $_SESSION['vcdlang'];
 	}
 
+	// check for selected template
+	$template = null;
+	SiteCookie::extract('vcd_cookie');
+	if (isset($_COOKIE['template']) && $_COOKIE['template'] != '') {
+		$template = $_COOKIE['template'];
+	}
 
 	$cookie = new SiteCookie("vcd_cookie", time()-86400);
 	$cookie->clear();
@@ -48,6 +55,15 @@ if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
 		$_SESSION['vcdlang'] = $sel_lang;
 	}
 
+	// remember the template if any is selected
+	if (!is_null($template)) {
+		$Cookie = new SiteCookie("vcd_cookie");
+		if (strcmp($sel_lang, "") != 0) {
+			$Cookie->put("language",$sel_lang);	
+		}
+		$Cookie->put("template", $template);
+		$Cookie->set();
+	}
 
 	header("Location: ".$_SERVER['HTTP_REFERER'].""); /* Redirect browser */
 	exit();

@@ -72,11 +72,6 @@
 				</td>
 			</tr>
 			{/if}
-			
-			<tr>
-				<td>&nbsp;</td>
-				<td>Play button</td>
-			</tr>
 			<tr>
 				<td colspan="2">{$itemSourceSiteLogo}</td>
 			</tr>
@@ -164,6 +159,28 @@
 	</div>
 
 
+	{if is_array($itemMetadata) && count($itemMetadata)>0}
+		<div id="metadata">
+		<h2>{$translate.metadata.my}</h2>
+		<table cellspacing="0" cellpadding="0" border="0" width="100%">
+		<tr>
+			<td width="25%">{$translate.movie.media}</td>
+			<td>{$translate.metadata.type}</td>
+			<td>{$translate.metadata.value}</td>
+		</tr>
+		{foreach from=$itemMetadata item=i key=k}		
+		<tr>
+			<td>{$i.medianame}</td>
+			<td title="{$i.desc}">{$i.name}</td>
+			<td>{$i.text}</td>
+		</tr>
+		{/foreach}
+		</table>
+		</div>
+	{/if}
+	
+	
+	
 	</td>
 	<td valign="top" style="background-color:white">
 	<h2>Studio</h2>

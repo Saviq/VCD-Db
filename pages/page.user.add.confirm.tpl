@@ -1,13 +1,3 @@
-<script type="text/javascript" src="includes/js/json.js"></script> 
-<script type="text/javascript" src="includes/js/ajax.js"></script> 
-<script type="text/javascript"> 
-{php}
-// include the Ajax javascript
-global $ajaxClient;
-echo $ajaxClient->getJavaScript();
-{/php}
-</script>
-
 <form name="imdbfetcher" action="{$smarty.server.SCRIPT_NAME}?page=add&amp;action=addmovie" onsubmit="copyFiles(this);" enctype="multipart/form-data" method="post">
 <input type="hidden" name="imdb" value="{$itemId}"/>
 <input type="hidden" name="image" value="{$itemThumb}"/>
@@ -81,7 +71,7 @@ echo $ajaxClient->getJavaScript();
 	<table cellspacing="1" cellpadding="1" width="100%" class="plain">
 	<tr>
 		<td class="strong" nowrap="nowrap">{$translate.movie.mediatype}:</td>
-		<td>{html_options id=mediatype name=mediatype options=$mediatypeList selected=$selectedMediatype onchange="processing(true);x_VCDAjaxHelper.getDataForMediaType('meta|cover|dvd', this.value, showForms)"}</td>
+		<td>{html_options id=mediatype name=mediatype options=$mediatypeList selected=$selectedMediatype onchange="doMediaTypeData(this.value)"}</td>
 	</tr>
 	<tr>
 		<td>{$translate.movie.category}:</td>

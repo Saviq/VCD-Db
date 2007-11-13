@@ -53,13 +53,11 @@ function hide(id){
 }
 
 function openAdminConsole() {
-	url = 'admin/';
-	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
+	window.open('admin/', 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
-function loadManager(cd_id) {
-	//var page = "pages/manager.php?cd_id="+cd_id+"";
-	var page = '?page=manager&vcd_id='+cd_id;
+function loadManager(id) {
+	var page = '?page=manager&vcd_id='+id;
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
@@ -215,9 +213,11 @@ function saveMe() {
 }
 
 function checkFieldsRaw(form, boxChoices, boxSave) {
-	var objChoices = document.getElementById(boxChoices);
-	var objSave = document.getElementById(boxSave);
+	var objChoices = $(boxChoices);
+	var objSave = $(boxSave);
 
+	if (objChoices == null) {return;}
+	
 	var delimiter = "#";
 	teString = "";
 	tempSt = "";
@@ -1172,7 +1172,8 @@ function addSubtitle(form, source) {
 	currCountryName = selectedText;
 	currCountryKey = selectedValue;
 
-	x_dvdObj.getCountryFlag(selectedValue, updateSubtitles);
+	obj = new vcddbAjax('getCountryFlag');
+	obj.invoke(selectedValue,updateSubtitles);
 }
 
 function addAudio(form, source) {
@@ -1233,6 +1234,12 @@ function removeAudio(key) {
 
 
 /* Functions when adding new movie and changing media type */
+
+function doMediaTypeData(selectedValue) {
+	processing(true);
+	obj = new vcddbAjax('getDataForMediaType');
+	obj.invoke('meta|cover|dvd', selectedValue, showForms);
+}
 
 function cutStr(str, maxlen) {
 	return (str.length > maxlen)?str.substring(0,maxlen-3)+'...':str;

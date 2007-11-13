@@ -1,13 +1,3 @@
-<script type="text/javascript" src="includes/js/json.js"></script> 
-<script type="text/javascript" src="includes/js/ajax.js"></script> 
-<script type="text/javascript"> 
-{php}
-// include the Ajax javascript
-global $ajaxClient;
-echo $ajaxClient->getJavaScript();
-{/php}
-</script>
-
 <form name="user" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=updateprofile">
 <h1>{$translate.menu.settings}</h1>
 <fieldset id="settings" title="{$translate.menu.settings}">

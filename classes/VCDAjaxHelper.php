@@ -247,6 +247,17 @@ class VCDAjaxHelper {
 		}
 	}
 	
+	public static function getCountryFlag($code) {
+		try {
+			
+			$dvdObj = new dvdObj();
+			return $dvdObj->getCountryFlag($code);
+			
+		} catch (Exception $ex) { 
+			throw new AjaxException($ex->getMessage(), $ex->getCode());
+		}
+	}
+	
 }
 
 ?>

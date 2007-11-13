@@ -30,7 +30,7 @@ if (VCDUtils::isLoggedIn()) {
 		$ajax->registerMethod('PornstarProxy', 'getUpdates' );
 	} else {
 		$ajax->registerMethod('VCDXMLImporter', 'addMovie' );
-		$ajax->registerMethod('dvdObj', 'getCountryFlag');
+		$ajax->registerMethod('VCDAjaxHelper', 'getCountryFlag');
 		$ajax->registerMethod('VCDAjaxHelper', 'getDataForMediaType');
 		$ajax->registerMethod('VCDAjaxHelper', 'getRss');
 		$ajax->registerMethod('VCDAjaxHelper', 'getScreenshots');

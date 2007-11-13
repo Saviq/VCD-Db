@@ -41,49 +41,16 @@
 //             $_site:      the domain for the cookie.    default is none.    The browser
 //                          will use the current domain.
 //
-//     Changes:
-//
-//             1.7    The set method will now send an empty string for the cookie value if
-//                    there is nothing in $this->_val, thus deleting the cookie.
-//
-//             1.6    Separated cookie extraction into a method for easier use.  Fixed issue
-//                    where the cookie has a value but was not an array.  Added some checks
-//                    for the cookie size.  Cleaned up some code to handle older PHP versions.
-//                    If empty values are passed to put(), that member is now unset.
-//                    Added check for slashes and stip them if needed.  Thanks to
-//                    Christopher Hilling for helping with the code.  - blm 05-2003
-//
-//             1.5    Removed an echo in the set method.  Prepended member vars names with _
-//                    to indicate they should not be used outside the class.  Updated to use
-//                    $_COOKIE available in PHP 4.1 and higher. - blm 08-2002
-//
-//             1.4.1  Fixed code so that it checks for the cookie before going through foreach
-//
-//             1.4    Changed code to store serialized data so that complex variables
-//                    could be stored.
-//
-//                    Added site parameter to the Constructor.
-//
-//             1.3.1  Added license section to comments.    There was some question.
-//
-//             1.3    Added clear() method. - blm 10-2000
-//
-//             1.2    Some values were not getting stored right. - blm 10-2000
-//
-//             1.1    Fixed some PHP4 problems and added some more docs. - blm 10-2000
-//
 ////////////////////////////////////////////////////////////////////////////////
 
-class SiteCookie
-{
-    public $_name="";
-    public $_val=array();
-    public $_expires;
-    public $_dir='/';    // all dirs
-    public $_site='';
+class SiteCookie {
+	private $_name="";
+	private $_val=array();
+	private $_expires;
+	private $_dir='/';    // all dirs
+	private $_site='';
 
-    function SiteCookie($cname, $cexpires="", $cdir="/", $csite="")
-    {
+    public function __construct($cname, $cexpires="", $cdir="/", $csite="") {
         
         $this->_name=$cname;
 
@@ -102,8 +69,7 @@ class SiteCookie
         $this->extract();
     }
 
-    static function extract($cname="")
-    {
+    public static function extract($cname="") {
         // handle older PHP versions
         if(!isset($_COOKIE)){
             global $_COOKIE;
@@ -150,8 +116,7 @@ class SiteCookie
         
     }
 
-    function put($var, $value)
-    {
+    public function put($var, $value) {
         $_COOKIE[$var]=$value;
         $this->_val["$var"]=$value;
 
@@ -165,13 +130,11 @@ class SiteCookie
 
     }
 
-    function clear()
-    {
+    public function clear() {
         $this->_val=array();
     }
 
-    function set()
-    {
+    public function set() {
         if(empty($this->_val)){
             $cookie_val="";
         } else {
@@ -185,5 +148,4 @@ class SiteCookie
     }
 
 }
-
 ?>
