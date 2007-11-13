@@ -33,7 +33,9 @@ class ADODB_db2 extends ADOConnection {
 	var $sysDate = 'CURRENT DATE';
 	var $sysTimeStamp = 'CURRENT TIMESTAMP';
 	
-	var $fmtTimeStamp = "'Y-m-d-H:i:s'";
+	//var $fmtTimeStamp = "'Y-m-d-H.i.s'";
+	//var $fmtTimeStamp = "'Y-m-d-H:i:s'";
+	var $fmtTimeStamp = "'Y-m-d H:i:s'";
 	var $replaceQuote = "''"; // string to use to replace quotes
 	var $dataProvider = "db2";
 	var $hasAffectedRows = true;
@@ -126,7 +128,8 @@ class ADODB_db2 extends ADOConnection {
 	{
 		if (empty($ts) && $ts !== 0) return 'null';
 		if (is_string($ts)) $ts = ADORecordSet::UnixTimeStamp($ts);
-		return 'TO_DATE('.adodb_date($this->fmtTimeStamp,$ts).",'YYYY-MM-DD HH24:MI:SS')";
+		//return 'TO_DATE('.adodb_date($this->fmtTimeStamp,$ts).",'YYYY-MM-DD HH24:MI:SS')";
+		return adodb_date($this->fmtTimeStamp,$ts);
 	}
 	
 	// Format date column in sql string given an input format that understands Y M D
@@ -678,7 +681,8 @@ See http://msdn.microsoft.com/library/default.asp?url=/library/en-us/db2/htm/db2
 	*/
 	function UpdateBlob($table,$column,$val,$where,$blobtype='BLOB')
 	{
-		return $this->Execute("UPDATE $table SET $column=? WHERE $where",array($val)) != false;
+		//return $this->Execute("UPDATE $table SET $column=? WHERE $where",array($val)) != false;
+		return $this->Execute("UPDATE $table SET $column=blob(?) WHERE $where",array($val)) != false;
 	}
 	
 	// returns true or false
