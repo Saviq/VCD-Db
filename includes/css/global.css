@@ -1,6 +1,6 @@
 #lang {
 	position: absolute;
-	top: 71px;
+	top: 75px;
 	left: 729px;
    color: White;
 }
@@ -125,22 +125,3 @@ P img {
 	text-align: justify;
 }
 
-ul#toplist {
-	background-image: none;
-	margin:0;
-	padding:0;
-}
-
-ul#toplist li.tlistheader {
-	background-image: none;	
-	background-color: #c0c0c0;
-	font-weight: bold;
-	padding-left:4px;
-	font-size: 12px;
-	line-height: 16px;
-}
-
-ul#toplist li.tlist, ul#toplist li.tlist a {
-	background-image: none;	
-	padding-left:2px;
-}

@@ -121,8 +121,9 @@ html>body #l-col {
 	position: relative;
 	color: #E3A600;
 	width: 175px;
-	border: 1px dashed black;
+	border: dashed black;
 	border-width: 0px 0px 1px 1px;
+	margin-top:2px;
 }
 
 #cont {
@@ -532,4 +533,28 @@ li {
 legend {
 	color:#333333;
 	font-weight:bold;
+}
+
+ul#toplist {
+	background-image: none;
+	margin:0;
+	padding:0;
+}
+
+ul#toplist li.tlistheader {
+	background-image: url(images/topic_bg.gif);
+	background-repeat:repeat-x;
+	padding: 2px;
+	color:#fff;
+	border-bottom:1px solid #dcdcdc;
+	text-align: center;
+	font-size: 11px;
+	background-position: 0 !important;	
+}
+
+ul#toplist li.tlist, ul#toplist li.tlist a {
+	background-image: none;	
+	padding-left:3px;
+	display:block;
+	color:#333333;
 }

@@ -567,6 +567,7 @@ html>body #l-col {
 	float: right;
 	position: relative;
 	width: 175px;
+	margin-top:3px;
 }
 
 #similar {
@@ -585,4 +586,30 @@ html>body #l-col {
 
 legend {
 	color:#6D4F45;
+}
+
+
+ul#toplist {
+	background-image: none;
+	margin:0;
+	padding:0px;
+}
+
+ul#toplist li.tlistheader {
+	background-image: url(images/topic_bg.gif);
+	background-repeat:repeat-x;
+	padding: 2px;
+	line-height:16px;
+	border-bottom:1px solid #dcdcdc;
+	text-align: center;
+	font-size: 11px;
+	color:#fff;
+	font-weight:bold;
+	background-position: 0px !important;
+}
+
+ul#toplist li.tlist, ul#toplist li.tlist a {
+	background-image: none;	
+	padding-left:3px;
+	display:block;
 }
