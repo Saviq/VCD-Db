@@ -12,12 +12,13 @@
 
 
 <hr/>
+{if $smarty.get.l neq ''}
 <div align="center">
-	<span class="bold">{$pornstarCount} pornstars</span> begin with letter {$selectedLetter} 
+	<span class="bold">{$pornstarCount} pornstars</span> begin with letter <strong>{$selectedLetter}</strong>
 	(<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}">Text view</a> / 
 	<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=img">Image view</a>)
 </div>
-
+{/if}
 
 {* List of pornstars of chosen letter *}
 {if $viewmode eq 'images'}
@@ -39,7 +40,7 @@
 	{foreach from=$pornstars item=pornstar key=id}
 	<tr>
 		<td><a href="./?page=pornstar&amp;pornstar_id={$id}">{$pornstar.name}</a></td>
-		<td>{$pornstar.homepage}</td>
+		<td>{$pornstar.homepage|default:'&nbsp;'}</td>
 		<td>{$pornstar.count}</td>
 	</tr>
 	{/foreach}

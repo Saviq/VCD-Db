@@ -52,8 +52,9 @@ function hide(id){
 	} catch (Exception) {}
 }
 
-function openAdminConsole() {
-	window.open('admin/', 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
+function openAdminConsole(link) {
+	url = replace(link.href,'#','admin');
+	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
 function loadManager(id) {
@@ -522,10 +523,6 @@ function goSimilar(form) {
 	val = form.similar.options[form.similar.selectedIndex].value;
 	url = './?page=cd&vcd_id='+val;
 	location.href = url;
-}
-
-function openWin(url){
-		vindu = window.open(url);
 }
 
 

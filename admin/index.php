@@ -895,7 +895,7 @@
 					printRow($strUserName);	
 					printRow(date("d/m/Y h:i:s", strtotime($obj->getDate())), "", true);
 										
-					print "<td valign=top onmouseover=\"return escape('<iframe src=iptodns.php?ip={$obj->getIP()} width=250 height=22></iframe>')\">{$obj->getIP()}</td>";
+					print "<td valign=top onmouseover=\"return Tip('<iframe src=iptodns.php?ip={$obj->getIP()} width=250 height=22></iframe>', SHADOWWIDTH,1,STICKY,1,OFFSETX,-320,OFFSETY,-15,WIDTH,250);\">{$obj->getIP()}</td>";
 				
 					printTr(false);
 				}

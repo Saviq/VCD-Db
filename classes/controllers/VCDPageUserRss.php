@@ -56,10 +56,11 @@ class VCDPageUserRss extends VCDBasePage {
 				    $title = $xml->channel->title;
 				    $link = $xml->channel->link;
 			
+				    $image = '<img src="images/%s" title="VCD-db %s feed" border="0"/>&nbsp;';
 		    		if (strpos($title, "(") === false)  {
-		    			$image = "<img src=\"images/rsssite.gif\" title=\"VCD-db site feed\" border=\"0\"/>&nbsp;";	
+		    			$image = sprintf($image, 'rsssite.gif','site');
 		    		} else {
-		    			$image = "<img src=\"images/rssuser.gif\" title=\"VCD-db user feed\" border=\"0\"/>&nbsp;";
+		    			$image = sprintf($image, 'rssuser.gif','user');
 		    		}
 		    		$results[$i]['image'] = $image;
 		    		$results[$i]['title'] = utf8_decode($xml->channel->title);
@@ -68,8 +69,8 @@ class VCDPageUserRss extends VCDBasePage {
 		    		$listItems = array();
 					$itemCounter = 0;
 					foreach ($items as $item) {
-						$listItems[$itemCounter]['title'] = utf8_decode($item->title);
-						$listItems[$itemCounter]['link'] = $item->link;
+						$listItems[$itemCounter]['title'] = $item->title;
+						$listItems[$itemCounter]['link'] = $this->flipLink($item->link);
 						if (isset($item->description)) {
 							$listItems[$itemCounter]['desc'] = $item->description;
 						}			
@@ -90,6 +91,26 @@ class VCDPageUserRss extends VCDBasePage {
 		
 	}
 
+	/**
+	 * Flip the query strings in the url to avoid mod_rewrite rules
+	 *
+	 * @param string $url | The original url
+	 * @return string | The flipped query string url
+	 */
+	private function flipLink($url) {
+		$url = VCDUtils::unhtmlentities($url);
+		$components = parse_url($url);
+		$queries = @explode('&',$components['query']);
+		
+		if (!is_array($queries)) {
+			return $url;
+		}
+		
+		$endpos = strpos($url,'?');
+		$base = substr($url,0,$endpos);
+		$newUrl = $base.'?'.$queries[1].'&amp;'.$queries[0];
+		return $newUrl;
+	}
 	
 }
 

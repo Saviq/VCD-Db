@@ -51,7 +51,7 @@
 	<td>{$i.category}</td>
 	<td>{$i.year}</td>
 	<td>{$i.media_type}</td>
-	<td>{$i.rating}</td>
+	<td>{$i.rating|default:'&nbsp;'}</td>
 </tr>		
 {/foreach}
 

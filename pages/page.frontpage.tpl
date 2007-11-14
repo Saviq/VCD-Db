@@ -71,7 +71,7 @@
 </tr>
 {foreach from=$statsTopCategories item=i}
 <tr>
-	<td><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
+	<td align="left"><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
 	<td align="right">{$i.count}</td>
 </tr>
 {/foreach}
@@ -82,7 +82,7 @@
 </tr>
 {foreach from=$statsTopCurrentCategories item=i}
 <tr>
-	<td><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
+	<td align="left"><a href="?page=category&amp;category_id={$i.id}">{$i.name}</a></td>
 	<td align="right">{$i.count}</td>
 </tr>
 {/foreach}

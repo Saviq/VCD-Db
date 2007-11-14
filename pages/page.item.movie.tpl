@@ -224,8 +224,6 @@
 	{/if}
 
 
-
-
 	<div id="comments">
 	<h2>{$translate.comments.comments} (<a href="#" onclick="javascript:show('newcomment');return false">{$translate.comments.add}</a>)</h2>
 	</div>
@@ -236,8 +234,7 @@
 	{else}
 
 		<span class="bold">{$translate.comments.type}:</span>
-		<form name="comment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;vcd_id={$itemId}&amp;action=addcomment">
-		<input type="hidden" name="vcd_id" value="{$itemId}"/>
+		<form name="comment" method="post" action="{$smarty.server.SCRIPT_NAME}?page=cd&amp;action=addcomment&amp;vcd_id={$itemId}">
 		<table cellpadding="0" cellspacing="0" border="0" class="plain">
 		<tr>
 			<td valign="top">{$translate.comments.your}:</td>
@@ -293,9 +290,9 @@
 		<h2>{$translate.imdb.links}</h2>
 		<ul>
 			<li><a href="http://www.imdb.com/Title?{$itemExternalId}" target="_blank">{$translate.imdb.details}</a></li>
-			<li><a href="http://www.imdb.com/Plot?{$itemExternalId}" target=\"_blank"">{$translate.imdb.plot}</a></li>
+			<li><a href="http://www.imdb.com/Plot?{$itemExternalId}" target="_blank">{$translate.imdb.plot}</a></li>
 			<li><a href="http://www.imdb.com/Gallery?{$itemExternalId}" target="_blank">{$translate.imdb.gallery}</a></li>
-			<li><a href="http://www.imdb.com/Trailers?{$itemExternalId}" target="_blank"">{$translate.imdb.trailers}</a></li>
+			<li><a href="http://www.imdb.com/Trailers?{$itemExternalId}" target="_blank">{$translate.imdb.trailers}</a></li>
 		</ul>
 	</div>
 	{/if}

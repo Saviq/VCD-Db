@@ -41,12 +41,13 @@ class VCDPagePornstar extends VCDBasePage {
 		// Generate the javascript items
 		$i = 0;
 		$scriptItems = array();
+		$base = dirname($_SERVER['SCRIPT_NAME']);
 		foreach ($pornstarObj->getMovies() as $id => $title) {
 			$hasThumb = false;
 			$arrCovers = CoverServices::getAllCoversForVcd($id);
 			foreach ($arrCovers as $obj) {
 				if ($obj->isThumbnail()) {
-					$scriptItems[] = array('index' => $i++, 'image' => '?page=file&amp;cover_id='.$obj->getId());
+					$scriptItems[] = array('index' => $i++, 'image' => $base.'/?page=file&amp;cover_id='.$obj->getId());
 					$hasThumb = true;
 					continue;
 				}	

@@ -44,6 +44,7 @@ a:hover {
 	margin-bottom:0px;
 	border-left: 1px solid #333333;
 	border-right: 1px solid #333333;
+	background-color: #fff;
 }
 
 #hdr {
@@ -104,7 +105,7 @@ a:hover {
 	width:830px;
 	padding:0px;
 	background-image: url(images/sidebar_bg.gif);
-	background-color: #FFFFFF;
+	background-color: #fff;
 }
 
 

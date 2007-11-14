@@ -624,7 +624,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	
 		$comment = $this->getParam('comment',true);
 		$private = $this->getParam('private',true, '0');
-		$itemId = $this->getParam('vcd_id',true);
+		$itemId = $this->getParam('vcd_id');
 						
 		if ((!is_null($comment) && !is_null($itemId) && (is_numeric($itemId)))) {
 			$commentObj = new commentObj(array('',$itemId, VCDUtils::getUserID(), '', VCDUtils::stripHTML($comment), $private));
