@@ -11,7 +11,6 @@
 {/if}
 <span class="nav"><a href="?page=wishlist" class="navx">{$translate.menu.wishlist}</a></span>
 <span class="nav"><a href="?page=stats" class="navx">{$translate.menu.statistics}</a></span>
-<span class="nav"><a href="#" onclick="showAllMoviesDetailed()" class="navx">{$translate.menu.showallusersmovies}</a></span>
 {if $showRssFeeds}
 <span class="nav"><a href="?page=rss" class="navx">{$translate.menu.rss}</a></span>
 {/if}

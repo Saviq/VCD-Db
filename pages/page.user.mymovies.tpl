@@ -69,8 +69,7 @@
 	<!-- User menu -->
 	<ul>
 		<li><a href="?page=movies&amp;do=join">{$translate.mymovies.join}</a></li>
-		<li><a href="#" onclick="showUserStatus()">{$translate.mymovies.overview}</a></li>
-		<li><a href="#" onclick="showUserStatusDetailed()">{$translate.mymovies.overviewdetail}</a></li>
+		<li><a href="#" onclick="showUserStatus();return false">{$translate.mymovies.overview}</a></li>
 		{if $isIndex}
 		<li><a href="?page=movies&amp;do=keys">{$translate.mymovies.keys}</a></li>
 		{/if}
