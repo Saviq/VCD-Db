@@ -1,5 +1,5 @@
 <form name="customkeys" method="post" action="{$smarty.server.SCRIPT_NAME}?page=movies&amp;do=keys&amp;index={$itemPage}">
-
+{assign var='base' value=$smarty.server.SCRIPT_NAME}
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="tblsmall">
 <tr>
 	<td class="bold" width="65%">{$translate.movie.title}</td>
@@ -14,7 +14,7 @@
 </tr>
 {/foreach}
 <tr>
-	<td>{html_options id=pagelist name=pagelist options=$pagesList selected=$smarty.get.index onchange="location.href='?page=movies&amp;do=keys&amp;index='+this.value"}</td>
+	<td>{html_options id=pagelist name=pagelist options=$pagesList selected=$smarty.get.index onchange="location.href='$base?page=movies&amp;do=keys&amp;index='+this.value"}</td>
 	<td colspan="2" align="right"><input type="submit" class="inp" name="save" value="{$itemBtnSave}"/></td>
 </tr>
 </table>

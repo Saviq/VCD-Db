@@ -9,9 +9,9 @@
 
 
 
-
+{assign var='base' value=$smarty.server.SCRIPT_NAME}
 &nbsp;<span class="bold">{$viewTitle}</span>&nbsp;
-{html_options id=category name=category options=$currentList selected=$selectedListItem onchange="location.href='?page=adultcategory&amp;$selType='+this.value " }
+{html_options id=category name=category options=$currentList selected=$selectedListItem onchange="location.href='$base?page=adultcategory&amp;$selType='+this.value " }
 
 {if $imageMode}
 	(<a href="?page=adultcategory&amp;{$viewType}={$categoryId}&amp;batch={$categoryPage}&amp;viewmode=text">{$translate.movie.textview}</a> / {$translate.movie.imageview})
@@ -34,7 +34,7 @@
 
 <table cellspacing="0" cellpadding="0" border="0" width="100%" class="displist">
 <tr>
-	<td class="header">{$translate.movie.title|escape}</td>
+	<td class="header">{$translate.movie.title}</td>
 	<td class="header" nowrap="nowrap">{$translate.movie.year}</td>
 	<td class="header">Screens</td>
 </tr>

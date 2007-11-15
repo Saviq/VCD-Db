@@ -223,8 +223,15 @@ class VCDPageUserMyMovies extends VCDBasePage {
 		
 		$nextIndex = ((int)$this->getParam('index',false,0))+1;
 		redirect('?page=movies&do=keys&index='.$nextIndex);
-		exit();
-		
+		/*
+		$url = ereg_replace('([0-9])$',(string)$nextIndex,$_SERVER['HTTP_REFERER']);
+		if (strcmp($url,$_SERVER['HTTP_REFERER'])==0) {
+			redirect('?page=movies&do=keys&index='.$nextIndex);
+		} else {
+			header("Location: {$url}");
+			exit();	
+		}
+		*/
 	}
 	
 	/**

@@ -323,7 +323,8 @@ function changeBorrower() {
 	var selectedValue = selectionObj.options[selectedItem].value;
 
 	if (selectedValue != '') {
-		url = "?page=settings&action=editborrower&bid="+selectedValue+"";
+		var urlbase = replace(jxBase,'index.php','');
+		url = urlbase+'?page=settings&action=editborrower&bid='+selectedValue;
 		location.href = url;
 	}
 }
@@ -1090,8 +1091,9 @@ var currCountryKey;
 
 function updateSubtitles( response )   {
   	obj = new Object(response);
+  	var urlbase = replace(jxBase,'index.php','');
   	var img = new Image();
-  	img.src = obj;
+  	img.src = urlbase+obj;
 
   	var html = '<ul>';
 
@@ -1127,7 +1129,9 @@ function updateSubtitles( response )   {
 		}
 	}
 
-
+	
+	
+		
 	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' height='12' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
 	html += "</ul>";
 
@@ -1461,12 +1465,13 @@ function showSuggestion(form) {
 			seen = 1;
 		}
 		var category = form.category.options[form.category.selectedIndex].value;
-				
+		var urlbase = replace(jxBase,'index.php','');
+		
 		show('suggestion',true);
 		hide('noresults');
 		
 		img = new Image();
-		img.src = 'images/processing.gif'; 
+		img.src = urlbase+'images/processing.gif'; 
 		img.setAttribute('border',0);
 		img.setAttribute('title','Loading ...');
 		img.setAttribute('vspace',60);
@@ -1482,6 +1487,8 @@ function showSuggestion(form) {
 
 function doShowSuggestion(response) {
 	try {
+		
+		var urlbase = replace(jxBase,'index.php','');
 		
 		if (response == null) {
 			show('noresults',true);
@@ -1500,11 +1507,11 @@ function doShowSuggestion(response) {
 			dTitle.innerHTML = obj.title;
 			dCategory.innerHTML = obj.category;
 			dYear.innerHTML = obj.year;
-			dLink.href = '?page=cd&vcd_id='+obj.id;
+			dLink.href = urlbase+'?page=cd&vcd_id='+obj.id;
 			
 			dCover.innerHTML = '';
 			var cover = new Image();
-			cover.src = '?page=file&cover_id='+obj.cover_id;
+			cover.src = urlbase+'?page=file&cover_id='+obj.cover_id;
 			cover.setAttribute('border',0);
 			cover.setAttribute('class','imgx');
 			cover.setAttribute('width',120);

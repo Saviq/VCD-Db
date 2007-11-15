@@ -5,7 +5,7 @@
 <br/><br/>
 
 <div style="padding-left:10px">
-<form name="picker" method="post" action="#">
+<form name="picker" method="post" action="{$smarty.server.SCRIPT_NAME}">
 
 <table cellpadding="1" cellspacing="1" width="100%" class="tblsmall">
 <tr>
@@ -36,7 +36,7 @@
 
 	<table cellpadding="1" cellspacing="1" border="0" width="100%">
 	<tr>
-		<td colspan="2"><h1 id="title"></h1></td>
+		<td colspan="2" valign="top"><h1 id="title"></h1></td>
 	</tr>
 	<tr>
 		<td width="20%" class="bold">&nbsp;{$translate.movie.category}:</td>

@@ -32,6 +32,7 @@ abstract class VCDPage extends Smarty  {
 	
 		parent::Smarty();
 		$this->force_compile = true; // Remove line for release versions ..
+		//$this->caching = 1;
 				
 		$this->template = $template;
 		$this->template_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
@@ -128,12 +129,27 @@ abstract class VCDPage extends Smarty  {
 	private function rewriteShortUrls() {
 		$in = array(
 			"'\?page=cd&amp;vcd_id=([0-9]*)'",
-			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)?&amp;viewmode=(img|text)'",
+			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)&amp;viewmode=(img|text)'",
 			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)'",
+			
+			"'index.php\?page=adultcategory&amp;(category|studio)_id=([0-9]*)'",
+			"'\?page=adultcategory&amp;(category|studio)_id=([0-9]*)&amp;batch=([0-9]*)&amp;viewmode=(img|text)'",
+			"'\?page=adultcategory&amp;(category|studio)_id=([0-9]*)&amp;batch=([0-9]*)'",
+			"'\?page=adultcategory&amp;(category|studio)_id=([0-9]*)'",
+						
+			"'\?page=pornstars&amp;view=(all|active)&amp;l=([a-zA-Z\\+]){1}&amp;viewmode=(img|text)'",
+			"'\?page=pornstars&amp;view=(all|active)'",
+			
 			"'\?page=pornstar&amp;pornstar_id=([0-9]*)'",
+			
+			
+			"'index.php\?page=movies&amp;do=([a-zA-Z\\-]*)&amp;index=([0-9]*)'",
+			"'index.php\?page=movies&amp;do=([a-zA-Z\\-]*)'",
+			"'\?page=movies&amp;do=([a-zA-Z\\-]*)&amp;index=([0-9]*)'", 
+			"'\?page=movies&amp;do=([a-zA-Z\\-]*)'",
 			"'\?page=file&amp;cover_id=([0-9]*)'",
-			"'\?page=search&amp;by=([^\<]*)&amp;searchstring=([^\<]*)'",
+			"'\?page=search&amp;by=(actor|director)&amp;searchstring=([^\<]*)'",
 			"'index.php\?page=([a-zA-Z\\-]*)'",
 			"'\?page=([a-zA-Z\\-]*)'"
 			
@@ -144,7 +160,22 @@ abstract class VCDPage extends Smarty  {
         	'category/\\1/\\2/\\3',
         	'category/\\1/\\2',
         	'category/\\1',
+        	
+        	'xxx/\\1/\\2',
+        	'xxx/\\1/\\2/\\3/\\4',
+        	'xxx/\\1/\\2/\\3',
+        	'xxx/\\1/\\2',
+        	        	
+        	'pornstars/\\1/\\2/\\3',
+        	'pornstars/\\1',
+        	
         	'pornstar/\\1',
+        	
+        	
+        	'page/movies/\\1/\\2', 
+        	'page/movies/\\1', 
+        	'page/movies/\\1/\\2',
+        	'page/movies/\\1',
         	'file/cover/\\1',
         	'search/\\1/\\2',
         	'page/\\1',
