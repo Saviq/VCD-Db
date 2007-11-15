@@ -259,6 +259,12 @@
 		<template>window.pornstar.select.tpl</template>
 		<action>addpornstars</action>
 	</page>
+	<page standalone="true" auth="true">
+		<name>Collection overview</name>
+		<handler>VCDPageUserCollectionOverview</handler>
+		<template>window.user.overview.tpl</template>
+		<action>overview</action>
+	</page>
 	
 	
 

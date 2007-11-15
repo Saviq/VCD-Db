@@ -305,8 +305,7 @@ function selectKeyPress() {
 	} catch (Exception) {}
 }
 
-function clr()
-{
+function clr() {
 	try {
 		document.all["keys"].value = "";
 	} catch (Exception) {}
@@ -678,8 +677,8 @@ function deleteCover(cover_id, vcd_id) {
 }
 
 function showUserStatus() {
-	url = 'pages/user_status.php';
-	window.open(url, 'popup', 'scrollbars=yes,resizable=yes,height=600,width=830,top=50,left=25');
+	url = '?page=overview';
+	window.open(url, 'overview', 'scrollbars=yes,resizable=yes,height=600,width=830,top=50,left=25');
 }
 
 function showUserStatusDetailed() {
