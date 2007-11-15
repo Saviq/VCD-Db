@@ -171,10 +171,14 @@ class VCDBasePage extends VCDPage {
 		// Next handle scriptblocks
 		if (sizeof($this->scriptblocks) > 0) {
 			$scriptData .= '<script type="text/javascript">';
-			foreach ($this->scriptblocks as $scriptblock) {
-				$scriptData .= $scriptblock.chr(13);
-			}	
-			$scriptData .= chr(13).'</script>';
+			for ($i=0;$i<sizeof($this->scriptblocks);$i++) {
+				if ($i != (sizeof($this->scriptblocks)-1)) {
+					$scriptData .= $this->scriptblocks[$i].chr(13);
+				} else {
+					$scriptData .= $this->scriptblocks[$i];
+				}
+			}
+			$scriptData .= '</script>';
 		}
 				
 		$this->assign('pageScripts',$scriptData);

@@ -8,9 +8,20 @@ RewriteRule ^movie/([0-9]+)$ index.php?page=cd&vcd_id=$1	[QSA]
 RewriteRule ^category/([0-9]+)$ index.php?page=category&category_id=$1	[QSA]
 RewriteRule ^category/([0-9]+)/([0-9]+)$ index.php?page=category&category_id=$1&batch=$2 [QSA]
 RewriteRule ^category/([0-9]+)/([0-9]+)/([a-zA-Z\\+]*)$ index.php?page=category&category_id=$1&batch=$2&viewmode=$3 [QSA]
+
+RewriteRule ^xxx/(category|studio)/([0-9]+)$ index.php?page=adultcategory&$1_id=$2	[QSA]
+RewriteRule ^xxx/(category|studio)/([0-9]+)/([0-9]+)$ index.php?page=adultcategory&$1_id=$2&batch=$3	[QSA]
+RewriteRule ^xxx/(category|studio)/([0-9]+)/([0-9]+)/(img|text)$ index.php?page=adultcategory&$1_id=$2&batch=$3&viewmode=$4	[QSA]
+
+RewriteRule ^pornstars/(all|active)/([a-zA-Z\\+]){1}/(img|text)$ index.php?page=pornstars&view=$1&l=$2&viewmode=$3	[QSA]
+RewriteRule ^pornstars/(all|active)$ index.php?page=pornstars&view=$1	[QSA]
+
 RewriteRule ^pornstar/([0-9]+)$ index.php?page=pornstar&pornstar_id=$1	[QSA]
+
 RewriteRule ^search/?(actor|director)/([a-zA-Z\\+]*)$ index.php?page=search&by=$1&searchstring=$2 [QSA]
 RewriteRule ^file/cover/([0-9]+)$ index.php?page=file&cover_id=$1	[QSA]
+RewriteRule ^page/movies/([a-zA-Z\\+]*)/([0-9]+)$ index.php?page=movies&do=$1&index=$2	[QSA]
+RewriteRule ^page/movies/([a-zA-Z\\+]*)$ index.php?page=movies&do=$1 [QSA]
 RewriteRule ^page/([^\.\?/]+)$ index.php?page=$1	[QSA]
 
 
