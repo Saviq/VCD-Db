@@ -24,6 +24,7 @@ class VCDPageUserBorrower extends VCDBasePage {
 		
 		// Register javascripts
 		$this->registerScript(self::$JS_MAIN);
+		$this->registerScript(self::$JS_LANG);
 				
 	}
 	

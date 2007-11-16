@@ -14,9 +14,9 @@
 <hr/>
 {if $smarty.get.l neq ''}
 <div align="center">
-	<span class="bold">{$pornstarCount} pornstars</span> begin with letter <strong>{$selectedLetter}</strong>
-	(<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=text">Text view</a> / 
-	<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=img">Image view</a>)
+	<span class="bold">{$pornstarCount} {$translate.pornstar.pornstars}</span> {$translate.pornstar.begin} <strong>{$selectedLetter}</strong>
+	(<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=text">{$translate.movie.textview}</a> / 
+	<a href="?page=pornstars&amp;view={$view}&amp;l={$selectedLetter}&amp;viewmode=img">{$translate.movie.imageview}</a>)
 </div>
 {/if}
 

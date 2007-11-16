@@ -21,7 +21,9 @@ class VCDPageUserAddRss extends VCDBasePage {
 	public function __construct(_VCDPageNode $node) {
 		
 		parent::__construct($node);
-
+		$this->registerScript(self::$JS_MAIN);
+		$this->registerScript(self::$JS_LANG);
+		
 	}
 	
 	/**

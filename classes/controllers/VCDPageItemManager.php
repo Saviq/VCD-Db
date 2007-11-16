@@ -64,7 +64,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Register javascripts
 		$this->registerScript(self::$JS_TABS);
 		$this->registerScript(self::$JS_MAIN);
-		
+		$this->registerScript(self::$JS_LANG);
 		
 		// Check for get parameters
 		$this->doGet();

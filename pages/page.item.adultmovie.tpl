@@ -228,9 +228,10 @@
 	
 	<div id="similar">
 	{if is_array($itemSimilar) && count($itemSimilar)}
+	{assign var='base' value=$smarty.server.SCRIPT_NAME}
 		<h2>{$translate.movie.similar}</h2>
 		<form name="sim" action="get">
-			{html_options name=similar options=$itemSimilar|truncate:26:".." onchange="goSimilar(this.form)"}
+			{html_options name=similar options=$itemSimilar|truncate:26:".." onchange="location.href='$base?page=cd&amp;vcd_id='+this.value"}
 		</form>
 		<br/>
 	{/if}

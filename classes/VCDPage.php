@@ -128,6 +128,7 @@ abstract class VCDPage extends Smarty  {
 	
 	private function rewriteShortUrls() {
 		$in = array(
+			"'index.php\?page=cd&amp;vcd_id=([0-9]*)'",
 			"'\?page=cd&amp;vcd_id=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)&amp;viewmode=(img|text)'",
 			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)'",
@@ -148,7 +149,7 @@ abstract class VCDPage extends Smarty  {
 			"'index.php\?page=movies&amp;do=([a-zA-Z\\-]*)'",
 			"'\?page=movies&amp;do=([a-zA-Z\\-]*)&amp;index=([0-9]*)'", 
 			"'\?page=movies&amp;do=([a-zA-Z\\-]*)'",
-			"'\?page=file&amp;cover_id=([0-9]*)'",
+			"'\?page=file&amp;(cover|pornstar)_id=([0-9]*)'",
 			"'\?page=search&amp;by=(actor|director)&amp;searchstring=([^\<]*)'",
 			"'index.php\?page=([a-zA-Z\\-]*)'",
 			"'\?page=([a-zA-Z\\-]*)'"
@@ -156,6 +157,7 @@ abstract class VCDPage extends Smarty  {
 		);
 		
 		$out = array(
+			'movie/\\1',
 			'movie/\\1',
         	'category/\\1/\\2/\\3',
         	'category/\\1/\\2',
@@ -176,7 +178,7 @@ abstract class VCDPage extends Smarty  {
         	'page/movies/\\1', 
         	'page/movies/\\1/\\2',
         	'page/movies/\\1',
-        	'file/cover/\\1',
+        	'file/\\1/\\2',
         	'search/\\1/\\2',
         	'page/\\1',
         	'page/\\1'
