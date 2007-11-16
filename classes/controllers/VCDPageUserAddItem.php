@@ -377,9 +377,14 @@ class VCDPageUserAddItem extends VCDBasePage {
 		$this->assign('itemRating',$obj->getRating());
 		$this->assign('itemRuntime',$obj->getRuntime());
 		$this->assign('itemDirector',$obj->getDirector());
-		$this->assign('itemCountryList', @implode(', ',$obj->getCountry()));
 		$this->assign('itemSelCategoryList',$obj->getGenre());
 		$this->assign('itemPlot',stripslashes(trim($obj->getPlot())));
+		if (is_array($obj->getCountry())) {
+			$this->assign('itemCountryList', @implode(', ',$obj->getCountry()));
+		} else {
+			$this->assign('itemCountryList', $obj->getCountry());
+		}
+		
 		
 		$cast = $obj->getCast(false);
 		if (is_array($cast)) {

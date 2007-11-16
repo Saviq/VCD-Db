@@ -1,4 +1,4 @@
-<h2>Pornstars</h2>
+<h2>{$translate.pornstar.pornstars}</h2>
 
 {if is_array($alphabet) && count($alphabet)>0} 
 
