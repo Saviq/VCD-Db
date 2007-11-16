@@ -15,7 +15,6 @@
   */
 ?>
 <?php
-
 require_once(dirname(__FILE__).'/VCDCache.php');
 
 abstract class VCDProxy {
@@ -124,6 +123,12 @@ abstract class VCDProxy {
 				try {
 					$result = $this->proxy->__soapCall($action, $params);
 				} catch (Exception $ex) {
+					if (strcmp($ex->getMessage(),'Invalid Credentials.')==0) {
+						// Kill the session
+						session_destroy();
+						// Redirect
+						redirect('?page=error&type=wscredentials');
+					} 
 					throw new SoapFault($ex->getMessage(), $ex->getMessage(), 'Server');
 				}
 				
