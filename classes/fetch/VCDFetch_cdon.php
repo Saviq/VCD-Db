@@ -25,14 +25,13 @@ class VCDFetch_cdon extends VCDFetch {
 		'poster'	=> 'moviedetail\" border=\"0\" src=\"([^"]*)" class=\"moviedetail\"',
 		'director'	=> 'Regiss.r:</td>([^<]*)<td class=\"moviedetailtext\">(<a href=([^<]*)\">([^"]+)</a>)?</td>',
 		'genre' 	=> 'Genere<\/td>[^>]*>([^<]*)<\/td>',
-		'rating' 	=> 'il voto di FilmTV([^"]*"){5}img\/pollici_testata\/([0-9])\.gif',
-		'cast'		=> 'persona=[0-9]+[^>]*>([^<]*)<\/a><\/td>',
-		'runtime' => "Durata<\/td>[^>]*>([^']*)'<\/td>",
-		'country'	=> 'Produzione<\/td>[^>]*>([^<]*)<\/td>',
+		'cast'		=> 'default.asp\?SValue=([0-9]*)&Mode=6\">([^<]*)</a>',
+		'runtime' 	=> 'Speltid:</td>([^<]*)<td class=\"moviedetailtext\">([^<]*)</td>',
+		'country'	=> 'Land:</td>([^<]*)<td class=\"moviedetailtext\">([^<]*)</td>',
 		'plot'		=> '<td class=\"moviedetail\">(.*)moviedetailfacts'
 	);
 
-	protected $multiArray = array('genre', 'cast', 'country');
+	protected $multiArray = array('genre', 'cast');
 
 	private $servername = 'www.hyrfilm.cdon.com';
 	private $itempath = '/movie/detail.asp?MovieId=[$]';
@@ -83,6 +82,12 @@ class VCDFetch_cdon extends VCDFetch {
 					$obj->setYear($arrData[2]);
 					break;
 					
+				case 'country':
+					if (isset($arrData[2])) {
+						$obj->setCountry(trim($arrData[2]));
+					}
+					break;
+					
 				case 'poster':
 					$poster = $arrData[1];
 					$obj->setImage($poster);
@@ -92,11 +97,29 @@ class VCDFetch_cdon extends VCDFetch {
 					if (isset($arrData[4])) {
 						$obj->setDirector($arrData[4]);
 					}
+					break;
 					
+				case 'runtime':
+					$timecode = trim($arrData[2]);
+					$regx = '/^([0-9]{1})h ([0-9]{1,2}) min/';
+					preg_match($regx, $timecode, $matches);
+					if (is_array($matches) && sizeof($matches)>0) {
+						$totalminutes = ($matches[1]*60)+$matches[2];
+						$obj->setRuntime($totalminutes);
+					}
+					break;
+					
+				case 'cast':
+					$cast = array();
+					foreach ($arrData as $item) {
+						$cast[] = $item[2];
+					}
+					if (sizeof($cast)>0) {
+						$obj->setCast($cast);
+					}
 					break;
 					
 				case 'plot':
-
 					if (isset($arrData[0])) {
 						$plot = utf8_encode(trim(strip_tags($arrData[0])));
 						$plot = str_replace(array('&nbsp;','Se trailer','»', chr(175)),'',$plot);
