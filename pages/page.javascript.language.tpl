@@ -1,8 +1,12 @@
 {literal}
 var Trans = {
 	items: {
-{/literal}{foreach from=$itemJavascriptKeys item=i key=k}
+{/literal}{foreach from=$itemJavascriptKeys item=i key=k name=js}
+{if $smarty.foreach.js.last}
+"{$k}":"{$i}"
+{else}
 "{$k}":"{$i}",
+{/if}
 {/foreach}{literal}	},
 	late: function(string) {
 		var str = this.items[string];
