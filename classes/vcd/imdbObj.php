@@ -96,7 +96,7 @@ class imdbObj extends fetchedObj implements XMLable {
 	/**
 	 * Set the IMDB cast
 	 *
-	 * @param string $strCast
+	 * @param mixed $strCast | Array or an string
 	 */
 	public function setCast($strCast) {
 		$this->cast = $strCast;

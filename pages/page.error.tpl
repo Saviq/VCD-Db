@@ -12,11 +12,15 @@
 <h3 align="center" style="margin-right:100px">
 	<img src="images/logotest.gif" width="187" align="center" height="118" alt="" border="0"/>
 	<br/>
-	Oops database error
+	Oops an exception occurred ..
 </h3>
 
 <p align="center" style="margin-right:100px">
-
+{if $smarty.get.type eq 'wscredentials'}
+<span style="color:red">
+Invalid credentials for remote VCD-db via webservice.
+</span>
+{else}
 <strong>Database Access misconfigured.</strong>
 <br/>
 <span style="color:red">
@@ -26,6 +30,7 @@
 {if $showSetup}
 	<br/><br/>
 	<h3 align="center" style="margin-right:100px">For a new installation <a href="setup/">go here</a></h3>
+{/if}
 {/if}
 </p>
 </body>
