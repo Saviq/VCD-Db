@@ -40,6 +40,12 @@
 		<string id="login.password">Password</string>
 		<string id="login.remember">Remember me</string>
 		<string id="login.info">Leave this empty if you do &lt;b&gt;not&lt;/b&gt; want to change your password</string>
+		<string id="login.failed">Login failed</string>
+		<string id="login.tryagain">Try again</string>
+		<string id="login.deleted">Your account has been deleted.&lt;br/&gt;Contact admin for further details.</string>
+		<string id="login.lost">Or maybe you have lost your password?</string>
+		<string id="login.claim">Click here to get your password</string>
+		<string id="login.recover">Enter username and email</string>
 
 
 		<!-- Register based strings -->
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Use client playback options?</string>
 		<string id="userproperties.nfo">Enable NFO files?</string>
 		<string id="userproperties.default_image">Should Image View be default?</string>
+		<string id="userproperties.nfo_image">View NFO files as images?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,7 @@
 		<string id="dvd.aspect">Aspect ratio</string>
 		<string id="dvd.audio">Audio</string>
 		<string id="dvd.subtitles">Subtitles</string>
+		<string id="dvd.languages">Spoken languages</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +216,7 @@
 		<string id="mymovies.notseen">Suggest only movies I haven't seen</string>
 		<string id="mymovies.friends">My friends who borrow CD's</string>
 		<string id="mymovies.overviewdetail">Detailed collection overview</string>
+		<string id="mymovies.pdf">export as PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +342,10 @@
 		<string id="pornstar.name">Name</string>
 		<string id="pornstar.web">Website</string>
 		<string id="pornstar.moviecount">Movie count</string>
+		<string id="pornstar.viewall">View all</string>
+		<string id="pornstar.viewactive">View active</string>
+		<string id="pornstar.pornstars">Pornstars</string>
+		<string id="pornstar.begin">begin with letter</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -418,5 +431,34 @@
 		<string id="misc.toggle">Toggle preview</string>
 		<string id="misc.toggle_on">on</string>
 		<string id="misc.toggle_off">off</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">No movies have been added to the list</string>
+		<string id="js.loanborrower">Select borrower</string>
+		<string id="js.invalidname">Type in a name</string>
+		<string id="js.deleteborrower">Delete borrower and all his loan records?</string>
+		<string id="js.notitle">Title is missing</string>
+		<string id="js.noyear">Select year</string>
+		<string id="js.invalid">Invalid input</string>
+		<string id="js.nomediatype">Select media type</string>
+		<string id="js.nocategory">Select category</string>
+		<string id="js.nocdcount">Select CD count</string>
+		<string id="js.url">Enter exact image url</string>
+		<string id="js.delete">Delete record?</string>
+		<string id="js.removeactor">Remove actor from movie?</string>
+		<string id="js.norss">Select at least one rss feed to continue</string>
+		<string id="js.deletemeta">Delete metadata and all related records ?</string>
+		<string id="js.noupload">Select file to upload</string>
+		<string id="js.noxmlthumb">Select a XML file for the thumbnails or uncheck the thumbnails upload checkbox!</string>
+		<string id="js.nocriteria">Please define the search criteria</string>
+		<string id="js.lastcopy">This is the only copy in the database.&lt;br&gt;All movie information will be deleted&lt;br&gt;Continue and delete?</string>
+		<string id="js.noselection">Select at least one movie to proceed.</string>
+		<string id="js.nomediaselection">Select media type for all the titles.</string>
+		<string id="js.reqname">Please type in your full name.</string>
+		<string id="js.requsername">Please type in username</string>
+		<string id="js.requsername3">Username must be at least 3 characters.</string>
+		<string id="js.reqpassword">Password needs to be at least 5 characters!</string>
+		<string id="js.reqpassnomatch">Passwords do not match!</string>
 	</strings>
 </language>

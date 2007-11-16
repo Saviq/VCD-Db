@@ -40,6 +40,12 @@
 		<string id="login.password">Lykilorð</string>
 		<string id="login.remember">Mundu mig</string>
 		<string id="login.info">Hafðu þetta tómt ef þú vilt &lt;b&gt;ekki&lt;/b&gt; breyta lykilorðinu þínu</string>
+		<string id="login.failed">Innskráning misheppnaðist</string>
+		<string id="login.tryagain">Reyndu aftur</string>
+		<string id="login.deleted">Þínum aðgangi hefur verið frestað.&lt;br/&gt;Talaðu við kerfisstjóra fyrir nánari upplýsingar.</string>
+		<string id="login.lost">Eða ertu kannksi búinn að gleyma lykilorðinu þínu?</string>
+		<string id="login.claim">Smelltu hér til að nálgast lykilorðið þitt</string>
+		<string id="login.recover">Sláðu inn notandanafnið þitt og netfang.</string>
 
 
 		<!-- Register based strings -->
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Nota afspilun frá VCD-db?</string>
 		<string id="userproperties.nfo">Nota NFO skjöl?</string>
 		<string id="userproperties.default_image">Á myndasýn að vera sjálfgefin?</string>
+		<string id="userproperties.nfo_image">Skoða NFO skjöl sem myndir?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,7 @@
 		<string id="dvd.aspect">Kóðun</string>
 		<string id="dvd.audio">Hljóðrás</string>
 		<string id="dvd.subtitles">Textar</string>
+		<string id="dvd.languages">Töluð tungumál</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +216,7 @@
 		<string id="mymovies.notseen">Stinga bara uppá myndum sem ég hef ekki séð</string>
 		<string id="mymovies.friends">Mínir lánþegar</string>
 		<string id="mymovies.overviewdetail">Ítarlegt yfirlit mynda</string>
+		<string id="mymovies.pdf">Flytja listann út sem PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +342,10 @@
 		<string id="pornstar.name">Nafn</string>
 		<string id="pornstar.web">Vefsíða</string>
 		<string id="pornstar.moviecount">Fjöldi mynda</string>
+		<string id="pornstar.viewall">Sjá alla</string>
+		<string id="pornstar.viewactive">Sjá virka</string>
+		<string id="pornstar.pornstars">Klámstjörnur</string>
+		<string id="pornstar.begin">byrja með stafnum</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -418,5 +431,34 @@
 		<string id="misc.toggle">Breyta forsýn</string>
 		<string id="misc.toggle_on">Á</string>
 		<string id="misc.toggle_off">Af</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Engar myndir hafa verið valdar</string>
+		<string id="js.loanborrower">Veldu lánþega</string>
+		<string id="js.invalidname">Sláðu inn nafn</string>
+		<string id="js.deleteborrower">Eyða lánþega og allri lána sögu?</string>
+		<string id="js.notitle">Það vantar titil</string>
+		<string id="js.noyear">Veldu ár</string>
+		<string id="js.invalid">Vitlaus innsláttur</string>
+		<string id="js.nomediatype">Veldu myndgæði</string>
+		<string id="js.nocategory">Veldu flokk</string>
+		<string id="js.nocdcount">Veldu fjölda diska</string>
+		<string id="js.url">Sláðu inn nákvæma slóð á mynd</string>
+		<string id="js.delete">Eyða færslu?</string>
+		<string id="js.removeactor">Eyða leikara úr leikaralista?</string>
+		<string id="js.norss">Veldu allavegana eina RSS færslu til að halda áfram</string>
+		<string id="js.deletemeta">Eyða aukagögnum og öllum tengdum færslum?</string>
+		<string id="js.noupload">Veldu skrá til að upphala</string>
+		<string id="js.noxmlthumb">Veldu XML skrá fyrir myndir eða afhakaðu við myndaboxið!</string>
+		<string id="js.nocriteria">Skilgreindu betur leitarskilyrði</string>
+		<string id="js.lastcopy">Þetta er eina eintakið í gagnagrunninum.  Upplýsingum um mynd verður eytt.  Halda áfram og eyða?</string>
+		<string id="js.noselection">Veldu allavegana eina mynd til að halda áfram.</string>
+		<string id="js.nomediaselection">Veldu tegund miðils fyrir alla titla.</string>
+		<string id="js.reqname">Vinsamlegast sláið inn fullt nafn.</string>
+		<string id="js.requsername">Vinsamlegast sláið inn notandanafn.</string>
+		<string id="js.requsername3">Notandanafn verður að vera minnst 3 stafir.</string>
+		<string id="js.reqpassword">Lykilorð þarf að vera minnst 5 stafir.</string>
+		<string id="js.reqpassnomatch">Lykilorð stemma ekki!</string>
 	</strings>
 </language>

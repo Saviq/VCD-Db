@@ -254,11 +254,11 @@ function checkFields(form) {
 	var selectedItem = form.borrowers.selectedIndex;
 	var selectedValue = form.borrowers.options[selectedItem].value;
 
-	if (form.id_list.value == "") {
-		alert('No movies have been added to loan');
+	if (form.id_list.value == '') {
+		alert(Trans.late('loanlist'));
 		return false;
-	} else if (selectedValue == "null") {
-		alert('Select somneone to lend the movies');
+	} else if (selectedValue == '') {
+		alert(Trans.late('loanborrower'));
 		return false;
 	} else {
 		return true;
@@ -333,7 +333,7 @@ function deleteBorrower() {
 	var selectionObj = document.getElementById('borrowers');
 	var selectedItem = selectionObj.selectedIndex;
 	var selectedValue = selectionObj.options[selectedItem].value;
-	var message = "Delete borrower and all his loan records?";
+	var message = Trans.late('deleteborrower');
 
 	if (selectedValue != '') {
 		if (confirm(message)) {
@@ -345,7 +345,7 @@ function deleteBorrower() {
 
 function checkBorrower(form){
 	if(form.borrower_name.value == '') {
-		alert('Please enter a name');
+		alert(Trans.late('invalidname'));
 	    form.borrower_name.focus();
 	    return false;
 	}
@@ -362,20 +362,20 @@ function val_Empire(form) {
 
 	checkFieldsRaw(form, 'choiceBox', 'id_list');
 
-	if (form.title.value == "") {
-	    alert('CD title can\'t be empty');
+	if (form.title.value == '') {
+	    alert(Trans.late('notitle'));
 	    form.title.focus();
 	    return false;
 	}
 
-	if (form.year.value == "") {
-	    alert('Year can\'t be empty');
+	if (form.year.value == '') {
+	    alert(Trans.late('noyear'));
 	    form.year.focus();
 	    return false;
 	}
 
 	if (!IsNumeric(form.year.value)) {
-		alert('Year must be numeric');
+		alert(Trans.late('invalid'));
 	    form.year.focus();
 	    return false;
 	}
@@ -385,18 +385,18 @@ function val_Empire(form) {
 	var mcat = form.category.options[form.category.selectedIndex].value;
 	var mcds = form.cds.options[form.cds.selectedIndex].value;
 
-	if (mtyp == "null") {
-		alert('Select media type on your copy');
+	if (mtyp == '') {
+		alert(Trans.late('nomediatype'));
 		return false;
 	}
 
-	if (mcat == "null") {
-		alert('Select main category');
+	if (mcat == '') {
+		alert(Trans.late('nocategory'));
 		return false;
 	}
 
-	if (mcds == "null") {
-		alert('Select number of cd\'s on your copy');
+	if (mcds == '') {
+		alert(Trans.late('nocdcount'));
 		return false;
 	}
 
@@ -408,20 +408,20 @@ function val_Empire(form) {
 
 function val_IMDB(form) {
 
-	if (form.title.value == "") {
-	    alert('CD title can\'t be empty');
+	if (form.title.value == '') {
+	    alert(Trans.late('notitle'));
 	    form.title.focus();
 	    return false;
 	}
 
-	if (form.year.value == "") {
-	    alert('Year can\'t be empty');
+	if (form.year.value == '') {
+	    alert(Trans.late('noyear'));
 	    form.year.focus();
 	    return false;
 	}
 
 	if (!IsNumeric(form.year.value)) {
-		alert('Year must be numeric');
+		alert(Trans.late('invalid'));
 	    form.year.focus();
 	    return false;
 	}
@@ -431,18 +431,18 @@ function val_IMDB(form) {
 	var mcat = form.category.options[form.category.selectedIndex].value;
 	var mcds = form.cds.options[form.cds.selectedIndex].value;
 
-	if (mtyp == "null") {
-		alert('Select media type on your copy');
+	if (mtyp == '') {
+		alert(Trans.late('nomediatype'));
 		return false;
 	}
 
-	if (mcat == "null") {
-		alert('Select main category');
+	if (mcat == '') {
+		alert(Trans.late('nocategory'));
 		return false;
 	}
 
-	if (mcds == "null") {
-		alert('Select number of cd\'s on your copy');
+	if (mcds == '') {
+		alert(Trans.late('nocdcount'));
 		return false;
 	}
 
@@ -521,7 +521,7 @@ return true;
 function goSimilar(form) {
 
 	val = form.similar.options[form.similar.selectedIndex].value;
-	url = './?page=cd&vcd_id='+val;
+	url = '?page=cd&vcd_id='+val;
 	location.href = url;
 }
 
@@ -565,7 +565,7 @@ function changePornstar(pornstar_id) {
 }
 
 function fetchstarimage(star_id) {
-	var promptext = 'Enter exact image url';
+	var promptext = Trans.late('url');
 	linktext = prompt(promptext,'');
 	if (linktext != null) {
 		url = '?page=pornstarmanager&action=fetchimage&pornstar_id='+star_id+'&path='+linktext;
@@ -574,14 +574,14 @@ function fetchstarimage(star_id) {
 }
 
 function deletePornstarImage(pornstar_id) {
-	if (confirm('Sure you want to delete ?')) {
+	if (confirm(Trans.late('delete'))) {
 		url = '?page=pornstarmanager&action=deleteimage&pornstar_id='+pornstar_id;
 		location.href = url;
 	}
 }
 
 function removeActor(pornstar_id, movie_id) {
-	if (confirm('Delete actor from movie?')) {
+	if (confirm(Trans.late('removeactor'))) {
 		url = '?page=manager&vcd_id='+movie_id+'&action=removeactor&actor_id='+pornstar_id;
 		location.href = url;
 	}
@@ -612,7 +612,7 @@ function rssCheck(form) {
 	 	count+=1
 	}
 	if (count == 0) {
-		alert('Select at least one feed to continue');
+		alert(Trans.late('norss'));
 		return false;
 	}
 
@@ -620,14 +620,14 @@ function rssCheck(form) {
 }
 
 function deleteFeed(id) {
-	if (confirm('Sure you want to delete ?')) {
+	if (confirm(Trans.late('delete'))) {
 		url = '?page=settings&action=delrss&rss_id='+id;
 		location.href = url;
 	}
 }
 
 function deleteMetaType(id) {
-	var msg = 'Delete metadata type and all data entered within it?';
+	var msg = Trans.late('deletemeta');
 	if (confirm(msg)) {
 		url = '?page=settings&action=delmetatype&meta_id='+id;
 		location.href=url;
@@ -694,7 +694,7 @@ function showAllMoviesDetailed() {
 
 function checkupload(formvalue) {
 	if (formvalue == "") {
-		alert('Select file to upload');
+		alert(Trans.late('noupload'));
 		return false;
 	} else {
 		return true;
@@ -717,7 +717,7 @@ function showupload(form, layername) {
 
 function checkXMLConfirm(form) {
 	if (form.xmlthumbs.checked && form.xmlthumbfile.value == "") {
-		alert('Select the XML file for the thumbnails\nor uncheck the thumbnails upload checkbox!');
+		alert(Trans.late('noxmlthumbs'));
 		return false;
 	} else {
 		return true;
@@ -736,7 +736,7 @@ function checkAdvanced(form) {
 
 	if (form.title.value == '' && category == 'null' && year == 'null' && mediatype == 'null' && owner == 'null' && rating == 'null')
 	{
-		alert('Please define the search criteria');
+		alert(Trans.late('nocriteria'));
 		return false;
 	}
 
@@ -748,24 +748,24 @@ function checkManually(form) {
 	var mediatype = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var category = form.category.options[form.category.selectedIndex].value;
 
-	if (form.title.value == "") {
-		alert('Select title on your movie');
+	if (form.title.value == '') {
+		alert(Trans.late('notitle'));
 		form.title.focus();
 		return false;
 	}
 
-	if (mediatype == 'null') {
-		alert('Select media type on your movie');
+	if (mediatype == '') {
+		alert(Trans.late('nomediatype'));
 		return false;
 	}
 
-	if (category == 'null') {
-		alert('Select category on your movie');
+	if (category == '') {
+		alert(Trans.late('nocategory'));
 		return false;
 	}
 
-	if (cds == 'null') {
-		alert('Select CD count on your movie');
+	if (cds == '') {
+		alert(Trans.late('nocdcount'));
 		return false;
 	}
 
@@ -774,14 +774,14 @@ function checkManually(form) {
 
 function deleteCopy(usercopies, totalcopies, id, media_id) {
 	if (totalcopies == 1) {
-		var message = "This is the only copy in the database\nAll movie information will be deleted\nContinue and delete?";
+		var message = Trans.late('lastcopy');
 		if (confirm(message)) {
 			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=full';
 			location.href = url;
 		}
 	} else {
 
-		var message = "Delete this copy ?";
+		var message = Trans.late('delete');
 		if (confirm(message)) {
 			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=single';
 			location.href = url;
@@ -793,7 +793,7 @@ function checkListed(form) {
 
 	checkFieldsRaw(form,'choiceBox', 'id_list');
 	if (form.id_list.value == "") {
-		alert('Select at least one movie to proceed');
+		alert(Trans.late('noselection'));
 		return false;
 	} else {
 		return true;
@@ -806,7 +806,7 @@ function confirmListed(form) {
 	if (form.elements[i].type=='select-one') {
     	val = form.elements[i].options[form.elements[i].selectedIndex].value;
         if (val == 'null') {
-        	alert('Select media type for all the titles');
+        	alert(Trans.late('nomediaselection'));
             return false;
          }
       }
@@ -852,19 +852,19 @@ function showonlymine(cat_id) {
 function checkReg(form) {
 
 	if (form.name.value == "") {
-		alert('Please type in your full name.');
+		alert(Trans.late('reqname'));
 		form.name.focus();
 		return false;
 	}
 
 	if (form.username.value == "") {
-		alert('Please select username.');
+		alert(Trans.late('requsername'));
 		form.username.focus();
 		return false;
 	}
 
 	if (form.username.value.length < 3) {
-		alert('Username must be at least 3 characters.');
+		alert(Trans.late('requsername3'));
 		form.username.focus();
 		return false;
 	}
@@ -875,13 +875,13 @@ function checkReg(form) {
 	}
 
 	if (form.password.value.length < 5) {
-		alert('Password needs to be at least 5 characters!');
+		alert(Trans.late('reqpassword'));
 		form.password.focus();
 		return false;
 	}
 
 	if (form.password.value != form.password2.value) {
-		alert('Passwords do not match!');
+		alert(Trans.late('reqpassnomatch'));
 		form.password.focus();
 		return false;
 	}
@@ -1426,7 +1426,8 @@ function doShowScreenshots(response) {
 			oldDiv.innerHTML = '';
 		} catch (ex) {}
 		
-		base = 'upload/screenshots/albums/'+id+'/';
+		var urlbase = replace(jxBase,'index.php','');
+		base = urlbase+'upload/screenshots/albums/'+id+'/';
 		doc = document.body;
 	
 		// create container
