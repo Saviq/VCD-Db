@@ -14,6 +14,7 @@ require_once(BASE .'/classes/includes.php');
 	<li><a href="user.php">User services</a> - <a href="user.php?wsdl">WSDL</a></li>
 	<li><a href="settings.php">Settings services</a> - <a href="settings.php?wsdl">WSDL</a></li>
 	<li><a href="pornstar.php">Pornstar services</a> - <a href="pornstar.php?wsdl">WSDL</a></li>
+	<li><a href="files.php">File services</a> - <a href="files.php?wsdl">WSDL</a></li>
 </ul>
 
 

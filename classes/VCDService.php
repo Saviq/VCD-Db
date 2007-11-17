@@ -2317,6 +2317,49 @@ class PornstarServices extends VCDServices {
 }
 
 /**
+ * Provide access to files on remote VCD-db instance when using webservices.
+ * This Service should only be used when in slave mode/webservice consumer mode.
+ *
+ */
+class FileServices extends VCDServices {
+	
+	/**
+	 * Get Cover contents (binary data) by Id.
+	 *
+	 * @param int $cover_id | The cover ID
+	 * @return string | The base64 encoded image data
+	 */
+	public static function getCover($cover_id) {
+		try {
+			
+			return self::Files()->getCover($cover_id);	
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+		
+	}
+	
+	/**
+	 * Get a single screenshot image (binary data) by movie ID and index
+	 *
+	 * @param int $movie_id | The Movie ID
+	 * @param int $index | The screenshot number
+	 * @return string | The base64 encoded data
+	 */
+	public static function getScreenshot($movie_id, $index) {
+		try {
+			
+			return self::Files()->getScreenshot($movie_id, $index);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
+}
+
+/**
  * Provide the Web UI access to the Movie Services.  All errors that occur beneath this layer
  * are catched here in and displayed in the Web UI.  Since the errors are re-thrown in the 
  * Movie business class, the webservices can now handle its own exception logic and deal with 
@@ -2865,11 +2908,7 @@ abstract class VCDServices {
 	 * @param Exception $ex
 	 */
 	protected static function handleError(Exception $ex) {
-		if (self::$forwardError) {
-			throw $ex;
-		} else {
-			VCDException::display($ex);
-		}
+		throw $ex;
 	}
 	
 	/**
@@ -2937,6 +2976,18 @@ abstract class VCDServices {
 		} else {
 			return VCDClassFactory::getInstance('vcd_settings');	
 		}
+	}
+	
+	/**
+	 * Get an instance of the SoapFilesProxy class.  Only accessible in webservice consumer mode.
+	 *
+	 * @return SoapFilesProxy
+	 */
+	protected static function Files() {
+		if (!self::usingProxy()) {
+			throw new VCDProgramException('This class in only accessible in webservice mode.');
+		}
+		return VCDClassFactory::getInstance('SoapFilesProxy');
 	}
 	
 	protected static function usingProxy() {

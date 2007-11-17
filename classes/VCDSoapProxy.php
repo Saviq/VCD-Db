@@ -384,7 +384,7 @@ class SoapCoverProxy extends VCDProxy {
 	public function getCoverById($cover_id) {
 		try {
 			
-			return VCDSoapTools::GetCoverObj($this->invoke('getCoverById', array('cover_id', $cover_id)));
+			return VCDSoapTools::GetCoverObj($this->invoke('getCoverById', array('cover_id' => $cover_id)));
 			
 		} catch (Exception $ex) {
 			throw $ex;
@@ -1652,6 +1652,44 @@ class SoapAuthenticationProxy extends VCDProxy  {
 			throw $ex;
 		}
 	}
+}
+
+class SoapFilesProxy extends VCDProxy {
+	
+	private $classPrefix = 'SoapFilesServices';
+	
+	public function __construct() {
+		$this->wsdl = VCDDB_SOAPPROXY.'proxy/files.php?wsdl';
+		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/files.php';
+		$this->namespace = 'urn:http://vcddb.konni.com';
+		$this->soapaction = 'urn:FilesServicesAction';
+		parent::__construct();
+	}
+	
+	protected function invoke($action, $params) {
+		return $this->call($action, $params);
+	}
+	
+	public function getCover($cover_id) {
+		try {
+			
+			return $this->invoke('getCover',array('cover_id' => $cover_id));
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	public function getScreenshot($movie_id, $index) {
+		try {
+			
+			return $this->invoke('getScreenshot',array('movie_id' => $movie_id, 'index' => $index));
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
 }
 
 class SoapPornstarProxy extends VCDProxy  {

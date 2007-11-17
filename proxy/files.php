@@ -12,14 +12,14 @@
  * @package Kernel
  * @subpackage WebService
  * @since v.0.90
- * @version $Id: user.php 815 2006-11-05 20:56:51Z konni $
+ * @version $Id: files.php 815 2006-11-05 20:56:51Z konni $
  */
 ?>
 <?php
 require_once(substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)).'/classes/includes.php');
 require_once(substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)).'/classes/VCDSoapService.php');
 
-$ws = new VCDSoapService(VCDSoapService::WSDLUser);
+$ws = new VCDSoapService(VCDSoapService::WSDLFiles);
 $HTTP_RAW_POST_DATA = isset($HTTP_RAW_POST_DATA) ? $HTTP_RAW_POST_DATA : '';
 $ws->provideService($HTTP_RAW_POST_DATA);
 ?>

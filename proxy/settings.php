@@ -12,7 +12,7 @@
  * @package Kernel
  * @subpackage WebService
  * @since v.0.90
- * @version $Id: index.php 815 2006-11-05 20:56:51Z konni $
+ * @version $Id: settings.php 815 2006-11-05 20:56:51Z konni $
  */
 ?>
 <?php

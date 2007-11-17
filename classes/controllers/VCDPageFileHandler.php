@@ -374,6 +374,25 @@ class VCDPageFileHandler extends VCDBasePage {
 		$cover = CoverServices::getCoverById($cover_id);
 		
 		if ($cover instanceof cdcoverObj ) {
+			
+			
+			// If in webservice mode, we migth need to fetch the image stream
+			if (VCDConfig::isUsingWebservice()) {
+				$cachedFilename = $this->checkCache($cover->getFilename());
+				if (is_null($cachedFilename)) {
+					$fileContents = FileServices::getCover($cover_id);
+					$fileDestination = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$cover->getFilename();
+					if (!is_null($fileContents) && VCDUtils::write($fileDestination ,base64_decode($fileContents),false)) {
+						$this->streamFile($fileDestination);						
+					} else {
+						return;
+					}
+				} else {
+					$this->streamFile($cachedFilename);
+					exit();
+				}
+			}
+			
 			if ($cover->isInDB()) {
 				
 				$imageClass = new VCDImage($cover->getImageID());
@@ -480,6 +499,23 @@ class VCDPageFileHandler extends VCDBasePage {
 		
 		return((connection_status()==0) && !connection_aborted());
 		
+	}
+	
+	
+	/**
+	 * Check if file exists in cache folder and return it's path if it does.
+	 * If file does not exist, NULL is returned.
+	 *
+	 * @param string $filename | The filename to check for.
+	 * @return string | The existing filename
+	 */
+	private function checkCache($filename) {
+		$cacheFolder = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER;
+		if (file_exists($cacheFolder.$filename)) {
+			return $cacheFolder.$filename;
+		} else {
+			return null;
+		}
 	}
 	
 }

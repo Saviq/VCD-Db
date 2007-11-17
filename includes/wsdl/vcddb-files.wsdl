@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<definitions name="http://vcddb.konni.com" targetNamespace="urn:http://vcddb.konni.com" xmlns:typens="urn:http://vcddb.konni.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+	<message name="getCover">
+		<part name="cover_id" type="xsd:decimal"/>
+	</message>
+	<message name="getCoverResponse">
+		<part name="getCoverReturn" type="xsd:base64Binary"/>
+	</message>
+	<message name="getScreenshot">
+		<part name="movie_id" type="xsd:decimal"/>
+		<part name="index" type="xsd:decimal"/>
+	</message>
+	<message name="getScreenshotResponse">
+		<part name="getScreenshotReturn" type="xsd:base64Binary"/>
+	</message>
+	<portType name="SoapFilesServicePortType">
+		<operation name="getCover">
+			<documentation>
+				Get Cover by Id
+			</documentation>
+			<input message="typens:getCover"/>
+			<output message="typens:getCoverResponse"/>
+		</operation>
+		<operation name="getScreenshot">
+			<documentation>
+				Get Screenshot by index
+			</documentation>
+			<input message="typens:getScreenshot"/>
+			<output message="typens:getScreenshotResponse"/>
+		</operation>
+	</portType>
+	<binding name="SoapFilesServiceBinding" type="typens:SoapFilesServicePortType">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="getCover">
+			<soap:operation soapAction="urn:SoapFilesServiceAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="getScreenshot">
+			<soap:operation soapAction="urn:SoapFilesServiceAction"/>
+			<input>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body namespace="urn:http://vcddb.konni.com" use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="FilesService">
+		<port name="SoapFilesServicePort" binding="typens:SoapFilesServiceBinding">
+			<soap:address location="http://tempuri"/>
+		</port>
+	</service>
+</definitions>

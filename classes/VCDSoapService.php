@@ -24,7 +24,7 @@ class VCDSoapService extends VCDServices {
 	const WSDLAuth	   = 'vcddb-authentication.wsdl';
 	const WSDLCover	   = 'vcddb-cover.wsdl';
 	const WSDLMovie	   = 'vcddb-movie.wsdl';
-	
+	const WSDLFiles	   = 'vcddb-files.wsdl';
 	
 	/**
 	 * The nusoap server instance
@@ -174,6 +174,10 @@ class VCDSoapService extends VCDServices {
 				case self::WSDLUser:
 					return 'SoapUserServices';
 					break;
+					
+				case self::WSDLFiles:
+					return 'SoapFilesServices';
+					break;
 				
 				default:
 					throw new VCDProgramException('No handler available for wsdl: ' . $wsdl);
@@ -294,7 +298,7 @@ class VCDSoapService extends VCDServices {
 	public static function isAdmin() {
 		try {
 
-			if (!(VCDUtils::isLoggedIn() && (self::$$userObj->isAdmin()))) {
+			if (!(VCDUtils::isLoggedIn() && (self::$userObj->isAdmin()))) {
 				throw new VCDSecurityException('Unauthorized to use this method.');
 			}
 		
@@ -817,6 +821,62 @@ class SoapAuthenticationServices {
 				return false;			
 			}
 	
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+}
+
+class SoapFilesServices extends CoverServices {
+	
+	public static function getCover($cover_id) {
+		try {
+			
+			$cover = parent::getCoverById($cover_id);
+			if ($cover instanceof cdcoverObj) {
+				return $cover->getCoverAsBinary();
+			} else {
+				throw new VCDProgramException('Cover not found');
+			}
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
+	public static function getScreenshot($movie_id, $index) {
+		try {
+			
+			if (!is_numeric($movie_id)) {
+				throw new Exception('Movie id must be numeric');
+			}
+			
+			$folder = VCDDB_BASE.DIRECTORY_SEPARATOR.'upload/screenshots/albums/'.$movie_id;
+			
+			if (!is_dir($folder)) {
+				throw new VCDProgramException('No screenshots available.');
+			}
+			
+			$it = new DirectoryIterator($folder);
+			$i = 0;
+			$fileObj = null;
+			foreach ($it as $file) {
+				if (!$file->isDir()) {
+					if ($i == $index) {
+						$fileObj = file_get_contents($file->getPathname());
+						break;
+					}
+					$i++;
+				}
+			}
+			
+			if (is_null($fileObj)) {
+				throw new VCDInvalidArgumentException('Index out of bounds.');
+			}
+			
+			return base64_encode($fileObj);
+			
+			
 		} catch (Exception $ex) {
 			return VCDSoapService::handleSoapError($ex);
 		}
