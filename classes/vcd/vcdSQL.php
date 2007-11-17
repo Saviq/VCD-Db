@@ -1398,6 +1398,7 @@ class vcdSQL extends VCDConnection {
 				$query .= " AND v.year = ".$year."";
 			} else {
 				$query .= " WHERE v.year = ".$year."";
+				$bCon = true;
 			}
 		}
 
