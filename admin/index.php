@@ -1,7 +1,12 @@
 <?php
 	define('BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
+	if (!defined('VCDDB_BASE')) {
+		define('VCDDB_BASE',BASE);
+	}
+	require_once(BASE.DIRECTORY_SEPARATOR.'classes/pornstar/pornstarUpdater.php');
 	require_once(BASE .'/classes/includes.php');
 	require_once(dirname(__FILE__).'/functions/adminPageFunctions.php');
+	
 		
 	if (!VCDAuthentication::isAdmin()) {
 		VCDException::display("Only administrators have access here");
@@ -1119,6 +1124,7 @@
 			
 			
 			if ($CURRENT_PAGE == 'pornstarsync') {
+				//require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/pornstar/pornstarUpdater.php');
 				require_once('forms/pornstarsync.php');
 			}
 			

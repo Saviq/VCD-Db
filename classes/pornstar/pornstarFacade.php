@@ -17,7 +17,6 @@
 <?php
 require_once(dirname(__FILE__).'/pornstar.php');
 require_once(dirname(__FILE__).'/pornstarSQL.php');
-require_once(dirname(__FILE__).'/pornstarUpdater.php');
 
 interface IPornstar {
 	
