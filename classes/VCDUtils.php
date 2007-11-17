@@ -455,12 +455,10 @@ class VCDUtils {
 				if($b != -1){
 					return true;
 				} else {
-					VCDException::display("Can't write File [no fwrite]");
-					return false;
+					throw new VCDProgramException("Can't write File [no fwrite]");
 				}
 			} else {
-				VCDException::display("Cant write File [no filename | no content]");
-				return false;
+				throw new VCDProgramException('Cant write File [no filename | no content]');
 			}
 		}
 
