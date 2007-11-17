@@ -226,15 +226,9 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	 * @return string | The img src source
 	 */
 	public function showImage() {
-		$html = "";
 			
 		$img = '<img src="%s" alt="" name="%s" class="imgx" border="0"/>';
-		if (VCDDB_USEPROXY==1) {
-			$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
-		} else {
-			$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
-		}
-		
+		$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $this->covertypeName);
 		return $html;
 	}
 
