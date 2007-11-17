@@ -194,6 +194,12 @@ class VCDAjaxHelper {
 	}
 	
 	
+	/**
+	 * Get list of all available screenshots for a specific movie
+	 *
+	 * @param int $movie_id | The movie ID
+	 * @return array | Array of screenshot names
+	 */
 	public static function getScreenshots($movie_id) {
 		try {
 			
@@ -223,6 +229,13 @@ class VCDAjaxHelper {
 	}
 	
 	
+	/**
+	 * Get data for random movie selection
+	 *
+	 * @param int $category_id | The category ID to limit to
+	 * @param bool $seenlist | Use the seenlist or not
+	 * @return array | The movie item results
+	 */
 	public static function getRandomMovie($category_id, $seenlist=false) {
 		try {
 			
@@ -247,6 +260,12 @@ class VCDAjaxHelper {
 		}
 	}
 	
+	/**
+	 * Get a image src link for a specific country flag
+	 *
+	 * @param string $code | The country code
+	 * @return string | The image src
+	 */
 	public static function getCountryFlag($code) {
 		try {
 			
