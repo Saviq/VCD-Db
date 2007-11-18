@@ -197,8 +197,8 @@ class Installer {
 					
 					
 				case 'mbstring':
-					$results['status'] = (int)function_exists('mb_check_encoding');
-					if (function_exists('mb_check_encoding')) {
+					$results['status'] = (int)function_exists('mb_convert_encoding');
+					if (function_exists('mb_convert_encoding')) {
 						$results['results'] = "Multibyte String functions enabled";	
 					} else {
 						$results['results'] = "Multibyte String functions NOT enabled";
