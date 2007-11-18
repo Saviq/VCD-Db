@@ -18,7 +18,6 @@
 <?php
 class VCDPageCategoryList extends VCDBasePage {
 	
-	
 	private $category_id;
 	private $recordsPerPage;
 	private $recordCount;
@@ -28,19 +27,22 @@ class VCDPageCategoryList extends VCDBasePage {
 	private $imageMode = false;
 		
 	public function __construct(_VCDPageNode $node) {
+		try {
 		
-		parent::__construct($node);
-		$this->initPage();
-			
-		if ($this->imageMode) {
-			$this->doImageList();
-		} else {
-			$this->doTextList();	
-		}
-
-		$this->doPager();
+			parent::__construct($node);
+			$this->initPage();
 				
+			if ($this->imageMode) {
+				$this->doImageList();
+			} else {
+				$this->doTextList();	
+			}
 	
+			$this->doPager();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 		
 	/**
@@ -102,7 +104,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	 * Initilize all the varibles the page needs to calculate which data to display
 	 *
 	 */
-	protected function initPage() {
+	private function initPage() {
 		
 		$this->category_id = $this->getParam('category_id',false,-1);
 		if (strcmp($this->getParam('action'),'onlymine')==0) {
@@ -167,7 +169,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	 *
 	 * @return bool
 	 */
-	protected function setViewMode() {
+	private function setViewMode() {
 		$mode = $this->getParam('viewmode');
 		if (is_null($mode)) {
 			return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);

@@ -16,7 +16,6 @@
  */
 ?>
 <?php
-require_once(dirname(__FILE__).'/VCDPageCategoryList.php');
 class VCDPageCategoryListAdult extends VCDBasePage {
 	
 	private $isCategoryList = false;
@@ -30,29 +29,33 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	private $imageMode = false;
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
+		try {
 		
-		$this->initPage();
+			parent::__construct($node);
 		
-		// Register javascripts
-		$this->registerScript(self::$JS_JSON);
-		$this->registerScript(self::$JS_AJAX);
-		$this->registerScript(self::$JS_LYTE);
-		
-		// Load the correct data in the dropdown list
-		$this->doSelectionList();
-		
-		// Load the selected list view
-		if ($this->imageMode) {
-			$this->doImageList();
-		} else {
-			$this->doTextList();	
-		}
+			$this->initPage();
+			
+			// Register javascripts
+			$this->registerScript(self::$JS_JSON);
+			$this->registerScript(self::$JS_AJAX);
+			$this->registerScript(self::$JS_LYTE);
+			
+			// Load the correct data in the dropdown list
+			$this->doSelectionList();
+			
+			// Load the selected list view
+			if ($this->imageMode) {
+				$this->doImageList();
+			} else {
+				$this->doTextList();	
+			}
+					
+			// Do the pager
+			$this->doPager();
 				
-		// Do the pager
-		$this->doPager();
-						
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	
@@ -86,6 +89,10 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Populate the text based list
+	 *
+	 */
 	private function doTextList() {
 		
 		$results = array();
@@ -107,11 +114,15 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 		
 		
 		$this->assign('movieList',$results);
-		
-		
 	}
 	
 	
+	/**
+	 * Filter out correct items to display
+	 *
+	 * @param array $items | Array of vcd Objects
+	 * @return array | The filtered array
+	 */
 	private function doFilter(&$items) {
 		$newarr = array();
 		$start = $this->page*$this->recordsPerPage;
@@ -224,7 +235,7 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	 * Initialize the Controller based on which data to display
 	 *
 	 */
-	protected function initPage() {
+	private function initPage() {
 		
 		$category_id = $this->getParam('category_id');
 		$studio_id = $this->getParam('studio_id');
@@ -280,11 +291,6 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	 *
 	 * @return bool
 	 */
-	/**
-	 * Figure out the current viewmode for the category display style
-	 *
-	 * @return bool
-	 */
 	private function setViewMode() {
 		$mode = $this->getParam('viewmode');
 		if (is_null($mode)) {
@@ -302,6 +308,5 @@ class VCDPageCategoryListAdult extends VCDBasePage {
 	
 	
 }
-
 
 ?>
