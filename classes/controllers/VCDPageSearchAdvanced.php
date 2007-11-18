@@ -19,16 +19,19 @@
 class VCDPageSearchAdvanced extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
-		$this->doCategoryList();
-		$this->doYearList();
-		$this->doMediatypeList();
-		$this->doOwnersList();
-		$this->doGradeList();
-		
-		if (!is_null($this->getParam('s'))) {
-			$this->doSearch();
+		try {
+			parent::__construct($node);
+			$this->doCategoryList();
+			$this->doYearList();
+			$this->doMediatypeList();
+			$this->doOwnersList();
+			$this->doGradeList();
+			
+			if (!is_null($this->getParam('s'))) {
+				$this->doSearch();
+			}	
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
 	}
 	

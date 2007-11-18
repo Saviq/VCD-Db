@@ -309,15 +309,8 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	 */
 	public function getCategoryImageAndLink($url, $title = '', $width=100, $heigth=145) {
 		
-		$html = "";
 		$img = '<img src="%s" alt="%s" title="%s" class="imgx" width="%d" height="%d" border="0"/>';
-		if (VCDDB_USEPROXY==1) {
-			$html = sprintf($img, VCDDB_SOAPPROXY.'?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
-		} else {
-			$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
-		}
-				
-				
+		$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
 		$link = '<a href="%s">%s</a>';
 		return sprintf($link, $url, $html);
 		

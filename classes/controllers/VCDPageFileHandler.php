@@ -378,11 +378,11 @@ class VCDPageFileHandler extends VCDBasePage {
 			
 			// If in webservice mode, we migth need to fetch the image stream
 			if (VCDConfig::isUsingWebservice()) {
-				$cachedFilename = $this->checkCache($cover->getFilename());
+				$cachedFilename = $this->checkCache($cover_id, $cover->getFilename());
 				if (is_null($cachedFilename)) {
 					$fileContents = FileServices::getCover($cover_id);
-					$fileDestination = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$cover->getFilename();
-					if (!is_null($fileContents) && VCDUtils::write($fileDestination ,base64_decode($fileContents),false)) {
+					$fileDestination = $this->cacheFile($cover_id, $cover->getFilename(), $fileContents);
+					if (!is_null($fileDestination)) {
 						$this->streamFile($fileDestination);						
 					} else {
 						return;
@@ -509,10 +509,32 @@ class VCDPageFileHandler extends VCDBasePage {
 	 * @param string $filename | The filename to check for.
 	 * @return string | The existing filename
 	 */
-	private function checkCache($filename) {
+	private function checkCache($cover_id, $filename) {
 		$cacheFolder = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER;
-		if (file_exists($cacheFolder.$filename)) {
-			return $cacheFolder.$filename;
+		$cachedFilename = $cacheFolder.$cover_id.'-'.$filename;
+		if (file_exists($cachedFilename)) {
+			return $cachedFilename;
+		} else {
+			return null;
+		}
+	}
+	
+	
+	/**
+	 * Write file to the cache folder and store for future use.
+	 * Returns null if $contents are null or writing to disk failes.
+	 *
+	 * @param int $cover_id | The coverID of the image
+	 * @param string $filename | The cover filename
+	 * @param string $contents | The cover binary data contents
+	 * @return string | The path to file on filesystem.
+	 */
+	private function cacheFile($cover_id, $filename, $contents=null) {
+		if (is_null($contents)) return null;
+		
+		$fileDestination = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$cover_id.'-'.$filename;
+		if (VCDUtils::write($fileDestination ,base64_decode($contents),false)) {
+			return $fileDestination;
 		} else {
 			return null;
 		}
