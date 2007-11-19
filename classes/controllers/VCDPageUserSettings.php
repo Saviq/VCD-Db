@@ -19,45 +19,49 @@
 class VCDPageUserSettings extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
+		try {
+			
+			parent::__construct($node);
+			
+			// Register javascripts
+			$this->registerScript(self::$JS_JSON);
+			$this->registerScript(self::$JS_AJAX);
+			
+			// populate basic userdata
+			$this->assign('fullname', VCDUtils::getCurrentUser()->getFullname());
+			$this->assign('username', VCDUtils::getCurrentUser()->getUsername());
+			$this->assign('email', VCDUtils::getCurrentUser()->getEmail());
 		
-		parent::__construct($node);
-		
-		// Register javascripts
-		$this->registerScript(self::$JS_JSON);
-		$this->registerScript(self::$JS_AJAX);
-		
-		// populate basic userdata
-		$this->assign('fullname', VCDUtils::getCurrentUser()->getFullname());
-		$this->assign('username', VCDUtils::getCurrentUser()->getUsername());
-		$this->assign('email', VCDUtils::getCurrentUser()->getEmail());
-	
-		// Check for get parameters
-		$this->doGet();
-				
-		// populate user properties
-		$this->doProperties();
-		
-		// populate available page styles
-		$this->doTemplates();
-		
-		// populate the borrowerlist
-		$this->doBorrowers();
-		
-		// populate the RSS Feed list
-		$this->doFeedList();
-		
-		// populate the frontpage settings
-		$this->doFrontpageSettings();
-		
-		// populate the default DVD Settings
-		$this->doDVDSettings();
-		
-		// populate my metadata
-		$this->doMetadata();
-		
-		// populate the ignorelist
-		$this->doIgnoreList();
+			// Check for get parameters
+			$this->doGet();
 					
+			// populate user properties
+			$this->doProperties();
+			
+			// populate available page styles
+			$this->doTemplates();
+			
+			// populate the borrowerlist
+			$this->doBorrowers();
+			
+			// populate the RSS Feed list
+			$this->doFeedList();
+			
+			// populate the frontpage settings
+			$this->doFrontpageSettings();
+			
+			// populate the default DVD Settings
+			$this->doDVDSettings();
+			
+			// populate my metadata
+			$this->doMetadata();
+			
+			// populate the ignorelist
+			$this->doIgnoreList();
+		
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

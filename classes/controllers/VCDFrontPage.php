@@ -26,28 +26,30 @@ class VCDFrontPage extends VCDBasePage {
 	private $rssFetch=null;
 	
 	public function __construct(_VCDPageNode $node) {
+		try {
 		
-		parent::__construct($node);
-		
-		
-		if (VCDUtils::isLoggedIn()) {
-			
-			if (is_null($this->rssFetch)) {
-				$this->rssFetch = new lastRSS(CACHE_FOLDER,RSS_CACHE_TIME);
-				$this->rssFetch->cp = 'UTF-8';
+			parent::__construct($node);
+
+			if (VCDUtils::isLoggedIn()) {
+				
+				if (is_null($this->rssFetch)) {
+					$this->rssFetch = new lastRSS(CACHE_FOLDER,RSS_CACHE_TIME);
+					$this->rssFetch->cp = 'UTF-8';
+				}
+				
+				$this->doUserRssList();
+				
+				$this->registerScript(self::$JS_AJAX);
+				$this->registerScript(self::$JS_JSON);
+				
 			}
 			
-			$this->doUserRssList();
-			
-			$this->registerScript(self::$JS_AJAX);
-			$this->registerScript(self::$JS_JSON);
-			
+			$this->doTopTenLists();
+			$this->doSiteStatistics();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-		$this->doTopTenLists();
-		$this->doSiteStatistics();
-		
-		
 	}
 	
 	private function doTopTenLists() {

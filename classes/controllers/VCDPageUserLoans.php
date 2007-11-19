@@ -23,19 +23,21 @@
 class VCDPageUserLoans extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
+		try {
+			
+			parent::__construct($node);
 				
-		$this->doGet();
-		
-		if (!is_null($this->getParam('history'))) {
-			$this->initHistoryPage();
-		} else {
-			$this->initPage();	
+			$this->doGet();
+			
+			if (!is_null($this->getParam('history'))) {
+				$this->initHistoryPage();
+			} else {
+				$this->initPage();	
+			}
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-	
-		
 	}
 	
 	/**

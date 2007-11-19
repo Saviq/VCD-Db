@@ -19,11 +19,14 @@
 class VCDPageSearch extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
-		
-		$this->handleSearchResults();
-		
+		try {
+			
+			parent::__construct($node);
+			$this->handleSearchResults();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

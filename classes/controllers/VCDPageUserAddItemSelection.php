@@ -19,14 +19,18 @@
 class VCDPageUserAddItemSelection extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
+		try {
+			
+			parent::__construct($node);
 	
-		$this->doFetchSiteList();
-	
-		// Set the max fileSize
-		$this->assign('maxFileSize', ini_get('upload_max_filesize'));
+			$this->doFetchSiteList();
 		
+			// Set the max fileSize
+			$this->assign('maxFileSize', ini_get('upload_max_filesize'));
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

@@ -19,15 +19,18 @@
 class VCDPageUserWishlist extends VCDBasePage  {
 	
 	public function __construct(_VCDPageNode $node) {
+		try {
+			parent::__construct($node);
 		
-		parent::__construct($node);
-		
-		if (strcmp($this->getParam('action'),'delete')==0) {
-			$this->doDeleteFromWishlist();
+			if (strcmp($this->getParam('action'),'delete')==0) {
+				$this->doDeleteFromWishlist();
+			}
+			
+			$this->assign('wishList',SettingsServices::getWishList(VCDUtils::getUserID()));	
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-		$this->assign('wishList',SettingsServices::getWishList(VCDUtils::getUserID()));
-
 	}
 
 	

@@ -21,24 +21,27 @@ class VCDPageUserStatistics extends VCDBasePage  {
 	private $graphType = 5;
 	
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
-		
-		if ($this->getParam('view') == 'gfx') {
+		try {
 			
-			$options = array(2,3,4,5);
-			$type = $this->getParam('c',false,$this->graphType);
-			if (is_numeric($type) && in_array($type, $options)) {
-				$this->graphType = $type;
+			parent::__construct($node);
+		
+			if ($this->getParam('view') == 'gfx') {
+				
+				$options = array(2,3,4,5);
+				$type = $this->getParam('c',false,$this->graphType);
+				if (is_numeric($type) && in_array($type, $options)) {
+					$this->graphType = $type;
+				}
+				
+				$this->doGraphs();
+				
+			} else {
+				$this->doTables();
 			}
-			
-			$this->doGraphs();
-			
-		} else {
-			$this->doTables();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-		
 	}
 	
 	private function doGraphs() {

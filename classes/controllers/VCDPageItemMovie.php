@@ -20,13 +20,18 @@ require_once(dirname(__FILE__).'/VCDPageBaseItem.php');
 class VCDPageItemMovie extends VCDPageBaseItem  {
 	
 	public function __construct(_VCDPageNode $node) {
-				
-		parent::__construct($node);
+		try {
+			
+			parent::__construct($node);
 
-		if (!is_null($this->sourceObj))	{
-			$this->doSourceSiteElements();
-			$this->doCast();
-			$this->doImdbLinks();
+			if (!is_null($this->sourceObj))	{
+				$this->doSourceSiteElements();
+				$this->doCast();
+				$this->doImdbLinks();
+			}	
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
 	}
 		

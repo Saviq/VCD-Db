@@ -19,12 +19,16 @@
 class VCDPageUserPlayerBrowse extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
-		if (!is_null($this->getParam('field'))) {
-			$this->assign('fieldname', $this->getParam('field'));
+		try {
+			
+			parent::__construct($node);
+			if (!is_null($this->getParam('field'))) {
+				$this->assign('fieldname', $this->getParam('field'));
+			}
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
 	}
 }
 

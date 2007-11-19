@@ -26,17 +26,22 @@ class VCDPagePornstarSelector extends VCDBasePage {
 	private $itemId = null;
 	
 	public function __construct(_VCDPageNode $node) {
-		parent::__construct($node);
-		$this->itemId = $this->getParam('vcd_id');
-		if (is_null($this->itemId)) {
-			throw new VCDInvalidArgumentException('Invalid caller Id.');
-		}
+		try {
 		
-		// Register javascripts ..
-		$this->registerScript(self::$JS_MAIN);
-		
-		$this->initPage();
+			parent::__construct($node);
+			$this->itemId = $this->getParam('vcd_id');
+			if (is_null($this->itemId)) {
+				throw new VCDInvalidArgumentException('Invalid caller Id.');
+			}
+			
+			// Register javascripts ..
+			$this->registerScript(self::$JS_MAIN);
+			
+			$this->initPage();
 				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

@@ -19,19 +19,23 @@
 class VCDPageUserPrintview extends VCDBasePage  {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
+		try {
 		
-		$action = $this->getParam('mode');
-		switch ($action) {
-			case 'text':
-				$this->doPrintViewText();
-				break;
-			default:
-				$this->doPrintViewImages($action);
-				break;
-		}
+			parent::__construct($node);
+		
+			$action = $this->getParam('mode');
+			switch ($action) {
+				case 'text':
+					$this->doPrintViewText();
+					break;
+				default:
+					$this->doPrintViewImages($action);
+					break;
+			}
 				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	private function doPrintViewImages($listType) {

@@ -19,15 +19,19 @@
 class VCDPageUserCollectionOverview extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
+		try {
 		
-		parent::__construct($node);
-		/*
-		if (!$this->initPage()) {
-			VCDException::display('You have not added any movies yet<break>Try again after you have inserted some movies');
-		}
-		*/
-		$this->initPage();
+			parent::__construct($node);
+			/*
+			if (!$this->initPage()) {
+				throw new VCDProgramException('You have not added any movies yet<break>Try again after you have inserted some movies');
+			}
+			*/
+			$this->initPage();
 				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

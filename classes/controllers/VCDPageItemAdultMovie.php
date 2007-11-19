@@ -22,25 +22,30 @@ class VCDPageItemAdultMovie extends VCDPageBaseItem  {
 	private $hasScreenshots = false;	
 	
 	public function __construct(_VCDPageNode $node) {
-				
-		parent::__construct($node);
+		try {
+		
+			parent::__construct($node);
 
-		if (!is_null($this->sourceObj))	{
-			$this->doSourceSiteElements();
-		}
-		
-		// do the pornstar list
-		$this->doActorList();
-		// do the studio item
-		$this->doStudio();
-		// do the adult categories
-		$this->doCategories();
-		// Set the screenshot view option
-		$this->doScreenshots();
-		
-		if ($this->hasScreenshots) {
-			$this->registerScript(self::$JS_JSON);
-			$this->registerScript(self::$JS_AJAX);
+			if (!is_null($this->sourceObj))	{
+				$this->doSourceSiteElements();
+			}
+			
+			// do the pornstar list
+			$this->doActorList();
+			// do the studio item
+			$this->doStudio();
+			// do the adult categories
+			$this->doCategories();
+			// Set the screenshot view option
+			$this->doScreenshots();
+			
+			if ($this->hasScreenshots) {
+				$this->registerScript(self::$JS_JSON);
+				$this->registerScript(self::$JS_AJAX);
+			}
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
 	}
 	

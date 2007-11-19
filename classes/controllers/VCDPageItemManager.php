@@ -55,26 +55,31 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	private $tabsAdultMovie = array('basic','adult','adultcast','covers','dvd','metadata'); 
 	
 	public function __construct(_VCDPageNode $node) {
-
-		// Tell parent not to load the extended properties
-		$this->skipExtended = true;
-		parent::__construct($node);
+		try {
 		
-		
-		// Register javascripts
-		$this->registerScript(self::$JS_TABS);
-		$this->registerScript(self::$JS_MAIN);
-		$this->registerScript(self::$JS_LANG);
-		
-		// Check for get parameters
-		$this->doGet();
-		
-		if (is_numeric($this->getParam('dvd'))) {
-			$this->dvdId = $this->getParam('dvd');
+			// Tell parent not to load the extended properties
+			$this->skipExtended = true;
+			parent::__construct($node);
+			
+			
+			// Register javascripts
+			$this->registerScript(self::$JS_TABS);
+			$this->registerScript(self::$JS_MAIN);
+			$this->registerScript(self::$JS_LANG);
+			
+			// Check for get parameters
+			$this->doGet();
+			
+			if (is_numeric($this->getParam('dvd'))) {
+				$this->dvdId = $this->getParam('dvd');
+			}
+			
+			$this->initTabs();
+			$this->initPage();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-		$this->initTabs();
-		$this->initPage();
 	}
 	
 	/**

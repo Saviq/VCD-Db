@@ -27,25 +27,30 @@ class VCDPagePornstars extends VCDBasePage {
 	 * @param _VCDPageNode $node
 	 */
 	public function __construct(_VCDPageNode $node) {
+		try {
 		
-		parent::__construct($node);
+			parent::__construct($node);
 		
-		$this->doAlphabetList();
-
-		$this->letter = $this->getParam('l',false,'a');
-		$this->viewMode = $this->getParam('viewmode',false,'text');
-		
-		$this->assign('view',$this->getParam('view'));
-		$this->assign('mode',$this->viewMode);
-		
-		$letter = $this->getParam('l');
-		if (!is_null($letter)) {
-			$this->assign('selectedLetter',$letter);
-			if (strcmp($this->viewMode,'img') == 0) {
-				$this->doImageList($this->letter);
-			} else {
-				$this->doTextList($this->letter);	
+			$this->doAlphabetList();
+	
+			$this->letter = $this->getParam('l',false,'a');
+			$this->viewMode = $this->getParam('viewmode',false,'text');
+			
+			$this->assign('view',$this->getParam('view'));
+			$this->assign('mode',$this->viewMode);
+			
+			$letter = $this->getParam('l');
+			if (!is_null($letter)) {
+				$this->assign('selectedLetter',$letter);
+				if (strcmp($this->viewMode,'img') == 0) {
+					$this->doImageList($this->letter);
+				} else {
+					$this->doTextList($this->letter);	
+				}
 			}
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
 	}
 	

@@ -19,10 +19,15 @@
 class VCDPageUserWishlists extends VCDBasePage  {
 	
 	public function __construct(_VCDPageNode $node) {
+		try {
 		
-		parent::__construct($node);
+			parent::__construct($node);
 		
-		$this->doWishlists();
+			$this->doWishlists();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

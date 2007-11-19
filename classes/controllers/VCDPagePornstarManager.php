@@ -26,19 +26,23 @@ class VCDPagePornstarManager extends VCDBasePage {
 	private $pornstarObj = null;
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
-	
-		$pornstarObj = PornstarServices::getPornstarByID($this->getParam('pornstar_id'));
-		if (!$pornstarObj instanceof pornstarObj ) {
-			throw new VCDProgramException('Invalid pornstar Id.');
-		}
-		$this->pornstarObj = $pornstarObj;
-		$this->doPornstar();
+		try {
 			
-		// Check for _GET requests
-		$this->doGet();
-		
+			parent::__construct($node);
+	
+			$pornstarObj = PornstarServices::getPornstarByID($this->getParam('pornstar_id'));
+			if (!$pornstarObj instanceof pornstarObj ) {
+				throw new VCDProgramException('Invalid pornstar Id.');
+			}
+			$this->pornstarObj = $pornstarObj;
+			$this->doPornstar();
+				
+			// Check for _GET requests
+			$this->doGet();
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 		
 	

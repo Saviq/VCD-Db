@@ -27,14 +27,18 @@ class VCDPageScreenshots extends VCDBasePage  {
 	
 	
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
-		$this->registerScript(self::$JS_MAIN);
-
-		$this->itemObj = MovieServices::getVcdByID($this->getParam('vcd_id'));
-		$this->assign('itemTitle', $this->itemObj->getTitle());
-		$this->assign('itemId',$this->itemObj->getID());
-		
+		try {
+			
+			parent::__construct($node);
+			$this->registerScript(self::$JS_MAIN);
+	
+			$this->itemObj = MovieServices::getVcdByID($this->getParam('vcd_id'));
+			$this->assign('itemTitle', $this->itemObj->getTitle());
+			$this->assign('itemId',$this->itemObj->getID());	
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

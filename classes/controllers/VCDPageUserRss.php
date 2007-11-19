@@ -19,12 +19,13 @@
 class VCDPageUserRss extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
-				
-		$this->doRssFeeds();
-	
-		
+		try {
+			parent::__construct($node);
+			$this->doRssFeeds();	
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	/**

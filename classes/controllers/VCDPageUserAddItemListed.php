@@ -21,12 +21,15 @@ class VCDPageUserAddItemListed extends VCDBasePage {
 	public function __construct(_VCDPageNode $node) {
 
 		parent::__construct($node);
-
-		// Only initialize base values if no action is taking place
-		if (is_null($this->getParam('action'))) {
-			$this->initPage();	
-		}
-		
+			try {
+				// Only initialize base values if no action is taking place
+				if (is_null($this->getParam('action'))) {
+					$this->initPage();	
+				}		
+				
+			} catch (Exception $ex) {
+				VCDException::display($ex);
+			}
 	}
 	
 	/**

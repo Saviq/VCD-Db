@@ -19,11 +19,15 @@
 class VCDPageUserAddItemManually extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
+		try {
+			
+			parent::__construct($node);
 		
-		$this->doInitPage();
-	
+			$this->doInitPage();
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	

@@ -20,6 +20,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 	
 	public function __construct(_VCDPageNode $node) {
 		try {
+			
 			parent::__construct($node);
 			$this->doCategoryList();
 			$this->doYearList();
@@ -30,6 +31,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			if (!is_null($this->getParam('s'))) {
 				$this->doSearch();
 			}	
+			
 		} catch (Exception $ex) {
 			VCDException::display($ex);
 		}

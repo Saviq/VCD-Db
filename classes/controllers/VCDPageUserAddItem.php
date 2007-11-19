@@ -33,18 +33,21 @@ class VCDPageUserAddItem extends VCDBasePage {
 	private $fetchClass = null;
 	
 	public function __construct(_VCDPageNode $node) {
+		try {
+			
+			parent::__construct($node);
 		
-		parent::__construct($node);
-		
-		// Register javascript
-		$this->registerScript(self::$JS_JSON);
-		$this->registerScript(self::$JS_AJAX);
-		
-		if (sizeof($_POST) == 0) {
-			$this->handleRequest();
+			// Register javascript
+			$this->registerScript(self::$JS_JSON);
+			$this->registerScript(self::$JS_AJAX);
+			
+			if (sizeof($_POST) == 0) {
+				$this->handleRequest();
+			}
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-
 	}
 	
 	

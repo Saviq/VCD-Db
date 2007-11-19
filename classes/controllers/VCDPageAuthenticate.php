@@ -25,15 +25,12 @@ class VCDPageAuthenticate extends VCDBasePage {
 		// Only for users not authenticated
 		if (VCDUtils::isLoggedIn()) {
 			redirect();
-			exit();
 		}
 		
 		// Only accept post ..
 		if (sizeof($_POST)==0 && (strcmp($this->getParam('action'),'retry')!=0)) {
 			redirect();
-			exit();
 		}	
-		
 	}
 	
 	

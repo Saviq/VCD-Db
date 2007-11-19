@@ -19,10 +19,14 @@
 class VCDPageUserMyMovies extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
-		
-		parent::__construct($node);
-		$this->initPage();
-		
+		try {
+			
+			parent::__construct($node);
+			$this->initPage();	
+			
+		} catch (Exception $ex) {
+			VCDException::display($ex);
+		}
 	}
 	
 	/**

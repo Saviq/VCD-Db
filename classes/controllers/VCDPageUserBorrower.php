@@ -19,13 +19,17 @@
 class VCDPageUserBorrower extends VCDBasePage {
 
 	public function __construct(_VCDPageNode $node) {
+		try {
+			
+			parent::__construct($node);
 		
-		parent::__construct($node);
-		
-		// Register javascripts
-		$this->registerScript(self::$JS_MAIN);
-		$this->registerScript(self::$JS_LANG);
+			// Register javascripts
+			$this->registerScript(self::$JS_MAIN);
+			$this->registerScript(self::$JS_LANG);
 				
+		} catch (Exception $ex) {
+			VCDException::display($ex);	
+		}	
 	}
 	
 	/**

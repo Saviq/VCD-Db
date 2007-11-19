@@ -19,23 +19,25 @@
 class VCDPageRegister extends VCDBasePage  {
 	
 	public function __construct(_VCDPageNode $node) {
-
-		parent::__construct($node);
+		try {
 		
-		// Already logged in user has no business using this page ..
-		if (VCDUtils::isLoggedIn()) {
-			redirect();
-			exit();
+			parent::__construct($node);
+		
+			// Already logged in user has no business using this page ..
+			if (VCDUtils::isLoggedIn()) {
+				redirect();
+			}
+			
+			// Check if registration is enabled
+			$canRegister = SettingsServices::getSettingsByKey("ALLOW_REGISTRATION");
+			if ($canRegister) {
+				$this->append('registrationOpen', true);
+				$this->doUserProperties();
+			}
+				
+		} catch (Exception $ex) {
+			VCDException::display($ex);
 		}
-		
-		
-		// Check if registration is enabled
-		$canRegister = SettingsServices::getSettingsByKey("ALLOW_REGISTRATION");
-		if ($canRegister) {
-			$this->append('registrationOpen', true);
-			$this->doUserProperties();
-		}
-		
 	}
 	
 	
