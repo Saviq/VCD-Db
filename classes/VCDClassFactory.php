@@ -74,9 +74,8 @@ final class VCDClassFactory {
 			} else {
 				throw new Exception($instance_name . " is an unknown class");
 			}
-		} catch (Exception $e) {
-			VCDException::display($e);
-			die();
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 	
@@ -133,7 +132,7 @@ final class VCDClassFactory {
 			
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	

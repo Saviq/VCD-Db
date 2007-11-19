@@ -163,8 +163,8 @@ class VCDConnection {
 		try {
 			$query = "SELECT {$column_name} FROM {$table_name} ORDER BY {$column_name} DESC LIMIT 1";
 			return $this->db->getOne($query);
-		} catch (Exception $e) {
-			VCDException::display($e);
+		} catch (Exception $ex) {
+			throw $ex;
 		}
 	}
 

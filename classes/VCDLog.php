@@ -60,7 +60,7 @@ class VCDLog {
 		try {
 			return VCDClassFactory::getInstance('logSQL')->getLogEntries($numrows, $offset, $item_filter);
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	
@@ -85,7 +85,7 @@ class VCDLog {
 						
 		
 		} catch (Exception $ex) {
-			VCDException::display($ex);	
+			throw $ex;
 		}		
 	}
 	
@@ -120,7 +120,7 @@ class VCDLog {
 			return false;
 		
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}		
 	}
 	
@@ -138,7 +138,7 @@ class VCDLog {
 			return VCDClassFactory::getInstance('logSQL')->getLogCount($item_filter);
 		
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	
@@ -151,7 +151,7 @@ class VCDLog {
 		try {
 			VCDClassFactory::getInstance('logSQL')->clearLog();
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	
@@ -201,7 +201,7 @@ class VCDLog {
 
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	

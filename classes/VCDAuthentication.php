@@ -151,7 +151,7 @@
 					
 				}
 			} catch (Exception $ex) {
-				VCDException::display($ex->getMessage());
+				throw $ex;
 			}
 		}
 		
@@ -283,10 +283,8 @@
 								
 			
 			} catch (Exception $ex) {
-				VCDException::display($ex, true);
-				exit();
+				throw $ex;
 			}
-			
 		}
 		
 		/**
@@ -463,8 +461,7 @@
 			
 			
 			} catch (Exception $ex) {
-				VCDException::display($ex);
-				exit();
+				throw $ex;
 			}
 		}
 	}

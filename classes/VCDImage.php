@@ -184,7 +184,7 @@ class VCDImage {
 			
 			
 		} catch (Exception $ex)	{
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	

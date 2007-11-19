@@ -1,4 +1,4 @@
-<?
+<?php
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
 	require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/includes.php');
 	
