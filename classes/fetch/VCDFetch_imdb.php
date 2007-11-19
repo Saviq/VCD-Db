@@ -26,7 +26,8 @@ class VCDFetch_imdb extends VCDFetch {
 		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
-		'cast' 		=> '<td class="nm"><a href="/name/nm([^"]+)/">([^<]*)</a></td><td class="ddd"> ... </td><td class="char">(<a href="/character/ch([^<]*)/">([^"]+)</a>|[^<]*)</td>',
+		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
+		//'cast' 		=> '/<a href="\/name\/nm([^"]+)\/">([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/',
 		'runtime' 	=> '([0-9]+) min',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
 		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
@@ -72,7 +73,7 @@ class VCDFetch_imdb extends VCDFetch {
 
 		$obj = new imdbObj();
 		$obj->setIMDB($this->getItemID());
-
+		
 		foreach ($this->workerArray as $key => $data) {
 
 			$entry = $data[0];
@@ -115,15 +116,10 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'cast':
-					$arr = null;
-					$arr = array();
-					foreach ($arrData as $itemArr) {
-						$actor = $itemArr[2];
-						$role = strip_tags($itemArr[3]);
-						$result = $actor." .... " .$role;
-						array_push($arr, $result);
+					// The cast list has been populated in the fetchDeeper function
+					if (is_array($arrData)) { 
+						$obj->setCast($arrData);
 					}
-					$obj->setCast($arr);
 					break;
 
 				case 'runtime':
@@ -175,6 +171,23 @@ class VCDFetch_imdb extends VCDFetch {
 
 		switch ($entry) {
 
+			case 'cast':
+				$regx = '/<a href="\/name\/nm([^"]+)\/">([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/';
+				preg_match_all($regx, $this->getContents(), $matches);
+				if (is_array($matches) && sizeof($matches)>0) {
+					$actors = $matches[2];
+					$roles = $matches[3];
+					
+					$castList = array();
+					for($i=0;$i<sizeof($actors);$i++) {
+						$pair = $actors[$i].' .... ' . strip_tags($roles[$i]);
+						$castList[] = $pair;
+					}
+					array_push($this->workerArray, array($entry, $castList));
+				}				
+				break;
+			
+			
 			case 'poster':
 				$regx = '<a name="poster" href="photogallery" title="([^<]*)"><img border="0" alt="([^<]*)" title="([^<]*)" src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>';
 
