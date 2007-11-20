@@ -40,6 +40,12 @@
 		<string id="login.password">Lösenord</string>
 		<string id="login.remember">Kom ihåg mig</string>
 		<string id="login.info">Lämna detta fält tomt om du &lt;b&gt;inte&lt;/b&gt; vill ändra ditt lösenord</string>
+		<string id="login.failed">Det gick inte att logga in</string>
+		<string id="login.tryagain">Försök igen</string>
+		<string id="login.deleted">Ditt konto har tagits bort&lt;br/&gt;Kontakta admin för fler detaljer.</string>
+		<string id="login.lost">Eller du har kanske glömt ditt lösenord?</string>
+		<string id="login.claim">Klika här för att få ditt lösenord</string>
+		<string id="login.recover">Skriv ditt användarnamn och mailadress</string>
 
 
 		<!-- Register based strings -->
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Använd egen film uppspelare ?</string>
 		<string id="userproperties.nfo">Använd NFO filer ?</string>
 		<string id="userproperties.default_image">Ska Bildvisning användas som Standard ?</string>
+		<string id="userproperties.nfo_image">Visa NFO som en bild</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,7 @@
 		<string id="dvd.aspect">Bildformat</string>
 		<string id="dvd.audio">Ljud</string>
 		<string id="dvd.subtitles">Undertexter</string>
+		<string id="dvd.languages">Använda språk</string>
 
 
 		<!-- My movies page strings -->
@@ -214,6 +222,7 @@
 		<string id="mymovies.notseen">Föreslå endast filmer jag inte sett.</string>
 		<string id="mymovies.friends">Mina Vänner som Lånar Filmer</string>
 		<string id="mymovies.overviewdetail">Detaljerad överblick av samlingen</string>
+		<string id="mymovies.pdf">exportera som PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -352,6 +361,10 @@
 		<string id="pornstar.name">Namn</string>
 		<string id="pornstar.web">Hemsida</string>
 		<string id="pornstar.moviecount">Antal filmer</string>
+		<string id="pornstar.viewall">Visa alla</string>
+		<string id="pornstar.viewactive">Visa akiva</string>
+		<string id="pornstar.pornstars">Porrstjärnor</string>
+		<string id="pornstar.begin">starta med bokstav</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -446,5 +459,34 @@
 		<string id="misc.toggle">Byt visningsläge</string>
 		<string id="misc.toggle_on">på</string>
 		<string id="misc.toggle_off">av</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Inga filmer har lagts till listan</string>
+		<string id="js.loanborrower">Välj lånare</string>
+		<string id="js.invalidname">Skriv ett namn</string>
+		<string id="js.deleteborrower">Tabort lånare och alla dess lån</string>
+		<string id="js.notitle">Titel saknas</string>
+		<string id="js.noyear">Välj år</string>
+		<string id="js.invalid">Felaktigt val</string>
+		<string id="js.nomediatype">Välj mediatyp</string>
+		<string id="js.nocategory">Välj kategori</string>
+		<string id="js.nocdcount">Välj CD-antal</string>
+		<string id="js.url">Skriv exakt url för bilden</string>
+		<string id="js.delete">Tabort inlägg?</string>
+		<string id="js.removeactor">Tabort skådespelare från filmen?</string>
+		<string id="js.norss">Välj minst en rss för att fortsätta</string>
+		<string id="js.deletemeta">Tabort metadata och alla inlägg?</string>
+		<string id="js.noupload">Välj fil att ladda upp</string>
+		<string id="js.noxmlthumb">Välj en XML-fil för thumbnails eller tabort krysset i thumbnails uppladdningsbox!</string>
+		<string id="js.nocriteria">Bestäm ett sökkriterium</string>
+		<string id="js.lastcopy">Detta är det enda exemplaret i databasen. &lt;br&gt; All filminfo. kommer att tas bort&lt;br&gt;Tabort?</string>
+		<string id="js.noselection">Välj minst en film för att fortsätta.</string>
+		<string id="js.nomediaselection">Välj mediatyp för alla titlar.</string>
+		<string id="js.reqname">Skriv ditt fullständiga namn.</string>
+		<string id="js.requsername">Skriv ditt användarnamn</string>
+		<string id="js.requsername3">Användarnamnet måste vara minst 3 karaktärer.</string>
+		<string id="js.reqpassword">Lösenordet måste vara minst 5 karaktärer.</string>
+		<string id="js.reqpassnomatch">Lösenorden matchar inte.</string>
 	</strings>
 </language>

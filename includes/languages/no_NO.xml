@@ -40,6 +40,12 @@
 		<string id="login.password">Passord</string>
 		<string id="login.remember">Husk meg</string>
 		<string id="login.info">La denne stå tom om du &lt;b&gt;ikke&lt;/b&gt; vil endre passordet</string>
+		<string id="login.failed">Innlogging feilet</string>
+		<string id="login.tryagain">Vennligst prøv igjen</string>
+		<string id="login.deleted">Din konto har blitt slettet.&lt;br/&gt;Kontakt administrator for flere detaljer.</string>
+		<string id="login.lost">Eller kanskje du har glemt passordet ditt?</string>
+		<string id="login.claim">Klikk her for å hente passordet ditt</string>
+		<string id="login.recover">Fyll inn brukernavn og epost</string>
 
 
 		<!-- Register based strings -->
@@ -53,7 +59,7 @@
 
 		<!-- strings for user properties -->
 		<string id="userproperties.notify">Send meg en epost når nye filmer blir lagt til?</string>
-		<string id="userproperties.show_adult">Vis erotisk innhold på siden?</string>
+		<string id="userproperties.show_adult">Vise erotisk innhold på siden?</string>
 		<string id="userproperties.rss">Tillat RSS feeder fra min filmliste?</string>
 		<string id="userproperties.wishlist">Tillat brukere å se min ønskeliste?</string>
 		<string id="userproperties.use_index">Bruk index nummer felt for egendefinert media ID?</string>
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Bruk klient avspillingsfunksjon?</string>
 		<string id="userproperties.nfo">Bruk NFO filer?</string>
 		<string id="userproperties.default_image">Skal bildevisning være standard?</string>
+		<string id="userproperties.nfo_image">Vise NFO filer som bilder?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,7 @@
 		<string id="dvd.aspect">Bildeforhold</string>
 		<string id="dvd.audio">Lyd</string>
 		<string id="dvd.subtitles">Undertekster</string>
+		<string id="dvd.languages">Språk</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +216,7 @@
 		<string id="mymovies.notseen">Tilby kun filmer jeg ikke har sett</string>
 		<string id="mymovies.friends">Venner som låner filmer</string>
 		<string id="mymovies.overviewdetail">Oversikt over samlingen</string>
+		<string id="mymovies.pdf">eksporter som PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +342,10 @@
 		<string id="pornstar.name">Navn</string>
 		<string id="pornstar.web">Webside</string>
 		<string id="pornstar.moviecount">Filmantall</string>
+		<string id="pornstar.viewall">Vis alle</string>
+		<string id="pornstar.viewactive">Vis aktive</string>
+		<string id="pornstar.pornstars">Pornostjerner</string>
+		<string id="pornstar.begin">begynn med bokstav</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -343,7 +356,7 @@
 
 
 		<!-- strings for the statistics page -->
-		<string id="statistics.title">Dagen`s Raport</string>
+		<string id="statistics.title">Dagens Rapport</string>
 		<string id="statistics.top_movies">Filmer i databasen</string>
 		<string id="statistics.top_cats">Topp Kategorier</string>
 		<string id="statistics.top_act">Mest aktive katogorier</string>
@@ -418,5 +431,34 @@
 		<string id="misc.toggle">Skift visning</string>
 		<string id="misc.toggle_on">På</string>
 		<string id="misc.toggle_off">Av</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Ingen filmer har blitt lagt til listen</string>
+		<string id="js.loanborrower">Velg låner</string>
+		<string id="js.invalidname">Skriv inn ett navn</string>
+		<string id="js.deleteborrower">Slette låner og hans låneregister?</string>
+		<string id="js.notitle">Tittel mangler</string>
+		<string id="js.noyear">Velg år</string>
+		<string id="js.invalid">Ugyldig inntasting</string>
+		<string id="js.nomediatype">Velg mediatype</string>
+		<string id="js.nocategory">Velg kategori</string>
+		<string id="js.nocdcount">Velg antall CDer</string>
+		<string id="js.url">Skriv inn eksakt bilde-URL</string>
+		<string id="js.delete">Slette register?</string>
+		<string id="js.removeactor">Fjerne skuespiller fra filmen?</string>
+		<string id="js.norss">Velg minst en RSS-feed for å fortsette</string>
+		<string id="js.deletemeta">Slette metadata og alle relaterte registre?</string>
+		<string id="js.noupload">Velg fil som skal lastes opp</string>
+		<string id="js.noxmlthumb">Velg en XML fil for miniatyrbilder eller opphev merkingen for å laste opp miniatyrbilder!</string>
+		<string id="js.nocriteria">Vennligst definer søkekriterier</string>
+		<string id="js.lastcopy">Dette er den eneste kopien i databasen. &lt;br&gt;Alt av filminformasjon vil bli slettet&lt;br&gt;Vil du forsette med slettingen?</string>
+		<string id="js.noselection">Velg minst en film for å fortsette.</string>
+		<string id="js.nomediaselection">Velg mediatype for alle titlene.</string>
+		<string id="js.reqname">Vennligst skriv inn hele navnet ditt.</string>
+		<string id="js.requsername">Vennlist skriv inn brukernavn</string>
+		<string id="js.requsername3">Brukernavn må være minst 3 karakterer.</string>
+		<string id="js.reqpassword">Passord må være minst 5 karakterer.</string>
+		<string id="js.reqpassnomatch">Passordene ligner ikke på hverandre!</string>
 	</strings>
 </language>
