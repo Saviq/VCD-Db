@@ -248,7 +248,22 @@ class VCDLanguage {
 	 * @return array
 	 */
 	public function doJavascriptKeys() {
-		return $this->primaryLanguage->getJsKeys();
+		// First get missing keys if any and if main lang is not English
+		if ($this->primaryLanguage->getID() == self::FALLBACK_ID) {
+			return $this->primaryLanguage->getJsKeys();	
+		} else {
+			// Trigger load of the fallback language if not loaded
+			if (!$this->fallbackLanguage instanceof _VCDLanguageItem) {
+				$this->fallbackTranslate(null);
+			}
+			
+			$primaryJsKeys = $this->primaryLanguage->getJsKeys();
+			$fallbackJsKeys = $this->fallbackLanguage->getJsKeys();
+
+			return array_merge($fallbackJsKeys, $primaryJsKeys);		
+			
+		}
+		
 	}
 	
 	/**
@@ -257,7 +272,7 @@ class VCDLanguage {
 	 * @return bool
 	 */
 	public function isEnglish() {
-		return strcmp(self::PRIMARY_LANGINDEX, $this->primaryLanguage->getID() == 0);
+		return ($this->primaryLanguage->getID() == self::FALLBACK_ID);
 	}
 	
 	
@@ -270,31 +285,6 @@ class VCDLanguage {
 		return $this->primaryLanguage->getID();
 	}
 	
-	/**
-	 * Print out the language selection HTML dropdown box.
-	 *
-	 * @return string
-	 */
-	public function printDropdownBox() {
-		
-		if (is_null($this->primaryLanguage)) {
-			$this->primaryLanguage = &$this->fallbackLanguage;
-		}
-		
-		$html = "<div id=\"lang\"><form name=\"vcdlang\" method=\"post\" action=\"./index.php?\">";
-		$html .= "<select name=\"lang\" onchange=\"document.vcdlang.submit()\" class=\"inp\">";
-		foreach ($this->arrLanguages as $langObj) {
-			$strSelected = "";
-			if (strcmp($langObj->getID(), $this->primaryLanguage->getID()) == 0) {
-				$strSelected = " selected=\"selected\"";
-			}
-			$html .= "<option value=\"{$langObj->getID()}\"{$strSelected}>{$langObj->getName()}</option>";
-		}
-			
-		$html .= "</select></form></div>";
-		return $html;
-		
-	}
 	
 	/**
 	 * Get information about all the translations residing in /includes/languages
