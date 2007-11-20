@@ -17,7 +17,7 @@
 <?php
 require_once(dirname(__FILE__) . '/external/smarty/Smarty.class.php');
 //error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
-error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
+//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
 
 abstract class VCDPage extends Smarty  {
 
@@ -31,8 +31,8 @@ abstract class VCDPage extends Smarty  {
 	protected function __construct($template, $doTranslate = true) {
 	
 		parent::Smarty();
-		$this->force_compile = true; // Remove line for release versions ..
-		//$this->caching = 1;
+		$this->force_compile = false;
+		$this->compile_check = false;
 				
 		$this->template = $template;
 		$this->template_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
@@ -91,10 +91,13 @@ abstract class VCDPage extends Smarty  {
 	 * @param string $template | The template to render. 
 	 */
 	public function render($template=null) {
+		
+		$compile_id = VCDClassFactory::getInstance('VCDLanguage')->getPrimaryLanguageID();
+				
 		if (is_null($template)) {
-			$buffer = $this->fetch($this->template);
+			$buffer = $this->fetch($this->template, 'vcddb', $compile_id);
 		} else {
-			$buffer = $this->fetch($template);
+			$buffer = $this->fetch($template, 'vcddb', $compile_id);
 		}
 		
 		$base = dirname($_SERVER['PHP_SELF']).'/';
