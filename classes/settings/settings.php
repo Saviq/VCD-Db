@@ -1520,7 +1520,7 @@ class vcd_settings implements ISettings {
 	 */
 	public function addMetadata($arrObj, $forceCheck = true) {
 	 	try {
-
+	 		
 	 		if ($forceCheck) {
 	 			if (is_array($arrObj)) {
 	 				foreach ($arrObj as $metaObj) {
@@ -1529,9 +1529,17 @@ class vcd_settings implements ISettings {
 	 			} else {
 
 	 				if (!$arrObj instanceof metadataObj ) {
-	 					throw new VCDProgramException('Excepted metadata object.');
+	 					throw new VCDProgramException('Expected metadata object.');
 	 				}
 
+	 				// Check for new metadataObj that is allowed duplicate
+	 				if (is_null($arrObj->getMetadataID()) && $arrObj->isDuplicatesAllowed()) {
+	 					if (strcmp(trim($arrObj->getMetadataValue()), "") != 0)  {
+	 						$this->SQL->addMetadata($arrObj);
+	 					}
+	 					//throw new VCDProgramException('duplicates allowed for ' . print_r($arrObj,true));
+	 				}
+	 				
 	 				$oldArr = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName(), $arrObj->getmediaTypeID());
 	 				$oldObj = null;
 	 				if (is_array($oldArr) && sizeof($oldArr) == 1) {

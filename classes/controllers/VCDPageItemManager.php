@@ -290,7 +290,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	 */
 	private function doMetadata() {
 		if (!isset($this->userCopies['mediaTypes']) || !is_array($this->metadata)) return;
-				
+		
 		$results = array();
 		$mediaTypes =& $this->userCopies['mediaTypes'];
 
@@ -414,7 +414,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 		// Set the html id
 		if ((strcmp($key,'name')==0) && (!isset($arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid']))) {
-			$htmlid = 'meta:'.$value.':'.$metadataTypeId.':'.$mediatypeId;
+			$htmlid = 'meta:'.$value.':'.$metadataTypeId.':'.$mediatypeId.':'.$metadataId;
 			$arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid'] = $htmlid;
 		}
 	}
@@ -895,11 +895,12 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				$metadataName = $entry[1];
 				$metadatatype_id = $entry[2];
 				$mediatype_id = $entry[3];
+				$record_id = isset($entry[4]) ? $entry[4] : null;
 
 
 				// Skip empty metadata
 				if (strcmp($value, "") != 0 && $metadatatype_id != metadataTypeObj::SYS_NFO) {
-					$obj = new metadataObj(array('',$itemId, VCDUtils::getUserID(), $metadataName, $value));
+					$obj = new metadataObj(array($record_id, $itemId, VCDUtils::getUserID(), $metadataName, $value));
 					$obj->setMetaDataTypeID($metadatatype_id);
 					$obj->setMediaTypeID($mediatype_id);
 					array_push($metadataCommit, $obj);

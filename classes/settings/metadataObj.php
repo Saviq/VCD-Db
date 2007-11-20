@@ -269,6 +269,13 @@ class metadataTypeObj {
 	protected $metatype_description;
 
 	/**
+	 * List of types that allow duplicate records for same media type.
+	 *
+	 * @var array
+	 */
+	private $duplicatesAllowed = array(self::SYS_FILELOCATION);
+	
+	/**
 	 * Object constructor
 	 *
 	 * @param int $id | The id of the metadataTypeObj
@@ -371,6 +378,15 @@ class metadataTypeObj {
 	 */
 	public function getMetadataDescription() {
 		return $this->metatype_description;
+	}
+	
+	/**
+	 * Check if the current type allows duplicate records.
+	 *
+	 * @return bool
+	 */
+	public function isDuplicatesAllowed() {
+		return in_array($this->metatype_id, $this->duplicatesAllowed);
 	}
 
 	
