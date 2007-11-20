@@ -53,7 +53,12 @@ class VCDBasePage extends VCDPage {
 		
 		// If the request contains _POST data .. force the Controller to handle it.
 		if (sizeof($_POST) > 0) {
-			$this->handleRequest();
+			// Check for site language change.
+			if (!is_null($this->getParam('lang',true))) {
+				$this->doLanguageChange();
+			} else {
+				$this->handleRequest();	
+			}
 		} 
 		
 		parent::__construct($this->config->getTemplate());
@@ -338,7 +343,72 @@ class VCDBasePage extends VCDPage {
 		if (VCDUtils::showAdultContent()) {
 			$this->assign('showAdult',true);	
 		}
-		
+	}
+	
+	/**
+	 * Update the users selected language for the site.  
+	 * Upon change, all the cache templates must be deleted so the
+	 * new translation will take effect.
+	 *
+	 */
+	private function doLanguageChange() {
+						
+		$lang_tag = $this->getParam('lang',true);
+		$language = VCDClassFactory::getInstance('VCDLanguage');
+		$language->load($lang_tag);
+
+		// Check for existing cookie
+		SiteCookie::extract('vcd_cookie');
+		if (isset($_COOKIE['session_id']) && isset($_COOKIE['session_uid'])) {
+			$session_id    = $_COOKIE['session_id'];
+			$user_id 	   = $_COOKIE['session_uid'];
+			$session_time  = $_COOKIE['session_time'];
+
+			// Has the user set a preferred template ?
+			$template = "";
+			if (isset($_COOKIE['template'])) {
+				$template = $_COOKIE['template'];
+			}
+
+
+			$Cookie = new SiteCookie("vcd_cookie");
+			$Cookie->clear();
+			$Cookie->put("session_id", $session_id);
+			$Cookie->put("session_time", $session_time);
+			$Cookie->put("session_uid", $user_id);
+			$Cookie->put("language",$_POST['lang']);
+			if (strcmp($template, "") != 0) {
+				$Cookie->put("template", $template);
+			}
+			$Cookie->set();
+
+		} else {
+
+			/* Add selected value in cookie for future visits*/
+	   		$Cookie = new SiteCookie("vcd_cookie");
+			$Cookie->put("language",$lang_tag);
+
+			// Has the user set a preferred template ?
+			$template = "";
+			if (isset($_COOKIE['template'])) {
+				$template = $_COOKIE['template'];
+			}
+			if (strcmp($template, "") != 0) {
+				$Cookie->put("template", $template);
+			}
+
+			$Cookie->set();
+		}
+
+
+		$ref = $_SERVER['HTTP_REFERER'];
+		/* Redirect to avoid expired page*/
+		if (strlen($ref) > 0) {
+			header("Location: $ref"); /* Redirect browser */
+			exit();
+		} else {
+			redirect(); /* Redirect browser */
+		}
 	}
 	
 		
