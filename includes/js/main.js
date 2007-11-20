@@ -991,6 +991,51 @@ function filebrowse(param, destField) {
 	} catch (Ex) {}
 }
 
+function addFileLocation(img,rowIndex,cellIndex,rowCount,mediaId) {
+	var tbl = $('tblmetadata')
+	
+	var rowIdx = (((rowCount+1)*rowIndex)+cellIndex)+1;
+	var tr = tbl.insertRow(rowIdx);
+	var newTd1 = tr.insertCell(-1);
+	var newTd2 = tr.insertCell(-1);
+	
+	//var newTd1 = document.createElement('td');
+	newTd1.setAttribute('nowrap','nowrap');
+	//var newTd2 = document.createElement('td');
+	var newInput = document.createElement('input');
+	
+	newInput.setAttribute('type','text');
+	newInput.setAttribute('class','input');
+	newInput.setAttribute('size','40');
+	var inputId = 'meta:filelocation:new:'+mediaId;
+	newInput.setAttribute('id',inputId);
+	newInput.setAttribute('name',inputId);
+	
+	var jsImg = document.createElement('img');
+	jsImg.setAttribute('src', replace(img.src,'add','folder_go'));
+	jsImg.setAttribute('border','0');
+	jsImg.setAttribute('hspace','2');
+	jsImg.setAttribute('title','Browse for file')
+	jsImg.style.verticalAlign = 'middle';
+	jsImg.onclick = function() {filebrowse('file', inputId);}
+	
+	
+	// onclick="filebrowse('file', 'meta:filelocation:11:10')"/>
+	
+	newTd1.style.padding = '0px 0px 0px 15px';
+	//newTd1.setAttribute('style','padding-left:15px');
+	newTd1.appendChild(document.createTextNode('filelocation'))
+	newTd2.appendChild(newInput);
+	newTd2.appendChild(jsImg);
+
+	
+	//var rowIdx = (((rowCount+1)*rowIndex)+cellIndex)+1;
+		
+	//var tr = tbl.insertRow(rowIdx);
+	//tr.insertCell(-1).appendChild(newTd1);
+	//tr.insertCell(-1).appendChild(newTd2);
+	
+}
 
 
 function getFileName(form, fieldname) {
