@@ -801,17 +801,15 @@ function checkListed(form) {
 }
 
 function confirmListed(form) {
-
     for (i=0; i<form.elements.length ;i++)  {
 	if (form.elements[i].type=='select-one') {
     	val = form.elements[i].options[form.elements[i].selectedIndex].value;
-        if (val == 'null') {
+        if (val == '') {
         	alert(Trans.late('nomediaselection'));
             return false;
          }
       }
  	}
-
  	return true;
 }
 

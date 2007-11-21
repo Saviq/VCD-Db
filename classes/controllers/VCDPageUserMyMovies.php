@@ -137,6 +137,12 @@ class VCDPageUserMyMovies extends VCDBasePage {
 				
 		// Get the movie list
 		$movies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID(), true);
+		
+		// Abort if user has not added any movies
+		if (sizeof($movies)==0) {
+			$this->assign('noItemData',true);
+			return;
+		}
 			
 		// Create the dropdownlist of pageIndex
 		$itemsPerPage = 25;
@@ -248,6 +254,12 @@ class VCDPageUserMyMovies extends VCDBasePage {
 		// Get the movie list
 		$movies = MovieServices::getAllVcdByUserId(VCDUtils::getUserID(), true);
 			
+		// Abort if user has not added any movies
+		if (sizeof($movies)==0) {
+			$this->assign('noItemData',true);
+			return;
+		}
+		
 		// Create the dropdownlist of pageIndex
 		$itemsPerPage = 25;
 		$itemsTotal = sizeof($movies);
