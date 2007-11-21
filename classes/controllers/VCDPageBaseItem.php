@@ -233,7 +233,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 					if ($mediatypeObj instanceof mediaTypeObj) {
 						$results[$metaObj->getMetadataID()] = 
 						array('medianame' => $mediatypeObj->getDetailedName(), 
-						'name' => $metaObj->getMetadataName(), 'text' => $this->doMetadataFormat($metaObj));	
+						'name' => $this->doMetadataNameFormat($metaObj), 'text' => $this->doMetadataFormat($metaObj));	
 					}
 				}
 			}
@@ -243,6 +243,37 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		}
 	}
 	
+	
+	/**
+	 * Format the metadata type name
+	 *
+	 * @param metadataObj $obj
+	 * @return string | The formatted string
+	 */
+	private function doMetadataNameFormat(metadataObj $obj) {
+		
+		static $playArr = array();
+				
+		switch ($obj->getMetadataName()) {
+				case metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION):
+					$playCounter = 1;
+					if (isset($playArr[$obj->getMediaTypeID()])) {
+						$playArr[$obj->getMediaTypeID()] = $playArr[$obj->getMediaTypeID()]+1;
+					} else {
+						$playArr[$obj->getMediaTypeID()] = $playCounter;
+					}
+					$playCounter = &$playArr[$obj->getMediaTypeID()];
+					return 'CD ' . $playCounter;
+					break;
+					
+				case metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX):
+					return VCDLanguage::translate('misc.key');
+					
+				default:
+					return $obj->getMetadataName();
+					break;
+			}	
+	}
 	
 	/**
 	 * Render the display values based on metadataType
