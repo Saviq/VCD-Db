@@ -30,7 +30,10 @@
 
 {** Search returned no results **}
 {else}
+<h1>{$sourceSiteName} - {$smarty.post.searchTitle} ...</h1>
 
-No results
+<p>
+	{$translate.search.noresult}
+</p>
 
 {/if}
