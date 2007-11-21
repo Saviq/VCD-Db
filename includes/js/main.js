@@ -1017,7 +1017,6 @@ function addFileLocation(img,rowIndex,cellIndex,rowCount,mediaId,metaTypeId) {
 	jsImg.style.verticalAlign = 'middle';
 	jsImg.onclick = function() {filebrowse('file', inputId);}
 	
-	
 	newTd1.style.padding = '0px 0px 0px 15px';
 	newTd1.appendChild(document.createTextNode('filelocation'))
 	newTd2.appendChild(newInput);

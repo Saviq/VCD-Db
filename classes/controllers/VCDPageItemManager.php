@@ -447,7 +447,8 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Set the id
 		if (!isset($arr[$mediatypeId]['metadata'][$index]['id'])) {
 			$arr[$mediatypeId]['metadata'][$index]['id'] = $metadataId;	
-			$arr[$mediatypeId]['metadata'][$index]['media_id'] = $mediatypeId;	
+			$arr[$mediatypeId]['metadata'][$index]['mediatype_id'] = $mediatypeId;
+			$arr[$mediatypeId]['metadata'][$index]['metadatatype_id'] = $metadataTypeId;
 		}
 		// Set the html id
 		if ((strcmp($key,'name')==0) && (!isset($arr[$mediatypeId]['metadata'][$index]['htmlid']))) {

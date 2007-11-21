@@ -1538,7 +1538,12 @@ class vcd_settings implements ISettings {
 	 						$this->SQL->addMetadata($arrObj);
 	 						return;
 	 					}
-	 					//throw new VCDProgramException('duplicates allowed for ' . print_r($arrObj,true));
+	 				}
+	 				
+	 				// If metadataObj already has metadata_id update is called
+	 				if (!is_null($arrObj->getMetadataID()) && is_numeric($arrObj->getMetadataID())) {
+	 					$this->updateMetadata($arrObj);
+	 					return;
 	 				}
 	 				
 	 				$oldArr = $this->getMetadata($arrObj->getRecordID(), $arrObj->getUserID(), $arrObj->getMetadataName(), $arrObj->getmediaTypeID());
