@@ -152,26 +152,6 @@ class metadataObj extends metadataTypeObj implements XMLable {
 		$this->metadata_value = $strValue;
 	}
 
-	/**
-	 * Get the metadataValue pretty formatted
-	 *
-	 * @param cdObj $obj
-	 * @return string
-	 */
-	public function prettyPrint(cdObj &$obj) {
-		switch ($this->metatype_id) {
-			case self::SYS_FILELOCATION:
-				$command = "";
-				if (getPlayCommand($obj, VCDUtils::getUserID(), $command, $this)) {
-					return "<a href=\"javascript:void(0)\"><img src=\"images/play.gif\" alt=\"Play\" border=\"0\" onclick=\"playFile('".$command."')\"/></a>";
-				}
-				return $this->getMetadataValue();
-				break;
-
-			default:
-				return $this->getMetadataValue();
-		}
-	}
 	
 	/**
 	 * Get the metadataObj as XML
