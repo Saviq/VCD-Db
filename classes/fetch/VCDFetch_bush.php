@@ -20,7 +20,7 @@ class VCDFetch_bush extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title' 	  => 'class="sdTitle" nowrap="nowrap">([^<]*)</td>',
+		'title' 	  => 'class="sdTitle" nowrap="nowrap">([^<]*)(<h2|</td>)',
 		'year'  	  => '<th>Production Year:</th>([^<]*)<td align="center">([^<]*)</td>',
 		'studio'	  => 'searchtype=Browse&Studio_ID=([0-9]{1,5})">([^<]*)</td>',
 		'genre'	 	  => '_searchtype=Browse&Category_ID=([0-9]{1,5})">([^<]*)</a></li>',
