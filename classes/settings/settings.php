@@ -1536,6 +1536,7 @@ class vcd_settings implements ISettings {
 	 				if (is_null($arrObj->getMetadataID()) && $arrObj->isDuplicatesAllowed()) {
 	 					if (strcmp(trim($arrObj->getMetadataValue()), "") != 0)  {
 	 						$this->SQL->addMetadata($arrObj);
+	 						return;
 	 					}
 	 					//throw new VCDProgramException('duplicates allowed for ' . print_r($arrObj,true));
 	 				}

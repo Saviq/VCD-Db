@@ -20,7 +20,7 @@
 	{if $j.name eq 'filelocation'}
 		<img src="images/icons/folder_go.png" border="0" style="vertical-align:middle" title="Browse for file" onclick="filebrowse('file', '{$j.htmlid}')"/>
 		{if $j.value neq ''}
-		<img src="images/icons/add.png" border="0" style="vertical-align:middle" title="Add playfile" onclick="addFileLocation(this,{$smarty.foreach.metalist.index},{$smarty.foreach.meta.iteration},{$smarty.foreach.meta.total},{$key},{$typeId});return false;"/>
+		<img src="images/icons/add.png" border="0" style="vertical-align:middle" title="Add playfile" onclick="addFileLocation(this,{$smarty.foreach.metalist.index},{$smarty.foreach.meta.iteration},{$smarty.foreach.meta.total},{$j.media_id},{$typeId});return false;"/>
 		{/if}
 	{/if}
 	</td>

@@ -308,37 +308,55 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			}
 		}
 		
+		
+		$fileLocationCount = 0;
+		$metadataCounter = 0;
+		$hitArray = array();
 		foreach ($this->metadata as $metadataObj) {
 			if ($metadataObj->getMediaTypeID()==0) continue;
 			$type_id = $metadataObj->getMetadataTypeID();
+			$metadataCounter++;
+			$hitArray[] = array('id' => $type_id,'mid' => $metadataObj->getMediaTypeID());
 			
 			switch ($type_id) {
 				
 				case (int)metadataTypeObj::SYS_MEDIAINDEX: 
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '' ) {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);	
 						}
 					}
 					break;
 					
 				case (int)metadataTypeObj::SYS_NFO:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'readonly', true);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'readonly', true,$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
 					}
 					break;
 				
 				case (int)metadataTypeObj::SYS_FILELOCATION:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						//$mediatype_id = $metadataObj->getMediaTypeID().'.'.$fileLocationCount;
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						if ($metadataObj->getMetadataValue() != '') {
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
+						}
+						// Override precautions
+						//$this->addMeta(&$results, $mediatype_id, $type_id, $metadataObj->getMetadataID(), 'realkey',$metadataObj->getMediaTypeID());
+						//$htmlid = 'meta:'.$metadataObj->getMetadataTypeName().':'.$type_id.':'.$metadataObj->getMediaTypeID().':'.$metadataObj->getMetadataID();
+						//$results[$mediatype_id]['metadata'][$type_id]['htmlid'] = $htmlid;
+						
+						
+						
+						$fileLocationCount++;
 					}
 					break;
 					
@@ -346,10 +364,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				default:
 					// Check if metadata type exists in the users profile
 					if (in_array($metadataObj->getMetadataTypeID(),$userMetaTypeIds)) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue());
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName());
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true);	
+							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
 					}
 					break;
@@ -360,40 +378,57 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Check the results for missing metadata definitions
 		foreach ($mediaTypes as $mediaTypeObj) {
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX') && 
-				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_MEDIAINDEX] )) {
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'value','');
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'delete',false);
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX));
+				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_MEDIAINDEX,$mediaTypeObj->getmediaTypeID())) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'value','',$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'delete',false,$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX),$metadataCounter);
+					$metadataCounter++;
 			}
 			
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO') && 
-				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_NFO] )) {
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'value','');
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'delete',false);
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO));
+				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_NFO,$mediaTypeObj->getmediaTypeID())) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'value','',$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'delete',false,$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO),$metadataCounter);
+					$metadataCounter++;
 			}
 			
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION') && 
-				!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][metadataTypeObj::SYS_FILELOCATION] )) {
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'value','');
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'delete',false);
-					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION));
+				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_FILELOCATION,$mediaTypeObj->getmediaTypeID())) {
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'value','',$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'delete',false,$metadataCounter);
+					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION),$metadataCounter);
+					$metadataCounter++;
 			}
 			
 			if (is_array($userMeta)) {
 				foreach ($userMeta as $metadataObj) {
-					if (!isset($results[$mediaTypeObj->getmediaTypeID()]['metadata'][$metadataObj->getMetadataTypeID()])) {
-						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','');
-						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false);
-						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName());
+					if (!$this->isMetaAdded(&$hitArray, $metadataObj->getMetadataTypeID(), $mediaTypeObj->getmediaTypeID())) {
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','',$metadataCounter);
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false,$metadataCounter);
+						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName(),$metadataCounter);
+						$metadataCounter++;
 					}
 				}
 			}
 			
+			
+			
 		}
-		
+		//print_r($hitArray);
+		//print_r($results);
+		//exit();
 		$this->assign('itemMetadataList', $results);
 		
+	}
+	
+	private function isMetaAdded(&$hitArray, $metatype_id, $mediatype_id) {
+		foreach ($hitArray as $item) {
+			if ($item['mid'] == $mediatype_id && $item['id'] == $metatype_id) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -406,16 +441,18 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	 * @param string $key | The metadata key
 	 * @param mixed $value | The metadata value
 	 */
-	private function addMeta(&$arr, $mediatypeId, $metadataTypeId, $metadataId, $key, $value) {
-		$arr[$mediatypeId]['metadata'][$metadataTypeId][$key] = $value;
+	private function addMeta(&$arr, $mediatypeId, $metadataTypeId, $metadataId, $key, $value, $index) {
+		//print "adding meta index {$index} {$value}<br>";
+		$arr[$mediatypeId]['metadata'][$index][$key] = $value;
 		// Set the id
-		if (!isset($arr[$mediatypeId]['metadata'][$metadataTypeId]['id'])) {
-			$arr[$mediatypeId]['metadata'][$metadataTypeId]['id'] = $metadataId;	
+		if (!isset($arr[$mediatypeId]['metadata'][$index]['id'])) {
+			$arr[$mediatypeId]['metadata'][$index]['id'] = $metadataId;	
+			$arr[$mediatypeId]['metadata'][$index]['media_id'] = $mediatypeId;	
 		}
 		// Set the html id
-		if ((strcmp($key,'name')==0) && (!isset($arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid']))) {
+		if ((strcmp($key,'name')==0) && (!isset($arr[$mediatypeId]['metadata'][$index]['htmlid']))) {
 			$htmlid = 'meta:'.$value.':'.$metadataTypeId.':'.$mediatypeId.':'.$metadataId;
-			$arr[$mediatypeId]['metadata'][$metadataTypeId]['htmlid'] = $htmlid;
+			$arr[$mediatypeId]['metadata'][$index]['htmlid'] = $htmlid;
 		}
 	}
 	
