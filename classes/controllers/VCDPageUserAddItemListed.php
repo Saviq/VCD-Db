@@ -40,7 +40,10 @@ class VCDPageUserAddItemListed extends VCDBasePage {
 		
 		$movies = MovieServices::getAllVcdForList(VCDUtils::getUserID());
 		$results = array();
+		$showAdult = VCDUtils::showAdultContent();
+		$adultCatId = SettingsServices::getCategoryIDByName('adult');
 		foreach ($movies as $obj) {
+			if (!$showAdult && $obj->getCategoryId()==$adultCatId) continue;
 			$results[$obj->getId()] = $obj->getTitle();
 		}
 		$this->assign('movieList', $results);

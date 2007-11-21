@@ -22,12 +22,13 @@ class VCDPageUserCollectionOverview extends VCDBasePage {
 		try {
 		
 			parent::__construct($node);
-			/*
-			if (!$this->initPage()) {
-				throw new VCDProgramException('You have not added any movies yet<break>Try again after you have inserted some movies');
+			
+			if ($this->initPage()===false) {
+				VCDException::display(VCDLanguage::translate('misc.nocats'));
+				$this->registerScriptBlock('self.close()');
 			}
-			*/
-			$this->initPage();
+			
+			
 				
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -35,8 +36,12 @@ class VCDPageUserCollectionOverview extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Initilize the list contents. Returns false if user owns no movies.
+	 *
+	 * @return bool
+	 */
 	private function initPage() {
-		
 		
 		$userCategories = SettingsServices::getCategoriesInUseByUserID(VCDUtils::getUserID());
         if (sizeof($userCategories) == 0) {
@@ -54,8 +59,6 @@ class VCDPageUserCollectionOverview extends VCDBasePage {
         }
         $this->assign('statsMediatypes',$results);
 
-        
-        
         $arrMediaTypes = array_flip($arrMediaTypes);
 
         $results = array();
@@ -73,14 +76,7 @@ class VCDPageUserCollectionOverview extends VCDBasePage {
         
         // Assign to the template
         $this->assign('statsCategories',$results);
-
-        /*
-        print "<pre>";
-        print_r($results);
-        print "</pre>";
-        
-        */
-        
+       
         $results = array();
         $totalSum = 0;
         foreach ($mediaTypes as $mediaCount) {
@@ -88,7 +84,9 @@ class VCDPageUserCollectionOverview extends VCDBasePage {
             $results[] = $mediaCount[2];
         }
         $results[] = $totalSum;
-		$this->assign('statsSums',$results);        
+		$this->assign('statsSums',$results);
+		
+		return true;
 		
 	}
 	

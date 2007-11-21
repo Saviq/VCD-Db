@@ -1,3 +1,8 @@
+{if $noItemData} 
+<p>
+	{$translate.misc.nocats}
+</p>
+{else}
 <form name="customkeys" method="post" action="{$smarty.server.SCRIPT_NAME}?page=movies&amp;do=keys&amp;index={$itemPage}">
 {assign var='base' value=$smarty.server.SCRIPT_NAME}
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="tblsmall">
@@ -19,3 +24,4 @@
 </tr>
 </table>
 </form>
+{/if}

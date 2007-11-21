@@ -43,7 +43,7 @@
 
 <br/>
 
-<form method="post" action="?page=add_listed&amp;action=confirm">
+<form method="post" action="{$smarty.server.SCRIPT_NAME}?page=add_listed&amp;action=confirm">
 <table cellpadding="1" cellspacing="1" border="0" width="100%" class="displist">
 <tr>
 	<td class="bold" width="80%">{$translate.movie.title}</td>
