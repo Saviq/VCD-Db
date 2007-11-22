@@ -121,7 +121,7 @@ P img {
 }
 
 .plottext {
-	padding:0px 5px 0px 5px;
-	text-align: justify;
+	padding:0px 5px 5px 5px;
+	text-indent:0px;
 }
 

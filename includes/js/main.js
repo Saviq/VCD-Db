@@ -1076,8 +1076,11 @@ function switchTemplate(template) {
 }
 
 function managerSubmit(form, action) {
-	checkFieldsRaw(form,'audioChoices','audio_list');
-	checkFieldsRaw(form,'langChoices','sub_list');
+	try {
+		checkFieldsRaw(form,'audioChoices','audio_list');
+		checkFieldsRaw(form,'langChoices','sub_list');
+		checkFieldsRaw(form,'spokenChoices','spoken_list');
+	} catch (ex) {}
 	try {
 		checkFieldsRaw(form,'adultCategoriesUsed', 'id_list');		
 	} catch (ex) {}
