@@ -512,7 +512,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$this->assign('itemSubtitleListSelected', $selectedSubs);
 			$dvd_subs =& $selectedSubs;
 		} 
-		$this->assign('itemSubtitleList', array_diff($dvdObj->getLanguageList(false), $dvd_subs));
+		$this->assign('itemSubtitleList', array_diff($dvdObj->getLanguageList(true), $dvd_subs));
 		
 		// Assign spoken languages
 		if (sizeof($dvd_lang)>0) {
@@ -521,7 +521,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$this->assign('itemSpokenListSelected', $selectedLang);
 			$dvd_lang =& $selectedLang;
 		} 
-		$this->assign('itemSpokenList', array_diff($dvdObj->getLanguageList(false), $dvd_lang));
+		$this->assign('itemSpokenList', array_diff($dvdObj->getLanguageList(true), $dvd_lang));
 
 		/*
 		Display the current DVD selected media, if user owns only 1 DVD based medium

@@ -1169,6 +1169,7 @@ function updateSubtitles( response )   {
 	html += "</ul>";
 
   	subtitles.innerHTML = html;
+  	//alert(subtitles.innerHTML);
 }
 
 function removeSub(key) {
@@ -1579,6 +1580,15 @@ function DvdTip(layerid) {
 		WIDTH,280,BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf',SHADOW,true,SHADOWWIDTH,1,PADDING,0);
 }
 
-function $(id) {
-	return document.getElementById(id);
+function $() {
+	var elements = new Array();
+	for (var i = 0; i < arguments.length; i++) {
+		var element = arguments[i];
+		if (typeof element == 'string')
+			element = document.getElementById(element);
+		if (arguments.length == 1)
+			return element;
+		elements.push(element);
+	}
+	return elements;
 }

@@ -3,7 +3,6 @@
 	if (!defined('VCDDB_BASE')) {
 		define('VCDDB_BASE',BASE);
 	}
-	require_once(BASE.DIRECTORY_SEPARATOR.'classes/pornstar/pornstarUpdater.php');
 	require_once(BASE .'/classes/includes.php');
 	require_once(dirname(__FILE__).'/functions/adminPageFunctions.php');
 	
@@ -786,26 +785,19 @@
 			*/
 			if ($CURRENT_PAGE == "backup") { 
 				
-				$header = array("Backup Type", "Download","Display");
+				$header = array("Backup Type", "Download");
 				printTableOpen();
 				printRowHeader($header);
 				
+				
 				printTr();
-				printRow("Get CORE data as XML (settings, users, mediatypes and so on)");
-				printRow("<a href='export_xml.php'>Here</a>");
-				printRow("<a href='export_xml.php?show'>Here</a>");
+				printRow("Get SQL Dump (Tables and Data)",'','','90%');
+				printRow("<a href='export.php?t=sql&amp;v=all'>Here</a>");
 				printTr(false);
 				
 				printTr();
-				printRow("Get VCD data as XML (movies, covers and so on)");
-				printRow("<a href='export_xml.php'>Here</a>");
-				printRow("<a href='export_xml.php?show'>Here</a>");
-				printTr(false);
-				
-				printTr();
-				printRow("Get SQL Dump");
-				printRow("<a href='export_sql.php'>Here</a>");
-				printRow("<a href='export_sql.php?show'>Here</a>");
+				printRow("Get SQL Dump (Data only)");
+				printRow("<a href='export.php?t=sql&amp;v=data'>Here</a>");
 				printTr(false);
 							
 				printTableClose();

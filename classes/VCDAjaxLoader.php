@@ -25,6 +25,7 @@ if (VCDUtils::isLoggedIn()) {
 	$ajax = new Ajax();
 	// Register VCD-db Ajax methods
 	if (substr_count($_SERVER['PHP_SELF'], 'admin') == 1) {
+		require_once(dirname(__FILE__).'/pornstar/pornstarUpdater.php');
 		$ajax->registerMethod('PornstarProxy', 'getUpdateList' );
 		$ajax->registerMethod('PornstarProxy', 'doHandshake' );
 		$ajax->registerMethod('PornstarProxy', 'getUpdates' );

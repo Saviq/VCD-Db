@@ -190,12 +190,25 @@
 </tr>
 <tr>
 	<td valign="top">{$translate.dvd.subtitles}:</td>
-	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList selected=$selectedRegion size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input"}</td>
+	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input"}</td>
 	<td><div id="subtitles" style="height:80px;margin-top:5px">
 	{if is_array($selectedSubs) && count($selectedSubs) > 0}
 	<ul>
 	{foreach from=$selectedSubs item=i}
 		<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	{/foreach}
+	</ul>
+	{/if}
+	</div></td>
+</tr>
+<tr>
+	<td valign="top">{$translate.dvd.languages}:</td>
+	<td>{html_options id=spokenAvailable name=spokenAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'spokenAvailable')" class="input"}</td>
+	<td><div id="subtitles" style="height:80px;margin-top:5px">
+	{if is_array($selectedSpoken) && count($selectedSpoken) > 0}
+	<ul>
+	{foreach from=$selectedSpoken item=i}
+	<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
 	{/foreach}
 	</ul>
 	{/if}

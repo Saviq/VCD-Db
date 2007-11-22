@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+
+  C:  Varchar, capped to 255 characters.
+  X:  Larger varchar, capped to 4000 characters (to be compatible with Oracle). 
+  XL: For Oracle, returns CLOB, otherwise the largest varchar size.
+
+  C2: Multibyte varchar
+  X2: Multibyte varchar (largest size)
+
+  B:  BLOB (binary large object)
+
+  D:  Date (some databases do not support this, and we return a datetime type)
+  T:  Datetime or Timestamp
+  L:  Integer field suitable for storing booleans (0 or 1)
+  I:  Integer (mapped to I4)
+  I1: 1-byte integer
+  I2: 2-byte integer
+  I4: 4-byte integer
+  I8: 8-byte integer
+  F:  Floating point number
+  N:  Numeric or decimal number
+
+-->
+<schema version="0.3">
+	<table name="vcd_CoversAllowedOnMediatypes">
+		<field name="cover_type_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="media_type_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Sessions">
+		<field name="session_id" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="session_user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="session_start" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="session_ip" type="C" size="15">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Settings">
+		<field name="settings_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+		</field>
+		<field name="settings_key" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="settings_value" type="X" size="255">
+			<NOTNULL/>
+		</field>
+		<field name="settings_description" type="X" size="255"/>
+		<field name="isProtected" type="I1"/>
+		<field name="settings_type" type="C" size="20"/>
+	</table>
+	<table name="vcd_CoverTypes">
+		<field name="cover_type_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="cover_type_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="cover_type_description" type="C" size="100"/>
+		<index name="userName">
+			<descr>Put a index on vcd ID and the cover type ID</descr>
+			<col>vcd_id</col>
+			<col>cover_type_id</col>
+		</index>
+	</table>
+	<table name="vcd_MediaTypes">
+		<field name="media_type_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="media_type_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="parent_id" type="I"/>
+		<field name="media_type_description" type="C" size="100"/>
+	</table>
+	<table name="vcd_UserRoles">
+		<field name="role_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="role_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="role_description" type="C" size="100"/>
+	</table>
+	<table name="vcd_UserProperties">
+		<field name="property_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="property_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="property_description" type="C" size="80"/>
+	</table>
+	<table name="vcd_PropertiesToUser">
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="property_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_SourceSites">
+		<field name="site_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="site_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="site_alias" type="C" size="50"/>
+		<field name="site_homepage" type="C" size="80">
+			<NOTNULL/>
+		</field>
+		<field name="site_getCommand" type="C" size="100"/>
+		<field name="site_isFetchable" type="I1">
+			<NOTNULL/>
+		</field>
+		<field name="site_classname" type="C" size="20"/>
+		<field name="site_image" type="C" size="50"/>
+	</table>
+	<table name="vcd_Users">
+		<field name="user_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="user_name" type="C" size="80">
+			<NOTNULL/>
+		</field>
+		<field name="user_password" type="C" size="32">
+			<NOTNULL/>
+		</field>
+		<field name="user_fullname" type="C" size="100">
+			<NOTNULL/>
+		</field>
+		<field name="user_email" type="C" size="80">
+			<NOTNULL/>
+		</field>
+		<field name="role_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="is_deleted" type="I1">
+			<NOTNULL/>
+		</field>
+		<field name="date_created" type="T">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Images">
+		<field name="image_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="name" type="C" size="80">
+			<NOTNULL/>
+		</field>
+		<field name="image_type" type="C" size="12">
+			<NOTNULL/>
+		</field>
+		<field name="image_size" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="image" type="B" size="16"/>
+	</table>
+	<table name="vcd_MovieCategories">
+		<field name="category_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="category_name" type="C" size="100">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_VcdToUsers">
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="media_type_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="disc_count" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="date_added" type="T">
+			<NOTNULL/>
+		</field>
+		<index name="vcdtouser">
+			<descr>Create the primary index</descr>
+			<col>vcd_id</col>
+			<col>user_id</col>
+			<col>media_type_id</col>
+			<UNIQUE/>
+		</index>
+	</table>
+	<table name="vcd_Covers">
+		<field name="cover_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="cover_type_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="cover_filename" type="C" size="100">
+			<NOTNULL/>
+		</field>
+		<field name="cover_filesize" type="I"/>
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="date_added" type="T">
+			<NOTNULL/>
+		</field>
+		<field name="image_id" type="I"/>
+	</table>
+	<table name="vcd_Pornstars">
+		<field name="pornstar_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="name" type="C" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="homepage" type="C" size="100"/>
+		<field name="image_name" type="C" size="100"/>
+		<field name="biography" type="X" size="16"/>
+	</table>
+	<table name="vcd_VcdToPornstars">
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="pornstar_id" type="I">
+			<NOTNULL/>
+		</field>
+		<index name="pornstartomovie">
+			<descr>Put a unique index on pornstar_id and the movie</descr>
+			<col>vcd_id</col>
+			<col>pornstar_id</col>
+			<UNIQUE/>
+		</index>
+	</table>
+	<table name="vcd_PornCategories">
+		<field name="category_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="category_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_UserWishList">
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_VcdToPornCategories">
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="category_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_PornStudios">
+		<field name="studio_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="studio_name" type="X" size="150">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Comments">
+		<field name="comment_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="comment_date" type="T">
+			<NOTNULL/>
+		</field>
+		<field name="comment" type="X" size="16">
+			<NOTNULL/>
+		</field>
+		<field name="isPrivate" type="I1">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_UserLoans">
+		<field name="loan_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="owner_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="borrower_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="date_out" type="T">
+			<NOTNULL/>
+		</field>
+		<field name="date_in" type="T"/>
+	</table>
+	<table name="vcd_VcdToPornStudios">
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="studio_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Screenshots">
+		<field name="vcd_id" type="I">
+			<KEY/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_VcdToSources">
+		<field name="vcd_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="site_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="external_id" type="C" size="32">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd">
+		<field name="vcd_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="title" type="X" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="category_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="year" type="I"/>
+	</table>
+	<table name="vcd_IMDB">
+		<field name="imdb" type="C" size="32">
+			<KEY/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="title" type="X" size="200">
+			<NOTNULL/>
+		</field>
+		<field name="alt_title1" type="X" size="200"/>
+		<field name="alt_title2" type="X" size="160"/>
+		<field name="image" type="C" size="100"/>
+		<field name="year" type="I"/>
+		<field name="plot" type="X" size="16"/>
+		<field name="director" type="C" size="100"/>
+		<field name="fcast" type="X" size="16"/>
+		<field name="rating" type="C" size="5"/>
+		<field name="runtime" type="I"/>
+		<field name="country" type="C" size="80"/>
+		<field name="genre" type="C" size="100"/>
+	</table>
+	<table name="vcd_Borrowers">
+		<field name="borrower_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="owner_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="name" type="C" size="100">
+			<NOTNULL/>
+		</field>
+		<field name="email" type="C" size="50">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_RssFeeds">
+		<field name="feed_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="feed_name" type="C" size="60">
+			<NOTNULL/>
+		</field>
+		<field name="feed_url" type="C" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="isAdult" type="I1"></field>
+		<field name="isSite" type="I1"></field>
+	</table>
+	<table name="vcd_MetaData">
+		<field name="metadata_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="record_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="mediatype_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="type_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="metadata_value" type="C" size="250">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_MetaDataTypes">
+		<field name="type_id" type="I" size="10">
+			<KEY/>
+			<AUTOINCREMENT/>
+			<UNIQUE/>
+			<NOTNULL/>
+		</field>
+		<field name="type_name" type="C" size="50">
+			<NOTNULL/>
+		</field>
+		<field name="type_description" type="C" size="150">
+			<NOTNULL/>
+		</field>
+		<field name="owner_id" type="I">
+			<NOTNULL/>
+		</field>
+	</table>
+	<table name="vcd_Log">
+		<field name="event_id" type="I">
+			<NOTNULL/>
+		</field>
+		<field name="message" type="C" size="200">
+			<NOTNULL/>
+		</field>
+		<field name="user_id" type="I">
+		</field>
+		<field name="event_date" type="T">
+			<NOTNULL/>
+		</field>
+		<field name="ip" type="C" size="15">
+			<NOTNULL/>
+		</field>
+	</table>
+</schema>
