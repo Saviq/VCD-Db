@@ -1,8 +1,9 @@
-
+<div class="flow" align="left">
 <input type="hidden" id="selected_dvd" name="selected_dvd"/>
 <input type="hidden" id="current_dvd" name="current_dvd" value="{$itemCurrentDvd}"/>
 <input type="hidden" id="audio_list" name="audio_list" value=""/>
 <input type="hidden" id="sub_list" name="sub_list" value=""/>
+<input type="hidden" id="spoken_list" name="spoken_list" value=""/>
 
 <table width="100%" cellpadding="0" cellspacing="1" border="0">
 <tr>
@@ -64,4 +65,23 @@
 
 	</td>
 </tr>
+<tr>
+	<td class="tblb" valign="top">{$translate.dvd.languages}:</td>
+	<td valign="top">
+	
+	<table cellspacing="0" cellpadding="2" border="0">
+	<tr>
+		<td>{html_options id=spokenAvailable name=spokenAvailable size="5" options=$itemSpokenList class="input" style="width:175px;" onDblClick="moveOver(this.form, 'spokenAvailable', 'spokenChoices')"}</td>
+		<td>
+			<input type="button" value="&gt;&gt;" onclick="moveOver(this.form, 'spokenAvailable', 'spokenChoices');" class="input" style="margin-bottom:5px;"/>
+			<br/>
+			<input type="button" value="<<" onclick="removeMe(this.form,'spokenAvailable', 'spokenChoices');" class="input"/>
+		</td>
+		<td>{html_options id=spokenChoices name=spokenChoices options=$itemSpokenListSelected class="input" style="width:175px;" size="5" onDblClick="removeMe(this.form,'spokenAvailable', 'spokenChoices')"}</td>
+	</tr>
+	</table>
+
+	</td>
+</tr>
 </table>
+</div>

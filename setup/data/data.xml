@@ -146,8 +146,8 @@
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontstats', 'Show frontpage statistics', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontbar', 'Show the latest movies on frontpage', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('default_role', 'The default role when user registered', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('player', 'The media player parameters', 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('playerpath', 'The path to the media player', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('dvdlang', 'DVD Spoken languages', 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('version', 'The current VCD-db version', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('frontrss', 'RSS feeds for the frontpage', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('ignorelist', 'Users to ignore', 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id) VALUES ('mediaindex', 'Custom index for cd', 0)</query>

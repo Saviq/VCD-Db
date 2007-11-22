@@ -309,7 +309,6 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 		
 		
-		$fileLocationCount = 0;
 		$metadataCounter = 0;
 		$hitArray = array();
 		foreach ($this->metadata as $metadataObj) {
@@ -343,20 +342,12 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				
 				case (int)metadataTypeObj::SYS_FILELOCATION:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION')) {
-						//$mediatype_id = $metadataObj->getMediaTypeID().'.'.$fileLocationCount;
+						
 						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
 						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
 							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
-						// Override precautions
-						//$this->addMeta(&$results, $mediatype_id, $type_id, $metadataObj->getMetadataID(), 'realkey',$metadataObj->getMediaTypeID());
-						//$htmlid = 'meta:'.$metadataObj->getMetadataTypeName().':'.$type_id.':'.$metadataObj->getMediaTypeID().':'.$metadataObj->getMetadataID();
-						//$results[$mediatype_id]['metadata'][$type_id]['htmlid'] = $htmlid;
-						
-						
-						
-						$fileLocationCount++;
 					}
 					break;
 					
@@ -415,9 +406,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			
 			
 		}
-		//print_r($hitArray);
-		//print_r($results);
-		//exit();
+		
 		$this->assign('itemMetadataList', $results);
 		
 	}
@@ -442,7 +431,6 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 	 * @param mixed $value | The metadata value
 	 */
 	private function addMeta(&$arr, $mediatypeId, $metadataTypeId, $metadataId, $key, $value, $index) {
-		//print "adding meta index {$index} {$value}<br>";
 		$arr[$mediatypeId]['metadata'][$index][$key] = $value;
 		// Set the id
 		if (!isset($arr[$mediatypeId]['metadata'][$index]['id'])) {
@@ -477,6 +465,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDASPECT);
 		$dvd_audio =  VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDAUDIO);
 		$dvd_subs =   VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDSUBS);
+		$dvd_lang =   VCDUtils::getDVDMetaObjValue($arrDVDMetaObj, metadataTypeObj::SYS_DVDLANG);
 		
 		if (strcmp($dvd_audio, '') != 0) {
 			$dvd_audio = explode('#', $dvd_audio);
@@ -488,6 +477,12 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$dvd_subs = explode('#', $dvd_subs);
 		} else {
 			$dvd_subs = array();
+		}
+		
+		if (strcmp($dvd_lang, '') != 0) {
+			$dvd_lang = explode('#', $dvd_lang);
+		} else {
+			$dvd_lang = array();
 		}
 		
 		$results = array();
@@ -518,6 +513,15 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$dvd_subs =& $selectedSubs;
 		} 
 		$this->assign('itemSubtitleList', array_diff($dvdObj->getLanguageList(false), $dvd_subs));
+		
+		// Assign spoken languages
+		if (sizeof($dvd_lang)>0) {
+			$selectedLang = array();
+			foreach ($dvd_lang as $key) { $selectedLang[$key] = $dvdObj->getLanguage($key);}
+			$this->assign('itemSpokenListSelected', $selectedLang);
+			$dvd_lang =& $selectedLang;
+		} 
+		$this->assign('itemSpokenList', array_diff($dvdObj->getLanguageList(false), $dvd_lang));
 
 		/*
 		Display the current DVD selected media, if user owns only 1 DVD based medium
@@ -948,6 +952,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 	}
 
+	/**
+	 * Update the DVD settings for the selected DVD item
+	 *
+	 */
 	private function updateDvdSettings() {
 		
 		$dvdId = $this->getParam('current_dvd',true);
@@ -960,23 +968,20 @@ class VCDPageItemManager extends VCDPageBaseItem  {
     	$dvd_aspect = $this->getParam('dvdaspect',true);
     	$audio_list = $this->getParam('audio_list',true);
     	$sub_list = $this->getParam('sub_list',true);
+    	$spoken_list = $this->getParam('spoken_list',true);
 
     	$arrDVDMeta = array();
-    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
-    	array_push($arrDVDMeta, $obj);
-    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
-    	array_push($arrDVDMeta, $obj);
-    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
-    	array_push($arrDVDMeta, $obj);
-    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
-    	array_push($arrDVDMeta, $obj);
-    	$obj = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
-    	array_push($arrDVDMeta, $obj);
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDREGION, $dvd_region));
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDFORMAT, $dvd_format));
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDASPECT, $dvd_aspect));
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDAUDIO, $audio_list));
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDSUBS, $sub_list));
+    	$arrDVDMeta[] = new metadataObj(array('', $id, VCDUtils::getUserID(), metadataTypeObj::SYS_DVDLANG, $spoken_list));
+    	
     	foreach ($arrDVDMeta as $metadataObj) {
     		$metadataObj->setMediaTypeID($dvdId);
     		$metadataObj->setMetadataTypeName(metadataTypeObj::getSystemTypeMapping($metadataObj->getMetadataTypeID()));
     	}
-
     	    	
     	// Add / Update the DVD metadata
     	SettingsServices::addMetadata($arrDVDMeta, true);

@@ -120,7 +120,7 @@
 	<div id="imdbplot">
 	<h2>{$translate.movie.plot}:</h2>
 	{if $itemSource}
-		{$sourcePlot|nl2br}
+	<p class="plottext">{$sourcePlot|nl2br}</p>
 	{else}
 		<ul><li>{$translate.movie.noplot}</li></ul>
 	{/if}
@@ -165,10 +165,18 @@
 				<td nowrap="nowrap" valign="top">{$translate.dvd.audio}:</td>
 				<td valign="top">{$i.audio}</td>
 			</tr>
+			{if $i.subs neq ''}
 			<tr>
 				<td nowrap="nowrap" valign="top">{$translate.dvd.subtitles}:</td>
 				<td valign="top">{$i.subs}</td>
 			</tr>
+			{/if}
+			{if $i.lang neq ''}
+			<tr>
+				<td nowrap="nowrap" valign="top">{$translate.dvd.languages}:</td>
+				<td valign="top">{$i.lang}</td>
+			</tr>
+			{/if}
 			</table>
 			</div>
 		
@@ -191,8 +199,8 @@
 		{foreach from=$itemCopies item=i}
 		<tr>
 			<td>{$i.mediatype}</td>
-			<td align="center">{$i.dvdspecs}</td>
-			<td align="center">{$i.nfo}</td>
+			<td>{$i.dvdspecs}</td>
+			<td>{$i.nfo}</td>
 			<td>{$i.cdcount}</td>
 			<td>{$i.date|date_format:"%d/%m/%Y"}</td>
 			<td>{$i.owner}</td>

@@ -209,8 +209,7 @@ class metadataTypeObj {
 	CONST SYS_FRONTSTATS   = 3;
 	CONST SYS_FRONTBAR     = 4;
 	CONST SYS_DEFAULTROLE  = 5;
-	CONST SYS_PLAYER	   = 6;
-	CONST SYS_PLAYERPATH   = 7;
+	CONST SYS_VERSION  	   = 7;
 	CONST SYS_FRONTRSS 	   = 8;
 	CONST SYS_IGNORELIST   = 9;
 	CONST SYS_MEDIAINDEX   = 10;
@@ -223,6 +222,7 @@ class metadataTypeObj {
 	CONST SYS_DVDASPECT	   = 15;
 	CONST SYS_DVDAUDIO	   = 16;
 	CONST SYS_DVDSUBS	   = 17;
+	CONST SYS_DVDLANG	   = 6;
 	CONST SYS_NFO		   = 18;
 
 	
@@ -402,9 +402,8 @@ class metadataTypeObj {
 			case self::SYS_FRONTSTATS:   return 'frontstats';  	 break;
 			case self::SYS_FRONTBAR: 	 return 'frontbar';  	 break;
 			case self::SYS_DEFAULTROLE:  return 'default_role';  break;
-			case self::SYS_PLAYER: 		 return 'player';  		 break;
-			case self::SYS_PLAYERPATH: 	 return 'playerpath';  	 break;
 			case self::SYS_FRONTRSS: 	 return 'frontrss';  	 break;
+			case self::SYS_VERSION: 	 return 'version';  	 break;
 			case self::SYS_IGNORELIST: 	 return 'ignorelist';  	 break;
 			case self::SYS_MEDIAINDEX: 	 return 'mediaindex';  	 break;
 			case self::SYS_FILELOCATION: return 'filelocation';  break;
@@ -414,6 +413,7 @@ class metadataTypeObj {
 			case self::SYS_DVDASPECT:	 return 'dvdaspect';	 break;
 			case self::SYS_DVDAUDIO:	 return 'dvdaudio';		 break;
 			case self::SYS_DVDSUBS:	 	 return 'dvdsubs';		 break;
+			case self::SYS_DVDLANG: 	 return 'dvdlang'; 		 break;
 			case self::SYS_NFO:	 	 	 return 'nfo';			 break;
 			case self::SYS_LASTFETCH:	 return 'lastfetch';	 break;
 			case self::SYS_DEFAULTDVD:	 return 'defaultdvd';    break;
@@ -450,6 +450,7 @@ class metadataTypeObj {
 					case self::SYS_DVDFORMAT:
 					case self::SYS_DVDREGION:
 					case self::SYS_DVDSUBS:
+					case self::SYS_DVDLANG:
 						array_push($arrDVDMeta, $metaDataObj);
 						break;
 				}

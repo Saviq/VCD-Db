@@ -371,6 +371,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 						$dvd_aspect = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDASPECT);
 						$dvd_audio  = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDAUDIO);
 						$dvd_subs   = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDSUBS);
+						$dvd_lang   = VCDUtils::getDVDMetaObjValue($arrDVDMeta, metadataTypeObj::SYS_DVDLANG);
 	
 						if (strcmp($dvd_region, "") != 0) {
 							//$dvd_region = $dvd_region.". (". $dvdObj->getRegion($dvd_region) . ")";
@@ -401,6 +402,18 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 							}
 							$dvd_subs .= "</ul>";
 						}
+						
+						if (strcmp($dvd_lang, "") != 0) {
+							$arrLang = explode("#", $dvd_lang);
+							$dvd_lang = "<ul class=\"ulnorm\">";
+							foreach ($arrLang as $language) {
+								$imgsource = $dvdObj->getCountryFlag($language);
+								$langName = $dvdObj->getLanguage($language);
+								$img = "<img src=\"{$imgsource}\" alt=\"{$langName}\" hspace=\"1\"/>";
+								$dvd_lang .= "<li class=\"linorm\">".$img . " " . $langName . "</li>";
+							}
+							$dvd_lang .= "</ul>";
+						}
 	
 						$divid = "x". $mediaTypeObj->getmediaTypeID()."x".$arrOwners[$i]->getUserId();
 						
@@ -410,7 +423,8 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 							'format' => $dvd_format,
 							'aspect' => $dvd_aspect,
 							'audio'	 => $dvd_audio,
-							'subs'	 => $dvd_subs
+							'subs'	 => $dvd_subs,
+							'lang'	 => $dvd_lang
 						);
 					}
 				}
@@ -441,7 +455,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			$divid = "x".$mediaTypeObj->getmediaTypeID() ."x". $userObj->getUserId();
 		}
 		
-		$src = '<img src="images/icon_item.gif" onmouseover="DvdTip(\'%s\')" border="0" hspace="1" alt="" align="middle"/>';
+		$src = '<img src="images/icon_item.gif" onmouseover="DvdTip(\'%s\')" border="0" hspace="1" alt=""/>';
 		$img = sprintf($src, $divid);
 	
 		if (VCDUtils::isDVDType(array($mediaTypeObj)) && !is_null($arrDVDMeta) && (sizeof($arrDVDMeta) > 0)) {
@@ -470,7 +484,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			if (is_array($currMeta) && sizeof($currMeta) > 0) {
 				foreach ($currMeta as $metadataObj) {
 					if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
-						$nfofile = NFO_PATH . $metadataObj->getMetaDataValue();
+						$nfofile = VCDConfig::getWebBaseDir().NFO_PATH.$metadataObj->getMetaDataValue();
 						if ($useNfoImage) {
 							$js = "window.open('?page=file&amp;nfo={$metadataObj->getMetaDataId()}');return false;";
 						} else {
