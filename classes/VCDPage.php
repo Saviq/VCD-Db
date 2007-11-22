@@ -31,8 +31,8 @@ abstract class VCDPage extends Smarty  {
 	protected function __construct($template, $doTranslate = true) {
 	
 		parent::Smarty();
-		$this->force_compile = false;
-		$this->compile_check = false;
+		$this->force_compile = true;
+		$this->compile_check = true;
 				
 		$this->template = $template;
 		$this->template_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
@@ -100,7 +100,7 @@ abstract class VCDPage extends Smarty  {
 			$buffer = $this->fetch($template, 'vcddb', $compile_id);
 		}
 		
-		$base = dirname($_SERVER['PHP_SELF']).'/';
+		$base = VCDConfig::getWebBaseDir();
 		self::$pageBuffer .= $this->rewriteRelative($buffer,$base);
 		
 	}
