@@ -805,7 +805,7 @@ class VCDXMLExporter {
 					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xmlObj->asXML());
 					
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$XmlFilename);
+					self::sendFile(CACHE_FOLDER.$XmlFilename);
 					
 					// Delete the XML file from cache
 					fs_unlink(CACHE_FOLDER.$XmlFilename);
@@ -824,7 +824,7 @@ class VCDXMLExporter {
 					// Write the zip file to cache folder
 					VCDUtils::write(CACHE_FOLDER.$ZipFilename, $zipfile->file());
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$ZipFilename);
+					self::sendFile(CACHE_FOLDER.$ZipFilename);
 					// Delete the Zip file from cache
 					fs_unlink(CACHE_FOLDER.$ZipFilename);
 
@@ -845,7 +845,7 @@ class VCDXMLExporter {
 					// Write the TAR file to disk
 					VCDUtils::write(CACHE_FOLDER.$TarFilename, $zipfile->toTarOutput("movie_export", true));
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$TarFilename);
+					self::sendFile(CACHE_FOLDER.$TarFilename);
 					// Delete the tar file from cache
 					fs_unlink(CACHE_FOLDER.$TarFilename);
 					
@@ -901,7 +901,7 @@ class VCDXMLExporter {
 					VCDUtils::write(CACHE_FOLDER.$XmlFilename, $xml);
 					
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$XmlFilename);
+					self::sendFile(CACHE_FOLDER.$XmlFilename);
 					
 					// Delete the XML file from cache
 					fs_unlink(CACHE_FOLDER.$XmlFilename);
@@ -920,7 +920,7 @@ class VCDXMLExporter {
 					// Write the zip file to cache folder
 					VCDUtils::write(CACHE_FOLDER.$ZipFilename, $zipfile->file());
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$ZipFilename);
+					self::sendFile(CACHE_FOLDER.$ZipFilename);
 					// Delete the Zip file from cache
 					fs_unlink(CACHE_FOLDER.$ZipFilename);
 
@@ -941,7 +941,7 @@ class VCDXMLExporter {
 					// Write the TAR file to disk
 					VCDUtils::write(CACHE_FOLDER.$TarFilename, $zipfile->toTarOutput("thumbnail_export", true));
 					// Stream the file to browser
-					send_file(CACHE_FOLDER.$TarFilename);
+					self::sendFile(CACHE_FOLDER.$TarFilename);
 					// Delete the tar file from cache
 					fs_unlink(CACHE_FOLDER.$TarFilename);
 					
@@ -1027,7 +1027,45 @@ class VCDXMLExporter {
 	}
 
 
-		
+	/**
+	 * Stream file to browser. Return true on success
+	 *
+	 * @param string $path | The file to stream
+	 * @return bool
+	 */
+	private static function sendFile($path) {
+	   session_write_close();
+	   @ob_end_clean();
+	   if (!is_file($path) || connection_status()!=0)
+	       return(FALSE);
+	
+	   //to prevent long file from getting cut off from    //max_execution_time
+	   set_time_limit(0);
+	
+	   $name=basename($path);
+	   //filenames in IE containing dots will screw up the
+	   //filename unless we add this
+	
+	   if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
+	       $name = preg_replace('/\./', '%2e', $name, substr_count($name, '.') - 1);
+	
+	   //required, or it might try to send the serving    //document instead of the file
+	   header("Cache-Control: ");
+	   header("Pragma: ");
+	   header("Content-Type: application/octet-stream");
+	   header("Content-Length: " .(string)(filesize($path)) );
+	   header('Content-Disposition: attachment; filename="'.$name.'"');
+	   header("Content-Transfer-Encoding: binary\n");
+	
+	   if($file = fopen($path, 'rb')){
+	       while( (!feof($file)) && (connection_status()==0) ){
+	           print(fread($file, 1024*8));
+	           flush();
+	       }
+	       fclose($file);
+	   }
+	   return((connection_status()==0) and !connection_aborted());
+	}
 	
 
 
