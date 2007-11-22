@@ -22,6 +22,67 @@
 final class VCDConfig {
 
 	/**
+	 * Get the database type VCD-db is using
+	 *
+	 * @return string
+	 */
+	public static final function getDatabaseType() {
+		if (!defined('DB_TYPE') || DB_TYPE=='') {
+			return null;
+		}
+		return DB_TYPE;
+	}
+	
+	/**
+	 * Get the username to connect to the VCD-db database
+	 *
+	 * @return string
+	 */
+	public static final function getDatabaseUser() {
+		if (!defined('DB_USER') || DB_USER=='') {
+			return null;
+		}
+		return DB_USER;
+	}
+	
+	/**
+	 * Get the password to connect to the VCD-db database
+	 *
+	 * @return string
+	 */
+	public static final function getDatabasePassword() {
+		if (!defined('DB_PASS')) {
+			return null;
+		}
+		return DB_PASS;
+	}
+	
+	/**
+	 * Get the database host
+	 *
+	 * @return string
+	 */
+	public static final function getDatabaseHost() {
+		if (!defined('DB_HOST') || DB_HOST=='') {
+			return null;
+		}
+		return DB_HOST;
+	}
+	
+	/**
+	 * Get the name of the database VCD-db connects to
+	 *
+	 * @return string
+	 */
+	public static final function getDatabaseName() {
+		if (!defined('DB_CATALOG') || DB_CATALOG=='') {
+			return null;
+		}
+		return DB_CATALOG;
+	}
+	
+	
+	/**
 	 * Check if VCD-db is connect to webservice proxy or database
 	 *
 	 * @return bool
@@ -33,6 +94,44 @@ final class VCDConfig {
 		return false;
 	}
 	
+	
+	/**
+	 * Get the web base directory where VCD-db lies.  Possible output could be '/' for root directory
+	 * or '/webs/vcddb/' if VCD-db resides in webfolder webs/vcddb
+	 *
+	 * @return string
+	 */
+	public static function getWebBaseDir() {
+		$base = dirname($_SERVER['PHP_SELF']);
+		if (self::endsWith('/',$base)) {
+			return $base;
+		} else {
+			return $base.'/';
+		}
+	}
+	
+	
+	/**
+	 * Check if specified string ends with certain character
+	 *
+	 * @param string $str | The needle
+	 * @param string $sub | The haystack
+	 * @return bool
+	 */
+	private static function endsWith($str, $sub) {
+   		return (substr($str, strlen($str) - strlen($sub)) === $sub );
+	}
+	
+	/**
+	 * Check if specified string begins with certain character
+	 *
+	 * @param string $str | The needle
+	 * @param string $sub | The haustack
+	 * @return bool
+	 */
+	private static function beginsWith($str, $sub) {
+   		return (substr($str, 0, strlen($sub)) === $sub);
+	}
 	
 }
 ?>
