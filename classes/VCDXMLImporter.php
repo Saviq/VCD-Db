@@ -18,6 +18,7 @@ error_reporting(E_ERROR);
 require_once(dirname(__FILE__) . '/external/compression/tar.php');
 require_once(dirname(__FILE__) . '/external/compression/zip.php');
 require_once(dirname(__FILE__) . '/external/compression/pclzip.lib.php');
+require_once(dirname(__FILE__) . '/adodb/adodb-xmlschema03.inc.php');
 
 
 class VCDXMLImporter {
@@ -1072,6 +1073,181 @@ class VCDXMLExporter {
 
 }
 
+
+/**
+ * Export VCD-db data in SQL format
+ *
+ */
+class VCDSQLExporter extends VCDConnection {
+	
+	CONST SCHEMA = 'includes/schema/vcddb-db.xml';
+	private $exportFilename;
+	
+	/**
+	 * Class constructor
+	 *
+	 */
+	public function __construct() {
+		parent::__construct();
+		$this->exportFilename = 'VCDdb-Export-'.date("d.m.Y").'.sql';
+		
+		// Delete the old file if it exists
+		if (file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename)) {
+			unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename);
+		}
+	}
+	
+	
+	/**
+	 * Export the VCD-db data as SQL insert script
+	 *
+	 * @param bool $exportTables | Create SQL for CREATE TABLES
+	 */
+	public function export($exportTables=false) {
+		try {
+		
+			// Cut the exporter some slack ..
+			set_time_limit(60*10);
+			
+			if ($exportTables) {
+				$this->exportTables();
+			}
+			$this->exportData();
+			$this->sendFile(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename);
+			
+			// clean up
+			unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	/**
+	 * Create SQL CREATE TABLE for the exported data.
+	 *
+	 */
+	private function exportTables() {
+	
+		// Use the database connection to create a new adoSchema object.
+		$schema = new adoSchema( $this->db );
+			
+		// Parse the Schema - and supress errors to override the index not found errors
+		$tableCreates = @$schema->ParseSchema(VCDDB_BASE.DIRECTORY_SEPARATOR.self::SCHEMA);
+
+		foreach ($tableCreates as $sqlCreate) {
+			$sqlCreate .= ";\n";
+			VCDUtils::write(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename, $sqlCreate, true);
+		}
+	}
+	
+	/**
+	 * Create SQL INSERT commands for the exported data.
+	 *
+	 */
+	private function exportData() {
+		try {
+			
+			$xml = simplexml_load_file(VCDDB_BASE.DIRECTORY_SEPARATOR.self::SCHEMA);
+			$tables = $xml->table;
+			
+			foreach ($tables as $table) {
+				$sqlOut = '';
+				unset($sqlColumns);
+				unset($sqlColumnTypes);
+				$sqlColumns = array();
+				$sqlColumnTypes = array();
+				$sqlTable = (string)$table['name'];
+				
+				// Get the field names
+				foreach ($table->field as $column) {
+					$sqlColumns[] = $column['name'];
+					$sqlColumnTypes[] = $column['type'];
+				}
+				
+				$query = 'SELECT * FROM ' . $sqlTable;
+				$rs = $this->db->Execute($query);
+				foreach ($rs as $rows) {
+					$sqlOut = "INSERT INTO {$sqlTable} (".implode(',',$sqlColumns).") VALUES (".$this->getInsertValues($rows,$sqlColumnTypes).");\n";
+					VCDUtils::write(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$this->exportFilename, $sqlOut, true);
+				}
+			}
+			
+			unset($xml);
+			
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	/**
+	 * Get the correct values for the VALUES() syntax of the SQL INSERT Query
+	 *
+	 * @param array $data | Array of data
+	 * @param array $types | Array of column types
+	 * @return string | The SQL String in the VALUES() section
+	 */
+	private function getInsertValues($data, $types) {
+
+		$res = array();	
+		$count = count($data)/2;
+		for ($i=0;$i<$count;$i++) {
+			if ($types[$i]=='C' || $types[$i]=='X' || $types[$i]=='B' || $types[$i]=='D' || $types[$i]=='T' || $types[$i]=='L') {
+				$res[$i] = $this->db->Quote($data[$i]);
+			} else {
+				if ($data[$i] == '') {
+					$res[$i] = 'NULL';
+				} else {
+					$res[$i] = $data[$i];
+				}
+			}
+			
+		}
+		
+		return implode(',',$res);
+	}
+	
+	/**
+	 * Stream file to browser. Return true on success
+	 *
+	 * @param string $path | The file to stream
+	 * @return bool
+	 */
+	private static function sendFile($path) {
+	   session_write_close();
+	   @ob_end_clean();
+	   if (!is_file($path) || connection_status()!=0)
+	       return(FALSE);
+	
+	   //to prevent long file from getting cut off from    //max_execution_time
+	   set_time_limit(0);
+	
+	   $name=basename($path);
+	   //filenames in IE containing dots will screw up the
+	   //filename unless we add this
+	
+	   if (strstr($_SERVER['HTTP_USER_AGENT'], "MSIE"))
+	       $name = preg_replace('/\./', '%2e', $name, substr_count($name, '.') - 1);
+	
+	   //required, or it might try to send the serving    //document instead of the file
+	   header("Cache-Control: ");
+	   header("Pragma: ");
+	   header("Content-Type: application/octet-stream");
+	   header("Content-Length: " .(string)(filesize($path)) );
+	   header('Content-Disposition: attachment; filename="'.$name.'"');
+	   header("Content-Transfer-Encoding: binary\n");
+	
+	   if($file = fopen($path, 'rb')){
+	       while( (!feof($file)) && (connection_status()==0) ){
+	           print(fread($file, 1024*8));
+	           flush();
+	       }
+	       fclose($file);
+	   }
+	   return((connection_status()==0) and !connection_aborted());
+	}
+
+}
 
 
 
