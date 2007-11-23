@@ -1122,31 +1122,37 @@ function deleteMeta(metadata_id, itemId) {
 var currCountryName;
 var currCountryKey;
 
-function updateSubtitles( response )   {
-  	obj = new Object(response);
+function updateFlags(response, fieldId, hiddenFieldId) {
+	obj = new Object(response);
   	var urlbase = replace(jxBase,'index.php','');
   	var img = new Image();
   	img.src = urlbase+obj;
 
-  	var html = '<ul>';
-
-  	var htmlfield = document.getElementById('dvdsubs');
+  	var html = '<ul class="flags">';
+  	var htmlfield = $(hiddenFieldId);
   	if (htmlfield.value.length==0) {
   		htmlfield.value += currCountryKey;
   	} else {
   		htmlfield.value += '#'+currCountryKey;
   	}
 
-
-
-  	var subtitles = document.getElementById('subtitles');
+  	var subtitles = $(fieldId);
     var lis = subtitles.getElementsByTagName('LI');
+    var classNames = Array();
+    for (i=0;i<Math.ceil(lis.length/3);i++) {
+    	classNames.push('x','y','z');
+    }
+    
+    var j = 0;
 	for (i=0; i < lis.length; i++) {
 		lid = lis[i].id;
-		if (lid != currCountryKey) {
-			html += '<li id='+lid+'>' + lis[i].innerHTML + '</li>';
+		if (lid != currCountryKey && lis[i].className!='clr') {
+			html += '<li id='+lid+' class='+classNames[j]+'>' + lis[i].innerHTML + '</li>';
+			if (classNames[j]=='z' || i==lis.length) {
+				html += '<li class="clr"><br class="clr"/></li>';
+			}
+			j++;
 		}
-
 	}
 
 	var iMaxlen = 10;
@@ -1162,42 +1168,67 @@ function updateSubtitles( response )   {
 		}
 	}
 
+	var type = 0;
+	if (fieldId=='subtitles') {
+		type = 1;
+	} else if (fieldId=='langspoken') {
+		type = 2;
+	}
 	
-	
-		
-	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' height='12' border='0' ondblclick=\"removeSub('"+currCountryKey+"')\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
+	html += "<li id="+currCountryKey+"><img src='"+img.src+"' vspace='2' hspace='2' height='12' border='0' ondblclick=\"removeFlag('"+currCountryKey+"',"+type+")\" title=\""+currCountryName+"\" align='absmiddle'>"+lang+"</li>";
 	html += "</ul>";
 
   	subtitles.innerHTML = html;
-  	//alert(subtitles.innerHTML);
 }
 
-function removeSub(key) {
-	var subtitles = document.getElementById('subtitles');
-	var htmlfield = document.getElementById('dvdsubs');
+function updateSubtitles(response)   {
+	updateFlags(response,'subtitles','dvdsubs');
+}
+
+function updateLanguages(response) {
+	updateFlags(response,'langspoken','dvdlang');
+}
+
+function removeFlag(key,type) {
+	var div;
+	var htmlfield;
+	if (type == 1) {
+		div = $('subtitles');
+		htmlfield = $('dvdsubs');
+	} else if(type==2) {
+		div = $('langspoken');
+		htmlfield = $('dvdlang');
+	} 
+		
 	htmlfield.value = '';
 
-    var lis = subtitles.getElementsByTagName('LI');
-    var lid = "";
-    var html = '<ul>';
+    var lis = div.getElementsByTagName('LI');
+    var lid = '';
+    var classNames = Array();
+    for (i=0;i<Math.ceil(lis.length/3);i++) {classNames.push('x','y','z');}
+    var j = 0;
+    var html = '<ul class="flags">';
 	for (i=0; i < lis.length; i++) {
 		lid = lis[i].id;
-		if (lid != key) {
-			html += '<li id=\"'+lid+'\">' + lis[i].innerHTML + '</li>';
+		if (lid != key && lis[i].className!='clr') {
+			html += '<li id='+lid+' class='+classNames[j]+'>' + lis[i].innerHTML + '</li>';
+			if (classNames[j]=='z' || i==lis.length) {
+				html += '<li class="clr"><br class="clr"/></li>';
+			}
 			if (htmlfield.value == '') {
 				htmlfield.value = lid ;
 			} else {
 				htmlfield.value += '#' + lid ;
 			}
-
+			j++;
 		}
 	}
 	html += "</ul>";
-	subtitles.innerHTML = html;
+	div.innerHTML = html;
 }
 
-function addSubtitle(form, source) {
-	var objList = document.getElementById(source);
+function addFlag(form,source,callerId) {
+	var objList = $(source);
 	var selectedItem = objList.selectedIndex;
 	if (selectedItem < 0) { return; }
 	var selectedText = objList.options[selectedItem].text;
@@ -1207,7 +1238,11 @@ function addSubtitle(form, source) {
 	currCountryKey = selectedValue;
 
 	obj = new vcddbAjax('getCountryFlag');
-	obj.invoke(selectedValue,updateSubtitles);
+	if (callerId == 'subs') {
+		obj.invoke(selectedValue,updateSubtitles);
+	} else if (callerId == 'langs') {
+		obj.invoke(selectedValue,updateLanguages);
+	}
 }
 
 function addAudio(form, source) {
@@ -1575,7 +1610,6 @@ function doTextTip(data) {
 }
 
 function DvdTip(layerid) {
-	//this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_ABOVE=true;this.T_LEFT=false; this.T_WIDTH=284;";
 	return TagToTip(layerid,SHADOWWIDTH,1,ABOVE,true,LEFT,false,FADEIN,150,FADEOUT,150,
 		WIDTH,280,BGCOLOR, '#ffffff',BORDERCOLOR,'#cfcfcf',SHADOW,true,SHADOWWIDTH,1,PADDING,0);
 }

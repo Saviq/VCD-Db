@@ -190,12 +190,12 @@
 </tr>
 <tr>
 	<td valign="top">{$translate.dvd.subtitles}:</td>
-	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input"}</td>
+	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addFlag(this.form, 'langAvailable','subs')" class="input"}</td>
 	<td><div id="subtitles" style="height:80px;margin-top:5px">
 	{if is_array($selectedSubs) && count($selectedSubs) > 0}
 	<ul class="flags">
 	{foreach from=$selectedSubs item=i name=subs}
-	{cycle values="x,y,z" assign=className}<li id="{$i.key}" class="{$className}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	{cycle values="x,y,z" assign=className}<li id="{$i.key}" class="{$className}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeFlag('{$i.key}',1)" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
 	{if $className eq 'z' or $smarty.foreach.subs.last}<li class="clr"><br class="clr"/></li>{/if}
 	{/foreach}
 	</ul>
@@ -204,12 +204,13 @@
 </tr>
 <tr>
 	<td valign="top">{$translate.dvd.languages}:</td>
-	<td>{html_options id=spokenAvailable name=spokenAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'spokenAvailable')" class="input"}</td>
-	<td><div id="subtitles" style="height:80px;margin-top:5px">
+	<td>{html_options id=spokenAvailable name=spokenAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addFlag(this.form, 'spokenAvailable','langs')" class="input"}</td>
+	<td><div id="langspoken" style="height:80px;margin-top:5px">
 	{if is_array($selectedSpoken) && count($selectedSpoken) > 0}
-	<ul>
-	{foreach from=$selectedSpoken item=i}
-	<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	<ul class="flags">
+	{foreach from=$selectedSpoken item=i name=spoken}
+	{cycle values="x,y,z" assign=className reset=true}<li id="{$i.key}" class="{$className}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeFlag('{$i.key}',2)" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	{if $className eq 'z' or $smarty.foreach.spoken.last}<li class="clr"><br class="clr"/></li>{/if}
 	{/foreach}
 	</ul>
 	{/if}
