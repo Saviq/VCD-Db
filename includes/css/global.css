@@ -2,144 +2,96 @@
 	position: absolute;
 	top: 75px;
 	left: 729px;
-   color: White;
-}
+   color: White;}
 
-#lang .inp {
-	width: 100px;
-}
+#lang .inp {width: 100px;}
 
 .dvdetails {
 	display:none;
 	visibility:hidden;
-	background-color: White;
-}
+	background-color: White;}
 
 .dvdspecs {
 	border: 1px;
-	background-color: White;
-}
+	background-color: White;}
 
 .dvdspecs td {
 	text-align:left;
 	border-bottom: 1px #F4F4F4 solid;
 	border-right: 1px #F4F4F4 solid;
 	color: #3D3D3D;
-	text-indent: 3px;	
-}
+	text-indent: 3px;}
 
 
 .ulnorm {
 	margin: 0;
 	padding: 0px;
-	list-style: none;
-}
+	list-style: none;}
 
 .linorm{
 	padding-left: 0px;
 	margin-left: 0px;
 	padding-top: 0px;
-	background-image: none;
-}
+	background-image: none;}
 
 .nof {
 	border: 0px;
 	background: none;
-	margin:0;
-}
+	margin:0;}
 
 .forms .nof {
 	margin:1px;
-	vertical-align:middle;
-}
+	vertical-align:middle;}
 
 fieldset { margin:4px; }
 
 legend {
   padding: 0.4em 0.5em;
   font-size:90%;
-  text-align:right;
-}
+  text-align:right;}
 
 
-/* Properties for the Pornstar Entries */
 div#tipDiv {
   position:absolute; visibility:hidden; left:0; top:0; z-index:10000;
   background-color:#fff; border:1px solid #000; 
   width:200px; padding:6px;
-  color:#000; font-size:11px; line-height:1.3;
-}
+  color:#000; font-size:11px; line-height:1.3;}
 
 /* These are used in the wrapTipContent function */
 div#tipDiv div.img { text-align:center }
 div#tipDiv div.msg { text-align:left; margin-top:4px }
 
-li.lilink a {
-	display:block;
-}
+li.lilink a {display:block;}
+li.lilink a:hover {	background-color:#F9F9F9;}
 
-li.lilink a:hover {
-	background-color:#F9F9F9;
-}
+#audio ul li  {	cursor:hand;}
 
+P img {	vertical-align:middle;}
 
-/* Default DVD settings */
-/*
-#subtitles ul {
-  float: left;
-  width: 360px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  list-style-image: none;
-}
- 
-#subtitles li {
-  float: left;
-  width: 119px;
-  margin: 0;
-  padding: 0;
-  cursor:hand;
-} 
-*/
-
-#audio ul li  {
-	cursor:hand;
-}
-
-P img {
-	vertical-align:middle;
-}
-
-#pzone P.outer {
-	padding:4px;
-}
+#pzone P.outer {padding:4px;}
 	
 #pzone P.inner {
 	border-top:1px dashed #c0c0c0;
 	padding-left:10px;
 	margin-left:22px;
-	padding-bottom:0px;
-}
+	padding-bottom:0px;}
 
 .plottext {
 	padding:0px 5px 5px 5px;
-	text-indent:0px;
-}
+	text-indent:0px;}
 
 ul.flags {
     list-style-type: none;
     padding: 0;
 	margin: 0; 
-	list-style: none;
-}
+	list-style: none;}
 
 ul.flags li {
 	list-style: none;	
   	margin: 0;
 	padding: 0;
   	cursor:hand;
-}
+  	font-weight:normal;}
 
 li.x {
    float: left;
@@ -163,8 +115,7 @@ li.clr {
    display: inline;
    margin: 0;
    padding: 0;
-   width: 1px;
- }
+   width: 1px; }
 
 br.clr {
    clear: left;
@@ -172,5 +123,4 @@ br.clr {
    font-size:1px;
    margin: 0;
    padding: 0;
-   overflow:hidden;
- }
+   overflow:hidden; }
