@@ -84,6 +84,7 @@ li.lilink a:hover {
 
 
 /* Default DVD settings */
+/*
 #subtitles ul {
   float: left;
   width: 360px;
@@ -100,6 +101,7 @@ li.lilink a:hover {
   padding: 0;
   cursor:hand;
 } 
+*/
 
 #audio ul li  {
 	cursor:hand;
@@ -125,3 +127,50 @@ P img {
 	text-indent:0px;
 }
 
+ul.flags {
+    list-style-type: none;
+    padding: 0;
+	margin: 0; 
+	list-style: none;
+}
+
+ul.flags li {
+	list-style: none;	
+  	margin: 0;
+	padding: 0;
+  	cursor:hand;
+}
+
+li.x {
+   float: left;
+   width: 120px;
+   font-weight: bold;
+   margin: 0 10px 1px 0; }
+      
+li.y {
+   float: left;
+   width: 120px; 
+   padding: 0;
+   margin: 0 10px 1px 0;}
+	
+li.z {
+   float: left;
+   width: 120px; 
+   padding: 0;
+   margin: 0 0 1px 0;}
+	
+li.clr {
+   display: inline;
+   margin: 0;
+   padding: 0;
+   width: 1px;
+ }
+
+br.clr {
+   clear: left;
+   width: 1px;
+   font-size:1px;
+   margin: 0;
+   padding: 0;
+   overflow:hidden;
+ }

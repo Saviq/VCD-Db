@@ -193,9 +193,10 @@
 	<td>{html_options id=langAvailable name=langAvailable options=$subtitleList size="5" style="width:200px;" onDblClick="addSubtitle(this.form, 'langAvailable')" class="input"}</td>
 	<td><div id="subtitles" style="height:80px;margin-top:5px">
 	{if is_array($selectedSubs) && count($selectedSubs) > 0}
-	<ul>
-	{foreach from=$selectedSubs item=i}
-		<li id="{$i.key}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	<ul class="flags">
+	{foreach from=$selectedSubs item=i name=subs}
+	{cycle values="x,y,z" assign=className}<li id="{$i.key}" class="{$className}"><img src="{$i.img}" vspace="2" hspace="2" border="0" ondblclick="removeSub('{$i.key}')" title="{$i.name}" style="vertical-align: middle;"/>{$i.name|truncate:12:".."}</li>
+	{if $className eq 'z' or $smarty.foreach.subs.last}<li class="clr"><br class="clr"/></li>{/if}
 	{/foreach}
 	</ul>
 	{/if}
@@ -221,6 +222,7 @@
 </fieldset>
 <input type="hidden" name="dvdaudio" id="dvdaudio" value="{$jsAudio}"/>
 <input type="hidden" size=40 name="dvdsubs" id="dvdsubs" value="{$jsSubs}"/>
+<input type="hidden" size=40 name="dvdlang" id="dvdlang" value="{$jsLang}"/>
 </form>
 <br/>
 
