@@ -177,7 +177,7 @@ class VCDPageUserSettings extends VCDBasePage {
 			
 			
 		} catch (Exception $ex) {
-			VCDException::display($ex);
+			throw $ex;
 		}
 	}
 	
@@ -278,10 +278,25 @@ class VCDPageUserSettings extends VCDBasePage {
 			if (isset($arrDvdData['subs'])) {
 				$this->assign('jsSubs',$arrDvdData['subs']);
 			}
+			if (isset($arrDvdData['lang'])) {
+				$this->assign('jsLang',$arrDvdData['lang']);
+			}
 			
 			
 			$arrSubs = @explode("#", $arrDvdData['subs']);
 			$arrAudio = @explode("#", $arrDvdData['audio']);
+			$arrSpoken = @explode("#", $arrDvdData['lang']);
+			
+			
+			$results = array();
+			if (is_array($arrSpoken) && sizeof($arrSpoken) > 0) {
+				foreach ($arrSpoken as $key) {
+					if (strlen($key) > 0) {
+						$results[] = array('key' => $key, 'name' => $dvdObj->getLanguage($key), 'img' => $dvdObj->getCountryFlag($key));
+					}
+				}
+				$this->assign('selectedSpoken', $results);
+			}
 			
 			$results = array();
 			if (is_array($arrSubs) && sizeof($arrSubs) > 0) {
@@ -464,7 +479,6 @@ class VCDPageUserSettings extends VCDBasePage {
 			SettingsServices::addMetadata($metaObj);
 		}
 		redirect('?page=settings');
-		exit();
 	}
 	
 	
@@ -498,8 +512,6 @@ class VCDPageUserSettings extends VCDBasePage {
 
 
 		redirect('?page=settings');
-		exit();
-	
 	}
 	
 	
@@ -522,8 +534,6 @@ class VCDPageUserSettings extends VCDBasePage {
 			VCDUtils::setMessage("(".$borrowerObj->getName()." has been updated)");
 		}
 		redirect('?page=settings');
-		exit();
-		
 	}
 	
 	
@@ -585,7 +595,15 @@ class VCDPageUserSettings extends VCDBasePage {
 				$dvdsubs = substr($dvd['subs'], 0, strlen($dvd['subs'])-1);
 				$dvd['subs'] = $dvdsubs;
 			}
-
+		}
+		
+		if (!is_null($this->getParam('dvdlang',true))) {
+			$dvdspoken = implode('#', array_unique(explode("#", $this->getParam('dvdlang',true))));
+			$dvd['lang'] = $dvdspoken;
+			if (strrpos($dvd['lang'], "#") == strlen($dvd['lang'])-1) {
+				$dvdspoken = substr($dvd['lang'], 0, strlen($dvd['lang'])-1);
+				$dvd['lang'] = $dvdspoken;
+			}
 		}
 		
 		$obj = new metadataObj(array('', 0, VCDUtils::getUserID(), 
@@ -593,8 +611,6 @@ class VCDPageUserSettings extends VCDBasePage {
 		SettingsServices::addMetaData($obj);
 		
 		redirect('?page=settings');
-		exit();
-		
 	}
 
 	
@@ -616,8 +632,6 @@ class VCDPageUserSettings extends VCDBasePage {
 		}
 	
 		redirect('?page=settings');
-		exit();
-				
 	}
 
 	
@@ -654,7 +668,6 @@ class VCDPageUserSettings extends VCDBasePage {
 		$Cookie->set();
 			
 		redirect('?page=settings');
-		exit();
 	}
 	
 	/**
@@ -711,7 +724,6 @@ class VCDPageUserSettings extends VCDBasePage {
 		}
 		
 		redirect('?page=settings');
-		exit();
 		
 	}
 	
