@@ -112,6 +112,67 @@ final class VCDConfig {
 	
 	
 	/**
+	 * Check if VCD-db should use LDAP for authentication or not.
+	 *
+	 * @return bool
+	 */
+	public static function isLDAPAuthentication() {
+		if (defined('LDAP_AUTH') && (int)LDAP_AUTH == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Get the LDAP Directory host name
+	 *
+	 * @return string
+	 */
+	public static function getLDAPHost() {
+		if (defined('LDAP_HOST')) {
+			return (string)LDAP_HOST;
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the LDAP Directory Base DN
+	 *
+	 * @return string
+	 */
+	public static function getLDAPBaseDN() {
+		if (defined('LDAP_BASEDN')) {
+			return (string)LDAP_BASEDN;
+		}
+		return null;
+	}
+	
+	/**
+	 * Check if the LDAP Directory server is Microsoft Active Directory or not
+	 *
+	 * @return bool
+	 */
+	public static function isLDAPActiveDirectory() {
+		if (defined('LDAP_AD') && (int)LDAP_AD == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Get the active Directory Domain name to use if isLDAPActiveDirectory()
+	 * returns true.
+	 *
+	 * @return unknown
+	 */
+	public static function getLDAPActiveDirectoryDomain() {
+		if (defined('AD_DOMAIN')) {
+			return (string)AD_DOMAIN;
+		}
+		return null;
+	}
+	
+	/**
 	 * Check if specified string ends with certain character
 	 *
 	 * @param string $str | The needle
