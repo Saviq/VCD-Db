@@ -94,6 +94,45 @@ final class VCDConfig {
 		return false;
 	}
 	
+	/**
+	 * Get the Webservice Endpoint that VCD-db should connect to if isUsingWebservice()
+	 * returns true.
+	 *
+	 * @return string
+	 */
+	public static function getWebserviceEndpoint() {
+		if (!defined('VCDDB_SOAPPROXY') || VCDDB_SOAPPROXY=='') {
+			return null;
+		}
+		return (string)VCDDB_SOAPPROXY;
+	}
+
+	/**
+	 * Get the password used to connect to the remote VCD-db instance via SOAP.
+	 * This password is used when requests are being sent on behalf of unauthenticated
+	 * users.  The SOAP password cannot be empty.
+	 *
+	 * @return string
+	 */
+	public static function getWebservicePassword() {
+		if (!defined('VCDDB_SOAPSECRET') || VCDDB_SOAPSECRET=='') {
+			return null;
+		}
+		return (string)VCDDB_SOAPSECRET;
+	}
+	
+	/**
+	 * Get the Cache Manager used to store cachable data from the remote webservice.
+	 * Define-ing a cache manager is not required.
+	 *
+	 * @return string
+	 */
+	public static function getWebserviceCacheManager() {
+		if (!defined('CACHE_MANAGER') || CACHE_MANAGER=='') {
+			return null;
+		}
+		return (string)CACHE_MANAGER;
+	}
 	
 	/**
 	 * Get the web base directory where VCD-db lies.  Possible output could be '/' for root directory
@@ -163,13 +202,78 @@ final class VCDConfig {
 	 * Get the active Directory Domain name to use if isLDAPActiveDirectory()
 	 * returns true.
 	 *
-	 * @return unknown
+	 * @return string
 	 */
 	public static function getLDAPActiveDirectoryDomain() {
 		if (defined('AD_DOMAIN')) {
 			return (string)AD_DOMAIN;
 		}
 		return null;
+	}
+	
+	/**
+	 * Check if the fetch classes should connect through a proxy server.
+	 *
+	 * @return bool
+	 */
+	public static function isUsingProxyServer() {
+		if (defined('USE_PROXY') && (int)USE_PROXY == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Get the host name of the proxy server to connect to.
+	 *
+	 * @return string
+	 */
+	public static function getProxyServerHostname() {
+		if (defined('PROXY_URL')) {
+			return (string)PROXY_URL;
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the Port number to use when connecting to the proxy server.
+	 *
+	 * @return int
+	 */
+	public static function getProxyServerPort() {
+		if (defined('PROXY_PORT')) {
+			return (string)PROXY_PORT;
+		}
+		return null;
+	}
+	
+	/**
+	 * Get the default CSS Template folder VCD-db should use for UI rendering.
+	 * If none has been defined, the default VCD-db template will be returned. 
+	 *
+	 * @return string
+	 */
+	public static function getDefaultStyleTemplate() {
+		if (defined('STYLE') && STYLE != '') {
+			return (string)STYLE;
+		} else {
+			return 'includes/templates/default/';
+		}
+	}
+	
+	/**
+	 * Get the RSS cache timeout values, if cached item is older that the value
+	 * a fresh copy of the RSS feed will be downloaded.  The value returned
+	 * is in seconds.  If value has not been defined, defualt 4 hours will be returned. 
+	 *
+	 * @return double
+	 */
+	public static function getRSSCacheTimeout() {
+		if (defined('RSS_CACHE_TIME') && is_numeric(RSS_CACHE_TIME)) {
+			return (double)RSS_CACHE_TIME;
+		} else {
+			return (60*60*4);	// 4 hours
+		}
 	}
 	
 	/**
