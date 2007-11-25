@@ -11,12 +11,11 @@
  * @author  Jochen Schales <Jochen.Schales_at_gmx.de>
  * @package Kernel
  * @subpackage WebFetch
- * @version $Id: VCDFetch_ofdb.php,v 1.0 15/10/2006
+ * @version $Id: VCDFetch_ofdb.php
  */
 ?>
 <?php
 class VCDFetch_ofdb extends VCDFetch {
-
 
 	protected $regexArray = array(
 		'title' 	=> '<title>OFDb - ([^\(]*)\(([0-9]{4})\)</title>',
@@ -31,8 +30,7 @@ class VCDFetch_ofdb extends VCDFetch {
 		'country' 	=> '<a href="view.php.page=blaettern.Kat=Land&Text=[^>]*>([^<]*)</a>',
 		'plotshort'	=> '<b>Inhalt:</b> *([^<]*)<a href="view.php.page=inhalt.fid=[^>]*><b>\[mehr\]</b></a>',
 		'linkplot'	=> '<b>Inhalt:</b>[^<]*<a href="([^"]*)"[^>]*><b>\[mehr\]</b></a>',
-		'plot'		=> 'Eine Inhaltsangabe von <a href=\'usercenter/info.php[^<]*</a></b><br><br>([^<]*)</font></p>'
-#		'plot'		=> ''
+		'plot'		=> '/Eine Inhaltsangabe von <a href=\'usercenter\/info.php[^<]*<\/a><\/b><br><br>(.+?)(?=<\/font><\/p>)/is'
 		);
 
 	protected $multiArray = array(
@@ -55,8 +53,9 @@ class VCDFetch_ofdb extends VCDFetch {
 
 	public function search($title) {
 	
-		if (strcasecmp(VCDUtils::getCharSet(), $this->serverCharset)!= 0)
-			$title = mb_convert_encoding($title, $this->serverCharset, VCDUtils::getCharSet());
+		if ((VCDUtils::getCharSet() != $this->serverCharset)) $title = iconv(VCDUtils::getCharSet()."//TRANSLIT", $this->serverCharset, $title);
+#		if (strcasecmp(VCDUtils::getCharSet(), $this->serverCharset)!= 0)
+#			$title = mb_convert_encoding($title, $this->serverCharset, VCDUtils::getCharSet());
 		return parent::search($title);
 	}
 
@@ -223,7 +222,10 @@ class VCDFetch_ofdb extends VCDFetch {
 					if ($this->getItem($this->regexArray['plot']) == self::ITEM_OK) {
 						
 						$plotArr = $this->getFetchedItem();
-						$plotText = $plotArr[1];
+#						$plotText = $plotArr[1];
+						$plotBadStr = array("…", "", "<br />", "<br>");
+						$plotReplaceStr = array("...", "...", "", "");
+						$plotText = str_replace($plotBadStr, $plotReplaceStr, $plotArr[1]);
 						array_push($this->workerArray, array($entry, $plotText));
 
 					} else {
@@ -245,20 +247,5 @@ class VCDFetch_ofdb extends VCDFetch {
 		}
 	}
 
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
 ?>
