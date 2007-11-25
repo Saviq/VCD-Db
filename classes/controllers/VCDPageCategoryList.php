@@ -172,7 +172,15 @@ class VCDPageCategoryList extends VCDBasePage {
 	private function setViewMode() {
 		$mode = $this->getParam('viewmode');
 		if (is_null($mode)) {
-			return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);
+			// Check for user defined property, using default viewmode = image, 
+			// and no viewmode already set
+			if (VCDUtils::isLoggedIn() && !isset($_SESSION['viewmode']) && 
+				(bool)VCDUtils::getCurrentUser()->getPropertyByKey('DEFAULT_IMAGE')) {
+				$_SESSION['viewmode'] = 'img';
+				return true;
+			} else {
+				return (isset($_SESSION['viewmode']) && strcmp($_SESSION['viewmode'],'img')==0);	
+			}
 		}
 		
 		if (strcmp($mode,'img')==0) {
