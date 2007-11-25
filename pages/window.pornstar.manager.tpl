@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="{$pageStyle}" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<link rel="stylesheet" type="text/css" href="includes/css/manager.css" media="screen, projection"/>
-	<script src="includes/js/main.js" type="text/javascript"></script>
+	{$pageScripts}
 </head>
 
 <body onload="window.focus()">

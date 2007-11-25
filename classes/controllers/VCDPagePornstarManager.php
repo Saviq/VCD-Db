@@ -30,6 +30,9 @@ class VCDPagePornstarManager extends VCDBasePage {
 			
 			parent::__construct($node);
 	
+			$this->registerScript(self::$JS_MAIN);
+			$this->registerScript(self::$JS_LANG);
+			
 			$pornstarObj = PornstarServices::getPornstarByID($this->getParam('pornstar_id'));
 			if (!$pornstarObj instanceof pornstarObj ) {
 				throw new VCDProgramException('Invalid pornstar Id.');
