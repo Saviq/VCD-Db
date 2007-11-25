@@ -61,6 +61,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$this->skipExtended = true;
 			parent::__construct($node);
 			
+			// Assert permission
+			if (!$this->checkPermissions()) {
+				redirect();
+			}
 			
 			// Register javascripts
 			$this->registerScript(self::$JS_TABS);
@@ -1047,6 +1051,21 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		}
 	}
 	
+	
+	/**
+	 * Check if the current user has access to the managager page.
+	 * User has to be either an owner of the item or a VCD-db admin.
+	 * Returns true if user can procees and load the page.
+	 *
+	 * @return bool
+	 */
+	private function checkPermissions() {
+		if (VCDUtils::isOwner($this->itemObj)) {
+			return true;
+		} else {
+			return VCDUtils::getCurrentUser()->isAdmin();
+		}
+	}
 		
 	
 }
