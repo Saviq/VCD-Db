@@ -1842,6 +1842,17 @@ class SoapPornstarServices extends PornstarServices {
 		}
 	}
 	
+	public static function deletePornstar($pornstar_id) {
+		try {
+			
+			VCDSoapService::isAdmin();
+			return parent::deletePornstar($pornstar_id);
+			
+		} catch (Exception $ex) {
+			return VCDSoapService::handleSoapError($ex);
+		}
+	}
+	
 	
 	
 	public static function deleteAdultCategory($category_id) {
