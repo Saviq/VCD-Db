@@ -10,20 +10,20 @@
 </head>
 <body onload="window.focus()" class="nobg">
 <h2>{$translate.loan.registeruser}</h2>
-<form name="borrower" action="{$smarty.server.SCRIPT_NAME}?page=borrower&amp;action=add" method="post" onsubmit="return submitBorrower(this)">
+<form name="borrower" action="{$smarty.server.SCRIPT_NAME}?page=borrower&amp;action=add" method="post">
 
 <table cellspacing="1" cellpadding="1" border="0" class="plain">
 <tr>
 	<td>{$translate.loan.name}:</td>
-	<td><input type="text" name="name"/></td>
+	<td><input type="text" name="borrower_name"/></td>
 </tr>
 <tr>
 	<td>{$translate.register.email}:</td>
-	<td><input type="text" name="email"/></td>
+	<td><input type="text" name="borrower_email"/></td>
 </tr>
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="{$translate.misc.confirm}" id="vista" onclick="return val_borrower(this.form)"/></td>
+	<td><input type="submit" value="{$translate.misc.confirm}" id="saveBorrower" name="saveBorrower" onclick="return checkBorrower(this.form)"/></td>
 </tr>
 </table>
 
