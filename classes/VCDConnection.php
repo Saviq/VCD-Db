@@ -17,15 +17,14 @@
 require_once(dirname(__FILE__) . '/adodb/adodb-exceptions.inc.php');
 require_once(dirname(__FILE__) . '/adodb/adodb.inc.php');
 
-
 class VCDConnection {
 
-	private $db_type 		= DB_TYPE;
-   	private $db_username 	= DB_USER;
-	private $db_password 	= DB_PASS;
-	private $db_host 		= DB_HOST;
-	private $db_catalog 	= DB_CATALOG;
-	private $sqlitedb 		= "vcddb.db";
+	private $db_type;
+   	private $db_username;
+	private $db_password;
+	private $db_host;
+	private $db_catalog;
+	private $sqlitedb = "vcddb.db";
 
 	private $debug = false;
 	/**
@@ -42,12 +41,13 @@ class VCDConnection {
 	 *
 	 */
 	protected function __construct() {
-
 		if (!is_null($this->db)) {
 			return;
 		}
-		
-		if (defined('DB_USER')) {
+
+		$this->initialize();
+				
+		if (!is_null($this->db_username)) {
 
 			try {
 				$this->db = NewADOConnection($this->db_type);
@@ -91,7 +91,6 @@ class VCDConnection {
 			$this->redirect('?page=error&type=db');
 			exit();
 		}
-
 	}
 
 
@@ -220,6 +219,17 @@ class VCDConnection {
 		}
 	}
 
+	/**
+	 * Initilize the connection credentials
+	 *
+	 */
+	private function initialize() {
+		$this->db_host = VCDConfig::getDatabaseHost();
+		$this->db_catalog = VCDConfig::getDatabaseName();
+		$this->db_username = VCDConfig::getDatabaseUser();
+		$this->db_password = VCDConfig::getDatabasePassword();
+		$this->db_type = VCDConfig::getDatabaseType();
+	}
 
 	/**
 	 * Increment the internal query counter by 1
