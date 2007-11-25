@@ -56,7 +56,7 @@ class VCDSoapService extends VCDServices {
 	public function __construct($wsdl) {
 		try {
 			
-			if (!defined('VCDDB_SOAPSECRET') || (defined('VCDDB_SOAPSECRET') && strcmp(VCDDB_SOAPSECRET,"")==0)) {
+			if (is_null(VCDConfig::getWebservicePassword())) {
 				die($this->getInvalidAuthResponse('Server password is not set! Cannot provide service.'));
 			}
 			
@@ -224,7 +224,7 @@ class VCDSoapService extends VCDServices {
 				$password = $_SERVER['PHP_AUTH_PW']; 	
 								
 				
-				if ((strcmp($username,'vcddb') == 0) && (strcmp($password,VCDDB_SOAPSECRET)==0)) {
+				if ((strcmp($username,'vcddb') == 0) && (strcmp($password,VCDConfig::getWebservicePassword())==0)) {
 					return;
 				} else {
 					
