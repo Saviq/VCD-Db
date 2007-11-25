@@ -111,7 +111,7 @@
 		<part name="pornstar_id" type="xsd:decimal"/>
 	</message>
 	<message name="deletePornstarResponse">
-		<part name="deletePornstarReturn" type="xsd:anyType"/>
+		<part name="deletePornstarReturn" type="xsd:boolean"/>
 	</message>
 	<message name="deletePornstarFromMovie">
 		<part name="pornstar_id" type="xsd:decimal"/>
