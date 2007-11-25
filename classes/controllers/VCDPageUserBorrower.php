@@ -52,8 +52,8 @@ class VCDPageUserBorrower extends VCDBasePage {
 	private function addBorrower() {
 		try {
 			
-			$name = $this->getParam('name',true);
-			$email = $this->getParam('email',true);
+			$name = $this->getParam('borrower_name',true);
+			$email = $this->getParam('borrower_email',true);
 			
 			if (is_null($name) || is_null($email)) {
 				throw new VCDInvalidInputException('Please fill in user and email information.');
