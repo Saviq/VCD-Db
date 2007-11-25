@@ -1838,9 +1838,9 @@ class SoapPornstarProxy extends VCDProxy  {
 		}
 	}
 	
-	public function deletePornstar($studio_id) {
+	public function deletePornstar($pornstar_id) {
 		try {
-			return $this->invoke('deletePornstar', array('pornstar_id' => $studio_id));
+			return $this->invoke('deletePornstar', array('pornstar_id' => $pornstar_id));
 		} catch (Exception $ex) {
 			throw $ex;
 		}
