@@ -6,7 +6,7 @@
 {if $isAuthenticated}
 	<a href="?page=settings">{$pageUsername}</a>
 	{if $isAdmin}
-		| <a href="#" onclick="openAdminConsole(this);return false">{$translate.menu.controlpanel}</a>
+		| <a href="#" onclick="openAdminConsole();return false">{$translate.menu.controlpanel}</a>
 	{/if}
 	| <a href="?do=logout">{$translate.menu.logout}</a>
 {/if}

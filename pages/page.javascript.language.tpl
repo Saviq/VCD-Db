@@ -1,3 +1,4 @@
+var jxBase = '{$jsBase}';
 {literal}
 var Trans = {
 	items: {

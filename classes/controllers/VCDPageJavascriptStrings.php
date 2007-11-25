@@ -25,6 +25,10 @@ class VCDPageJavascriptStrings extends VCDBasePage {
 	public function __construct(_VCDPageNode $node) {
 		parent::__construct($node);
 		
+		// Since the language script is always loaded ..
+		// We sneak in the webBase constant with it, used by main.js
+		$this->assign('jsBase', $_SERVER['SCRIPT_NAME']);
+		
 		$jsKeys = VCDLanguage::getJavascriptKeys();
 		$results = array();
 		foreach ($jsKeys as $obj) {
