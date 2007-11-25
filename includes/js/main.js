@@ -4,7 +4,6 @@ var ie5 = (document.all && document.getElementById);
 var ns6 = (!document.all && document.getElementById);
 
 function show(id,keepstatus){
-
 	try {
 
 	// Netscape 4
@@ -32,7 +31,6 @@ function show(id,keepstatus){
 
 function hide(id){
 	// Netscape 4
-
 	try {
 
 	if(ns4){
@@ -52,20 +50,18 @@ function hide(id){
 	} catch (Exception) {}
 }
 
-function openAdminConsole(link) {
-	url = replace(link.href,'#','admin');
+function openAdminConsole() {
+	url = getBase()+'admin';
 	window.open(url, 'Console', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=yes,width=800,height=600');
 }
 
 function loadManager(id) {
-	var page = '?page=manager&vcd_id='+id;
+	var page = getBase()+'?page=manager&vcd_id='+id;
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
 function copyFiles(form) {
-	
 	try {
-	
 		for (key in form.elements) {
 			el = form.elements[key];
 			uri = el.value;
@@ -312,32 +308,30 @@ function clr() {
 }
 
 function createBorrower() {
-	var url = "?page=borrower";
+	var url = getBase()+'?page=borrower';
 	window.open(url, 'borrower','height=100,width=200,top=50,left=25');
 }
 
-
 function changeBorrower() {
-	var selectionObj = document.getElementById('borrowers');
+	var selectionObj = $('borrowers');
 	var selectedItem = selectionObj.selectedIndex;
 	var selectedValue = selectionObj.options[selectedItem].value;
 
 	if (selectedValue != '') {
-		var urlbase = replace(jxBase,'index.php','');
-		url = urlbase+'?page=settings&action=editborrower&bid='+selectedValue;
+		url = getBase()+'?page=settings&action=editborrower&bid='+selectedValue;
 		location.href = url;
 	}
 }
 
 function deleteBorrower() {
-	var selectionObj = document.getElementById('borrowers');
+	var selectionObj = $('borrowers');
 	var selectedItem = selectionObj.selectedIndex;
 	var selectedValue = selectionObj.options[selectedItem].value;
 	var message = Trans.late('deleteborrower');
 
 	if (selectedValue != '') {
 		if (confirm(message)) {
-			url = "?page=settings&action=delborrower&bid="+selectedValue;
+			url = getBase()+'?page=settings&action=delborrower&bid='+selectedValue;
 			location.href = url;
 		}
 	}
@@ -449,13 +443,6 @@ function val_IMDB(form) {
 	return true;
 }
 
-
-function submitBorrower(form) {
-	form.vista.disabled=true;
-	return true;
-}
-
-
 function emailCheck (emailStr) {
 
 var emailPat=/^(.+)@(.+)$/
@@ -519,12 +506,10 @@ return true;
 }
 
 function goSimilar(form) {
-
 	val = form.similar.options[form.similar.selectedIndex].value;
-	url = '?page=cd&vcd_id='+val;
+	url = getBase()+'?page=cd&vcd_id='+val;
 	location.href = url;
 }
-
 
 function IsNumeric(strString)   {
    var strValidChars = "0123456789";
@@ -538,29 +523,28 @@ function IsNumeric(strString)   {
       strChar = strString.charAt(i);
       if (strValidChars.indexOf(strChar) == -1) {
          blnResult = false;
-         }
+      }
     }
    return blnResult;
 }
 
-
 function jumpTo(pornstarname, web) {
-	var page = "?page=jump&pornstar="+pornstarname+"&web="+web+"";
+	var page = getBase()+'?page=jump&pornstar='+pornstarname+'&web='+web;
 	window.open(page,'starsearch');
 }
 
 function addActors(id) {
-	var url = '?page=addpornstars&vcd_id='+id;
+	var url = getBase()+'?page=addpornstars&vcd_id='+id;
 	window.open(url, 'addactors', 'height=300,width=420,top=200,left=250');
 }
 
 function addScreenshots(id) {
-	var url = '?page=addscreens&vcd_id='+id;
+	var url = getBase()+'?page=addscreens&vcd_id='+id;
 	window.open(url, 'addscreens', 'height=300,width=420,top=200,left=250');
 }
 
 function changePornstar(pornstar_id) {
-	var url = '?page=pornstarmanager&pornstar_id='+pornstar_id;
+	var url = getBase()+'?page=pornstarmanager&pornstar_id='+pornstar_id;
 	window.open(url, 'PornStarManager', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=365,height=270');
 }
 
@@ -568,60 +552,53 @@ function fetchstarimage(star_id) {
 	var promptext = Trans.late('url');
 	linktext = prompt(promptext,'');
 	if (linktext != null) {
-		url = '?page=pornstarmanager&action=fetchimage&pornstar_id='+star_id+'&path='+linktext;
+		url = getBase()+'?page=pornstarmanager&action=fetchimage&pornstar_id='+star_id+'&path='+linktext;
 		location.href = url;
 	}
 }
 
 function deletePornstarImage(pornstar_id) {
 	if (confirm(Trans.late('delete'))) {
-		url = '?page=pornstarmanager&action=deleteimage&pornstar_id='+pornstar_id;
+		url = getBase()+'?page=pornstarmanager&action=deleteimage&pornstar_id='+pornstar_id;
 		location.href = url;
 	}
 }
 
 function removeActor(pornstar_id, movie_id) {
 	if (confirm(Trans.late('removeactor'))) {
-		url = '?page=manager&vcd_id='+movie_id+'&action=removeactor&actor_id='+pornstar_id;
+		url = getBase()+'?page=manager&vcd_id='+movie_id+'&action=removeactor&actor_id='+pornstar_id;
 		location.href = url;
 	}
 }
 
-
 function addFeed(type) {
 	if (type == 'vcddb') {
-		var url = '?page=addrss&type=vcddb';
+		var url = getBase()+'?page=addrss&type=vcddb';
 		window.open(url, 'Rss', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,height=250,width=350,top=200,left=250');	
 	} else if (type == 'site') {
-		var url = '?page=addrss&type=site';
+		var url = getBase()+'?page=addrss&type=site';
 		window.open(url, 'Rss', 'toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,height=80,width=300,top=200,left=250');
 	} else {
-		return false;	
+		return false;
 	}
-			
-	
-	
 }
 
-
 function rssCheck(form) {
-	count=0
-
+	var count=0;
 	for (i=0; i<form.elements.length ;i++)
-	if (form.elements[i].type=='checkbox' && form.elements[i].checked){
+	if (form.elements[i].type=='checkbox' && form.elements[i].checked) {
 	 	count+=1
 	}
 	if (count == 0) {
 		alert(Trans.late('norss'));
 		return false;
 	}
-
 	return true;
 }
 
 function deleteFeed(id) {
 	if (confirm(Trans.late('delete'))) {
-		url = '?page=settings&action=delrss&rss_id='+id;
+		url = getBase()+'?page=settings&action=delrss&rss_id='+id;
 		location.href = url;
 	}
 }
@@ -629,71 +606,48 @@ function deleteFeed(id) {
 function deleteMetaType(id) {
 	var msg = Trans.late('deletemeta');
 	if (confirm(msg)) {
-		url = '?page=settings&action=delmetatype&meta_id='+id;
+		url = getBase()+'?page=settings&action=delmetatype&meta_id='+id;
 		location.href=url;
 	}
 }
 
 function deleteComment(item_id,id) {
-	url = '?page=cd&vcd_id='+item_id+'&action=delComment&cid='+id;
+	url = getBase()+'?page=cd&vcd_id='+item_id+'&action=delComment&cid='+id;
 	location.href = url;
 }
 
-
-function doTooltip(e, num) {
-	
-  if ( typeof Tooltip == "undefined" || !Tooltip.ready ) return;
-  var cntnt = wrapTipContent(num);
-  var tip = document.getElementById( Tooltip.tipID );
-  if ( messages[num][4] ) tip.style.width = messages[num][4] + "px";
-  Tooltip.show(e, cntnt);
-}
-
-function hideTip() {
-  if ( typeof Tooltip == "undefined" || !Tooltip.ready ) return;
-  Tooltip.hide();
-}
-
-
-function wrapTipContent(num) {
-  var cntnt = '<div class="img"><img src="' + messages[num][0] + '" width="' +
-    messages[num][1] + '" height="' + messages[num][2] + '" border="0"></div>';
-  if ( messages[num][3] ) cntnt += '<div class="msg">' + messages[num][3] + '</div>';
-	return cntnt;
-}
-
 function addtowishlist(id) {
-	var url = '?page=cd&vcd_id='+id+'&action=addtowishlist';
+	var url = getBase()+'?page=cd&vcd_id='+id+'&action=addtowishlist';
 	location.href = url;
 }
 
 function deleteFromWishlist(id) {
-	var url = '?page=wishlist&action=delete&vcd_id='+id;
+	var url = getBase()+'?page=wishlist&action=delete&vcd_id='+id;
 	location.href = url;
 }
 
 function deleteCover(cover_id, vcd_id) {
-	var url = '?page=manager&vcd_id='+vcd_id+'&action=deletecover&cover_id='+cover_id;
+	var url = getBase()+'?page=manager&vcd_id='+vcd_id+'&action=deletecover&cover_id='+cover_id;
 	location.href = url;
 }
 
 function showUserStatus() {
-	url = '?page=overview';
+	url = getBase()+'?page=overview';
 	window.open(url, 'overview', 'scrollbars=yes,resizable=yes,height=600,width=830,top=50,left=25');
 }
 
 function showUserStatusDetailed() {
-	url = 'pages/user_status_detail.php';
+	url = getBase()+'pages/user_status_detail.php';
 	window.open(url, 'popup2', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
 }
 
 function showAllMoviesDetailed() {
-	url = 'pages/all_movies_details.php';
+	url = getBase()+'pages/all_movies_details.php';
 	window.open(url, 'popup3', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
 }
 
 function checkupload(formvalue) {
-	if (formvalue == "") {
+	if (formvalue == '') {
 		alert(Trans.late('noupload'));
 		return false;
 	} else {
@@ -702,7 +656,7 @@ function checkupload(formvalue) {
 }
 
 function clearXML() {
-	var url = '?page=add&source=xml&action=cleanup';
+	var url = getBase()+'?page=add&source=xml&action=cleanup';
 	location.href = url;
 }
 
@@ -711,7 +665,6 @@ function showupload(form, layername) {
 		show(layername);
 	} else {
 		hide(layername);
-
 	}
 }
 
@@ -725,14 +678,11 @@ function checkXMLConfirm(form) {
 }
 
 function checkAdvanced(form) {
-
 	var category = form.category.options[form.category.selectedIndex].value;
 	var year = form.year.options[form.year.selectedIndex].value;
 	var mediatype = form.mediatype.options[form.mediatype.selectedIndex].value;
 	var owner = form.owner.options[form.owner.selectedIndex].value;
 	var rating = form.grade.options[form.grade.selectedIndex].value;
-
-
 
 	if (form.title.value == '' && category == 'null' && year == 'null' && mediatype == 'null' && owner == 'null' && rating == 'null')
 	{
@@ -776,23 +726,21 @@ function deleteCopy(usercopies, totalcopies, id, media_id) {
 	if (totalcopies == 1) {
 		var message = Trans.late('lastcopy');
 		if (confirm(message)) {
-			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=full';
+			url = getBase()+'?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=full';
 			location.href = url;
 		}
 	} else {
-
 		var message = Trans.late('delete');
 		if (confirm(message)) {
-			url = '?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=single';
+			url = getBase()+'?page=manager&action=deletecopy&vcd_id='+id+'&media_id='+media_id+'&mode=single';
 			location.href = url;
 		}
 	}
 }
 
 function checkListed(form) {
-
 	checkFieldsRaw(form,'choiceBox', 'id_list');
-	if (form.id_list.value == "") {
+	if (form.id_list.value == '') {
 		alert(Trans.late('noselection'));
 		return false;
 	} else {
@@ -813,15 +761,13 @@ function confirmListed(form) {
  	return true;
 }
 
-
 function printView(type) {
-	url = '?page=printview&mode=' + type;
+	url = getBase()+'?page=printview&mode=' + type;
 	window.open(url, 'printview', 'scrollbars=yes, menubar=yes, resizable=yes,height=600,width=830,top=50,left=25');
 }
 
-
 function markSeen(movie_id, flag) {
-	url = '?page=cd&vcd_id='+movie_id+'&action=seenlist&flag='+flag;
+	url = getBase()+'?page=cd&vcd_id='+movie_id+'&action=seenlist&flag='+flag;
 	location.href = url;
 }
 
@@ -840,15 +786,12 @@ function showPage(box, bOpenWindow) {
     return true;
 }
 
-
 function showonlymine(cat_id) { 	 
-	url = '?page=category&category_id='+cat_id+'&action=onlymine';
+	url = getBase()+'?page=category&category_id='+cat_id+'&action=onlymine';
 	location.href = url; 	 
 }
 
-
 function checkReg(form) {
-
 	if (form.name.value == "") {
 		alert(Trans.late('reqname'));
 		form.name.focus();
@@ -884,12 +827,8 @@ function checkReg(form) {
 		return false;
 	}
 
-
 	return true;
-
-
 }
-
 
 // sort function - ascending (case-insensitive)
 function sortFuncAsc(record1, record2) {
@@ -935,57 +874,14 @@ function sortSelect(selectToSort, ascendingOrder) {
     }
 }
 
-
-var detect = navigator.userAgent.toLowerCase();
-var OS,browser,version,total,thestring;
-
-if (checkIt('konqueror'))
-{
-	browser = "Konqueror";
-	OS = "Linux";
-}
-else if (checkIt('safari')) browser = "Safari"
-else if (checkIt('omniweb')) browser = "OmniWeb"
-else if (checkIt('opera')) browser = "Opera"
-else if (checkIt('webtv')) browser = "WebTV";
-else if (checkIt('icab')) browser = "iCab"
-else if (checkIt('msie')) browser = "Internet Explorer"
-else if (!checkIt('compatible'))
-{
-	browser = "Netscape Navigator"
-	version = detect.charAt(8);
-}
-else browser = "An unknown browser";
-
-if (!version) version = detect.charAt(place + thestring.length);
-
-if (!OS)
-{
-	if (checkIt('linux')) OS = "Linux";
-	else if (checkIt('x11')) OS = "Unix";
-	else if (checkIt('mac')) OS = "Mac"
-	else if (checkIt('win')) OS = "Windows"
-	else OS = "an unknown operating system";
-}
-
-function checkIt(string)
-{
-	place = detect.indexOf(string) + 1;
-	thestring = string;
-	return place;
-}
-
-
 function filebrowse(param, destField) {
 	try {
 		if (destField == null) {
-			var url = '?page=playerbrowse&from='+param;
+			var url = getBase()+'?page=playerbrowse&from='+param;
 		} else {
-			var url = '?page=playerbrowse&from='+param+'&field='+destField;
+			var url = getBase()+'?page=playerbrowse&from='+param+'&field='+destField;
 		}
-
 		window.open(url, 'FileBrowser', 'height=60,width=380,top=200,left=250');
-
 	} catch (Ex) {}
 }
 
@@ -1019,9 +915,7 @@ function addFileLocation(img,rowIndex,cellIndex,rowCount,mediaId,metaTypeId) {
 	newTd1.appendChild(document.createTextNode('filelocation'))
 	newTd2.appendChild(newInput);
 	newTd2.appendChild(jsImg);
-	
 }
-
 
 function getFileName(form, fieldname) {
 	try {
@@ -1030,9 +924,7 @@ function getFileName(form, fieldname) {
 		obj.value = filename;
 		self.close();
 		return false;
-
-  } catch (ex) {
-  }
+  } catch (ex) {}
 }
 
 function getPlayerFileName(form) {
@@ -1044,8 +936,6 @@ function getPlayerFileName(form) {
 		return false;
   } catch (Exception) {}
 }
-
-
 
 function replace(s, t, u) {
   /*
@@ -1062,16 +952,10 @@ function replace(s, t, u) {
   if ( i + t.length < s.length)
     r += replace(s.substring(i + t.length, s.length), t, u);
   return r;
-  }
-
-
-function viewMode(category_id, viewmode, batch) {
-	url = "./?action=viewmode&category_id="+category_id+"&batch="+batch+"&mode="+viewmode;
-	location.href = url;
 }
 
 function switchTemplate(template) {
-	url = '?page=settings&action=templates&template='+template;
+	url = getBase()+'?page=settings&action=templates&template='+template;
 	location.href = url;
 }
 
@@ -1088,34 +972,31 @@ function managerSubmit(form, action) {
 
 function setManagerMediaType(obj, movieid) {
 	var id = obj.options[obj.selectedIndex].value;
-	var url = '?page=manager&vcd_id='+movieid+'&dvd='+id;
+	var url = getBase()+'?page=manager&vcd_id='+movieid+'&dvd='+id;
 	location.href = url;
 }
 
-
 function showDVD(id) {
 	try {
-		var obj = document.getElementById(id);
+		var obj = $(id);
 		if (obj != null) {
 			return obj.innerHTML;
 		} else {
-			return "";
+			return '';
 		}
 	} catch (ex) {
 		alert(ex.Message);
 	}
 }
 
-
 function deleteMeta(metadata_id, itemId) {
 	try {
 		if (metadata_id > 0) {
-			url = '?page=manager&vcd_id='+itemId+'&action=deletemeta&meta_id='+metadata_id;
+			url = getBase()+'?page=manager&vcd_id='+itemId+'&action=deletemeta&meta_id='+metadata_id;
 			location.href = url;
 		}
 	} catch (ex) {}
 }
-
 
 /* Ajax based form functions */
 
@@ -1246,21 +1127,19 @@ function addFlag(form,source,callerId) {
 }
 
 function addAudio(form, source) {
-	var objList = document.getElementById(source);
+	var objList = $(source);
 	var selectedItem = objList.selectedIndex;
 	if (selectedItem < 0) { return; }
 	var selectedText = objList.options[selectedItem].text;
 	var selectedValue = objList.options[selectedItem].value;
 
-	var audio = document.getElementById('audio');
-
-  	var htmlfield = document.getElementById('dvdaudio');
+	var audio = $('audio');
+  	var htmlfield = $('dvdaudio');
   	if (htmlfield.value.length==0) {
   		htmlfield.value += selectedValue;
   	} else {
   		htmlfield.value += '#'+selectedValue;
   	}
-
 
   	var html = '<ul>';
     var lis = audio.getElementsByTagName('LI');
@@ -1278,8 +1157,8 @@ function addAudio(form, source) {
 }
 
 function removeAudio(key) {
-	var audios = document.getElementById('audio');
-	var htmlfield = document.getElementById('dvdaudio');
+	var audios = $('audio');
+	var htmlfield = $('dvdaudio');
 	htmlfield.value = '';
 
     var lis = audios.getElementsByTagName('LI');
@@ -1301,9 +1180,7 @@ function removeAudio(key) {
 	audios.innerHTML = html;
 }
 
-
 /* Functions when adding new movie and changing media type */
-
 function doMediaTypeData(selectedValue) {
 	processing(true);
 	obj = new vcddbAjax('getDataForMediaType');
@@ -1333,7 +1210,7 @@ function getFieldHTML(data) {
 }
 
 function processing(start) {
-	button = document.getElementById('confirmButton');
+	button = $('confirmButton');
 	button.disabled = start;
 	if (start) {
 		button.style.color='#cccccc';
@@ -1343,7 +1220,6 @@ function processing(start) {
 		show('processIcon');
 	}
 }
-
 
 function showForms(dataArrArr) {
 	for (dataArrID in dataArrArr) {
@@ -1372,7 +1248,6 @@ function l(type) {
 	}
 	createCookie('rbar', type, 365);
 }
-
 
 function createCookie(name,value,days) {
 	if (days) {
@@ -1407,14 +1282,13 @@ function vcddbAjax(funcname) {
 }
 
 function invokeRss(id) {
-	
 	img = new Image();
 	img.src = 'images/processing.gif'; 
 	img.setAttribute('border',0);
 	img.setAttribute('hspace',140);
 	img.setAttribute('vspace',40);
 	img.setAttribute('title','Loading ...');
-	div = document.getElementById('rss'+id);
+	div = $('rss'+id);
 	div.innerHTML = '';
 	div.appendChild(img);
 		
@@ -1425,7 +1299,7 @@ function invokeRss(id) {
 function renderRss(response) {
 	obj = new Object(response);
 	items = obj.items;
-	ul = document.getElementById('rss'+obj.id);
+	ul = $('rss'+obj.id);
 	ul.innerHTML = '';
 	hover = "this.T_SHADOWWIDTH=1;this.T_STICKY=1;this.T_OFFSETX=-70;this.T_WIDTH=250;return escape('#')";
 	for (i=0;i<items.length;i++) {
@@ -1440,7 +1314,6 @@ function renderRss(response) {
 		ul.appendChild(li);
 	}
 }
-
 
 function playMovie(id) {
 	var doc = document.body;
@@ -1465,7 +1338,6 @@ function addLoadEvent(func) {
   }
 }
 
-
 function ShowScreenshots(movie_id) {
 	try {
 		obj = new vcddbAjax('getScreenshots');
@@ -1487,16 +1359,15 @@ function doShowScreenshots(response) {
 		files = obj.files;
 		id = obj.id;
 		title = '';
-		try { title = document.getElementById('mTitle').innerHTML;} 
-			catch (ex) { try { title = document.getElementById('m'+id).innerHTML;} catch(ex) {}
+		try { title = $('mTitle').innerHTML;} 
+			catch (ex) { try { title = $('m'+id).innerHTML;} catch(ex) {}
 		}
 		try {
 			oldDiv = document.getElementById('dSlider');
 			oldDiv.innerHTML = '';
 		} catch (ex) {}
 		
-		var urlbase = replace(jxBase,'index.php','');
-		base = urlbase+'upload/screenshots/albums/'+id+'/';
+		base = getBase()+'upload/screenshots/albums/'+id+'/';
 		doc = document.body;
 	
 		// create container
@@ -1518,7 +1389,7 @@ function doShowScreenshots(response) {
 			c.appendChild(l);
 		}
 		
-		var el = document.getElementById('startslide');
+		var el = $('startslide');
 	    myLytebox.updateLyteboxItems();
 	  	myLytebox.start(el,true,false);
 		
@@ -1527,7 +1398,6 @@ function doShowScreenshots(response) {
 	}
 }
 
-
 function showSuggestion(form) {
 	try {
 		var seen = 0;
@@ -1535,17 +1405,16 @@ function showSuggestion(form) {
 			seen = 1;
 		}
 		var category = form.category.options[form.category.selectedIndex].value;
-		var urlbase = replace(jxBase,'index.php','');
-		
+	
 		show('suggestion',true);
 		hide('noresults');
 		
 		img = new Image();
-		img.src = urlbase+'images/processing.gif'; 
+		img.src = getBase()+'images/processing.gif'; 
 		img.setAttribute('border',0);
 		img.setAttribute('title','Loading ...');
 		img.setAttribute('vspace',60);
-		div = document.getElementById('cover');
+		div = $('cover');
 		div.innerHTML = '';
 		div.appendChild(img);
 		
@@ -1557,9 +1426,6 @@ function showSuggestion(form) {
 
 function doShowSuggestion(response) {
 	try {
-		
-		var urlbase = replace(jxBase,'index.php','');
-		
 		if (response == null) {
 			show('noresults',true);
 			hide('suggestion');
@@ -1568,20 +1434,20 @@ function doShowSuggestion(response) {
 		
 		obj = new Object(response);
 		if (obj.title != 'undefined') {
-			dCover = document.getElementById('cover');
-			dTitle = document.getElementById('title');
-			dCategory = document.getElementById('cat');
-			dYear = document.getElementById('year');	
-			dLink = document.getElementById('link');
+			dCover = $('cover');
+			dTitle = $('title');
+			dCategory = $('cat');
+			dYear = $('year');	
+			dLink = $('link');
 			
 			dTitle.innerHTML = obj.title;
 			dCategory.innerHTML = obj.category;
 			dYear.innerHTML = obj.year;
-			dLink.href = urlbase+'?page=cd&vcd_id='+obj.id;
+			dLink.href = getBase()+'?page=cd&vcd_id='+obj.id;
 			
 			dCover.innerHTML = '';
 			var cover = new Image();
-			cover.src = urlbase+'?page=file&cover_id='+obj.cover_id;
+			cover.src = getBase()+'?page=file&cover_id='+obj.cover_id;
 			cover.setAttribute('border',0);
 			cover.setAttribute('class','imgx');
 			cover.setAttribute('width',120);
@@ -1625,4 +1491,8 @@ function $() {
 		elements.push(element);
 	}
 	return elements;
+}
+
+function getBase() {
+	return replace(jxBase,'index.php','');
 }
