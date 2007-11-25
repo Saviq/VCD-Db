@@ -433,10 +433,14 @@ class VCDPageUserSettings extends VCDBasePage {
 		$results = array();
 		
 		foreach ($properties as $propertyObj) {
-			$checked = "";
-			$data = "";
-			if ($propertyObj->getpropertyName() == 'RSS' && $userObj->getPropertyByKey($propertyObj->getpropertyName())) {
-				$data = "<a href=\"rss/?rss=".$userObj->getUsername()."\">(".VCDLanguage::translate('usersettings.ownfeed').")</a>";
+			$checked = '';
+			$data = '';
+			if ($propertyObj->getpropertyName() == 'RSS') {
+				if  (!(bool)SettingsServices::getSettingsByKey('RSS_USERS')) {
+					continue;
+				} elseif ($userObj->getPropertyByKey($propertyObj->getpropertyName())) {
+					$data = "<a href=\"rss/?rss=".$userObj->getUsername()."\">(".VCDLanguage::translate('usersettings.ownfeed').")</a>";
+				}
 			}
 	
 			if (!($propertyObj->getpropertyName() == 'SHOW_ADULT' && !VCDUtils::showAdultContent(true))) {
