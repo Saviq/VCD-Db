@@ -144,7 +144,13 @@ printRow("Fix broken pornstar images");
 printRow(getTaskStatus(6));
 printRow("<a href=\"javascript:runTask(6);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
 printTr(false);
-			
+
+printTr();
+printRow("Create .htaccess for mod_rewrite");
+printRow(getTaskStatus(7));
+printRow("<a href=\"javascript:runTask(7);\"><img src=\"../images/admin/cog.png\" title=\"Execute task\" border=\"0\"></a>");
+printTr(false);
+
 printTableClose();
 }
 ?>

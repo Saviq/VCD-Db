@@ -241,6 +241,19 @@ function executeTask($task_id) {
 				VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
 				break;
 				
+				
+			case 7:	// Create .htaccess file
+				try {
+					if (VCDConfig::createHTAccessFile()) {
+						$message = $task_id."|"."Created .htaccess file for mod_rewrite.";
+					} else {
+						$message = $task_id."|"."Failed to create .htaccess file.";
+					}
+					VCDLog::addEntry(VCDLog::EVENT_TASKS, $message);
+				} catch (Exception $ex) {
+					VCDException::display($ex->getMessage(),true);
+				}
+				
 			
 		}
 		
