@@ -285,7 +285,11 @@ final class VCDConfig {
 	 */
 	public static function isUsingFriendlyUrls() {
 		if (class_exists('SettingsServices') && file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.'.htaccess')) {
-			return (bool)SettingsServices::getSettingsByKey('MOD_REWRITE');
+			try {
+				return (bool)SettingsServices::getSettingsByKey('MOD_REWRITE');
+			} catch (VCDProgramException $ex) {
+				return false;
+			}
 		} else {
 			return false;
 		}
