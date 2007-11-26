@@ -548,12 +548,12 @@ legend {
 
 #lang {
 	position: absolute;
-	top: 94px !important;
+	top: 93px !important;
 	left: 725px;
 }
 
 html>body #lang {
-	top: 91px !important;
+	top: 94px !important;
 }
 
 #lang select {
