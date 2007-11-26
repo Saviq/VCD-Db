@@ -18,6 +18,7 @@
 		<query transform="1">INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('ALLOW_REGISTRATION','1','Allow new users to register or not','1','bool')</query>
 		<query transform="1">INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_SITE','1','Allow RSS feeds from this VCD database','1','bool')</query>
 		<query transform="1">INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('RSS_USERS','1','Allow RSS feeds from individual users from this VCD Database','1','bool')</query>
+		<query transform="1">INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('MOD_REWRITE','0','Use friendly urls? This requires mod_rewrite installed.','1','bool')</query>
 
 		<descr>User Roles</descr>
 		<query>INSERT INTO vcd_UserRoles (role_name,role_description) VALUES ('Administrator','Site administration')</query>
