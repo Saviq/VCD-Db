@@ -149,7 +149,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			}
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
-			$imgpercent = $percent*$multiplier;
+			$imgpercent = ceil(($percent*$multiplier));
 			$img = "<img src=\"images/bar.gif\" height=\"10\" title=\"{$percent}%\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
 			
 			
@@ -172,7 +172,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			$media = SettingsServices::getMediaTypeByID($subArr[0])->getDetailedName();
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
-			$imgpercent = $percent*$multiplier;
+			$imgpercent = ceil(($percent*$multiplier));
 			$img = "<img src=\"images/bar.gif\" height=\"10\" title=\"{$percent}%\" alt=\"{$percent}%\"  width=\"{$imgpercent}%\" border=\"0\"/>";
 			
 			$results[$subArr[0]] = array(
@@ -200,7 +200,7 @@ class VCDPageUserStatistics extends VCDBasePage  {
 			$year= $subArr[0];
 			$num = $subArr[1];
 			$percent = round((($num/$movieCount)*100),1);
-			$imgpercent = $percent*$multiplier;
+			$imgpercent = ceil(($percent*$multiplier));
 			$img = "<img src=\"images/bar.gif\" height=\"10\" alt=\"{$percent}%\" title=\"{$percent}%\" width=\"{$imgpercent}%\" border=\"0\"/>";
 			
 			$results[] = array(

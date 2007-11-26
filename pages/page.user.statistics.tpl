@@ -22,7 +22,7 @@
 	{* Categories *}
 	<table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
 	<tr>
-		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/graph.gif" border="0" vspace="0"/></a></td>
+		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/icons/chart_bar.png" border="0" vspace="0"/></a></td>
 		<td class="statheader">{$translate.movie.category}</td>
 		<td class="statheader">{$movieCount}</td>
 		<td class="statheader">&nbsp;</td>
@@ -43,7 +43,7 @@
 	{* Media Types *}
 	<table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
 	<tr>
-		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/graph.gif" border="0" vspace="0"/></a></td>
+		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/icons/chart_bar.png" border="0" vspace="0"/></a></td>
 		<td class="statheader">{$translate.movie.media}</td>
 		<td class="statheader">{$movieCount}</td>
 		<td class="statheader">&nbsp;</td>
@@ -63,7 +63,7 @@
 	{* Production Year *}
 	<table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
 	<tr>
-		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/graph.gif" border="0" vspace="0"/></a></td>
+		<td width="1"><a href="?page=stats&amp;view=gfx"><img src="images/icons/chart_bar.png" border="0" vspace="0"/></a></td>
 		<td class="statheader">{$translate.movie.year}</td>
 		<td class="statheader">{$movieCount}</td>
 		<td class="statheader">&nbsp;</td>
