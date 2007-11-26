@@ -16,7 +16,7 @@
 ?>
 <?php
 require_once(dirname(__FILE__) . '/external/smarty/Smarty.class.php');
-//error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
+error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING);
 //error_reporting(E_ALL | E_NOTICE | E_COMPILE_WARNING | E_CORE_ERROR | E_WARNING | E_STRICT);
 
 abstract class VCDPage extends Smarty  {
@@ -27,13 +27,13 @@ abstract class VCDPage extends Smarty  {
 	private $tidy = false;
 	private $mod_rewrite = false;
 	
-	
 	protected function __construct($template, $doTranslate = true) {
 	
 		parent::Smarty();
-		$this->force_compile = true;
-		$this->compile_check = true;
-				
+		$this->force_compile = false;
+		$this->compile_check = false;
+		$this->mod_rewrite = VCDConfig::isUsingFriendlyUrls();
+		
 		$this->template = $template;
 		$this->template_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
 		$this->compile_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER;
@@ -175,7 +175,6 @@ abstract class VCDPage extends Smarty  {
         	'pornstars/\\1',
         	
         	'pornstar/\\1',
-        	
         	
         	'page/movies/\\1/\\2', 
         	'page/movies/\\1', 

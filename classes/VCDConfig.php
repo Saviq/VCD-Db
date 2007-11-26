@@ -276,6 +276,72 @@ final class VCDConfig {
 		}
 	}
 	
+	
+	
+	/**
+	 * Check if User Friendly urls as being used (MOD_REWRITE).
+	 *
+	 * @return bool
+	 */
+	public static function isUsingFriendlyUrls() {
+		if (class_exists('SettingsServices') && file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.'.htaccess')) {
+			return (bool)SettingsServices::getSettingsByKey('MOD_REWRITE');
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Create the .htaccess file for mod_rewrite in the VCD-db document root.
+	 * Returns true on success.  Otherwise an exception is thrown.
+	 * 
+	 * @return bool
+	 */
+	public static function createHTAccessFile() {
+		$templateFile = VCDDB_BASE.DIRECTORY_SEPARATOR.'includes/schema/htaccess.txt';
+		if (!file_exists($templateFile)) {
+			throw new VCDProgramException('Could not load .htaccess template: ' . $templateFile);
+		}
+		
+		// Check if we are running apache
+		if (function_exists('apache_get_version') && apache_get_version() !== false) {
+			// Check if mod_rewrite is loaded ..
+			if (!in_array('mod_rewrite', apache_get_modules())) {
+				throw new VCDException('The "mod_rewrite" module is not loaded. Cannot continue.');
+			}
+		}
+				
+		$fileContents = file_get_contents($templateFile);
+		$base = self::getWebBaseDir();
+		// Precaution if this is being executed from the admin panel or the setup process
+		if (strpos($base,'admin')>0) {
+			$base = substr($base,0,strpos($base,'admin'));
+		} elseif (strpos($base,'setup')>0) {
+			$base = substr($base,0,strpos($base,'setup'));
+		}
+		
+		$htaccess = sprintf($fileContents, $base);
+		
+		// Check for the .htaccess in the document root
+		$htaccessFile = VCDDB_BASE.DIRECTORY_SEPARATOR.'.htaccess';
+		if (!file_exists($htaccessFile)) {
+			throw new VCDProgramException('The file .htaccess does not exist in the document root.  Please create it.');
+		}
+		
+		if (is_readable($htaccessFile) && is_writable($htaccessFile)) {
+			$byteCount = file_put_contents($htaccessFile,$htaccess);
+			if (is_numeric($byteCount) && $byteCount > 0) {
+				return true;
+			} else {
+				throw new VCDException('Could not write to file, please check permissions.');
+			}
+		} else {
+			throw new VCDException('The file .htaccess not writeable, please fix the file permissions.');
+		}
+	}
+	
+	
+	
 	/**
 	 * Check if specified string ends with certain character
 	 *
