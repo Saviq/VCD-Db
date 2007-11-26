@@ -22,7 +22,7 @@
 </tr>
 {foreach from=$itemList item=i}
 <tr>
-	<td>{$i.title}</td>
+	<td>{$i.title|escape}</td>
 	<td nowrap="nowrap">{$i.category}</td>
 	<td>{$i.year}</td>
 	<td nowrap="nowrap">{$i.mediatype}</td>
