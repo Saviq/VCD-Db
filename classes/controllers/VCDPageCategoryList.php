@@ -74,7 +74,7 @@ class VCDPageCategoryList extends VCDBasePage {
 			$results[] = array('id' => $movieObj->getID(), 
 				'title' => $movieObj->getTitle(), 
 				'year' => $movieObj->getYear(),
-				'mediatypes' => fixFormat($movieObj->showMediaTypes()));
+				'mediatypes' => $this->fixFormat($movieObj->showMediaTypes()));
 		}
 		
 		$this->assign('movieCategoryList', $results);
@@ -241,6 +241,25 @@ class VCDPageCategoryList extends VCDBasePage {
 		
 		$this->assign('categoryPager',$html);
 	
+	}
+	
+	/**
+	 * Create list from the categories
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	private function fixFormat($str) {
+		$len = 10;
+		$cats = explode(',',$str);
+		asort($cats);
+		if (sizeof($cats) == 1) { return $cats[0];}
+		if (strlen($str) > $len) {
+			$html = '<span title="%s">%s, ...</span>';
+			return sprintf($html, $str, $cats[0]);
+		} else {
+			return implode(',', $cats);
+		}
 	}
 	
 }
