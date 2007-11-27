@@ -352,6 +352,34 @@
 		
 		<br/>
 		<fieldset>
+			<legend>Use friendly urls (mod_rewrite)</legend>
+			<table cellspacing="1" cellpadding="1" border="0" width="600" class="list">
+			<tr>
+				<td width="400">Use friendly urls with apache mod_rewrite:</td>
+				<td>Yes<input type="radio" id="userewrite" name="userewrite" value="1" disabled="disabled">No<input type="radio" name="userewrite" value="0" checked="checked"></td>
+			</tr>
+			<tr>
+				<td colspan="2">For mod_rewrite to work, the mod_rewrite apache module needs to enabled.
+				First add the following entry to your apache configuration file for this host.
+				When you have done that, press the "Create .htaccess" button below.
+				This procedure has to be done before you move on to the next stage in the installer.
+				If the .htaccess is successfully created, the option for friendly urls will be automatically set to "yes"
+<pre>
+&lt;Directory "<?php echo str_replace('setup/index.php','',$_SERVER['SCRIPT_FILENAME'])?>"&gt;
+        AllowOverride Options FileInfo AuthConfig
+&lt;/Directory&gt;
+</pre>
+				</td>
+			</tr>
+			<tr>
+				<td id="htCreate">Create the .htaccess file:</td>
+				<td><input type="button" name="createFile" id="createFile" value="Create .htaccess" size="25" onclick="Installer.createHTAccess(this)"></td>
+			</tr>
+			</table>
+		</fieldset>
+		
+		<br/>
+		<fieldset>
 			<legend>Mail server settings</legend>
 			<table cellspacing="1" cellpadding="1" border="0" width="600" class="list">
 			<tr>

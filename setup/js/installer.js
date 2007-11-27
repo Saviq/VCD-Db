@@ -49,6 +49,7 @@ function Installer()  {
 	this.configSaved = false;
 	this.adminSaved = false;
 	this.processbar = null;
+	this.modrewrite = false;
 	
 	this.Continue = function() {
 		
@@ -166,7 +167,7 @@ function Installer()  {
 				textFields = Array('s_title', 's_email', 's_smtphost', 's_smtpusername', 's_smtppassword', 
 					's_smtprealm', 's_proxyhost', 's_proxyport', 's_ldaphost', 's_ldapdn', 's_ldapad');
 				selectFields = Array('s_register', 's_covers', 's_category', 's_session', 's_adult');
-				radioFields = Array('useproxy', 'useldap', 'ldapad');
+				radioFields = Array('useproxy', 'useldap', 'ldapad','userewrite');
 				
 				var fieldValues = new Object();
 				// populate the data
@@ -513,6 +514,23 @@ function Installer()  {
 				Installer.toggleCursor();
 				break;
 			
+				
+			case 'createRewriteFile':
+				if (objResults.status == 0) {
+					var message = objResults.results + '\nYou can press the button again, after you have fixed the problem.';
+					alert(message);	
+				} else {
+					var htTd = document.getElementById('htCreate');
+					htTd.innerHTML = '<span style="color:green;font-weight:bold">'+objResults.results+'</span>';
+					document.getElementById('createFile').disabled = true;
+					var htRadio = document.getElementById('userewrite');
+					htRadio.disabled = false;
+					htRadio.checked = true;
+					Installer.modrewrite = true;
+				}
+				
+				break;
+				
 			case Installer.checklist[0]:
 				Installer.writeCheckResults(0,objResults);
 				break;
@@ -736,6 +754,11 @@ function Installer()  {
 		
 		
 		
+	};
+	
+	
+	this.createHTAccess = function(buttonObj) {
+		x_Installer.executeCheck('createRewriteFile', this.handleCheckResults);
 	};
 	
 	

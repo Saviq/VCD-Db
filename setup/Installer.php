@@ -328,6 +328,24 @@ class Installer {
 					$results['status'] = (int)$bConnOk;
 					$results['results'] = $strResults;
 					break;
+					
+					
+				case 'createRewriteFile':
+					
+					$status = false;
+					$strResults = '';
+					try {
+						$status = self::createHTAccessFile();
+						$strResults = '.htaccess successfully created.';
+					} catch (Exception $ex) {
+						$strResults = $ex->getMessage();
+					}
+					
+					$results['status'] = $status;
+					$results['results'] = $strResults;
+					return $results;
+					
+					break;
 						
 			
 				default:
@@ -717,7 +735,8 @@ class Installer {
 				's_smtphost'		=> 'SMTP_SERVER',
 				's_smtpusername'	=> 'SMTP_USER',
 				's_smtppassword'	=> 'SMTP_PASS',
-				's_smtprealm'		=> 'SMTP_REALM'
+				's_smtprealm'		=> 'SMTP_REALM',
+				'userewrite'		=> 'MOD_REWRITE'
 			);
 			
 						
@@ -951,6 +970,80 @@ class Installer {
 		}
 	}
 	
+	
+	/**
+	 * Try to create the .htaccess file for mod_rewrite
+	 *
+	 * @return bool
+	 */
+	private static function createHTAccessFile() {
+		$templateFile = VCDDB_BASE.DIRECTORY_SEPARATOR.'includes/schema/htaccess.txt';
+		if (!file_exists($templateFile)) {
+			throw new Exception('Could not load .htaccess template: ' . $templateFile);
+		}
+		
+		// Check if we are running apache
+		if (function_exists('apache_get_version') && apache_get_version() !== false) {
+			// Check if mod_rewrite is loaded ..
+			if (!in_array('mod_rewrite', apache_get_modules())) {
+				throw new Exception('The "mod_rewrite" module is not loaded. Cannot continue.');
+			}
+		}
+				
+		$fileContents = file_get_contents($templateFile);
+		$base = self::getWebBaseDir();
+		// Precaution if this is being executed from the admin panel or the setup process
+		if (strpos($base,'admin')>0) {
+			$base = substr($base,0,strpos($base,'admin'));
+		} elseif (strpos($base,'setup')>0) {
+			$base = substr($base,0,strpos($base,'setup'));
+		}
+		
+		$htaccess = sprintf($fileContents, $base);
+		
+		// Check for the .htaccess in the document root
+		$htaccessFile = VCDDB_BASE.DIRECTORY_SEPARATOR.'.htaccess';
+		if (!file_exists($htaccessFile)) {
+			throw new Exception('The file .htaccess does not exist in the document root.  Please create it.');
+		}
+		
+		if (is_readable($htaccessFile) && is_writable($htaccessFile)) {
+			$byteCount = file_put_contents($htaccessFile,$htaccess);
+			if (is_numeric($byteCount) && $byteCount > 0) {
+				return true;
+			} else {
+				throw new Exception('Could not write to file, please check permissions.');
+			}
+		} else {
+			throw new Exception('The file .htaccess not writeable, please fix the file permissions.');
+		}
+	}
+	
+	/**
+	 * Get the web base directory where VCD-db lies.  Possible output could be '/' for root directory
+	 * or '/webs/vcddb/' if VCD-db resides in webfolder webs/vcddb
+	 *
+	 * @return string
+	 */
+	private static function getWebBaseDir() {
+		$base = dirname($_SERVER['PHP_SELF']);
+		if (self::endsWith('/',$base)) {
+			return $base;
+		} else {
+			return $base.'/';
+		}
+	}
+	
+	/**
+	 * Check if specified string ends with certain character
+	 *
+	 * @param string $str | The needle
+	 * @param string $sub | The haystack
+	 * @return bool
+	 */
+	private static function endsWith($str, $sub) {
+   		return (substr($str, strlen($str) - strlen($sub)) === $sub );
+	}
 	
 	/**
 	 * Get the basedir of the VCD-db installation.  I.O.W. the parent of this folder.
