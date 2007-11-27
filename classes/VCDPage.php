@@ -32,7 +32,10 @@ abstract class VCDPage extends Smarty  {
 		parent::Smarty();
 		$this->force_compile = false;
 		$this->compile_check = false;
-		$this->mod_rewrite = VCDConfig::isUsingFriendlyUrls();
+		if ($template !== 'page.error.tpl') {
+			$this->mod_rewrite = VCDConfig::isUsingFriendlyUrls();
+		}
+		
 		
 		$this->template = $template;
 		$this->template_dir = VCDDB_BASE.DIRECTORY_SEPARATOR.'pages'.DIRECTORY_SEPARATOR;
@@ -146,8 +149,7 @@ abstract class VCDPage extends Smarty  {
 			"'\?page=pornstars&amp;view=(all|active)'",
 			
 			"'\?page=pornstar&amp;pornstar_id=([0-9]*)'",
-			
-			
+						
 			"'index.php\?page=movies&amp;do=([a-zA-Z\\-]*)&amp;index=([0-9]*)'",
 			"'index.php\?page=movies&amp;do=([a-zA-Z\\-]*)'",
 			"'\?page=movies&amp;do=([a-zA-Z\\-]*)&amp;index=([0-9]*)'", 
@@ -156,7 +158,6 @@ abstract class VCDPage extends Smarty  {
 			"'\?page=search&amp;by=(actor|director)&amp;searchstring=([^\<]*)'",
 			"'index.php\?page=([a-zA-Z\\-]*)'",
 			"'\?page=([a-zA-Z\\-]*)'"
-			
 		);
 		
 		$out = array(
@@ -184,7 +185,6 @@ abstract class VCDPage extends Smarty  {
         	'search/\\1/\\2',
         	'page/\\1',
         	'page/\\1'
-        	
 		);        
 
     	self::$pageBuffer = preg_replace($in, $out, &self::$pageBuffer);
@@ -254,9 +254,5 @@ class VCDPageTransform {
 		return preg_replace_callback('/{\$translate.(.*?)}/', array(__CLASS__, 'trans'), $tpl_source); 
 	}
 }
-
-
-
-
 
 ?>
