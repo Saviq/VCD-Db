@@ -50,7 +50,7 @@ a:hover {
 #hdr {
 	height:90px;
 	background:#434343;
-	background-image: url(images/header.png);*/
+	background-image: url(images/header.png);
 	color: #333333;
 	margin: 0px;
 	padding: 0px;
@@ -506,8 +506,9 @@ li {
 
 
 .stata, .statsTable .stata {
-	/*color: #C82100;	*/
-	background-color: #FBF1E6;
+	background-image: url(images/linethrough_bg.gif);
+	background-repeat: repeat-x;
+	background-position: center;
 }
 
 .statb {
@@ -520,7 +521,7 @@ li {
 }
 
 .statsTable {
-	background-color: #dcdcdc;
+	background-color: #c0c0c0;
 	color: #333333;
 }
 

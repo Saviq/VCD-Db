@@ -12,7 +12,7 @@
 {if $reload} 
 <body onload="window.opener.location.reload();window.close()">
 {else}
-<body onload="window.focus()">
+<body onload="window.focus()" class="nobg">
 {/if}
 
 {if $smarty.get.type eq 'vcddb'}
