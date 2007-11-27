@@ -443,6 +443,10 @@ class vcd_cdcover implements ICdcover {
 	public function moveCovers($moveToDisk=true) {
 		try {
 		
+			if (!VCDUtils::getCurrentUser()->isAdmin()) {
+				throw new VCDSecurityException('You have no permission to invoke this method.');
+			}
+			
 			// This can take a lot of time .. lets make time
 			@set_time_limit(0);
 			
@@ -451,6 +455,13 @@ class vcd_cdcover implements ICdcover {
 			
 			if ($moveToDisk) {
 			
+				// First of all .. check if the folder is write-able before we proceed
+				clearstatcache();
+				if (!is_writable(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER)) {
+					throw new VCDProgramException('The temp directory is not writable, cannot continue.');
+				}
+				
+				
 				foreach ($arr as $cdcoverObj) {
 					if ($cdcoverObj->isInDB()) {
 										
