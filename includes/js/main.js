@@ -60,6 +60,15 @@ function loadManager(id) {
 	window.open(page,'Manager','toolbar=0,location=0,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=500,height=300');
 }
 
+function doRefetch(id) {
+	var url = getBase()+'?page=manager&vcd_id='+id+'&action=refetch';
+	$('refetch').disabled = true;
+	$('update').disabled = true;
+	$('submit').disabled = true;
+	$('close').disabled = true;
+	location.href = url;
+}
+ 
 function copyFiles(form) {
 	try {
 		for (key in form.elements) {

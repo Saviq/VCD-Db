@@ -159,6 +159,12 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				redirect('?page=manager&vcd_id='.$this->itemObj->getID());
 				break;
 				
+				
+			case 'refetch':
+				// Refetch the data from the sourcesite
+				$this->doRefetch();
+				break;
+				
 		}
 		
 		
@@ -259,6 +265,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			$this->assign('itemExternalId', $this->sourceObj->getObjectID());
 			$sourceName = SettingsServices::getSourceSiteByID($this->itemObj->getSourceSiteID());
 			$this->assign('itemSourceSiteName', '('.$sourceName->getName().')');
+			$this->assign('itemSourceSiteAlias', '('.$sourceName->getAlias().')');
 				
 				
 			if (!$this->itemObj->isAdult()) {
@@ -1066,9 +1073,123 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			return VCDUtils::getCurrentUser()->isAdmin();
 		}
 	}
+	
+	
+	/**
+	 * Refetch movie data from the original source site.
+	 *
+	 */
+	private function doRefetch() {
+		try {
+			$sourceObj = SettingsServices::getSourceSiteByID($this->itemObj->getSourceSiteID());
+			$fetchClassName = $sourceObj->getClassName();
+			$fetchClass = VCDClassFactory::loadClass($fetchClassName);
+			$status = $fetchClass->fetchItemByID($this->itemObj->getExternalID());
+			if ($status == VCDFetch::ITEM_OK) {
+				$fetchClass->fetchValues();
+				$fetchedObj = $fetchClass->getFetchedObject();
+				$this->sourceObj = $fetchedObj;
+				$cast = $fetchedObj->getCast(false);
+				$countries = $fetchedObj->getCountry();
+				if (is_array($cast)) {
+					$this->sourceObj->setCast(implode(chr(13),$cast));	
+				}
+				if (is_array($countries)) {
+					$this->sourceObj->setCountry(implode(',',$countries));
+				}
+				
+				// check for updated thumbnail if movie has none ..
+				if (is_null($this->itemObj->getCover('thumbnail'))) {
+					try {
+						$fetchedCover = $fetchedObj->getImage();
+						$coverObj = $this->addImageFromRefetch($fetchedCover);
+						if ($coverObj instanceof cdcoverObj) {
+							// Adding cover was a success .. add it to the template
+							$this->assign('itemThumbnail',$coverObj->showImage());
+						}
+					} catch (Exception $ex) {}
+					
+				}
+				
+				// Update the title as well, override the assignment
+				$this->assign('itemTitle',$this->sourceObj->getTitle());
+				
+			}
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	/**
+	 * Add thumbnail from the refetch process, only if movie did not have an existing thumbnail.
+	 * Returns the inserted thumbnail, upon error, NULL is returned.
+	 *
+	 * @param string $strImageFile | The url to the image file on a remote server
+	 * @return cdcoverObj | The inserted cdcoverObj
+	 */
+	private function addImageFromRefetch($strImageFile) {
+
+		if (!is_null($strImageFile) && strlen($strImageFile)>3) {
+			try {
+				
+				$thumbnailType = CoverServices::getCoverTypeByName('thumbnail');
+				$savedFile = VCDUtils::grabImage($strImageFile,true,VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER);
+				
+				$cover = new cdcoverObj(null);
+				$cover->setOwnerId(VCDUtils::getUserID());
+				$cover->setVcdId($this->itemObj->getID());
+				$cover->setCoverTypeID($thumbnailType->getCoverTypeID());
+				$cover->setCoverTypeName($thumbnailType->getCoverTypeName());
+				
+				
+				// Create temporary unique ID for the image
+                $imageName = VCDUtils::generateUniqueId();
+                $newName = $imageName.'.'.VCDUtils::getFileExtension($savedFile);
+                $cover->setFilename($newName);
+                $cover->setFilesize(filesize(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$savedFile));
+				
+				// Store the image in the right container
+				if ((bool)SettingsServices::getSettingsByKey('DB_COVERS')) {
+				
+					$imageClass = new VCDImage();
+                    if (VCDUtils::getFileExtension($cover->getFilename()) == 'gif') {
+						$imageType = "gif";
+					} else {
+                    	$imageType = "pjpeg";
+					}
+
+                    // Use File info
+                    $arrFileInfo = array('name' => $newName, 'type' => 'image/'.$imageType);
+                    $image_id = $imageClass->addImageFromPath(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$savedFile, $arrFileInfo, true);
+                    
+                    // Set the DB imageID to the cover
+                    $cover->setImageID($image_id);
+					
+				} else {
+					rename(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$savedFile,VCDDB_BASE.DIRECTORY_SEPARATOR.THUMBNAIL_PATH.$newName);
+				}
+				
+				CoverServices::addCover($cover);
+				
+				// Get the inserted cover
+				$covers = CoverServices::getAllCoversForVcd($this->itemObj->getID());
+				if (is_array($covers) && sizeof($covers)>0) {
+					foreach ($covers as $coverObj) {
+						if ($coverObj->getCoverTypeID() == $thumbnailType->getCoverTypeID()) {
+							// Override doThumbnail
+							return $coverObj;
+						}
+					}
+				}
+				// Nothing found .. return null
+				return null;
+				
+			} catch (Exception $ex) {}
+		}
 		
+	}
 	
 }
-
 
 ?>

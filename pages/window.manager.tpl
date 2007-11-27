@@ -50,7 +50,7 @@
 
 <input type="submit" name="update" id="update" value="{$translate.misc.update}" class="buttontext" onclick="managerSubmit(this.form,'update')"/>
 <input type="submit" name="submit" id="submit" value="{$translate.misc.saveandclose}" class="buttontext" onclick="managerSubmit(this.form,'save')"/>
-<input type="button" name="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
+<input type="button" name="close" id="close" value="{$translate.misc.close}" class="buttontext" onClick="window.close()"/>
 
 </div>
 </form>

@@ -33,7 +33,8 @@
 {else}
 <tr>
 	<td class="tblb">ID</td>
-	<td><input type="text" value="{$itemExternalId}" size="8" name="externalId" class="input"/>&nbsp;{$itemSourceSiteName}</td>
+	<td><input type="text" value="{$itemExternalId}" size="6" name="externalId" class="input"/>&nbsp;<span title="{$itemSourceSiteName}">{$itemSourceSiteAlias}</span>
+	{if $itemExternalId neq '' or $smarty.get.action neq 'refetch'}&nbsp;<input type="button" id="refetch" value="{$translate.misc.update}" onclick="doRefetch({$itemId})"/>{/if}</td>
 </tr>
 {/if}
 <tr>
