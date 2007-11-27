@@ -305,9 +305,10 @@ input, select, textarea {
 	color: #3D3D3D;
 	font-weight:bold;
 	border: dashed #c0c0c0;
-	border-width: 1px 0px 0px 0px;
-	background-image: url(images/topic_bg.gif);
-	padding: 2px;
+	border-width: 0px 0px 1px 1px;
+	padding: 1px;
+	font-size:10px;
+	font-weight:bold;
 }
 
 .displist td {
