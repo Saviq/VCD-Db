@@ -22,6 +22,7 @@ require_once(VCDDB_BASE.'/classes/adodb/adodb-xmlschema03.inc.php');
 require_once(VCDDB_BASE.'/classes/adodb/adodb-exceptions.inc.php');
 require_once(VCDDB_BASE.'/classes/external/ajason/Ajax.php');
 
+define("VCDDB_VERSION","0.990");
 
 class Installer {
 	
@@ -760,6 +761,9 @@ class Installer {
 			$query = "UPDATE vcd_Settings SET settings_value = {$db->Quote(self::getRelativeUrl())} WHERE settings_key = 'SITE_ROOT'";
 			$db->Execute($query);
 			
+			// Add metadata with the current VCD-db version
+			$query = "INSERT INTO vcd_Metadata (record_id,mediatype_id, user_id, type_id, metadata_value) VALUES (0,0,0,7,{$db->Quote(VCDDB_VERSION)})";
+			$db->Execute($query);
 			
 			// Then read the config file template and write with the used based values.
 			$configtemplate = file_get_contents(self::$template);

@@ -39,7 +39,7 @@
 	<!-- Top bar -->
 	<table cellspacing="0" cellpadding="0" width="100%" border="0">
 		<tr>
-			<td id="message" nowrap="nowrap">Welcome to VCD-db installation</td>
+			<td id="message" nowrap="nowrap">Welcome to VCD-db installation, v. <?php echo VCDDB_VERSION ?></td>
 			<td width="100" align="right"><img src="img/vcddb.gif" border="0" hspace="20" alt="VCD-db"></td>
 		</tr>
 	</table>
