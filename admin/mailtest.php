@@ -24,45 +24,36 @@
 </head>
 <body onload="window.focus()">
 
-<?
-	
-	
-	// First ... find the settings key for the smtp_debug ..
-	$SETTINGSClass = VCDClassFactory::getInstance("vcd_settings");
-	$arrsettings = $SETTINGSClass->getAllSettings();
+<?php
+
+	$arrsettings = SettingsServices::getAllSettings();
 	$sObj = null;
 	foreach ($arrsettings as $settingsObj) {
-		if (strcmp($settingsObj->getKey(), "SMTP_DEBUG") == 0) {
-			// Found our settingsObj
+		if (strcmp($settingsObj->getKey(), 'SMTP_DEBUG') == 0) {
 			$sObj = $settingsObj;
 			break;
-			
 		}
 	}
 	
 	if (!$sObj instanceof settingsObj ) {
-		VCDException::display("No SMTP_DEBUG settings Obj found, cant continue");
+		VCDException::display('No SMTP_DEBUG settings found, cannot continue');
 		exit();
 	} else {
 		// Update the DEBUG OBJ
 		$sObj->setValue("1");
-		$SETTINGSClass->updateSettings($sObj);
-		$email = $_SESSION['user']->getEmail();
+		SettingsServices::updateSettings($sObj);
+		$email = VCDUtils::getCurrentUser()->getEmail();
 		$body = "This is a test message from the admin console.";
 		if (VCDUtils::sendMail($email, "Test email from the VCDDB", $body, false)) {
-		
 			print "<h1>Mail successfullly sent</h1>";
-			
 		} else {
 			print "<h1>Mail failed to send, review the above log for further information.</h1>";
 		}
 		
 		// Change back the settings KEY ...
 		$sObj->setValue("0");
-		$SETTINGSClass->updateSettings($sObj);
-		
+		SettingsServices::updateSettings($sObj);
 	}
-	
 	
 	// Set error reporting to normal
 	error_reporting(1);
