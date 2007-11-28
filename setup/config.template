@@ -15,7 +15,6 @@
 
 /***
 	This is the main configuration file for VCD-db.
-	This file replaces the legacy file 'classes/VCDConstants.php'
 ***/
 
 /** 
@@ -28,11 +27,11 @@
 	oci8			Oracle
 	sqlite			SQLite
 **/
-define("DB_TYPE",    		"db.type");
-define("DB_USER",    		"db.user");
-define("DB_PASS",    		"db.pass");
-define("DB_HOST",    		"db.host");
-define("DB_CATALOG", 		"db.catalog");
+define('DB_TYPE',   	'db.type');
+define('DB_USER',   	'db.user');
+define('DB_PASS',   	'db.pass');
+define('DB_HOST',   	'db.host');
+define('DB_CATALOG', 	'db.catalog');
 
 
 /**
@@ -47,11 +46,11 @@ define("DB_CATALOG", 		"db.catalog");
 	LDAP_AD			Is the target directory server a Microsoft Active Directory server ?
 	AD_DOMAIN		If server is an Active Directory server, Windows Domain name must be specified.
 **/
-define("LDAP_AUTH",		"ldap.auth");
-define("LDAP_HOST", 		"ldap.host");
-define("LDAP_BASEDN", 		"ldap.base");
-define("LDAP_AD", 		"ldap.isad");
-define("AD_DOMAIN", 		"ldap.domain");
+define('LDAP_AUTH',		'ldap.auth');
+define('LDAP_HOST', 	'ldap.host');
+define('LDAP_BASEDN', 	'ldap.base');
+define('LDAP_AD', 		'ldap.isad');
+define('AD_DOMAIN', 	'ldap.domain');
 
 
 /**
@@ -64,9 +63,9 @@ define("AD_DOMAIN", 		"ldap.domain");
 	PROXY_URL		The IP or hostname of the proxy server
 	PROXY_PORT		The port number to use on your proxy server, usually 8080
 **/
-define("USE_PROXY",  		"proxy.enable");
-define("PROXY_URL",  		"proxy.hostname");
-define("PROXY_PORT", 		"proxy.port");
+define('USE_PROXY',  	'proxy.enable');
+define('PROXY_URL',  	'proxy.hostname');
+define('PROXY_PORT', 	'proxy.port');
 
 
 /**
@@ -81,12 +80,12 @@ define("PROXY_PORT", 		"proxy.port");
 	THUMBNAIL_PATH		The directory containing thumbnails/poster images
 	PORNSTARIMAGE_PATH	The directory containing pornstars image thumbnails
 **/
-define("TEMP_FOLDER",		"upload/");
-define("NFO_PATH",		"upload/nfo/");
-define("CACHE_FOLDER",		"upload/cache/");
-define("THUMBNAIL_PATH",	"upload/thumbnails/");
-define("COVER_PATH",		"upload/covers/");
-define("PORNSTARIMAGE_PATH",	"upload/pornstars/");
+define('TEMP_FOLDER',		'upload/');
+define('NFO_PATH',			'upload/nfo/');
+define('CACHE_FOLDER',		'upload/cache/');
+define('THUMBNAIL_PATH',	'upload/thumbnails/');
+define('COVER_PATH',		'upload/covers/');
+define('PORNSTARIMAGE_PATH','upload/pornstars/');
 
 
 /**
@@ -94,7 +93,7 @@ define("PORNSTARIMAGE_PATH",	"upload/pornstars/");
 	VCD-db accepts.  It's default values are pretty tolerant so changing these settings
 	should not really be necessary, but feel free to poke around.
 	Remember these settings can NEVER override the size restrictions from php.ini, please refer
-	to keys "upload_max_filesize" and "post_max_size" in your php.ini file.
+	to keys 'upload_max_filesize' and 'post_max_size' in your php.ini file.
 	All the decimal values defined below are interpreted as MB.
 	
 	The Uploaded file size constants consist of the following keys ...
@@ -104,10 +103,10 @@ define("PORNSTARIMAGE_PATH",	"upload/pornstars/");
 	VSIZE_XML		Max Imported XML filesize
 	VSIZE_XMLTHUMBS		Max imported XML Thumbnail filesize
 **/
-define("VSIZE_THUMBS", 		0.2);
-define("VSIZE_COVERS", 		5);
-define("VSIZE_XML", 		20);
-define("VSIZE_XMLTHUMBS", 	30);
+define('VSIZE_THUMBS', 		0.2);
+define('VSIZE_COVERS', 		5);
+define('VSIZE_XML', 		20);
+define('VSIZE_XMLTHUMBS', 	30);
 
 
 /**
@@ -116,16 +115,16 @@ define("VSIZE_XMLTHUMBS", 	30);
 	as needed.
 	These constants consist of the following keys ...
 	-------------------------------------------------------------
-	STYLE			The default style to use, availble styles are folder names in "/includes/templates/"
+	STYLE			The default style to use, availble styles are folder names in '/includes/templates/'
 	RSS_CACHE_TIME		The time RSS feeds are cached upon refetch.
 	DATE_FORMAT			How dates are formatted.
 	TIME_FORMAT			How timestamps are formatted.
 	
 **/
-define("STYLE",			"includes/templates/sirius/");
-define("RSS_CACHE_TIME",	7200);
-define('DATE_FORMAT', '%d/%m/%Y');
-define('TIME_FORMAT', '%H:%M:%S');
+define('STYLE',			'includes/templates/sirius/');
+define('RSS_CACHE_TIME',7200);
+define('DATE_FORMAT', 	'%d/%m/%Y');
+define('TIME_FORMAT', 	'%H:%M:%S');
 
 /**
    These constants are used if you are using the VCD-db SOAP interface, meaning that
@@ -140,9 +139,9 @@ define('TIME_FORMAT', '%H:%M:%S');
   CACHE_MANAGER		Cache data if cache modules are installed, can be XCACHE or MEMCACHE
  
 **/
-define("VCDDB_USEPROXY", "0");
-define("VCDDB_SOAPPROXY", "http://domain.com/vcddb/");
-define("VCDDB_SOAPSECRET", "soap.secret");
-define("CACHE_MANAGER", "");
+define('VCDDB_USEPROXY', '0');
+define('VCDDB_SOAPPROXY', 'http://domain.com/vcddb/');
+define('VCDDB_SOAPSECRET', 'soap.secret');
+define('CACHE_MANAGER', '');
 
 ?>
