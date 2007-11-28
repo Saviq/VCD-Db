@@ -597,8 +597,12 @@ ul#toplist li.tlistheader {
 	font-weight:bold;
 }
 
-ul#toplist li.tlist, ul#toplist li.tlist a {
+ul#toplist li.tlist {
 	background-image: none;	
 	padding-left:3px;
 	display:block;
+}
+
+ul#toplist li.tlist a {
+	padding-left:3px;
 }

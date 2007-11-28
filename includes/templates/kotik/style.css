@@ -552,9 +552,14 @@ ul#toplist li.tlistheader {
 	background-position: 0 !important;	
 }
 
-ul#toplist li.tlist, ul#toplist li.tlist a {
+ul#toplist li.tlist {
 	background-image: none;	
 	padding-left:3px;
 	display:block;
 	color:#333333;
+}
+
+ul#toplist li.tlist a {
+	padding-left:3px;
+	color:#333333;	
 }

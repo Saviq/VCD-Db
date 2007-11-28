@@ -548,7 +548,7 @@ ul#toplist li.tlistheader {
 	color:#5D5954;
 }
 
-ul#toplist li.tlist, ul#toplist li.tlist a {
+ul#toplist li.tlist {
 	background-image: none;	
 	padding-left:3px;
 	display:block;
@@ -556,4 +556,9 @@ ul#toplist li.tlist, ul#toplist li.tlist a {
 	padding-top:0;
 	margin-top:0;
 	line-height:15px;	
+}
+
+ul#toplist li.tlist a {
+	padding-left:3px;
+	color:#333333;	
 }
