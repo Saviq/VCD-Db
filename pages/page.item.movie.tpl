@@ -61,9 +61,9 @@
 				<td>&nbsp;</td>
 				<td>
 				{if $itemSeen}
-					<a href="#"><img src="images/mark_seen.gif" alt="{$translate.seen.notseenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId},0);return false;"/></a>{$translate.seen.seenit}
+					<a href="#"><img src="images/icons/cd_delete.png" alt="{$translate.seen.notseenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId},0);return false;"/></a>{$translate.seen.seenit}
 				{else}
-					<a href="#"><img src="images/mark_unseen.gif" alt="{$translate.seen.seenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId},1);return false;"/></a>{$translate.seen.notseenit}
+					<a href="#"><img src="images/icons/cd_add.png" alt="{$translate.seen.seenitclick}" border="0" style="padding-right:5px" onclick="markSeen({$itemId},1);return false;"/></a>{$translate.seen.notseenit}
 				{/if}
 				</td>
 			</tr>
@@ -272,7 +272,7 @@
 		{/if}
 		{if $i.isOwner}
 			<a href="#" onclick="deleteComment({$itemId},{$i.id});return false">
-			<img src="images/icon_del.gif" alt="Delete comment" border="0" style="vertical-align: middle;display: inline-block;"/></a>
+			<img src="images/icon_del.gif" alt="{$translate.js.delete}" border="0" style="vertical-align: middle;display: inline-block;"/></a>
 		{/if}
 	   <br/><i style="padding-left:3px;display:block">{$i.comment|nl2br}</i></li>
 		{/foreach}
