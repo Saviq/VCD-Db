@@ -29,7 +29,6 @@
 		exit();
 	}
 
-	
 	require_once(dirname(__FILE__) . '/VCDConfig.php');
 	require_once(dirname(__FILE__) . '/VCDConnection.php');
 	require_once(dirname(__FILE__) . '/XMLable.php');
@@ -43,7 +42,6 @@
 	require_once(dirname(__FILE__) . '/external/lastRSS.php');
 	include_once(dirname(__FILE__) . '/external/Image_Toolbox.class.php');
 	
-
 	/* Common Functions*/
 	require_once(VCDDB_BASE . '/functions/WebFunctions.php');
 	require_once(VCDDB_BASE . '/functions/BackendFunctions.php');
@@ -55,7 +53,6 @@
 	require_once(dirname(__FILE__) . '/VCDLanguage.php');
 	require_once(dirname(__FILE__) . '/VCDAuthentication.php');
 	require_once(dirname(__FILE__) . '/VCDImage.php');
-	require_once(dirname(__FILE__) . '/VCDScreenshot.php');
 	require_once(dirname(__FILE__) . '/VCDXMLImporter.php');
 	require_once(dirname(__FILE__) . '/VCDFileUpload.php');
 	require_once(dirname(__FILE__) . '/fetch/VCDFetch.php');
@@ -64,26 +61,21 @@
 	require_once(dirname(__FILE__) . '/VCDPageController.php');
 	require_once(dirname(__FILE__) . '/VCDPage.php');
 	require_once(dirname(__FILE__) . '/controllers/VCDBasePage.php');
-	
-
 
 	/* RSS */
 	require_once(dirname(__FILE__) . '/VCDRss.php');
 
 	/* File system functions */
-	if (strcmp(strtolower(VCDUtils::getOS()), "winnt") == 0) {
+	if (strcmp(strtolower(VCDUtils::getOS()), 'winnt') == 0) {
 		require_once(dirname(__FILE__) . '/external/fs_win32.php');
 	} else {
 		require_once(dirname(__FILE__) . '/external/fs_unix.php');
 	}
 
-
-
 	/* VCD-db Bootstrappers - Ajax Loader */
 	require_once(dirname(__FILE__) . '/VCDOnload.php');
 	require_once(dirname(__FILE__) . '/VCDAjaxHelper.php');
 	require_once(dirname(__FILE__) . '/VCDAjaxLoader.php');
-
 
 	/**
 	 * Check for current PHP Version and see if VCD-db can continue.
