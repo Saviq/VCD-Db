@@ -16,7 +16,7 @@
 ?>
 <?php
 	// Define the current VCD-db version revision
-	define("VCDDB_VERSION","0.990-svn");
+	define("VCDDB_VERSION","0.990");
 	if (!defined('VCDDB_BASE')) {
 		define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
 	}
