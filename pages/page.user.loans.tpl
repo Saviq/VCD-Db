@@ -1,8 +1,9 @@
+{assign var='base' value=$smarty.server.SCRIPT_NAME}
 {if $smarty.get.history}
 <h1>{$translate.loan.history}</h1>
 
 &nbsp;<span class="bold">{$translate.loan.select}</span>
-{html_options id=borrowers name=borrowers options=$borrowersList selected=$smarty.get.history onchange="location.href='?page=loans&history='+this.options[this.selectedIndex].value"}
+{html_options id=borrowers name=borrowers options=$borrowersList selected=$smarty.get.history onchange="location.href='$base?page=loans&history='+this.options[this.selectedIndex].value"}
 <br/><br/>
 <fieldset>
 	<legend>{$loanHistoryTitle}</legend>
@@ -53,9 +54,8 @@
 	
 	<h2>{$translate.loan.movies}</h2>
 	<select multiple name="choiceBox" id="choiceBox" style="width:300px;" size="8" class="inp" onDblClick="removeMe(this.form, 'available', 'choiceBox')"></select>
-	
 	<br/>
-	<h2>{$translate.loan.to}</h2>
+	<h2 style="margin-bottom:5px">{$translate.loan.to}</h2>
 	
 	{if is_array($borrowersList) && count($borrowersList)>0}
 		{html_options id=borrowers name=borrowers options=$borrowersList selected=$selectedBorrower}
@@ -77,9 +77,8 @@
 
 <br/>
 
+{if is_array($loanList) && count($loanList)>0}
 <h2>{$translate.loan.movieloans}</h2>
-		
-
 {foreach from=$loanList item=i name=loan key=key}
 <fieldset>
 	<legend><strong>{$i.name}</strong> / <a href="?page=loans&amp;action=reminder&amp;bid={$key}">{$translate.loan.reminder}</a> 
@@ -105,7 +104,12 @@
 </table>
 </fieldset>
 {/foreach}
-</form>
 
+{else}
+
+&nbsp;<span class="bold">{$translate.loan.history2} &gt;&gt;</span>
+{html_options id=borrowerDropdown name=borrowerDropdown options=$borrowersList selected=$smarty.get.history onchange="location.href='$base?page=loans&history='+this.options[this.selectedIndex].value"}
+{/if}
+</form>
 
 {/if}
