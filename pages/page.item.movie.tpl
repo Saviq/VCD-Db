@@ -120,7 +120,14 @@
 	<div id="imdbplot">
 	<h2>{$translate.movie.plot}:</h2>
 	{if $itemSource}
-	<p class="plottext">{$sourcePlot|nl2br}</p>
+	<p class="plottext">
+	{if strlen($sourcePlot) > 250} 
+	<span id="plotbegin">{$sourcePlot|nl2br|truncate:250:" ..."}<br/><a href="#" onclick="hide('plotbegin');show('plotcomplete');return false;">{$translate.misc.showmore} &gt;&gt;</a></span>
+	<span id="plotcomplete" style="visibility:hidden;display:none">{$sourcePlot|nl2br}<br/><a href="#" onclick="hide('plotcomplete');show('plotbegin');return false;">&lt;&lt; {$translate.misc.showless}</a></span>
+	{else}
+	{$sourcePlot|nl2br}
+	{/if}
+	</p>
 	{else}
 		<ul><li>{$translate.movie.noplot}</li></ul>
 	{/if}
