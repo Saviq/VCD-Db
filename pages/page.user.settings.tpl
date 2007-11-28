@@ -160,7 +160,7 @@
 
 <form name="frmSubtitles" id="frmSubtitles" method="post" action="{$smarty.server.SCRIPT_NAME}?page=settings&amp;action=update_dvdsettings">
 <fieldset id="dvdsettings">
-<legend class="bold">Default DVD settings</legend>
+<legend class="bold">{$translate.dvd.default}</legend>
 <table cellpadding="1" cellspacing="1" border="0" width="100%">
 <tr>
 	<td width="13%">{$translate.dvd.format}:</td>
