@@ -14,8 +14,6 @@
  */
 ?>
 <?php
-
-
 class VCDUtils {
 
 	/**
@@ -48,10 +46,6 @@ class VCDUtils {
 		   unset($all);
 	       return $matchedfiles;
  	}
-
-
-
-
 
 
  	/**
@@ -147,11 +141,9 @@ class VCDUtils {
 		if (!VCDUtils::isLoggedIn()) {
 			return false;
 		}
-
-		$user = $_SESSION['user'];	
 		$siteEnabled = SettingsServices::getSettingsByKey('SITE_ADULT');
-		$userEnabled = $user->getPropertyByKey('SHOW_ADULT');
-		$roleEnabled = $user->isAdult();
+		$userEnabled = VCDUtils::getCurrentUser()->getPropertyByKey('SHOW_ADULT');
+		$roleEnabled = VCDUtils::getCurrentUser()->isAdult();
 		if ($skipUserPrefs) {
 			return ($siteEnabled && $roleEnabled);		
 		} else {
@@ -195,16 +187,12 @@ class VCDUtils {
 	 * @return bool
 	 */
 	static function isUsingFilter($user_id) {
-
 		$metaArr = SettingsServices::getMetadata(0, $user_id, 'ignorelist');
 		if (is_array($metaArr) && sizeof($metaArr) > 0) {
-
 			if ($metaArr[0] instanceof metadataObj && strcmp(trim($metaArr[0]->getMetaDataValue()), "") != 0) {
 				return true;
 			}
-
 			return false;
-
 		} else {
 			return false;
 		}
@@ -220,14 +208,14 @@ class VCDUtils {
 	 */
 	static function shortenText($text, $length) {
 		if (strlen($text) > $length) {
-				$text_spl = explode(' ', $text);
-				$i = 1;
-				$text = $text_spl[0];
-				while(strlen($text.$text_spl[$i]) < $length) {
-					$text .= " ".$text_spl[$i++];
-				}
-				$text = $text."...";
+			$text_spl = explode(' ', $text);
+			$i = 1;
+			$text = $text_spl[0];
+			while(strlen($text.$text_spl[$i]) < $length) {
+				$text .= " ".$text_spl[$i++];
 			}
+			$text = $text."...";
+		}
 		return $text;
 	}
 
@@ -274,8 +262,8 @@ class VCDUtils {
 	static public function getCharSet() {
 		return "UTF-8";
 		$charset = VCDLanguage::translate('language.charset');
-		if (strcmp($charset, "undefined") == 0) {
-			return "iso-8859-1";
+		if (strcmp($charset, 'undefined') == 0) {
+			return 'iso-8859-1';
 		} else {
 			return $charset;
 		}
@@ -319,32 +307,21 @@ class VCDUtils {
 
 	  // Cut some slack for slow connections, 15 secs per file.
 	  @set_time_limit(30);
-
       $source = urldecode($image_url);
 
-      if (defined('USE_PROXY') && USE_PROXY == 1) {
-
+      if (VCDConfig::isUsingProxyServer()) {
       	$contents = VCDUtils::proxy_url($source);
-
       } else {
 
       	$fd = @fopen($source, "rb");
-      	if (!$fd )	{
-      		throw new VCDException('Cant open file at: '.$image_url);
-	  	}
+      	if (!$fd) {	throw new VCDException('Cant open file at: '.$image_url);}
         $contents = '';
-	  	while (!feof($fd)) {
-		  	$contents .= fgets ($fd, 1024);
-	  	}
+	  	while (!feof($fd)) { $contents .= fgets ($fd, 1024); }
 		fclose($fd);
-
-
       }
 
-
-
       // get the extension of this image
-      ereg( ".*\.(.*)$", $source, $regs );
+      ereg(".*\.(.*)$", $source, $regs);
       $ext = $regs[1];
 
       if ($uniqueID) {
@@ -355,7 +332,6 @@ class VCDUtils {
       }
 
       $dFolder = $destination;
-
       $dest = $destination . $filename;
       $fd = fopen($dest, "wb");
 
@@ -417,8 +393,7 @@ class VCDUtils {
   		} else {
   			return $strTitle;
   		}
-  }
-
+	}
 
 
 	 /**
@@ -433,7 +408,6 @@ class VCDUtils {
 	  }
 
 
-
 	/**
 	 * Write contents of a stream to disk.
 	 * Returns true if operation succeded otherwise false.
@@ -443,24 +417,24 @@ class VCDUtils {
 	 * @param  bool $append | Append to the file or not
 	 * @return bool
 	 */
-	static function write($filename, $content, $append=false){
-			if(!empty($filename) && !empty($content)){
-				if ($append) {
-					$fp = fopen($filename, "a");
-				} else {
-					$fp = fopen($filename,"w");
-				}
-				$b = fwrite($fp,$content);
-				fclose($fp);
-				if($b != -1){
-					return true;
-				} else {
-					throw new VCDProgramException("Can't write File [no fwrite]");
-				}
+	static function write($filename, $content, $append=false) {
+		if(!empty($filename) && !empty($content)) {
+			if ($append) {
+				$fp = fopen($filename, "a");
 			} else {
-				throw new VCDProgramException('Cant write File [no filename | no content]');
+				$fp = fopen($filename,"w");
 			}
+			$b = fwrite($fp,$content);
+			fclose($fp);
+			if($b != -1){
+				return true;
+			} else {
+				throw new VCDProgramException("Can't write File [no fwrite]");
+			}
+		} else {
+			throw new VCDProgramException('Cant write File [no filename | no content]');
 		}
+	}
 
 	/**
 	 * Check if the current logged in user is the owner of this vcdObject.
@@ -471,13 +445,11 @@ class VCDUtils {
 	 */
 	static function isOwner(vcdObj $obj) {
 		if (self::isLoggedIn()) {
-			$user = $_SESSION['user'];
-			if ($obj->getInstancesByUserID($user->getUserID()) != null &&
-				is_array($obj->getInstancesByUserID($user->getUserID()))) {
+			if ($obj->getInstancesByUserID(VCDUtils::getUserID()) != null &&
+				is_array($obj->getInstancesByUserID(VCDUtils::getUserID()))) {
 				return true;
 			}
 			return false;
-
 		} else {
 			return false;
 		}
@@ -492,18 +464,15 @@ class VCDUtils {
 	 */
 	static function hasPermissionToChange(vcdObj $obj) {
 		if (self::isLoggedIn()) {
-			$user = $_SESSION['user'];
-			if ($user->isAdmin()) {
+			if (VCDUtils::getCurrentUser()->isAdmin()) {
 				return true;
 			}
 
-			if ($obj->getInstancesByUserID($user->getUserID()) != null &&
-				is_array($obj->getInstancesByUserID($user->getUserID()))) {
+			if ($obj->getInstancesByUserID(VCDUtils::getUserID()) != null &&
+				is_array($obj->getInstancesByUserID(VCDUtils::getUserID()))) {
 				return true;
 			}
-
 			return false;
-
 		} else {
 			return false;
 		}
@@ -518,31 +487,26 @@ class VCDUtils {
 	 * @return string
 	 */
 	static function proxy_url($proxy_url) {
-	   if (!defined('PROXY_URL') || !defined('PROXY_PORT') || PROXY_URL == '' || PROXY_PORT == '' ) {
-	   		VCDException::display('You must define Proxy server and port in VCDConstants.php', true);
-	   		return false;
-	   }
-
-	   $proxy_name = PROXY_URL;
-	   $proxy_port = PROXY_PORT;
-	   $proxy_cont = '';
-
-	   $proxy_fp = fsockopen($proxy_name, $proxy_port);
-	   if (!$proxy_fp)  {
-	   		VCDException::display('No response from proxy server', true);
-	   		return false;
-	   }
-
-	   $urlArr = parse_url($proxy_url);
-	   $domain = $urlArr['host'];
-
-	   //fputs($proxy_fp, "GET $proxy_url HTTP/1.0\r\nHost: $proxy_name\r\n\r\n");
-	   fputs($proxy_fp, "GET $proxy_url HTTP/1.0\r\nHost: $domain\r\n\r\n");
-
-	   while(!feof($proxy_fp)) {$proxy_cont .= fread($proxy_fp,4096);}
-	   fclose($proxy_fp);
-	   $proxy_cont = substr($proxy_cont, strpos($proxy_cont,"\r\n\r\n")+4);
-	   return $proxy_cont;
+		$proxy_name = VCDConfig::getProxyServerHostname();
+	   	$proxy_port = VCDConfig::getProxyServerPort();
+		if (is_null($proxy_name) || is_null($proxy_port)) {
+			throw new VCDProgramException('Proxy settings have not been defined.');
+		}
+ 	   
+		$proxy_cont = '';
+		$proxy_fp = fsockopen($proxy_name, $proxy_port);
+		if (!$proxy_fp)  {
+			throw new VCDProgramException('No response from proxy server: ' . VCDConfig::getProxyServerHostname());
+		}
+		
+		$urlArr = parse_url($proxy_url);
+		$domain = $urlArr['host'];
+		
+		fputs($proxy_fp, "GET $proxy_url HTTP/1.0\r\nHost: $domain\r\n\r\n");
+		while(!feof($proxy_fp)) {$proxy_cont .= fread($proxy_fp,4096);}
+		fclose($proxy_fp);
+		$proxy_cont = substr($proxy_cont, strpos($proxy_cont,"\r\n\r\n")+4);
+		return $proxy_cont;
 	}
 
 
@@ -553,20 +517,17 @@ class VCDUtils {
 	 * @return array
 	 */
 	static function getStyleTemplates() {
-
 		$templateDirectory = 'includes/templates';
 		$it = new DirectoryIterator( $templateDirectory );
 
 		$styles = array();
-
 		while($it->valid()) {
 			$directory = $it->current();
-			if ($directory->isDir() && !$directory->isDot() && (strcmp($directory->getFilename(), "CVS") != 0)) {
+			if ($directory->isDir() && !$directory->isDot() && (strcmp($directory->getFilename(), ".svn") != 0)) {
 				array_push($styles, $directory->getFilename());
 			}
 			$it->next();
 		}
-
 		return $styles;
 	}
 
@@ -577,18 +538,16 @@ class VCDUtils {
 	 * @return string
 	 */
 	static function getStyle() {
-		$defaultStyle = STYLE;
-		$stylepath = "includes/templates/";
+		$defaultStyle = VCDConfig::getDefaultStyleTemplate();
+		$stylepath = 'includes/templates/';
 
 		// Check if style is set in Cookie
 		SiteCookie::extract('vcd_cookie');
 		if (isset($_COOKIE['template'])) {
-			return $stylepath.$_COOKIE['template']."/style.css";
+			return $stylepath.$_COOKIE['template'].'/style.css';
 		} else {
-			return $defaultStyle."style.css";
+			return $defaultStyle.'style.css';
 		}
-
-
 	}
 
 	/**
@@ -632,7 +591,6 @@ class VCDUtils {
 	}
 
 
-
 	/**
 	 * Get a value from specfic metaData type in the DVD Section
 	 *
@@ -641,7 +599,7 @@ class VCDUtils {
 	 * @return string
 	 */
 	static function getDVDMetaObjValue($arrMetaObj, $dvdTypeToFind) {
-		$metaValue = "";
+		$metaValue = '';
 		if (is_array($arrMetaObj)) {
 			foreach ($arrMetaObj as $metaDataObj) {
 				if ($metaDataObj->getMetadataTypeID() == $dvdTypeToFind) {
@@ -650,7 +608,6 @@ class VCDUtils {
 				}
 			}
 		}
-
 
 		return $metaValue;
 	}
@@ -676,7 +633,6 @@ class VCDUtils {
 		}
 
 		return $arrFilteredComments;
-
 	}
 	
 	
@@ -765,6 +721,5 @@ class VCDUtils {
 	
 
 }
-
 
 ?>
