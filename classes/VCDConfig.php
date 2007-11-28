@@ -276,7 +276,31 @@ final class VCDConfig {
 		}
 	}
 	
+	/**
+	 * Get the string to format dates in VCD-db
+	 *
+	 * @return string
+	 */
+	public static function getDateFormat() {
+		if (defined('DATE_FORMAT')) {
+			return DATE_FORMAT;
+		} else {
+			return '%d/%m/%Y';
+		}
+	}
 	
+	/**
+	 * Get the string to format timestamps in VCD-db
+	 *
+	 * @return string
+	 */
+	public static function getTimestampFormat() {
+		if (defined('TIME_FORMAT')) {
+			return VCDConfig::getDateFormat().' '.TIME_FORMAT;
+		} else {
+			return VCDConfig::getDateFormat(). ' %H:%M:%S';
+		}
+	}
 	
 	/**
 	 * Check if User Friendly urls as being used (MOD_REWRITE).

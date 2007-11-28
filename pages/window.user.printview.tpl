@@ -26,7 +26,7 @@
 	<td nowrap="nowrap">{$i.category}</td>
 	<td>{$i.year}</td>
 	<td nowrap="nowrap">{$i.mediatype}</td>
-	<td nowrap="nowrap">{$i.date}</td>
+	<td nowrap="nowrap">{$i.date|date_format:$config.date}</td>
 </tr>
 {/foreach}
 </table>

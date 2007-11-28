@@ -18,9 +18,9 @@
 	{foreach from=$loanList item=i name=history}
 	<tr>
 		<td>{$i.title}</td>
-		<td>{$i.out|date_format:"%d/%m/%Y"}</td>
+		<td>{$i.out|date_format:$config.date}</td>
 		{if $i.returned}
-		<td>{$i.in|date_format:"%d/%m/%Y"}</td>
+		<td>{$i.in|date_format:$config.date}</td>
 		{else}
 		<td style="color:red;background-color:#f2f2f2">{$i.in}</td>
 		{/if}
@@ -96,7 +96,7 @@
 <tr>
 	<td>{$smarty.foreach.movies.iteration}</td>
 	<td><a href="?page=cd&amp;vcd_id={$j.id}">{$j.title}</a></td>
-	<td>{$j.out|date_format:"%d/%m/%Y"}</td>
+	<td>{$j.out|date_format:$config.date}</td>
 	<td>{$j.since}</td>
 	<td><a href="?page=loans&amp;action=return&amp;lid={$jkey}">[{$translate.loan.return}]</a></td>
 </tr>

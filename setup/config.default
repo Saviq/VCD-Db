@@ -118,10 +118,14 @@ define("VSIZE_XMLTHUMBS", 	30);
 	-------------------------------------------------------------
 	STYLE			The default style to use, availble styles are folder names in "/includes/templates/"
 	RSS_CACHE_TIME		The time RSS feeds are cached upon refetch.
+	DATE_FORMAT			How dates are formatted.
+	TIME_FORMAT			How timestamps are formatted.
 	
 **/
-define("STYLE",			"includes/templates/default/");
+define("STYLE",			"includes/templates/sirius/");
 define("RSS_CACHE_TIME",	7200);
+define('DATE_FORMAT', '%d/%m/%Y');
+define('TIME_FORMAT', '%H:%M:%S');
 
 
 /**
@@ -137,7 +141,6 @@ define("RSS_CACHE_TIME",	7200);
   CACHE_MANAGER		Cache data if cache modules are installed, can be XCACHE or MEMCACHE
  
 **/
-
 define("VCDDB_USEPROXY", "0");
 define("VCDDB_SOAPPROXY", "http://domain.com/vcddb/");
 define("VCDDB_SOAPSECRET", "");

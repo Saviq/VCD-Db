@@ -144,7 +144,7 @@
 			<td align="center">{$i.dvdspecs}</td>
 			<td align="center">{$i.nfo}</td>
 			<td>{$i.cdcount}</td>
-			<td>{$i.date|date_format:"%d/%m/%Y"}</td>
+			<td>{$i.date|date_format:$config.date}</td>
 			<td>{$i.owner}</td>
 		</tr>
 		{/foreach}
@@ -265,7 +265,7 @@
 		<ul>
 		{foreach from=$itemComments item=i}
 		
-		<li>{$i.owner} ({$i.date}) 
+		<li>{$i.owner} ({$i.date|date_format:$config.date}) 
 		{if $i.private}
 			(<i>Private comment</i>)
 		{/if}
