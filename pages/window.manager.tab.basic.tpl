@@ -33,12 +33,12 @@
 {else}
 <tr>
 	<td class="tblb">ID</td>
-	<td><input type="text" value="{$itemExternalId}" size="6" name="externalId" class="input"/>&nbsp;<span title="{$itemSourceSiteName}">{$itemSourceSiteAlias}</span>
+	<td><input type="text" value="{$itemExternalId}" readonly="readonly" size="6" name="externalId" class="input"/>&nbsp;<span title="{$itemSourceSiteName}">{$itemSourceSiteAlias}</span>
 	{if $itemExternalId neq '' or $smarty.get.action neq 'refetch'}&nbsp;<input type="button" id="refetch" value="{$translate.misc.update}" onclick="doRefetch({$itemId})"/>{/if}</td>
 </tr>
 {/if}
 <tr>
-{if count($itemCopies) == 0}
+{if $itemUserCount == 0}
 	<td colspan="2"><hr/>{$translate.manager.nocopy}</td>
 {elseif count($itemMediaTypes)==1}
 	<td colspan="2"><hr/><strong>{$translate.manager.copy}</strong></td>
@@ -46,7 +46,7 @@
 	<td colspan="2"><hr/><strong>{$translate.manager.copies}</strong></td>
 {/if}
 </tr>
-
+{if $itemUserCount > 0}
 <tr>
 	<td colspan="2" valign="top">
 	{if count($itemCopies)>0}
@@ -78,6 +78,7 @@
 	<!-- End instance table -->
 	</td>
 </tr>
+{/if}
 </table>
 
 
