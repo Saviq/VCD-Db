@@ -53,10 +53,13 @@ class VCDPageCategoryList extends VCDBasePage {
 		$results = array();
 		
 		$movies = $this->getMovieList();
+		$noImage = '<a href="?page=cd&amp;vcd_id=%d"><img src="images/noimagestar.gif" border="0" alt="%s" title="%s"/></a>';
 		foreach ($movies as $movie) {
 			$coverObj = $movie->getCover('thumbnail');
 			if ($coverObj instanceof cdcoverObj ) {
 				$results[] = $coverObj->getCategoryImageAndLink("?page=cd&amp;vcd_id=".$movie->getID(),$movie->getTitle());
+			} else {
+				$results[] = sprintf($noImage, $movie->getID(), $movie->getTitle(),$movie->getTitle());
 			}
 		}
 		
