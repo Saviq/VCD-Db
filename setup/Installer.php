@@ -992,6 +992,8 @@ class Installer {
 			if (!in_array('mod_rewrite', apache_get_modules())) {
 				throw new Exception('The "mod_rewrite" module is not loaded. Cannot continue.');
 			}
+		} else {
+			throw new Exception('This action is only available when using Apache webserver.');
 		}
 				
 		$fileContents = file_get_contents($templateFile);

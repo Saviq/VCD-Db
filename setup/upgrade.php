@@ -64,7 +64,7 @@
 		<br/>
 		Older versions are not supported by the web based upgrader.
 	
-		<?php if (apache_get_version() !== false) { ?>
+		<?php if (function_exists('apache_get_version') && apache_get_version() !== false) { ?>
 		<br/><br/>
 		<p>
 		The installer has detected that you are running Apache webserver.<br/>
@@ -84,7 +84,7 @@
 			<li>In the admin panel, select Web settings and set the "friendly url" option to true.</li>
 		</ol>
 </p>
-
+	<?php }	?>
 <p>
 	VCD-db 0.990 has new webservice interface for other programs and/or other instances of VCD-db
 	to interop.  For the webservice interface to work you will need to add the following lines
@@ -110,7 +110,7 @@ define("CACHE_MANAGER", "");
 	</pre>
 </p>
 
-		<?php }	?>
+	
 		
 		
 		

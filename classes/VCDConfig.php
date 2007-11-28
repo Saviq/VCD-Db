@@ -337,6 +337,8 @@ final class VCDConfig {
 			if (!in_array('mod_rewrite', apache_get_modules())) {
 				throw new VCDException('The "mod_rewrite" module is not loaded. Cannot continue.');
 			}
+		} else {
+			throw new VCDProgramException('This action is only available when using Apache webserver.');
 		}
 				
 		$fileContents = file_get_contents($templateFile);
