@@ -182,6 +182,7 @@
 		<string id="dvd.audio">Hljóðrás</string>
 		<string id="dvd.subtitles">Textar</string>
 		<string id="dvd.languages">Töluð tungumál</string>
+		<string id="dvd.default">Sjálfgefnar DVD stillingar</string>
 
 
 		<!-- My movies page strings -->
@@ -387,8 +388,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Spilari</string>
 		<string id="player.path">Slóði</string>
-		<string id="player.param">Færibreytur</string>
-		<string id="player.note">Sláðu inn fullan slóða á spilara forritið þitt.&lt;br/&gt;Spilarinn verður að geta tekið inn færibreytur á skjöl eins og td. BSPlayer fyrir Windows eða MPlayer fyrir Linux.&lt;br/&gt;Þú getur náð í BS spilarann frítt &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;hérna&lt;/a&gt; og MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;hérna&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

@@ -182,6 +182,7 @@
 		<string id="dvd.audio">Audio</string>
 		<string id="dvd.subtitles">Subtitles</string>
 		<string id="dvd.languages">Spoken languages</string>
+		<string id="dvd.default">Default DVD settings</string>
 
 
 		<!-- My movies page strings -->
@@ -387,8 +388,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Path</string>
-		<string id="player.param">Parameters</string>
-		<string id="player.note">Enter the full path to your movie player on your harddrive.&lt;br/&gt;Your player must be able to take parameters as command line such as the BSPlayer for Win32 or the MPlayer for Linux.&lt;br/&gt;You can download BSPlayer for free &lt;a  href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt; and the MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
