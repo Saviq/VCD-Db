@@ -1240,6 +1240,8 @@
 				knowing what you are doing can cause the application to function improperly.<br>
 				
 				<br>
+				If you plan to connect to this VCD-db instance from another VCD-db web or program using 
+				the webservice interface the password is: <i><?php echo VCDConfig::getWebservicePassword()?></i>
 				
 				
 				</p>
