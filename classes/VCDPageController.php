@@ -78,7 +78,7 @@ class VCDPageController {
 		// Get the correct Controller for the request
 		$pageNode = $this->getPageNode($pagename);
 		if (is_null($pageNode)) {
-			throw new VCDProgramException('No Controller mapped to View:'.$pagename);	
+			redirect();
 		}
 		
 		// Check permissions
