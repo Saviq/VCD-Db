@@ -15,7 +15,6 @@
  */
 ?>
 <?php
-
 class settingsSQL extends VCDConnection  {
 
 	private $TABLE_settings   = "vcd_Settings";
@@ -980,7 +979,7 @@ class settingsSQL extends VCDConnection  {
 		}
 			
 		$query = "SELECT comment_id, vcd_id, user_id, comment_date, $commentColumn, isPrivate FROM
-				  $this->TABLE_comments WHERE user_id = ".$user_id." ORDER BY comment_date DESC";
+				  $this->TABLE_comments WHERE user_id = ".$user_id." ORDER BY comment_id DESC";
 
 		$rs = $this->db->Execute($query);
 		$arrObj = array();
@@ -1008,7 +1007,7 @@ class settingsSQL extends VCDConnection  {
 				  c.isPrivate, u.user_name FROM
 				  $this->TABLE_comments c
 				  LEFT OUTER JOIN $this->TABLE_users u ON c.user_id = u.user_id
-				  WHERE c.vcd_id = ".$vcd_id." ORDER BY c.comment_date DESC";
+				  WHERE c.vcd_id = ".$vcd_id." ORDER BY c.comment_id DESC";
 
 		
 		$rs = $this->db->Execute($query);
