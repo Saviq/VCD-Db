@@ -44,7 +44,11 @@
 	<td nowrap="nowrap">{$i.year}</td>
 	<td nowrap="nowrap" align="center">
 	{if $i.screens}
+	{if $isAuthenticated}
 	<a href="#" onclick="ShowScreenshots({$i.id});return false" title="{$translate.movie.show}"><img src="images/icons/pictures.png" alt="{$translate.movie.show}" border="0"/></a>
+	{else}
+	{$translate.misc.yes}
+	{/if}
 	{else}
 	&nbsp;	
 	{/if}

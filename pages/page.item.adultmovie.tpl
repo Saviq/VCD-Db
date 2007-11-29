@@ -37,7 +37,11 @@
 				<td>{$translate.movie.screenshots}</td>
 				<td>
 				{if $itemScreenshots}
+					{if $isAuthenticated}
 					<a href="#" onclick="ShowScreenshots({$itemId});return false">{$translate.movie.show}</a>
+					{else}
+					{$translate.misc.yes}
+					{/if}
 				{else}
 					{$translate.movie.noscreens}
 				{/if}
