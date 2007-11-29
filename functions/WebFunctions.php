@@ -105,7 +105,7 @@ function human_file_size($size) {
  * @return string | The category name in the currently used language
  */
 function getLocalizedCategoryName($category_name) {
-	$baseMap = getCategoryMapping();
+	$baseMap = VCDUtils::getCategoryMapping();
 	if (key_exists($category_name, $baseMap)) {
 		$baseKey = $baseMap[$category_name];
 		$translatedKey = VCDLanguage::translate($baseKey);
