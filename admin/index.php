@@ -65,13 +65,13 @@
 	<td colspan="2">
 		<div id="menubar" align="right">
         <ul>
-          <li><a href="javascript:self.close()">Close</a></li>
-          <li><a href="./?page=statistics">Statistics</a></li>
-          <li><a href="./?page=log">Log</a></li>
-          <li><a href="./?page=backup">Backup</a></li>
-          <li><a href="./?page=tools">Tools</a></li>
-          <li><a href="javascript:mailtest()">Test Mail settings</a></li>
-          <li><a href="./?">Home</a></li>
+        	<li><a href="./?">Home</a></li>  
+        	<li><a href="./?page=statistics">Statistics</a></li>
+         	<li><a href="./?page=log">Log</a></li>
+	        <li><a href="./?page=backup">Backup</a></li>
+	        <li><a href="./?page=tools">Tools</a></li>
+    	    <li><a href="javascript:mailtest()">Test Mail settings</a></li>
+        	<li><a href="javascript:self.close()">Close</a></li>  
         </ul>
       </div>
 	</td>
