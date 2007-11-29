@@ -1,14 +1,13 @@
 0.990
+Added   - Friendly Url support using apache mod_rewrite.
 Added   - New tools added to the "admin panel": fix duplicate entries, broken images, create .htaccess file and more.
 Added   - New fetch class for cdon.com
 Added   - New translations: Greek, Hebrew, Japanese, Turkish, Russian and Vietnamese 
 Updated - The movie picker/suggestion maker is now ajax enabled.
 Added   - 3 new graph types have been added to the statistics page.
 Added   - Date format can now be set to used globally in VCD-db.
-Added   - Friendly Url support using apache mod_rewrite.
 Fixed   - All movies can now be added to the seenlist, not only those you own.
-Fixed   - The installer was using wrong function when testing mb_string availability, refusing PHP versions < 5.13
-  	  to proceed.
+Fixed   - The installer was using wrong function when testing mb_string availability, refusing PHP versions < 5.13 to proceed.
 Added   - Screenshots can now be uploaded from the movie manager.
 Updated - Multiple files can now be set for the movie player, not only one.
 Updated - A brand new internal movie player launcher written in java (applet) that works in all OS's
@@ -25,6 +24,7 @@ Changed - The Presentation Layer / UI has been totally rewritten using Smarty as
 Updated - The IMDB, filmweb, dvdempire, ofdb and bush fetch classes were all updated.
 Updated - The ADOdb library has been updated to an PHP5 only version (5.02a) that is considerable faster.
 Updated - Major code cleanup, phpdocing and removal of unused code and js scripts
+Added   - Many new DB Indexes to speed up query execution time.
 Added   - SOAP Proxy/Provider interface to VCD-db as an option instead of using direct database connection.
 Added   - [#016] Movie data can now be refetched/updated from the movie manager window
 Added   - [#022] Covers can now be moved from HD to DB or from DB to HD

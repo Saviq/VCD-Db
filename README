@@ -6,7 +6,7 @@ VCD-db README ($Date$)
 INSTALLATION
 
 1)  Unzip the VCD-db file on your webserver. 
-2)  You must have a database access / or use SQLite as a backend. 
+2)  You must have a database access / or use SQLite/Webservices as a backend. 
 3)  Create an empty database.
 	At the moment the following database types are supported 
 	a) MySQL (3.x/4.x/5.x) 
@@ -40,13 +40,13 @@ INSTALLATION
 
 UPGRADING
 
-Upgrading from 0.984 or 0.985
+Upgrading from 0.984, 0.985 or 0.986
 	- At last a painless upgrade :) 
 	  Simply overwrite all existing files from the new zip/tar file.
 	  Open the vcddb/setup/upgrade.php on your server to finish the upgrade.
 	  Delete the setup folder and start using VCD-db again.
 
-Upgrading from 0.983 or 0.982
+Upgrading from 0.982 or 0.983
 	1) Extract all the files from the zip/tar archive and overwrite your existing VCD-db installation
 	2) First, the file classes/VCDConstants.php is no longer used, but dont delete it yet.
 	   Goto the vcddb/setup directory and copy the file config.default to your vcddb root directory
@@ -94,10 +94,7 @@ APPLICATION NOTES
 5) If you have made your own templates or translation, please send them to me (konni the author) and I will
    include it in future releases.  You can also translate online at http://vcddb.konni.com/translator
    
-6) The VCD-db GUI client does not work with VCD-db installed on IIS servers at the moment, 
-   this will be fixed in the future.
-
-7) When LDAP is used for authentication (defined in the config.php) users can not register,
+6) When LDAP is used for authentication (defined in the config.php) users can not register,
    All they have to do is login with their LDAP account and then the account in automatically created for them.
 
 
