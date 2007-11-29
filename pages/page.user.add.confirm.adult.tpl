@@ -1,5 +1,3 @@
-<h2>{$translate.dvdempire.info}</h2>
-
 <form name="empire_comfirm" action="{$smarty.server.SCRIPT_NAME}?page=add&amp;action=addadultmovie" method="post">
 <input type="hidden" name="thumbnail" value="{$itemThumb}"/>
 <table cellspacing="1" cellpadding="1" border="0" width="100%" class="list">
