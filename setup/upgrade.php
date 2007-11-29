@@ -112,6 +112,25 @@ define("CACHE_MANAGER", "");
 
 	
 		
+<p>
+	If you want to keep your VCD-db installation tidy, after the upgrade you can delete the
+	following obsolete files that are no longer used nor required.
+	<pre>
+/authenticate.php
+/error.php
+/exec_form.php
+/exec_query.php
+/graph.php
+/screens.php	
+/search.php
+/vcd_image.php
+/classes/VCDScreenshot.php
+/functions/XMLFunctions.php
+/pages/*.php (yes, all php files in folder /pages)
+/modules (yes the folder and all it's contents)
+	</pre>
+
+</p>
 		
 		
 	</blockquote>
