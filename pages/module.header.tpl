@@ -1,7 +1,5 @@
-
-<div id="toplogo" onclick="location.href='?'" title="Home"></div>
-
-<div id="hdr" align="center"></div>
+<div id="toplogo"></div>
+<div id="hdr" align="center" onclick="location.href='{$config.home}'"></div>
 <div id="bar">
 {if $isAuthenticated}
 	<a href="?page=settings">{$pageUsername}</a>

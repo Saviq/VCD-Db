@@ -52,7 +52,9 @@ class VCDBasePage extends VCDPage {
 		$this->config = $node;
 		
 		// Set the date and time format to global config
-		$config = array('date' => VCDConfig::getDateFormat(), 'time' => VCDConfig::getTimestampFormat());
+		$config = array('date' => VCDConfig::getDateFormat(), 
+			'time' => VCDConfig::getTimestampFormat(),
+			'home' => VCDConfig::getWebBaseDir());
 		$this->assign('config',$config);
 		
 		// If the request contains _POST data .. force the Controller to handle it.
