@@ -56,7 +56,7 @@
 				<td><a href="#" onclick="loadManager({$itemId});return false">{$translate.movie.change}</a></td>
 			</tr>
 			{/if}
-			{if $isAuthenticated}
+			{if $isAuthenticated && isset($itemSeen)}
 			<tr>
 				<td>&nbsp;</td>
 				<td>

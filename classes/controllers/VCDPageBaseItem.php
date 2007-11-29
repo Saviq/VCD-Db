@@ -550,6 +550,8 @@ abstract class VCDPageBaseItem extends VCDBasePage {
    			$list = SettingsServices::getMetadata($this->itemObj->getID(), VCDUtils::getUserID(), metadataTypeObj::SYS_SEENLIST);
 			if (sizeof($list) == 1 && ($list[0]->getMetadataValue() == 1)) {
 				$this->assign('itemSeen',true);
+			} else {
+				$this->assign('itemSeen',false);
 			}
 		}
 	}
