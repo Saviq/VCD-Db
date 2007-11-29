@@ -105,7 +105,7 @@
 </fieldset>
 {/foreach}
 
-{else}
+{else if (is_array($borrowersList) && count($borrowersList)>0}
 
 &nbsp;<span class="bold">{$translate.loan.history2} &gt;&gt;</span>
 {html_options id=borrowerDropdown name=borrowerDropdown options=$borrowersList selected=$smarty.get.history onchange="location.href='$base?page=loans&history='+this.options[this.selectedIndex].value"}
