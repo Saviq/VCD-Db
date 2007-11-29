@@ -133,7 +133,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			$this->assign('sourceAltTitle',$this->sourceObj->getAltTitle());
 			$this->assign('sourceGrade',$this->sourceObj->getRating());
 			$this->assign('sourceCountries',$this->sourceObj->getCountry());
-			$this->assign('sourceCategoryList',$this->sourceObj->getGenre());
+			$this->assign('sourceCategoryList',$this->doSourceSiteCategoryList($this->sourceObj->getGenre()));
 			$this->assign('sourceRuntime',$this->sourceObj->getRuntime());
 			$this->assign('sourceActors', $this->sourceObj->getCast(true));
 			$this->assign('sourceDirector', $this->sourceObj->getDirectorLink());
@@ -141,6 +141,20 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		}
 	}
 	
+	/**
+	 * Localize the imdb category list
+	 *
+	 * @param string $countryList | comma delimited country list
+	 * @return string | comma delimited localized country list.
+	 */
+	private function doSourceSiteCategoryList($countryList)	{
+		$list = explode(',',$countryList);
+		$results = array();
+		foreach ($list as $name) {
+			$results[] = getLocalizedCategoryName(trim($name));
+		}
+		return implode(', ',$results);
+	}
 	
 	/**
 	 * Assign the global attributes such as title,production year,category .. etc
