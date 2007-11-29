@@ -388,8 +388,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Pfad</string>
-		<string id="player.param">Parameter</string>
-		<string id="player.note">Absoluter Pfad des Players.  Der Player muss Commandline-Argumente akzeptieren wie z.B. BSPlayer für Win32 oder MPlayer für Linux.  &lt;br/&gt;Links: &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;BSPlayer gratis&lt;/a&gt; oder &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;MPlayer gratis (win &amp; lin, recommended)&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

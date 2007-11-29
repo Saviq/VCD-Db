@@ -371,8 +371,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Lejátszó</string>
 		<string id="player.path">Elérési útvonal</string>
-		<string id="player.param">Paraméterek</string>
-		<string id="player.note">Add meg a teljes elérési útvonalát a filmenk a merevlemezeden.  A lejátszódnak képesnek kell lennie az paraméterek átadására, ilyen például BSPlayer Win32-re vagy  MPlayer Linux-ra. YLetöltheted a BSPlayer-t ingyen &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;innen&lt;/a&gt; és a MPlayer-t &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;innen&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

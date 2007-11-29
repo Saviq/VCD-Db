@@ -387,8 +387,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Pad</string>
-		<string id="player.param">Parameters</string>
-		<string id="player.note">Voer het volledige pad in naar de movieplayer op je systeem.&lt;br/&gt;Je movieplayer dient parameters te ondersteunen zoals BSPlayer voor Win32 of MPlayer voor Linux.&lt;br/&gt;BSPlayer kun je &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;hier&lt;/a&gt; gratis downloaden en MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;hier&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

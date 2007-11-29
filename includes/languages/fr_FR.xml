@@ -374,8 +374,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Chemin</string>
-		<string id="player.param">Paramètres</string>
-		<string id="player.note">Entrez le chemin complet pour accéder à votre player sur votre disque.  &lt;br/&gt;Votre player doit-être capable de s'exécuter en ligne de commande comme  BSPlayer pour Win32 ou MPlayer sous Linux.&lt;br/&gt;Vous pouvez récupérer BSPlayer gratuitement  &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;ici&lt;/a&gt; et MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;ici&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

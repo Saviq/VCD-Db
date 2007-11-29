@@ -15,13 +15,17 @@
 		<string id="menu.movies">影片管理</string>
 		<string id="menu.addmovie">新增影片</string>
 		<string id="menu.loansystem">借閱管理</string>
+		<string id="menu.wishlist">我的最愛</string>
 		<string id="menu.categories">影片分類</string>
 		<string id="menu.rss">我的 Rss Feeds</string>
 		<string id="menu.controlpanel">控制台</string>
 		<string id="menu.register">註冊</string>
 		<string id="menu.logout">登出</string>
 		<string id="menu.submit">送出</string>
+		<string id="menu.topusers">頂面用戶</string>
+		<string id="menu.wishlistpublic">其它最愛</string>
 		<string id="menu.statistics">影片收藏狀態</string>
+		<string id="menu.showallusersmovies">所有影片</string>
 
 
 		<!-- login based strings -->
@@ -35,7 +39,7 @@
 		<!-- Register based strings -->
 		<string id="register.title">會員註冊</string>
 		<string id="register.fullname">帳號名稱</string>
-		<string id="register.email">Email</string>
+		<string id="register.email">電郵</string>
 		<string id="register.again">確認密碼</string>
 		<string id="register.disabled">抱歉‧目前暫時不開放會員註冊</string>
 		<string id="register.ok">註冊成功‧請重新登入</string>
@@ -45,12 +49,16 @@
 		<string id="userproperties.notify">當有影片新增加時，使用電子郵件通知我</string>
 		<string id="userproperties.show_adult">顯示成人內容</string>
 		<string id="userproperties.rss">允許使用 RSS feed 取得我的影片清單?</string>
-		<string id="userproperties.wishlist">允許其他人觀看我的</string>
+		<string id="userproperties.wishlist">允許其他人觀看我的最愛</string>
+		<string id="userproperties.use_index">啓用指數欄給自訂媒介號碼?</string>
+		<string id="userproperties.playoption">使用客戶播放選擇</string>
 		<string id="userproperties.nfo">開啟支援NFO檔案格式</string>
 
 
 		<!-- strings for user settings -->
+		<string id="usersettings.player">自定設置</string>
 		<string id="usersettings.custom">自訂我的首頁</string>
+		<string id="usersettings.showstat">顯示統計</string>
 		<string id="usersettings.showside">於首頁顯示</string>
 		<string id="usersettings.selectrss">選擇 RSS feeds</string>
 		<string id="usersettings.pagelook">佈景主題</string>
@@ -104,6 +112,8 @@
 		<string id="movie.actors">演員</string>
 		<string id="movie.category">影片類型</string>
 		<string id="movie.year">年份</string>
+		<string id="movie.copies">拷貝</string>
+		<string id="movie.from">從</string>
 		<string id="movie.title">片名</string>
 		<string id="movie.alttitle">中文片名</string>
 		<string id="movie.grade">影片評價</string>
@@ -119,6 +129,8 @@
 		<string id="movie.num">碟片數量</string>
 		<string id="movie.date">建檔日期</string>
 		<string id="movie.owner">影片擁有者</string>
+		<string id="movie.noactors">沒有演員目錄可展示</string>
+		<string id="movie.info">影片資訊</string>
 		<string id="movie.details">我的影片</string>
 		<string id="movie.mediatype">影片格式</string>
 		<string id="movie.comment">註解</string>
@@ -134,6 +146,8 @@
 		<string id="movie.textview">文字模式</string>
 		<string id="movie.imageview">圖片模式</string>
 		<string id="movie.mineonly">只顯示屬於我的影片</string>
+		<string id="movie.similar">相似的影片</string>
+		<string id="movie.mediaindex">媒介索引</string>
 
 
 		<!-- IMDB specific strings -->
@@ -142,6 +156,7 @@
 		<string id="imdb.gallery">劇照</string>
 		<string id="imdb.trailers">預告片</string>
 		<string id="imdb.links">連結IMDB</string>
+		<string id="imdb.not">沒有IMDB資料可展示</string>
 
 
 		<!-- DVD specific string -->
@@ -157,10 +172,13 @@
 		<string id="mymovies.excel">匯出成 Excel</string>
 		<string id="mymovies.xml">匯出成 XML</string>
 		<string id="mymovies.xmlthumbs">匯出縮圖為 XML</string>
+		<string id="mymovies.actions">我的決定</string>
 		<string id="mymovies.join">加入影片</string>
+		<string id="mymovies.joinmovies">加入電影影片</string>
 		<string id="mymovies.joinsuser">從誰新增</string>
 		<string id="mymovies.joinsmedia">挑選影片媒體</string>
 		<string id="mymovies.joinscat">挑選影片類型</string>
+		<string id="mymovies.joinstype">挑選决定</string>
 		<string id="mymovies.joinshow">搜尋</string>
 		<string id="mymovies.noresults">並無符合的資料</string>
 		<string id="mymovies.textall">預覽 (文字模式)</string>
@@ -172,18 +190,32 @@
 		<string id="mymovies.j2">其他人所擁有但我沒有的影片</string>
 		<string id="mymovies.j3">我與其他人皆有的影片</string>
 		<string id="mymovies.overview">目前影片瀏覽 </string>
+		<string id="mymovies.keys">編輯自訂編號</string>
+		<string id="mymovies.seenlist">編輯己看影片列表</string>
 		<string id="mymovies.helppicker">不知道要看什麼影片麼</string>
 		<string id="mymovies.helppickerinfo">不知道看什麼影片好麼? 讓系統幫您?</string>
 		<string id="mymovies.find">開始尋找</string>
+		<string id="mymovies.notseen">只列出我未觀賞過的影片</string>
 		<string id="mymovies.friends">我的影片借給了誰?</string>
+		<string id="mymovies.overviewdetail">詳細的彙集概要</string>
 
 
 		<!-- strings for the movie manager window -->
 		<string id="manager.basic">基本資料</string>
+		<string id="manager.imdb">IMDB資料</string>
+		<string id="manager.empire">DVDEmpire資料</string>
 		<string id="manager.copy">影片類型</string>
+		<string id="manager.copies">影片類型</string>
+		<string id="manager.nocopy">沒有數量</string>
 		<string id="manager.1copy">碟片數量</string>
+		<string id="manager.addact">加入演員</string>
+		<string id="manager.addtodb">加入演員到數据庫</string>
+		<string id="manager.savetodb">儲存入數据庫</string>
+		<string id="manager.savetodbncd">儲存影片入數据庫</string>
+		<string id="manager.indb">演員列表</string>
 		<string id="manager.sel">挑選演員</string>
 		<string id="manager.stars">星</string>
+		<string id="manager.browse">瀏覽文件地點</string>
 		<string id="manager.addmedia">新增</string>
 
 
@@ -251,6 +283,20 @@
 		<string id="comments.error">必須登入才能寫註解</string>
 
 
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">加入我的最愛</string>
+		<string id="wishlist.onlist">你的最愛列表</string>
+		<string id="wishlist.empty">空的列表</string>
+		<string id="wishlist.own">我有本影片的拷貝</string>
+		<string id="wishlist.notown">我沒有本影片的拷貝</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">名字</string>
+		<string id="pornstar.web">網站</string>
+		<string id="pornstar.moviecount">影片計數</string>
+
+
 		<!-- strings for the "seen movies" page -->
 		<string id="seen.seenit">我已經觀賞</string>
 		<string id="seen.notseenit">尚未觀賞過的影片</string>
@@ -258,12 +304,24 @@
 		<string id="seen.notseenitclick">&gt;標示成未觀賞</string>
 
 
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">今天報表</string>
+		<string id="statistics.top_movies">資料庫內的影片</string>
+		<string id="statistics.top_cats">頂面類別</string>
+		<string id="statistics.top_act">最活躍類別</string>
+		<string id="statistics.top_covers">資料庫內的封頁</string>
+		<string id="statistics.total">總計</string>
+		<string id="statistics.today">今日新增</string>
+		<string id="statistics.week">7日內新增</string>
+		<string id="statistics.month">30日內新增</string>
+
+
 		<!-- strings for the email messages sent from VCD-db -->
 		<string id="mail.returntopic">還片提醒</string>
 		<string id="mail.returnmovies1">%s，提醒你該還片了，&lt;br/&gt; 你目前借閱的影片有：</string>
 		<string id="mail.returnmovies2">請盡快將影片歸還給 %s  此郵件為系統自動發送，請勿回覆</string>
 		<string id="mail.notify">&lt;strong&gt;新影片增加&lt;/strong&gt;&lt;br/&gt;點選 &lt;a href=&quot;%s/?page=cd?vcd_id=%s&quot;&gt;此處&lt;/a&gt;前往觀看 ..&lt;br/&gt;&lt;br/&gt;郵件由系統自動發送，請勿回</string>
-		<string id="mail.register">%s, 您已成功於 VCD-db 網站上註冊.&lt;br/&gt;&lt;br/&gt;使用者名稱： %s and 密碼：%s&lt;br/&gt;&lt;br/&gt;點選 &lt;a href=&quot;=%s&quot; target=&quot;_new&quot;&gt;此處&lt;/a&gt;進入VCD-db 網站.</string>
+		<string id="mail.register">%s, 您已成功於 vcddb.com 網站上註冊.&lt;br/&gt;&lt;br/&gt;使用者名稱： %s and 密碼：%s&lt;br/&gt;&lt;br/&gt;點選 &lt;a href=&quot;=%s&quot; target=&quot;_new&quot;&gt;此處&lt;/a&gt;進入VCD-db 網站.</string>
 
 
 		<!-- strings for the metadata -->
@@ -287,13 +345,21 @@
 		<string id="misc.yes">是</string>
 		<string id="misc.no">否</string>
 		<string id="misc.showmore">更多</string>
+		<string id="misc.showless">更少</string>
+		<string id="misc.new">新</string>
 		<string id="misc.change">變更</string>
 		<string id="misc.delete">刪除</string>
 		<string id="misc.update">更新</string>
 		<string id="misc.saveandclose">儲存後關閉視窗</string>
 		<string id="misc.close">關閉視窗</string>
 		<string id="misc.edit">修改</string>
+		<string id="misc.results">結果</string>
+		<string id="misc.latestmovies">最新影片</string>
+		<string id="misc.movies">影片</string>
+		<string id="misc.nocats">未加入影片</string>
+		<string id="misc.nousers">沒有活躍用戶</string>
 		<string id="misc.savenext">儲存後編輯下一個</string>
 		<string id="misc.save">儲存</string>
+		<string id="misc.seen">己觀賞</string>
 	</strings>
 </language>

@@ -374,8 +374,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Odtwarzacz</string>
 		<string id="player.path">Ścieżka dostępu</string>
-		<string id="player.param">Ustawienia</string>
-		<string id="player.note">Wpisz pełną ścieżkę dostępu do odtwarzacza na swoim dysku twardym.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

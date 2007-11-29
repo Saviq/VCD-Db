@@ -371,8 +371,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Tocador</string>
 		<string id="player.path">Caminho</string>
-		<string id="player.param">Parâmetros</string>
-		<string id="player.note">Entre com o caminho completo do seu tocador de filmes no disco rígido.&lt;br/&gt;Seu tocador precisa ser capaz de aceitar parâmetros via linha de comando como o BSPlayer para Win32 our MPlayer para Linux.&lt;br/&gt;Você pode fazer download do BSPlayer gratuitamente &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; e do MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

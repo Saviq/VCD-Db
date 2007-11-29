@@ -33,8 +33,7 @@
 </string>
 		<string id="menu.rss"> RSS pladenj
 </string>
-		<string id="menu.controlpanel"> Kontrolna plošèa
-</string>
+		<string id="menu.controlpanel">Kontrolna plošča</string>
 		<string id="menu.register"> Registracija
 </string>
 		<string id="menu.logout"> Odjava
@@ -543,10 +542,6 @@
 		<string id="player.player"> Predvajalnik
 </string>
 		<string id="player.path"> Pot
-</string>
-		<string id="player.param"> Parametri
-</string>
-		<string id="player.note"> Vpiši polno pot do predvajalnika na tvojem disku.
 </string>
 
 

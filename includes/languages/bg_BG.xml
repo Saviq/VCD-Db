@@ -31,6 +31,7 @@
 		<string id="menu.topusers">TOP потребители</string>
 		<string id="menu.wishlistpublic">Списък &quot;Желания&quot; на други потребители</string>
 		<string id="menu.statistics">Статистики</string>
+		<string id="menu.showallusersmovies">съвсем кинематография</string>
 
 
 		<!-- login based strings -->
@@ -206,6 +207,7 @@
 		<string id="mymovies.find">Намери филм</string>
 		<string id="mymovies.notseen">Предложи ми филм, който не съм гледал до момента</string>
 		<string id="mymovies.friends">Приятели, даващи CD/та на заем</string>
+		<string id="mymovies.overviewdetail">подробен събиране</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -371,8 +373,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Плейър</string>
 		<string id="player.path">Път</string>
-		<string id="player.param">Параметри</string>
-		<string id="player.note">Напиши пълния път до плейъра ти на твърдия диск.&lt;br/&gt;Плейъра ти трябва да поддържа дос параметри. Такива плейъри са BSPlayer,Crystal Player зa Win32 или MPlayer за Linuz.&lt;br/&gt;</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

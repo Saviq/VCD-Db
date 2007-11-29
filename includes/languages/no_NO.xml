@@ -387,8 +387,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Avspiller</string>
 		<string id="player.path">Bane</string>
-		<string id="player.param">Parametere</string>
-		<string id="player.note">Skriv inn full bane til din filmavspiller på din maskin.&lt;br/&gt;Din avspiller må kunne ta parametere på kommandolinje som feks BSPlayer for Windows eller MPlayer for Linux.&lt;br/&gt;Du kan hente ned BSPlayer gratis &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;her&lt;/a&gt; og MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;her&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

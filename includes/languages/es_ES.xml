@@ -377,8 +377,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Reproductor</string>
 		<string id="player.path">Ruta</string>
-		<string id="player.param">Par´metros</string>
-		<string id="player.note">Entra la ruta completa de tu reproductor de películas en tu didsco duro.&lt;br/&gt;Tu reproductor debe poder aceptar par´metros en línea de comandos como p.ej. &lt;br/&gt;tttttttBSPlayer en Win32 ó MPlayer en Linux. Puedes descargar gratuitamente BSPlayer &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt; y MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;aquí&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

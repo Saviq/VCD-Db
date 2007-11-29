@@ -490,8 +490,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">lettore multimediale</string>
 		<string id="player.path">percorso</string>
-		<string id="player.param">parametri</string>
-		<string id="player.note">Inserisci il percorso completo del tuo lettore multimediale.&lt;br/&gt;Il lettore deve accettare i parametri nella riga di comando come fà BSPlayer per Win32 o MPlayer per Linux.&lt;br/&gt;Puoi scaricare gratis BSPlayer &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;qui&lt;/a&gt; ed MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;qui&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

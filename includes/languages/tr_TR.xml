@@ -374,8 +374,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Oynatıcı</string>
 		<string id="player.path">Yol</string>
-		<string id="player.param">Parametreler</string>
-		<string id="player.note">Bilgisayarınızdaki film oynatıcısının tam adresini giriniz.&lt;br/&gt;Oynatıcınız komut satırından parametre alabiliyor olmalıdır, mesela Windows için BSPlayer veya Linux için MPlayer.&lt;br/&gt;Ücretsiz BSPlayer indirmek için &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;buraya&lt;/a&gt;, MPlayer için &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;buraya&lt;/a&gt; tıklayın.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

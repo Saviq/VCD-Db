@@ -182,6 +182,7 @@
 		<string id="dvd.audio">Ljud</string>
 		<string id="dvd.subtitles">Undertexter</string>
 		<string id="dvd.languages">Använda språk</string>
+		<string id="dvd.default">DVD Inställningar</string>
 
 
 		<!-- My movies page strings -->
@@ -411,12 +412,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Spelare</string>
 		<string id="player.path">Sökväg</string>
-		<string id="player.param">Parametrar</string>
-		<string id="player.note">Fyll i den fullständiga sökvägen till din film spelare på din hårddisk.
-							Din spelare måste kunna ta emot parametrar som kommandorad såsom
-							BSPlayer för Win32 eller MPlayer för Linux.&lt;br/&gt;Du kan tanka hem BSPlayer gratis
-							&lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;här&lt;/a&gt;
-							och MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;här&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

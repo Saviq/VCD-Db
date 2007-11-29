@@ -371,8 +371,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Sviraè (Player)</string>
 		<string id="player.path">Put (Path)</string>
-		<string id="player.param">Parametri</string>
-		<string id="player.note">Unesite puni put do vašeg put do vašeg sviraèa za filmove (movie player) na vašem disku.  Vaš sviraè mora biti u moguènosti da prihvati parametre s komandne linije poput BSPlayer-a za Win32 ili MPlayer-a za Linux.&lt;br/&gt;Možete downloadovati BSPlayer besplatno &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;ovdje&lt;/a&gt; i MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;ovdje&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

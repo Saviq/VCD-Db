@@ -372,8 +372,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Player</string>
 		<string id="player.path">Cesta</string>
-		<string id="player.param">Parametre</string>
-		<string id="player.note">Vlož presnú cestu k tvojmu prehrávaču na tvojom pevnom disku.&lt;br/&gt;Prehrávač by mal byť schopný akceptovať parametre príkazového riadku ako napr. BSPlayer pre Windows alebo MPlayer pre Linux.&lt;br/&gt;Stiahnite si BSPlayer zadarmo &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;tu&lt;/a&gt; alebo MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;tu&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

@@ -371,8 +371,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Програвач</string>
 		<string id="player.path">Шлях</string>
-		<string id="player.param">Параметри</string>
-		<string id="player.note">Enter the full path to your movie player on your harddrive.&lt;br/&gt;Your player must be able to take parameters as command line such as the BSPlayer for Win32 or the MPlayer for Linux.&lt;br/&gt;You can download BSPlayer for free &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt; and the MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;here&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

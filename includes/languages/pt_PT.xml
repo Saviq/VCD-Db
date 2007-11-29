@@ -655,10 +655,6 @@
 </string>
 		<string id="player.path"> Caminho
 </string>
-		<string id="player.param"> Parãmetros
-</string>
-		<string id="player.note"> Entre com o caminho completo do seu Player de filmes no disco rígido.O seu Player precisa ser capaz de aceitar parãmetros via linha de comando como o BSPlayer para Win32 our MPlayer para Linux.&lt;br/&gt;Você pode fazer download do BSPlayer gratuitamente clicando &lt;a href=\&quot;http://www.bsplayer.org\&quot; target=\&quot;_new\&quot;&gt;aquí&lt;/a&gt;,e do MPlayer &lt;a href=\&quot;http://www.MPlayerHQ.hu\&quot; target=\&quot;_new\&quot;&gt;aquí&lt;/a&gt;.
-</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

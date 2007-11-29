@@ -374,8 +374,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Afspiller</string>
 		<string id="player.path">Sti</string>
-		<string id="player.param">Parametere</string>
-		<string id="player.note">Skriv den fulde sti til din film-afspiller på din harddisk.&lt;br/&gt;Din afspiller skal være kompatible til tage parameters og kommando linjer som fx. BSPlayer til Win32 og MPlayer til Linux.&lt;br/&gt;Du kan downloade BSPlayer &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;&lt;b&gt;HER&lt;/b&gt;&lt;/a&gt; og MPlayer til linux &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;&lt;b&gt;HER&lt;/b&gt;&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->

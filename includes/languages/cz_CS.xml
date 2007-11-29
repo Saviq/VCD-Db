@@ -16,9 +16,9 @@
 
 
 		<!-- user menu keys -->
-		<string id="menu.mine">Moje menu</string>
-		<string id="menu.settings">Moje nastaveni</string>
-		<string id="menu.movies">Moje filmy</string>
+		<string id="menu.mine">Mé menu</string>
+		<string id="menu.settings">Mé nastaveni</string>
+		<string id="menu.movies">Mé filmy</string>
 		<string id="menu.addmovie">Přidat nový film</string>
 		<string id="menu.loansystem">Půjčovna</string>
 		<string id="menu.wishlist">Moje žádosti</string>
@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Nejlepší uživatelé</string>
 		<string id="menu.wishlistpublic">Ostatní žádosti</string>
 		<string id="menu.statistics">Statistiky</string>
+		<string id="menu.showallusersmovies">Všechny filmy</string>
 
 
 		<!-- login based strings -->
@@ -180,14 +181,19 @@
 		<string id="mymovies.excel">Exportovat jako Excel formát</string>
 		<string id="mymovies.xml">Exportovat jako XML formát</string>
 		<string id="mymovies.xmlthumbs">Exportovat náhledy jako XML</string>
-		<string id="mymovies.actions"> </string>
+		<string id="mymovies.actions">Mé akce</string>
 		<string id="mymovies.join">Spojení disků</string>
-		<string id="mymovies.joinmovies"> </string>
+		<string id="mymovies.joinmovies">Spojení filmů</string>
 		<string id="mymovies.joinsuser">Vybrat uživatele</string>
 		<string id="mymovies.joinsmedia">Vybrat typ média</string>
 		<string id="mymovies.joinscat">Vybrat kategorii</string>
+		<string id="mymovies.joinstype">Vybrat akci</string>
 		<string id="mymovies.joinshow">Zobrazit výsledky</string>
 		<string id="mymovies.noresults">Žádné výsledky hledání</string>
+		<string id="mymovies.textall">Náhled tisku (textový mód)</string>
+		<string id="mymovies.pwall">Náhled tisku (vše)</string>
+		<string id="mymovies.pwmovies">Náhled tisku (filmy)</string>
+		<string id="mymovies.pwtv">Náhled tisku (TV pořady)</string>
 		<string id="mymovies.j1">Filmy které mám já a uživatel ne</string>
 		<string id="mymovies.j2">Filmy které má uživatel a já ne</string>
 		<string id="mymovies.j3">Filmy které máme oba</string>
@@ -238,10 +244,14 @@
 
 
 		<!-- strings for XML actions -->
+		<string id="xml.confirm">Potvrdit XML upload</string>
 		<string id="xml.contains">XML soubor obsahuje %d filmů.</string>
+		<string id="xml.info1">Stiskni Potrvdit pro uložení filmu do databáze nebo Zrušit pro návrat zpět</string>
+		<string id="xml.results">Výsledek uploaudu XML</string>
 
 
 		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.subcat">Kategorie XXX</string>
 		<string id="dvdempire.stars">Pornohvězda</string>
 
 
@@ -249,8 +259,10 @@
 		<string id="loan.movies">Filmy na půjčení</string>
 		<string id="loan.to">Půjč filmy</string>
 		<string id="loan.addusers">Přidej nějaké na půjčování pro pokračování</string>
-		<string id="loan.name">Meno</string>
-		<string id="loan.select">Vybrat dlužníka</string>
+		<string id="loan.newuser">Nový vypůjčovatel</string>
+		<string id="loan.registeruser">Přidat nového vypůjčovatele</string>
+		<string id="loan.name">Jméno</string>
+		<string id="loan.select">Vybrat vypůjčovatele</string>
 		<string id="loan.movieloans">Půjčené filmy...</string>
 		<string id="loan.reminder">Poslat připomenutí</string>
 		<string id="loan.history">Historie půjček</string>
@@ -266,6 +278,7 @@
 		<string id="loan.back">Návrat na půjčky</string>
 		<string id="loan.day">den</string>
 		<string id="loan.days">dní</string>
+		<string id="loan.today">odedneška</string>
 
 
 		<!-- strings for the comments -->
@@ -275,10 +288,13 @@
 		<string id="comments.type">Napište svůj komentář</string>
 		<string id="comments.your">Tvůj komentář</string>
 		<string id="comments.post">Napsat komentář</string>
-		<string id="comments.error">Musíš být prihlášený pro psaní komentářů</string>
+		<string id="comments.error">Musíš být přihlášený pro psaní komentářů</string>
 
 
 		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Přidat do mé listu přání</string>
+		<string id="wishlist.onlist">Do listu přání</string>
+		<string id="wishlist.empty">Váš list přání je prázdný</string>
 		<string id="wishlist.own">Vlastním kopii filmu</string>
 		<string id="wishlist.notown">Nevlastním kópii filmu</string>
 
@@ -287,5 +303,77 @@
 		<string id="pornstar.name">Jméno</string>
 		<string id="pornstar.web">Webstránka</string>
 		<string id="pornstar.moviecount">Počet filmů</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Shlédnuto</string>
+		<string id="seen.notseenit">Neshlédnuto</string>
+		<string id="seen.seenitclick">Označit za shlédnuté</string>
+		<string id="seen.notseenitclick">Odznačit za shlédnuté</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Dnešní report</string>
+		<string id="statistics.top_movies">Filmy v databázi</string>
+		<string id="statistics.top_cats">Nek kategorie</string>
+		<string id="statistics.top_act">NEjaktivnější kategorie</string>
+		<string id="statistics.top_covers">Obaly v databázi</string>
+		<string id="statistics.total">Celkem</string>
+		<string id="statistics.today">Přidáno dnes</string>
+		<string id="statistics.week">Přidáno za poslední týden</string>
+		<string id="statistics.month">Přidáno za poslední měsíc</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Připomínka zápůjčky</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.name">Jméno</string>
+		<string id="metadata.desc">Popis</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Herec</string>
+		<string id="player.path">Cesta</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">obsah</string>
+		<string id="misc.grade">IMDB hodnocení lepší než</string>
+		<string id="misc.any">Jakýkoliv</string>
+		<string id="misc.tryagain">Znovu</string>
+		<string id="misc.proceed">Provést</string>
+		<string id="misc.select">Vibrat</string>
+		<string id="misc.confirm">Potvrdit</string>
+		<string id="misc.cancel">Zrušit</string>
+		<string id="misc.attention">Pozor!</string>
+		<string id="misc.status">stav</string>
+		<string id="misc.success">OK</string>
+		<string id="misc.failure">Chyba</string>
+		<string id="misc.yes">Ano</string>
+		<string id="misc.no">Ne</string>
+		<string id="misc.showmore">Zobrazit více</string>
+		<string id="misc.showless">Zobrazit méně</string>
+		<string id="misc.new">Nový</string>
+		<string id="misc.change">změna</string>
+		<string id="misc.delete">smazat</string>
+		<string id="misc.update">Upravit</string>
+		<string id="misc.saveandclose">Uložit a zavřít</string>
+		<string id="misc.close">Zavřít</string>
+		<string id="misc.edit">Změnit</string>
+		<string id="misc.results">Výsledky</string>
+		<string id="misc.latestmovies">poslední filmy</string>
+		<string id="misc.movies">filmy</string>
+		<string id="misc.nocats">Žádné filmy nebyly přidány.</string>
+		<string id="misc.nousers">Žádní aktivní uživatelé</string>
+		<string id="misc.key">Klíč</string>
+		<string id="misc.savenext">Uložit a změnit další</string>
+		<string id="misc.save">Uložit</string>
+		<string id="misc.seen">Shlednuto</string>
+		<string id="misc.footer">Stránka načtena za %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.toggle">Přepnout náhled</string>
+		<string id="misc.toggle_on">zapnoto</string>
+		<string id="misc.toggle_off">vypnuto</string>
 	</strings>
 </language>

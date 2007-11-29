@@ -374,8 +374,6 @@
 		<!-- strings for the player settings and actions -->
 		<string id="player.player">Проигрыватель</string>
 		<string id="player.path">Путь</string>
-		<string id="player.param">Параметры</string>
-		<string id="player.note">Введите полный путь к фильму на вашем жёстком диске.&lt;br/&gt;Ваш плейер должен уметь принимать параметры командной строки, как BSPlayer для Windows или MPlayer для Linux.&lt;br/&gt;Вы можете бесплатно скачать BSPlayer &lt;a href=&quot;http://www.bsplayer.org&quot; target=&quot;_new&quot;&gt;отсюда&lt;/a&gt;  и MPlayer &lt;a href=&quot;http://www.MPlayerHQ.hu&quot; target=&quot;_new&quot;&gt;отсюда&lt;/a&gt;.</string>
 
 
 		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
