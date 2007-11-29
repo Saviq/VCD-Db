@@ -1,11 +1,46 @@
 0.990
-Fixed   - [#36] Media Index was not being populated in the Excel reports
-Fixed   - [#28] Medium data/metadata was not correctly updated when changing medium type
-Fixed   - [#14] Slash/Backslash problems in url with Windows installations in IIS6
-Updated - [#34] Further isolation and prevention of adult data being accessed when not authorized to do so.
-Fixed   - [#29] When IMDB search returned only 1 results, that could result in a system hang.
-Added   - [#37] Export collection list in PDF format is now available.
-Added   - Soap Proxy/Provider interface to VCD-db as an option instead of using direct database connection.
+Added   - New tools added to the "admin panel": fix duplicate entries, broken images, create .htaccess file and more.
+Added   - New fetch class for cdon.com
+Added   - New translations: Greek, Hebrew, Japanese, Turkish, Russian and Vietnamese 
+Updated - The movie picker/suggestion maker is now ajax enabled.
+Added   - 3 new graph types have been added to the statistics page.
+Added   - Date format can now be set to used globally in VCD-db.
+Added   - Friendly Url support using apache mod_rewrite.
+Fixed   - All movies can now be added to the seenlist, not only those you own.
+Fixed   - The installer was using wrong function when testing mb_string availability, refusing PHP versions < 5.13
+  	  to proceed.
+Added   - Screenshots can now be uploaded from the movie manager.
+Updated - Multiple files can now be set for the movie player, not only one.
+Updated - A brand new internal movie player launcher written in java (applet) that works in all OS's
+	  Can launch the desired movie file in the associated player.  Tested on XP,KDE,GNOME,XFC and OSX.
+Updated - All the javascript messages and prompts have now been localized.
+Added   - 2 new layout templates added, "sirius" and "deadcenter" both centered ones. 
+Updated - The default template used is now "sirius"
+Fixed   - Loan history overview is now always accessible from the loan page.
+Changed - The frontpage RSS feeds are now fetch via Ajax if they are not already cached on disk
+          for faster frontpage loading purposes.
+Changed - Screenshot presentation has changed, now using lytebox to show the images.
+Changed - Cover presentation has changed, now using lytebox to show the images.
+Changed - The Presentation Layer / UI has been totally rewritten using Smarty as a template engine.
+Updated - The IMDB, filmweb, dvdempire, ofdb and bush fetch classes were all updated.
+Updated - The ADOdb library has been updated to an PHP5 only version (5.02a) that is considerable faster.
+Updated - Major code cleanup, phpdocing and removal of unused code and js scripts
+Added   - SOAP Proxy/Provider interface to VCD-db as an option instead of using direct database connection.
+Added   - [#016] Movie data can now be refetched/updated from the movie manager window
+Added   - [#022] Covers can now be moved from HD to DB or from DB to HD
+Added   - [#026] Added the spoken languages option to the DVD data section.
+Added   - [#037] Export collection list in PDF format is now available.
+Added   - [#149] The SQL export feature in the admin panel has finally arrived.
+	  Tables and/or data can now be exported for backup or relocation purposes.
+Fixed   - [#012] Thumbnail cover type cannot be deleted any more.
+Fixed   - [#014] Slash/Backslash problems in url with Windows installations in IIS6
+Fixed   - [#028] Medium data/metadata was not correctly updated when changing medium type
+Fixed   - [#029] When IMDB search returned only 1 results, that could result in a system hang.
+Fixed   - [#033] PHP Short open tags are no longer required for VCD-db
+Updated - [#034] Further isolation and prevention of adult data being accessed when not authorized to do so.
+Fixed   - [#035] Custom index can now be added on the same item by multiple users
+Fixed   - [#036] Media Index was not being populated in the Excel reports
+Fixed   - [#043] Movies missing the thumbnails were not displayed in the image view
 
 0.986
 Fixed   - Directors are now populated the imdb fetch.
