@@ -173,7 +173,6 @@ class VCDAjaxHelper {
 		$rss = $rssFetch->Get($obj->getFeedUrl());
 		if ($rss && $rss['items_count'] > 0) {
 			foreach ($rss['items'] as $item) {
-	
 				$hover = $item['description'];
 				$title = VCDUtils::unhtmlentities(str_replace('&apos;', '',$item['title']));
 				$link  = $item['link'];
@@ -187,7 +186,7 @@ class VCDAjaxHelper {
             	$h = str_replace(chr(10), '', $h);
             	$hover = $h;
 				
-				$results[] = array('title' => $title, 'link' => $link, 'hover' => $hover);
+				$results[] = array('title' => mb_convert_encoding($title, "UTF-8", $rss['encoding']), 'link' => $link, 'hover' => mb_convert_encoding($hover, "UTF-8", $rss['encoding']));
 			}
 		}
 		return array('id' =>  $rss_id, 'items' => $results);

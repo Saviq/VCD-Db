@@ -160,8 +160,8 @@ class VCDFrontPage extends VCDBasePage {
 			
 			foreach ($rss['items'] as $item) {
 	
-				$hover = $item['description'];
-				$title = $item['title'];
+				$hover = mb_convert_encoding($item['description'], 'UTF-8', $rss['encoding']);
+				$title = mb_convert_encoding($item['title'], 'UTF-8', $rss['encoding']);
 				$link  = $item['link'];
 								
 				$rssItem = array('title' => $title, 'link' => $link, 'hover' => html_entity_decode($hover,ENT_COMPAT));
