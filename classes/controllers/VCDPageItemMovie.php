@@ -38,7 +38,6 @@ class VCDPageItemMovie extends VCDPageBaseItem  {
 	private function doCast() {
 		if (!is_null($this->sourceObj))	{
 			$this->assign('sourceActors', $this->sourceObj->getCast(true));
-			die(print_r($this->sourceObj->getCast(true), true));
 		}
 	}
 	
