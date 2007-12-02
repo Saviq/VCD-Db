@@ -64,34 +64,35 @@ class VCDFetch_filmweb extends VCDFetch {
 			}
 			$partresults[$partname[1]] = $results;
 		}
-		$this->generateSearchSelection($partresults);
+		return $this->generateSearchSelection($partresults);
 	}
 
 	protected function generateSearchSelection($arrPartSearchResults) {
 		if (!is_array($arrPartSearchResults) || sizeof($arrPartSearchResults) == 0) {
-			print "No search results to generate from.";
-			return;
+			return "No search results to generate from.";
 		}
 
+		$result = "";
 		foreach ($arrPartSearchResults as $partName => $arrSearchResults) {
 			if (!is_array($arrSearchResults) || sizeof($arrSearchResults) == 0) continue;
 			$testItem = $arrSearchResults[0];
 			if (!isset($testItem['id']) || !isset($testItem['title']) || !isset($testItem['year']))	{
 				throw new Exception('Results array must contain at least keys [id], [title] and [year]');
 			}
-			print("<h3>".$partName."</h3>\n");
+			$result .= "<h3>".$partName."</h3>\n";
 
 			$extUrl = "http://".$this->servername.$this->itempath;
-			print "<ul>";
+			$result .= "<ul>";
 			foreach ($arrSearchResults as $item) {
-				$link = "?page=private&amp;o=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
+				$link = "?page=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
 				if (is_numeric($item['id'])) $info = "http://filmweb.pl"."/Film?id=".$item['id'];
 				else $info = "http://".$item['id'].".filmweb.pl";
-				$str = "<li><a href=\"{$link}\">{$item['title']}</a> ".(empty($item['info'])?"":"[".strtolower($item['info'])."] ")."({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
-				print $str;
+				$result .= "<li><a href=\"{$link}\">{$item['title']}</a> ".(empty($item['info'])?"":"[".strtolower($item['info'])."] ")."({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
+				
 			}
-			print "</ul>";
+			$result .= "</ul>";
 		}
+		return $result;
 	}
 
 	protected function processResults() {

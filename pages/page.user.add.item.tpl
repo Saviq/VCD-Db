@@ -12,6 +12,12 @@
 	{/foreach}
 	</ul>
 
+{** If the search list is returned as string **}
+{elseif !empty($fetchList)}
+
+	<h1>{$sourceSiteName} - {$smarty.post.searchTitle} ...</h1>
+
+	{$fetchList}
 
 {** Show the files in the xml import file **}
 {elseif $smarty.get.source eq 'xml'}
