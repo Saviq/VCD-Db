@@ -274,7 +274,7 @@ class imdbObj extends fetchedObj implements XMLable {
 		$pieces = explode("<br>", $cast);
 		$st		= count($pieces);
 		$counter = 0;
-		for ($n=0; $n < $st-1; $n++ ) {
+		for ($n=0; $n < $st; $n++ ) {
 			$tmp = explode("...",$pieces[$n]);
 			$role = strstr($pieces[$n],'....');
 			$role = str_replace('....','',$role);
