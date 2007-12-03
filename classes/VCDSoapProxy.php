@@ -62,13 +62,13 @@ abstract class VCDProxy {
 						array('login' => $userObj->getUsername(), 
 							'password' => $userObj->getPassword(),
 							'encoding' => 'UTF-8',
-							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
+							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
 				} else {
 					$this->proxy = new SoapClient($this->wsdl, 
 						array('login' => 'vcddb',
 							'password' => VCDDB_SOAPSECRET,
 							'encoding' => 'UTF-8',
-							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
+							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP | 9));
 					
 				}
             	
