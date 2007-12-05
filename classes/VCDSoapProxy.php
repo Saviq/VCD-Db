@@ -62,12 +62,14 @@ abstract class VCDProxy {
 						array('login' => $userObj->getUsername(), 
 							'password' => $userObj->getPassword(),
 							'encoding' => 'UTF-8',
+							'user_agent' => 'VCD-db '.VCDDB_VERSION,
 							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
 				} else {
 					$this->proxy = new SoapClient($this->wsdl, 
 						array('login' => 'vcddb',
-							'password' => VCDDB_SOAPSECRET,
+							'password' => VCDConfig::getWebservicePassword(),
 							'encoding' => 'UTF-8',
+							'user_agent' => 'VCD-db '.VCDDB_VERSION,
 							'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
 					
 				}
@@ -155,7 +157,9 @@ abstract class VCDProxy {
 				
 			}
 			
-			$this->addToCache($result, $action, $params);
+			$this->addToCache(&$result, $action, $params);
+			
+			VCDConnection::addQueryCount();
 			
 			return $result;
 			
@@ -178,7 +182,7 @@ abstract class VCDProxy {
 
 			if (defined('CACHE_MANAGER') && (strcmp(CACHE_MANAGER, '') != 0)) {
 				if (is_array($params) && sizeof($params) > 0) {
-					$cachedName = $func.implode('-',array_values($params));
+					$cachedName = $func.implode('#',array_values($params));
 				} else {
 					$cachedName = $func;
 				}
@@ -206,23 +210,26 @@ abstract class VCDProxy {
 	 * @param array $params | The parameters that were used to invoke the function
 	 */
 	private function addToCache($data, $func, $params) {
-		try {
-			
-			if (defined('CACHE_MANAGER') && (strcmp(CACHE_MANAGER, '') != 0)) {
-				if (is_array($params) && sizeof($params) > 0) {
-					$cachedName = $func.implode('-',array_values($params));
-				} else {
-					$cachedName = $func;
-				}
-				
-				$cachedName = md5($cachedName);
-				VCDCache::set($cachedName, $data, 300);
-			}
-			
-		} catch (Exception $ex) {
-			throw new VCDProgramException("Error in cache manager: " + $ex->getMessage(), $ex->getCode());
-		}
-	}
+        try {
+            
+            $cacheMap = VCDCacheMap::getMap();
+            if (key_exists($func,$cacheMap)) {
+                
+                if (is_array($params) && sizeof($params) > 0) {
+                    $cachedName = $func.implode('#',array_values($params));
+                } else {
+                    $cachedName = $func;
+                }
+                
+                $cachedName = md5($cachedName);
+                VCDCache::set($cachedName, $data, $cacheMap[$func]);
+                
+            }
+                
+        } catch (Exception $ex) {
+            throw new VCDProgramException('Error in cache manager: ' . $ex->getMessage(), $ex->getCode());
+        }
+    }
 	
 	/**
 	 * Check the wsdl cache before fetching the wsdl remotely

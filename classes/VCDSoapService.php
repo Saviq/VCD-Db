@@ -133,7 +133,10 @@ class VCDSoapService extends VCDServices {
 				$_wsdl = VCDDB_BASE.'/includes/wsdl/'.$wsdl;	
 			}
 				
-			self::$server = new SoapServer($_wsdl, array('(encoding'=>'UTF-8','compression'=>SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP));
+			self::$server = new SoapServer($_wsdl, 
+				array('encoding' => 'UTF-8',
+					  'compression' => SOAP_COMPRESSION_ACCEPT | SOAP_COMPRESSION_GZIP)
+					);
 			self::$server->setClass($this->getHandler($wsdl));
 			
 		} catch (Exception $ex) {

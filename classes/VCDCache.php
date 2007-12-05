@@ -200,7 +200,12 @@ class VCDCache_filecache extends VCDCache implements ICache {
 	 * @return bool | Returns true if item could be stored, otherwise false
 	 */
 	public static function set($name, $value, $ttl = 60) {
-		return (file_put_contents(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name, serialize($value)) > 0);
+		
+		if(file_put_contents(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name, serialize($value)) > 0) {
+			self::addToList($name, $ttl);
+			return true;
+		}
+		return false;
 	}
 		
 	/**
@@ -210,7 +215,7 @@ class VCDCache_filecache extends VCDCache implements ICache {
 	 * @return bool | Returns true if the item exists otherwise false.
 	 */
 	public static function exists($name) {
-		return file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name);
+		return (self::isValid($name) && file_exists(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name));
 	}
 	
 	
@@ -222,12 +227,33 @@ class VCDCache_filecache extends VCDCache implements ICache {
 	 */
 	public static function remove($name) {
 		if (self::exists($name)) {
+			self::removeFromList($name);
 			return unlink(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name);
 		} else {
 			return false;
 		}
 	}
 	
+	private static function removeFromList($name) {
+		if (isset($_SESSION['cachemap'][$name])) {
+			unset($_SESSION['cachemap'][$name]);
+		}
+	}
+	
+	private static function addToList($name, $ttl) {
+		$list = array();
+		if (isset($_SESSION['cachemap'])) {
+			$list = $_SESSION['cachemap'];
+		}
+		$list[$name] = time()+$ttl;
+		$_SESSION['cachemap'] = $list;
+	}
+	
+	private static function isValid($name) {
+		return (isset($_SESSION['cachemap']) 
+			&& isset($_SESSION['cachemap'][$name]) 
+			&& $_SESSION['cachemap'][$name] > time()); 
+	}	
 }
 
 interface ICache {
@@ -272,6 +298,10 @@ interface ICache {
 }
 
 
+/**
+ * Holds data on what data to cache and for how long.
+ *
+ */
 class VCDCacheMap {
 	
 	CONST ONE_MIN = 60;
