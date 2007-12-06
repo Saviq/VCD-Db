@@ -201,6 +201,11 @@ class VCDCache_filecache extends VCDCache implements ICache {
 	 */
 	public static function set($name, $value, $ttl = 60) {
 		
+		// Call random cleanup
+		if (rand(0,15)===14) {
+			self::cleanUp();
+		}
+		
 		if(file_put_contents(VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$name, serialize($value)) > 0) {
 			self::addToList($name, $ttl);
 			return true;
@@ -254,6 +259,17 @@ class VCDCache_filecache extends VCDCache implements ICache {
 			&& isset($_SESSION['cachemap'][$name]) 
 			&& $_SESSION['cachemap'][$name] > time()); 
 	}	
+	
+	private static function cleanUp() {
+		if (isset($_SESSION['cachemap'])) {
+			$list =& $_SESSION['cachemap'];
+			foreach ($list as $key => $ttl) {
+				if (time() > $ttl) {
+					self::remove($key);
+				}
+			}
+		}
+	}
 }
 
 interface ICache {
@@ -337,12 +353,15 @@ class VCDCacheMap {
         $data['getCategoryIDByName'] 		= self::HOUR;
         $data['getActiveUsers']				= self::HOUR;
         $data['getMediaTypeByID']			= self::HOUR;
+        $data['getMediaTypeByName']			= self::HOUR;
         $data['isPublicWishLists']			= self::HOUR;
         $data['getRssfeed']					= self::HOUR;
         $data['getBorrowersByUserID']		= self::HOUR;
         $data['getMetadataTypes']			= self::HOUR;
         $data['getAllProperties']			= self::HOUR;
-        
+        $data['getSourceSiteByID']			= self::HOUR;
+        $data['getCategoryIDByItemId']		= self::HOUR;
+                
         $data['getTopTenList'] 				= self::THIRTY_MIN;
         $data['getStatsObj'] 				= self::THIRTY_MIN;
         $data['getMovieCategoriesInUse'] 	= self::THIRTY_MIN;
@@ -352,6 +371,8 @@ class VCDCacheMap {
         
         $data['getMetadata']				= self::TEN_MIN;
         $data['getCategoryCount']			= self::TEN_MIN;
+        
+        $data['getAllCommentsByVCD']		= self::ONE_MIN;
 
        
         self::$cacheMap = &$data;
