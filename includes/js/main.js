@@ -1327,7 +1327,7 @@ function renderRss(response) {
 function playMovie(id) {
 	var doc = document.body;
 	var frame = document.createElement('iframe');
-	frame.setAttribute('src','?page=launcher&id='+id);
+	frame.setAttribute('src',getBase()+'?page=launcher&id='+id);
 	frame.setAttribute('id','playframe');
 	frame.setAttribute('height',0);
 	frame.setAttribute('width',0);
@@ -1372,7 +1372,7 @@ function doShowScreenshots(response) {
 			catch (ex) { try { title = $('m'+id).innerHTML;} catch(ex) {}
 		}
 		try {
-			oldDiv = document.getElementById('dSlider');
+			oldDiv = $('dSlider');
 			oldDiv.innerHTML = '';
 		} catch (ex) {}
 		
