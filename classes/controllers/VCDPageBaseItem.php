@@ -500,7 +500,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 					if ($metadataObj->getMetadataTypeID() == metadataTypeObj::SYS_NFO) {
 						$nfofile = VCDConfig::getWebBaseDir().NFO_PATH.$metadataObj->getMetaDataValue();
 						if ($useNfoImage) {
-							$js = "window.open('?page=file&amp;nfo={$metadataObj->getMetaDataId()}');return false;";
+							$js = "window.open('".VCDConfig::getWebBaseDir()."?page=file&amp;nfo={$metadataObj->getMetaDataId()}');return false;";
 						} else {
 							$js = "window.open('{$nfofile}');return false;";
 						}
