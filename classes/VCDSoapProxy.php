@@ -180,25 +180,23 @@ abstract class VCDProxy {
 	private function checkCache($func, $params) {
 		try {
 
-			if (defined('CACHE_MANAGER') && (strcmp(CACHE_MANAGER, '') != 0)) {
-				if (is_array($params) && sizeof($params) > 0) {
-					$cachedName = $func.implode('#',array_values($params));
-				} else {
-					$cachedName = $func;
-				}
-				
-				$cachedName = md5($cachedName);
-				
-				if (VCDCache::exists($cachedName)) {
-					$this->cachedData = VCDCache::get($cachedName);
-					return true;
-				} 
+			if (is_array($params) && sizeof($params) > 0) {
+				$cachedName = $func.implode('#',array_values($params));
+			} else {
+				$cachedName = $func;
 			}
 			
+			$cachedName = md5($cachedName);
+			
+			if (VCDCache::exists($cachedName)) {
+				$this->cachedData = VCDCache::get($cachedName);
+				return true;
+			} 
+
 			return false;
 			
 		} catch (Exception $ex) {
-			throw new VCDProgramException("Error in cache manager: " + $ex->getMessage(), $ex->getCode());
+			throw new VCDProgramException('Error in cache manager: ' . $ex->getMessage(), $ex->getCode());
 		}
 	}
 	

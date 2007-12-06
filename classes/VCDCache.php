@@ -337,12 +337,21 @@ class VCDCacheMap {
         $data['getCategoryIDByName'] 		= self::HOUR;
         $data['getActiveUsers']				= self::HOUR;
         $data['getMediaTypeByID']			= self::HOUR;
+        $data['isPublicWishLists']			= self::HOUR;
+        $data['getRssfeed']					= self::HOUR;
+        $data['getBorrowersByUserID']		= self::HOUR;
+        $data['getMetadataTypes']			= self::HOUR;
+        $data['getAllProperties']			= self::HOUR;
         
         $data['getTopTenList'] 				= self::THIRTY_MIN;
         $data['getStatsObj'] 				= self::THIRTY_MIN;
         $data['getMovieCategoriesInUse'] 	= self::THIRTY_MIN;
         $data['getUserTopList'] 			= self::THIRTY_MIN;
         $data['getAllMediatypes']			= self::THIRTY_MIN;
+        $data['getRssFeedsByUserId']		= self::THIRTY_MIN;
+        
+        $data['getMetadata']				= self::TEN_MIN;
+        $data['getCategoryCount']			= self::TEN_MIN;
 
        
         self::$cacheMap = &$data;
