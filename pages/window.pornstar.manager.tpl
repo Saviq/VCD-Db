@@ -10,7 +10,7 @@
 	{$pageScripts}
 </head>
 
-<body onload="window.focus()">
+<body onload="window.focus()" class="nobg">
 <form name="pornstar" action="{$smarty.server.SCRIPT_NAME}?page=pornstarmanager&amp;pornstar_id={$smarty.get.pornstar_id}&amp;action=update" method="post" enctype="multipart/form-data">
 {if $pornstarImage}
 {assign var='rowspan' value='3'}
@@ -46,9 +46,9 @@
 <tr>
 	<td colspan="3" align="center">
 	<hr/>
-	<input type="submit" name="update" value="{$translate.misc.update}" class="buttontext"/>
-	&nbsp;
 	<input type="button" name="close" onclick="window.close()" value="{$translate.misc.close}" class="buttontext"/>
+	&nbsp;
+	<input type="submit" name="update" value="{$translate.misc.update}" class="buttontext"/>
 	&nbsp;
 	<input type="submit" name="save" value="{$translate.misc.saveandclose}" class="buttontext"/>
 	{if $pornstarImage}

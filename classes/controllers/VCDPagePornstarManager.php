@@ -129,6 +129,8 @@ class VCDPagePornstarManager extends VCDBasePage {
 			if (strcmp($action, 'update')==0) {
 				$this->updatePornstar();
 			}
+			
+					
 		
 		} catch (Exception $ex) {
 			VCDException::display($ex);
@@ -152,7 +154,12 @@ class VCDPagePornstarManager extends VCDBasePage {
 		// Update the pornstar
 		PornstarServices::updatePornstar($this->pornstarObj);
 		
-		redirect('?page=pornstarmanager&pornstar_id='.$this->pornstarObj->getId());
+		if (!is_null($this->getParam('save',true))) {
+			redirect('?page=pornstarmanager&pornstar_id='.$this->getParam('pornstar_id').'&close=true');
+		} else {
+			redirect('?page=pornstarmanager&pornstar_id='.$this->pornstarObj->getId());
+		}
+		
 	}
 	
 	/**
