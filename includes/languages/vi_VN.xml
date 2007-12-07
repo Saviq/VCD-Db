@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Danny Hoang -->
+<language>
+	<id>vi_VN</id>
+	<name>Vietnamese</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">VNE</string>
+		<string id="language.name">Vietnamese</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Menu của tôi</string>
+		<string id="menu.settings">Chỉnh sửa</string>
+		<string id="menu.movies">Phim của bạn</string>
+		<string id="menu.addmovie">Thêm phim mới</string>
+		<string id="menu.loansystem">Hệ thống thuê phim</string>
+		<string id="menu.wishlist">Phim yêu cầu</string>
+		<string id="menu.categories">Thư mục phim</string>
+		<string id="menu.rss">RSS của bạn</string>
+		<string id="menu.controlpanel">Bản Điều Khiển</string>
+		<string id="menu.register">Đăng ký</string>
+		<string id="menu.logout">Thoát</string>
+		<string id="menu.submit">Gởi</string>
+		<string id="menu.topusers">Top khách hàng</string>
+		<string id="menu.wishlistpublic">Phim yêu cầu khác</string>
+		<string id="menu.statistics">Thống kê</string>
+		<string id="menu.showallusersmovies">Tất cả các phim</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Đăng nhập</string>
+		<string id="login.username">Tên tài khoản</string>
+		<string id="login.password">Mật mã</string>
+		<string id="login.remember">Lưu</string>
+		<string id="login.info">Hãy để trống nếu bạn &lt;b&gt;Không&lt;/b&gt; muốn thay đổi mật mã</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Đăng ký</string>
+		<string id="register.fullname">Họ và Tên</string>
+		<string id="register.email">Email</string>
+		<string id="register.again">Nhập lại mật mã</string>
+		<string id="register.disabled">Xin lỗi, Ban quản trị đã ngưng đăng ký trong chốc lát</string>
+		<string id="register.ok">Đăng ký thành công, bạn có thể đăng nhập vào VCD-db</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Thông báo cho tôi khi có phim mới</string>
+		<string id="userproperties.show_adult">Hiển thị phim người lớn?</string>
+		<string id="userproperties.rss">Cho phép chia sẻ thông tin từ thư mục phim của bạn?</string>
+		<string id="userproperties.wishlist">Cho phép người khác xem mục yêu cầu phim của bạn?</string>
+		<string id="userproperties.seen_list">Có cần lưu lại những phim bạn đã xem?</string>
+		<string id="userproperties.default_image">Xem dạng hình theo mặc định?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Chỉnh sửa Hệ thống xem hình</string>
+		<string id="usersettings.ownfeed">Xem thông tin chia sẻ của bạn</string>
+		<string id="usersettings.custom">Chỉnh sửa trang chính theo ý bạn</string>
+		<string id="usersettings.showstat">Hiển thị bảng thống kê</string>
+		<string id="usersettings.showside">Hiển thị phim bên sidebar</string>
+		<string id="usersettings.selectrss">Chọn RSS</string>
+		<string id="usersettings.pagelook">Thiết kế web</string>
+		<string id="usersettings.pagemode">Chọn template mặc định</string>
+		<string id="usersettings.updated">Thông tin cá nhân đã được bổ sung</string>
+		<string id="usersettings.update_failed">Không thể bổ sung thông tin</string>
+		<string id="usersettings.list">Bảng từ chối</string>
+		<string id="usersettings.desc">Từ chối tất cả các phim từ người dùng:</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Tìm kiếm</string>
+		<string id="search.title">Theo tựa đề</string>
+		<string id="search.actor">Theo diễn viên</string>
+		<string id="search.director">Theo đạo diễn</string>
+		<string id="search.results">Kết quả kiếm được</string>
+		<string id="search.extended">Tìm chi tiết</string>
+		<string id="search.noresult">Không tìm được kết quả nào</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Hành Động</string>
+		<string id="category.adult">Người Lớn</string>
+		<string id="category.adventure">Mạo Hiểm</string>
+		<string id="category.animation">Hoạt Hình</string>
+		<string id="category.comedy">Hài</string>
+		<string id="category.crime">Tội Phạm</string>
+		<string id="category.documentary">Tư Liệu</string>
+		<string id="category.drama">Phim Truyện</string>
+		<string id="category.family">Gia Đình</string>
+		<string id="category.fantasy">Viễn tưởng</string>
+		<string id="category.horror">Kinh Dị</string>
+		<string id="category.musicvideo">Video Ca Nhạc</string>
+		<string id="category.musical">Âm Nhạc</string>
+		<string id="category.mystery">Thần Thoại</string>
+		<string id="category.romance">Lãng Mạn</string>
+		<string id="category.scifi">Khoa Học</string>
+		<string id="category.short">Phim Ngắn</string>
+		<string id="category.thriller">Trinh Thám</string>
+		<string id="category.tvshows">Chương trình Truyền Hình</string>
+		<string id="category.war">Chiến Tranh</string>
+		<string id="category.western">Tây Phương</string>
+		<string id="category.xrated">Người Lớn</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Phim</string>
+		<string id="movie.actors">Diễn viên</string>
+		<string id="movie.category">Thể Loại</string>
+		<string id="movie.year">Năm sản xuất</string>
+		<string id="movie.copies">Tập</string>
+		<string id="movie.from">Từ</string>
+		<string id="movie.title">Tựa đề</string>
+		<string id="movie.alttitle">Tựa đề khác</string>
+		<string id="movie.grade">Phân loại</string>
+		<string id="movie.director">Đạo diễn</string>
+		<string id="movie.country">Nước sản xuất</string>
+		<string id="movie.runtime">Thời gian chiếu</string>
+		<string id="movie.minutes">phút</string>
+		<string id="movie.plot">Cốt truyện</string>
+		<string id="movie.noplot">Không có cốt truyện</string>
+		<string id="movie.covers">Hình đĩa</string>
+		<string id="movie.available">Bản sẳn sàng</string>
+		<string id="movie.media">Vừa phải</string>
+		<string id="movie.num">Số lượng đĩa</string>
+		<string id="movie.date">Ngày đăng</string>
+		<string id="movie.owner">Người đăng</string>
+		<string id="movie.noactors">Chưa có bảng diễn viên</string>
+		<string id="movie.info">Thông tin phim</string>
+		<string id="movie.details">Chi tiết bản phim của tôi</string>
+		<string id="movie.mediatype">Thể loại</string>
+		<string id="movie.comment">Bình luận</string>
+		<string id="movie.private">Riêng tư?</string>
+		<string id="movie.noscreens">Chưa có screenshot</string>
+		<string id="movie.show">Hiển thị</string>
+		<string id="movie.hide">Dấu</string>
+		<string id="movie.change">Thay đổi thông tin</string>
+		<string id="movie.nocovers">Chưa có hình đĩa</string>
+		<string id="movie.bycat">Tựa đề theo thư mục</string>
+		<string id="movie.currcat">Thư mục hiện tại</string>
+		<string id="movie.textview">Xem dạng chữ</string>
+		<string id="movie.imageview">Xem dạng hình</string>
+		<string id="movie.mineonly">Chỉ hiển thị phim của tôi</string>
+		<string id="movie.similar">Phim tương tự</string>
+		<string id="movie.mediaindex">Mục lục phim</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.plot">Tóm tắt cốt truyện</string>
+		<string id="imdb.gallery">Thư viện hình ảnh</string>
+		<string id="imdb.trailers">Xem thử</string>
+		<string id="imdb.not">Chưa có Thông tin của IMDB</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Vùng</string>
+		<string id="dvd.format">Phân loại</string>
+		<string id="dvd.aspect">Kích cỡ</string>
+		<string id="dvd.audio">Âm thanh</string>
+		<string id="dvd.subtitles">Phụ đề</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.actions">Những tác động</string>
+		<string id="mymovies.join">Kết hợp đĩa</string>
+		<string id="mymovies.joinmovies">Kết hợp phim</string>
+		<string id="mymovies.joinsuser">Chọn người dùng</string>
+		<string id="mymovies.joinsmedia">Chọn phân loại </string>
+		<string id="mymovies.joinscat">Chọn thư mục</string>
+		<string id="mymovies.joinstype">Chọn hành động</string>
+		<string id="mymovies.joinshow">Hiển thị kết quả</string>
+		<string id="mymovies.noresults">Không tìm thấy gì</string>
+		<string id="mymovies.textall">Xem bản in (Dạng chữ)</string>
+		<string id="mymovies.pwall">Xem bản in (Tất cả)</string>
+		<string id="mymovies.pwmovies">Xem bản in (Phim)</string>
+		<string id="mymovies.pwtv">Xem bản in (Chương trình truyền hình)</string>
+		<string id="mymovies.pwblue">Xem bản in (Phim xanh)</string>
+		<string id="mymovies.j1">Phim chỉ mình tôi có</string>
+		<string id="mymovies.j2">Phim người khác mượn</string>
+		<string id="mymovies.j3">Phim tất cả đều mượn</string>
+		<string id="mymovies.overview">Tổng quát sưu tập</string>
+		<string id="mymovies.info">Bạn có thể tìm thấy tất cả những phim tôi đang có trong trang này. &lt;br/&gt;. </string>
+		<string id="mymovies.keys">Chỉnh ID</string>
+		<string id="mymovies.seenlist">Chỉnh bảng phim đã xem</string>
+		<string id="mymovies.helppicker">Chọn phim để xem</string>
+		<string id="mymovies.helppickerinfo">Chưa biết xem gì trong tối nay? Để chúng tôi giúp bạn để chọn nhé.Bạn có thể tìm kiếm phim chúng tôi đã góp ý.</string>
+		<string id="mymovies.find">Tìm phim</string>
+		<string id="mymovies.notseen">Đề nghị những phim mà tôi chưa xem</string>
+		<string id="mymovies.friends">Phim bạn đã mượn của tôi</string>
+		<string id="mymovies.overviewdetail">Chi tiết sưu tập phim</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Thông tin cơ bản</string>
+		<string id="manager.copy">Bản của tôi</string>
+		<string id="manager.copies">Những bản của tôi</string>
+		<string id="manager.nocopy">Bạn không có bản nào</string>
+		<string id="manager.1copy">Bản phim</string>
+		<string id="manager.addact">Thêm diễn viên</string>
+		<string id="manager.addtodb">Thêm diễn viên vào cơ sở dữ liệu</string>
+		<string id="manager.savetodb">Lưu lại trong cơ sở dữ liệu</string>
+		<string id="manager.savetodbncd">Lưu lại trong cơ sở dữ liệu và phim</string>
+		<string id="manager.indb">Dữ liệu diễn viên</string>
+		<string id="manager.sel">Chọn diễn viên</string>
+		<string id="manager.stars">Sao</string>
+		<string id="manager.browse">Tìm hồ sơ</string>
+		<string id="manager.addmedia">Thêm</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Chọn đăng phim loại nào</string>
+		<string id="addmovie.imdbtitle">Chọn từ khoá để kiếm</string>
+	</strings>
+</language>

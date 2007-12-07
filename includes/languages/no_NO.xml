@@ -29,7 +29,7 @@
 		<string id="menu.logout">Logg ut</string>
 		<string id="menu.submit">Send</string>
 		<string id="menu.topusers">Topp brukere</string>
-		<string id="menu.wishlistpublic">Andre sine ønskelister</string>
+		<string id="menu.wishlistpublic">Andres ønskelister</string>
 		<string id="menu.statistics">Statistikk</string>
 		<string id="menu.showallusersmovies">Alle Filmer</string>
 
@@ -39,10 +39,10 @@
 		<string id="login.username">Brukernavn</string>
 		<string id="login.password">Passord</string>
 		<string id="login.remember">Husk meg</string>
-		<string id="login.info">La denne stå tom om du &lt;b&gt;ikke&lt;/b&gt; vil endre passordet</string>
+		<string id="login.info">La denne stå tom om du &lt;b&gt;ikke&lt;/b&gt; vil endre passordet ditt</string>
 		<string id="login.failed">Innlogging feilet</string>
 		<string id="login.tryagain">Vennligst prøv igjen</string>
-		<string id="login.deleted">Din konto har blitt slettet.&lt;br/&gt;Kontakt administrator for flere detaljer.</string>
+		<string id="login.deleted">Din konto har blitt slettet.&lt;br/&gt;&lt;br/&gt;Kontakt administrator for flere detaljer.</string>
 		<string id="login.lost">Eller kanskje du har glemt passordet ditt?</string>
 		<string id="login.claim">Klikk her for å hente passordet ditt</string>
 		<string id="login.recover">Fyll inn brukernavn og epost</string>
@@ -150,7 +150,7 @@
 		<string id="movie.details">Detaljer om min kopi</string>
 		<string id="movie.mediatype">Media type</string>
 		<string id="movie.comment">Kommentar</string>
-		<string id="movie.private">Merk som privat?</string>
+		<string id="movie.private">Merke som privat?</string>
 		<string id="movie.screenshots">Bilder</string>
 		<string id="movie.noscreens">Ingen screenshots tilgjengelig</string>
 		<string id="movie.show">Vis</string>
@@ -182,6 +182,7 @@
 		<string id="dvd.audio">Lyd</string>
 		<string id="dvd.subtitles">Undertekster</string>
 		<string id="dvd.languages">Språk</string>
+		<string id="dvd.default">Standard DVD innstillinger</string>
 
 
 		<!-- My movies page strings -->
@@ -207,7 +208,7 @@
 		<string id="mymovies.j2">Filmer som annen bruker eier, men ikke jeg</string>
 		<string id="mymovies.j3">Filmer vi begge eier</string>
 		<string id="mymovies.overview">Samlingsoversikt</string>
-		<string id="mymovies.info">På denne siden kan du finne ut alt om mine filmer.&lt;br/&gt;Til høyre er handlinger du kan kjøre på din filmsamling.&lt;br/&gt;Du kan også eksportere listen i Excel-format for utskrift, eller bruke XML-eksportfunksjonen til backup eller for å flytte hele din samling fra en VCD-db til en annen.</string>
+		<string id="mymovies.info">På denne siden kan du finne ut alt om mine filmer.&lt;br/&gt;Til høyre er handlinger du kan kjøre på din filmsamling.&lt;br/&gt;Du kan også eksportere listen i Excel-format for utskrift, bruke XML-eksportfunksjonen til backup, eller for å flytte hele din samling fra en VCD-db til en annen.</string>
 		<string id="mymovies.keys">Rediger egendefinert ID</string>
 		<string id="mymovies.seenlist">Rediger sett-liste</string>
 		<string id="mymovies.helppicker">Velg en film å se</string>
@@ -361,7 +362,7 @@
 		<string id="statistics.top_cats">Topp Kategorier</string>
 		<string id="statistics.top_act">Mest aktive katogorier</string>
 		<string id="statistics.top_covers">Cover i databasen</string>
-		<string id="statistics.total">Total</string>
+		<string id="statistics.total">Totalt</string>
 		<string id="statistics.today">Lagt til idag</string>
 		<string id="statistics.week">Lagt til de siste 7 dagene</string>
 		<string id="statistics.month">lagt til de siste 30 dagene</string>

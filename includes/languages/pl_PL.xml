@@ -40,6 +40,12 @@
 		<string id="login.password">Hasło</string>
 		<string id="login.remember">Pamiętaj mnie</string>
 		<string id="login.info">Zostaw puste, jeśli &lt;b&gt;nie&lt;/b&gt; chcesz zmieniać hasła</string>
+		<string id="login.failed">Logowanie nieudane</string>
+		<string id="login.tryagain">Spróbuj ponownie</string>
+		<string id="login.deleted">Twoje konto zostało usunięte.&lt;br/&gt;Skontaktuj się z administratorem aby uzyskać więcej informacji.</string>
+		<string id="login.lost">A może zgubiłeś swoje hasło?</string>
+		<string id="login.claim">Kliknij tutaj by odzyskać swoje hasło</string>
+		<string id="login.recover">Podaj nazwę użytkownika oraz e-mail</string>
 
 
 		<!-- Register based strings -->
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Użyj opcje odtwarzacza klienta</string>
 		<string id="userproperties.nfo">Używaj plików NFO?</string>
 		<string id="userproperties.default_image">Domyślnie wyświetlaj w widoku obrazkowym?</string>
+		<string id="userproperties.nfo_image">Pokazuj pliki NFO jako obrazki?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,8 @@
 		<string id="dvd.aspect">Proporcje</string>
 		<string id="dvd.audio">Dźwięk</string>
 		<string id="dvd.subtitles">Napisy</string>
+		<string id="dvd.languages">Ścieżki dźwiękowe</string>
+		<string id="dvd.default">Domyślne ustawienia DVD</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +217,7 @@
 		<string id="mymovies.notseen">Pokaż tylko filmy, których nie widziałem</string>
 		<string id="mymovies.friends">Ludzie, którym pożyczam filmy</string>
 		<string id="mymovies.overviewdetail">Szczegółowy przegląd kolekcji</string>
+		<string id="mymovies.pdf">Eksportuj do PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +343,10 @@
 		<string id="pornstar.name">Imię</string>
 		<string id="pornstar.web">Strona</string>
 		<string id="pornstar.moviecount">Ilość filmów</string>
+		<string id="pornstar.viewall">Zobacz wszystkie</string>
+		<string id="pornstar.viewactive">Zobacz aktywne</string>
+		<string id="pornstar.pornstars">Gwiazdy porno</string>
+		<string id="pornstar.begin">zaczynają się na literę</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -416,5 +430,34 @@
 		<string id="misc.toggle">Przełącz statystyki</string>
 		<string id="misc.toggle_on">włącz</string>
 		<string id="misc.toggle_off">wyłącz</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Nie dodano żadnego filmu</string>
+		<string id="js.loanborrower">Wybierz pożyczającego</string>
+		<string id="js.invalidname">Podaj imię</string>
+		<string id="js.deleteborrower">Usunąć pożyczającego i wszystkie jego wypożyczenia?</string>
+		<string id="js.notitle">Brakuje tytułu</string>
+		<string id="js.noyear">Wybierz rok</string>
+		<string id="js.invalid">Błędne dane</string>
+		<string id="js.nomediatype">Wybierz nośnik</string>
+		<string id="js.nocategory">Wybierz gatunek</string>
+		<string id="js.nocdcount">Wybierz ilość CD</string>
+		<string id="js.url">Podaj dokładny adres obrazka</string>
+		<string id="js.delete">Usunąć wpis?</string>
+		<string id="js.removeactor">Usunąć aktora z filmu?</string>
+		<string id="js.norss">Wybierz co najmniej jeden kanał rss by kontynuować</string>
+		<string id="js.deletemeta">Usunąć metadane i wszystkie związane wpisy?</string>
+		<string id="js.noupload">Wybierz plik do załadowania</string>
+		<string id="js.noxmlthumb">Wybierz plik XML z miniaturami lub odznacz pole przesyłania miniatur!</string>
+		<string id="js.nocriteria">Podaj kryteria wyszukiwania</string>
+		<string id="js.lastcopy">To jedyna kopia w bazie.&lt;br/&gt;Wszystkie informacje o filmie zostaną usunięte.&lt;br/&gt;Kontynuować i usunąć?</string>
+		<string id="js.noselection">Wybierz co najmniej jeden film aby kontynuować</string>
+		<string id="js.nomediaselection">Wybierz nośniki dla wybranych filmów</string>
+		<string id="js.reqname">Podaj imię i nazwisko</string>
+		<string id="js.requsername">Podaj nazwę użytkownika</string>
+		<string id="js.requsername3">Nazwa użytkownika musi mieć co najmniej 3 znaki</string>
+		<string id="js.reqpassword">Hasło musi mieć co najmniej 5 znaków!</string>
+		<string id="js.reqpassnomatch">Hasła się nie zgadzają!</string>
 	</strings>
 </language>

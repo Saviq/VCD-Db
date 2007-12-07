@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: touhu -->
+<language>
+	<id>ja_JP</id>
+	<name>Japanese</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">JPN</string>
+		<string id="language.name">Japanese</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">マイメニュー</string>
+		<string id="menu.settings">個人設定</string>
+		<string id="menu.movies">所有作品</string>
+		<string id="menu.addmovie">作品追加</string>
+		<string id="menu.loansystem">レンタルシステム</string>
+		<string id="menu.wishlist">ウィッシュリスト</string>
+		<string id="menu.categories">カタログ</string>
+		<string id="menu.rss">RSSフィード</string>
+		<string id="menu.controlpanel">設定パネル</string>
+		<string id="menu.register">登録</string>
+		<string id="menu.logout">ログアウト</string>
+		<string id="menu.submit">実行</string>
+		<string id="menu.topusers">トップユーザ</string>
+		<string id="menu.wishlistpublic">他のウィッシュリスト</string>
+		<string id="menu.statistics">統計情報</string>
+		<string id="menu.showallusersmovies">全作品</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">ログイン</string>
+		<string id="login.username">ユーザ名</string>
+		<string id="login.password">パスワード</string>
+		<string id="login.remember">Remember me</string>
+		<string id="login.info">パスワードを変更したくない場合は&lt;b&gt;空白のまま&lt;/b&gt;にしてください。</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">登録</string>
+		<string id="register.fullname">フルネーム</string>
+		<string id="register.email">Email</string>
+		<string id="register.again">パスワード（確認用）</string>
+		<string id="register.disabled">管理者により一時的に登録が禁止されています。</string>
+		<string id="register.ok">登録は成功しました、システムにログインしてください。</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">ムービー追加の際に自分宛にメールを送りますか？</string>
+		<string id="userproperties.show_adult">アダルト作品をこのサイトで扱いますか？</string>
+		<string id="userproperties.rss">所有作品のリストからRSSフィードを許可しますか？</string>
+		<string id="userproperties.wishlist">他のユーザからウィッシュリストが見えるようにしますか？</string>
+		<string id="userproperties.use_index">カスタムメディアIDに対してインデックスを使用しますか？</string>
+		<string id="userproperties.seen_list">見た映画の履歴を保存しますか？</string>
+		<string id="userproperties.playoption">クライアントプレイバックオプションを使用しますか?</string>
+		<string id="userproperties.nfo">NFOファイルを有効にしますか？</string>
+		<string id="userproperties.default_image">イメージビューをデフォルトにしますか？</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">プレイヤー設定</string>
+		<string id="usersettings.ownfeed">自フィード参照</string>
+		<string id="usersettings.custom">フロントページ設定</string>
+		<string id="usersettings.showstat">統計情報表示</string>
+		<string id="usersettings.showside">サイドバーで新規登録作品を見る</string>
+		<string id="usersettings.selectrss">RSSフィード選択</string>
+		<string id="usersettings.pagelook">Webレイアウト</string>
+		<string id="usersettings.pagemode">デフォルトテンプレートを選択</string>
+		<string id="usersettings.updated">ユーザ情報の更新</string>
+		<string id="usersettings.update_failed">更新失敗</string>
+		<string id="usersettings.list">無効リスト</string>
+		<string id="usersettings.desc">以下のユーザからすべての作品を無効</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">検索</string>
+		<string id="search.title">タイトル順</string>
+		<string id="search.actor">俳優順</string>
+		<string id="search.director">監督順</string>
+		<string id="search.results">検索結果</string>
+		<string id="search.extended">詳細検索</string>
+		<string id="search.noresult">検索結果は一件もありませんでした。</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">アクション</string>
+		<string id="category.adult">アダルト</string>
+		<string id="category.adventure">アドベンチャー</string>
+		<string id="category.animation">アニメ</string>
+		<string id="category.anime">アニメ／漫画</string>
+		<string id="category.comedy">コメディ</string>
+		<string id="category.crime">犯罪・クライム</string>
+		<string id="category.documentary">ドキュメント</string>
+		<string id="category.drama">ドラマ</string>
+		<string id="category.family">ファミリー</string>
+		<string id="category.fantasy">ファンタジー</string>
+		<string id="category.filmnoir">ノワール</string>
+		<string id="category.horror">ホラー</string>
+		<string id="category.jamesbond">ジェームズ・ボンド</string>
+		<string id="category.musicvideo">ミュージック</string>
+		<string id="category.musical">ミュージカル</string>
+		<string id="category.mystery">ミステリー</string>
+		<string id="category.romance">ロマンス</string>
+		<string id="category.scifi">SF</string>
+		<string id="category.short">短編映画</string>
+		<string id="category.thriller">スリラー</string>
+		<string id="category.tvshows">TV Show</string>
+		<string id="category.war">戦争</string>
+		<string id="category.western">西部劇</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">ムービー</string>
+		<string id="movie.actors">キャスト</string>
+		<string id="movie.category">カテゴリ</string>
+		<string id="movie.year">製作年</string>
+		<string id="movie.copies">複製</string>
+		<string id="movie.from">コピー元</string>
+		<string id="movie.title">タイトル</string>
+		<string id="movie.alttitle">原題</string>
+		<string id="movie.grade">評価</string>
+		<string id="movie.director">監督</string>
+		<string id="movie.country">製作国</string>
+		<string id="movie.runtime">再生時間</string>
+		<string id="movie.minutes">分</string>
+		<string id="movie.plot">あらすじ</string>
+		<string id="movie.noplot">利用できるあらすじ概要がありません</string>
+		<string id="movie.covers">カバー画像</string>
+		<string id="movie.available">利用可能な複製</string>
+		<string id="movie.media">中サイズ画像</string>
+		<string id="movie.num">メディア枚数</string>
+		<string id="movie.date">作成日</string>
+		<string id="movie.owner">所有者</string>
+		<string id="movie.noactors">登録されている俳優が存在しません</string>
+		<string id="movie.info">作品情報</string>
+		<string id="movie.details">複製物の詳細</string>
+		<string id="movie.mediatype">メディアタイプ</string>
+		<string id="movie.comment">コメント</string>
+		<string id="movie.private">プライベートマークを付与しますか？</string>
+		<string id="movie.screenshots">スクリーンショット</string>
+		<string id="movie.noscreens">利用可能なスクリーンショットがありません</string>
+		<string id="movie.show">閲覧</string>
+		<string id="movie.hide">隠す</string>
+		<string id="movie.change">登録変更</string>
+		<string id="movie.nocovers">利用可能なＣＤカバー画像がありません。</string>
+		<string id="movie.bycat">カテゴリ別タイトル</string>
+		<string id="movie.currcat">現在のカテゴリ</string>
+		<string id="movie.textview">テキストビュー</string>
+		<string id="movie.imageview">イメージビュー</string>
+		<string id="movie.mineonly">自分の所有品のみ表示</string>
+		<string id="movie.similar">類似作品</string>
+		<string id="movie.mediaindex">メディアインデックス</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">IMDB詳細</string>
+		<string id="imdb.plot">あらすじ概要</string>
+		<string id="imdb.gallery">フォトギャラリー</string>
+		<string id="imdb.trailers">予告編</string>
+		<string id="imdb.links">IMDBリンク</string>
+		<string id="imdb.not">IMDBで作品情報が利用できません</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">リージョン</string>
+		<string id="dvd.format">フォーマット</string>
+		<string id="dvd.aspect">アスペクト比</string>
+		<string id="dvd.audio">音声</string>
+		<string id="dvd.subtitles">字幕</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">データのエクスポート</string>
+		<string id="mymovies.excel">エクセルへ出力</string>
+		<string id="mymovies.xml">ＸＭＬに出力</string>
+		<string id="mymovies.xmlthumbs">サムネイル画像をＸＭＬに出力</string>
+		<string id="mymovies.actions">マイアクション</string>
+		<string id="mymovies.join">ディスクの関連付け</string>
+		<string id="mymovies.joinmovies">ディスクを作品に関連付け</string>
+		<string id="mymovies.joinsuser">ユーザー選択</string>
+		<string id="mymovies.joinsmedia">メディアタイプ選択</string>
+		<string id="mymovies.joinscat">カテゴリー選択</string>
+		<string id="mymovies.joinstype">動作選択</string>
+		<string id="mymovies.joinshow">結果表示</string>
+		<string id="mymovies.noresults">問合せ結果はありませんでした。</string>
+		<string id="mymovies.textall">印刷ビュー（テキストモード）</string>
+		<string id="mymovies.pwall">印刷ビュー（すべて）</string>
+		<string id="mymovies.pwmovies">印刷ビュー（作品）</string>
+		<string id="mymovies.pwtv">印刷ビュー（ＴＶ Show)</string>
+		<string id="mymovies.pwblue">印刷ビュー（わいせつ映画）</string>
+		<string id="mymovies.j1">所有作品で他ユーザ非所有のもの</string>
+		<string id="mymovies.j2">他ユーザ所有作品で所有していないもの</string>
+		<string id="mymovies.j3">どちらも所有している作品</string>
+		<string id="mymovies.overview">コレクション概要</string>
+		<string id="mymovies.info">このページでは、私の所有する作品についてすべて検索可能です。&lt;br/&gt;著作権を適用できるのはあなたのコレクションです。&lt;br/&gt;あなたのコレクションのリストを印刷するのにエクセル形式、またはXML形式でデータをエクスポートしてバックアップしたり、別のVCD-DBに移行可能です。</string>
+		<string id="mymovies.keys">カスタムＩＤの編集</string>
+		<string id="mymovies.seenlist">場面一覧の編集</string>
+		<string id="mymovies.helppicker">作品鑑賞のためにピックアップ</string>
+		<string id="mymovies.helppickerinfo">今夜見たい映画で迷ったとき、&lt;br/&gt;VCD-DBは作品を探す手助けになります&lt;br/&gt;選択枝を選んでいくだけで、VCD-DBはあなたの好みの映画作品を提案します。</string>
+		<string id="mymovies.find">作品検索</string>
+		<string id="mymovies.notseen">まだ見ていない作品を探す。</string>
+		<string id="mymovies.friends">ＣＤを貸してあげる友達</string>
+		<string id="mymovies.overviewdetail">コレクション概要の詳細</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">基本情報</string>
+		<string id="manager.imdb">IMDB情報</string>
+		<string id="manager.empire">DVDEmpire情報</string>
+		<string id="manager.copy">所有している複製</string>
+		<string id="manager.copies">所有している複製</string>
+		<string id="manager.nocopy">複製を所有していません。</string>
+		<string id="manager.1copy">複製</string>
+		<string id="manager.addact">俳優の追加</string>
+		<string id="manager.addtodb">ＤＢに俳優を新規作成</string>
+		<string id="manager.savetodb">ＤＢの保存</string>
+		<string id="manager.savetodbncd">ＤＢと作品の保存</string>
+		<string id="manager.indb">データベース内の俳優</string>
+		<string id="manager.sel">俳優選択</string>
+		<string id="manager.stars">スター</string>
+		<string id="manager.browse">ファイルロケーションを表示</string>
+		<string id="manager.addmedia">追加...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">作品追加の方法を選択</string>
+		<string id="addmovie.imdb">インターネットの映画DBからフェッチ</string>
+		<string id="addmovie.imdbtitle">検索ワードの入力</string>
+		<string id="addmovie.manual">データの直接入力</string>
+		<string id="addmovie.listed">既存の作品を追加</string>
+		<string id="addmovie.xml">ＸＭＬ出力されたファイルから作品追加</string>
+		<string id="addmovie.xmlfile">インポートするXMLファイルを選択</string>
+		<string id="addmovie.maxfilesize">最大ファイルサイズ</string>
+		<string id="addmovie.dvdempire">DVD EmpireからFetch (アダルト作品)</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.toggle">トグルプレビュー</string>
+		<string id="misc.toggle_on">オン</string>
+		<string id="misc.toggle_off">オフ</string>
+	</strings>
+</language>

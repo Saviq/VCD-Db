@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: Costas Tyfoxylos -->
+<language>
+	<id>el_EL</id>
+	<name>Greek</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">ΕΛ.</string>
+		<string id="language.name">Ελληνικά</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">Το μενού μου</string>
+		<string id="menu.settings">Οι ρυθμίσεις μου</string>
+		<string id="menu.movies">Οι ταινίες μου</string>
+		<string id="menu.addmovie">Προσθήκη ταινίας</string>
+		<string id="menu.loansystem">Σύστημα δανεισμού</string>
+		<string id="menu.wishlist">Η λίστα ευχών μου</string>
+		<string id="menu.categories">Κατηγορίες ταινιών</string>
+		<string id="menu.rss">Οι τροφοδοσίες RSS μου</string>
+		<string id="menu.controlpanel">Πίνακας Ελέγχου</string>
+		<string id="menu.register">Εγγραφή</string>
+		<string id="menu.logout">Έξοδος</string>
+		<string id="menu.submit">Υποβολή</string>
+		<string id="menu.topusers">Κορυφαίοι χρήστες</string>
+		<string id="menu.wishlistpublic">Άλλες λίστες ευχών </string>
+		<string id="menu.statistics">Στατιστικές</string>
+		<string id="menu.showallusersmovies">Όλες οι ταινίες</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Είσοδος</string>
+		<string id="login.username">Όνομα χρήστη</string>
+		<string id="login.password">Κωδικός</string>
+		<string id="login.remember">Θυμήσου με</string>
+		<string id="login.info">Αφήστε αυτο το πεδίο κενό αν &lt;b&gt;δεν&lt;/b&gt; θέλετε να αλλάξετε τον κωδικό σας</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Εγγραφή</string>
+		<string id="register.fullname">Πλήρες όνομα</string>
+		<string id="register.email">Διεύθυνση ηλεκτρονικού ταχυδρομείου</string>
+		<string id="register.again">Κωδικός ξανά</string>
+		<string id="register.disabled">Λυπάμαι, ο διαχειριστής έχει απενεργοποιήσει τις εγγραφές για την ώρα</string>
+		<string id="register.ok">Η εγγραφή ήταν επιτυχής, τώρα μπορείτε να εισέλθετε στο VCD-db.</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Στείλε μου email οταν έχει προστεθεί νέα ταινία;</string>
+		<string id="userproperties.show_adult">Εμφάνιση περιεχομένου ενηλίκων στην ιστοσελίδα;</string>
+		<string id="userproperties.rss">Επέτρεψε εμφάνιση τροφοδοσίας RSS απο την λίστα ταινιών μου;</string>
+		<string id="userproperties.wishlist">Επέτρεψε άλλους να δούν την λίστα ταινιών μου;</string>
+		<string id="userproperties.use_index">Χρήση πεδίων αριθμητικής εύρεσης για τις προσωπικά επιλεγμένες ταυτότητες μέσων;</string>
+		<string id="userproperties.seen_list">Καταγραφή ταινιών που έχω δεί;</string>
+		<string id="userproperties.playoption">Χρήση επιλογών αναπαραγωγής πελάτη;</string>
+		<string id="userproperties.nfo">Ενεργοποίηση NFO αρχείων;</string>
+		<string id="userproperties.default_image">Χρήση εμφάνισης εικόνων ως προεπιλογή;</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">Ρυθμίσεις αναπαραγωγής</string>
+		<string id="usersettings.ownfeed">Εμφάνισης δικής μου τροφοδοσίας</string>
+		<string id="usersettings.custom">Προσωπικές επιλογές αρχικής σελίδας</string>
+		<string id="usersettings.showstat">Εμφάνιση στατιστικών</string>
+		<string id="usersettings.showside">Εμφάνιση νέων ταινιών στην πλάγια μπάρα</string>
+		<string id="usersettings.selectrss">Επιλογή τροφοδοσίας RSS</string>
+		<string id="usersettings.pagelook">Διαρρύθμιση Ιστού</string>
+		<string id="usersettings.pagemode">Επιλογή προεπιλεγμένου προτύπου</string>
+		<string id="usersettings.updated">Πληροφορίες χρήστη ανανεώθηκαν</string>
+		<string id="usersettings.update_failed">Σφάλμα ανανέωσης</string>
+		<string id="usersettings.list">Αδιαφόρησε για λίστα</string>
+		<string id="usersettings.desc">Αδιαφόρησε για λίστα απο τους παρακάτω χρήστες</string>
+
+
+		<!-- strings for search and search results -->
+		<string id="search.search">Εύρεση</string>
+		<string id="search.title">Κατα τίτλο</string>
+		<string id="search.actor">Κατα ηθοποιό</string>
+		<string id="search.director">Κατα σκηνοθέτη</string>
+		<string id="search.results">Αποτελέσματα εύρεσης</string>
+		<string id="search.extended">Λεπτομερής εύρεση</string>
+		<string id="search.noresult">Η εύρεση δεν είχε αποτελέσματα</string>
+
+
+		<!-- strings for movie categories -->
+		<string id="category.action">Δράσης</string>
+		<string id="category.adult">Ενηλίκων</string>
+		<string id="category.adventure">Περιπέτεια</string>
+		<string id="category.animation">Κινούμενα σχέδια</string>
+		<string id="category.anime">Anime / Manga</string>
+		<string id="category.comedy">Κωμωδίες</string>
+		<string id="category.crime">Εγκλήματων</string>
+		<string id="category.documentary">Ντοκυμαντέρ</string>
+		<string id="category.drama">Δράμα</string>
+		<string id="category.family">Οικογενιακές</string>
+		<string id="category.fantasy">Φαντασίας</string>
+		<string id="category.filmnoir">Ταινίες Noir</string>
+		<string id="category.horror">Τρόμου</string>
+		<string id="category.jamesbond">James Bond</string>
+		<string id="category.musicvideo">Μουσικά Video</string>
+		<string id="category.musical">Μιουζικάλ</string>
+		<string id="category.mystery">Μυστηρίου</string>
+		<string id="category.romance">Ρομαντικές</string>
+		<string id="category.scifi">Επιστημονικής φαντασίας</string>
+		<string id="category.short">Μικρού μήκους</string>
+		<string id="category.thriller">Αγωνίας</string>
+		<string id="category.tvshows">Τηλεοπτικές σειρές</string>
+		<string id="category.war">Πολεμικές</string>
+		<string id="category.western">Western</string>
+		<string id="category.xrated">X-Rated</string>
+
+
+		<!-- movie specific strings -->
+		<string id="movie.movie">Η ταινία</string>
+		<string id="movie.actors">Πρωταγωνιστές</string>
+		<string id="movie.category">Κατηγορία</string>
+		<string id="movie.year">Χρονιά παραγωγής</string>
+		<string id="movie.copies">Αντίγραφα</string>
+		<string id="movie.from">Από</string>
+		<string id="movie.title">Τίτλος</string>
+		<string id="movie.alttitle">Εναλακτικός τίτλος</string>
+		<string id="movie.grade">Βαθμολόγηση</string>
+		<string id="movie.director">Σκηνοθέτης</string>
+		<string id="movie.country">Χώρα παραγωγής</string>
+		<string id="movie.runtime">Διάρκεια</string>
+		<string id="movie.minutes">Λεπτά</string>
+		<string id="movie.plot">Πλοκή</string>
+		<string id="movie.noplot">Δεν υπάρχει περίληψη πλοκής διαθέσιμη</string>
+		<string id="movie.covers">Εξώφυλα CD</string>
+		<string id="movie.available">Διαθέσιμα αντίγραφα</string>
+		<string id="movie.media">Μέσο</string>
+		<string id="movie.num">Αριθμός CD</string>
+		<string id="movie.date">Ημερομηνία προσθήκης</string>
+		<string id="movie.owner">Ιδιοκτήτης</string>
+		<string id="movie.noactors">Δεν υπάρχει διαθέσιμη λίστα ηθοποιών</string>
+		<string id="movie.info">Πληροφορίες ταινίας</string>
+		<string id="movie.details">Λεπτομέριες για την αντιγραφή μου</string>
+		<string id="movie.mediatype">Τύπος μέσου</string>
+		<string id="movie.comment">Σχόλια</string>
+		<string id="movie.private">Χαρακτηρισμός ως ιδιωτικό;</string>
+		<string id="movie.screenshots">Στιγμιότυπα</string>
+		<string id="movie.noscreens">Δεν υπάρχουν διαθέσιμα στιγμιότυπα</string>
+		<string id="movie.show">Εμφάνιση</string>
+		<string id="movie.hide">Απόκριψη</string>
+		<string id="movie.change">Αλλαγή πληροφοριών</string>
+		<string id="movie.nocovers">Δεν υπάρχουν διαθέσιμα εξώφυλα</string>
+		<string id="movie.bycat">Τίτλοι ανα κατηγορία</string>
+		<string id="movie.currcat">Τρέχουσα κατηγορία</string>
+		<string id="movie.textview">Εμφάνιση κειμένου</string>
+		<string id="movie.imageview">Εμφάνιση εικόνων</string>
+		<string id="movie.mineonly">Εμφάνιση μόνο των ταινιών μου</string>
+		<string id="movie.similar">Παρεμφερείς ταινίες</string>
+		<string id="movie.mediaindex">Αρίθμιση μέσου</string>
+
+
+		<!-- IMDB specific strings -->
+		<string id="imdb.details">Λεπτομέρειες IMDB</string>
+		<string id="imdb.plot">Περίληψη πλοκής</string>
+		<string id="imdb.gallery">Έκθεση φωτογραφιών</string>
+		<string id="imdb.trailers">Trailers</string>
+		<string id="imdb.links">Σύνδεσμοι IMDB</string>
+		<string id="imdb.not">Δεν υπάρχουν πληροφορίες στο IMDB διαθέσιμες</string>
+
+
+		<!-- DVD specific string -->
+		<string id="dvd.region">Περιοχή</string>
+		<string id="dvd.format">Φορμά εικόνας</string>
+		<string id="dvd.aspect">Αναλογία εμφάνισης</string>
+		<string id="dvd.audio">Ήχοςξ</string>
+		<string id="dvd.subtitles">Υπότιτλοι</string>
+
+
+		<!-- My movies page strings -->
+		<string id="mymovies.export">Εξαγωγή δεδομένων</string>
+		<string id="mymovies.excel">Εξαγωγή σαν Excel </string>
+		<string id="mymovies.xml">Εξαγωγή σαν XML</string>
+		<string id="mymovies.xmlthumbs">Εξαγωγή μικρογραφιών σαν XML</string>
+		<string id="mymovies.actions">Οι δράσεις μου</string>
+		<string id="mymovies.join">Προσθήκη δίσκου</string>
+		<string id="mymovies.joinmovies">Προσθήκη δίσκου ταινίας</string>
+		<string id="mymovies.joinsuser">Επιλογή χρήστη</string>
+		<string id="mymovies.joinsmedia">Επιλογή τύπου μέσου</string>
+		<string id="mymovies.joinscat">Επιλογή κατηγορίας</string>
+		<string id="mymovies.joinstype">Επιλογή δράσης</string>
+		<string id="mymovies.joinshow">Εμφάνιση αποτελεσμάτων</string>
+		<string id="mymovies.noresults">Το ερώτημα δεν επέστρεψε αποτελέσματα</string>
+		<string id="mymovies.textall">Εμφάνιση εκτύπωσης (Κατάσταση κειμένου)</string>
+		<string id="mymovies.pwall">Εμφάνιση εκτύπωσης (Όλες)</string>
+		<string id="mymovies.pwmovies">Εμφάνιση εκτύπωσης (Ταινίες)</string>
+		<string id="mymovies.pwtv">Εμφάνιση εκτύπωσης (Τηλεοπτικές σειρές)</string>
+		<string id="mymovies.pwblue">Εμφάνιση εκτύπωσης (Μπλέ ταινιών)</string>
+		<string id="mymovies.j1">Ταινίες που έχω εγώ αλλα όχι ο χρήστης</string>
+		<string id="mymovies.j2">Ταινίες που έχει ο χρήστης αλλα όχι εγώ</string>
+		<string id="mymovies.j3">Ταινίες που έχουμε και οι δύο</string>
+		<string id="mymovies.overview">Εμφάνιση συλλογής</string>
+		<string id="mymovies.info">Σε αυτην την σελίδα μπορείτε να μαθετε τα πάντα για τις ταινίες μου.&lt;br/&gt;Στα δεξιά υπάρχουν εντολές που μπορείτε να εφαρμόσετε στην συλλογή ταινιών σας.&lt;br/&gt;Μπορείτε ακόμα να εξάγετε τηνλίστα σας σαν Excel για εκτύπωση ή να χρησιμοποιήσετε τις λειτουργίες εξαγωγής XML για δημιουργία αντιγράφου ασφαλείας, ή για την μεταφορά της συλλογής σας απο μια εγκατάσταση VCD-db σε μια άλλη.</string>
+		<string id="mymovies.keys">Επεξεργασία προσωπικών ID</string>
+		<string id="mymovies.seenlist">Επεξεργασία λίστας ταινίων που έχω δεί</string>
+		<string id="mymovies.helppicker">Επιλογή ταινίας για εμφάνιση</string>
+		<string id="mymovies.helppickerinfo">Δεν ξέρεις τι να δείς σήμερα;&lt;br/&gt;Ασε το VCD-db να σε βοηθήσει να βρείς μια ταινία&lt;br/&gt;. Μπορείς εναλλακτικά να δημιουργησεις φίλτρα που θα σε βοηθήσουν να ελαχιστοποιήσεις τις προτάσεις του VCD-db.</string>
+		<string id="mymovies.find">Εύρεση ταινίας</string>
+		<string id="mymovies.notseen">Προτείνε μόνο ταινίες που δεν έχω δει</string>
+		<string id="mymovies.friends">Οι φίλοι μου που έχουν δανιστεί CD</string>
+		<string id="mymovies.overviewdetail">Λεπτομερής εμφάνιση συλλογής</string>
+
+
+		<!-- strings for the movie manager window -->
+		<string id="manager.basic">Βασικές πληροφορίες</string>
+		<string id="manager.imdb">Πληροφορίες IMDB</string>
+		<string id="manager.empire">Πληροφορίες DVDEmpire</string>
+		<string id="manager.copy">Το αντίγραφό μου</string>
+		<string id="manager.copies">Τα αντίγραφά μου</string>
+		<string id="manager.nocopy">Δεν έχεις αντίγραφα</string>
+		<string id="manager.1copy">Αντιγραφή</string>
+		<string id="manager.addact">Προσθήκη ηθοποιών</string>
+		<string id="manager.addtodb">Προσθήκη νέων ηθοποιών στην DB</string>
+		<string id="manager.savetodb">Αποθήκευση στην DB</string>
+		<string id="manager.savetodbncd">Αποθήκευση στην DB και στην ταινία</string>
+		<string id="manager.indb">Ηθοποιοί στην βάση</string>
+		<string id="manager.sel">Επιλεγμένοι ηθοποιοί</string>
+		<string id="manager.stars">Αστέρια</string>
+		<string id="manager.browse">Εύρεση αρχείου</string>
+		<string id="manager.addmedia">Προσθήκη...</string>
+
+
+		<!-- Add new movie based strings -->
+		<string id="addmovie.info">Επιλογή μεθόδου προσθήκης νέας ταινίας</string>
+		<string id="addmovie.imdb">Πάρε στοιχεία απο IMDB</string>
+		<string id="addmovie.imdbtitle">Εισαγωγή όρων εύρεσης</string>
+		<string id="addmovie.manual">Εισαγωγή δεδομένων χειροκίνητα</string>
+		<string id="addmovie.listed">Προσθήκη ταινίων ήδη σε λίστα</string>
+		<string id="addmovie.xml">Προσθήκη ταινίων απο εξαγώμενο XML αρχείο</string>
+		<string id="addmovie.xmlfile">Επιλόγη XML αρχείου για εισαγωγή</string>
+		<string id="addmovie.xmlnote">(Παρακαλώ προσέξτε, μόνο XML αρχεία που έχουν εξαχθεί απο άλλη εγκατάσταση VCD-db μπορούν να χρησιμοποιηθούν για να εισάγετε τις ταινίες σας εδώ. &lt;br/&gt;Μπορείτε να εξάγετε τις ταινίες σας απο την περιοχή &quot;Οι ταινίες μου&quot;. Θα πρέπει να αποφευχθεί η χειροκίνητη επεξεργασία του εξαγώμενου XML αρχείου.)</string>
+		<string id="addmovie.maxfilesize">Μέγιστο μέγεθος αρχείου</string>
+		<string id="addmovie.dvdempire">Πάρε στοιχεία απο Adult DVD Empire (X-rated ταινίες)</string>
+		<string id="addmovie.listedstep1">Βήμα 1 &lt;br/&gt;Επιλέξτε τους τίτλους που θέλετε να προσθέσετε στην λίστα σας &lt;br/&gt;Μπορείτε να διαλέξετε τύπο μέσου στο επόμενο βήμα.</string>
+		<string id="addmovie.listedstep2">Βήμα 2 &lt;br/&gt;Επιλέξτε τον κατάλληλο τύπο μέσου.</string>
+		<string id="addmovie.indb">Ταινίες στο VCD-db</string>
+		<string id="addmovie.selected">Επιλεγμένοι τίτλοι</string>
+		<string id="addmovie.infolist">Καντε διπλό κλίκ στον τίτλο γι αν τον επιλέξετε ή χρησιμοποιήστε τα βέλη.&lt;br/&gt;Μπορείτε να χρησιμοποιήσετε το πληκτρολόγιο για να βρείτε γρήγορα τίτλους.</string>
+		<string id="addmovie.notitles">Κανένας άλλος χρήστης δεν έχει προσθέσει ταινίες στο VCD-db</string>
+		<string id="addmovie.id">Είσοδος είναι ενα id</string>
+
+
+		<!-- strings for XML actions -->
+		<string id="xml.confirm">Επιβεβαιώστε ανέβασμα XML </string>
+		<string id="xml.contains">Το XML αρχείο περιέχει %d ταινίες</string>
+		<string id="xml.info1">Πατήστε επιβεβαίωση για επεξεργασία των ταινίων και αποθηκευση στην βάση. Αλλίως. πατήστε άκυρο για να φύγετε.</string>
+		<string id="xml.info2">Αν θέλετε να συμπεριλάβετε τις μικρογραφίες (αφίσες) με τις ταινίες που πρόκειτε να εισάγετε στο XML αρχείο σας, &lt;b&gt;ΠΡΕΠΕΙ&lt;/b&gt; να έχετε το XML αρχείο μικρογραφιών διαθέσιμο τώρα!&lt;br/&gt;Οι αφίσες δεν μπορούν να εισαχθούν αφου έχετε τελειώσει με τησ εισαγωγή των ταινιών στο τρέχων XML αρχείο.&lt;br/&gt;&lt;br/&gt;Αν έχετε το αρχείο μικρογραφιών XML διαθέσιμο τσεκάρετε το πεδίο παρακάτω και στο επόμενο βήμα μετά την εισαγωγή των ταινίων σας στην παρακάτω λίστα, θα σας ζητηθεί να υποβάλετε το αρχείο μικρογραφίων XML επίσης, για επεξεργασία.</string>
+		<string id="xml.thumbnails">Εισαγωγή μικρογραφιών απο το αρχείο μικρογραφιών XML.</string>
+		<string id="xml.list">Πλήρης λίστα ταινίων του XML αρχείου.</string>
+		<string id="xml.error">Δεν βρέθηκαν τίτλοι στο XML αρχείο.&lt;br/&gt; Το αρχείο μπορεί να είναι κατεστραμένο ή απλά άδειο.&lt;br/&gt;&lt;br/&gt;Βεβαιωθείτε οτι χρησιμοποιείτε ενα XML αρχείο που εξάχθηκε απο VCD-db. </string>
+		<string id="xml.results">Αποτελέσματα ανεβάσματος XML.</string>
+		<string id="xml.results2">Αυτα είναι τα αποτελέσματα της εισαγωγής του αρχείου XML.&lt;br/&gt;Σύνολο ταινιών που εισήχθησαν %d.</string>
+
+
+		<!-- strings for DVD empire based fetch -->
+		<string id="dvdempire.info">Πληροφορίες απο AdultDVDEmpire.com ....</string>
+		<string id="dvdempire.desc">DVDEmpire περιγραφή</string>
+		<string id="dvdempire.subcat">Κατηγορίες ενηλίκων</string>
+		<string id="dvdempire.details">Adultdvdempire.com λεπτομέριες</string>
+		<string id="dvdempire.stars">Πορνοστάρ</string>
+		<string id="dvdempire.notice">Ηθοποιοί μαρκαρισμένοι με κόκκινο δεν είναι καταχωρημένοι στο VCD-db.&lt;br/&gt;Μπορείτε όμως να τσεκάρετε τα ονόματά τους και θα προστεθούν αυτόματα στο VCD-db και θα συσχετιστούν με αυτήν την ταινία.</string>
+		<string id="dvdempire.fetch">Φέρε ακόμα πληροφορίες για</string>
+
+
+		<!-- strings for the loan system -->
+		<string id="loan.movies">Ταινίας για δανεισμό</string>
+		<string id="loan.to">Δάνεισε ταινίες σε</string>
+		<string id="loan.addusers">Προσθέστε μερικούς χρήστες για δανεισμό και συνεχίστε</string>
+		<string id="loan.newuser">Νέος δανειστής</string>
+		<string id="loan.registeruser">Προσθήκη νέου δανειστή</string>
+		<string id="loan.name">Όνομα</string>
+		<string id="loan.select">Επιλογή δανειστή</string>
+		<string id="loan.movieloans">Δανεισμένες ταινίες</string>
+		<string id="loan.reminder">Αποστολή υπενθύμισης</string>
+		<string id="loan.history">Ιστορικό δανεισμού</string>
+		<string id="loan.history2">Εμφάνιση ιστορικού δανεισμού</string>
+		<string id="loan.since">Απο</string>
+		<string id="loan.time">Χρόνος απο</string>
+		<string id="loan.return">Επιστροφή αντιγράφου</string>
+		<string id="loan.success">Ταινίες δανείστηκαν με επιτυχία</string>
+		<string id="loan.out">Χωρίς επιστροφή</string>
+		<string id="loan.datein">Ημερομηνία εισόδου</string>
+		<string id="loan.dateout">Ημερομηνία εξόδου</string>
+		<string id="loan.period">Περίοδος δανεισμού</string>
+		<string id="loan.back">Επιστροφή στην καταγραφή δανεισμού</string>
+		<string id="loan.day">ημέρα</string>
+		<string id="loan.days">ημέρες</string>
+		<string id="loan.today">απο σήμερα</string>
+
+
+		<!-- strings for the RSS actions and settings -->
+		<string id="rss.rss">Τροφοδοσίες RSS</string>
+		<string id="rss.title">Τροφοδοσιες RSS απο VCD-db φίλων μου</string>
+		<string id="rss.site">Τροφοδοσίες RSS ιστοσελίδας</string>
+		<string id="rss.user">Τροφοδοσίες RSS χρήστη</string>
+		<string id="rss.view">Εμφάνιση τροφοδοσίας RSS</string>
+		<string id="rss.add">Προσθήκη νέας τροφοδοσίας RSS</string>
+		<string id="rss.note">Εισάγετε την &lt;strong&gt;ακριβή διεύθυνση (url)&lt;/strong&gt; του VCD-db του φίλου σας. Αν η τροφοδοσία RSS είναι ενεργοποιήμενη στην ιστοσελίδα του φίλου σας μπορείτε να διαλέξετε τις τροφοδοσίες που σας ενδιαφέρουν και να τις εμφανίσετε στην σελίδα σας.</string>
+		<string id="rss.fetch">Βρές λίστα τροφοδοσιών RSS</string>
+		<string id="rss.none">Δεν εχει προστεθεί καμία λίστα τροφοδοσιών RSS</string>
+		<string id="rss.found">Οι παρακάτω λίστες τροφοδοσιών RSS έχουν βρεθεί, παρακαλώ διαλέξτε τις τροφοδοσίες που θέλετε να προσθέσετε:</string>
+		<string id="rss.notfound">Καμία τροφοδοσία δεν υπάρχει στην διεύθυνση</string>
+
+
+		<!-- strings for the comments -->
+		<string id="comments.comments">Σχόλια</string>
+		<string id="comments.add">Εισάγετε καινούργιο σχόλιο</string>
+		<string id="comments.none">Κανένα σχόλιο δεν εχει καταχωρηθεί</string>
+		<string id="comments.type">Πληκτρολογίστε το νεο σας σχόλιο</string>
+		<string id="comments.your">Το σχόλιο σας</string>
+		<string id="comments.post">Καταχωρήστε σχόλιο</string>
+		<string id="comments.error">Έχετε κάνει είσοδο για να εισάγετε νέο σχόλιο</string>
+
+
+		<!-- strings for the wishlist -->
+		<string id="wishlist.add">Προσθήκη στην λίστα ευχών μου</string>
+		<string id="wishlist.onlist">Στην λίστα ευχών μου</string>
+		<string id="wishlist.empty">Η λίστα ευχών σας είναι άδεια</string>
+		<string id="wishlist.own">Μου ανοίκει ενα αντίγραφο αυτης της ταινίας</string>
+		<string id="wishlist.notown">Δεν μου ανοίκει ενα αντίγραφο αυτης της ταινίας</string>
+
+
+		<!-- strings for the pornstar entries -->
+		<string id="pornstar.name">Όνομα</string>
+		<string id="pornstar.web">Ιστοσελίδα</string>
+		<string id="pornstar.moviecount">Αριθμός ταινιών</string>
+
+
+		<!-- strings for the "seen movies" page -->
+		<string id="seen.seenit">Το έχω δεί</string>
+		<string id="seen.notseenit">Δεν το έχω δεί</string>
+		<string id="seen.seenitclick">Κάντε κλικ για να μαρκάρετε οτι το έχετε δεί</string>
+		<string id="seen.notseenitclick">Κάντε κλικ για να μαρκάρετε οτι δεν το έχετε δεί</string>
+
+
+		<!-- strings for the statistics page -->
+		<string id="statistics.title">Σημερινή αναφορά</string>
+		<string id="statistics.top_movies">Ταινίες στην βάση</string>
+		<string id="statistics.top_cats">Κορυφαίες κατηγορίες</string>
+		<string id="statistics.top_act">Πιο ενεργές κατηγορίες</string>
+		<string id="statistics.top_covers">Εξώφυλλα στην βάση</string>
+		<string id="statistics.total">Σύνολο</string>
+		<string id="statistics.today">Προστέθηκαν σήμερα</string>
+		<string id="statistics.week">Προστέθηκαν τις τελευταίες 7 μέρες</string>
+		<string id="statistics.month">Προστέθηκαν τις τελευταίες 30 μέρες</string>
+
+
+		<!-- strings for the email messages sent from VCD-db -->
+		<string id="mail.returntopic">Υπενθήμιση δανείου</string>
+		<string id="mail.returnmovies1">%s, ήθελα απλά να σου θυμήσω να μου επιστρέψεις τις ταινίες μου.&lt;br/&gt;Έχεις ακομα τις παρακάτω ταινίες:</string>
+		<string id="mail.returnmovies2">Παρακαλώ, επέστρεψε τα δισκάκια το συντομότερο δυνατό&lt;br/&gt;Γειά σου %s &lt;br/&gt;&lt;br/&gt;. Αυτό είναι ενα αυτοματοποιημένο μήνυμα απο το VCD-db (http://vcddb.konni.com)</string>
+		<string id="mail.notify">&lt;strong&gt;Νέα ταινία έχει προστεθεί στο VCD-db&lt;/strong&gt;&lt;br/&gt;Πατήστε &lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;εδώ&lt;/a&gt; για να δείτε περισσότερα ..&lt;br/&gt;&lt;br/&gt;&lt;p&gt;Αυτό είναι ενα αυτοματοποιημένο μήνυμα απο το VCD-db (http://vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.register">%s, η εγγραφή στο VCD-db έγινε με επιτυχία.&lt;br/&gt;&lt;br/&gt; Το όνομα χρήστη σας είναι %s και ο κωδικός %s.&lt;br/&gt;&lt;br/&gt;Μπορείτε να αλλάξετε πάντα τον κωδικό σας μετά την είσοδό σας. &lt;br/&gt;Πατήστε  &lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;εδώ&lt;/a&gt; για να ανοίξετε το VCD-db.</string>
+
+
+		<!-- strings for the metadata -->
+		<string id="metadata.my">Τα Μetadata μου</string>
+		<string id="metadata.name">Όνομα</string>
+		<string id="metadata.desc">Περιγραφή</string>
+		<string id="metadata.type">Τύπος Meta</string>
+		<string id="metadata.value">Τιμή Meta</string>
+		<string id="metadata.none">Δεν υπάρχουν Metadata</string>
+
+
+		<!-- strings for the player settings and actions -->
+		<string id="player.player">Αναπαραγωγή</string>
+		<string id="player.path">Διαδρομή</string>
+
+
+		<!-- Miscelaneos strings that do not need specific category and/or are often used around VCD-db -->
+		<string id="misc.contains">περιέχει</string>
+		<string id="misc.grade">IMDB βαθμολογία παραπάνω απο</string>
+		<string id="misc.any">Όποιο</string>
+		<string id="misc.tryagain">Προσπαθήστε ξανά</string>
+		<string id="misc.proceed">Συνέχεια</string>
+		<string id="misc.select">Επιλογή</string>
+		<string id="misc.confirm">Επιβεβαίωση</string>
+		<string id="misc.cancel">Άκυρο</string>
+		<string id="misc.attention">Προσοχή!</string>
+		<string id="misc.status">Κατάσταση</string>
+		<string id="misc.success">Επιτυχία</string>
+		<string id="misc.failure">Αποτυχία</string>
+		<string id="misc.yes">Ναί</string>
+		<string id="misc.no">Όχι</string>
+		<string id="misc.showmore">Εμφάνιση περισσοτέρων</string>
+		<string id="misc.showless">Εμφάνιση λιγότερων</string>
+		<string id="misc.new">Νέο</string>
+		<string id="misc.change">αλλαγή</string>
+		<string id="misc.delete">διαγραφή</string>
+		<string id="misc.update">Ανανέωση</string>
+		<string id="misc.saveandclose">Αποθήκευση και κλέισιμο</string>
+		<string id="misc.close">Κλείσιμο</string>
+		<string id="misc.edit">Επεξεργασία</string>
+		<string id="misc.results">Αποτελέσματα</string>
+		<string id="misc.latestmovies">τελευταίες ταινίες</string>
+		<string id="misc.latesttv">τελευταίες σειρές</string>
+		<string id="misc.latestblue">τελευταία X-rated</string>
+		<string id="misc.movies">ταινίες</string>
+		<string id="misc.nocats">Καμία ταινία δεν έχει προστεθεί</string>
+		<string id="misc.nousers">Κανένας ενεργός χρήστης</string>
+		<string id="misc.key">Κλειδί</string>
+		<string id="misc.savenext">Αποθήκευση και επεξεργασία επομένου</string>
+		<string id="misc.save">Αποθήκευση</string>
+		<string id="misc.seen">Έχει παιχτεί</string>
+		<string id="misc.footer">Η σελίδα φορτώθηκε σε  %s δευτ. (&lt;i&gt;%d Ερωτήματα&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer_link">Ελέγξτε την επίσημη ιστοσελίδα του VCD-db</string>
+		<string id="misc.toggle">Ενεργ./Απενεργ. προεπισκόπισης</string>
+		<string id="misc.toggle_on">Ενεργή</string>
+		<string id="misc.toggle_off">Ανενεργή</string>
+	</strings>
+</language>

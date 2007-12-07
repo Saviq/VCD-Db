@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: nikolay -->
+<language>
+	<id>il_IL</id>
+	<name>Hebrew</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">HEB</string>
+		<string id="language.name">Hebrew</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">תפריט</string>
+		<string id="menu.settings">הגדרות</string>
+		<string id="menu.movies">הסרטים שלי</string>
+		<string id="menu.addmovie">הוסף סרט</string>
+		<string id="menu.loansystem">מערכת השאלות</string>
+		<string id="menu.wishlist">סרטים שאני רוצה</string>
+		<string id="menu.categories">קטגוריות</string>
+		<string id="menu.rss">הזנות</string>
+		<string id="menu.controlpanel">לוח בקרה</string>
+		<string id="menu.register">הירשם</string>
+		<string id="menu.logout">התנתק</string>
+		<string id="menu.submit">שלח</string>
+		<string id="menu.topusers">הפעילים ביותר</string>
+		<string id="menu.wishlistpublic">סרטים שאחרים רוצים</string>
+		<string id="menu.statistics">סטטיסטיקה</string>
+		<string id="menu.showallusersmovies">כל הסרטים</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">התחבר</string>
+		<string id="login.username">שם משתמש</string>
+		<string id="login.password">סיסמה</string>
+		<string id="login.remember">זכור אותי</string>
+		<string id="login.info">השאר ריק אם אינך מעוניין לשנות סיסמתך</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">רישום</string>
+		<string id="register.fullname">שם מלא</string>
+		<string id="register.email">דואר אלקטרוני</string>
+		<string id="register.again">סיסמה שוב</string>
+		<string id="register.disabled">מנהל המערכת ביטל את הרישום במועד זה, עמך הסליחה</string>
+		<string id="register.ok">הרישום עבר בהצלחה, כעת ניתן להתחבר למערכת</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">שלח דואל כאשר מתווסף סרט חדש?</string>
+		<string id="userproperties.show_adult">הצג סרטים למבוגרים בלבד?</string>
+		<string id="userproperties.rss">אפשר הזנת סרטיך האישיים כ- RSS?</string>
+		<string id="userproperties.wishlist">הצג לאחרים את רשימת הסרטים שאתה רוצה?</string>
+		<string id="userproperties.seen_list">עקוב אחרי הסרטים שראית?</string>
+		<string id="userproperties.playoption">השתמש בנגן מקומי?</string>
+		<string id="userproperties.nfo">אפשר מידע NFO?</string>
+		<string id="userproperties.default_image">תצוגת עטיפות כברירת מחדל?</string>
+
+
+		<!-- strings for user settings -->
+		<string id="usersettings.player">הגדרות נגן</string>
+		<string id="usersettings.ownfeed">הצג את הזנת ה- RSS שלי.</string>
+		<string id="usersettings.custom">ערוך את דף הבית שלי</string>
+		<string id="usersettings.showstat">הצג סטטיסטיקה</string>
+		<string id="usersettings.showside">הצג סרטים חדשים בצד</string>
+		<string id="usersettings.selectrss">בחר הזנות</string>
+		<string id="usersettings.pagelook">תצוגת ווב</string>
+		<string id="usersettings.pagemode">בחר תבנית ברירת מחדל</string>
+		<string id="usersettings.updated">הצג פרטי משתמש</string>
+		<string id="usersettings.update_failed">העדכון נכשל</string>
+		<string id="usersettings.list">התעלם</string>
+	</strings>
+</language>
