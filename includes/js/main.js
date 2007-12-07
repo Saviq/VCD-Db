@@ -270,50 +270,38 @@ function checkFields(form) {
 	}
 }
 
-
-
-function onSelectKeyDown()
-{
+function onSelectKeyDown() {
 	try {
-		if(window.event.keyCode == 46)clr();
-	} catch (Exception) {}
+		if(window.event.keyCode == 46) {
+			clr();
+		}
+	} catch (ex) {}
 }
 
 function selectKeyPress() {
-	// Notes:
-	//	1) previous keys are cleared onBlur/onFocus and with Delete key
-	//	2) if the search doesn't find a match, this returns to normal 1 key search
-	//		setting returnValue = false below for ALL cases will prevent
-	//		default behavior
-
-	//TODO:
-	//	1) add Netscape handling
-
 	try {
 		
 		var sndr = window.event.srcElement;
-		var pre = this.document.all["keys"].value;
+		var pre = $('keys').value;
 		var key = window.event.keyCode;
 		var charx = String.fromCharCode(key);
 		
-			var re = new RegExp("^" + pre + charx, "i"); // "i" -> ignoreCase
-			for(var i=0; i<sndr.options.length; i++)
-			{
-				if(re.test(sndr.options[i].text))
-				{
-					sndr.options[i].selected=true;
-					document.all["keys"].value += charx;
-					window.event.returnValue = false;
-					break;
-				}
+		var re = new RegExp("^" + pre + charx, "i"); // "i" -> ignoreCase
+		for(var i=0; i<sndr.options.length; i++) {
+			if(re.test(sndr.options[i].text)) {
+				sndr.options[i].selected=true;
+				$('keys').value += charx;
+				window.event.returnValue = false;
+				break;
 			}
-	} catch (Exception) {}
+		}
+	} catch (ex) {}
 }
 
 function clr() {
 	try {
-		document.all["keys"].value = "";
-	} catch (Exception) {}
+		$('keys').value = '';
+	} catch (ex) {}
 }
 
 function createBorrower() {
