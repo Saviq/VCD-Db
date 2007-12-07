@@ -35,6 +35,9 @@ class VCDPageJavascriptStrings extends VCDBasePage {
 			$results[substr($obj->getId(),3)] = $obj->getKey();
 		}
 		$this->assign('itemJavascriptKeys',$results);
+		
+		// Set correct header
+		header('Content-type: application/javascript'); 
 	}
 }
 ?>
