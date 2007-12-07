@@ -52,6 +52,10 @@ class VCDFrontPage extends VCDBasePage {
 		}
 	}
 	
+	/**
+	 * Populate the TOP Ten list for the right sidebar
+	 *
+	 */
 	private function doTopTenLists() {
 	
 		// Check if user is logged in and wished to disable sidebar
@@ -111,6 +115,10 @@ class VCDFrontPage extends VCDBasePage {
 	}
 	
 	
+	/**
+	 * Populate and display users selected RSS feeds
+	 *
+	 */
 	private function doUserRssList() {
 		
 		$arr = SettingsServices::getMetadata(0, VCDUtils::getUserID(), 'frontrss');
@@ -122,30 +130,32 @@ class VCDFrontPage extends VCDBasePage {
 			
 			$results = array();
 			foreach ($feedlist as $feedItem) {
-				$obj = SettingsServices::getRssfeed($feedItem);
-				
-				$items = null;
-				if ($this->rssFetch->isCached($obj->getFeedUrl())) {
-					$rssData = $this->doRssItem($obj->getFeedUrl());
-					if (isset($rssData['items'])) {
-						$items = $rssData['items'];	
+				if (is_numeric($feedItem)) {
+					$obj = SettingsServices::getRssfeed($feedItem);
+					$items = null;
+					if ($this->rssFetch->isCached($obj->getFeedUrl())) {
+						$rssData = $this->doRssItem($obj->getFeedUrl());
+						if (isset($rssData['items'])) {
+							$items = $rssData['items'];	
+						}
+					} else {
+						$items = 'notInCache';
 					}
-				} else {
-					$items = 'notInCache';
+					
+					$results[$obj->getId()] = array('title' => $obj->getName(), 'link' => $obj->getFeedUrl(), 'items' => $items);
 				}
-				
-				$results[$obj->getId()] = array('title' => $obj->getName(), 'link' => $obj->getFeedUrl(), 'items' => $items);
-				
-				
-				
 			}
 			
 			$this->assign('frontpageFeeds', $results);
-			
 		}
-		
 	}
 	
+	/**
+	 * Populate and display single RSS feed
+	 *
+	 * @param string $link | The url to the RSS feed
+	 * @return array | Array containing the rss items
+	 */
 	private function doRssItem($link) {
 		
 		$results = array();
