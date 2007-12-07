@@ -383,12 +383,13 @@ class VCDPageFileHandler extends VCDBasePage {
 					$fileContents = FileServices::getCover($cover_id);
 					$fileDestination = $this->cacheFile($cover_id, $cover->getFilename(), $fileContents);
 					if (!is_null($fileDestination)) {
-						$this->streamFile($fileDestination);						
+						$this->streamImage($fileDestination);
 					} else {
-						return;
+						$this->streamImageStream($fileContents, $cover->getFilename(),
+							$this->getImageMimeType($cover->getFilename()), $cover->getFilesize());
 					}
 				} else {
-					$this->streamFile($cachedFilename);
+					$this->streamImage($cachedFilename);
 					exit();
 				}
 			}
@@ -396,17 +397,8 @@ class VCDPageFileHandler extends VCDBasePage {
 			if ($cover->isInDB()) {
 				
 				$imageClass = new VCDImage($cover->getImageID());
-				
-				@session_write_close();
-				@ob_end_clean();
-				header("Cache-Control: ");
-				header("Pragma: ");
-				header("Content-Type: application/octet-stream");
-				header("Content-Length: " .(string)($imageClass->getFilesize()) );
-				header('Content-Disposition: attachment; filename="'.$imageClass->getImageName().'"');
-				header("Content-Transfer-Encoding: binary\n");
-				echo $imageClass->getImageStream($cover->getImageID());
-								
+				$this->streamImageStream($imageClass->getImageStream($cover->getImageID()), 
+					$cover->getFilename(), $this->getImageMimeType($cover->getFilename()),$cover->getFilesize());
 				
 			} else {
 				
@@ -416,7 +408,7 @@ class VCDPageFileHandler extends VCDBasePage {
 					$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.COVER_PATH.$cover->getFilename();
 				}
 				
-				$this->streamFile($fullpath);
+				$this->streamImage($fullpath, null, $cover->getFilesize());
 				
 			}
 			
@@ -439,11 +431,9 @@ class VCDPageFileHandler extends VCDBasePage {
 				if (!file_exists($image)) {
 					$image = VCDDB_BASE.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'notfoundimagestar.gif';
 				}
-				$this->streamFile($image);	
-				
+				$this->streamImage($image);
 			}
 		}
-		
 	}
 	
 	/**
@@ -452,6 +442,63 @@ class VCDPageFileHandler extends VCDBasePage {
 	 */
 	private function doStream() {
 		
+	}
+	
+	
+	/**
+	 * Stream the image stream as an image to the browser
+	 *
+	 * @param string $stream | The imagestream in binary64 format
+	 * @param string $filename | The image file name
+	 * @param string $mimetype | The image mime type
+	 * @param int $filesize | The image filesize
+	 */
+	private function streamImageStream($stream, $filename, $mimetype, $filesize) {
+		session_write_close();
+		@ob_end_clean();
+		header("Cache-Control: cache");
+		header("Pragma: cache");
+		header("Content-Type: {$mimetype}"); 
+		header("Content-Disposition: inline; filename={$filename}");
+		header("Content-Length: " . $filesize);
+		header("Content-Transfer-Encoding: binary\n");
+		echo $stream;
+	}
+	
+	/**
+	 * Stream Image to the browser
+	 *
+	 * @param string $filepath | The local path to the file
+	 * @param string $mimeType | The mimetype of the image (example image/jpeg)
+	 * @param int $filesize | The image filesize
+	 * @return bool | Returns true on success
+	 */
+	private function streamImage($filepath, $mimeType=null, $filesize=null) {
+		session_write_close();
+		@ob_end_clean();
+		if (!is_file($filepath) || connection_status()!=0) {
+			return(false);
+		}
+		
+		
+		$filename = basename($filepath);
+		if (is_null($mimeType)) {
+			$mimeType = $this->getImageMimeType($filename);
+		}
+		
+		if (is_null($filesize) || $filesize==0) {
+			$filesize = filesize($filepath);
+		}
+		
+		header("Cache-Control: cache");
+		header("Pragma: cache");
+		header("Content-Type: {$mimeType}"); 
+		header("Content-Disposition: inline; filename={$filename}");
+		header("Content-Length: " . $filesize);
+		header("Content-Transfer-Encoding: binary\n");
+		readfile($filepath);
+		
+		return((connection_status()==0) && !connection_aborted());
 	}
 	
 	
@@ -469,7 +516,7 @@ class VCDPageFileHandler extends VCDBasePage {
 		}
 		
 		//to prevent long file from getting cut off from    //max_execution_time
-		set_time_limit(0);
+		@set_time_limit(0);
 		
 		$name = basename($path);
 		
@@ -538,6 +585,17 @@ class VCDPageFileHandler extends VCDBasePage {
 		} else {
 			return null;
 		}
+	}
+	
+	
+	/**
+	 * Get the correct mimetype of an image
+	 *
+	 * @param string $filename | The image filename
+	 * @return string | The complete mimetype name
+	 */
+	private function getImageMimeType($filename) {
+		return 'image/'.VCDUtils::getFileExtension($filename);
 	}
 	
 }
