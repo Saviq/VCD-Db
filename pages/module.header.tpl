@@ -1,4 +1,4 @@
-<div id="toplogo"></div>
+<div id="toplogo" onclick="location.href='{$config.home}'"></div>
 <div id="hdr" align="center" onclick="location.href='{$config.home}'"></div>
 <div id="bar">
 {if $isAuthenticated}
