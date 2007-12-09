@@ -160,7 +160,7 @@ class sourceSiteObj implements XMLable {
 		$xmlstr .= "<homepage><![CDATA[".$this->site_homepage."]]></homepage>\n";
 		$xmlstr .= "<command><![CDATA[".$this->site_getCommand."]]></command>\n";
 		$xmlstr .= "<classname>".$this->site_classname."</classname>\n";
-		$xmlstr .= "<fetchable>".$this->isFetchable."</fetchable>\n";
+		$xmlstr .= "<fetchable>".VCDUtils::booleanToInt($this->isFetchable)."</fetchable>\n";
 		$xmlstr .= "</sourcesite>\n";
 		return $xmlstr;
 	}

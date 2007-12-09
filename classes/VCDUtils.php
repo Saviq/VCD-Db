@@ -719,6 +719,21 @@ class VCDUtils {
 		return strtr($string, $trans_tbl);
 	}
 	
+	
+	/**
+	 * Assert boolean value to int.
+	 * Used by the toXML() functions.
+	 *
+	 * @param bool $value | The incoming boolean value
+	 * @return int | The casted int value
+	 */
+	static function booleanToInt($value=null) {
+		if ($value === true) {
+			return 1;
+		}
+		return 0;
+	}
+	
 
 }
 
