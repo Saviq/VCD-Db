@@ -37,7 +37,10 @@
 			</tr>
 			<tr>
 				<td>{$itemSourceSiteLogo}</td>
-				<td>{$itemRating}</td>
+				<td>{if is_numeric($sourceGrade)}
+				{section name=stars start=1 loop=11}{if $smarty.section.stars.index <= $sourceGrade}<img src="images/goldstar.gif" border="0" title="{$sourceGrade} {$translate.manager.stars}" alt="{$sourceGrade} {$translate.manager.stars}"/>{else}<img src="images/greystar.gif" border="0" title="{$sourceGrade} {$translate.manager.stars}" alt="{$sourceGrade} {$translate.manager.stars}"/>{/if}{/section}
+				{/if}
+				</td>
 			</tr>
 			{if $isAuthenticated}
 			<tr>
