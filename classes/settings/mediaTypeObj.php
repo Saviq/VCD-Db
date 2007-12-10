@@ -79,6 +79,15 @@ class mediaTypeObj implements XMLable {
 	}
 	
 	/**
+	 * Set the parent ID
+	 *
+	 * @param int $parent_id
+	 */
+	public function setParentID($parent_id) {
+		$this->parent_id = $parent_id;
+	}
+	
+	/**
 	 * Get mediatype description
 	 *
 	 * @return string

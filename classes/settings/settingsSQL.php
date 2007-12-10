@@ -275,17 +275,17 @@ class settingsSQL extends VCDConnection  {
 	public function updateMediaType(mediaTypeObj $mediaTypeObj) {
 		try {
 
-			
-		if (is_numeric($mediaTypeObj->getParentID()) && $mediaTypeObj->getParentID() > 0) {
-			$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = ".$this->db->qstr($mediaTypeObj->getName())." ,
-				  	  parent_id = ".$mediaTypeObj->getParentID().",
-				  	  media_type_description = ".$this->db->qstr($mediaTypeObj->getDescription())."
-				  	  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";	
-		} else {
-			$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = ".$this->db->qstr($mediaTypeObj->getName()).", 
-				  	  media_type_description = ".$this->db->qstr($mediaTypeObj->getDescription())."
-				  	  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";	
+		$parent_id = 'null';
+		if (is_numeric($mediaTypeObj->getParentID())) {
+			$parent_id = $mediaTypeObj->getParentID();
 		}
+			
+		
+		$query = "UPDATE $this->TABLE_mediatypes SET media_type_name = ".$this->db->qstr($mediaTypeObj->getName())." ,
+			  	  parent_id = ".$parent_id.",
+			  	  media_type_description = ".$this->db->qstr($mediaTypeObj->getDescription())."
+			  	  WHERE media_type_id = ".$mediaTypeObj->getmediaTypeID()."";	
+		
 			
 		
 		$this->db->Execute($query);

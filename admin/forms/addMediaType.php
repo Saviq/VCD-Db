@@ -43,13 +43,7 @@
 	<td><?php if (strcmp($WORKING_MODE, "edit") != 0) {
 		createDropDown($mtypes, "parent","Select parent","add", $parent_id); print " (if any)";
 	} else {
-		
-		if (is_numeric($mediaTypeObj->getParentID())) {
-			$parentObj = SettingsServices::getMediaTypeByID($mediaTypeObj->getParentID());
-			print $parentObj->getName();	
-		} else {
-			print "None";
-		}
+		createDropDown($mtypes, "parent","Select parent","add", $parent_id); print " (if any)";
 	}
 	?>
 	</td>

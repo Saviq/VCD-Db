@@ -564,6 +564,7 @@
 			elseif (isset($_POST['update'])) {
 				$obj = SettingsServices::getMediaTypeByID($_POST['id']);
 				$obj->setDescription($_POST['description']);
+				$obj->setParentID($_POST['parent']);
 				SettingsServices::updateMediaType($obj);
 				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
 				exit();
