@@ -557,37 +557,28 @@ class VCDUtils {
 	 * @return bool
 	 */
 	static function isDVDType($arrMediaTypes) {
+				
 		if (is_array($arrMediaTypes) && sizeof($arrMediaTypes) > 0) {
 
 			// Get the standars DVD and DVD-R mediaTypeObj
-			$objDVD =  SettingsServices::getMediaTypeByName('DVD');
-			$objDVDR = SettingsServices::getMediaTypeByName('DVD-R');
-
-			$isDVDType = false;
-			if ($objDVD instanceof mediaTypeObj && $objDVDR instanceof mediaTypeObj ) {
-				foreach ($arrMediaTypes as $mediaTypeObj) {
-					$curr_id = $mediaTypeObj->getmediaTypeID();
-					$dvd_id = $objDVD->getmediaTypeID();
-					$dvdr_id = $objDVDR->getmediaTypeID();
-					if ($curr_id == $dvd_id || $curr_id == $dvdr_id) {
-						$isDVDType = true;
-						break;
-					}
-
-					if (is_numeric($mediaTypeObj->getParentID()) && ($mediaTypeObj->getParentID() > 0)) {
-						if ($mediaTypeObj->getParentID() == $dvd_id || $mediaTypeObj->getParentID() == $dvdr_id) {
-							$isDVDType = true;
-							break;
-					}
+			$arrTypes = array();
+			$dvd =  SettingsServices::getMediaTypeByName('DVD');
+			$dvdr = SettingsServices::getMediaTypeByName('DVD-R');
+			if ($dvd instanceof mediaTypeObj) {
+				$arrTypes[$dvd->getmediaTypeID()] = $dvd->getmediaTypeID();
+			}
+			if ($dvdr instanceof mediaTypeObj) {
+				$arrTypes[$dvdr->getmediaTypeID()] = $dvdr->getmediaTypeID();
+			}
+			foreach ($arrMediaTypes as $mediaTypeObj) {
+				if (in_array($mediaTypeObj->getmediaTypeID(),$arrTypes) || 
+					in_array($mediaTypeObj->getParentID(),$arrTypes)) {
+					return true;
 				}
 			}
 		}
-
-			return $isDVDType;
-
-		} else {
-			return false;
-		}
+		
+		return false;
 	}
 
 
