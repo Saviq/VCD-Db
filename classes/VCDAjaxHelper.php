@@ -17,6 +17,14 @@
 
 class VCDAjaxHelper {
 	
+	/**
+	 * Format the results for 'getDataForMediaType()' 
+	 *
+	 * @param array $array | The incoming data
+	 * @param array $filter | The filter to apply
+	 * @param bool $multi | Multiple values or not
+	 * @return array | The formatted data array
+	 */
 	private static function formatSelArr($array, $filter = array(), $multi = false) {
 		if(!$multi) {
 			$data[] = array("value" => "null",
@@ -32,6 +40,13 @@ class VCDAjaxHelper {
 		return $data;
 	}
 
+	/**
+	 * Get the addional data entries when adding a new movie.
+	 *
+	 * @param array $queries | The query key
+	 * @param int $id | The selected mediaTypeID
+	 * @return array
+	 */
 	public static function getDataForMediaType($queries, $id) {
 		try {
 			$dataArr = array();
@@ -66,7 +81,7 @@ class VCDAjaxHelper {
 						case 'meta':
 							$metaDataTypeArr = SettingsServices::getMetadataTypes(VCDUtils::getUserID());
 							$header = VCDLanguage::translate('metadata.my');
-							$user = $_SESSION['user'];
+							$user = VCDUtils::getCurrentUser();
 							if ($user->getPropertyByKey(vcd_user::$PROPERTY_NFO)) {
 								$nfoMeta = SettingsServices::getMetadataById(metadataTypeObj::SYS_NFO);
 								$data[] = array("type" => "file",
@@ -146,6 +161,12 @@ class VCDAjaxHelper {
 							"multi" => true,
 							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("#", $dvdSettings['subs']), true)
 							);
+							$data[] = array("type" => "select",
+							"id" => "meta|".metaDataTypeObj::SYS_DVDLANG."|".metaDataTypeObj::SYS_DVDLANG."|".$mediaTypeObj->getmediaTypeID()."[]",
+							"label" => VCDLanguage::translate('dvd.languages'),
+							"multi" => true,
+							"data" => VCDAjaxHelper::formatSelArr($dvdObj->getLanguageList(), explode("#", $dvdSettings['lang']), true)
+							);
 
 
 							break;
@@ -164,7 +185,12 @@ class VCDAjaxHelper {
 		}
 	}
 	
-	
+	/**
+	 * Get RSS feed by id To display on the frontpage
+	 *
+	 * @param int $rss_id | The rss ID to fetch
+	 * @return array | Array containing the rss data.
+	 */
 	public static function getRss($rss_id) {
 	
 		$results = array();
