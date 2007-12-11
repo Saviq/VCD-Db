@@ -69,10 +69,10 @@
 		<field name="settings_key" type="C" size="50">
 			<NOTNULL/>
 		</field>
-		<field name="settings_value" type="X" size="255">
+		<field name="settings_value" type="C" size="255">
 			<NOTNULL/>
 		</field>
-		<field name="settings_description" type="X" size="255"/>
+		<field name="settings_description" type="C" size="255"/>
 		<field name="isProtected" type="I1"/>
 		<field name="settings_type" type="C" size="20"/>
 		<index name="vcd_Settings_1">
@@ -496,11 +496,6 @@
 			<descr>Index on comment date</descr>
 			<col>comment_date</col>
 		</index>
-		<index name="vcd_Comments_3">
-			<descr>Fulltext Index on the comment</descr>
-			<col>comment</col>
-			<FULLTEXT/>
-		</index>
 	</table>
 	<table name="vcd_UserLoans">
 		<field name="loan_id" type="I" size="10">
@@ -589,7 +584,7 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="title" type="X" size="150">
+		<field name="title" type="C" size="150">
 			<NOTNULL/>
 		</field>
 		<field name="category_id" type="I">
