@@ -773,7 +773,7 @@ class VCDXMLExporter {
 		try {
 			
 			// Cut some (inifinite) slack ..
-			set_time_limit(0);
+			@set_time_limit(0);
 			
 			
 			$xml = "<?xml version=\"1.0\" encoding=\"".self::XML_ENCODING."\" ?>";
@@ -1041,7 +1041,7 @@ class VCDXMLExporter {
 	       return(FALSE);
 	
 	   //to prevent long file from getting cut off from    //max_execution_time
-	   set_time_limit(0);
+	   @set_time_limit(0);
 	
 	   $name=basename($path);
 	   //filenames in IE containing dots will screw up the
@@ -1107,7 +1107,7 @@ class VCDSQLExporter extends VCDConnection {
 		try {
 		
 			// Cut the exporter some slack ..
-			set_time_limit(60*10);
+			@set_time_limit(60*10);
 			
 			if ($exportTables) {
 				$this->exportTables();
@@ -1220,7 +1220,7 @@ class VCDSQLExporter extends VCDConnection {
 	       return(FALSE);
 	
 	   //to prevent long file from getting cut off from    //max_execution_time
-	   set_time_limit(0);
+	   @set_time_limit(0);
 	
 	   $name=basename($path);
 	   //filenames in IE containing dots will screw up the

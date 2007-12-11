@@ -369,7 +369,7 @@ function deleteRecord($recordID, $recordType) {
 			if (isset($_GET['mode']) && strcmp($_GET['mode'], 'full') == 0) {
 
 				// Add time limit since this can be very time consuming operation.
-				set_time_limit(300);
+				@set_time_limit(300);
 
 				if (UserServices::deleteUser($recordID, true))
 					header("Location: ./?page=".$recordType."");

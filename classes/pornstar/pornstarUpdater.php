@@ -16,7 +16,7 @@
  ?>
 <?php
 require_once(VCDDB_BASE.'/classes/external/nusoap.php');
-set_time_limit(0);
+@set_time_limit(0);
 
 class PornstarProxy {
 
