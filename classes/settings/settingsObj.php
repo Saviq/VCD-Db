@@ -140,7 +140,7 @@ class settingsObj implements XMLable {
 		$xmlstr .= "<key>".$this->key."</key>\n";
 		$xmlstr .= "<value>".$this->value."</value>\n";
 		$xmlstr .= "<description>".$this->description."</description>\n";
-		$xmlstr .= "<protected>".$this->isProtected."</protected>\n";
+		$xmlstr .= "<protected>".VCDUtils::booleanToInt($this->isProtected)."</protected>\n";
 		$xmlstr .= "<type>".$this->type."</type>\n";
 		$xmlstr .= "</setting>\n";
 		

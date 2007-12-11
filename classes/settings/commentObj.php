@@ -154,7 +154,7 @@ class commentObj implements XMLable {
 		$xmlstr  = "<comment>\n";
 		$xmlstr .= "<date>".$this->date."</date>\n";
 		$xmlstr .= "<text><![CDATA[".$this->comment."]]></text>\n";
-		$xmlstr .= "<isPrivate>".(string)$this->isPrivate."</isPrivate>\n";
+		$xmlstr .= "<isPrivate>".VCDUtils::booleanToInt($this->isPrivate)."</isPrivate>\n";
 		$xmlstr .= "</comment>\n";
 		
 		return $xmlstr;
