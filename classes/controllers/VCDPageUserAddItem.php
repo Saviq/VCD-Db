@@ -94,8 +94,15 @@ class VCDPageUserAddItem extends VCDBasePage {
 					$searchSite  = $this->getParam('fetchsite',true);
 										
 					if ((!is_null($searchTitle)) && (!is_null($searchSite))) {
-						// Show the search results
-						$this->doFetchSiteResults($searchSite, $searchTitle);
+						
+						// Check if search string is an item ID
+						if (!is_null($this->getParam('searchIsId',true))) {
+							$this->doFetchItem($searchSite, $searchTitle);
+						} else {
+							// Show the search results
+							$this->doFetchSiteResults($searchSite, $searchTitle);
+						}
+						
 					} else {
 						// Show the selected fetched item
 						$site   = $this->getParam('site');
