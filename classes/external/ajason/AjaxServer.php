@@ -156,7 +156,7 @@
 
          $response->setServerVersion( AjaxServer::version );
 
-         header( 'Content-Type', 'text/json' );
+         header( 'Content-Type', 'application/json' );
          return $json->encode( $response );
       }
 
