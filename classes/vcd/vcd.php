@@ -1076,8 +1076,8 @@ class vcd_movie implements IVcd  {
 
 			// Check if user is logged in and is using custom index
 			if (VCDUtils::isLoggedIn()) {
-				$user = $_SESSION['user'];
-				if ($user->getPropertyByKey('USE_INDEX')) {
+				$user = VCDUtils::getCurrentUser();
+				if ($user->getPropertyByKey(vcd_user::$PROPERTY_INDEX)) {
 					// Check for movie marked with custom key
 					$cusKeyArr = $this->SQL->getMovieByCustomKey($user->getUserID(), $keyword);
 					if (is_array($cusKeyArr) && sizeof($cusKeyArr) > 0) {
@@ -1121,8 +1121,8 @@ class vcd_movie implements IVcd  {
 
 			// Check if user is logged in and is using custom index
 			if (VCDUtils::isLoggedIn() && !is_null($title)) {
-				$user = $_SESSION['user'];
-				if ($user->getPropertyByKey('USE_INDEX')) {
+				$user = VCDUtils::getCurrentUser();
+				if ($user->getPropertyByKey(vcd_user::$PROPERTY_INDEX)) {
 					// Check for movie marked with custom key
 					$cusKeyArr = $this->SQL->getMovieByCustomKey($user->getUserID(), $title);
 					if (is_array($cusKeyArr) && sizeof($cusKeyArr) > 0) {

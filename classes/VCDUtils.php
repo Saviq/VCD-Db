@@ -121,7 +121,7 @@ class VCDUtils {
 	 */
 	static function isLoggedIn() {
 		if (isset($_SESSION['user']) && $_SESSION['user'] instanceof userObj) {
-			return true;
+			return VCDAuthentication::checkToken();
 		} else {
 			return false;
 		}

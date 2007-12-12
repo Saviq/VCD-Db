@@ -508,7 +508,7 @@ class VCDXMLImporter {
 				$mediaTypeObj = SettingsServices::getMediaTypeByName((string)$element->mediatype);
 			}
 			
-			$vcd->addInstance($_SESSION['user'], $mediaTypeObj, (string)$element->cds, (string)$element->dateadded);
+			$vcd->addInstance(VCDUtils::getCurrentUser(), $mediaTypeObj, (string)$element->cds, (string)$element->dateadded);
 			
 			$movieCatObj = SettingsServices::getMovieCategoryByID((string)$element->category_id);
 			if ($movieCatObj instanceof movieCategoryObj ) {

@@ -57,7 +57,7 @@ abstract class VCDProxy {
             if (!$this->forceNuSoap && extension_loaded('soap')) {
                        	
             	if (VCDUtils::isLoggedIn()) {
-					$userObj = $_SESSION['user'];
+					$userObj = VCDUtils::getCurrentUser();
 					$this->proxy = new SoapClient($this->wsdl, 
 						array('login' => $userObj->getUsername(), 
 							'password' => $userObj->getPassword(),
@@ -79,7 +79,7 @@ abstract class VCDProxy {
             	$this->proxy = new nusoap_client($this->wsdl, true, false,false,false,false, $this->timeout, $this->responseTimeout);
 				$this->proxy->soap_defencoding = 'UTF-8';
 				if (VCDUtils::isLoggedIn()) {
-					$userObj = $_SESSION['user'];
+					$userObj = VCDUtils::getCurrentUser();
 					$this->proxy->setCredentials($userObj->getUsername(), $userObj->getPassword(), 'basic');
 				} else {
 					$this->proxy->setCredentials('vcddb', VCDDB_SOAPSECRET, 'basic');
@@ -222,7 +222,7 @@ abstract class VCDProxy {
                 $cachedName = md5($cachedName);
                 VCDCache::set($cachedName, $data, $cacheMap[$func]);
                 
-            }
+            } 
                 
         } catch (Exception $ex) {
             throw new VCDProgramException('Error in cache manager: ' . $ex->getMessage(), $ex->getCode());

@@ -162,10 +162,11 @@ class VCDAuthentication {
 	 * @return bool
 	 */
 	public static final function checkToken() {
-		$token = md5(VCDDB_BASE);
-		if ( isset($_SESSION['vcdtoken']) && $_SESSION['vcdtoken'] !== $token) {
-			return false;
-		}
+		if (isset($_SESSION['user']) 
+			&& isset($_SESSION['vcdtoken']) 
+			&& $_SESSION['vcdtoken'] != md5(VCDDB_BASE)) {
+				return false;
+			}
 		return true;
 	}
 	
