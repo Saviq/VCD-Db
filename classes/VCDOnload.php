@@ -74,6 +74,11 @@ if (isset($_GET['do']) && strcmp($_GET['do'],'logout') == 0) {
 // Only check for cookie if user is not logged in
 if (!isset($_SESSION['user'])) {
 	VCDAuthentication::checkCookie();
+} else {
+	if (!VCDAuthentication::checkToken()) {
+		session_destroy();
+		redirect();
+	}
 }
 
 

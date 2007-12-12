@@ -154,7 +154,7 @@ class VCDPageAuthenticate extends VCDBasePage {
 				
 			// Add userObj to session
 			$_SESSION['user'] = $userObj;
-			
+			VCDAuthentication::setToken();
 			
 			// Check if we are supposed to log this event ..
 			if (VCDLog::isInLogList(VCDLog::EVENT_LOGIN )) {
