@@ -27,10 +27,9 @@ class VCDFetch_imdb extends VCDFetch {
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
 		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
-		//'cast' 		=> '/<a href="\/name\/nm([^"]+)\/">([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/',
 		'runtime' 	=> '([0-9]+) min',
 		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)>([^<]*)</a>',
+		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)/">([^<]*)</a>',
 		'plot'		=> '<h5>Plot Outline:</h5>([^\<]*)<'
 		);
 
