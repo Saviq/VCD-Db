@@ -98,7 +98,7 @@ function sendMail($mail_to, $subject='', $body='', $use_html=false) {
 		array(
 			"From: $from",
 			"To: $to",
-			"Subject: $subject ..",
+			"Subject: ".utf8_decode($subject),
 			"Content-Type: $content_type",
 			"Date: ".strftime("%a, %d %b %Y %H:%M:%S %Z")
 		),
@@ -196,7 +196,7 @@ function createReminderEmailBody($borrower_name, $arrLoanObj) {
 
 	$msg = sprintf(VCDLanguage::translate('mail.returnmovies1'), $borrower_name);
 	foreach ($arrLoanObj as $loanObj) {
-		$msg .= "<br>" . $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date(VCDConfig::getDateFormat(), $loanObj->getDateOut());
+		$msg .= "<br>" . $loanObj->getCDTitle() . " - ".VCDLanguage::translate('loan.since')." " . date(str_replace('%','',VCDConfig::getDateFormat()), $loanObj->getDateOut());
 	}
 	$msg .= "<br><br>";
 	$msg .= sprintf(VCDLanguage::translate('mail.returnmovies2'), VCDUtils::getCurrentUser()->getFullname());
