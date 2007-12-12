@@ -274,6 +274,8 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				$this->assign('sourceDirector', $this->sourceObj->getDirector());
 				// Overwrite the cast entry
 				$this->assign('sourceActors', $this->sourceObj->getCast(false));
+				// Overwrite the imdb genre list, we don't want it translated
+				$this->assign('sourceCategoryList',$this->sourceObj->getGenre());
 			} 
 		}
 		
