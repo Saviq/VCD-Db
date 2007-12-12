@@ -13,7 +13,7 @@ vImages[{$i.index}] = ['{$i.image}',145, 205];
 	<td valign="top" width="170">{$image}
 	<br/><div align="center"><strong>{$iafdlink}</strong></div></td>
 	<td valign="top" style="padding-left:3px;text-indent:0px">
-	<strong>{$translate.pornstar.name}:</strong>{$name}<br/>
+	<strong>{$translate.pornstar.name}:</strong> {$name}<br/>
 	<strong>{$translate.pornstar.web}:</strong> {$homepage}<br/>
 	<strong>{$translate.pornstar.moviecount}:</strong> {$moviecount}<br/><br/>
 		
