@@ -195,6 +195,9 @@ class VCDAjaxHelper {
 	
 		$results = array();
 		$rssFetch = new lastRSS(CACHE_FOLDER, RSS_CACHE_TIME);
+		$rssFetch->cp = 'UTF-8';
+		$rssFetch->items_limit = 10;
+		
 		$obj = SettingsServices::getRssfeed($rss_id);
 		$rss = $rssFetch->Get($obj->getFeedUrl());
 		if ($rss && $rss['items_count'] > 0) {

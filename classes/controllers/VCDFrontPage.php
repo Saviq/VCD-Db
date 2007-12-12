@@ -35,6 +35,7 @@ class VCDFrontPage extends VCDBasePage {
 				if (is_null($this->rssFetch)) {
 					$this->rssFetch = new lastRSS(CACHE_FOLDER,RSS_CACHE_TIME);
 					$this->rssFetch->cp = 'UTF-8';
+					$this->rssFetch->items_limit = 10;
 				}
 				
 				$this->doUserRssList();
