@@ -1,6 +1,6 @@
 <?php
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
-	define("CURR_VERSION","0.990");
+	define("CURR_VERSION","0.991");
 	require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/includes.php');
 	
 	class upgrader extends VCDConnection {
