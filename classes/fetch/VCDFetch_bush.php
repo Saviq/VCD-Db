@@ -20,7 +20,7 @@ class VCDFetch_bush extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title' 	  => 'class="sdTitle" nowrap="nowrap">([^<]*)(<h2|</td>)',
+		'title' 	  => '<h1>([^<]*)<h1>',
 		'year'  	  => '<th>Production Year:</th>([^<]*)<td align="center">([^<]*)</td>',
 		'studio'	  => 'searchtype=Browse&Studio_ID=([0-9]{1,5})">([^<]*)</td>',
 		'genre'	 	  => '_searchtype=Browse&Category_ID=([0-9]{1,5})">([^<]*)</a></li>',
@@ -151,12 +151,30 @@ class VCDFetch_bush extends VCDFetch {
 	public function showSearchResults() {
 		
 		$this->setMaxSearchResults(50);
-		$regx = 'class="tgTitle">([^<]*)</td></tr><tr><td valign="top" align="center" class="tgImage"><div style="margin-top:5px;"><a href="stock_detail.asp([^<]*)Title_ID=([0-9]{1,6})">';
-		$results = parent::generateSimpleSearchResults($regx,3,1);
+		
+		
+		$regxIds = '/<a href="stock_detail.asp\?Title_ID=([0-9]{1,6})">/';
+		$regxTitles = '/<td valign="middle" align="center" class="tgTitle">([^<]*)<\/td>/';
+		
+		$results = array();
+		preg_match_all($regxIds, $this->getContents(), $matchesIds);
+		preg_match_all($regxTitles, $this->getContents(), $matchesTitles);
+		
+		if (is_array($matchesIds) && is_array($matchesTitles)) {
+			$ids = $matchesIds[1];
+			$titles = $matchesTitles[1];
+			
+			for ($i=0;$i<sizeof($titles);$i++) {
+				$results[] = array('id' => $ids[$i], 'title' => $titles[$i]);
+			}
+		}
+				
 		
 		return parent::generateSearchSelection($results);
 					
 	}
+	
+	
 	
 	
 	/**
