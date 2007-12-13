@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Top felhasználók</string>
 		<string id="menu.wishlistpublic">Mások kívánságlistája</string>
 		<string id="menu.statistics">Statisztikák</string>
+		<string id="menu.showallusersmovies">Összes film</string>
 
 
 		<!-- login based strings -->
@@ -39,6 +40,12 @@
 		<string id="login.password">Password</string>
 		<string id="login.remember">Emlékezz rám</string>
 		<string id="login.info">Hagyd ezt a mezõt üresen ha &lt;b&gt;nem&lt;/b&gt; akarod a passwordödet megváltoztatni.</string>
+		<string id="login.failed">Sikertelen bejelentkezés</string>
+		<string id="login.tryagain">Próbálja újra</string>
+		<string id="login.deleted">A felhasználói fiókját törölték.&lt;br /&gt;Lépjen kapcsolatba az adminisztrátorral!</string>
+		<string id="login.lost">Vagy elvesztette a jelszavát?</string>
+		<string id="login.claim">Kattintson ide a jelszava elküldéséhez</string>
+		<string id="login.recover">Adja meg a felhasználónevét és e-mail címét</string>
 
 
 		<!-- Register based strings -->
@@ -58,8 +65,9 @@
 		<string id="userproperties.use_index">Használjon index szám mezõt a médiák azonosítójának</string>
 		<string id="userproperties.seen_list">Tartsd meg ezt a filmet, hogy láthassam</string>
 		<string id="userproperties.playoption">Use client playback options</string>
-		<string id="userproperties.nfo">Enable NFO files?</string>
+		<string id="userproperties.nfo">Engedélyezi az NFO fájlokat?</string>
 		<string id="userproperties.default_image">Képes nézet legyen az alapértelmezett?</string>
+		<string id="userproperties.nfo_image">NFO fájlok képként jelenítjenek meg?</string>
 
 
 		<!-- strings for user settings -->
@@ -173,6 +181,8 @@
 		<string id="dvd.aspect">Képméret</string>
 		<string id="dvd.audio">Hang</string>
 		<string id="dvd.subtitles">Felirat</string>
+		<string id="dvd.languages">Beszélt nyelv</string>
+		<string id="dvd.default">Alapértelmezett DVD beállítások</string>
 
 
 		<!-- My movies page strings -->
@@ -206,6 +216,8 @@
 		<string id="mymovies.find">Megtalálni egy filmet</string>
 		<string id="mymovies.notseen">Csak olyan filmeket javasolj amiket még nem láttam</string>
 		<string id="mymovies.friends">Barátaim akik CD-ket kértek kölcsön tõllem</string>
+		<string id="mymovies.overviewdetail">Részletes gyűjtemény áttekintő</string>
+		<string id="mymovies.pdf">exportálás PDF-ként</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,6 +256,7 @@
 		<string id="addmovie.selected">Kiválasztott címek</string>
 		<string id="addmovie.infolist">A filmek az adott címre való kettős kattintással vagy a nyilak segítségével választhatók ki..&lt;br/&gt;A gyorsabb kereséshez használhatod a billentyűzet betűit is.</string>
 		<string id="addmovie.notitles">Nincs másik felhasználónak ez a film hozzáadva a Filmtárba</string>
+		<string id="addmovie.id">A bevitt adat azonosító</string>
 
 
 		<!-- strings for XML actions -->
@@ -330,6 +343,10 @@
 		<string id="pornstar.name">Név</string>
 		<string id="pornstar.web">Website</string>
 		<string id="pornstar.moviecount">Film számláló</string>
+		<string id="pornstar.viewall">összes megtekintése</string>
+		<string id="pornstar.viewactive">Aktívak megtekintése</string>
+		<string id="pornstar.pornstars">Pornó sztárok</string>
+		<string id="pornstar.begin">betűvel kezdve</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -413,5 +430,34 @@
 		<string id="misc.toggle">Előnézet ki/bekapcsolása</string>
 		<string id="misc.toggle_on">be</string>
 		<string id="misc.toggle_off">ki</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Nem adtam filmet a listához</string>
+		<string id="js.loanborrower">Kölcsönző kiválasztása</string>
+		<string id="js.invalidname">Írjon be egy nevet</string>
+		<string id="js.deleteborrower">Törli a kölcsönzőt és az összes kölcsönzését?</string>
+		<string id="js.notitle">Hiányzik a cím</string>
+		<string id="js.noyear">Válasszon évet</string>
+		<string id="js.invalid">Érvénytelen bevitel</string>
+		<string id="js.nomediatype">Válasszon média típust</string>
+		<string id="js.nocategory">Válasszon kategóriát</string>
+		<string id="js.nocdcount">Válassza ki a CD-k számát</string>
+		<string id="js.url">Írja be a pontos kép URL-t</string>
+		<string id="js.delete">Törli a rekordot?</string>
+		<string id="js.removeactor">Eltávolítja a színészt a filmből?</string>
+		<string id="js.norss">A folytatáshoz válasszon legalább egy RSS feed-et</string>
+		<string id="js.deletemeta">Eltávolítja a meta-adatokat és az összes hozzá tartozó rekordot?</string>
+		<string id="js.noupload">Válassza ki a feltöltendő fájlt</string>
+		<string id="js.noxmlthumb">Válasszon ki egy XML fájlt a bélyegképeknek, vagy vegye ki a pipát a bélyegképek jelölőnégyzetből!</string>
+		<string id="js.nocriteria">Kérem adja meg a keresési feltételt</string>
+		<string id="js.lastcopy">Ez az egyetlen példány az adatbázisban.&lt;br&gt;Az teljes film információt törölni fogom.&lt;br&gt;Folytassam a törlést?</string>
+		<string id="js.noselection">Válasszon ki legalább egy filmet a folytatáshoz</string>
+		<string id="js.nomediaselection">Válassza ki a média típust az összes címhez</string>
+		<string id="js.reqname">Kérem adja meg a teljes nevét</string>
+		<string id="js.requsername">Kérem adja meg a felhasználónevét</string>
+		<string id="js.requsername3">A felhasználónévnek legalább 3 karakter hosszúnak kell lennie</string>
+		<string id="js.reqpassword">A jelszónak legalább 5 karakter hosszúnak kell lennie</string>
+		<string id="js.reqpassnomatch">A jelszavak nem egyeznek!</string>
 	</strings>
 </language>

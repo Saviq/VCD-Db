@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with VCD-db Translator (http://vcddb.konni.com/translator) -->
+<!-- To update or create a new language, use the online translator! -->
+<!-- Original Author: danger luci -->
+<language>
+	<id>ro_ro</id>
+	<name>Romanian</name>
+	<charset>UTF-8</charset>
+	<strings>
+
+
+		<!-- Language specific keys -->
+		<string id="language.type">ENG</string>
+		<string id="language.name">English</string>
+		<string id="language.charset">UTF-8</string>
+
+
+		<!-- user menu keys -->
+		<string id="menu.mine">MENIU</string>
+		<string id="menu.settings">Setarile mele</string>
+		<string id="menu.movies">Filmele mele</string>
+		<string id="menu.addmovie">Adauga film nou</string>
+		<string id="menu.loansystem">Sistem de inchiriere</string>
+		<string id="menu.wishlist">Filmele mele dorite</string>
+		<string id="menu.categories">Categorii</string>
+		<string id="menu.rss">My Rss Feeds</string>
+		<string id="menu.controlpanel">Panou de control</string>
+		<string id="menu.register">Inregistreaza-te</string>
+		<string id="menu.logout">Iesire din cont</string>
+		<string id="menu.submit">Termina</string>
+		<string id="menu.topusers">Top useri</string>
+		<string id="menu.wishlistpublic">Alte filme dorite</string>
+		<string id="menu.statistics">Statistici</string>
+		<string id="menu.showallusersmovies">Toate filmele</string>
+
+
+		<!-- login based strings -->
+		<string id="login.login">Autentifica-te</string>
+		<string id="login.username">Username</string>
+		<string id="login.password">Parola</string>
+		<string id="login.remember">Remember me</string>
+		<string id="login.info">Lasa acest spatiu liber daca nu doresti sa-ti schimbi parola</string>
+
+
+		<!-- Register based strings -->
+		<string id="register.title">Inregistrare</string>
+		<string id="register.fullname">Nume</string>
+		<string id="register.email">Email</string>
+		<string id="register.again">Reintrodu parola</string>
+		<string id="register.ok">Inregistrare cu succes</string>
+
+
+		<!-- strings for user properties -->
+		<string id="userproperties.notify">Trimite-mi un email cand un nou film este adaugat</string>
+		<string id="userproperties.wishlist">Permite celorlalti sa vizualizeze lista mea de file dorite</string>
+		<string id="userproperties.seen_list">Retine filmele pe care le-am vazut</string>
+	</strings>
+</language>
