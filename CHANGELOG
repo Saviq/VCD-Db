@@ -1,3 +1,28 @@
+0.991
+Fixed   - The JSON responses now use the correct mimetype (application/json)
+Fixed   - Fixed header output for the generated javascripts.
+Added   - New default internal file level cache manager when using SOAP endpoint instead of db.
+Added   - Added check to avoid shared sessions between 2 or more vcddb's on same domain name.
+Fixed   - Bug in the Imdb fetch class for the country section fixed.
+Updated - Filmweb.pl and bushdvd.com fetch classes have been updated.
+Updated - Several languages have been updated, german, polish and hungarian.
+Fixed   - Some popups has invalid background.
+Fixed   - The rss page was still using PHP short tags.
+Fixed   - Save and close in the pornstar popup now actually closes the window.
+Fixed   - [#180] Parent can now be selected when changing media type in admin panel.
+Fixed   - [#172] Clicking on the top logo now works again as "home" link.
+Fixed   - [#176] Fething item by ID is now enabled again.
+Fixed	- [#174] Spoken languages can now be selected when adding a new movie.
+Fixed	- [#173] The missing star ratings are now back.
+Fixed	- [#170] Fixed error with frontpage RSS feeds throwing exception.
+Fixed	- [#167] The Greek,Hebrew,Vietnamese and Japanese are now included.
+Fixed	- [#057] Categories are now stored in native language.
+Fixed	- [#183] Fixed index creation bugs with the installer using mysql and innodb.
+Fixed	- [#181] Images from the ImageController now support browser caching.
+Fixed	- [#175] Mod_rewrite did not behave with non A-Z characters.
+Fixed   - [#177] Mod_rewrite fix for NFO files.
+Fixed	- [#168] XML exported data did not validate.
+
 0.990
 Added   - Friendly Url support using apache mod_rewrite.
 Added   - New tools added to the "admin panel": fix duplicate entries, broken images, create .htaccess file and more.
