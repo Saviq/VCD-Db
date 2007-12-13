@@ -20,6 +20,8 @@
   I8: 8-byte integer
   F:  Floating point number
   N:  Numeric or decimal number
+  
+  Index types: CLUSTERED, BITMAP, UNIQUE, FULLTEXT, HASH
 
 -->
 <schema version="0.3">
@@ -30,6 +32,16 @@
 		<field name="media_type_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_CoversAllowedOnMediatypes_1">
+			<descr>Index on the type ID</descr>
+			<col>cover_type_id</col>
+		</index>
+		<index name="vcd_CoversAllowedOnMediatypes_2">
+			<descr>Unique on each pair</descr>
+			<col>cover_type_id</col>
+			<col>media_type_id</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_Sessions">
 		<field name="session_id" type="C" size="50">
@@ -44,6 +56,10 @@
 		<field name="session_ip" type="C" size="15">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_Sessions_1">
+			<descr>Index on the user ID</descr>
+			<col>session_user_id</col>
+		</index>
 	</table>
 	<table name="vcd_Settings">
 		<field name="settings_id" type="I" size="10">
@@ -53,12 +69,17 @@
 		<field name="settings_key" type="C" size="50">
 			<NOTNULL/>
 		</field>
-		<field name="settings_value" type="X" size="255">
+		<field name="settings_value" type="C" size="255">
 			<NOTNULL/>
 		</field>
-		<field name="settings_description" type="X" size="255"/>
+		<field name="settings_description" type="C" size="255"/>
 		<field name="isProtected" type="I1"/>
 		<field name="settings_type" type="C" size="20"/>
+		<index name="vcd_Settings_1">
+			<descr>Unique index on the key</descr>
+			<col>settings_key</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_CoverTypes">
 		<field name="cover_type_id" type="I" size="10">
@@ -71,10 +92,10 @@
 			<NOTNULL/>
 		</field>
 		<field name="cover_type_description" type="C" size="100"/>
-		<index name="userName">
-			<descr>Put a index on vcd ID and the cover type ID</descr>
-			<col>vcd_id</col>
-			<col>cover_type_id</col>
+		<index name="vcd_CoverTypes_1">
+			<descr>Index on the typename</descr>
+			<col>cover_type_name</col>
+			<UNIQUE/>
 		</index>
 	</table>
 	<table name="vcd_MediaTypes">
@@ -89,6 +110,14 @@
 		</field>
 		<field name="parent_id" type="I"/>
 		<field name="media_type_description" type="C" size="100"/>
+		<index name="vcd_MediaTypes_1">
+			<descr>Index on the typename</descr>
+			<col>media_type_name</col>
+		</index>
+		<index name="vcd_MediaTypes_2">
+			<descr>Index on the parent ID</descr>
+			<col>parent_id</col>
+		</index>
 	</table>
 	<table name="vcd_UserRoles">
 		<field name="role_id" type="I" size="10">
@@ -101,6 +130,11 @@
 			<NOTNULL/>
 		</field>
 		<field name="role_description" type="C" size="100"/>
+		<index name="vcd_UserRoles_1">
+			<descr>Index on the role name</descr>
+			<col>role_name</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_UserProperties">
 		<field name="property_id" type="I" size="10">
@@ -113,6 +147,11 @@
 			<NOTNULL/>
 		</field>
 		<field name="property_description" type="C" size="80"/>
+		<index name="vcd_UserProperties_1">
+			<descr>Index on the property name</descr>
+			<col>property_name</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_PropertiesToUser">
 		<field name="user_id" type="I">
@@ -121,6 +160,20 @@
 		<field name="property_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_PropertiesToUser_1">
+			<descr>Unique on each pair</descr>
+			<col>user_id</col>
+			<col>property_id</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_PropertiesToUser_2">
+			<descr>Index on the user ID</descr>
+			<col>user_id</col>
+		</index>
+		<index name="vcd_PropertiesToUser_3">
+			<descr>Index on the Property ID</descr>
+			<col>property_id</col>
+		</index>
 	</table>
 	<table name="vcd_SourceSites">
 		<field name="site_id" type="I" size="10">
@@ -142,6 +195,16 @@
 		</field>
 		<field name="site_classname" type="C" size="20"/>
 		<field name="site_image" type="C" size="50"/>
+		<index name="vcd_SourceSites_1">
+			<descr>Unique on the site name</descr>
+			<col>site_name</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_SourceSites_2">
+			<descr>Unique on the site alias</descr>
+			<col>site_alias</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_Users">
 		<field name="user_id" type="I" size="10">
@@ -171,6 +234,15 @@
 		<field name="date_created" type="T">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_Users_1">
+			<descr>Unique on the username</descr>
+			<col>user_name</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_Users_2">
+			<descr>Index on the role ID</descr>
+			<col>role_id</col>
+		</index>
 	</table>
 	<table name="vcd_Images">
 		<field name="image_id" type="I" size="10">
@@ -189,6 +261,10 @@
 			<NOTNULL/>
 		</field>
 		<field name="image" type="B" size="16"/>
+		<index name="vcd_Images_1">
+			<descr>Index on the image name</descr>
+			<col>name</col>
+		</index>
 	</table>
 	<table name="vcd_MovieCategories">
 		<field name="category_id" type="I" size="10">
@@ -200,6 +276,11 @@
 		<field name="category_name" type="C" size="100">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_MovieCategories_1">
+			<descr>Unique on the category name</descr>
+			<col>category_name</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_VcdToUsers">
 		<field name="vcd_id" type="I">
@@ -217,12 +298,24 @@
 		<field name="date_added" type="T">
 			<NOTNULL/>
 		</field>
-		<index name="vcdtouser">
-			<descr>Create the primary index</descr>
+		<index name="vcd_VcdToUsers_1">
+			<descr>Unique on the 3 who bind the key</descr>
 			<col>vcd_id</col>
 			<col>user_id</col>
 			<col>media_type_id</col>
 			<UNIQUE/>
+		</index>
+		<index name="vcd_VcdToUsers_2">
+			<descr>Index on the user ID</descr>
+			<col>user_id</col>
+		</index>
+		<index name="vcd_VcdToUsers_3">
+			<descr>Index on the mediatype ID</descr>
+			<col>media_type_id</col>
+		</index>
+		<index name="vcd_VcdToUsers_4">
+			<descr>Index on date added</descr>
+			<col>date_added</col>
 		</index>
 	</table>
 	<table name="vcd_Covers">
@@ -249,6 +342,22 @@
 			<NOTNULL/>
 		</field>
 		<field name="image_id" type="I"/>
+		<index name="vcd_Covers_1">
+			<descr>Index on the vcd ID</descr>
+			<col>vcd_id</col>
+		</index>
+		<index name="vcd_Covers_2">
+			<descr>Index on the cover typeID</descr>
+			<col>cover_type_id</col>
+		</index>
+		<index name="vcd_Covers_3">
+			<descr>Index on the userID</descr>
+			<col>user_id</col>
+		</index>
+		<index name="vcd_Covers_4">
+			<descr>Index on the image_id</descr>
+			<col>image_id</col>
+		</index>
 	</table>
 	<table name="vcd_Pornstars">
 		<field name="pornstar_id" type="I" size="10">
@@ -263,6 +372,10 @@
 		<field name="homepage" type="C" size="100"/>
 		<field name="image_name" type="C" size="100"/>
 		<field name="biography" type="X" size="16"/>
+		<index name="vcd_Pornstars_1">
+			<descr>Index on the name</descr>
+			<col>name</col>
+		</index>
 	</table>
 	<table name="vcd_VcdToPornstars">
 		<field name="vcd_id" type="I">
@@ -271,11 +384,19 @@
 		<field name="pornstar_id" type="I">
 			<NOTNULL/>
 		</field>
-		<index name="pornstartomovie">
-			<descr>Put a unique index on pornstar_id and the movie</descr>
+		<index name="vcd_VcdToPornstars_1">
+			<descr>Unique on the movie ID and the pornstar ID</descr>
 			<col>vcd_id</col>
 			<col>pornstar_id</col>
 			<UNIQUE/>
+		</index>
+		<index name="vcd_VcdToPornstars_2">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
+		<index name="vcd_VcdToPornstars_3">
+			<descr>Index on the pornstar ID</descr>
+			<col>pornstar_id</col>
 		</index>
 	</table>
 	<table name="vcd_PornCategories">
@@ -296,6 +417,16 @@
 		<field name="vcd_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_UserWishList_1">
+			<descr>Unique on the user ID and the movie ID</descr>
+			<col>user_id</col>
+			<col>vcd_id</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_UserWishList_2">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
 	</table>
 	<table name="vcd_VcdToPornCategories">
 		<field name="vcd_id" type="I">
@@ -304,6 +435,20 @@
 		<field name="category_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_VcdToPornCategories_1">
+			<descr>Unique on the movie ID and the category ID</descr>
+			<col>vcd_id</col>
+			<col>category_id</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_VcdToPornCategories_2">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
+		<index name="vcd_VcdToPornCategories_3">
+			<descr>Index on the category ID</descr>
+			<col>category_id</col>
+		</index>
 	</table>
 	<table name="vcd_PornStudios">
 		<field name="studio_id" type="I" size="10">
@@ -312,9 +457,14 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="studio_name" type="X" size="150">
+		<field name="studio_name" type="C" size="150">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_PornStudios_1">
+			<descr>Unique on the studio name</descr>
+			<col>studio_name</col>
+			<UNIQUE/>
+		</index>
 	</table>
 	<table name="vcd_Comments">
 		<field name="comment_id" type="I" size="10">
@@ -338,6 +488,14 @@
 		<field name="isPrivate" type="I1">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_Comments_1">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
+		<index name="vcd_Comments_2">
+			<descr>Index on comment date</descr>
+			<col>comment_date</col>
+		</index>
 	</table>
 	<table name="vcd_UserLoans">
 		<field name="loan_id" type="I" size="10">
@@ -359,6 +517,18 @@
 			<NOTNULL/>
 		</field>
 		<field name="date_in" type="T"/>
+		<index name="vcd_UserLoans_1">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
+		<index name="vcd_UserLoans_2">
+			<descr>Index on the owner ID</descr>
+			<col>owner_id</col>
+		</index>
+		<index name="vcd_UserLoans_3">
+			<descr>Index on the borrower ID</descr>
+			<col>borrower_id</col>
+		</index>
 	</table>
 	<table name="vcd_VcdToPornStudios">
 		<field name="vcd_id" type="I">
@@ -367,6 +537,16 @@
 		<field name="studio_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_VcdToPornStudios_1">
+			<descr>Unique on the movie ID and studio ID</descr>
+			<col>vcd_id</col>
+			<col>studio_id</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_VcdToPornStudios_2">
+			<descr>Index on the studio ID</descr>
+			<col>studio_id</col>
+		</index>
 	</table>
 	<table name="vcd_Screenshots">
 		<field name="vcd_id" type="I">
@@ -385,6 +565,17 @@
 		<field name="external_id" type="C" size="32">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_VcdToSources_1">
+			<descr>Unique on all columns</descr>
+			<col>vcd_id</col>
+			<col>site_id</col>
+			<col>external_id</col>
+			<UNIQUE/>
+		</index>
+		<index name="vcd_VcdToSources_2">
+			<descr>Index on the movie ID</descr>
+			<col>vcd_id</col>
+		</index>
 	</table>
 	<table name="vcd">
 		<field name="vcd_id" type="I" size="10">
@@ -393,13 +584,25 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="title" type="X" size="150">
+		<field name="title" type="C" size="150">
 			<NOTNULL/>
 		</field>
 		<field name="category_id" type="I">
 			<NOTNULL/>
 		</field>
 		<field name="year" type="I"/>
+		<index name="vcd_1">
+			<descr>Index on the title</descr>
+			<col>title</col>
+		</index>
+		<index name="vcd_2">
+			<descr>Index on the category ID</descr>
+			<col>category_id</col>
+		</index>
+		<index name="vcd_3">
+			<descr>Index on the production year</descr>
+			<col>year</col>
+		</index>
 	</table>
 	<table name="vcd_IMDB">
 		<field name="imdb" type="C" size="32">
@@ -407,11 +610,11 @@
 			<UNIQUE/>
 			<NOTNULL/>
 		</field>
-		<field name="title" type="X" size="200">
+		<field name="title" type="C" size="200">
 			<NOTNULL/>
 		</field>
-		<field name="alt_title1" type="X" size="200"/>
-		<field name="alt_title2" type="X" size="160"/>
+		<field name="alt_title1" type="C" size="200"/>
+		<field name="alt_title2" type="C" size="160"/>
 		<field name="image" type="C" size="100"/>
 		<field name="year" type="I"/>
 		<field name="plot" type="X" size="16"/>
@@ -421,6 +624,14 @@
 		<field name="runtime" type="I"/>
 		<field name="country" type="C" size="80"/>
 		<field name="genre" type="C" size="100"/>
+		<index name="vcd_IMDB_1">
+			<descr>Index on the title</descr>
+			<col>title</col>
+		</index>
+		<index name="vcd_IMDB_2">
+			<descr>Index on the director</descr>
+			<col>director</col>
+		</index>
 	</table>
 	<table name="vcd_Borrowers">
 		<field name="borrower_id" type="I" size="10">
@@ -438,6 +649,10 @@
 		<field name="email" type="C" size="50">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_Borrowers_1">
+			<descr>Index on the owner ID</descr>
+			<col>owner_id</col>
+		</index>
 	</table>
 	<table name="vcd_RssFeeds">
 		<field name="feed_id" type="I" size="10">
@@ -457,6 +672,10 @@
 		</field>
 		<field name="isAdult" type="I1"></field>
 		<field name="isSite" type="I1"></field>
+		<index name="vcd_RssFeeds_1">
+			<descr>Index on the user ID</descr>
+			<col>user_id</col>
+		</index>
 	</table>
 	<table name="vcd_MetaData">
 		<field name="metadata_id" type="I" size="10">
@@ -480,6 +699,18 @@
 		<field name="metadata_value" type="C" size="250">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_MetaData_1">
+			<descr>Index on the record ID</descr>
+			<col>record_id</col>
+		</index>
+		<index name="vcd_MetaData_2">
+			<descr>Index on the user ID</descr>
+			<col>user_id</col>
+		</index>
+		<index name="vcd_MetaData_3">
+			<descr>Index on the type ID</descr>
+			<col>type_id</col>
+		</index>
 	</table>
 	<table name="vcd_MetaDataTypes">
 		<field name="type_id" type="I" size="10">
@@ -497,6 +728,14 @@
 		<field name="owner_id" type="I">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_MetaDataTypes_1">
+			<descr>Index on the type name</descr>
+			<col>type_name</col>
+		</index>
+		<index name="vcd_MetaDataTypes_2">
+			<descr>Index on the owner ID</descr>
+			<col>owner_id</col>
+		</index>
 	</table>
 	<table name="vcd_Log">
 		<field name="event_id" type="I">
@@ -513,5 +752,13 @@
 		<field name="ip" type="C" size="15">
 			<NOTNULL/>
 		</field>
+		<index name="vcd_Log_1">
+			<descr>Index on event ID</descr>
+			<col>event_id</col>
+		</index>
+		<index name="vcd_Log_2">
+			<descr>Index on event date</descr>
+			<col>event_date</col>
+		</index>
 	</table>
 </schema>
