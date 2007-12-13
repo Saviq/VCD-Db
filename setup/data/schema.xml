@@ -594,7 +594,6 @@
 		<index name="vcd_1">
 			<descr>Index on the title</descr>
 			<col>title</col>
-			<FULLTEXT/>
 		</index>
 		<index name="vcd_2">
 			<descr>Index on the category ID</descr>
@@ -632,11 +631,6 @@
 		<index name="vcd_IMDB_2">
 			<descr>Index on the director</descr>
 			<col>director</col>
-		</index>
-		<index name="vcd_IMDB_3">
-			<descr>Fulltext Index on the cast</descr>
-			<col>fcast</col>
-			<FULLTEXT/>
 		</index>
 	</table>
 	<table name="vcd_Borrowers">
