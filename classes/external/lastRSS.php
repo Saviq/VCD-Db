@@ -134,7 +134,7 @@ class lastRSS {
 
 			// If code page is set and different than required convert character encoding to required
 			if ($this->cp != '' && strcasecmp($this->rsscp,$this->cp) != 0)
-				$out[1] = mb_convert_encoding($out[1], $this->cp, $this->rsscp);
+				$out[1] = @mb_convert_encoding($out[1], $this->cp, $this->rsscp);
 			// Return result
 			return trim($out[1]);
 		} else {
