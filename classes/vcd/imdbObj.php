@@ -268,7 +268,7 @@ class imdbObj extends fetchedObj implements XMLable {
 	 * @param string $cast
 	 */
 	public function formatCast($cast)	{
-		$cast = ereg_replace(13,"<br>",$cast);
+		$cast = ereg_replace(13,"<br>",trim($cast));
 
 		$strData = "";
 		$pieces = explode("<br>", $cast);
