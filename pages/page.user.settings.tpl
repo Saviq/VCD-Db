@@ -43,7 +43,7 @@
 
 <p style="padding:0px 0px 2px 2px">
 &nbsp;{$translate.usersettings.pagemode}
-{html_options id=template name=template values=$templates output=$templates selected=$smarty.cookies.template onchange="switchTemplate(this.options[this.selectedIndex].value)"}
+{html_options id=template name=template values=$templates output=$templates selected=$smarty.cookies.template|default:$config.style onchange="switchTemplate(this.options[this.selectedIndex].value)"}
 </p>
 </fieldset>
 <br/>

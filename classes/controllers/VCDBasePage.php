@@ -51,9 +51,11 @@ class VCDBasePage extends VCDPage {
 		
 		$this->config = $node;
 		
+		preg_match('/templates\/([a-zA-Z0-9-]*)/',VCDConfig::getDefaultStyleTemplate(),$template);
 		// Set the date and time format to global config
 		$config = array('date' => VCDConfig::getDateFormat(), 
 			'time' => VCDConfig::getTimestampFormat(),
+			'style' => $template[1],
 			'home' => VCDConfig::getWebBaseDir());
 		$this->assign('config',$config);
 		
