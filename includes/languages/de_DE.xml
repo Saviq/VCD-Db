@@ -23,7 +23,7 @@
 		<string id="menu.loansystem">Meine Verleihliste</string>
 		<string id="menu.wishlist">Meine Wunschliste</string>
 		<string id="menu.categories">Film Kategorien</string>
-		<string id="menu.rss">Meine Rss Feeds</string>
+		<string id="menu.rss">Meine RSS Feeds</string>
 		<string id="menu.controlpanel">VCD-db Admin</string>
 		<string id="menu.register">Registrieren</string>
 		<string id="menu.logout">Ausloggen</string>
@@ -43,9 +43,9 @@
 		<string id="login.failed">Anmeldung fehlgeschlagen</string>
 		<string id="login.tryagain">Erneut versuchen</string>
 		<string id="login.deleted">Dein Konto ist gelöscht worden.&lt;br&gt;Kontaktiere den Administrator für weitere Details. </string>
-		<string id="login.lost">Oder hast du dein Passwort verloren?</string>
-		<string id="login.claim">Hier klicken um das Passwort zu erhalten</string>
-		<string id="login.recover">Benutzername und E-Mail eingeben</string>
+		<string id="login.lost">oder hast du dein Passwort verloren?</string>
+		<string id="login.claim">Klick hier um dein Passwort zu erhalten</string>
+		<string id="login.recover">Benutzername und Email eingeben</string>
 
 
 		<!-- Register based strings -->
@@ -53,33 +53,33 @@
 		<string id="register.fullname">Voller Name</string>
 		<string id="register.email">Email</string>
 		<string id="register.again">Passwort (wiederholen)</string>
-		<string id="register.disabled">Zur Zeit keine Registrierung möglich</string>
-		<string id="register.ok">Registrierung war erfolgreich, Anmeldung ist freigeschaltet.</string>
+		<string id="register.disabled">Zur Zeit ist keine Registrierung möglich!</string>
+		<string id="register.ok">Registrierung war erfolgreich, Account wurde freigeschaltet!</string>
 
 
 		<!-- strings for user properties -->
 		<string id="userproperties.notify">Benachrichtigung über neu hinzugefügte Filme senden?</string>
-		<string id="userproperties.show_adult">Nicht Jugendfreie Inhalte anzeigen?</string>
-		<string id="userproperties.rss">RSS feed meiner Filme erlauben?</string>
+		<string id="userproperties.show_adult">Nicht jugendfreie Inhalte anzeigen?</string>
+		<string id="userproperties.rss">RSS-Feed meiner Filme erlauben?</string>
 		<string id="userproperties.wishlist">Anderen Usern meine Wunschliste zeigen?</string>
 		<string id="userproperties.use_index">Index Feld für eigene Medien ID's verwenden?</string>
-		<string id="userproperties.seen_list">Eigene 'Gesehene Filme' Liste verwalten</string>
+		<string id="userproperties.seen_list">Eigene 'gesehene Filme' Liste verwalten</string>
 		<string id="userproperties.playoption">Zusätzliche Abspieloptionen verwenden</string>
 		<string id="userproperties.nfo">Verwenden Sie NFO Datei?</string>
-		<string id="userproperties.default_image">Bilder standardmäßig anzeigen</string>
+		<string id="userproperties.default_image">Bilder standardmäßig anzeigen?</string>
 		<string id="userproperties.nfo_image">NFO Dateien als Bild anzeigen?</string>
 
 
 		<!-- strings for user settings -->
 		<string id="usersettings.player">Player Einstellungen</string>
-		<string id="usersettings.ownfeed">Eigene RSS feeds anzeigen</string>
+		<string id="usersettings.ownfeed">Eigene RSS-Feeds anzeigen</string>
 		<string id="usersettings.custom">Hauptseite anpassen</string>
 		<string id="usersettings.showstat">Statistiken anzeigen</string>
 		<string id="usersettings.showside">Neue Filme seitlich anzeigen</string>
-		<string id="usersettings.selectrss">RSS feeds auswählen</string>
-		<string id="usersettings.pagelook">Web layout</string>
+		<string id="usersettings.selectrss">RSS_Feeds auswählen</string>
+		<string id="usersettings.pagelook">Web-Layout</string>
 		<string id="usersettings.pagemode">Standard Oberfläche wählen:</string>
-		<string id="usersettings.updated">Benutzer Informationen gespeichert</string>
+		<string id="usersettings.updated">Benutzer Informationen gespeichert!</string>
 		<string id="usersettings.update_failed">Fehler beim Updaten</string>
 		<string id="usersettings.list">Ignore Liste</string>
 		<string id="usersettings.desc">Ignoriere alle Filme von dem folgenden Benutzer:</string>
@@ -90,18 +90,18 @@
 		<string id="search.title">nach Titel</string>
 		<string id="search.actor">nach Schauspieler</string>
 		<string id="search.director">nach Regisseur</string>
-		<string id="search.results">Sucheergebnisse</string>
+		<string id="search.results">Suchergebnisse</string>
 		<string id="search.extended">Details anzeigen</string>
 		<string id="search.noresult">Suche war erfolglos</string>
 
 
 		<!-- strings for movie categories -->
 		<string id="category.action">Action</string>
-		<string id="category.adult">Nicht Jugendfrei</string>
+		<string id="category.adult">Nicht jugendfreie Filme</string>
 		<string id="category.adventure">Abenteuer</string>
 		<string id="category.animation">Animation</string>
 		<string id="category.anime">Anime / Manga</string>
-		<string id="category.comedy">Comedy</string>
+		<string id="category.comedy">Komödie</string>
 		<string id="category.crime">Krimi</string>
 		<string id="category.documentary">Dokumentation</string>
 		<string id="category.drama">Drama</string>
@@ -110,14 +110,14 @@
 		<string id="category.filmnoir">Film Noir</string>
 		<string id="category.horror">Horror</string>
 		<string id="category.jamesbond">James Bond</string>
-		<string id="category.musicvideo">Musik Video</string>
+		<string id="category.musicvideo">Musik-Video</string>
 		<string id="category.musical">Musical</string>
 		<string id="category.mystery">Mystery</string>
 		<string id="category.romance">Romanze</string>
 		<string id="category.scifi">Sci-Fi</string>
 		<string id="category.short">Kurzfilm</string>
 		<string id="category.thriller">Thriller</string>
-		<string id="category.tvshows">TV Show</string>
+		<string id="category.tvshows">TV-Show</string>
 		<string id="category.war">Kriegsfilm</string>
 		<string id="category.western">Western</string>
 		<string id="category.xrated">Porno</string>
@@ -128,7 +128,7 @@
 		<string id="movie.actors">Besetzung</string>
 		<string id="movie.category">Kategorie</string>
 		<string id="movie.year">Produktionsjahr</string>
-		<string id="movie.copies">Kopiï¿½n</string>
+		<string id="movie.copies">Kopien</string>
 		<string id="movie.from">Von</string>
 		<string id="movie.title">Titel</string>
 		<string id="movie.alttitle">Alternativer Titel</string>
@@ -137,8 +137,8 @@
 		<string id="movie.country">Produktionsland</string>
 		<string id="movie.runtime">Spieldauer</string>
 		<string id="movie.minutes">Minuten</string>
-		<string id="movie.plot">Inhalts:</string>
-		<string id="movie.noplot">Keine Klappentext verfügbar</string>
+		<string id="movie.plot">Inhalt:</string>
+		<string id="movie.noplot">Kein Klappentext verfügbar</string>
 		<string id="movie.covers">CD Cover</string>
 		<string id="movie.available">Verfügbare Kopien</string>
 		<string id="movie.media">Medium</string>
@@ -146,7 +146,7 @@
 		<string id="movie.date">Datum</string>
 		<string id="movie.owner">Eigentümer</string>
 		<string id="movie.noactors">Keine Schauspielerliste verfügbar</string>
-		<string id="movie.info">Film info</string>
+		<string id="movie.info">Film-Info</string>
 		<string id="movie.details">Details meiner Kopie</string>
 		<string id="movie.mediatype">Format</string>
 		<string id="movie.comment">Kommentar</string>
@@ -163,25 +163,26 @@
 		<string id="movie.imageview">Bild Liste</string>
 		<string id="movie.mineonly">Nur meine Filme anzeigen</string>
 		<string id="movie.similar">Ähnliche Filme</string>
-		<string id="movie.mediaindex">Medien ID</string>
+		<string id="movie.mediaindex">Medien-ID</string>
 
 
 		<!-- IMDB specific strings -->
-		<string id="imdb.details">IMDB Details</string>
+		<string id="imdb.details">IMDB-Details</string>
 		<string id="imdb.plot">Inhaltsangabe</string>
-		<string id="imdb.gallery">Foto Übersicht</string>
+		<string id="imdb.gallery">Foto-Übersicht</string>
 		<string id="imdb.trailers">Trailers</string>
-		<string id="imdb.links">IMDB Links</string>
-		<string id="imdb.not">Keine IMDB Info verfügbar</string>
+		<string id="imdb.links">IMDB-Links</string>
+		<string id="imdb.not">Keine IMDB-Info verfügbar</string>
 
 
 		<!-- DVD specific string -->
 		<string id="dvd.region">Region</string>
 		<string id="dvd.format">Format</string>
-		<string id="dvd.aspect">Aspect ratio</string>
+		<string id="dvd.aspect">Aspect-Ratio</string>
 		<string id="dvd.audio">Ton</string>
 		<string id="dvd.subtitles">Untertitel</string>
 		<string id="dvd.languages">Gesprochene Sprachen</string>
+		<string id="dvd.default">Standard DVD Einstellungen</string>
 
 
 		<!-- My movies page strings -->
@@ -192,8 +193,8 @@
 		<string id="mymovies.actions">Meine Aufgaben</string>
 		<string id="mymovies.join">CD zusammenführen</string>
 		<string id="mymovies.joinmovies">Film zusammenführen</string>
-		<string id="mymovies.joinsuser">Nutzer wälen</string>
-		<string id="mymovies.joinsmedia">Media Typ wählen</string>
+		<string id="mymovies.joinsuser">Benutzer wählen</string>
+		<string id="mymovies.joinsmedia">Media-Typ wählen</string>
 		<string id="mymovies.joinscat">Kategorie wählen</string>
 		<string id="mymovies.joinstype">Aufgabe wählen</string>
 		<string id="mymovies.joinshow">Ergebnis anzeigen</string>
@@ -201,31 +202,31 @@
 		<string id="mymovies.textall">Druckansicht (Text)</string>
 		<string id="mymovies.pwall">Druckansicht (Alles)</string>
 		<string id="mymovies.pwmovies">Druckansicht (Filme)</string>
-		<string id="mymovies.pwtv">Druckansicht (Tv Shows)</string>
-		<string id="mymovies.pwblue">Druckansicht (Blue movies)</string>
+		<string id="mymovies.pwtv">Druckansicht (TV-Shows)</string>
+		<string id="mymovies.pwblue">Druckansicht (Blue Movies)</string>
 		<string id="mymovies.j1">Filme, die ich habe, aber andere Benutzer nicht</string>
 		<string id="mymovies.j2">Filme, die andere Benutzer haben, aber ich nicht</string>
 		<string id="mymovies.j3">Filme, die ich und der Benutzer haben</string>
 		<string id="mymovies.overview">Übersicht</string>
-		<string id="mymovies.info">Auf diesen Seiten steht alles über meine Filme.&lt;br/&gt;Auf der rechten Seite sind die möglichen Aktionen aufgelistet.&lt;br/&gt;Ausserdem gibt es eine Möglichkeit, die Filmkolektion als Excel Datei zur Druckausgabe oder als XML zum Backup oder Austausch zu exporteren.</string>
+		<string id="mymovies.info">Auf diesen Seiten steht alles über meine Filme.&lt;br/&gt;Auf der rechten Seite sind die möglichen Aktionen aufgelistet.&lt;br/&gt;Ausserdem gibt es eine Möglichkeit, die Filmkollektion als Excel Datei zur Druckausgabe oder als XML zum Backup oder Austausch zu exporteren.</string>
 		<string id="mymovies.keys">Eigene ID's editieren</string>
-		<string id="mymovies.seenlist">Meine 'gesehen' Liste editieren</string>
+		<string id="mymovies.seenlist">Meine 'gesehene' Liste editieren</string>
 		<string id="mymovies.helppicker">Einen Film vorschlagen</string>
 		<string id="mymovies.helppickerinfo">Was guckst du?&lt;br/&gt;VCD-db kramt dir einen Film 'raus.&lt;br/&gt;Dazu gibt es noch Filter, welche die Suche gezielt eingrenzen.</string>
 		<string id="mymovies.find">Finde einen Film</string>
 		<string id="mymovies.notseen">Nur 'ungesehene' Filme vorschlagen</string>
 		<string id="mymovies.friends">Leute, die sich meine CD's ausleihen</string>
-		<string id="mymovies.overviewdetail">Ausführlicher Ansammlung Überblick</string>
+		<string id="mymovies.overviewdetail">Ausführlicher Collection Überblick</string>
 		<string id="mymovies.pdf">als PDF exportieren</string>
 
 
 		<!-- strings for the movie manager window -->
-		<string id="manager.basic">Algemeine Info</string>
-		<string id="manager.imdb">IMDB Info</string>
-		<string id="manager.empire">DVDEmpire Info</string>
+		<string id="manager.basic">Allgemeine Info</string>
+		<string id="manager.imdb">IMDB-Info</string>
+		<string id="manager.empire">DVDEmpire-Info</string>
 		<string id="manager.copy">Meine Kopie</string>
 		<string id="manager.copies">Meine Kopien</string>
-		<string id="manager.nocopy">Ich habe gar keine Kopie</string>
+		<string id="manager.nocopy">Ich habe keine Kopie</string>
 		<string id="manager.1copy">Kopie</string>
 		<string id="manager.addact">Schauspieler hinzufügen</string>
 		<string id="manager.addtodb">Schauspieler zur DB hinzufügen</string>
@@ -234,13 +235,13 @@
 		<string id="manager.indb">Schauspieler in DB</string>
 		<string id="manager.sel">Ausgewählte Schauspieler</string>
 		<string id="manager.stars">Stars</string>
-		<string id="manager.browse">Grasen Sie für Akte Position</string>
+		<string id="manager.browse">Datei eingeben</string>
 		<string id="manager.addmedia">Hinzufügen...</string>
 
 
 		<!-- Add new movie based strings -->
 		<string id="addmovie.info">Folgende Datenquellen stehen zur Verfügung</string>
-		<string id="addmovie.imdb">Einen Film aus dem Web auswählen</string>
+		<string id="addmovie.imdb">Einen Film aus einer Internet-Datenbank auswählen</string>
 		<string id="addmovie.imdbtitle">Suchbegriff</string>
 		<string id="addmovie.manual">Daten manuell eingeben</string>
 		<string id="addmovie.listed">Einen Film aus der lokalen Datenbank auswählen</string>
@@ -262,7 +263,7 @@
 		<string id="xml.confirm">XML Upload bestätigen</string>
 		<string id="xml.contains">XML-Datei enthält %d Filme.</string>
 		<string id="xml.info1">'Bestätigen' um die Filme in die Datenbank einzutragen oder 'Cancel' zum Abbrechen.</string>
-		<string id="xml.info2">Wenn die Coverbilder mit abgespeichert werden sollen, &lt;b&gt;müß&lt;/b&gt; die entsprechende XML-Datei vorliegen. Nachträgliches importieren der Cover-Bilder ist &lt;b&gt;nicht&lt;/b&gt; möglich.&lt;br/&gt;&lt;br/&gt;Wenn die XML-Datei vorliegt, einfach das Kästchen hierunter ankreuzen und im nächsten Schritt werden die Coverbilder eingelesen.</string>
+		<string id="xml.info2">Wenn die Coverbilder mit abgespeichert werden sollen, &lt;b&gt;muß&lt;/b&gt; die entsprechende XML-Datei vorliegen. Nachträgliches importieren der Cover-Bilder ist &lt;b&gt;nicht&lt;/b&gt; möglich.&lt;br/&gt;&lt;br/&gt;Wenn die XML-Datei vorliegt, einfach das Kästchen hierunter ankreuzen und im nächsten Schritt werden die Coverbilder eingelesen.</string>
 		<string id="xml.thumbnails">Coverbilder aus der XML-Datei hunzufügen</string>
 		<string id="xml.list">Vollständige Liste der Filme aus der XML-Datei</string>
 		<string id="xml.error">Keine Filme in der XML-Datei gefunden.&lt;br/&gt;Datei ist möglicherweise beschädigt oder einfach nur leer.
@@ -273,7 +274,7 @@
 
 		<!-- strings for DVD empire based fetch -->
 		<string id="dvdempire.info">Informationen von AdultDVDEmpire.com ....</string>
-		<string id="dvdempire.desc">DVDEmpire Beschreiebung</string>
+		<string id="dvdempire.desc">DVDEmpire Beschreibung</string>
 		<string id="dvdempire.subcat">Erwachsenen Kategorien</string>
 		<string id="dvdempire.details">Adultdvdempire.com Details</string>
 		<string id="dvdempire.stars">Pornostars</string>
@@ -296,7 +297,7 @@
 		<string id="loan.since">Seit</string>
 		<string id="loan.time">Verliehen seit</string>
 		<string id="loan.return">Film zurück</string>
-		<string id="loan.success">Film erfolgreich ausgeliehen??hmpf</string>
+		<string id="loan.success">Film erfolgreich ausgeliehen!</string>
 		<string id="loan.out">Nicht zurück</string>
 		<string id="loan.datein">Zurück am</string>
 		<string id="loan.dateout">Ausgeliehen am</string>
@@ -309,12 +310,12 @@
 
 		<!-- strings for the RSS actions and settings -->
 		<string id="rss.rss">RSS Feeds</string>
-		<string id="rss.title">RSS feeds von den VCD-DB Seite meiner Freunde</string>
-		<string id="rss.site">RSS Seiten feed</string>
+		<string id="rss.title">RSS Feeds von den VCD-DB Seite meiner Freunde</string>
+		<string id="rss.site">RSS Seiten Feed</string>
 		<string id="rss.user">RSS Benutzer feed</string>
 		<string id="rss.view">RSS feed anzeigen</string>
 		<string id="rss.add">RSS feed hinzufügen</string>
-		<string id="rss.note">Gebe die &lt;strong&gt;genaue Addresse&lt;/strong&gt; der VCD Gegenstelle an.  Wenn dort RSS feeds eingeschltet sind, sind diese Feeds auch hier verfügbar und werden natuerlich auch angezeigt.</string>
+		<string id="rss.note">Gebe die &lt;strong&gt;genaue Addresse&lt;/strong&gt; der VCD Gegenstelle an.  Wenn dort RSS Feeds eingeschaltet sind, sind diese Feeds auch hier verfügbar und werden natuerlich auch angezeigt.</string>
 		<string id="rss.fetch">RSS Liste holen</string>
 		<string id="rss.none">Keine RSS feeds hinzugefügt.</string>
 		<string id="rss.found">Folgende RSS feeds wurden gefunden, welche sollen hinzugefügt werden:</string>
@@ -359,8 +360,8 @@
 		<!-- strings for the statistics page -->
 		<string id="statistics.title">Täglicher Bericht</string>
 		<string id="statistics.top_movies">Anzahl der Filme in der Datenbank</string>
-		<string id="statistics.top_cats">Haupt-Kathegorie</string>
-		<string id="statistics.top_act">Aktivste Kathegorie</string>
+		<string id="statistics.top_cats">Haupt-Kategorie</string>
+		<string id="statistics.top_act">Aktivste Kategorie</string>
 		<string id="statistics.top_covers">Covers in der Datenbank</string>
 		<string id="statistics.total">Insgesamt</string>
 		<string id="statistics.today">Heute hinzugefügt</string>
@@ -372,7 +373,7 @@
 		<string id="mail.returntopic">Darlehenanzeige</string>
 		<string id="mail.returnmovies1">Hallo %s, wollte dich nur mal erinnern, mir meine Filme zurückzugeben.&lt;br/&gt;Das ist die Liste:&lt;br/&gt;&lt;br/&gt;</string>
 		<string id="mail.returnmovies2">Hey %s, Jetzt sieh mal zu dass die Filme an Land kommen&lt;br/&gt;&lt;br/&gt;ps.: automatische Mail mit vordefiniertem Text</string>
-		<string id="mail.notify">&lt;strong&gt;Neuer File in der VCD-db&lt;/strong&gt;&lt;br/&gt;&lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;Details&lt;/a&gt;&lt;br/&gt;&lt;p&gt;nb. Das ist eine automatische Email der VCD-DB (vcddb.konni.com)&lt;/p&gt;</string>
+		<string id="mail.notify">&lt;strong&gt;Neuer Film in die Filmdatenbank eingefügt:&lt;/strong&gt;&lt;br/&gt;&lt;br/&gt;&lt;a href=&quot;%s/?page=cd&amp;vcd_id=%s&quot;&gt;Hier klicken&lt;/a&gt; um weitere Details zu erhalten!&lt;br/&gt;&lt;p&gt;Dies ist eine automatische Email der VCD-db &lt;a href=&quot;http://vcddb.konni.com/&quot;&gt;(vcddb.konni.com)&lt;/a&gt;,&lt;br/&gt;bitte auf diese Email nicht antworten!&lt;/p&gt;</string>
 		<string id="mail.register">%s, Registrierung erfolgreich.&lt;br/&gt;Username ist %s , Passwort ist %s.&lt;br/&gt;&lt;br/&gt;Nach dem Einloggen ist das Passwort jederzeit änderbar.&lt;br/&gt;&lt;a href=&quot;%s&quot; target=&quot;_new&quot;&gt;Hier&lt;/a&gt; gehts zur VCD-DB website.</string>
 
 
@@ -394,12 +395,12 @@
 		<string id="misc.contains">enthält</string>
 		<string id="misc.grade">IMDB Bewertung höher als</string>
 		<string id="misc.any">Alle</string>
-		<string id="misc.tryagain">Nochmal Versuchen</string>
+		<string id="misc.tryagain">Nochmal versuchen</string>
 		<string id="misc.proceed">Weiter</string>
 		<string id="misc.select">Auswahl</string>
 		<string id="misc.confirm">OK</string>
 		<string id="misc.cancel">Abbrechen</string>
-		<string id="misc.attention">Vorsicht</string>
+		<string id="misc.attention">Achtung!</string>
 		<string id="misc.status">Status</string>
 		<string id="misc.success">Erfolgreich</string>
 		<string id="misc.failure">Fehler</string>
@@ -414,20 +415,20 @@
 		<string id="misc.saveandclose">Speichern und Schliessen</string>
 		<string id="misc.close">Schliessen</string>
 		<string id="misc.edit">Editieren</string>
-		<string id="misc.results">Ergebniss</string>
+		<string id="misc.results">Ergebnis</string>
 		<string id="misc.latestmovies">letzte Filme</string>
 		<string id="misc.latesttv">letzte TV Shows</string>
 		<string id="misc.latestblue">letzte Pornos</string>
-		<string id="misc.movies">Films</string>
+		<string id="misc.movies">Filme</string>
 		<string id="misc.nocats">Keine Filme verfügbar.</string>
 		<string id="misc.nousers">Keine aktiven User</string>
 		<string id="misc.key">Key</string>
 		<string id="misc.savenext">Sichern SpeicherNext??</string>
 		<string id="misc.save">Speichern</string>
 		<string id="misc.seen">Gesehen</string>
-		<string id="misc.footer">Seite geladen in %s sec. (&lt;i&gt;%d Anfragen&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
+		<string id="misc.footer">Seite in %s sec. geladen (&lt;i&gt;%d Anfragen&lt;/i&gt;)   Copyright (c)</string>
 		<string id="misc.footer_link">Besuchen sie die offizielle VCD-db Webseite</string>
-		<string id="misc.toggle">Toggle-Vorbetrachtung</string>
+		<string id="misc.toggle">Toggle-Vorschau</string>
 		<string id="misc.toggle_on">an</string>
 		<string id="misc.toggle_off">aus</string>
 
@@ -436,8 +437,8 @@
 		<string id="js.loanlist">Es wurden keine Filme zur Liste hinzugefügt</string>
 		<string id="js.loanborrower"> Ausleiher auswählen</string>
 		<string id="js.invalidname">Name eingeben</string>
-		<string id="js.deleteborrower"> Ausleiher und die Liste seiner Ausleihen löschen?</string>
-		<string id="js.notitle">Der Titel fehlt</string>
+		<string id="js.deleteborrower">Ausleiher und die Liste seiner Filme löschen?</string>
+		<string id="js.notitle">Titel fehlt</string>
 		<string id="js.noyear">Jahr wählen</string>
 		<string id="js.invalid">Ungültige Eingabe</string>
 		<string id="js.nomediatype">Medientyp wählen</string>
@@ -452,10 +453,10 @@
 		<string id="js.noxmlthumb">Eine XML-Datei für die Thumbnails wählen oder die Checkbox deaktiveren</string>
 		<string id="js.nocriteria">Bitte die Suchkriterien definieren</string>
 		<string id="js.lastcopy">Dies ist die einzige Kopie in der Datenbank.&lt;br&gt; Alle Informationen zu diesem Film werden gelöscht&lt;br&gt; Fortfahren und löschen?</string>
-		<string id="js.noselection">Mindestens einen Film auswählen um weiterzufahren</string>
+		<string id="js.noselection">Mindestens einen Film auswählen um fortzufahren</string>
 		<string id="js.nomediaselection">Medientyp für alle Titel auswählen</string>
-		<string id="js.reqname">Bitte den vollen Namen eingeben</string>
-		<string id="js.requsername">Bitte den Benutzername eingeben</string>
+		<string id="js.reqname">Bitte vollständigen Namen eingeben</string>
+		<string id="js.requsername">Bitte Benutzername eingeben</string>
 		<string id="js.requsername3">Der Benutzername muss aus mindestens 3 Zeichen bestehen.</string>
 		<string id="js.reqpassword">Das Passwort muss aus mindestens 5 Zeichen bestehen!</string>
 		<string id="js.reqpassnomatch">Passwörter stimmen nicht überein!</string>

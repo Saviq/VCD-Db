@@ -12,7 +12,7 @@
 		<!-- Language specific keys -->
 		<string id="language.type">RUS</string>
 		<string id="language.name">Russian</string>
-		<string id="language.charset">windows-1251</string>
+		<string id="language.charset">UTF-8</string>
 
 
 		<!-- user menu keys -->
@@ -40,6 +40,12 @@
 		<string id="login.password">Пароль</string>
 		<string id="login.remember">Запомнить</string>
 		<string id="login.info">Оставьте это поле пустым если &lt;b&gt;НЕ&lt;/b&gt; хотите изменить пароль</string>
+		<string id="login.failed">Ошибка входа</string>
+		<string id="login.tryagain">Попробуйте еще раз</string>
+		<string id="login.deleted">Ваша учетная запись была удалена &lt;/br&gt;Свяжитесь с администратором.</string>
+		<string id="login.lost">Может быть Вы забыли пароль ?</string>
+		<string id="login.claim">Кликните здесь чтобы получить ваш пароль</string>
+		<string id="login.recover">Введите имя пользователя и E-Mail</string>
 
 
 		<!-- Register based strings -->
@@ -61,6 +67,7 @@
 		<string id="userproperties.playoption">Использовать возможность проигрывания?</string>
 		<string id="userproperties.nfo">Разрешить файлы NFO?</string>
 		<string id="userproperties.default_image">Разрешить Просмотр Изображений по умолчанию?</string>
+		<string id="userproperties.nfo_image">Просматривать NFO файлы как картинки?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,8 @@
 		<string id="dvd.aspect">Формат фильма</string>
 		<string id="dvd.audio">Аудио</string>
 		<string id="dvd.subtitles">Субтитры</string>
+		<string id="dvd.languages">Доступные языки</string>
+		<string id="dvd.default">Установки по умолчанию для DVD</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +217,7 @@
 		<string id="mymovies.notseen">Посоветовать фильмы, которые я не видел</string>
 		<string id="mymovies.friends">Мои друзья, которые одолжили CD диски</string>
 		<string id="mymovies.overviewdetail">Детальный обзор коллекции</string>
+		<string id="mymovies.pdf">Экспортировать как PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +343,10 @@
 		<string id="pornstar.name">Имя</string>
 		<string id="pornstar.web">Сайт</string>
 		<string id="pornstar.moviecount">Число фильмов</string>
+		<string id="pornstar.viewall">Просмотреть все</string>
+		<string id="pornstar.viewactive">Просмотреть активные</string>
+		<string id="pornstar.pornstars">Порнозвезды</string>
+		<string id="pornstar.begin">Начинать с символа</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -350,8 +364,8 @@
 		<string id="statistics.top_covers">Обложки в базе данных</string>
 		<string id="statistics.total">Всего</string>
 		<string id="statistics.today">Добавлено сегодня</string>
-		<string id="statistics.week">Добавлено в последнюю неделю</string>
-		<string id="statistics.month">Добавлено в последний месяц</string>
+		<string id="statistics.week">Добавлено за последнюю неделю</string>
+		<string id="statistics.month">Добавлено за последний месяц</string>
 
 
 		<!-- strings for the email messages sent from VCD-db -->
@@ -401,7 +415,7 @@
 		<string id="misc.close">Закрыть</string>
 		<string id="misc.edit">Редактировать</string>
 		<string id="misc.results">Результаты</string>
-		<string id="misc.latestmovies">последние фильмы</string>
+		<string id="misc.latestmovies">новых фильмов</string>
 		<string id="misc.latesttv">последние ТВ-записи</string>
 		<string id="misc.latestblue">последние X-rated</string>
 		<string id="misc.movies">фильмы</string>
@@ -416,5 +430,34 @@
 		<string id="misc.toggle">Переключить режим предпросмотра</string>
 		<string id="misc.toggle_on">вкл</string>
 		<string id="misc.toggle_off">выкл</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">В список небыло добавлено фильмов</string>
+		<string id="js.loanborrower">Выберите должника</string>
+		<string id="js.invalidname">Введите имя</string>
+		<string id="js.deleteborrower">Удалить все записи связанные с должником</string>
+		<string id="js.notitle">Название отсутствует</string>
+		<string id="js.noyear">Выберите год</string>
+		<string id="js.invalid">Неправильный ввод</string>
+		<string id="js.nomediatype">Выберите тип носителя</string>
+		<string id="js.nocategory">Выберите категорию</string>
+		<string id="js.nocdcount">Укажите количество CD</string>
+		<string id="js.url">Введите точный адрес картинки</string>
+		<string id="js.delete">Удалить запись?</string>
+		<string id="js.removeactor">Удалить актера из списка?</string>
+		<string id="js.norss">Выберите хотябы один RSS поток для продолжения</string>
+		<string id="js.deletemeta">Удалить метаданные и все связанные записи?</string>
+		<string id="js.noupload">Выберите файл для закачки</string>
+		<string id="js.noxmlthumb">Выберите XML файл для превью или уберите галочки с поля Thubnails (Превью)</string>
+		<string id="js.nocriteria">Укажите критерий поиска</string>
+		<string id="js.lastcopy">Эта копия только в базе.&lt;br&gt;Вся информация о фильме будет удалена&lt;br&gt;Продолжить и удалить?</string>
+		<string id="js.noselection">Выберите хотябы один фильм для продолжения.</string>
+		<string id="js.nomediaselection">Выберите тип носителя для всехзаписей.</string>
+		<string id="js.reqname">Пожалуйста, укажите ваше полное имя</string>
+		<string id="js.requsername">Пожалуйста, укажите имя пользователя</string>
+		<string id="js.requsername3">Имя пользователя должно содержать не менее 3 символов.</string>
+		<string id="js.reqpassword">Пароль должен содержать не менее 5 символов!</string>
+		<string id="js.reqpassnomatch">Пароли не совпадают!</string>
 	</strings>
 </language>
