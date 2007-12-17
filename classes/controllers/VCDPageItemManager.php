@@ -326,40 +326,40 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		$hitArray = array();
 		foreach ($this->metadata as $metadataObj) {
 			if ($metadataObj->getMediaTypeID()==0) continue;
-			$type_id = $metadataObj->getMetadataTypeID();
+			$metadataType_id = $metadataObj->getMetadataTypeID();
+			$mediaType_id = $metadataObj->getMediaTypeID();
 			$metadataCounter++;
-			$hitArray[] = array('id' => $type_id,'mid' => $metadataObj->getMediaTypeID());
+			$hitArray[] = array('id' => $metadataType_id,'mid' => $mediaType_id);
 			
-			switch ($type_id) {
+			switch ($metadataType_id) {
 				
 				case (int)metadataTypeObj::SYS_MEDIAINDEX: 
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '' ) {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);	
+							$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);	
 						}
 					}
 					break;
 					
 				case (int)metadataTypeObj::SYS_NFO:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO')) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'readonly', true,$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'readonly', true,$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
+							$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
 					}
 					break;
 				
 				case (int)metadataTypeObj::SYS_FILELOCATION:
 					if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION')) {
-						
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
+							$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
 					}
 					break;
@@ -368,10 +368,10 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				default:
 					// Check if metadata type exists in the users profile
 					if (in_array($metadataObj->getMetadataTypeID(),$userMetaTypeIds)) {
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
-						$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'value',$metadataObj->getMetadataValue(),$metadataCounter);
+						$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'name',$metadataObj->getMetadataTypeName(),$metadataCounter);
 						if ($metadataObj->getMetadataValue() != '') {
-							$this->addMeta(&$results, $metadataObj->getMediaTypeID(), $type_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
+							$this->addMeta(&$results, $mediaType_id, $metadataType_id, $metadataObj->getMetadataID(), 'delete',true,$metadataCounter);
 						}
 					}
 					break;
@@ -382,36 +382,36 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		// Check the results for missing metadata definitions
 		foreach ($mediaTypes as $mediaTypeObj) {
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('USE_INDEX') && 
-				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_MEDIAINDEX,$mediaTypeObj->getmediaTypeID())) {
+				!$this->isMetaAdded($hitArray,(int)metadataTypeObj::SYS_MEDIAINDEX,$mediaTypeObj->getmediaTypeID())) {
+					$metadataCounter++;
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'value','',$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX, null, 'delete',false,$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_MEDIAINDEX , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_MEDIAINDEX),$metadataCounter);
-					$metadataCounter++;
 			}
 			
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('NFO') && 
 				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_NFO,$mediaTypeObj->getmediaTypeID())) {
+					$metadataCounter++;
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'value','',$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO, null, 'delete',false,$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_NFO , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_NFO),$metadataCounter);
-					$metadataCounter++;
 			}
 			
 			if (VCDUtils::getCurrentUser()->getPropertyByKey('PLAYOPTION') && 
 				!$this->isMetaAdded(&$hitArray,metadataTypeObj::SYS_FILELOCATION,$mediaTypeObj->getmediaTypeID())) {
+					$metadataCounter++;
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'value','',$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION, null, 'delete',false,$metadataCounter);
 					$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), metadataTypeObj::SYS_FILELOCATION , null, 'name', metadataTypeObj::getSystemTypeMapping(metadataTypeObj::SYS_FILELOCATION),$metadataCounter);
-					$metadataCounter++;
 			}
 			
 			if (is_array($userMeta)) {
 				foreach ($userMeta as $metadataObj) {
 					if (!$this->isMetaAdded(&$hitArray, $metadataObj->getMetadataTypeID(), $mediaTypeObj->getmediaTypeID())) {
+						$metadataCounter++;
 						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'value','',$metadataCounter);
 						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'delete',false,$metadataCounter);
 						$this->addMeta(&$results, $mediaTypeObj->getmediaTypeID(), $metadataObj->getMetadataTypeID(), null, 'name', $metadataObj->getMetadataTypeName(),$metadataCounter);
-						$metadataCounter++;
 					}
 				}
 			}
@@ -419,14 +419,13 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 			
 			
 		}
-		
 		$this->assign('itemMetadataList', $results);
 		
 	}
 	
 	private function isMetaAdded(&$hitArray, $metatype_id, $mediatype_id) {
 		foreach ($hitArray as $item) {
-			if ($item['mid'] == $mediatype_id && $item['id'] == $metatype_id) {
+			if (((int)$item['mid'] === (int)$mediatype_id) && ((int)$item['id'] === (int)$metatype_id)) {
 				return true;
 			}
 		}
@@ -934,7 +933,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 		$arrMetaData = array();
 		foreach ($_POST as $key => $value) {
-			if ((int)substr_count($key, 'meta') == 1) {
+			if ((int)substr_count($key, 'meta') > 0) {
 		 		array_push($arrMetaData, array('key' => $key, 'value' => $value));
 		 	}
 		}
