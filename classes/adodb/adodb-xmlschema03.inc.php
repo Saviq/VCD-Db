@@ -505,7 +505,7 @@ class dbTable extends dbObject {
 	*/
 	function addTableOpt( $opt ) {
 		if( $this->currentPlatform ) {
-		$this->opts[] = $opt;
+			$this->opts[$this->parent->dict->upperName] = $opt;
 		}
 		return $this->opts;
 	}

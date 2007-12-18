@@ -467,6 +467,7 @@
 		</index>
 	</table>
 	<table name="vcd_Comments">
+		<opt platform="MYSQL">TYPE=MYISAM</opt>
 		<field name="comment_id" type="I" size="10">
 			<KEY/>
 			<AUTOINCREMENT/>
@@ -496,6 +497,11 @@
 			<descr>Index on comment date</descr>
 			<col>comment_date</col>
 		</index>
+		<index name="vcd_Comments_3">   
+			<descr>Fulltext Index on the comment</descr>   
+		    <col>comment</col>   
+		    <FULLTEXT/>   
+		</index> 
 	</table>
 	<table name="vcd_UserLoans">
 		<field name="loan_id" type="I" size="10">
@@ -578,6 +584,7 @@
 		</index>
 	</table>
 	<table name="vcd">
+		<opt platform="MYSQL">TYPE=MYISAM</opt>
 		<field name="vcd_id" type="I" size="10">
 			<KEY/>
 			<AUTOINCREMENT/>
@@ -592,8 +599,9 @@
 		</field>
 		<field name="year" type="I"/>
 		<index name="vcd_1">
-			<descr>Index on the title</descr>
+			<descr>Fulltext Index on the title</descr>
 			<col>title</col>
+			<FULLTEXT/>
 		</index>
 		<index name="vcd_2">
 			<descr>Index on the category ID</descr>
@@ -605,6 +613,7 @@
 		</index>
 	</table>
 	<table name="vcd_IMDB">
+		<opt platform="MYSQL">TYPE=MYISAM</opt>
 		<field name="imdb" type="C" size="32">
 			<KEY/>
 			<UNIQUE/>
@@ -632,6 +641,11 @@
 			<descr>Index on the director</descr>
 			<col>director</col>
 		</index>
+		<index name="vcd_IMDB_3">   
+			<descr>Fulltext Index on the cast</descr>   
+            <col>fcast</col>   
+            <FULLTEXT/>   
+         </index> 
 	</table>
 	<table name="vcd_Borrowers">
 		<field name="borrower_id" type="I" size="10">
