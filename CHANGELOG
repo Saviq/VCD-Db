@@ -1,6 +1,7 @@
 0.991
 Fixed   - The JSON responses now use the correct mimetype (application/json)
 Fixed   - Fixed header output for the generated javascripts.
+Fixed   - All frontpage RSS feeds are now limit to 10 items per feed.
 Added   - New default internal file level cache manager when using SOAP endpoint instead of db.
 Added   - Added check to avoid shared sessions between 2 or more vcddb's on same domain name.
 Fixed   - Bug in the Imdb fetch class for the country section fixed.
@@ -9,6 +10,7 @@ Updated - Several languages have been updated, german, polish and hungarian.
 Fixed   - Some popups has invalid background.
 Fixed   - The rss page was still using PHP short tags.
 Fixed   - Save and close in the pornstar popup now actually closes the window.
+Fixed   - [#187] Metadata items in "movie manager" had some buggy behavior.
 Fixed   - [#180] Parent can now be selected when changing media type in admin panel.
 Fixed   - [#172] Clicking on the top logo now works again as "home" link.
 Fixed   - [#176] Fething item by ID is now enabled again.

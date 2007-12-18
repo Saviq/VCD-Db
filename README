@@ -40,7 +40,7 @@ INSTALLATION
 
 UPGRADING
 
-Upgrading from 0.984, 0.985 or 0.986
+Upgrading from 0.984, 0.985, 0.986 or 0.990
 	- At last a painless upgrade :) 
 	  Simply overwrite all existing files from the new zip/tar file.
 	  Open the vcddb/setup/upgrade.php on your server to finish the upgrade.
