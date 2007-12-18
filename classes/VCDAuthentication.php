@@ -34,10 +34,10 @@ class VCDAuthentication {
 		
 		
 		// Check if we are authenticating to LDAP or DB
-		if ((bool)LDAP_AUTH) {
+		if ((bool)VCDConfig::isLDAPAuthentication()) {
 			$LDAPAuthClass = new VCDLdapAuthentication();
 			return $LDAPAuthClass->Authenticate($username, $password, $save_session);
-		} elseif (VCDDB_USEPROXY) {
+		} elseif (VCDConfig::isUsingWebservice()) {
 			$SoapAuthClass = new SoapAuthenticationProxy();
 			if ($SoapAuthClass->authenticate($username, $password)) {
 				return UserServices::getUserByUsername($username);

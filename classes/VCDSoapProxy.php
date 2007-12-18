@@ -252,8 +252,8 @@ class SoapCoverProxy extends VCDProxy {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/cover.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/cover.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/cover.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/cover.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:CoverServicesAction';
 		parent::__construct();
@@ -609,8 +609,8 @@ class SoapMovieProxy extends VCDProxy {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/movie.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/movie.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/movie.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/movie.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:MovieServicesAction';
 		parent::__construct();
@@ -1198,8 +1198,8 @@ class SoapUserProxy extends VCDProxy {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/user.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/user.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/user.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/user.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:UserServicesAction';
 		parent::__construct();
@@ -1639,8 +1639,8 @@ class SoapAuthenticationProxy extends VCDProxy  {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/authentication.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/authentication.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/authentication.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/authentication.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:AuthenticationServicesAction';
 		parent::__construct();
@@ -1666,8 +1666,8 @@ class SoapFilesProxy extends VCDProxy {
 	private $classPrefix = 'SoapFilesServices';
 	
 	public function __construct() {
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/files.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/files.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/files.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/files.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:FilesServicesAction';
 		parent::__construct();
@@ -1705,8 +1705,8 @@ class SoapPornstarProxy extends VCDProxy  {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/pornstar.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/pornstar.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/pornstar.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/pornstar.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:PornstarServicesAction';
 		parent::__construct();
@@ -2025,8 +2025,8 @@ class SoapSettingsProxy extends VCDProxy {
 	
 	public function __construct() {
 		
-		$this->wsdl = VCDDB_SOAPPROXY.'proxy/settings.php?wsdl';
-		$this->proxyUri = VCDDB_SOAPPROXY.'proxy/settings.php';
+		$this->wsdl = VCDConfig::getWebserviceEndpoint().'proxy/settings.php?wsdl';
+		$this->proxyUri = VCDConfig::getWebserviceEndpoint().'proxy/settings.php';
 		$this->namespace = 'urn:http://vcddb.konni.com';
 		$this->soapaction = 'urn:SettingsServicesAction';
 		parent::__construct();
