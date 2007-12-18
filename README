@@ -43,6 +43,7 @@ UPGRADING
 Upgrading from 0.984, 0.985, 0.986 or 0.990
 	- At last a painless upgrade :) 
 	  Simply overwrite all existing files from the new zip/tar file.
+	  (Beware MacOS users not to overwrite the upload folder)
 	  Open the vcddb/setup/upgrade.php on your server to finish the upgrade.
 	  Delete the setup folder and start using VCD-db again.
 
