@@ -152,10 +152,12 @@ define("CACHE_MANAGER", "");
 	<!-- Menu -->
 
 	<br>
+	<?php if (!isset($_POST['Upgrade'])): ?>
 	<div style="margin-left:50px">
 	<span id="process"><img src="img/processing.gif" border="0" align="absmiddle" hspace="5" alt="Processing, be patient!" title="Processing, be patient!"></span>
 	<input type="submit" id="BtnContinue" name="Upgrade" value="Continue &gt;&gt;">
 	</div>
+	<?php endif; ?>
 	<!-- / Menu -->
 	</td>
 </tr>
@@ -168,8 +170,12 @@ define("CACHE_MANAGER", "");
 <?php 
 function doUpgrade() {
 	try {
-
-		if (upgrader::PrevVersion() == 0.990) {
+		
+		
+		if (upgrader::PrevVersion() == CURR_VERSION) {
+			throw new Exception('No need to upgrade, you have already done so, or installed using this version.');
+		
+		} else if (upgrader::PrevVersion() == 0.990) {
 			
 			$v = SettingsServices::getMetadata(0,0,metadataTypeObj::SYS_VERSION);
 			$metaObj = $v[0];
