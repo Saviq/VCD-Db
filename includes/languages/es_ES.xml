@@ -40,6 +40,10 @@
 		<string id="login.password">Contraseña</string>
 		<string id="login.remember">Recordarme</string>
 		<string id="login.info">Dejar vacío si &lt;b&gt;no&lt;/b&gt; deseas cambiar tu contraseúa</string>
+		<string id="login.failed">La conexión falló</string>
+		<string id="login.tryagain">Intento otra vez</string>
+		<string id="login.claim">Chasque aquí para conseguir su contraseña</string>
+		<string id="login.recover">Incorpore el username y el email</string>
 
 
 		<!-- Register based strings -->
@@ -174,6 +178,8 @@
 		<string id="dvd.aspect">Relación de aspecto</string>
 		<string id="dvd.audio">Sonido</string>
 		<string id="dvd.subtitles">Subtítulos</string>
+		<string id="dvd.languages">Idiomas habladas</string>
+		<string id="dvd.default">Ajustes del defecto DVD</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +214,7 @@
 		<string id="mymovies.notseen">Sugerir tan solo películas que no haya visto</string>
 		<string id="mymovies.friends">Amigos que me han pedido CD's</string>
 		<string id="mymovies.overviewdetail">Descripción detallada de la colección</string>
+		<string id="mymovies.pdf">exportación como pdf</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,8 +251,7 @@
 		<string id="addmovie.listedstep2">Paso 2.&lt;br/&gt;Selecciona el formato adecuado.</string>
 		<string id="addmovie.indb">Películas  en VCD-DB</string>
 		<string id="addmovie.selected">Títulos seleccionados</string>
-		<string id="addmovie.infolist">Haz doble click sobre el título a seleccionar ó usa los cursores.&lt;br/&gt;Puedes utilizar el teclado para
-							encontrar los títulos rapidamente.</string>
+		<string id="addmovie.infolist">Haz doble click sobre el título a seleccionar ó usa los cursores.&lt;br/&gt;Puedes utilizar el teclado para encontrar los títulos rapidamente.</string>
 		<string id="addmovie.notitles">Ningun otro usuario ha agregado películas a VCD-db</string>
 		<string id="addmovie.id">La entrada es una identificación</string>
 
@@ -253,8 +259,7 @@
 		<!-- strings for XML actions -->
 		<string id="xml.confirm">Confirmar carga XML</string>
 		<string id="xml.contains">El fichero XML contiene %d películas.</string>
-		<string id="xml.info1">Pulsa confirmar para procesar las películas y guardarlas en la BD.&lt;br/&gt;
-							ó pulsa cancelar para salir. </string>
+		<string id="xml.info1">Pulsa confirmar para procesar las películas y guardarlas en la BD.  ó pulsa cancelar para salir.</string>
 		<string id="xml.info2">Si quieres incluir las miniaturas (posters) con las películas que vas a importar en tu fichero XML, &lt;b&gt;DEBERAS&lt;/b&gt; tener el fichero XML de las miniaturas disponible ahora!.&lt;br/&gt;Los  posters no podr´n importarse después de finalizar el importar las películas desde el fichero XML actual.&lt;br/&gt;&lt;br/&gt;Si ya tienes el fichero XML de las miniaturas disponible ahora marca el campo mas abajo y en el paso siguiente después de importar tus películas de la lista de abajo, se te preguntar´ también para enviar el fichero XML para ser procesado.</string>
 		<string id="xml.thumbnails">Insertar miniaturas desde mi fichero XML de miniaturas</string>
 		<string id="xml.list">Lista completa de películas encontradas en el fichero XML.</string>
@@ -336,6 +341,10 @@
 		<string id="pornstar.name">Nombre</string>
 		<string id="pornstar.web">P´gina web</string>
 		<string id="pornstar.moviecount">Contador de películas</string>
+		<string id="pornstar.viewall">Opinión todos</string>
+		<string id="pornstar.viewactive">Visión activa</string>
+		<string id="pornstar.pornstars">Pornstars</string>
+		<string id="pornstar.begin">comience con la letra</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -419,5 +428,13 @@
 		<string id="misc.toggle">Estado vista previa</string>
 		<string id="misc.toggle_on">Activar</string>
 		<string id="misc.toggle_off">Desactivar</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanborrower">Seleccione el prestatario</string>
+		<string id="js.noyear">Seleccione el año</string>
+		<string id="js.invalid">Entrada inválida</string>
+		<string id="js.nocategory">Seleccione la categoría</string>
+		<string id="js.delete">¿Expediente de la cancelación?</string>
 	</strings>
 </language>

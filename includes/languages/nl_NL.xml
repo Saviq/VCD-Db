@@ -182,6 +182,7 @@
 		<string id="dvd.audio">Audio</string>
 		<string id="dvd.subtitles">Ondertiteling</string>
 		<string id="dvd.languages">Gesproken talen</string>
+		<string id="dvd.default">Standaard DVD montages</string>
 
 
 		<!-- My movies page strings -->
