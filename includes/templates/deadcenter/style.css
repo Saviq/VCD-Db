@@ -4,8 +4,6 @@ a:visited{color:#E87E10;text-decoration:none;}
 a:hover{text-decoration:underline;}
 body{background-color:#FFFFFF;background-image:url(images/background3.gif);color:#333333;font-family:Verdana,Arial,Helvetica,sans;font-size:11px;margin:0px;padding:0px;}
 body.nobg{background-image:none;}
-div#lang{top:94px !important;vertical-align:middle !important;}
-div#lang select{margin-bottom:2px;}
 /* Forms and buttons */
 form{margin:0px;}
 /* Basic elements */
@@ -68,7 +66,7 @@ ul#toplist li.tlistheader{background-color:#C0C0C0;background-image:url(images/t
 #actorimages{margin:0px;text-indent:0px;width:100%;}
 #actorimages .imgx{margin:4px;}
 #actorlist{}
-#bar{background:#C0C0C0;background-image:url(images/linethrough_bg.gif);border:solid #000000;border-width:1px 0 1px 0;color:#FFFFFF;height:25px;line-height:24px;padding-right:110px;text-align:right;}
+#bar{background:#C0C0C0;background-image:url(images/linethrough_bg.gif);border:solid #000000;border-width:1px 0 1px 0;color:#FFFFFF;height:25px;line-height:24px;padding-right:2px;text-align:right;}
 #bar a{color:#FFFFFF;}
 #bar a:link{color:#FFFFFF;}
 #bar a:visited{color:#FFFFFF;}

@@ -7,7 +7,7 @@ a:hover{text-decoration:underline;}
 #outer{text-align:left;width:830px;margin:0px;}
 #hdr{height:70px;background:#eeeeee;background-image:url(images/vcd_headersmall.jpg);color:#333333;margin:0px;padding:0px;}
 #toplogo{position:absolute;background-image:url(images/top_logo.gif);height:77px;width:121px;left:15px;top:5px;cursor:pointer;}
-#bar{height:25px;background:#E7E7E7;background-image:url(images/linethrough_bg.gif);color:#4D4A47;border-top:1px solid #fff;font-family:verdana,Geneva,Arial,Helvetica,sans-serif;letter-spacing:1px;border-bottom:1px solid #000;text-align:right;padding-right:110px;line-height:25px;}
+#bar{height:25px;background:#E7E7E7;background-image:url(images/linethrough_bg.gif);color:#4D4A47;border-top:1px solid #fff;font-family:verdana,Geneva,Arial,Helvetica,sans-serif;letter-spacing:1px;border-bottom:1px solid #000;text-align:right;padding-right:2px;line-height:25px;}
 #bar a{color:#4D4A47;}
 #bar a:link{color:#4D4A47;}
 #bar a:visited{color:#4D4A47;}

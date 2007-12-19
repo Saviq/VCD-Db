@@ -63,7 +63,7 @@ unknown{border-right:#000000 1px solid;}
 #actorimages{margin:0px;text-indent:0px;width:100%;}
 #actorimages .imgx{margin:4px;}
 #actorlist{}
-#bar{background:url(images/linethrough_bg.gif) #C0C0C0;border-bottom:#000000 1px solid;border-left:#000000 0px solid;border-right:#000000 0px solid;border-top:#000000 1px solid;color:#FFFFFF;height:25px;line-height:25px;padding-right:110px;text-align:right;}
+#bar{background:url(images/linethrough_bg.gif) #C0C0C0;border-bottom:#000000 1px solid;border-left:#000000 0px solid;border-right:#000000 0px solid;border-top:#000000 1px solid;color:#FFFFFF;height:25px;line-height:25px;padding-right:2px;text-align:right;}
 #bar a{color:#FFFFFF;}
 #bar a:link{color:#FFFFFF;}
 #bar a:visited{color:#FFFFFF;}
