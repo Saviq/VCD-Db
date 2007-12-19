@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="includes/css/global.css" media="screen, projection"/>
 	<script src="includes/js/main.js" type="text/javascript"></script>
 </head>
-<body onload="window.focus()">
+<body onload="window.focus()" class="nobg">
 <h2>{$translate.manager.browse}</h2>
 <form name="browse" action="{$smarty.server.SCRIPT_NAME}" method="post" onsubmit="return false">
 <table cellspacing="1" cellpadding="1" border="0" class="plain">
