@@ -142,7 +142,7 @@
 	<ul>
 	{if is_array($itemCovers) && count($itemCovers)>0}
 		{foreach from=$itemCovers item=i}
-		<li><a href="{$i.link|escape}" title="{$i.title}: {$i.covertype}" rel="lytebox[{$itemId}]">{$i.covertype}</a> <i>({$i.size})</i></li>
+		<li><a href="{$i.link|escape}" title="{$i.title}: {$i.covertype}" rel="lytebox[{$itemId}]">{$i.covertype}</a> <i>({$i.size})</i> <a href="{$i.link|escape}&amp;download"><img src="images/icons/bullet_arrow_down.png" border="0" style="vertical-align: middle;"/></a></li>
 		{/foreach}	
 	{else}
 		<li>{$translate.movie.nocovers}</li>

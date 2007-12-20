@@ -17,7 +17,7 @@ RewriteRule ^pornstars/(all|active)$ index.php?page=pornstars&view=$1	[QSA]
 RewriteRule ^pornstar/([0-9]+)$ index.php?page=pornstar&pornstar_id=$1	[QSA]
 
 RewriteRule ^search/?(actor|director)/([^\?/]*)$ index.php?page=search&by=$1&searchstring=$2 [QSA]
-RewriteRule ^file/(cover|pornstar|nfo)/([0-9]+)$ index.php?page=file&$1_id=$2	[QSA]
+RewriteRule ^file/(cover|pornstar|nfo)/([0-9]+)(&download)?$ index.php?page=file&$1_id=$2&$3	[QSA]
 RewriteRule ^page/movies/([a-zA-Z\\+]*)/([0-9]+)$ index.php?page=movies&do=$1&index=$2	[QSA]
 RewriteRule ^page/movies/([a-zA-Z\\+]*)$ index.php?page=movies&do=$1 [QSA]
 RewriteRule ^page/([^\?/]+)$ index.php?page=$1	[QSA]

@@ -371,8 +371,9 @@ class VCDPageFileHandler extends VCDBasePage {
 	 */
 	private function doImage($cover_id) {
 		
+		$download = isset($_GET['download']) ? true : false;
 		$cover = CoverServices::getCoverById($cover_id);
-		
+				
 		if ($cover instanceof cdcoverObj ) {
 			
 			
@@ -397,8 +398,17 @@ class VCDPageFileHandler extends VCDBasePage {
 			if ($cover->isInDB()) {
 				
 				$imageClass = new VCDImage($cover->getImageID());
-				$this->streamImageStream($imageClass->getImageStream($cover->getImageID()), 
-					$cover->getFilename(), $this->getImageMimeType($cover->getFilename()),$cover->getFilesize());
+				if ($download) {
+					
+					$contents = $imageClass->getImageStream($cover->getImageID());
+					$fileDestination = $this->cacheFile($cover_id, $cover->getFilename(),$contents,true);
+					$this->streamFile($fileDestination, $this->getDetailedFileName($cover));
+					unlink($fileDestination);
+				} else {
+					$this->streamImageStream($imageClass->getImageStream($cover->getImageID()), 
+						$cover->getFilename(), $this->getImageMimeType($cover->getFilename()),$cover->getFilesize());	
+				}
+				
 				
 			} else {
 				
@@ -408,7 +418,12 @@ class VCDPageFileHandler extends VCDBasePage {
 					$fullpath = VCDDB_BASE.DIRECTORY_SEPARATOR.COVER_PATH.$cover->getFilename();
 				}
 				
-				$this->streamImage($fullpath, null, $cover->getFilesize());
+				if ($download) {
+					$this->streamFile($fullpath, $this->getDetailedFileName($cover));
+				} else {
+					$this->streamImage($fullpath, null, $cover->getFilesize());	
+				}
+				
 				
 			}
 			
@@ -506,9 +521,10 @@ class VCDPageFileHandler extends VCDBasePage {
 	 * Stream the contents of the file to browser
 	 *
 	 * @param string $path | The full path to the file
+	 * @param string $filename | The filename to use if specified
 	 * @return bool | Returns true on success
 	 */
-	private function streamFile($path) {
+	private function streamFile($path, $filename=null) {
 		session_write_close();
 		@ob_end_clean();
 		if (!is_file($path) || connection_status()!=0) {
@@ -518,7 +534,12 @@ class VCDPageFileHandler extends VCDBasePage {
 		//to prevent long file from getting cut off from    //max_execution_time
 		@set_time_limit(0);
 		
-		$name = basename($path);
+		if (is_null($filename)) {
+			$name = basename($path);	
+		} else {
+			$name = $filename;
+		}
+		
 		
 		//filenames in IE containing dots will screw up the
 		//filename unless we add this
@@ -576,11 +597,16 @@ class VCDPageFileHandler extends VCDBasePage {
 	 * @param string $contents | The cover binary data contents
 	 * @return string | The path to file on filesystem.
 	 */
-	private function cacheFile($cover_id, $filename, $contents=null) {
+	private function cacheFile($cover_id, $filename, $contents=null, $skipBase64Decode=false) {
 		if (is_null($contents)) return null;
 		
 		$fileDestination = VCDDB_BASE.DIRECTORY_SEPARATOR.CACHE_FOLDER.$cover_id.'-'.$filename;
-		if (VCDUtils::write($fileDestination ,base64_decode($contents),false)) {
+		
+		if (!$skipBase64Decode) {
+			$contents = base64_decode($contents);
+		}
+		
+		if (VCDUtils::write($fileDestination ,$contents,false)) {
 			return $fileDestination;
 		} else {
 			return null;
@@ -596,6 +622,19 @@ class VCDPageFileHandler extends VCDBasePage {
 	 */
 	private function getImageMimeType($filename) {
 		return 'image/'.VCDUtils::getFileExtension($filename);
+	}
+	
+	
+	/**
+	 * Get detailed covername by the coverType and movie name
+	 *
+	 * @param cdcoverObj $obj | The cdCover object
+	 * @return string | The generated cover name
+	 */
+	private function getDetailedFileName(cdcoverObj $obj) {
+		$itemObj = MovieServices::getVcdByID($obj->getVcdId());
+		$coverName = $itemObj->getTitle().'-'.$obj->getCoverTypeName();
+		return preg_replace('/[^a-zA-Z0-9\.]/','_',$coverName).'[vcd-db].'.VCDUtils::getFileExtension($obj->getFilename());
 	}
 	
 }
