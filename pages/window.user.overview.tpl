@@ -36,12 +36,12 @@
 </table>
 </div>
 <hr/>
-<p align="center"><input onclick="window.close()" type="button" value="Loka"/></p>
+<p align="center"><input onclick="window.close()" type="button" value="{$translate.misc.close}"/></p>
 
 {literal}
 <script type="text/javascript">
 try {
-	var tHeight = document.getElementById("tabledata").offsetHeight + 90;
+	var tHeight = document.getElementById("tabledata").offsetHeight + 110;
 	var tWidth = document.layers ? window.outerWidth : document.body.clientWidth;
 	window.resizeTo(tWidth,tHeight);
 } catch (ex) {}

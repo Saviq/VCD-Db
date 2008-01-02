@@ -1,5 +1,6 @@
 0.992	
 Fixed   - The site title is now used as the html title.
+Fixed   - Translation in the collection overview.
 
 0.991
 Added   - New default internal file level cache manager when using SOAP endpoint instead of db.
