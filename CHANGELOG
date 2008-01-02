@@ -1,3 +1,6 @@
+0.992	
+Fixed   - The site title is now used as the html title.
+
 0.991
 Added   - New default internal file level cache manager when using SOAP endpoint instead of db.
 Added   - Added check to avoid shared sessions between 2 or more vcddb's on same domain name.

@@ -200,6 +200,7 @@ class VCDBasePage extends VCDPage {
 		
 		$this->assign('pageCharset', VCDUtils::getCharSet());
 		$this->assign('pageStyle', VCDUtils::getStyle());
+		$this->assign('siteName',SettingsServices::getSettingsByKey('SITE_NAME'));
 						
 		// Check if RSS link should be displayed
 		if ((bool)SettingsServices::getSettingsByKey('RSS_SITE')) {
