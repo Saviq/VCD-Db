@@ -14,7 +14,6 @@
  */
 ?>
 <?php
-
 class VCDRss {
 
 	private $site_rss = false;
@@ -28,7 +27,7 @@ class VCDRss {
 	// Cache settings
 	private $use_cache = true;
 	private $cache_folder = CACHE_FOLDER;
-	private $cache_time = RSS_CACHE_TIME;
+	private $cache_time;
 
 	/**
 	 * Object constructor
@@ -36,6 +35,7 @@ class VCDRss {
 	 */
 	public function __construct() {
 		$this->cache_folder = "../" . $this->cache_folder;
+		$this->cache_time = VCDConfig::getRSSCacheTimeout();
 		$this->site_rss = SettingsServices::getSettingsByKey('RSS_SITE');
 		$this->user_rss = SettingsServices::getSettingsByKey('RSS_USERS');
 		$this->baseurl = SettingsServices::getSettingsByKey('SITE_HOME');
@@ -125,7 +125,11 @@ class VCDRss {
     				$arr = $movie->getRSSData();
     				$xml .= "<item>\n";
 				    $xml .= "<title>".htmlspecialchars($movie->getTitle(),ENT_QUOTES)."</title>\n";
-				    $xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
+				    if (VCDConfig::isUsingFriendlyUrls()) {
+				    	$xml .= "<link>".$this->baseurl."movie/".$movie->getID()."</link>\n";	
+				    } else {
+				    	$xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
+				    }
 				    $xml .= "<description>".htmlspecialchars($arr['description'],ENT_QUOTES)."</description>\n";
 				    $xml .= "<dc:creator>".htmlspecialchars($arr['creator'],ENT_QUOTES)."</dc:creator>\n";
 				    $xml .= "<dc:date>".htmlspecialchars(date('c', $arr['date']),ENT_QUOTES)."</dc:date>\n";
@@ -207,7 +211,11 @@ class VCDRss {
     				$arr = $movie->getRSSData();
     				$xml .= "<item>\n";
 				    $xml .= "<title>".htmlspecialchars($movie->getTitle(),ENT_QUOTES)."</title>\n";
-				    $xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";
+				    if (VCDConfig::isUsingFriendlyUrls()) {
+				    	$xml .= "<link>".$this->baseurl."movie/".$movie->getID()."</link>\n";	
+				    } else {
+				    	$xml .= "<link>".$this->baseurl."?page=cd&amp;vcd_id=".$movie->getID()."</link>\n";	
+				    }
 				    $xml .= "<description>".htmlspecialchars($arr['description'],ENT_QUOTES)."</description>\n";
 				    $xml .= "<dc:creator>".htmlspecialchars($arr['creator'],ENT_QUOTES)."</dc:creator>\n";
 				    $xml .= "<dc:date>".htmlspecialchars(date('c', $arr['date']),ENT_QUOTES)."</dc:date>\n";
