@@ -4,7 +4,7 @@
 <!-- Original Author: Ikerstges -->
 <language>
 	<id>nl_NL</id>
-	<name>Nederlands</name>
+	<name>Dutch</name>
 	<charset>UTF-8</charset>
 	<strings>
 
@@ -24,7 +24,7 @@
 		<string id="menu.wishlist">Mijn verlanglijstje</string>
 		<string id="menu.categories">Film kategoriën</string>
 		<string id="menu.rss">Mijn Rss Feeds</string>
-		<string id="menu.controlpanel">VCD-db Admin</string>
+		<string id="menu.controlpanel">Beheerderspaneel</string>
 		<string id="menu.register">Registreer</string>
 		<string id="menu.logout">Uitloggen</string>
 		<string id="menu.submit">Doorsturen</string>
@@ -64,7 +64,7 @@
 		<string id="userproperties.wishlist">Anderen toestaan mijn wensenlijst te zien?</string>
 		<string id="userproperties.use_index">Gebruik index nummer veld voor eigen media ID's</string>
 		<string id="userproperties.seen_list">Bijhouden welke films ik heb gezien</string>
-		<string id="userproperties.playoption">Gebruik player opties op client</string>
+		<string id="userproperties.playoption">Gebruik Speler opties op client</string>
 		<string id="userproperties.nfo">Van het gebruik NFO- dossier?</string>
 		<string id="userproperties.default_image">Afbeelding weergave als standaard instellen?</string>
 		<string id="userproperties.nfo_image">NFO bestand als afbeelding laten zien?</string>
@@ -199,7 +199,7 @@
 		<string id="mymovies.joinstype">Selecteer aktie</string>
 		<string id="mymovies.joinshow">Toon resultaten</string>
 		<string id="mymovies.noresults">Zoekterm leverde geen resultaten</string>
-		<string id="mymovies.textall">Printbeeld (Text)</string>
+		<string id="mymovies.textall">Printbeeld (Tekst Modus)</string>
 		<string id="mymovies.pwall">Printbeeld (Alles)</string>
 		<string id="mymovies.pwmovies">Printbeeld (Films)</string>
 		<string id="mymovies.pwtv">Printbeeld (Tv Shows)</string>
@@ -236,7 +236,7 @@
 		<string id="manager.sel">Geselecteerde acteurs</string>
 		<string id="manager.stars">Stars</string>
 		<string id="manager.browse">Browse for file location</string>
-		<string id="manager.addmedia">Add...</string>
+		<string id="manager.addmedia">Toevoegen...</string>
 
 
 		<!-- Add new movie based strings -->
@@ -250,20 +250,20 @@
 		<string id="addmovie.xmlnote">(&lt;u&gt;Waarschuwing:&lt;/u&gt; alleen XML-bestanden die werden geëxporteerd vanuit een andere VCD-db installatie kunnen worden gebruikt om je films hier te importeren. Je kunt je films exporteren vanuit de &quot;Mijn films&quot; sectie. Probeer handmatige aanpassingen van de geëxporteerde XML-bestanden te vermijden.)</string>
 		<string id="addmovie.maxfilesize">Max bestandsgrootte</string>
 		<string id="addmovie.dvdempire">Haal gegevens van Adult DVD Empire (X-rated films)</string>
-		<string id="addmovie.listedstep1">Step 1&lt;br/&gt;Selecteer de titels die je wil toevoegen aan je lijst.&lt;br/&gt;bijpassend media type kan worden geselecteerd in de volgende stap</string>
-		<string id="addmovie.listedstep2">Step 2.&lt;br/&gt;Selecteer het bijpassende media type.</string>
+		<string id="addmovie.listedstep1">Stap 1&lt;br/&gt;Selecteer de titels die je wil toevoegen aan je lijst.&lt;br/&gt;bijpassend media type kan worden geselecteerd in de volgende stap</string>
+		<string id="addmovie.listedstep2">Stap 2.&lt;br/&gt;Selecteer het bijpassende media type.</string>
 		<string id="addmovie.indb">Films in VCD-DB</string>
 		<string id="addmovie.selected">Geselecteerde titel</string>
 		<string id="addmovie.infolist">Dubbel-klik op titel om te selecteren of gebruik pijltjestoetsen.&lt;br/&gt;&lt;br/&gt;Je kunt het toetsenbord gebruiken om titels snel te vinden.</string>
 		<string id="addmovie.notitles">Geen andere gebruiker heeft films toegevoegd aan VCD-db</string>
-		<string id="addmovie.id">De input is een Identiteitskaart</string>
+		<string id="addmovie.id">De input is een Identificatie nummer</string>
 
 
 		<!-- strings for XML actions -->
 		<string id="xml.confirm">Bevestigen XML upload</string>
 		<string id="xml.contains">XML-bestand bevat %d films.</string>
 		<string id="xml.info1">Kies bevestigen om de films te verwerken en op te slaan in de database.  Of kies afbreken om hier uit te stappen.</string>
-		<string id="xml.info2">Als je thumbnails (posters) will meenemen met de films die je met deze keuze gaat importeren in je XML-bestand, dan &lt;b&gt;MOET&lt;/b&gt; je het thumbnails XML-bestand nu beschikbaar hebben!.&lt;br/&gt;Posters kunnen niet worden geïmporteerd nadat je gereed bent met importeren van je films vanuit het huidige XML-bestand.&lt;br/&gt;Als je reeds het XML-bestand hebt, check dan het veld hieronder en in de volgende stap na het importeren &lt;br/&gt;van je films in ondertaande lijst, zal tevens aan je worden gevraagd om het thumbnails XML-bestand opdat deze gegevens mee kunnen worden verwerkt.</string>
+		<string id="xml.info2">Als je thumbnails (posters) wil meenemen met de films die je met deze keuze gaat importeren in je XML-bestand, dan &lt;b&gt;MOET&lt;/b&gt; je het thumbnails XML-bestand nu beschikbaar hebben!.&lt;br/&gt;Posters kunnen niet worden geïmporteerd nadat je gereed bent met importeren van je films vanuit het huidige XML-bestand.&lt;br/&gt;Als je reeds het XML-bestand hebt, check dan het veld hieronder en in de volgende stap na het importeren &lt;br/&gt;van je films in ondertaande lijst, zal tevens aan je worden gevraagd om het thumbnails XML-bestand opdat deze gegevens mee kunnen worden verwerkt.</string>
 		<string id="xml.thumbnails">Voeg thumbnails toe vanuit mijn thumbnails XML-bestand</string>
 		<string id="xml.list">Volledige lijst van films, aangetroffen in XML-bestand</string>
 		<string id="xml.error">Geen titels gevonden in XML-bestand.&lt;br/&gt;Bestand kan beschadigd zijn, of het is gewoon een leeg bestand.&lt;br/&gt;&lt;br/&gt;Zorg ervoor dat je &lt;u&gt;zeker&lt;/u&gt; het XML-bestand kiest dat werd geëxporteerd vanuit VCD-db..</string>
@@ -276,7 +276,7 @@
 		<string id="dvdempire.desc">DVDEmpire beschrijving</string>
 		<string id="dvdempire.subcat">Adult categorieën</string>
 		<string id="dvdempire.details">Adultdvdempire.com details</string>
-		<string id="dvdempire.stars">Pornstars</string>
+		<string id="dvdempire.stars">Porno sterren</string>
 		<string id="dvdempire.notice">Acteurs met rode markering zijn op dit moment niet beschikbaar in de VCD-DB.&lt;br/&gt;&lt;br/&gt;Maar je kunt hun namen checken, waarna ze automatisch worden toegevoegd aan VCD-db and associated with this movie.</string>
 		<string id="dvdempire.fetch">Ook ophalen</string>
 
@@ -295,7 +295,7 @@
 		<string id="loan.history2">Zie: leen verleden</string>
 		<string id="loan.since">Vanaf</string>
 		<string id="loan.time">Tijd sinds</string>
-		<string id="loan.return">Retour copy</string>
+		<string id="loan.return">Retour kopie</string>
 		<string id="loan.success">Films met succes geleend</string>
 		<string id="loan.out">Niet terug</string>
 		<string id="loan.datein">Datum in</string>
@@ -335,8 +335,8 @@
 		<string id="wishlist.add">Voeg toe aan mijn verlanglijstje</string>
 		<string id="wishlist.onlist">Op je verlanglijstje</string>
 		<string id="wishlist.empty">Je verlanglijstje is leeg</string>
-		<string id="wishlist.own">I own a copy of this movie</string>
-		<string id="wishlist.notown">I do not own a copy of this movie</string>
+		<string id="wishlist.own">Ik bezit een kopie van deze film</string>
+		<string id="wishlist.notown">Ik ben niet in bezit van deze film</string>
 
 
 		<!-- strings for the pornstar entries -->
@@ -345,7 +345,7 @@
 		<string id="pornstar.moviecount">Movie aantal</string>
 		<string id="pornstar.viewall">Alles laten zien</string>
 		<string id="pornstar.viewactive">Actieve laten zien</string>
-		<string id="pornstar.pornstars">Pornosterren</string>
+		<string id="pornstar.pornstars">Porno sterren</string>
 		<string id="pornstar.begin">begin met letter</string>
 
 
@@ -386,7 +386,7 @@
 
 
 		<!-- strings for the player settings and actions -->
-		<string id="player.player">Player</string>
+		<string id="player.player">Speler</string>
 		<string id="player.path">Pad</string>
 
 
@@ -427,7 +427,7 @@
 		<string id="misc.seen">Gezien</string>
 		<string id="misc.footer">Pagina geladen in %s sec. (&lt;i&gt;%d Queries&lt;/i&gt;) &amp;nbsp; Copyright (c)</string>
 		<string id="misc.footer_link">Bekijk de officiele VCD-db website</string>
-		<string id="misc.toggle">Rechter kolom</string>
+		<string id="misc.toggle">Voorbeeld aanzetten</string>
 		<string id="misc.toggle_on">AAN</string>
 		<string id="misc.toggle_off">UIT</string>
 
@@ -437,7 +437,7 @@
 		<string id="js.loanborrower">Selecteer lener</string>
 		<string id="js.invalidname">Voer een naam in</string>
 		<string id="js.deleteborrower">Lener en al zijn leengegevens verwijderen?</string>
-		<string id="js.notitle">Titel mist</string>
+		<string id="js.notitle">Titel ontbreekt</string>
 		<string id="js.noyear">Selecteer jaar</string>
 		<string id="js.invalid">Ongeldige invoer</string>
 		<string id="js.nomediatype">Selecteer media type</string>
@@ -448,10 +448,10 @@
 		<string id="js.removeactor">Acteur verwijderen van film?</string>
 		<string id="js.norss">Selecteer minstens 1 rss feed om verder te gaan</string>
 		<string id="js.deletemeta">Verwijder metadata en alle gerelateerde informatie?</string>
-		<string id="js.noupload">Selecten een bestan om te uploaden</string>
+		<string id="js.noupload">Selecteer een bestand om te uploaden</string>
 		<string id="js.noxmlthumb">Selecteer een XML bestand voor de thumbnails of deselecteer de thumbnails upload checkbox</string>
 		<string id="js.nocriteria">Voer a.u.b. zoekenwoorden in</string>
-		<string id="js.lastcopy">Dit is de enige kopie in de databasa.&lt;br/&gt;Alle informatie zal worden verwijderen&lt;br/&gt;Wil je doorgaan met verwijderen?</string>
+		<string id="js.lastcopy">Dit is de enige kopie in de database.&lt;br/&gt;Alle informatie zal worden verwijderen&lt;br/&gt;Wil je doorgaan met verwijderen?</string>
 		<string id="js.noselection">Selecteer minstens 1 film om verder te gaan.</string>
 		<string id="js.nomediaselection">Selecteer media type voor alle titels</string>
 		<string id="js.reqname">Voer je volledige naam in.</string>

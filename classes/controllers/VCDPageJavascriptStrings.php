@@ -32,12 +32,26 @@ class VCDPageJavascriptStrings extends VCDBasePage {
 		$jsKeys = VCDLanguage::getJavascriptKeys();
 		$results = array();
 		foreach ($jsKeys as $obj) {
-			$results[substr($obj->getId(),3)] = $obj->getKey();
+			$results[substr($obj->getId(),3)] = $this->cleanStringForJavascript($obj->getKey());
 		}
 		$this->assign('itemJavascriptKeys',$results);
 		
 		// Set correct header
 		header('Content-type: application/javascript'); 
 	}
+	
+	
+	/**
+	 * Clean up and format language string for javascript string campatibility
+	 *
+	 * @param string $str | The original javascript string
+	 * @return string | The cleaned up string
+	 */
+	private function cleanStringForJavascript($str) {
+		$str = str_replace('<br/>','\n',$str);
+		$str = str_replace('"','\"',$str);
+		return $str;
+	}
+	
 }
 ?>

@@ -29,7 +29,7 @@
 		<string id="menu.logout">Quitter</string>
 		<string id="menu.submit">Accepter</string>
 		<string id="menu.topusers">Utilisateurs</string>
-		<string id="menu.wishlistpublic">Demandes des autres</string>
+		<string id="menu.wishlistpublic">Demandes externes</string>
 		<string id="menu.statistics">Statistiques</string>
 		<string id="menu.showallusersmovies">Tous les films</string>
 
@@ -40,6 +40,12 @@
 		<string id="login.password">mot de passe</string>
 		<string id="login.remember">Mémoriser login</string>
 		<string id="login.info">Laisser cette case vide si vous ne voulez pas changer votre mot de passe</string>
+		<string id="login.failed">Nom d'utilisateur erronné</string>
+		<string id="login.tryagain">Réessayer</string>
+		<string id="login.deleted">Votre compte a été désactivé.&lt;br/&gt;Veuillez contacter l'administrateur pour plus d'informations.</string>
+		<string id="login.lost">Ou peut-êtrre avez vous oublié votre mot de passe ?</string>
+		<string id="login.claim">Cliquer ici pour récupérer le mot de passe</string>
+		<string id="login.recover">Donnez le nom d'utilisateur et votre adresse email.</string>
 
 
 		<!-- Register based strings -->
@@ -59,8 +65,9 @@
 		<string id="userproperties.use_index">Utiliser le numéro d'indice comme identifiant des média personnels</string>
 		<string id="userproperties.seen_list">Conserver un historiques des films que j'ai vus</string>
 		<string id="userproperties.playoption">Autoriser l'utilisation d'un visualiseur</string>
-		<string id="userproperties.nfo">Employez le dossier de NFO?</string>
+		<string id="userproperties.nfo">Utiliser les fichiers NFO ?</string>
 		<string id="userproperties.default_image">Vue avec les images par défaut ?</string>
+		<string id="userproperties.nfo_image">Voir le fichier NFO en tant qu'image ?</string>
 
 
 		<!-- strings for user settings -->
@@ -174,6 +181,8 @@
 		<string id="dvd.aspect">Affichage</string>
 		<string id="dvd.audio">Audio</string>
 		<string id="dvd.subtitles">Sous-titres</string>
+		<string id="dvd.languages">Langues</string>
+		<string id="dvd.default">Valeurs par défaut</string>
 
 
 		<!-- My movies page strings -->
@@ -208,6 +217,7 @@
 		<string id="mymovies.notseen">Suggérer uniquement les films que je n'ai pas vus</string>
 		<string id="mymovies.friends">Personnes avec qui partager mes films</string>
 		<string id="mymovies.overviewdetail">Vue d'ensemble détaillée de collection</string>
+		<string id="mymovies.pdf">Exporter en PDF</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -333,6 +343,10 @@
 		<string id="pornstar.name">Nom</string>
 		<string id="pornstar.web">Site Web</string>
 		<string id="pornstar.moviecount">Nb films</string>
+		<string id="pornstar.viewall">Tout voir</string>
+		<string id="pornstar.viewactive">Voir</string>
+		<string id="pornstar.pornstars">Acteurs/actrices de films X</string>
+		<string id="pornstar.begin">Commencer par la lettre</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -416,5 +430,34 @@
 		<string id="misc.toggle">Voir résumé</string>
 		<string id="misc.toggle_on">on</string>
 		<string id="misc.toggle_off">off</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Aucun film ajouté.</string>
+		<string id="js.loanborrower">Choisir un emprunteur</string>
+		<string id="js.invalidname">Entrer un nom</string>
+		<string id="js.deleteborrower">Effacer l'emprunteur et l'historique de ses emprunts ?</string>
+		<string id="js.notitle">Titre manquant</string>
+		<string id="js.noyear">Choisir une année</string>
+		<string id="js.invalid">Entrée invalide.</string>
+		<string id="js.nomediatype">Choisir le type de média</string>
+		<string id="js.nocategory">Choisir la catégorie.</string>
+		<string id="js.nocdcount">Choisir le nombre de disques.</string>
+		<string id="js.url">Entrer l'adresse exacte de l'image.</string>
+		<string id="js.delete">Effacer l'enregistrement ?</string>
+		<string id="js.removeactor">Effacer l'acteur ?</string>
+		<string id="js.norss">Choisir au moins un flux RSS avant de continuer.</string>
+		<string id="js.deletemeta">Effacer toutes les meta données et les données associées ?</string>
+		<string id="js.noupload">Choisir le fichier à charger.</string>
+		<string id="js.noxmlthumb">Choisir un fichier XML pour les aperçus ou décocher la case &quot;charger aperçu&quot; !</string>
+		<string id="js.nocriteria">Choisir les critères de recherche.</string>
+		<string id="js.lastcopy">Ceci est la seule copie de ce film.&lt;br/&gt;Toutes les informations le concernant seront effacées.&lt;br/&gt;Continuer ?</string>
+		<string id="js.noselection">Choisir au moins un film.</string>
+		<string id="js.nomediaselection">Choisir le type de média pour tous les titres</string>
+		<string id="js.reqname">Veuillez donner votre nom complet.</string>
+		<string id="js.requsername">Veuillez donner votre nom d'utilisateur.</string>
+		<string id="js.requsername3">Le nom d'utilisateur doit avoir au moins 3 caractères.</string>
+		<string id="js.reqpassword">Le mot de passe doit avoir au moins 5 caractères.</string>
+		<string id="js.reqpassnomatch">Les mots de passe ne correspondent pas !</string>
 	</strings>
 </language>

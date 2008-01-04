@@ -4,7 +4,7 @@
 <!-- Original Author: Lari Majamäki -->
 <language>
 	<id>fi_FI</id>
-	<name>Suomi</name>
+	<name>Finnish</name>
 	<charset>UTF-8</charset>
 	<strings>
 
@@ -31,6 +31,7 @@
 		<string id="menu.topusers">Käyttäjätilastot</string>
 		<string id="menu.wishlistpublic">Toisten toivelistat</string>
 		<string id="menu.statistics">Tilastot</string>
+		<string id="menu.showallusersmovies">Kaikki elokuvat</string>
 
 
 		<!-- login based strings -->
@@ -39,6 +40,12 @@
 		<string id="login.password">Salasana</string>
 		<string id="login.remember">Muista minut</string>
 		<string id="login.info">Jätä tämä tyhjäksi jos &lt;b&gt;et&lt;/b&gt; halua vaihtaa salasanaa</string>
+		<string id="login.failed">Kirjautuminen epäonnistui</string>
+		<string id="login.tryagain">Yritä uudelleen</string>
+		<string id="login.deleted">Käyttäjätunnuksesi on poistettu.&lt;br/&gt;Ota yhteyttä ylläpitoon saadaksesi lisätietoja.</string>
+		<string id="login.lost">Ehkä olet unohtanut salasanasi?</string>
+		<string id="login.claim">Klikkaa tästä saadaksesi salasanasi</string>
+		<string id="login.recover">Syötä käyttäjätunnus ja sähköpostiosoite</string>
 
 
 		<!-- Register based strings -->
@@ -46,7 +53,7 @@
 		<string id="register.fullname">Koko nimi</string>
 		<string id="register.email">Sähköposti</string>
 		<string id="register.again">Salasana uudelleen</string>
-		<string id="register.disabled">Tällä hetkellä rekisteröinti ei ole mahdollista. Ota yhteys järjestelmänvalvojaan.</string>
+		<string id="register.disabled">Tällä hetkellä rekisteröinti ei ole mahdollista. Ota yhteys ylläpitäjään.</string>
 		<string id="register.ok">Rekisteröinti onnistui, voit nyt kirjautua sisään tietokantaan.</string>
 
 
@@ -60,6 +67,7 @@
 		<string id="userproperties.playoption">Käytä soittimen toistoasetuksia</string>
 		<string id="userproperties.nfo">Salli NFO tiedosto?</string>
 		<string id="userproperties.default_image">Pitäisikö kuvallinen näkymä olla oletus?</string>
+		<string id="userproperties.nfo_image">Näytä NFO-tiedostot kuvina?</string>
 
 
 		<!-- strings for user settings -->
@@ -173,6 +181,8 @@
 		<string id="dvd.aspect">Kuvasuhde</string>
 		<string id="dvd.audio">Ääniraita</string>
 		<string id="dvd.subtitles">Tekstitys</string>
+		<string id="dvd.languages">Puhutut kielet</string>
+		<string id="dvd.default">DVD:n oletusasetukset</string>
 
 
 		<!-- My movies page strings -->
@@ -206,6 +216,8 @@
 		<string id="mymovies.find">Etsi elokuva</string>
 		<string id="mymovies.notseen">Ehdota vain elokuvia joita en ole nähnyt</string>
 		<string id="mymovies.friends">Ystäväni jotka lainaavat elokuvia</string>
+		<string id="mymovies.overviewdetail">Kokoelman tarkka yhteenveto</string>
+		<string id="mymovies.pdf">vie tiedot PDF muodossa</string>
 
 
 		<!-- strings for the movie manager window -->
@@ -244,6 +256,7 @@
 		<string id="addmovie.selected">Valitut elokuvat</string>
 		<string id="addmovie.infolist">Kaksoisklikkaa elokuvan nimeä tai käytä nuolia.&lt;br/&gt;Voit käyttää näppäimistöä elokuvien pikahakuun.</string>
 		<string id="addmovie.notitles">Kukaan muu käyttäjä ei ole lisännyt elokuvia tietokantaan.</string>
+		<string id="addmovie.id">ID</string>
 
 
 		<!-- strings for XML actions -->
@@ -330,6 +343,10 @@
 		<string id="pornstar.name">Nimi</string>
 		<string id="pornstar.web">Verkkosivu</string>
 		<string id="pornstar.moviecount">Elokuvalaskuri</string>
+		<string id="pornstar.viewall">Näytä kaikki</string>
+		<string id="pornstar.viewactive">Näytä aktiiviset</string>
+		<string id="pornstar.pornstars">Pornotähdet</string>
+		<string id="pornstar.begin">alkaa kirjaimella</string>
 
 
 		<!-- strings for the "seen movies" page -->
@@ -413,5 +430,34 @@
 		<string id="misc.toggle">Aseta esikatselu päälle</string>
 		<string id="misc.toggle_on">päälle</string>
 		<string id="misc.toggle_off">pois</string>
+
+
+		<!-- javascript strings around VCD-db -->
+		<string id="js.loanlist">Listaan ei ole lisätty elokuvia</string>
+		<string id="js.loanborrower">Valitse lainaaja</string>
+		<string id="js.invalidname">Kirjoita nimi</string>
+		<string id="js.deleteborrower">Poista lainaaja ja lainaajan lainaushistoria</string>
+		<string id="js.notitle">Nimi puuttuu</string>
+		<string id="js.noyear">Valitse vuosi</string>
+		<string id="js.invalid">Vika haussa</string>
+		<string id="js.nomediatype">Valitse median tyyppi</string>
+		<string id="js.nocategory">Valitse kategoria</string>
+		<string id="js.nocdcount">Valitse levyjen lukumäärä</string>
+		<string id="js.url">Syötä kuvan URL</string>
+		<string id="js.delete">Poista tiedot?</string>
+		<string id="js.removeactor">Poista näyttelijä tästä elokuvasta?</string>
+		<string id="js.norss">Valitse vähintään yksi RSS syöte</string>
+		<string id="js.deletemeta">Poista metadata ja kaikki siihen liittyvät merkinnät</string>
+		<string id="js.noupload">Valitse tiedosto</string>
+		<string id="js.noxmlthumb">Valitse XML tiedosto thumbnaileille tai poista valinta!</string>
+		<string id="js.nocriteria">Anna hakukriteeri</string>
+		<string id="js.lastcopy">Tietokannassa ei ole muita kopioita.&lt;br&gt;Elokuvan kaikki tiedot poistetaan&lt;br&gt;Jatketaanko?</string>
+		<string id="js.noselection">Valitse vähintään yksi elokuva</string>
+		<string id="js.nomediaselection">Valitse mediatyyppi kaikille elokuville</string>
+		<string id="js.reqname">Kirjoita koko nimesi</string>
+		<string id="js.requsername">Kirjoita käyttäjätunnus</string>
+		<string id="js.requsername3">Käyttäjätunnuksen tulee olle vähintään kolme (3) merkkiä.</string>
+		<string id="js.reqpassword">Salasanan tulee olla vähintään viisi (5) merkkiä!</string>
+		<string id="js.reqpassnomatch">Salasanat eivät täsmää!</string>
 	</strings>
 </language>
