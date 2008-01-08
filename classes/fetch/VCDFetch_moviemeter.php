@@ -7,8 +7,12 @@
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
+ * 
+ * Search by Hákon Birgsson <konni@konni.com>
+ * Regexp by Rolandow <rolandow@gmail.com>
  *
  * @author  Hákon Birgsson <konni@konni.com>
+ * @author  Rolandow  <rolandow@gmail.com>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id: VCDFetch_moviemeter.php 1366 2007-12-12 10:03:15Z konni $
@@ -20,17 +24,12 @@ class VCDFetch_moviemeter extends VCDFetch {
 
 
 	protected $regexArray = array(
-		'title'		=> '<h1>([^\<]*)<span>',
-		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})">([0-9]{4})</a>)',
-		'poster' 	=> '<a name="poster"([^<]*)><img([^<]*)([^<]*)src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>',
-		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
-		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
-		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
-		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
-		'runtime' 	=> '([0-9]+) min',
-		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)/">([^<]*)</a>',
-		'plot'		=> '<h5>Plot Outline:</h5>([^\<]*)<'
+		'titleyear'		=> '<head><title>([^\<]*)\(([0-9]*)\) - MovieMeter.nl<',
+		'poster' 		=> '([^<]*)><img class="poster"([^<]*)([^<]*)src="([^<]*)" style="width:',
+		'coungenrun'    => '<div id="film_info">([^<]*)<br \/>([^<]*)<br \/>([0-9]*) minuten',								// Country, genre, runtime
+		'dircastplot' 	=> 'geregisseerd door <a href="([^\<]*)">([^\<]*)</a><br \/>met ([^\<]*)<br \/><br \/>([^\<]*)',	// Director, cast, plot
+		'rating' 		=> '<div id="film_votes"><b>([0-9]*)</b> stemmen(.*)gemiddelde <b>([0-9]*,[0-9]*)</b>',
+		'akas' 			=> '\/h1><p>Alternatieve titel: ([^\<]*)&nbsp;'
 		);
 
 	protected $multiArray = array(
@@ -63,7 +62,7 @@ class VCDFetch_moviemeter extends VCDFetch {
 		
 		
 		// Now actually perform the search ..
-		$searchUrl = '/calls/quicksearch.php?hash='.$searchToken.'&search='.$title;
+		$searchUrl = '/calls/quicksearch.php?hash='.$searchToken.'&search='.rawurlencode($title);
 		$this->fetchPage($this->servername,$searchUrl, $this->servername,false);
 		
 	}
@@ -102,12 +101,10 @@ class VCDFetch_moviemeter extends VCDFetch {
 			$arrData = $data[1];
 
 			switch ($entry) {
-				case 'title':
+				case 'titleyear':
 					$title = $arrData[1];
 					$obj->setTitle($title);
-					break;
-
-				case 'year':
+					
 					$year = $arrData[2];
 					$obj->setYear($year);
 					break;
@@ -116,72 +113,45 @@ class VCDFetch_moviemeter extends VCDFetch {
 					$poster = $arrData[4];
 					$obj->setImage($poster);
 					break;
-
-				case 'director':
-					$director = $arrData[1];
-					$obj->setDirector($director);
-					break;
-
-				case 'genre':
-
-					$arr = array();
-					foreach ($arrData as $item) {
-						array_push($arr, $item[1]);
-					}
-					$obj->setGenre($arr);
-					break;
-
-				case 'rating':
-					$rating = $arrData[1].$arrData[2];
-				    $rating = $rating/10;
-				    $obj->setRating($rating);
-					break;
-
-				case 'cast':
-					// The cast list has been populated in the fetchDeeper function
-					if (is_array($arrData)) { 
-						$obj->setCast($arrData);
-					}
-					break;
-
-				case 'runtime':
-					$runtime = $arrData[1];
+					
+				case 'coungenrun':
+					$country = $arrData[1];
+					$obj->setCountry(Array($country));
+					
+					$genre = explode(" / ", $arrData[2]);
+					$obj->setGenre($genre);
+					
+					$runtime = $arrData[3];
 					$obj->setRuntime($runtime);
+					break;
+					
+				case 'dircastplot':
+					$director = $arrData[2];
+					$obj->setDirector($director);
+					
+					$cast = explode(" en ", $arrData[3]);
+					$cast2 = explode(", ", $cast[0]);
+					$cast2[] = $cast[1];
+					
+					$obj->setCast($cast2);
+					
+					$plot = $arrData[4];
+					$obj->setPlot($plot);
+					break;
+					
+				case 'rating':
+					$rating = $arrData[3];
+					$obj->setRating($rating);
 					break;
 
 				case 'akas':
-					$akaTitles = implode(',', $arrData);
-					$obj->setAltTitle($akaTitles);
+					$akaTitle = $arrData[1];
+					$obj->setAltTitle($akaTitle);
 					break;
-
-				case 'plot':
-					if (is_array($arrData)) {
-						$plot = trim($arrData[1]);
-					} elseif (is_string($arrData)) {
-						$plot = trim($arrData);
-					}
-					
-					$obj->setPlot($plot);
-					
-					break;
-
-				case 'country':
-					if (sizeof($arrData) > 0) {
-						$arrCountries = array();
-						foreach ($arrData as $itemArr) {
-							array_push($arrCountries, $itemArr[2]);
-						}
-						$obj->setCountry($arrCountries);
-					}
-
-					break;
-
-
 
 				default:
 					break;
 			}
-
 		}
 
 		$this->fetchedObj = $obj;
@@ -192,41 +162,6 @@ class VCDFetch_moviemeter extends VCDFetch {
 	protected function fetchDeeper($entry) {
 
 		switch ($entry) {
-
-			case 'plot':
-
-				
-				// Save the old buffer
-				$itemBuffer = $this->getContents();
-
-				// Generate urls
-				$plotUrl = str_replace('[$]', $this->getItemID(), $this->itempath).'plotsummary';
-				$referer = "http://".$this->servername.str_replace('[$]', $this->getItemID(), $this->itempath);
-
-				$isPlot =  $this->fetchPage($this->servername, $plotUrl, $referer);
-				if ($isPlot) {
-					
-					$regxPlot = '<p class="plotpar">([^\<]*)<i>';
-					if ($this->getItem($regxPlot) == self::ITEM_OK) {
-
-						$plotArr = $this->getFetchedItem();
-						$plotText = trim($plotArr[1]);
-						array_push($this->workerArray, array($entry, $plotText));
-
-					} else {
-						// Plot not found, use the Tagline instead and use the old buffer again
-						$regExTagline = '#Tagline:</b>([^<]*)#';
-						$this->setContents($itemBuffer);
-						if ($this->getItem($regExTagline) == self::ITEM_OK ) {
-							$plotArr = $this->getFetchedItem();
-							$plotText = $plotArr[1];
-							array_push($this->workerArray, array($entry, $plotText));
-						}
-					}
-				}
-
-
-				break;
 
 			default:
 				break;
