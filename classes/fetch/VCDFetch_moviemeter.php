@@ -27,7 +27,8 @@ class VCDFetch_moviemeter extends VCDFetch {
 		'titleyear'		=> '<head><title>([^\<]*)\(([0-9]*)\) - MovieMeter.nl<',
 		'poster' 		=> '([^<]*)><img class="poster"([^<]*)([^<]*)src="([^<]*)" style="width:',
 		'coungenrun'    => '<div id="film_info">([^<]*)<br \/>([^<]*)<br \/>([0-9]*) minuten',								// Country, genre, runtime
-		'dircastplot' 	=> 'geregisseerd door <a href="([^\<]*)">([^\<]*)</a><br \/>met ([^\<]*)<br \/><br \/>([^\<]*)',	// Director, cast, plot
+		'director'		=> 'geregisseerd door (.*)<br \/>met ',																// One or more directors
+		'castplot' 		=> 'geregisseerd door <a href="(.*)</a><br \/>met (de stemmen van )*([^\<]*)<br \/><br \/>([^\<]*)',	// Director, cast, plot
 		'rating' 		=> '<div id="film_votes"><b>([0-9]*)</b> stemmen(.*)gemiddelde <b>([0-9]*,[0-9]*)</b>',
 		'akas' 			=> '\/h1><p>Alternatieve titel: ([^\<]*)&nbsp;'
 		);
@@ -125,10 +126,13 @@ class VCDFetch_moviemeter extends VCDFetch {
 					$obj->setRuntime($runtime);
 					break;
 					
-				case 'dircastplot':
-					$director = $arrData[2];
-					$obj->setDirector($director);
+				case 'director':
+					$tmp = $arrData[1];
+					preg_match_all('|(<a href=(["\']))(.*?)(\2(.*?)>(.*?)<\/a>)|s', $tmp, $directors);
+					$obj->setDirector(implode(",", $directors[6]));
+					break;
 					
+				case 'castplot':
 					$cast = explode(" en ", $arrData[3]);
 					$cast2 = explode(", ", $cast[0]);
 					$cast2[] = $cast[1];
@@ -141,6 +145,7 @@ class VCDFetch_moviemeter extends VCDFetch {
 					
 				case 'rating':
 					$rating = $arrData[3];
+					$rating = str_replace(',','.',$rating);
 					$obj->setRating($rating);
 					break;
 
