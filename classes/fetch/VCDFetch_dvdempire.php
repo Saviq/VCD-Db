@@ -202,7 +202,7 @@ class VCDFetch_dvdempire extends VCDFetch {
 		
 			case 'screenshots':
 				// Return array of all screenshots
-				$screenbase = "http://images2.dvdempire.com/res/movies/screenshots/".$folder."/".$this->getItemID();
+				$screenbase = "http://images2.dvdempire.com/res/movies/screenshots/".$this->getItemID();
 				$screens = array();
 				for($i = 1; $i <= 50 ; $i++) {
 					$path = $screenbase."_".$i."l.jpg";
