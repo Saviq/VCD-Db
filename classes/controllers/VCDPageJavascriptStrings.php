@@ -49,6 +49,7 @@ class VCDPageJavascriptStrings extends VCDBasePage {
 	 */
 	private function cleanStringForJavascript($str) {
 		$str = str_replace('<br/>','\n',$str);
+		$str = str_replace('<br>','\n',$str);
 		$str = str_replace('"','\"',$str);
 		return $str;
 	}

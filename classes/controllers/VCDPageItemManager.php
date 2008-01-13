@@ -59,7 +59,13 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 		
 			// Tell parent not to load the extended properties
 			$this->skipExtended = true;
-			parent::__construct($node);
+			
+			try {
+				parent::__construct($node);
+			} catch (VCDProgramException $e) {
+				print '<script>window.opener.location.reload();self.close();</script>';
+				exit();
+			}
 			
 			// Assert permission
 			if (!$this->checkPermissions()) {

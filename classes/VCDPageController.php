@@ -193,6 +193,9 @@ class VCDPageController {
 			
 			$itemId = $_GET['vcd_id'];
 			$category_id = SettingsServices::getCategoryIDByItemId($itemId);
+			if (!is_numeric($category_id)) {
+				redirect();
+			}
 			
 			// One of the items in the array has no conditions .. that one is used
 			// if the categoryID condition is not fulfilled.
