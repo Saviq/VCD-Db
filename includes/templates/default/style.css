@@ -29,7 +29,7 @@ hr{height:1px;}
 /* Forms and buttons */
 form{margin:0px;}
 .forms{padding:2px 0px 5px 5px;}
-input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:black;}
+input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:WindowText;}
 .dashed{font-size:10px;border:#dcdcdc 1px ridge;background-image:url(images/dash.gif);color:black;}
 /* Misc Site objects */
 #pager{position:absolute;top:4px;left:45%;font-weight:bold;}

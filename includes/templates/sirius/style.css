@@ -29,7 +29,7 @@ hr{height:1px;}
 /* Forms and buttons */
 form{margin:0px;}
 .forms{padding:2px 0px 5px 5px;}
-input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:black;}
+input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:WindowText;}
 .dashed{font-size:10px;border:#dcdcdc 1px ridge;background-image:url(images/dash.gif);color:black;}
 /* Misc Site objects */
 #pager{position:absolute;top:4px;left:45%;font-weight:bold;}
@@ -86,4 +86,4 @@ ul#toplist li.tlist{background-image:none;padding-left:3px;display:block;color:#
 ul#toplist li.tlist a{padding-left:3px;color:#333333;}
 legend,fieldset{border:1px #C9C9C9 dashed !important;}
 legend{background-color:#EFEFEF;color:#000;padding:2px !important;}
-#lang {background-color:transparent;border:0px;}
+#lang {background-color:transparent;border:0px;color:#000000}
