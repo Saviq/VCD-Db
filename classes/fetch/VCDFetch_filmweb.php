@@ -19,8 +19,8 @@
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
-	'title'		=> '#div id=\"filmTitle\">([^<]+)<#',
-	'org_title'	=> '#<span class=\"otherTitle\">([^<]+)</span>#',
+	'title'		=> '#div id=\"filmTitle\">[^<]+<h1>([^<]+)</h1>#',
+	'org_title'	=> '#<h2>([^<]+)&nbsp;\(#',
 	'alt_title'	=> '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#div id="filmPhoto">[^"]+"([^"?]+)[^"]+" gemius=#',
@@ -30,7 +30,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'cast'		=> 'class=\"nm\">[^<]+<a[^>]+>([^<]+)</a>([^>]+>[^>]+>[^>]+>[^>]+>([^<]+)<span)?',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
-	'plot'		=> '#"justify">(.*?)</li>#'
+	'plot'		=> '#justify">(.*?)</li>#'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
@@ -42,6 +42,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	public function __construct() {
 		$this->setSiteName("filmweb");
+		$this->useSnoopy();
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
 	}
 
