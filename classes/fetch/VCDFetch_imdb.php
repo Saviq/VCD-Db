@@ -22,7 +22,7 @@ class VCDFetch_imdb extends VCDFetch {
 	protected $regexArray = array(
 		'title'		=> '<h1>([^\<]*)<span>',
 		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})">([0-9]{4})</a>)',
-		'poster' 	=> '<a name="poster"([^<]*)><img([^<]*)([^<]*)src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>',
+		'poster' 	=> '<a name="poster"[^<]*><img[^<]*src="([^<]*)" /></a>',
 		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
@@ -90,7 +90,7 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'poster':
-					$poster = $arrData[4];
+					$poster = $arrData[1];
 					$obj->setImage($poster);
 					break;
 
