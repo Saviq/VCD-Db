@@ -11,7 +11,7 @@
  * @author  Gian <mcaghi@tin.it>
  * @package Kernel
  * @subpackage WebFetch
- * @version $Id: VCDFetch_filmtv.php,v 1.24 2007/01/26 00:08:07 Saviq Exp $
+ * @version $Id: VCDFetch_filmtv.php,v 1.26 2008/07/08 00:55:07 Saviq Exp $
  */
 
 ?>
@@ -19,24 +19,25 @@
 class VCDFetch_filmtv extends VCDFetch {
 
 	protected $regexArray = array(
-		'title'		=> 'fTitolo[^>]*>([^<]*)<\/',
-		'org_title'	=> 'Titolo originale([^>]*>){2}([^<]*)<\/td>',
+		'title'		=> '\"scheda\"[^<]*<h1>([^<]*)<\/',
+		'org_title'	=> '\"filmDati\"[^<]*<i>([^<]*)<\/',
 	#	'alt_title'	=> '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
-		'year'		=> 'Anno<\/td>[^>]*>([0-9]{4})',
-		'poster'	=> 'src="(imgbank[^"]*)" width',
-		'director'=> 'Regia<\/td>([^>]*>){5}::([^>]*>){4}([^<]*)<\/a>',
-		'genre' 	=> 'Genere<\/td>[^>]*>([^<]*)<\/td>',
-		'rating' 	=> 'il voto di FilmTV([^"]*"){5}img\/pollici_testata\/([0-9])\.gif',
-		'cast'		=> 'persona=[0-9]+[^>]*>([^<]*)<\/a><\/td>',
-		'runtime' => "Durata<\/td>[^>]*>([^']*)'<\/td>",
-		'country'	=> 'Produzione<\/td>[^>]*>([^<]*)<\/td>',
-		'plot'		=> 'La Trama([^>]*>){3}([^<]*)<'
+		'year'		=> '\"filmDati([^0-9]*)([0-9]{4})',
+		'poster'	=> '(imgbank[^"]*)"',
+		'director'=> 'Regia di <a([^>]*)>([^<]*)<\/a>',
+		'genre'		=> '\"filmDati[^\[]*\[(([^>]*>){2}, )*([^0-9]*){3}[0-9]{4}, ([^ ]*) [0-9]',
+
+		'rating' 	=> 'Il voto di FilmTV([^<]*<){2}img([^_]*)_([0-9])\.gif',
+		'cast'		=> 'persona\/[0-9]+([^>]*)>([^<]*)<\/a>[^<]',
+		'runtime'	=> '\"filmDati([^0-9]*)([0-9]{4})([^0-9]*)([0-9]+)',
+		'country'	=> '\"filmDati[^\[]*\[(([^>]*>){2}, )*(.*), [0-9]{4}',
+		'plot'		=> 'filmscheda_dx([^>]*>){2}([^<]*)<([^>]*>){2}([^<]*)<'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
 
 	private $servername = 'www.film.tv.it';
-	private $itempath = '/scheda.php?film=[$]';
+	private $itempath = '/scheda.php/film/[$]';
 	private $plotpath = '/FilmDescriptions?id=[$]';
 	private $searchpath = '/cerca.php?q=[$]';
 
@@ -51,7 +52,7 @@ class VCDFetch_filmtv extends VCDFetch {
 
 	public function showSearchResults() {
 		$this->setMaxSearchResults(50);
-		$regx = 'scheda\.php\?film=([0-9]+)[^<]*\">[^\>]*>([^<]*)</a>[^(]*\(([^)]*))';
+		$regx = 'scheda\.php[?\/]film[=\/]([0-9]+)[^\"]*\" title=\"([^\"]*)\"[^<]*<\/a[^(]*\(([^)]*))';
 		$results = parent::generateSimpleSearchResults($regx, 1,2,3);
 		return parent::generateSearchSelection($results);
 	}
@@ -76,7 +77,7 @@ class VCDFetch_filmtv extends VCDFetch {
 					break;
 
 				case 'org_title':
-					$org_title = VCDUtils::titleFormat($arrData[2]);
+					$org_title = VCDUtils::titleFormat($arrData[1]);
 					$obj->setAltTitle($org_title);
 					break;
 
@@ -88,7 +89,7 @@ class VCDFetch_filmtv extends VCDFetch {
 					break;
 
 				case 'year':
-					$year = $arrData[1];
+					$year = $arrData[2];
 					$obj->setYear($year);
 					break;
 
@@ -98,7 +99,7 @@ class VCDFetch_filmtv extends VCDFetch {
 					break;
 
 				case 'director':
-					$director = $arrData[3];
+					$director = $arrData[2];
 					$obj->setDirector($director);
 					break;
 
@@ -106,14 +107,14 @@ class VCDFetch_filmtv extends VCDFetch {
 					if (sizeof($arrData) > 0) {
 						$arrGenres = array();
 						foreach ($arrData as $itemArr) {
-							array_push($arrGenres, $itemArr[1]);
+							array_push($arrGenres, $itemArr[4]);
 						}
 					}
 					$obj->setGenre($arrGenres);
 					break;
 
 				case 'rating':
-					$rating = $arrData[2] * 2.5;
+					$rating = $arrData[3] * 2;
 					$obj->setRating($rating);
 					break;
 
@@ -125,8 +126,7 @@ class VCDFetch_filmtv extends VCDFetch {
 						#$role = trim(str_replace("&nbsp;", " ", $itemArr[3]));
 						#$result = $actor.($role==""?"":" .... ".$role);
 						#array_push($arr, $result);
-						# quii da mettere a posta: mostra anche il regista.
-						array_push($arr, $itemArr[1]);
+						array_push($arr, $itemArr[2]);
 					}
 					unset ($arr[0]);
 					$arr = array_values($arr);
@@ -134,24 +134,24 @@ class VCDFetch_filmtv extends VCDFetch {
 					break;
 
 				case 'runtime':
-					$runtime = $arrData[1];
+					$runtime = $arrData[4];
 					$obj->setRuntime($runtime);
-					break;
-
-				case 'plot':
-					#$plot = trim(strip_tags(str_replace("<br/>", "\n", $arrData)));
-					$plot = $arrData[2];
-					$obj->setPlot($plot);
 					break;
 
 				case 'country':
 					if (sizeof($arrData) > 0) {
 						$arrCountries = array();
 						foreach ($arrData as $itemArr) {
-							array_push($arrCountries, $itemArr[1]);
+							array_push($arrCountries, $itemArr[3]);
 						}
 						$obj->setCountry($arrCountries);
 					}
+					break;
+
+				case 'plot':
+					#$plot = trim(strip_tags(str_replace("<br/>", "\n", $arrData)));
+					$plot = "-- ".$arrData[2]."\n".$arrData[4];
+					$obj->setPlot($plot);
 					break;
 
 				default:
@@ -194,7 +194,7 @@ class VCDFetch_filmtv extends VCDFetch {
 		if (is_null($this->getSearchRedirectUrl())) {
 			if(is_numeric($this->getID())) return $this->getID();
 			return null;
-		} elseif(ereg("film=([0-9]+)", $this->getSearchRedirectUrl(), $id)) {
+		} elseif(ereg("film[=\/]([0-9]+)", $this->getSearchRedirectUrl(), $id)) {
 			return $id[1];
 		} else {
 			return null;
