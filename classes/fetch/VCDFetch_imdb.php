@@ -21,7 +21,7 @@ class VCDFetch_imdb extends VCDFetch {
 
 	protected $regexArray = array(
 		'title'		=> '<h1>([^\<]*)<span>',
-		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})">([0-9]{4})</a>)',
+		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})/">([0-9]{4})</a>)',
 		'poster' 	=> '<a name="poster"[^<]*><img[^<]*src="([^<]*)" /></a>',
 		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
