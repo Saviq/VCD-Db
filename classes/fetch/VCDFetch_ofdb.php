@@ -8,7 +8,8 @@
  * the Free Software Foundation; either version 2 of the License, or (at
  * your option) any later version.
  *
- * @author  Jochen Schales <Jochen.Schales_at_gmx.de>
+ * @author Marco Faltermeier <civaal@gmail.com>
+ * @author Jochen Schales <Jochen.Schales_at_gmx.de>
  * @package Kernel
  * @subpackage WebFetch
  * @version $Id: VCDFetch_ofdb.php
@@ -19,31 +20,30 @@ class VCDFetch_ofdb extends VCDFetch {
 
 	protected $regexArray = array(
 		'title' 	=> '<title>OFDb - ([^\(]*)\(([0-9]{4})\)</title>',
-		'year'  	=> '<title>OFDb - ([^\(]*)\(([0-9]{4})\)</title>',
-		'poster' 	=> '<img src="(images/film/[^"]*)"[^>]*>',
-		'director' 	=> '#class="Normal">Regie:.*\n.*\n.*\n[^<]*<td><font [^>]*><b><a href="view.php.page=liste.Name[^>]*>([^<]*)</a>#i',
+		'year'  	=> '<title>OFDb - [^\(]*\(([0-9]{4})\)</title>',
+		'poster' 	=> '<img src="(http://img.ofdb.de/film/[^"]*)"[^>]*>',
+		'director' 	=> 'class="Normal">Regie:</font></td>[^<]*<td>&nbsp;&nbsp;</td>[^<]*<td><font [^>]*><b><a href="view.php.page=liste.Name[^>]*>([^<]*)</a>',
 		'genre' 	=> '<a href="view.php.page=genre.Genre=[^"]*">([^<]*)</a>',
-		'rating' 	=> '<br>Note: ([0-9].[0-9]{2}).nbsp;',
+		'rating' 	=> '<br>Note: ([0-9].[0-9]{2}) .nbsp;',
 		'cast' 		=> '<a href="view.php.page=liste.Name[^>]*>([^<]*)</a>',
-		'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
-		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
+	//'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
 		'country' 	=> '<a href="view.php.page=blaettern.Kat=Land&Text=[^>]*>([^<]*)</a>',
-		'plotshort'	=> '<b>Inhalt:</b> *([^<]*)<a href="view.php.page=inhalt.fid=[^>]*><b>\[mehr\]</b></a>',
 		'linkplot'	=> '<b>Inhalt:</b>[^<]*<a href="([^"]*)"[^>]*><b>\[mehr\]</b></a>',
-		'plot'		=> '/Eine Inhaltsangabe von <a href=\'usercenter\/info.php[^<]*<\/a><\/b><br><br>(.+?)(?=<\/font><\/p>)/is'
-		);
+		'orgtitle' => '#Originaltitel:</font></td>\s*<td>&nbsp;&nbsp;</td>\s*<td width="99%"><font face="Arial,Helvetica,sans-serif" size="2" class="Daten"><b>([^<]*)</b>#s',
+		'akas' 		=> '#Alternativtitel:</font></td><td>&nbsp;&nbsp;&nbsp;</td><td width="99%"><font face="Arial, Helvetica, sans-serif" size="2" class="Normal"><b>(.+?)<br></b>#s',
+		'plot'		=> NULL
+	);
 
 	protected $multiArray = array(
-		'genre', 'cast', 'akas', 'country'
+		'genre', 'cast', 'country'
 	);
 
 
 
 	private $servername = 'www.ofdb.de';
-	private $searchpath = '/view.php?page=erwblaettern&Kat=Film&Titel=[$]&Darsteller=&Regie=&Land=-&Alter=-&Genre=-&Inhalt=&Submit=Suche+ausf%FChren';
-	private $itempath   = '/view.php?page=film&fid=[$]&full=1';
+	private $searchpath = '/view.php?page=suchergebnis&Kat=Titel&SText=[$]';
+	private $itempath   = '/film/[$],';
 
-	private $serverCharset = 'iso-8859-1';
 
 	public function __construct() {
 		$this->setSiteName("ofdb");
@@ -52,17 +52,14 @@ class VCDFetch_ofdb extends VCDFetch {
 
 
 	public function search($title) {
-	
-		if ((VCDUtils::getCharSet() != $this->serverCharset)) $title = iconv(VCDUtils::getCharSet()."//TRANSLIT", $this->serverCharset, $title);
-#		if (strcasecmp(VCDUtils::getCharSet(), $this->serverCharset)!= 0)
-#			$title = mb_convert_encoding($title, $this->serverCharset, VCDUtils::getCharSet());
+
 		return parent::search($title);
 	}
 
 	public function showSearchResults() {
 		$this->setMaxSearchResults(50);
-		$regx = '<a href=\"view\.php\?page=film.fid=([0-9]+)([^\<]*)\">([^\<\(]*)[^(]*\(([0-9]{4})\)</a>';
-		$results = parent::generateSimpleSearchResults($regx, 1, 3, 4);
+		$regx = '<a href=\"film/([0-9]+),[^)]*\)\">([^<]*)<font size=\"1\">[^<]*</font> \(([0-9]{4})\)</a>';
+		$results = parent::generateSimpleSearchResults($regx, 1, 2, 3);
 		return parent::generateSearchSelection($results);
 	}
 
@@ -88,17 +85,19 @@ class VCDFetch_ofdb extends VCDFetch {
 					break;
 
 				case 'year':
-					$year = $arrData[2];
+					$year = $arrData[1];
 					$obj->setYear($year);
 					break;
 
 				case 'poster':
-					$poster = "http://$this->servername/".$arrData[1];
+					$poster = $arrData[1];
+					
 					$obj->setImage($poster);
 					break;
 
 				case 'director':
 					$director = $arrData[1];
+										
 					$obj->setDirector($director);
 					break;
 
@@ -106,7 +105,7 @@ class VCDFetch_ofdb extends VCDFetch {
 
 					$arr = array();
 					foreach ($arrData as $item) {
-						array_push($arr, $item[1]);
+						array_push($arr, $this->getIMBDGenre($item[1]));
 					}
 					$obj->setGenre($arr);
 					break;
@@ -117,35 +116,40 @@ class VCDFetch_ofdb extends VCDFetch {
 					break;
 
 				case 'cast':
-					$arr = null;
-					$arr = array();
-					# remove director
-					if (sizeof( $arrData ) > 0)
-						array_shift( $arrData );
-						
+					if (sizeof($arrData) > 0) {
+					$arrCast = array();
+		
 					foreach ($arrData as $itemArr) {
-						$actor = $itemArr[1];
-#						$role = $itemArr[3];
-						$result = $actor;
-						array_push($arr, $result);
+						if($obj->getDirector()!= stripslashes($itemArr[1]))
+								array_push($arrCast, $itemArr[1]);
 					}
-					$obj->setCast($arr);
+					
+					$obj->setCast($arrCast);
+					}
 					break;
-
+/*
 				case 'runtime':
 					$runtime = $arrData[1];
 					$obj->setRuntime($runtime);
 					break;
-
+*/			
+				case 'orgtitle':
+					$altTitle = $arrData[1];
+				
+					if(stripslashes(trim($altTitle)) != $obj->getTitle())
+						$obj->setAltTitle($arrData[1]);
+					
+					break;
+					
 				case 'akas':
-					$akaTitles = implode(',', $arrData);
+					if($obj->getAltTitle() != "")
+						$akaTitles = $obj->getAltTitle().", ";	
+					
+					$akaTitles = $akaTitles.str_replace('<br>', ', ', $arrData[1]);
 					$obj->setAltTitle($akaTitles);
+					
 					break;
-
-#				case 'plotshort':
-#					$plot = $arrData[1];
-#					$obj->setPlot($plot);
-					break;
+	
 
 				case 'plot':
 					$plot = $arrData;
@@ -170,74 +174,81 @@ class VCDFetch_ofdb extends VCDFetch {
 			}
 
 		}
-
+	
 		$this->fetchedObj = $obj;
 
 
+	}
+	
+	
+	private function getIMBDGenre($genre) {
+		$mapping = array(
+			'Action' 		=> 'Action',
+			'Abenteuer' 	=> 'Adventure',
+			'Animation' 	=> 'Animation',
+			'Biographie' => 'Biography',
+			'Manga/Anime' => 'Anime / Manga',
+			'Komödie' 		=> 'Comedy',
+			'Krimi' 		=> 'Crime',
+			'Dokumentation' 	=> 'Documentary',
+			'Drama' 		=> 'Drama',
+			'Kinder-/Familienfilm' 		=> 'Family',
+			'Fantasy' 		=> 'Fantasy',
+			'Film-Noir' 	=> 'Film-Noir',
+			'Historienfilm' => 'History',
+			'Horror' 		=> 'Horror',
+			'James Bond' 	=> 'James Bond',
+			'Music Video' 	=> 'Music Video',
+			'Musicfilm' 		=> 'Musical',
+			'Mystery' 		=> 'Mystery',
+			'Liebe/Romantik' 		=> 'Romance',
+			'Science-Fiction' 		=> 'Sci-Fi',
+			'Kurzfilm' 		=> 'Short',
+			'Kampfsport'  => 'Sport',
+			'Sportfilm'		=> 'Sport',
+			'Thriller' 		=> 'Thriller',
+			'TV-Serie' 		=> 'Tv Shows',
+			'Krieg' 			=> 'War',
+			'Western' 		=> 'Western',
+			'Sex' 		=> 'Adult',
+			'Hardcore' => 'X-Rated'
+		);
+		
+			if (isset($mapping[$genre])){
+				return $mapping[$genre];
+			}else{
+				return $genre;
+			}
+		
+		
 	}
 
 	protected function fetchDeeper($entry) {
 		switch ($entry) {
 
-			case 'poster':
-				$regx = '<a name="poster" href="photogallery" title="([^<]*)"><img border="0" alt="([^<]*)" title="([^<]*)" src="([^<]*)" height="([0-9]{2,3})" width="([0-9]{2,3})"></a>';
-
-				if ($this->getItem($regx) == self::ITEM_OK) {
-					$res = $this->getFetchedItem();
-				}
-
-				break;
-
-
-			case 'akas':
-
-				$ret = array();
-				$contents = $this->getContents();
-		        if(eregi('Also Known As:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',$contents, $y)) {
-		            $contents = $y[0];
-		            while(eregi('<br>([^<]*)', $contents, $x)) {
-		            	if (isset($x[1]) && strcmp(trim($x[1]),"") != 0) {
-		            		$ret[] = trim($x[1]);
-		            	}
-		            	$contents = substr($contents,strpos($contents,$x[0])+strlen($x[0]));
-		            }
-		        }
-		        array_push($this->workerArray, array($entry, $ret));
-
-				break;
-
-
 			case 'plot':
-				// Save the old buffer
-				$itemBuffer = $this->getContents();
-				// Generate urls
-				$linkPlot = $this->workerArray[10][1][1];
-				
-				$plotUrl = "http://$this->servername/$linkPlot";
-				
-				
+			
+			
+				$plotUrl = "/".(String) $this->workerArray[8][1][1];
+
 				$referer = "http://".$this->servername.str_replace('[$]', $this->getItemID(), $this->itempath);
 				$isPlot =  $this->fetchPage($this->servername, $plotUrl, $referer);
 				if ($isPlot) {
-					if ($this->getItem($this->regexArray['plot']) == self::ITEM_OK) {
-						
+					
+					$plotRegex = '/Mal gelesen<\/b><\/b><br><br>(.+?)(?=<\/font><\/p>)/s';
+					
+					if ($this->getItem($plotRegex) == self::ITEM_OK) {
+	
+
 						$plotArr = $this->getFetchedItem();
-#						$plotText = $plotArr[1];
+
 						$plotBadStr = array("…", "", "<br />", "<br>");
 						$plotReplaceStr = array("...", "...", "", "");
 						$plotText = str_replace($plotBadStr, $plotReplaceStr, $plotArr[1]);
 						array_push($this->workerArray, array($entry, $plotText));
 
-					} else {
-						// Plot not found, use the Tagline instead and use the old buffer again
-						$regExTagline = '#Tagline:</b>([^<]*)#';
-						$this->setContents($itemBuffer);
-						if ($this->getItem($regExTagline) == self::ITEM_OK ) {
-							$plotArr = $this->getFetchedItem();
-							$plotText = $plotArr[1];
-							array_push($this->workerArray, array($entry, $plotText));
-						}
-					}
+					} 
+			
 				}
 
 				break;
@@ -246,6 +257,9 @@ class VCDFetch_ofdb extends VCDFetch {
 				break;
 		}
 	}
+	
+
+
 
 }
 ?>
