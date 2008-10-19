@@ -19,18 +19,18 @@
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
-	'title'		=> '#div id=\"filmTitle\">[^<]+<h1>([^<]+)</h1>#',
-	'org_title'	=> '#<h2>([^<]+)&nbsp;\(#',
-	'alt_title'	=> '#<span class=\"otherTitle\">[^(]+\(AKA (([^(/]|\(I+\))+)\)#',
+	'title'		=> '#<h1[^<]+<a[^>]+>([^<]+)</a></h1>#',
+	'org_title'	=> '#</h1[^<]+<span class="aka">([^</]+)</span>#',
+	'alt_title'	=> '#\(AKA ((?:[^(/]|\(?:I+\))+)#',
 	'year'		=> '#\(([0-9]{4})\)#',
-	'poster'	=> '#div id="filmPhoto">[^"]+"([^"?]+)[^"]+" gemius=#',
+	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
-	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})<\/b>\/10#',
-	'cast'		=> 'class=\"nm\">[^<]+<a[^>]+>([^<]+)</a>([^>]+>[^>]+>[^>]+>[^>]+>([^<]+)<span)?',
+	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})</strong>/10#',
+	'cast'		=> '<td class="film-actor">[^>]+>[^>]+>([^<]+)</a>[^>]+>[^<]+<td class="film-protagonist">([^<]+)<span>',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
-	'plot'		=> '#justify">(.*?)</li>#'
+	'plot'		=> '#justify">((?:.|\n)*?)</li>#m'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
@@ -51,20 +51,18 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	public function showSearchResults() {
-		$contents = split("font-size: 1.5em;", $this->getContents()); //split the site
-		$regx =  '#(?:none;">\((?P<info>[^\)]*)\)</span>[^<]*)?<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/[^"]*,id=(?P<id>[0-9]+)|(?P<lid>[a-z0-9.]+).filmweb.pl/)\"[^>]*>'
-		.'\s*(?P<title>.*?)\s+(?:/\s+(?P<org_title>.*?))?\s*'
-		.'</a>[^\(]*\((?P<year>[0-9]{4}(?:-[0-9]{4})?)\)'
-		.'(?:[^<]*<span[^<]*<br/>aka:\s*(?P<aka>.*)[^<]*</span>)?#';
-		foreach ($contents as $part) {
-			preg_match('#">([^<]+)</div>#', $part, $partname);
-			preg_match_all($regx, $part, $searchArr, PREG_SET_ORDER);
-			$results = array();
-			foreach($searchArr as $searchItem) {
-				array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka']), 'info' => trim($searchItem['info'])));
-			}
-			$partresults[$partname[1]] = $results;
+		$regx = '#(?: none;">\((?P<info>[^\)]*)\)</span>[^<]*)?' // additional info
+		.'<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/f(?P<id>[0-9]+)/[^"]+|' // numeric id 
+		.'(?P<lid>[a-z0-9.]+).filmweb.pl/)"[^>]*>' // alphanumeric id
+		.'\s*(?P<title>.*?)\s+(?:/\s+(?P<org_title>.*?))?\s*' // title / original title
+		.'</a>[^\(]*\((?P<year>[0-9]{4}(?:-[0-9]{4})?)\)' // year
+		.'(?:[^<]*<span[^<]*<br/>aka:\s*(?P<aka>.*)[^<]*</span>)?#'; // AKA
+		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
+		$results = array();
+		foreach($searchArr as $searchItem) {
+			array_push($results, array('id' => (empty($searchItem['id'])?$searchItem['lid']:$searchItem['id']), 'title' => VCDUtils::titleFormat($searchItem['title']), 'org_title' => VCDUtils::titleFormat($searchItem['org_title']), 'year' => $searchItem['year'], 'aka' => trim($searchItem['aka']), 'info' => trim($searchItem['info'])));
 		}
+		$partresults[$partname[1]] = $results;
 		return $this->generateSearchSelection($partresults);
 	}
 
@@ -150,7 +148,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					if (sizeof($arrData) > 0) {
 						$arrGenres = array();
 						foreach ($arrData as $itemArr) {
-							array_push($arrGenres, $itemArr[1]);
+							array_push($arrGenres, trim($itemArr[1]));
 						}
 					}
 					$obj->setGenre($arrGenres);
@@ -162,11 +160,10 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'cast':
-					$arr = null;
 					$arr = array();
 					foreach ($arrData as $itemArr) {
 						$actor = trim($itemArr[1]);
-						$role = trim(str_replace("&nbsp;", " ", $itemArr[3]));
+						$role = trim(str_replace("&nbsp;", " ", $itemArr[2]));
 						$result = $actor.($role==""?"":" .... ".$role);
 						array_push($arr, $result);
 					}
@@ -232,15 +229,15 @@ class VCDFetch_filmweb extends VCDFetch {
 			if(is_numeric($this->getID())) return $this->getID();
 			else {
 				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl", false);
-				if (ereg("FilmUpdate,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
+				if (ereg("filmId = ([0-9]+);", $this->getContents(), $id)) return $id[1];
 				else return null;
 			}
-		} elseif(ereg("id=([0-9]+)", $this->getSearchRedirectUrl(), $id)) {
+		} elseif(ereg("/f([0-9]+)/", $this->getSearchRedirectUrl(), $id)) {
 			return $id[1];
 		} else {
 			ereg("http://([^/]+)(/.*)?", $this->getSearchRedirectUrl(), $redirect);
 			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl", false);
-			if (ereg("FilmUpdate,id=([0-9]+)", $this->getContents(), $id)) return $id[1];
+			if (ereg("filmId = ([0-9]+);", $this->getContents(), $id)) return $id[1];
 			else return null;
 		}
 	}
