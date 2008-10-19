@@ -157,7 +157,7 @@ abstract class VCDProxy {
 				
 			}
 			
-			$this->addToCache(&$result, $action, $params);
+			$this->addToCache($result, $action, $params);
 			
 			VCDConnection::addQueryCount();
 			
