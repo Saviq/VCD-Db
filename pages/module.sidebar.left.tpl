@@ -1,7 +1,7 @@
 {if $isAuthenticated}
 <div class="topic">{$translate.menu.mine}</div>
 <span class="nav"><a href="?page=settings" class="navx">{$translate.menu.settings}</a></span>
-{if not $isViewer}
+{if $isUser}
 <span class="nav"><a href="?page=movies" class="navx">{$translate.menu.movies}</a></span>
 <span class="nav"><a href="?page=new" class="navx">{$translate.menu.addmovie}</a></span>
 <span class="nav"><a href="?page=loans" class="navx">{$translate.menu.loansystem}</a></span>
@@ -9,7 +9,9 @@
 {if $showWishlists}
 <span class="nav"><a href="?page=wishlists" class="navx">{$translate.menu.wishlistpublic}</a></span>
 {/if}
+{if $isUser}
 <span class="nav"><a href="?page=wishlist" class="navx">{$translate.menu.wishlist}</a></span>
+{/if}
 <span class="nav"><a href="?page=stats" class="navx">{$translate.menu.statistics}</a></span>
 {if $showRssFeeds}
 <span class="nav"><a href="?page=rss" class="navx">{$translate.menu.rss}</a></span>

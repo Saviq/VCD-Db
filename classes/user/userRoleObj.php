@@ -97,6 +97,21 @@ class userRoleObj implements XMLable {
 		}
 		return false;
 	}
+	
+	/**
+	 * Check if user is in a role that allows adding movies.
+	 * 
+	 * @return bool
+	 */
+	public function isUser() {
+		if($this->isAdult()) {
+			return true;
+		}
+		if(strcmp($this->role_name,"User") == 0) {
+			return true;
+		}
+		return false;
+	}
 			
 	/**
 	 * Get the XML representation of the object

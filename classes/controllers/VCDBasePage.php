@@ -229,6 +229,10 @@ class VCDBasePage extends VCDPage {
 			if (VCDUtils::getCurrentUser()->isAdmin()) {
 				$this->assign('isAdmin', true);
 			}
+			
+			if (VCDUtils::getCurrentUser()->isUser()) {
+				$this->assign('isUser', true);
+			}
 		}
 		
 		$this->doSearchModule();

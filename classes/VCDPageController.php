@@ -82,10 +82,9 @@ class VCDPageController {
 		}
 		
 		// Check permissions
-		if ($pageNode->isProtected() && !VCDUtils::isLoggedIn()) {
+		if (($pageNode->isProtected() && !VCDUtils::isLoggedIn()) || ($pageNode->requiresUser() && !VCDUtils::getCurrentUser()->isUser())) {
 			throw new VCDSecurityException('No permission to view Page:'.$pagename);
 		}
-		
 
 		// Everything seems ok .. load the class
 		try {
@@ -237,6 +236,7 @@ class _VCDPageNode {
 
 	private $standalone = false;
 	private $requiresAuth = false;
+	private $requiresUser = false;
 	private $name;
 	private $handler;
 	private $template = null;
@@ -263,6 +263,10 @@ class _VCDPageNode {
 		if (isset($element['auth'])) {
 			$auth = strtolower((string)$element['auth']);
 			$this->requiresAuth = (strcmp($auth,'true') == 0);
+		}
+		if (isset($element['viewer'])) {
+			$viewer = strtolower((string)$element['viewer']);
+			$this->requiresUser = (strcmp($viewer,'false') == 0);
 		}
 		if (isset($element->action)) {
 			$this->action = (string)$element->action;
@@ -324,6 +328,15 @@ class _VCDPageNode {
 	 */
 	public function isProtected() {
 		return $this->requiresAuth;
+	}
+	
+	/**
+	 * Check if user role is required to view this page.
+	 * 
+	 * @return bool
+	 */
+	public function requiresUser() {
+		return $this->requiresUser;
 	}
 	
 	/**

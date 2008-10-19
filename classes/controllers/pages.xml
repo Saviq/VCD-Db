@@ -139,7 +139,7 @@
 		<template>window.user.rss.tpl</template>
 		<action>addrss</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>My Movies</name>
 		<handler>VCDPageUserMyMovies</handler>
 		<template>page.user.mymovies.tpl</template>
@@ -163,43 +163,43 @@
 		<template>page.user.rss.tpl</template>
 		<action>rss</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Seenlist</name>
 		<handler>VCDPageUserSeenlist</handler>
 		<template>page.user.seenlist.tpl</template>
 		<action>seen</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>MoviePicker</name>
 		<handler>VCDPageUserRandomMovie</handler>
 		<template>page.user.randomitem.tpl</template>
 		<action>rand</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>NewMovieSelection</name>
 		<handler>VCDPageUserAddItemSelection</handler>
 		<template>page.user.add.choices.tpl</template>
 		<action>new</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Add Movie</name>
 		<handler>VCDPageUserAddItem</handler>
 		<template>page.user.add.item.tpl</template>
 		<action>add</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Add movie manually</name>
 		<handler>VCDPageUserAddItemManually</handler>
 		<template>page.user.add.item.manually.tpl</template>
 		<action>add_manually</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Add existing movie</name>
 		<handler>VCDPageUserAddItemListed</handler>
 		<template>page.user.add.item.listed.tpl</template>
 		<action>add_listed</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Wishlist</name>
 		<handler>VCDPageUserWishlist</handler>
 		<template>page.user.wishlist.tpl</template>
@@ -211,19 +211,19 @@
 		<template>page.user.wishlist.public.tpl</template>
 		<action>wishlists</action>
 	</page>
-	<page standalone="false" auth="true">
+	<page standalone="false" auth="true" viewer="false">
 		<name>Loans</name>
 		<handler>VCDPageUserLoans</handler>
 		<template>page.user.loans.tpl</template>
 		<action>loans</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>Manager</name>
 		<handler>VCDPageItemManager</handler>
 		<template>window.manager.tpl</template>
 		<action>manager</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>Pornstar manager</name>
 		<handler>VCDPagePornstarManager</handler>
 		<template>window.pornstar.manager.tpl</template>
@@ -235,7 +235,7 @@
 		<template>page.user.item.play.tpl</template>
 		<action>launcher</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>New borrower</name>
 		<handler>VCDPageUserBorrower</handler>
 		<template>window.user.borrower.tpl</template>
@@ -247,26 +247,26 @@
 		<template>window.pornstar.launcher.tpl</template>
 		<action>jump</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>Add screenshots</name>
 		<handler>VCDPageScreenshots</handler>
 		<template>window.screenshots.tpl</template>
 		<action>addscreens</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>Pornstar selection</name>
 		<handler>VCDPagePornstarSelector</handler>
 		<template>window.pornstar.select.tpl</template>
 		<action>addpornstars</action>
 	</page>
-	<page standalone="true" auth="true">
+	<page standalone="true" auth="true" viewer="false">
 		<name>Collection overview</name>
 		<handler>VCDPageUserCollectionOverview</handler>
 		<template>window.user.overview.tpl</template>
 		<action>overview</action>
 	</page>
-	
-	
+
+
 
 </pages>
 <!-- 
