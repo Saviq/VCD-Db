@@ -32,6 +32,7 @@ abstract class VCDFetch {
 	private $fetchDomain;
 	private $fetchSearchPath;
 	private $fetchItemPath;
+	private $siteEncoding = "UTF-8";
 
 	private $errorMessage;			// Container for error messages
 
@@ -209,7 +210,11 @@ abstract class VCDFetch {
 	 * @return int
 	 */
 	protected function search($title) {
-		$this->searchKey = rawurlencode($this->prepareRawEncode($title));
+		if(strcasecmp(VCDUtils::getCharSet(), $this->siteEncoding) != 0) {
+			$this->searchKey = rawurlencode(mb_convert_encoding($title, $this->siteEncoding, VCDUtils::getCharSet()));
+		} else {
+			$this->searchKey = rawurlencode($title);
+		}
 		if ($this->useSnoopy || ((int)ini_get('allow_url_fopen') == 0)) {
 			$this->fetchSearchPath = str_replace('[$]', $this->searchKey, $this->fetchSearchPath);
 		}
@@ -356,6 +361,15 @@ abstract class VCDFetch {
 		$this->checkProxySettings();
 	}
 
+	/**
+	 * 
+	 * Set the correct encoding for the fetch site if it's not UTF-8
+	 * 
+	 * @param string $encoding | The site encoding
+	 */
+	protected function setEncoding($encoding) {
+		$this->siteEncoding = $encoding;
+	}
 
 
 	/**
@@ -680,36 +694,6 @@ abstract class VCDFetch {
 	 *
 	 *
 	 */
-
-	
-	/**
-	 * Correctly encode the data with rawurlencode compatibilty mode.
-	 *
-	 * @param string $strData
-	 * @return string
-	 */
-	private function prepareRawEncode($strData) {
-		$ENCODE_TABLE = array(33=>'%21', 35=>'%23', 36=>'%24', 37=>'%25', 38=>'%26', 
-			40=>'%28', 41=>'%29', 43=>'%2B', 44=>'%2C', 47=>'%2F', 58=>'%3A', 59=>'%3B', 
-			60=>'%3C', 61=>'%3D', 62=>'%3E', 63=>'%3F', 91=>'%5B', 92=>'%5C', 93=>'%5D', 
-			123=>'%7B', 124=>'%7C', 125=>'%7D', 142=>'%C5%BD', 192=>'%C3%80', 193=>'%C3%81', 
-			194=>'%C3%82', 195=>'%C3%83', 196=>'%C3%84', 197=>'%C3%85', 199=>'%C3%87', 
-			200=>'%C3%88', 201=>'%C3%89', 202=>'%C3%8A', 203=>'%C3%8B', 204=>'%C3%8C', 
-			205=>'%C3%8D', 206=>'%C3%8E', 207=>'%C3%8F', 210=>'%C3%92', 211=>'%C3%93', 
-			212=>'%C3%94', 213=>'%C3%95', 214=>'%C3%96', 217=>'%C3%99', 218=>'%C3%9A', 
-			219=>'%C3%9B', 220=>'%C3%9C', 221=>'%C3%9D', 224=>'%C3%A0', 225=>'%C3%A1', 
-			226=>'%C3%A2', 227=>'%C3%A3', 228=>'%C3%A4', 229=>'%C3%A5', 231=>'%C3%A7', 
-			232=>'%C3%A8', 233=>'%C3%A9', 234=>'%C3%AA', 235=>'%C3%AB', 236=>'%C3%AC', 
-			237=>'%C3%AD', 238=>'%C3%AE', 239=>'%C3%AF', 242=>'%C3%B2', 243=>'%C3%B3', 
-			244=>'%C3%B4', 245=>'%C3%B5', 246=>'%C3%B6', 249=>'%C3%B9', 250=>'%C3%BA', 
-			251=>'%C3%BB', 252=>'%C3%BC', 253=>'%C3%BD', 255=>'%C3%BF');
-			
-	    while(list($ord, $enc) = each($ENCODE_TABLE)) {
-    		$strData = str_replace(chr($ord), $enc, $strData);
-    	}
-		return $strData;
-	}
-	
 	
 	/**
 	 * Check the config file if proxy server should be used, and if so

@@ -26,7 +26,6 @@ class VCDFetch_ofdb extends VCDFetch {
 		'genre' 	=> '<a href="view.php.page=genre.Genre=[^"]*">([^<]*)</a>',
 		'rating' 	=> '<br>Note: ([0-9].[0-9]{2}) .nbsp;',
 		'cast' 		=> '<a href="view.php.page=liste.Name[^>]*>([^<]*)</a>',
-	//'runtime' 	=> '#<b class="ch">Runtime:</b>\n([0-9]+) min#i',
 		'country' 	=> '<a href="view.php.page=blaettern.Kat=Land&Text=[^>]*>([^<]*)</a>',
 		'linkplot'	=> '<b>Inhalt:</b>[^<]*<a href="([^"]*)"[^>]*><b>\[mehr\]</b></a>',
 		'orgtitle' => '#Originaltitel:</font></td>\s*<td>&nbsp;&nbsp;</td>\s*<td width="99%"><font face="Arial,Helvetica,sans-serif" size="2" class="Daten"><b>([^<]*)</b>#s',
@@ -127,12 +126,7 @@ class VCDFetch_ofdb extends VCDFetch {
 					$obj->setCast($arrCast);
 					}
 					break;
-/*
-				case 'runtime':
-					$runtime = $arrData[1];
-					$obj->setRuntime($runtime);
-					break;
-*/			
+
 				case 'orgtitle':
 					$altTitle = $arrData[1];
 				

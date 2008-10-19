@@ -47,6 +47,7 @@ class VCDFetch_moviemeter extends VCDFetch {
 	public function __construct() {
 		$this->setSiteName("moviemeter");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
+		$this->setEncoding("ISO-8859-1");
 		$this->useSnoopy();
 	}
 
@@ -54,7 +55,7 @@ class VCDFetch_moviemeter extends VCDFetch {
 	public function search($title) {
 		parent::search($title);
 		// Grab the session ID
-		$regx = "/new quickSearch\('(.*)'\);/";
+		$regx = "/hash=([0-9a-f]*)&/";
 		$matchCount = preg_match($regx,$this->getContents(),$matches);
 		if ($matchCount==0) {
 			return self::SEARCH_ERROR;

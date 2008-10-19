@@ -47,6 +47,7 @@ class VCDFetch_amazon extends VCDFetch {
 	public function __construct() {
 		$this->setSiteName("amazon");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
+		$this->setEncoding("ISO-8859-1");
 	}
 	
 	protected function processResults() {

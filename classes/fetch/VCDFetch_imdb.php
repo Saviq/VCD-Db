@@ -47,6 +47,7 @@ class VCDFetch_imdb extends VCDFetch {
 	public function __construct() {
 		$this->setSiteName("imdb");
 		$this->setFetchUrls($this->servername, $this->searchpath, $this->itempath);
+		$this->setEncoding("ISO-8859-1");
 		$this->useSnoopy();
 	}
 
