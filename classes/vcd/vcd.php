@@ -1134,7 +1134,7 @@ class vcd_movie implements IVcd  {
 
 			foreach ($results as &$item) {
 				$catObj = $this->Settings()->getMovieCategoryByID($item['cat_id']);
-				$item['category'] = $catObj->getName();
+				$item['category'] = $catObj->getName(true);
 
 				$mObj = $this->Settings()->getMediaTypeByID($item['media_id']);
 				$item['media_type'] = $mObj->getDetailedName();
