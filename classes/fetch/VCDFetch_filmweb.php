@@ -21,7 +21,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected $regexArray = array(
 	'title'		=> '#<h1[^<]+<a[^>]+>([^<]+)</a></h1>#',
 	'org_title'	=> '#</h1[^<]+<span class="aka">([^</]+)</span>#',
-	'alt_title'	=> '#\(AKA ((?:[^(/]|\(?:I+\))+)#',
+	'alt_title'	=> '#\(AKA ((?:[^(/]|\(?:I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
@@ -36,8 +36,8 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected $multiArray = array('genre', 'cast', 'country');
 
 	private $servername = 'www.filmweb.pl';
-	private $itempath = '/Film?id=[$]';
-	private $plotpath = '/FilmDescriptions?id=[$]';
+	private $itempath = '/f[$]/,';
+	private $plotpath = '/f[$]/,/opisy';
 	private $searchpath = '/szukaj?q=[$]&alias=film';
 
 	public function __construct() {
@@ -48,6 +48,17 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	public function search($title) {
 		return parent::search($title);
+	}
+
+	protected function fetchPage($host, $url, $referer, $useCache=true, $header=null) {
+		$fetch = parent::fetchPage($host, $url, $referer, $useCache, $header);
+		foreach(array_merge(array($this->getContents()), $this->snoopy->headers) as $v) {
+			if(preg_match("#Set-Cookie: (welcomeScreen)=([^;]+);#", $v, $cookie)) {
+				$this->cookies[$cookie[1]] = $cookie[2];
+				$fetch = parent::fetchPage($host, $url, $referer, false, null);
+			}
+		}
+		return $fetch;	
 	}
 
 	public function showSearchResults() {

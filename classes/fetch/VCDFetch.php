@@ -54,8 +54,9 @@ abstract class VCDFetch {
 	 *
 	 * @var Snoopy
 	 */
-	private $snoopy = null;
+	protected $snoopy = null;
 	private $isAdult = false;		// Flag to tell if the fetched site is an adult site.
+	protected $cookies = array();		// Add cookies to be sent
 
 	protected $workerArray = array();
 
@@ -220,9 +221,9 @@ abstract class VCDFetch {
 		}
 
 		$referer = "http://".$this->fetchDomain;
-		$header = $this->getHeader($this->fetchSearchPath, $referer, $this->fetchDomain);
-		$header = str_replace("[$]", $this->searchKey, $header);
-		$iResults = $this->fetchPage($this->fetchDomain, $this->fetchSearchPath, $referer, false, $header);
+		$searchPath = str_replace("[$]", $this->searchKey, $this->fetchSearchPath);
+		$header = $this->getHeader($searchPath, $referer, $this->fetchDomain);
+		$iResults = $this->fetchPage($this->fetchDomain, $searchPath, $referer, false, $header);
 
 		if (!$iResults) {
 			$SEARCH_RESULTS = self::SEARCH_ERROR;
@@ -398,20 +399,21 @@ abstract class VCDFetch {
 
 		// Item not found in cache
 		
-		// If url_fopen is disabled, but CURL is available
+		if ($this->useSnoopy) {
+			$snoopyurl = "http://".$host.$url;
+			$this->snoopy->cookies = $this->cookies;
+			$this->snoopy->fetch($snoopyurl);
+
+			// Clean hex garbage from results.
+			$this->fetchContents = preg_replace('[\x00]','',$this->snoopy->results);
+
+		} else // If url_fopen is disabled, but CURL is available
 		if (((int)ini_get('allow_url_fopen') == 0) && function_exists('curl_init')) {
 			
 			$curlUrl = "http://".$host.$url;
 			$results = $this->fetchWithCurl($curlUrl);
 			
 			
-		} else if ($this->useSnoopy) {
-			$snoopyurl = "http://".$host.$url;
-			$this->snoopy->fetch($snoopyurl);
-
-			// Clean hex garbage from results.
-			$this->fetchContents = preg_replace('[\x00]','',$this->snoopy->results);
-
 		} else {
 
 			if ($this->useProxy) {
@@ -452,9 +454,7 @@ abstract class VCDFetch {
 			}
 		}
 
-		if ($useCache) {
-			$this->writeToCache($url);
-		}
+		$this->writeToCache($url);
 
 		// Only do the conversion if needed ..
 		if (ereg('"text/html; *charset=([^"]+)"', $this->fetchContents, $enc) && strcasecmp(VCDUtils::getCharSet(), $enc[1]) != 0)
@@ -777,8 +777,10 @@ abstract class VCDFetch {
 		$header .= "Host: {$host}\r\n";
 		$header .= "Connection: Keep-Alive\r\n";
 		$header .= "Cache-Control: no-cache\r\n";
+		if(!empty($this->cookies)) foreach($this->cookies as $k => $v) {
+			$header .= "Cookie: $k=$v\r\n";
+		}
 		$header .= "\r\n";
-
 		return $header;
 	}
 
