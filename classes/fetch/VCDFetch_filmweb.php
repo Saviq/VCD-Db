@@ -26,7 +26,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
 	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
 	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
-	'rating' 	=> '#([0-9]{1,2}),([0-9]{1,2})</strong>/10#',
+	'rating' 	=> '#([0-9]{1,2})(?:,([0-9]{1,2}))?</strong>/10#',
 	'cast'		=> '<td class="film-actor">[^>]+>[^>]+>([^<]+)</a>[^>]+>[^<]+<td class="film-protagonist">([^<]+)<span>',
 	'runtime' 	=> '#trwania: ([0-9]+)#i',
 	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
@@ -166,7 +166,11 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'rating':
-					$rating = $arrData[1].".".$arrData[2];
+					if(isset($arrData[2])) {
+						$rating = $arrData[1].".".$arrData[2];
+					} else {
+						$rating = $arrData[1];
+					}
 					$obj->setRating($rating);
 					break;
 
