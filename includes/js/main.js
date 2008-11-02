@@ -600,6 +600,34 @@ function deleteFeed(id) {
 	}
 }
 
+function addMetaType(response) {
+	document.metadata.metadataid.value = -1;
+	document.metadata.metadataname.value = "";
+	document.metadata.metadatadescription.value = "";
+	document.metadata.metadatapublic.checked = false;
+	$('addmetaimg').src = "images/icons/add.png";
+	document.metadata.newmeta.disabled = false;
+	show('metadatatype', true);
+}
+
+function invokeEditMetaType(id) {
+	obj = new vcddbAjax('getMetadataType');
+	$('addmetaimg').src = "images/processing.gif";
+	document.metadata.newmeta.disabled = true;
+	obj.invoke(id,editMetaType);
+}
+
+function editMetaType(response) {
+	mdtype = new Object(response);
+	document.metadata.metadataid.value = mdtype.id;
+	document.metadata.metadataname.value = mdtype.name;
+	document.metadata.metadatadescription.value = mdtype.description;
+	document.metadata.metadatapublic.checked = mdtype.public;
+	$('addmetaimg').src = "images/icons/add.png";
+	document.metadata.newmeta.disabled = false;
+	show('metadatatype', true);
+}
+
 function deleteMetaType(id) {
 	var msg = Trans.late('deletemeta');
 	if (confirm(msg)) {
@@ -675,19 +703,23 @@ function checkXMLConfirm(form) {
 }
 
 function checkAdvanced(form) {
-	var category = form.category.options[form.category.selectedIndex].value;
-	var year = form.year.options[form.year.selectedIndex].value;
-	var mediatype = form.mediatype.options[form.mediatype.selectedIndex].value;
-	var owner = form.owner.options[form.owner.selectedIndex].value;
-	var rating = form.grade.options[form.grade.selectedIndex].value;
-
-	if (form.title.value == '' && category == 'null' && year == 'null' && mediatype == 'null' && owner == 'null' && rating == 'null')
-	{
+	try {
+		for (var k=0; k < form.elements.length; k++) {
+			with(form.elements[k]) {
+				switch(type) {
+					case "text": if(value != "") return true; break;
+					case "select-one": if(options[selectedIndex].value != "") return true; break;
+					default: break;
+				}
+			}
+		}
 		alert(Trans.late('nocriteria'));
 		return false;
 	}
-
-	return true;
+	catch (ex) {
+		alert(ex);
+		return false;
+	}
 }
 
 function checkManually(form) {

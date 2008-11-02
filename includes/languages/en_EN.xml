@@ -383,6 +383,14 @@
 		<string id="metadata.type">Meta type</string>
 		<string id="metadata.value">Meta value</string>
 		<string id="metadata.none">No Metadata exists.</string>
+		<string id="metadata.public">Public</string>
+		<string id="metadata.private">Private</string>
+		<string id="metadata.system">System</string>
+
+
+		<!-- system metadata types -->
+		<string id="metadata.systemtype.11">The media file location</string>
+		<string id="metadata.systemtype.10">Custom index for cd</string>
 
 
 		<!-- strings for the player settings and actions -->

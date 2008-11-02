@@ -1,6 +1,6 @@
 <h1>{$translate.search.extended}</h1>
 
-<form name="advanced_search" method="post" action="{$smarty.server.SCRIPT_NAME}?page=detailed_search&amp;action=search">
+<form name="advanced_search" method="post" action="{$smarty.server.SCRIPT_NAME}?page=detailed_search&amp;action=search" onSubmit="return checkAdvanced(this.form)">
 <table class="displist" cellpadding="1" cellspacing="0" width="100%">
 <tr>
 	<td width="40%">{$translate.movie.title} {$translate.misc.contains}:</td>
@@ -26,9 +26,15 @@
 	<td>{$translate.misc.grade}:</td>
 	<td>{html_options name=grade options=$searchGradeList selected=$selectedGrade}</td>
 </tr>
+{foreach from=$searchMetadataList item=m}
+<tr>
+	<td>{$m.name} [{$m.owner}]</td>
+	<td><input type="text" name="metadata[{$m.id}]" value="{$searchMetadata[$m.id]}" /></td>
+</tr>
+{/foreach}
 <tr>
 	<td>&nbsp;</td>
-	<td><input type="submit" value="{$translate.search.search}" onclick="return checkAdvanced(this.form)"/></td>
+	<td><input type="submit" value="{$translate.search.search}"/></td>
 </tr>
 </table>
 </form>

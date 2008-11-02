@@ -22,7 +22,7 @@ require_once(VCDDB_BASE.'/classes/adodb/adodb-xmlschema03.inc.php');
 require_once(VCDDB_BASE.'/classes/adodb/adodb-exceptions.inc.php');
 require_once(VCDDB_BASE.'/classes/external/ajason/Ajax.php');
 
-define("VCDDB_VERSION","0.991");
+define("VCDDB_VERSION","0.992");
 
 class Installer {
 	

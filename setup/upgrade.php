@@ -1,6 +1,6 @@
 <?php
 	define('VCDDB_BASE', substr(dirname(__FILE__), 0, strrpos(dirname(__FILE__), DIRECTORY_SEPARATOR)));
-	define("CURR_VERSION","0.991");
+	define("CURR_VERSION","0.992");
 	require_once(VCDDB_BASE.DIRECTORY_SEPARATOR.'classes/includes.php');
 	
 	class upgrader extends VCDConnection {
@@ -64,7 +64,7 @@
 		?>
 		</p>
 	
-		Press the continue button to upgrade from VCD-db 0.984, 0.985, 0.986 or 0.990.
+		Press the continue button to upgrade from VCD-db 0.984, 0.985, 0.986, 0.990 or 0.991.
 		<br/>
 		Older versions are not supported by the web based upgrader.
 	
@@ -170,74 +170,70 @@ define("CACHE_MANAGER", "");
 <?php 
 function doUpgrade() {
 	try {
-		
-		
-		if (upgrader::PrevVersion() == CURR_VERSION) {
-			throw new Exception('No need to upgrade, you have already done so, or installed using this version.');
-		
-		} else if (upgrader::PrevVersion() == 0.990) {
-			
-			$v = SettingsServices::getMetadata(0,0,metadataTypeObj::SYS_VERSION);
-			$metaObj = $v[0];
-			$metaObj->setMetadataValue('0.991');
-			SettingsServices::updateMetadata($metaObj);
-			clearCache();
-			
-		} else {
-			
-		
-		
-			$version = CURR_VERSION;
-			$upgrader = new upgrader();
-			
-			$Queries = array();
-			// Check the sourcesites
-			$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'filmtv'";
-			if ($upgrader->Conn()->getOne($query) == 0) {
-				$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Film.Tv.It','filmtv','http://www.film.tv.it','http://www.film.tv.it/scheda.php?film=#','1','VCDFetch_filmtv', 'filmtvit.gif')";
-			}
-			
-			$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'ofdb'";
-			if ($upgrader->Conn()->getOne($query) == 0) {
-				$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Online Filmdatenbank','ofdb','http://www.ofdb.de','http://www.ofdb.de/view.php?page=film&amp;fid=#&amp;full=1','1','VCDFetch_ofdb', 'ofdb.jpg')";
-			}
-			
-			$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'cdon'";
-			if ($upgrader->Conn()->getOne($query) == 0) {
-				$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('CDOn.com','cdon','http://www.cdon.com','http://www.hyrfilm.cdon.com/movie/detail.asp?MovieId=#','1','VCDFetch_cdon', 'cdon.png')";
-			}
-			
-			$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'amazon'";
-			if ($upgrader->Conn()->getOne($query) == 0) {
-				$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Amazon.com','amazon','http://www.amazon.com','http://www.amazon.com/dp/#','1','VCDFetch_amazon', 'amazon.gif')";
-			}
-			
-			
-			// Check user properties
-			$query = "SELECT count(*) FROM vcd_UserProperties WHERE property_name = 'NFO_IMAGE'";
-			if ($upgrader->Conn()->getOne($query) == 0) {
-				$Queries[] = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO_IMAGE','View NFO files as images?')";
-			}
-			
-			
-			// Add the rewrite
-			$Queries[] = "INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('MOD_REWRITE','0','Use friendly urls? This requires mod_rewrite installed.','1','bool')";
-							
+		$Queries = array();
+		switch(upgrader::PrevVersion()) {
+			case 0.990:
+			case 0.991:
+				$Queries[] = "ALTER TABLE vcd_MetaDataTypes ADD public INT(1) NOT NULL DEFAULT 0 AFTER owner_id;";
+				$Queries[] = "UPDATE vcd_MetaDataTypes SET public = 1 WHERE type_id IN (10, 11);";
+				break;	
+			case CURR_VERSION:
+				throw new Exception('No need to upgrade, you have already done so, or installed using this version.');
+				break;
+			default:
+				$version = CURR_VERSION;
 				
-			// Update the metadata types
-			$Queries[] = 'DELETE FROM vcd_MetaData WHERE type_id = 6 or type_id = 7';
-			$Queries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'dvdlang', type_description='DVD Spoken languages' WHERE type_id = 6";
-			$Queries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'version', type_description='The current VCD-db version' WHERE type_id = 7";
-			$Queries[] = "INSERT INTO vcd_MetaData (record_id,mediatype_id, user_id, type_id, metadata_value) VALUES (0,0,0,7,'{$version}')";
-			
-			
-	
-			foreach ($Queries as $query) {
-				$upgrader->Execute($query);
-			}
-		
+				// Check the sourcesites
+				$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'filmtv'";
+				if ($upgrader->Conn()->getOne($query) == 0) {
+					$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Film.Tv.It','filmtv','http://www.film.tv.it','http://www.film.tv.it/scheda.php?film=#','1','VCDFetch_filmtv', 'filmtvit.gif')";
+				}
+				
+				$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'ofdb'";
+				if ($upgrader->Conn()->getOne($query) == 0) {
+					$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Online Filmdatenbank','ofdb','http://www.ofdb.de','http://www.ofdb.de/view.php?page=film&amp;fid=#&amp;full=1','1','VCDFetch_ofdb', 'ofdb.jpg')";
+				}
+				
+				$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'cdon'";
+				if ($upgrader->Conn()->getOne($query) == 0) {
+					$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('CDOn.com','cdon','http://www.cdon.com','http://www.hyrfilm.cdon.com/movie/detail.asp?MovieId=#','1','VCDFetch_cdon', 'cdon.png')";
+				}
+				
+				$query = "SELECT count(*) FROM vcd_SourceSites WHERE site_alias = 'amazon'";
+				if ($upgrader->Conn()->getOne($query) == 0) {
+					$Queries[] = "INSERT INTO vcd_SourceSites (site_name,site_alias,site_homepage,site_getCommand,site_isFetchable,site_classname,site_image) VALUES ('Amazon.com','amazon','http://www.amazon.com','http://www.amazon.com/dp/#','1','VCDFetch_amazon', 'amazon.gif')";
+				}
+				
+				
+				// Check user properties
+				$query = "SELECT count(*) FROM vcd_UserProperties WHERE property_name = 'NFO_IMAGE'";
+				if ($upgrader->Conn()->getOne($query) == 0) {
+					$Queries[] = "INSERT INTO vcd_UserProperties (property_name,property_description) VALUES ('NFO_IMAGE','View NFO files as images?')";
+				}
+				
+				
+				// Add the rewrite
+				$Queries[] = "INSERT INTO vcd_Settings (settings_key, settings_value, settings_description, isProtected, settings_type) VALUES ('MOD_REWRITE','0','Use friendly urls? This requires mod_rewrite installed.','1','bool')";
+								
+					
+				// Update the metadata types
+				$Queries[] = 'DELETE FROM vcd_MetaData WHERE type_id = 6 or type_id = 7';
+				$Queries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'dvdlang', type_description='DVD Spoken languages' WHERE type_id = 6";
+				$Queries[] = "UPDATE vcd_MetaDataTypes SET type_name = 'version', type_description='The current VCD-db version' WHERE type_id = 7";
+				$Queries[] = "INSERT INTO vcd_MetaData (record_id,mediatype_id, user_id, type_id, metadata_value) VALUES (0,0,0,7,'{$version}')";
+				break;
 		}
 		
+		$upgrader = new upgrader();
+		foreach ($Queries as $query) {
+			$upgrader->Execute($query);
+		}		
+		
+		$v = SettingsServices::getMetadata(0,0,metadataTypeObj::SYS_VERSION);
+		$metaObj = $v[0];
+		$metaObj->setMetadataValue(CURR_VERSION);
+		SettingsServices::updateMetadata($metaObj);
+		clearCache();
 	} catch (Exception $ex) {
 		throw $ex;
 	}	

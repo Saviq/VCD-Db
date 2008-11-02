@@ -207,7 +207,7 @@
 			<td>{$translate.movie.owner}</td>
 		</tr>
 		{foreach from=$itemCopies item=i}
-		<tr>
+		<tr class="item">
 			<td>{$i.mediatype}</td>
 			<td>{$i.dvdspecs}</td>
 			<td>{$i.nfo}</td>
@@ -215,32 +215,19 @@
 			<td>{$i.date|date_format:$config.date}</td>
 			<td>{$i.owner}</td>
 		</tr>
+		{if is_array($itemMetadata[$i.mediatypeid]) && count($itemMetadata[$i.mediatypeid]>0)}
+			{foreach from=$itemMetadata[$i.mediatypeid] item=m}
+			<tr>
+				<td colspan="3">&nbsp;&nbsp;{$m.name}</td>
+				<td colspan="3">&nbsp;&nbsp;{$m.text}</td>
+			</tr>
+			{/foreach}
+		{/if}
 		{/foreach}
 		</table>
 	{/if}
 	
 	</div>
-	
-	{if is_array($itemMetadata) && count($itemMetadata)>0}
-		<div id="metadata">
-		<h2>{$translate.metadata.my}</h2>
-		<table cellspacing="0" cellpadding="0" border="0" width="100%">
-		<tr>
-			<td width="25%">{$translate.movie.media}</td>
-			<td>{$translate.metadata.type}</td>
-			<td>{$translate.metadata.value}</td>
-		</tr>
-		{foreach from=$itemMetadata item=i key=k}		
-		<tr>
-			<td>{$i.medianame}</td>
-			<td title="{$i.desc}">{$i.name}</td>
-			<td>{$i.text}</td>
-		</tr>
-		{/foreach}
-		</table>
-		</div>
-	{/if}
-
 
 	<div id="comments">
 	<h2>{$translate.comments.comments} (<a href="#" onclick="javascript:show('newcomment');return false">{$translate.comments.add}</a>)</h2>

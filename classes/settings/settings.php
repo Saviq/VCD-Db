@@ -1636,6 +1636,21 @@ class vcd_settings implements ISettings {
 	}
 
 	/**
+	 * Update metadata type object
+	 *
+	 * @param metadataTypeObj $obj
+	 */
+	public function updateMetadataType(metadataTypeObj $obj) {
+		try {
+
+			$this->SQL->updateMetadataType($obj);
+
+	 	} catch (Exception $ex) {
+	 		throw $ex;
+	 	}
+	}
+	
+	/**
 	 * Delete metadata object
 	 *
 	 * @param int $metadata_id
@@ -1778,6 +1793,25 @@ class vcd_settings implements ISettings {
 	}
 
 	/**
+	 * Get a metadatatypes from database. If name is provided, search by name,
+	 * otherwise search by id. Function returns a metadataTypeObject.
+	 *
+	 * @param string $name | The metadata type name
+	 * @param int $id | The metadata id
+	 * @return metadataTypeObj
+	 */
+	public function getMetadataType($name = null, $id = null) {
+		try {
+
+			return $this->SQL->getMetadataType($name, $id);
+
+		} catch (Exception $ex) {
+			throw $ex;
+		}
+	}
+	
+	
+	/**
 	 * Get all known metadatatypes from database. If $user_id is provided, only metadatatypes created by that
 	 * user_id will be returned. Function returns array of metadataTypeObjects.
 	 *
@@ -1809,7 +1843,7 @@ class vcd_settings implements ISettings {
 
 				$metaArr = $this->getMetadataTypes(VCDUtils::getUserID());
 				foreach ($metaArr as $metatypeObj) {
-					if ($metatypeObj->getMetadataTypeID() === $metatype_id) {
+					if ($metatypeObj->getMetadataTypeID() === $metatype_id || VCDAuthentication::isAdmin()) {
 						$canDelete = true;
 						break;
 					}

@@ -742,6 +742,9 @@
 		<field name="owner_id" type="I">
 			<NOTNULL/>
 		</field>
+		<field name="public" type="I1">
+			<NOTNULL/>
+		</field>
 		<index name="vcd_MetaDataTypes_1">
 			<descr>Index on the type name</descr>
 			<col>type_name</col>

@@ -1062,6 +1062,28 @@ class settingsSQL extends VCDConnection  {
 		}
 	}
 
+	public function updateMetadataType(metadataTypeObj $obj) {
+		try {
+
+		$query = "UPDATE $this->TABLE_metatypes SET type_name = ".$this->db->qstr($obj->getMetadataTypeName());
+		
+		$query .= ", type_description = ".$this->db->qstr($obj->getMetadataDescription());
+		
+		if (is_numeric($obj->getMetadataTypeLevel())) {
+			$query .= ", owner_id = " . $obj->getMetadataTypeLevel();
+		}
+		
+		$query .= ", public = ".(int)$obj->getMetadataTypePublic();
+		
+		$query .= " WHERE type_id = " . $obj->getMetadataTypeID();
+			
+		$this->db->Execute($query);
+
+		} catch (Exception $ex) {
+			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
+		}
+	}
+	
 	public function deleteMetadata($metadata_id) {
 		try {
 
@@ -1075,7 +1097,6 @@ class settingsSQL extends VCDConnection  {
 
 	public function getMetadata($record_id, $user_id, $metadata_name, $mediatype_id = null) {
 		try {
-
 					
 		if (is_numeric($mediatype_id) && is_numeric($record_id) && is_numeric($user_id) && strlen($metadata_name) == 0) {
 			$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
@@ -1102,8 +1123,8 @@ class settingsSQL extends VCDConnection  {
 			$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
 					  m.mediatype_id, n.type_id, n.owner_id, n.type_description FROM $this->TABLE_metadata m
 					  LEFT OUTER JOIN $this->TABLE_metatypes n on m.type_id = n.type_id
-					  WHERE m.record_id = ".$record_id." AND m.user_id = " . $user_id ."
-					  ORDER BY m.mediatype_id, n.type_id, n.type_name";
+					  WHERE m.record_id = ".$record_id." AND (m.user_id = " . $user_id ." OR n.public = 1)
+					  ORDER BY m.mediatype_id, n.type_id, n.type_name, m.metadata_value";
 			
 		} else {
 			$query = "SELECT m.metadata_id, m.record_id, m.user_id, n.type_name, m.metadata_value,
@@ -1187,7 +1208,7 @@ class settingsSQL extends VCDConnection  {
 			// First we check if metadataObj with same name exist, if so
 			// We simply return that metadataTypeObj since we don't allow duplicate names
 			$inObj = $this->getMetadataType($obj->getMetadataTypeName());
-			if ($inObj instanceof metadataTypeObj && $inObj->isSystemObj()) {
+			if ($inObj instanceof metadataTypeObj) {
 				return $inObj;
 			} else {
 				// Check for legal typename
@@ -1196,9 +1217,9 @@ class settingsSQL extends VCDConnection  {
 				}
 
 				// Object not found .. lets create it ..
-				$query = "INSERT INTO $this->TABLE_metatypes (type_name, type_description, owner_id) VALUES
+				$query = "INSERT INTO $this->TABLE_metatypes (type_name, type_description, owner_id, public) VALUES
 						  (".$this->db->qstr($obj->getMetadataTypeName()).", ".$this->db->qstr($obj->getMetadataDescription()).",
-						  ".$obj->getMetadataTypeLevel().")";
+						  ".$obj->getMetadataTypeLevel().", ".(int)$obj->getMetadataTypePublic().")";
 				$this->db->Execute($query);
 
 
@@ -1243,16 +1264,20 @@ class settingsSQL extends VCDConnection  {
 	}
 
 
-	public function getMetadataType($name) {
+	public function getMetadataType($name=null, $id=null) {
 		try {
-
-			$query = "SELECT type_id, type_name, type_description, owner_id FROM
-					  $this->TABLE_metatypes WHERE type_name = " . $this->db->qstr($name);
+			if(!is_null($name)) {
+				$query = "SELECT type_id, type_name, type_description, owner_id, public FROM
+						  $this->TABLE_metatypes WHERE type_name = " . $this->db->qstr($name);
+			} else {
+				$query = "SELECT type_id, type_name, type_description, owner_id, public FROM
+						  $this->TABLE_metatypes WHERE type_id = " . $this->db->qstr($id);
+			}
 			$rs = $this->db->Execute($query);
 
 			if ($rs && $rs->RecordCount() > 0) {
 				foreach ($rs as $row) {
-					$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3]);
+					$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3], $row[4]);
 					return $obj;
 				}
 
@@ -1271,11 +1296,11 @@ class settingsSQL extends VCDConnection  {
 
 			if (!is_null($user_id) && is_numeric($user_id)) {
 
-				$query = "SELECT type_id, type_name, type_description, owner_id FROM
+				$query = "SELECT type_id, type_name, type_description, owner_id, public FROM
 						  $this->TABLE_metatypes WHERE owner_id = " . $user_id . " ORDER BY type_name";
 
 			} else {
-				$query = "SELECT type_id, type_name, type_description, owner_id FROM
+				$query = "SELECT type_id, type_name, type_description, owner_id, public FROM
 						  $this->TABLE_metatypes ORDER BY type_name";
 			}
 
@@ -1283,7 +1308,7 @@ class settingsSQL extends VCDConnection  {
 			if ($rs && $rs->RecordCount() > 0) {
 				$metaArr = array();
 				foreach ($rs as $row) {
-					$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3]);
+					$obj = new metadataTypeObj($row[0], $row[1], $row[2], $row[3], $row[4]);
 					array_push($metaArr, $obj);
 				}
 				return $metaArr;

@@ -329,6 +329,13 @@ function deleteRecord($recordID, $recordType) {
 				print "<script>history.back(-1)</script>";
 		break;
 
+		case 'metadata_types';
+			if (SettingsServices::deleteMetaDataType($recordID))
+				header("Location: ./?page=".$recordType.""); /* Redirect browser */
+			else
+				print "<script>history.back(-1)</script>";
+		break;
+		
 		case 'categories';
 			if (SettingsServices::deleteMovieCategory($recordID))
 				header("Location: ./?page=".$recordType.""); /* Redirect browser */

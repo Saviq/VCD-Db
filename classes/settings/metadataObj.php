@@ -186,6 +186,7 @@ class metadataObj extends metadataTypeObj implements XMLable {
 			'metatype_id' => $this->metatype_id,
 			'metatype_level' => $this->metatype_level,
 			'metatype_name' => $this->metatype_name,
+			'metatype_public' => $this->metatype_public,
 			'record_id' => $this->record_id,
 			'user_id' => $this->user_id);
 	}
@@ -247,6 +248,7 @@ class metadataTypeObj {
 	protected $metatype_name;
 	protected $metatype_level = metadataTypeObj::LEVEL_SYSTEM;
 	protected $metatype_description;
+	protected $metatype_public;
 
 	/**
 	 * List of types that allow duplicate records for same media type.
@@ -263,11 +265,12 @@ class metadataTypeObj {
 	 * @param string $description | The description of the metadatatype
 	 * @param int $level | the access level of the Obj (0 or 1)
 	 */
-	public function __construct($id = -1, $name, $description, $level = self::LEVEL_SYSTEM) {
+	public function __construct($id = -1, $name, $description, $level = self::LEVEL_SYSTEM, $public) {
 		$this->metatype_id = $id;
 		$this->metatype_name = $name;
 		$this->metatype_description = $description;
 		$this->metatype_level = $level;
+		$this->metatype_public = (bool)$public;
 
 	}
 
@@ -334,6 +337,33 @@ class metadataTypeObj {
 	}
 
 	/**
+	 * Set the metadataType description
+	 *
+	 * @param string $description
+	 */
+	public function setMetaDataTypeDescription($description) {
+		$this->metatype_description = $description;
+	}
+	
+	/**
+	 * Set the metadataType owner
+	 *
+	 * @param int $owner_id
+	 */
+	public function setMetaDataTypeOwner($owner_id) {
+		$this->metatype_level = $owner_id;
+	}
+
+	/**
+	 * Set the metadataType public status
+	 *
+	 * @param bool $public
+	 */
+	public function setMetaDataTypePublic($public) {
+		$this->metatype_public = $public;
+	}
+	
+	/**
 	 * Get the Type Level associated with this metadata object
 	 *
 	 * @return string
@@ -342,6 +372,15 @@ class metadataTypeObj {
 		return $this->metatype_level;
 	}
 
+	/**
+	 * Get the Public property associated with this metadata object
+	 *
+	 * @return string
+	 */
+	public function getMetadataTypePublic() {
+		return $this->metatype_public;
+	}
+	
 	/**
 	 * Check weither metadata type belongs to the system or a user.
 	 *
@@ -380,7 +419,8 @@ class metadataTypeObj {
 			'desc' => $this->metatype_description,
 			'id'	=> $this->metatype_id,
 			'level' => $this->metatype_level,
-			'name' => $this->metatype_name
+			'name' => $this->metatype_name,
+			'public' => $this->metatype_public
 		);
 	}
 	

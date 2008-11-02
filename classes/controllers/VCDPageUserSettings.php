@@ -193,7 +193,8 @@ class VCDPageUserSettings extends VCDBasePage {
 			foreach ($metadataTypes as $obj) {
 				$results[$obj->getMetadataTypeID()] = 
 					array('name' => $obj-> getMetadataTypeName(), 
-						'desc' => $obj->getMetadataDescription());
+						'desc' => $obj->getMetadataDescription(),
+						'public' => $obj->getMetadataTypePublic());
 			}
 			$this->assign('myMetadata', $results);	
 		}
@@ -623,18 +624,27 @@ class VCDPageUserSettings extends VCDBasePage {
 	 *
 	 */
 	private function addMetadata() {
-		
+
+		$metaId   = $this->getParam('metadataid',true, -1);
 		$metaName = $this->getParam('metadataname',true);
 		$metaDesc = $this->getParam('metadatadescription',true);
-		
+		$metaPublic = (bool)$this->getParam('metadatapublic', true, false);
+
 		if (!is_null($metaName) && !is_null($metaDesc)) {
 			
 			$metaName = preg_replace('/\s/', '',trim($metaName));
 			$metaDesc = trim($metaDesc);
-			$obj = new metadataTypeObj('', $metaName, $metaDesc, VCDUtils::getUserID());
-			SettingsServices::addMetaDataType($obj);
+			$obj = new metadataTypeObj($metaId, $metaName, $metaDesc, VCDUtils::getUserID(), $metaPublic);
 		}
-	
+
+		if ($metaId == -1) {
+			SettingsServices::addMetaDataType($obj);
+		} else if ($metaId > 30) {
+			SettingsServices::updateMetadataType($obj);
+		} else {
+			throw new Exception("Wrong metadata id posted");
+		}
+		
 		redirect('?page=settings');
 	}
 

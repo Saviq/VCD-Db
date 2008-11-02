@@ -272,25 +272,40 @@
 				<td>{counter}</td>
 				<td>{$i.name}</td>
 				<td>{$i.desc}</td>
+				<td>{if $i.public}{$translate.metadata.public}{else}{$translate.metadata.private}{/if}</td>
+				<td width="2%"><img src="images/icons/edit.png" onclick="invokeEditMetaType({$id})"/></td>
 				<td width="2%"><img src="images/icon_del.gif" onclick="deleteMetaType({$id})"/></td>
 			</tr>
 		{/foreach}
+			<tr>
+				<td width="2%"><img id="addmetaimg" src="images/icons/add.png" onclick="addMetaType()"/></td>
+			</tr>
 		</table>
 	{else}
 		{$translate.metadata.none}
 	{/if}
 	</td>
 	<td valign="top" width="40%">
-		<table cellpadding="1" cellspacing="1" width="100%" border="0">
-		<tr>
-			<td>{$translate.metadata.name}: </td>
-			<td><input type="text" name="metadataname"/></td>
-		</tr>
-		<tr>
-			<td>{$translate.metadata.desc}: </td>
-			<td><input type="text" name="metadatadescription"/> &nbsp; <input type="submit" name="newmeta" value="{$translate.misc.save}"/></td>
-		</tr>
-		</table>
+		<div id="metadatatype" style="display:none;">
+			<input type="hidden" name="metadataid"/>
+			<table cellpadding="1" cellspacing="1" width="100%" border="0">
+			<tr>
+				<td>{$translate.metadata.name}: </td>
+				<td><input type="text" name="metadataname"/></td>
+			</tr>
+			<tr>
+				<td>{$translate.metadata.desc}: </td>
+				<td><input type="text" name="metadatadescription"/></td>
+			</tr>
+			<tr>
+				<td>{$translate.metadata.public}: </td>
+				<td><input type="checkbox" name="metadatapublic"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" name="newmeta" value="{$translate.misc.save}"/></td>
+			</tr>
+			</table>
+		</div>
 	</td>
 
 </tr>

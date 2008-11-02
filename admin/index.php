@@ -86,6 +86,7 @@
 		<li><a href="./?page=cover_types">Cover types</a></li>
 		<li><a href="./?page=languages">Languages</a></li>
 		<li><a href="./?page=media_types">Media types</a></li>
+		<li><a href="./?page=metadata_types">Metadata types</a></li>
 		<li><a href="./?page=categories">Movie categories</a></li>
 		<li><a href="./?page=sites">Source sites</a></li>
 		<li><a href="./?page=users">Users</a></li>
@@ -614,6 +615,77 @@
 			
 			}
 			
+			/*
+				Case Metadata Types
+			*/
+			if ($CURRENT_PAGE == "metadata_types") { 
+						
+			$mdtypes = SettingsServices::getMetadataTypes(null);
+			$users = UserServices::getAllUsers();
+			
+			require("forms/addMetadataType.php");	
+			
+			/* Add Media Type */
+			if (isset($_POST['save'])) {
+				$obj = new metadataTypeObj(-1, $_POST['name'], $_POST['description'], (int)$_POST['owner_id'], isset($_POST['public']) && $_POST['public'] == "on");
+				SettingsServices::addMetadataType($obj);	
+				
+				// Update the new RecordSet
+				$mdtypes = SettingsServices::getMetadataTypes(null);
+				unset($obj);
+				
+			}
+			/* Update Metadata Type */
+			if (isset($_POST['update'])) {
+				$obj = SettingsServices::getMetadataType(null, $_POST['id']);
+				if(!$obj->isSystemObj()) {
+					$obj->setMetadataTypeName($_POST['name']);
+					$obj->setMetadataTypeDescription($_POST['description']);
+					$obj->setMetadataTypeOwner($_POST['owner_id']);
+				}
+				$obj->setMetadataTypePublic(isset($_POST['public']) && $_POST['public'] == "on");
+				
+				SettingsServices::updateMetadataType($obj);
+				print "<script>location.href='./?page=".$CURRENT_PAGE."'</script>";
+				exit();
+			}			
+			/*****************/
+			
+			
+			echo "<div class=\"content\">";	
+						
+			if (is_array($mdtypes) && sizeof($mdtypes) > 0) {
+						
+				$header = array("Type name", "Description", "Owner", "Status", "");
+				printTableOpen();
+				printRowHeader($header);
+				foreach ($mdtypes as $metaDataTypeObj) {
+					printTr();
+					printRow($metaDataTypeObj->getMetadataTypeName());
+					printRow($metaDataTypeObj->getMetadataDescription());
+					if($metaDataTypeObj->isSystemObj()) {
+						printRow("System");
+						printRow($metaDataTypeObj->getMetadataTypePublic()?"Public":"Private");
+						printEditRow($metaDataTypeObj->getMetadataTypeID(), $CURRENT_PAGE);
+						printRow();
+					} else {
+						printRow(UserServices::getUserByID($metaDataTypeObj->getMetadataTypeLevel())->getFullname());
+						printRow($metaDataTypeObj->getMetadataTypePublic()?"Public":"Private");
+						printEditRow($metaDataTypeObj->getMetadataTypeID(), $CURRENT_PAGE);
+						printDeleteRow($metaDataTypeObj->getMetadataTypeID(), $CURRENT_PAGE, "Delete metadata?");
+					}
+					printTr(false);										
+				}
+				printTableClose();
+				
+				
+			} else {
+				print "<strong>No metadata types available.</strong>";
+			}
+			
+			echo "</div>";
+			
+			}
 			
 			
 			

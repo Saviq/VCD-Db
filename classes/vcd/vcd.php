@@ -1111,27 +1111,14 @@ class vcd_movie implements IVcd  {
 	 * @return array
 	 */
 	public function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
-	$owner = null, $imdbgrade = null) {
+	$owner = null, $imdbgrade = null, $meta = null) {
 		try {
 			
 			// are adult categories in use ? and if so does user want to see them ?
 			$showadult = VCDUtils::showAdultContent();
 
-			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $showadult);
-
-			// Check if user is logged in and is using custom index
-			if (VCDUtils::isLoggedIn() && !is_null($title)) {
-				$user = VCDUtils::getCurrentUser();
-				if ($user->getPropertyByKey(vcd_user::$PROPERTY_INDEX)) {
-					// Check for movie marked with custom key
-					$cusKeyArr = $this->SQL->getMovieByCustomKey($user->getUserID(), $title);
-					if (is_array($cusKeyArr) && sizeof($cusKeyArr) > 0) {
-						$results = array_merge($results, $cusKeyArr);
-					}
-				}
-			}
-
-
+			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $showadult);	
+			
 			foreach ($results as &$item) {
 				$catObj = $this->Settings()->getMovieCategoryByID($item['cat_id']);
 				$item['category'] = $catObj->getName(true);

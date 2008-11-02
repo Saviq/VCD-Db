@@ -46,6 +46,7 @@ input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:WindowText;}
 .list .statheader{text-align:left;color:#3D3D3D;font-weight:bold;border:dashed #c0c0c0;border-width:1px 0px 0px 0px;background-image:url(images/topic_bg.gif);padding:2px;}
 .displist td{border-bottom:1px #F4F4F4 solid;border-right:1px #F4F4F4 solid;line-height:17px;color:#3D3D3D;text-indent:4px;}
 .displist .header{text-align:left;font-weight:bold;}
+.displist tr.item td{border-top:1px solid #3D3D3D}
 .normal td{padding-left:2px;}
 /* Movie listing */
 #cast .item{display:block;border-bottom:1px #c0c0c0 solid;padding-left:4px;text-indent:0;}

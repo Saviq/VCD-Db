@@ -304,7 +304,27 @@ class VCDAjaxHelper {
 			throw new AjaxException($ex->getMessage(), $ex->getCode());
 		}
 	}
-	
+
+	/**
+	 * Get a metadata type data
+	 *
+	 * @param int $id | The metadata type id
+	 * @return array | The metadata type data
+	 */
+	public static function getMetadataType($id) {
+		try {
+
+			$metaDataTypeObj = SettingsServices::getMetadataType(null, $id);
+			$metaDataTypeArr = array("id"=>$metaDataTypeObj->getMetadataTypeID(),
+									 "name"=>$metaDataTypeObj->getMetadataTypeName(),
+									 "description"=>$metaDataTypeObj->getMetadataDescription(),
+									 "public"=>$metaDataTypeObj->getMetadataTypePublic());
+			return $metaDataTypeArr;
+			
+		} catch (Exception $ex) { 
+			throw new AjaxException($ex->getMessage(), $ex->getCode());
+		}
+	}
 }
 
 ?>

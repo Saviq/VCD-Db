@@ -173,9 +173,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 		$this->doCopiesList();
 		$this->doSourceSiteLink();
 		
-		if (VCDUtils::isLoggedIn()) {
-			$this->doMetadata();
-		}
+		$this->doMetadata();
 		
 		if (!$this->skipExtended) {
 			$this->doCovers();
@@ -234,7 +232,11 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 	 */
 	private function doMetadata() {
 		
-		$metadata = SettingsServices::getMetadata($this->itemObj->getID(),VCDUtils::getUserID());
+		if(VCDUtils::isLoggedIn()) {
+			$metadata = SettingsServices::getMetadata($this->itemObj->getID(),VCDUtils::getUserID());
+		} else {
+			$metadata = SettingsServices::getMetadata($this->itemObj->getID(),-1);
+		}
 		// Filter out non user metadata
 		$metadata = metadataTypeObj::filterOutSystemMeta($metadata);
 			
@@ -245,7 +247,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 				if ($metaObj instanceof metadataObj) {
 					$mediatypeObj = SettingsServices::getMediaTypeByID($metaObj->getMediaTypeID());
 					if ($mediatypeObj instanceof mediaTypeObj) {
-						$results[$metaObj->getMetadataID()] = 
+						$results[$metaObj->getMediaTypeID()][] = 
 						array('medianame' => $mediatypeObj->getDetailedName(), 
 						'name' => $this->doMetadataNameFormat($metaObj), 'text' => $this->doMetadataFormat($metaObj));	
 					}
@@ -339,6 +341,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 				'date'		=> $dates[$i],
 				'cdcount'	=> $cdcounts[$i],
 				'mediatype' => $mediaTypeObj->getDetailedName(),
+				'mediatypeid'=>$mediaTypeObj->getMediaTypeID(),
 				'dvdspecs'	=> $this->doCopiesDvdList($ownerObj,$mediaTypeObj,$metadata),
 				'nfo'		=> $this->doCopiesNfoList($ownerObj, $mediaTypeObj, $metadata)
 			);

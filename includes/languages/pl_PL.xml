@@ -383,6 +383,14 @@
 		<string id="metadata.type">Typ danych</string>
 		<string id="metadata.value">Wartość</string>
 		<string id="metadata.none">Brak danych.</string>
+		<string id="metadata.public">Publiczne</string>
+		<string id="metadata.private">Prywatne</string>
+		<string id="metadata.system">Systemowy</string>
+
+
+                <!-- system metadata types -->
+                <string id="metadata.systemtype.11">Położenie pliku</string>
+                <string id="metadata.systemtype.10">Numer identyfikacyjny</string>
 
 
 		<!-- strings for the player settings and actions -->

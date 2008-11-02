@@ -47,6 +47,7 @@ input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:WindowText;}
 .displist td{border-bottom:1px #F4F4F4 solid;border-right:1px #F4F4F4 solid;line-height:17px;color:#3D3D3D;text-indent:4px;}
 .displist .header{font-weight:bold;border-bottom:1px solid #BDB8D6;line-height:18px;font-size:10px;}
 .normal td{padding-left:2px;}
+.displist tr.item td{border-top:1px solid #BDB8D6}
 /* Movie listing */
 #cast .item{display:block;border-bottom:1px #c0c0c0 solid;padding-left:4px;text-indent:0;}
 #cast .item a:hover{background-color:#c0c0c0;text-decoration:none;}

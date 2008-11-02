@@ -27,6 +27,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			$this->doMediatypeList();
 			$this->doOwnersList();
 			$this->doGradeList();
+			$this->doMetatypeList();
 			
 			if (!is_null($this->getParam('s'))) {
 				$this->doSearch();
@@ -40,18 +41,9 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 	private function doSearch() {
 
 		$query = base64_decode($this->getParam('s'));
-		$keys = explode(';',$query);
-		$keyset = array();
-		if (is_array($keys)) {
-			foreach ($keys as $key) {
-				if ($key != '') {
-					$pair = explode(':',$key);
-					if (isset($pair[0]) && isset($pair[1])) {
-						$keyset[$pair[0]] = (strcmp($pair[1],'')!=0) ? $pair[1] : null;
-					}
-				}
-			}	
-						
+		$keyset = unserialize($query);
+		if (is_array($keyset)) {
+			
 			// Now we have a key-value pairs to work with ..
 			$title = isset($keyset['title']) ? $keyset['title'] : null;
 			$cat   = isset($keyset['category']) ? $keyset['category'] : null;
@@ -59,17 +51,17 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			$media = isset($keyset['mediatype']) ? $keyset['mediatype'] : null;
 			$owner = isset($keyset['owner']) ? $keyset['owner'] : null;
 			$grade = isset($keyset['grade']) ? $keyset['grade'] : null;
-			
+			$meta  = isset($keyset['metadata']) ? $keyset['metadata'] : null;
 			
 			// We do not perform the search if no input is specified
 			if (is_null($title) && is_null($cat) && is_null($year) 
-				&& is_null($media) && is_null($owner) && is_null($grade)) {
-					redirect('?page=detailed_search');
-					exit();
-				}
-			
+				&& is_null($media) && is_null($owner) && is_null($grade) && is_null($meta)) {
+				redirect('?page=detailed_search');
+				exit();
+			}
+				
 			// Get the search results
-			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade);
+			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade,$meta);		
 			$this->assign('searchResults',$results);
 			
 			// Set the current search parameters visible
@@ -111,15 +103,18 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			$this->assign('selectedGrade',$arrSelected['grade']);
 		}
 		
+		if (isset($arrSelected['metadata'])) {
+			$this->assign('searchMetadata', $arrSelected['metadata']);
+		}
+		
 	}
 	
 	public function handleRequest() {
-		
-		$queryBuilder = "";
+		$query = array();
 		foreach ($_POST as $key => $value) {
-			$queryBuilder .= $key.':'.$value.';';
-		}	
-		redirect('?page=detailed_search&s='.base64_encode($queryBuilder));
+			if(!empty($value)) $query[$key] = $value;
+		}
+		redirect('?page=detailed_search&s='.base64_encode(serialize($query)));
 		exit();
 	
 	}
@@ -186,9 +181,22 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 		$this->assign('searchCategoryList',$results);
 	}
 	
-	
-	
-	
+	private function doMetatypeList() {
+		$user_id = null;
+		if (VCDUtils::isLoggedIn()) {
+			$user_id = VCDUtils::getCurrentUser()->getUserID();
+		}
+		$mdtypes = SettingsServices::getMetadataTypes();
+
+		foreach($mdtypes as $obj) {
+			if ($obj->getMetadataTypeLevel() === $user_id || $obj->getMetadataTypePublic()) {
+				$results[] = array('id'   => $obj->getMetadataTypeID(),
+								   'name' => $obj->isSystemObj()?VCDLanguage::translate('metadata.systemtype.'.$obj->getMetadataTypeID()):$obj->getMetadataDescription(),
+								   'owner'=> $obj->isSystemObj()?VCDLanguage::translate('metadata.system'):UserServices::getUserByID($obj->getMetadataTypeLevel())->getFullname());
+			}
+		}
+		$this->assign('searchMetadataList', $results);
+	}
 }
 
 

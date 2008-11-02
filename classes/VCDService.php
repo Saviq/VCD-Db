@@ -1420,6 +1420,20 @@ class SettingsServices extends VCDServices {
 		}
 	}
 	
+	/**
+	 * Update a specific metadata type.
+	 *
+	 * @param metadataTypeObj $obj
+	 */
+	public static function updateMetadataType(metadataTypeObj $obj) {
+		try {
+			
+			self::Settings()->updateMetadataType($obj);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
 	
 	/**
 	 * Delete a user defined metadata type
@@ -1505,6 +1519,25 @@ class SettingsServices extends VCDServices {
 			parent::handleError($ex);
 		}
 	}
+
+	/**
+	 * Get a metadatatypes from database. If name is provided, search by name,
+	 * otherwise search by id. Function returns a metadataTypeObject.
+	 *
+	 * @param string $name | The metadata type name
+	 * @param int $id | The metadata id
+	 * @return metadataTypeObj
+	 */
+	public static function getMetadataType($name, $id) {
+		try {
+			
+			return self::Settings()->getMetadataType($name, $id);
+			
+		} catch (Exception $ex) {
+			parent::handleError($ex);
+		}
+	}
+	
 	
 	/**
 	 * Get all known metadatatypes from database. If $user_id is provided, only metadatatypes created by that
@@ -2673,10 +2706,10 @@ class MovieServices extends VCDServices {
 	 * @return array
 	 */
 	public static function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
-								   $owner = null, $imdbgrade = null) {
+								   $owner = null, $imdbgrade = null, $meta = null) {
 		try {
 			
-			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade);
+			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

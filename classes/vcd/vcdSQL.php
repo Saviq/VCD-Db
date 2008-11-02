@@ -36,6 +36,7 @@ class vcdSQL extends VCDConnection {
 	private $TABLE_userloans 	= "vcd_UserLoans";
 	private $TABLE_comments		= "vcd_Comments";
 	private $TABLE_metadata		= "vcd_MetaData";
+	private $TABLE_metatypes	= "vcd_MetaDataTypes";
 
 
  	private $magic_quotes;
@@ -1341,7 +1342,7 @@ class vcdSQL extends VCDConnection {
 		}
 	}
 
-	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $showadult = false) {
+	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $showadult = false) {
 		try {
 
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id, i.rating
@@ -1355,6 +1356,12 @@ class vcdSQL extends VCDConnection {
 		$query .= "LEFT OUTER JOIN $this->TABLE_imdb i ON i.imdb = s.external_id ";
 		
 		$query .= "LEFT OUTER JOIN $this->TABLE_comments c ON c.vcd_id = v.vcd_id ";
+		
+		if(!is_null($meta)) {
+			$query .= "LEFT OUTER JOIN $this->TABLE_metadata m ON m.record_id = v.vcd_id ";
+		
+			$query .= "LEFT JOIN $this->TABLE_metatypes t ON m.type_id = t.type_id ";
+		}
 
 
 		$bCon = false;
@@ -1402,6 +1409,27 @@ class vcdSQL extends VCDConnection {
 			}
 		}
 
+		if(!is_null($meta)) {
+			foreach($meta as $k => $v) {
+				if(!empty($v)) {
+					$meta = $this->db->qstr("%".$v."%");
+					if($this->isPostgres()) {
+						$meta = "LOWER(".$meta.")";
+					}
+					
+					if($bCon) {
+						$query .= " AND (m.type_id = $k".
+									   " AND m.metadata_value LIKE ".$meta.
+									   " AND (t.public ".(VCDUtils::isLoggedIn()?"OR m.user_id = ".VCDUtils::getCurrentUser()->getUserID():"")."))";
+					} else {
+						$query .= " WHERE (m.type_id = $k".
+									     " AND m.metadata_value LIKE ".$meta.
+									     " AND (t.public ".(VCDUtils::isLoggedIn()?"OR m.user_id = ".VCDUtils::getCurrentUser()->getUserID():"")."))";
+						$bCon = true;
+					}
+				}
+			}
+		}
 
 		// Skip adult titles if requested
 		if (!$showadult) {
@@ -1428,14 +1456,13 @@ class vcdSQL extends VCDConnection {
 				$query .= " OR ($commentColumn LIKE {$this->db->qstr($title)} AND isPrivate = 0) ";
 			}
 		}
-		
 	
 		$query .= " ORDER BY v.title";
 
 		
 		// Transform the queries with LOWER() if postgres ..
 		if ($this->isPostgres()) { 
-			$arrFields = array('v.title', 'c.comment', $this->db->qstr($title));
+			$arrFields = array('v.title', 'c.comment', 'm.metadata_value', $this->db->qstr($title));
 			//  create the replacement array ..
 			$arrLower = array();
 			for ($i=0;$i<sizeof($arrFields);$i++) { $arrLower[$i] = "lower(".$arrFields[$i].")"; }
@@ -1486,8 +1513,6 @@ class vcdSQL extends VCDConnection {
 			throw new VCDSqlException($ex->getMessage(), $ex->getCode());
 		}
 	}
-
-
 
 	public function crossJoin($request_userid, $user_id, $media_id, $category_id, $method) {
 		try {
