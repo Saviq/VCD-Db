@@ -219,7 +219,7 @@ class VCDPageCategoryList extends VCDBasePage {
 		$backpos = $current_pos - 1;
 	
 		if ($current_pos > 0) {
-			$first = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=0\">&lt;&lt;</a>";
+			$first = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=0&amp;sort={$this->sort}\">&lt;&lt;</a>";
 		} else {
 			$first = "&lt;&lt;";
 		}
@@ -227,11 +227,11 @@ class VCDPageCategoryList extends VCDBasePage {
 		if ($current_pos >= $totalPages) {
 			$last  = "&gt;&gt;";
 		} else {
-			$last  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$totalPages\">&gt;&gt;</a>";
+			$last  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$totalPages&amp;sort={$this->sort}\">&gt;&gt;</a>";
 		}
 	
 		if ($current_pos > 0) {
-			$back  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$backpos\">&lt;</a>";
+			$back  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$backpos&amp;sort={$this->sort}\">&lt;</a>";
 		} else {
 			$back  = "&lt;";
 		}
@@ -240,7 +240,7 @@ class VCDPageCategoryList extends VCDBasePage {
 		if ($current_pos >= $totalPages) {
 			$next  = "&gt;";
 		} else {
-			$next  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$nextpos\">&gt;</a>";
+			$next  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$nextpos&amp;sort={$this->sort}\">&gt;</a>";
 		}
 	
 		$page = ($current_pos+1) . " of " . ($totalPages+1);

@@ -387,7 +387,7 @@ class vcdSQL extends VCDConnection {
 	public function getVcdByCategory($category_id, $numrecords, $offset, $thumbnail_id, $user_id = -1, $sort = null) {
 		try {
 
-		$order = "v.title, v.vcd_id, m.media_type_id";
+		$order = "v.title";
 			
 		if(!is_null($sort)) {
 			$dir = "";
@@ -395,12 +395,11 @@ class vcdSQL extends VCDConnection {
 				$dir .= " DESC";
 			}
 			switch(substr($sort, 0, -2)) {
-				case "id": $order = "v.vcd_id$dir"; break;
-				case "year": $order = "v.year$dir, v.title, v.vcd_id"; break;
+				case "id": $order = "v.vcd_id$dir, v.title"; break;
+				case "year": $order = "v.year$dir, v.title"; break;
 				case "title":
-				default: $order = "v.title$dir, v.vcd_id"; break;	
+				default: $order = "v.title$dir"; break;	
 			}
-			$order .= ", m.media_type_id";
 		}
 		if($category_id != 0) $category_cond = "v.category_id = $category_id";
 		else $category_cond = "TRUE";
