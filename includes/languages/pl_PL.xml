@@ -82,7 +82,7 @@
 		<string id="usersettings.updated">Zaktualizowano ustawienia</string>
 		<string id="usersettings.update_failed">Bład aktualizacji ustawień</string>
 		<string id="usersettings.list">Lista ignorowanych</string>
-		<string id="usersettings.desc">Ignoruj wszystkie filmy od tych u¿ytkowników:</string>
+		<string id="usersettings.desc">Ignoruj wszystkie filmy od tych użytkowników:</string>
 
 
 		<!-- strings for search and search results -->
@@ -164,7 +164,7 @@
 		<string id="movie.imageview">Widok obrazkowy</string>
 		<string id="movie.mineonly">Pokaż tylko moje filmy</string>
 		<string id="movie.similar">Podobne filmy</string>
-		<string id="movie.mediaindex">Numer no¶nika</string>
+		<string id="movie.mediaindex">Numer nośnika</string>
 
 
 		<!-- IMDB specific strings -->
