@@ -2504,10 +2504,10 @@ class MovieServices extends VCDServices {
 	 * @param int $user_id | Filter by specific owner ID
 	 * @return array
 	 */
-	public static function getVcdByCategory($category_id, $start=0, $end=0, $user_id = -1) {
+	public static function getVcdByCategory($category_id, $start=0, $end=0, $user_id = -1, $sort = null) {
 		try {
 			
-			return self::Movie()->getVcdByCategory($category_id, $start, $end, $user_id);
+			return self::Movie()->getVcdByCategory($category_id, $start, $end, $user_id, $sort);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);
@@ -2524,10 +2524,10 @@ class MovieServices extends VCDServices {
 	 * @param int $user_id | Filter by specific owner ID
 	 * @return array
 	 */
-	public static function getVcdByCategoryFiltered($category_id, $start=0, $end=0, $user_id) {
+	public static function getVcdByCategoryFiltered($category_id, $start=0, $end=0, $user_id, $sort = null) {
 		try {
 			
-			return self::Movie()->getVcdByCategoryFiltered($category_id, $start, $end, $user_id);
+			return self::Movie()->getVcdByCategoryFiltered($category_id, $start, $end, $user_id, $sort);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

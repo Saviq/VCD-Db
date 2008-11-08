@@ -66,6 +66,9 @@ ul#toplist li.tlistheader{background-color:#C0C0C0;background-image:url(images/t
 .topic{background-image:url(images/topic_bg.gif);background-repeat:repeat-x;font-weight:bolder;line-height:21px;text-align:center;}
 #actorimages{margin:0px;text-indent:0px;width:100%;}
 #actorimages .imgx{margin:4px;}
+#actorimages span{float:left; width:110px;height:155px;text-align:center;vertical-align:middle;display:table;}
+#actorimages span.nothumb{width:96px;height:141px;margin:6px;background-image:url(images/background.gif);}
+#actorimages span div{vertical-align:middle;display:table-cell}
 #actorlist{}
 #bar{background:#C0C0C0;background-image:url(images/linethrough_bg.gif);border:solid #000000;border-width:1px 0 1px 0;color:#FFFFFF;height:25px;line-height:24px;padding-right:2px;text-align:right;}
 #bar a{color:#FFFFFF;}
@@ -80,6 +83,7 @@ ul#toplist li.tlistheader{background-color:#C0C0C0;background-image:url(images/t
 #ftr{background:#434343;border:solid #000000;border-width:1px 0 0 0;clear:both;color:#FFFFFF;height:25px;margin:0;vertical-align:middle;}
 #hdr{background:#434343;background-image:url(images/header.png);color:#333333;height:90px;margin:0px;padding:0px;}
 #l-col{background:#FFFFFF;color:#333333;float:left;text-align:left;width:147px;}
+#l-col hr{margin: 0;}
 #outer{background-color:#FFFFFF;border-left:1px solid #333333;border-right:1px solid #333333;left:50%;margin-bottom:0px;margin-left:-415px;margin-right:0px;margin-top:0px;position:absolute;text-align:left;width:830px;}
 /* Misc Site objects */
 #pager{font-weight:bold;left:45%;position:absolute;top:4px;}

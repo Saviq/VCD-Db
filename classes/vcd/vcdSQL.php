@@ -103,11 +103,14 @@ class vcdSQL extends VCDConnection {
 	}
 
 
-	public function getAllVcdByCategory($category_id) {
+	public function getAllVcdByCategory($category_id, $sort = null) {
 		try {
 
+		if($category_id != 0) $category_cond = "v.category_id = $category_id";
+		else $category_cond = "TRUE";
+
 		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
-				  WHERE v.category_id = ".$category_id." ORDER BY v.title";
+				  WHERE $category_cond ORDER BY v.title";
 
 		// Get all CD's in this category
 		$rs = $this->db->Execute($query);
@@ -134,12 +137,15 @@ class vcdSQL extends VCDConnection {
 	}
 
 
-	public function getAllVcdByUserAndCategory($user_id, $category_id, $simple = true) {
+	public function getAllVcdByUserAndCategory($user_id, $category_id, $simple = true, $sort = null) {
 		try {
-
+		
+		if($category_id != 0) $category_cond = "v.category_id = $category_id";
+		else $category_cond = "TRUE";		
+			
 		$query = "SELECT v.vcd_id, v.title, v.category_id, v.year FROM $this->TABLE_vcd v
 				  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id
-				  WHERE v.category_id = ".$category_id." AND u.user_id = ".$user_id." ORDER BY v.title";
+				  WHERE $category_cond AND u.user_id = ".$user_id." ORDER BY v.title";
 
 		// Get all CD's in this category
 		$rs = $this->db->Execute($query);
@@ -378,20 +384,38 @@ class vcdSQL extends VCDConnection {
 		I have to fetch all the records and manually pick out the requested interval
 
 	*/
-	public function getVcdByCategory($category_id, $numrecords, $offset, $thumbnail_id, $user_id = -1) {
+	public function getVcdByCategory($category_id, $numrecords, $offset, $thumbnail_id, $user_id = -1, $sort = null) {
 		try {
 
+		$order = "v.title, v.vcd_id, m.media_type_id";
+			
+		if(!is_null($sort)) {
+			$dir = "";
+			if(strcmp(substr($sort, -1), "d") == 0) {
+				$dir .= " DESC";
+			}
+			switch(substr($sort, 0, -2)) {
+				case "id": $order = "v.vcd_id$dir"; break;
+				case "year": $order = "v.year$dir, v.title, v.vcd_id"; break;
+				case "title":
+				default: $order = "v.title$dir, v.vcd_id"; break;	
+			}
+			$order .= ", m.media_type_id";
+		}
+		if($category_id != 0) $category_cond = "v.category_id = $category_id";
+		else $category_cond = "TRUE";
+			
 		if ($user_id == -1) {
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.cover_id FROM $this->TABLE_vcd v
 				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 				  LEFT OUTER JOIN $this->TABLE_vcdtouser m ON m.vcd_id = v.vcd_id
-				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
+				  WHERE $category_cond ORDER BY $order";
 		} else {
 			$query = "SELECT v.vcd_id, v.title, v.category_id, v.year, m.media_type_id, z.cover_filename, z.cover_id FROM $this->TABLE_vcd v
 				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
 				  LEFT OUTER JOIN $this->TABLE_vcdtouser m ON m.vcd_id = v.vcd_id
 				  INNER JOIN $this->TABLE_vcdtouser u ON v.vcd_id = u.vcd_id AND u.user_id = ".$user_id."
-				  WHERE v.category_id = ".$category_id." ORDER BY v.title, v.vcd_id, m.media_type_id";
+				  WHERE $category_cond ORDER BY $order";
 		}
 
 
@@ -453,7 +477,24 @@ class vcdSQL extends VCDConnection {
 	public function getVcdByCategoryFiltered($category_id, $numrecords, $offset, $thumbnail_id, $arrIgnore) {
 		try {
 
+		if($category_id != 0) $category_cond = "v.category_id = $category_id";
+		else $category_cond = "TRUE";
 
+		$order = "v.title";
+			
+		if(!is_null($sort)) {
+			$dir = "";
+			if(strcmp(substr($sort, -1), "d") == 0) {
+				$dir .= " DESC";
+			}
+			switch(substr($sort, 0, -2)) {
+				case "id": $order = "v.vcd_id$dir"; break;
+				case "year": $order = "v.year$dir, v.title, v.vcd_id"; break;
+				case "title":
+				default: $order = "v.title$dir, v.vcd_id"; break;	
+			}
+		}
+		
 		// Create sql from the ignore array
 		$sql_ignore = "";
 		for ($i = 0; $i < sizeof($arrIgnore); $i++) {
@@ -470,9 +511,9 @@ class vcdSQL extends VCDConnection {
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, z.cover_filename, z.cover_id
 				  FROM $this->TABLE_vcd v
 				  LEFT OUTER JOIN $this->TABLE_covers z ON v.vcd_id = z.vcd_id AND z.cover_type_id = ".$thumbnail_id."
-				  WHERE v.category_id = ".$category_id." AND v.vcd_id IN
+				  WHERE $category_cond AND v.vcd_id IN
 				  (SELECT v.vcd_id FROM $this->TABLE_vcd v, $this->TABLE_vcdtouser u
-				  WHERE v.vcd_id = u.vcd_id AND (".$sql_ignore.")) ORDER BY v.title";
+				  WHERE v.vcd_id = u.vcd_id AND (".$sql_ignore.")) ORDER BY $order";
 
 
 		// Get all CD's in this category
@@ -876,11 +917,14 @@ class vcdSQL extends VCDConnection {
 	public function getCategoryCount($category_id, $user_id = -1) {
 		try {
 
+		if($category_id != 0) $category_cond = "v.category_id = $category_id";
+		else $category_cond = "TRUE";
+			
 		if ($user_id == -1) {
-			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd v WHERE v.category_id = $category_id";
+			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd v WHERE $category_cond";
 		} else {
 			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd v, $this->TABLE_vcdtouser u
-			WHERE v.vcd_id = u.vcd_id AND v.category_id = ".$category_id." AND u.user_id = " . $user_id;
+			WHERE v.vcd_id = u.vcd_id AND $category_cond AND u.user_id = " . $user_id;
 		}
 
 		return $this->db->GetOne($query);
@@ -893,6 +937,9 @@ class vcdSQL extends VCDConnection {
 	public function getCategoryCountFiltered($category_id, $user_id, $arrIgnore) {
 		try {
 
+			if($category_id != 0) $category_cond = "v.category_id = $category_id";
+			else $category_cond = "TRUE";
+				
 			// Create sql from the ignore array
 			$sql_ignore = "";
 			for ($i = 0; $i < sizeof($arrIgnore); $i++) {
@@ -905,7 +952,7 @@ class vcdSQL extends VCDConnection {
 
 
 			$query = "SELECT COUNT(v.vcd_id) FROM $this->TABLE_vcd v
-				  WHERE v.category_id = ".$category_id." AND v.vcd_id IN
+				  WHERE $category_cond AND v.vcd_id IN
 				  (SELECT v.vcd_id FROM $this->TABLE_vcd v, $this->TABLE_vcdtouser u
 				  WHERE v.vcd_id = u.vcd_id AND (".$sql_ignore."))";
 

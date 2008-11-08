@@ -96,6 +96,7 @@
 
 
 		<!-- strings for movie categories -->
+		<string id="category.all">All</string>
 		<string id="category.action">Action</string>
 		<string id="category.adult">Adult</string>
 		<string id="category.adventure">Adventure</string>
@@ -438,6 +439,8 @@
 		<string id="misc.toggle">Toggle preview</string>
 		<string id="misc.toggle_on">on</string>
 		<string id="misc.toggle_off">off</string>
+		<string id="misc.order">Sort order</string>
+
 
 
 		<!-- javascript strings around VCD-db -->

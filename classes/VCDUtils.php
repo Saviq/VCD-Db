@@ -668,6 +668,7 @@ class VCDUtils {
 	 */
 	static function getCategoryMapping() {
 		$mapping = array(
+		    'All'			=> 'category.all',
 			'Action' 		=> 'category.action',
 			'Adult' 		=> 'category.adult',
 			'Adventure' 	=> 'category.adventure',

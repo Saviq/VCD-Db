@@ -25,13 +25,21 @@ class VCDPageCategoryList extends VCDBasePage {
 	private $mineonly = false;
 	private $page = 0;
 	private $imageMode = false;
+	private $sort = null;
 		
 	public function __construct(_VCDPageNode $node) {
 		try {
 		
 			parent::__construct($node);
 			$this->initPage();
-				
+#			
+			$this->debugging = true;
+			$this->error_reporting = E_ALL;
+			$this->compile_check = true;
+#				
+			$this->sort = $this->getParam('sort',false,"title_a");
+			$this->assign('movieCategorySort', $this->sort);
+			
 			if ($this->imageMode) {
 				$this->doImageList();
 			} else {
@@ -53,13 +61,13 @@ class VCDPageCategoryList extends VCDBasePage {
 		$results = array();
 		
 		$movies = $this->getMovieList();
-		$noImage = '<a href="?page=cd&amp;vcd_id=%d"><img src="images/noimagestar.gif" border="0" alt="%s" title="%s"/></a>';
+		$noImage = '<span class="nothumb"><div><a href="?page=cd&amp;vcd_id=%d">%s</a></div></span>';
 		foreach ($movies as $movie) {
 			$coverObj = $movie->getCover('thumbnail');
 			if ($coverObj instanceof cdcoverObj ) {
 				$results[] = $coverObj->getCategoryImageAndLink("?page=cd&amp;vcd_id=".$movie->getID(),$movie->getTitle());
 			} else {
-				$results[] = sprintf($noImage, $movie->getID(), $movie->getTitle(),$movie->getTitle());
+				$results[] = sprintf($noImage, $movie->getID(), $movie->getTitle());
 			}
 		}
 		
@@ -92,12 +100,13 @@ class VCDPageCategoryList extends VCDBasePage {
 	private function getMovieList() {
 		if ($this->mineonly && VCDUtils::isLoggedIn()) {
 			$movies = MovieServices::getVcdByCategory($this->category_id, 
-				$this->recordsPerPage, $this->offset, VCDUtils::getUserID());
+				$this->recordsPerPage, $this->offset, VCDUtils::getUserID(), $this->sort);
 		} elseif (VCDUtils::isLoggedIn() && VCDUtils::isUsingFilter(VCDUtils::getUserID())) {
 			$movies = MovieServices::getVcdByCategoryFiltered($this->category_id, $this->recordsPerPage, 
-				$this->offset, VCDUtils::getUserID());
+				$this->offset, VCDUtils::getUserID(), $this->sort);
 		} else {
-			$movies = MovieServices::getVcdByCategory($this->category_id, $this->recordsPerPage, $this->offset);
+			$movies = MovieServices::getVcdByCategory($this->category_id, $this->recordsPerPage,
+			    $this->offset, -1, $this->sort);
 		}
 		
 		return $movies;
@@ -214,15 +223,15 @@ class VCDPageCategoryList extends VCDBasePage {
 		$backpos = $current_pos - 1;
 	
 		if ($current_pos > 0) {
-			$first = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=0\">&lt;</a>";
+			$first = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=0\">&lt;&lt;</a>";
 		} else {
-			$first = "&lt;";
+			$first = "&lt;&lt;";
 		}
 	
 		if ($current_pos >= $totalPages) {
-			$last  = "&gt;";
+			$last  = "&gt;&gt;";
 		} else {
-			$last  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$totalPages\">&gt;</a>";
+			$last  = "<a href=\"?page=category&amp;category_id={$this->category_id}&amp;batch=$totalPages\">&gt;&gt;</a>";
 		}
 	
 		if ($current_pos > 0) {
@@ -240,7 +249,7 @@ class VCDPageCategoryList extends VCDBasePage {
 	
 		$page = ($current_pos+1) . " of " . ($totalPages+1);
 	
-		$html = "<div id=\"pager\">" . $first . $back ." [$page] " . $next . $last . "</div>";
+		$html = "<div id=\"pager\">" . $first ."&nbsp;". $back ." [$page] " . $next ."&nbsp;". $last . "</div>";
 		
 		$this->assign('categoryPager',$html);
 	

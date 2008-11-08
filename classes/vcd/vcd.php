@@ -840,7 +840,7 @@ class vcd_movie implements IVcd  {
 	 * @param int $user_id
 	 * @return array
 	 */
-	public function getVcdByCategory($category_id, $start=0, $end=0, $user_id = -1) {
+	public function getVcdByCategory($category_id, $start=0, $end=0, $user_id = -1, $sort = null) {
 		try {
 			if ($start == 0 && $end == 0) {
 				if ($user_id == -1) {
@@ -853,7 +853,7 @@ class vcd_movie implements IVcd  {
 
 				// Get the id of the thumbnail coverObj in DB
 				$coverTypeObj = $this->Cover()->getCoverTypeByName('thumbnail');
-				return $this->SQL->getVcdByCategory($category_id, $start, $end, $coverTypeObj->getCoverTypeID(), $user_id);
+				return $this->SQL->getVcdByCategory($category_id, $start, $end, $coverTypeObj->getCoverTypeID(), $user_id, $sort);
 			}
 
 		} catch (Exception $ex) {
@@ -883,7 +883,7 @@ class vcd_movie implements IVcd  {
 			$ignorelist = split("#", $metaArr[0]->getMetadataValue());
 			$coverTypeObj = $this->Cover()->getCoverTypeByName('thumbnail');
 			$thumb_id = $coverTypeObj->getCoverTypeID();
-			return $this->SQL->getVcdByCategoryFiltered($category_id, $start, $end, $thumb_id, $ignorelist);
+			return $this->SQL->getVcdByCategoryFiltered($category_id, $start, $end, $thumb_id, $ignorelist, $sort);
 
 		} catch (Exception $ex) {
 			throw $ex;

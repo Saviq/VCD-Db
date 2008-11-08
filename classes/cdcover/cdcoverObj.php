@@ -307,11 +307,11 @@ class cdcoverObj extends cdcoverTypeObj implements XMLable  {
 	 * 
 	 * @return string | Returns the IMG src
 	 */
-	public function getCategoryImageAndLink($url, $title = '', $width=100, $heigth=145) {
+	public function getCategoryImageAndLink($url, $title = '', $width=100, $height=145) {
 		
 		$img = '<img src="%s" alt="%s" title="%s" class="imgx" width="%d" height="%d" border="0"/>';
-		$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$heigth);
-		$link = '<a href="%s">%s</a>';
+		$html = sprintf($img, '?page=file&amp;cover_id='.$this->cover_id, $title, $title, $width,$height);
+		$link = '<span><div><a href="%s">%s</a></div></span>';
 		return sprintf($link, $url, $html);
 		
 	}

@@ -271,8 +271,12 @@ class VCDBasePage extends VCDPage {
 				} 
 				array_push($arrSorted, array('name' => $category->getName(true), 'id' => $category->getID(), 'css' => $cssclass));
 			}
-			
 			asort($arrSorted);
+			if(count($arrSorted)) {
+				$category = new movieCategoryObj(array("0", "All"));
+				$cssclass = $category->getID() == $curr_catid?"navon":"nav";
+				array_unshift($arrSorted, array('name' => $category->getName(true), 'id' => $category->getID(), 'css' => $cssclass));
+			}
 			
 		}
 		

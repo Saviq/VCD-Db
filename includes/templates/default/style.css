@@ -14,6 +14,7 @@ a:hover{text-decoration:underline;}
 #bar a:hover{color:white;text-decoration:none;border-bottom:1px dashed white;}
 #bodyblock{position:relative;color:#333333;width:830px;padding:0px;background-image:url(images/sidebar_bg.gif);background-color:White;}
 #l-col{float:left;background:White;color:#333333;width:147px;text-align:left;}
+#l-col hr{margin: 0;}
 html>body #l-col{border-right:1px solid #000000;}
 #r-col{float:right;position:relative;color:Red;width:175px;border:1px dashed black;border-width:0px 0px 1px 1px;margin-top:3px;}
 #cont{width:680px;background:#ffffff;color:#333333;border:solid #c0c0c0;border-width:0 0 0 0px;text-align:left;}
@@ -54,6 +55,9 @@ input,select,textarea{font-size:11px;border:#dcdcdc 1px ridge;color:WindowText;}
 .imgx{margin-top:3px;border-color:#dcdcdc;border-style:ridge;border-width:thin;}
 #actorimages{width:100%;margin:0px;text-indent:0px;}
 #actorimages .imgx{margin:4px;}
+#actorimages span{float:left; width:110px;height:155px;text-align:center;vertical-align:middle;display:table;}
+#actorimages span.nothumb{width:96px;height:141px;margin:6px;background-image:url(images/background.gif);}
+#actorimages span div{vertical-align:middle;display:table-cell}
 #similar{text-align:center;}
 .bold{font-weight:bolder;}
 ul{margin:0;padding:0px 0px 0px 10px;list-style:none;}
