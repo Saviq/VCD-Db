@@ -32,11 +32,7 @@ class VCDPageCategoryList extends VCDBasePage {
 		
 			parent::__construct($node);
 			$this->initPage();
-#			
-			$this->debugging = true;
-			$this->error_reporting = E_ALL;
-			$this->compile_check = true;
-#				
+
 			$this->sort = $this->getParam('sort',false,"title_a");
 			$this->assign('movieCategorySort', $this->sort);
 			
