@@ -1,6 +1,6 @@
 <h1>{$translate.search.extended}</h1>
 
-<form name="advanced_search" method="post" action="{$smarty.server.SCRIPT_NAME}?page=detailed_search&amp;action=search" onSubmit="return checkAdvanced(this.form)">
+<form name="advanced_search" method="post" action="{$smarty.server.SCRIPT_NAME}?page=detailed_search&amp;action=search" onSubmit="return checkAdvanced(this)">
 <table class="displist" cellpadding="1" cellspacing="0" width="100%">
 <tr>
 	<td width="40%">{$translate.movie.title} {$translate.misc.contains}:</td>
