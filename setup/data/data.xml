@@ -144,7 +144,7 @@
 
 		<descr>System Metadata Types</descr>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('languages', 'Excluded langugages', 0, 0)</query>
-		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('logtypes', 'Log types', 0, 0, 0)</query>
+		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('logtypes', 'Log types', 0, 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('frontstats', 'Show frontpage statistics', 0, 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('frontbar', 'Show the latest movies on frontpage', 0, 0)</query>
 		<query>INSERT INTO vcd_MetaDataTypes (type_name, type_description, owner_id, public) VALUES ('default_role', 'The default role when user registered', 0, 0)</query>
