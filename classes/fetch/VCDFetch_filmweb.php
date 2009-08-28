@@ -36,8 +36,8 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected $multiArray = array('genre', 'cast', 'country');
 
 	private $servername = 'www.filmweb.pl';
-	private $itempath = '/f[$]/,';
-	private $plotpath = '/f[$]/,/opisy';
+	private $itempath = '/f[$]/x,0';
+	private $plotpath = '/f[$]/x,0/opisy';
 	private $searchpath = '/szukaj?q=[$]&alias=film';
 
 	public function __construct() {
