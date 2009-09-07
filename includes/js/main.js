@@ -74,9 +74,10 @@ function copyFiles(form) {
 		for (key in form.elements) {
 			el = form.elements[key];
 			uri = el.value;
-			if(el.getAttribute("clear"))
+			if(el.getAttribute("clear")) {
 				el.type = "text";
-			else if (el.type == 'file' && el.value != '') {
+				el.value = uri;
+			} else if (el.type == 'file' && el.value != '') {
 				node = document.createElement("input");
 				node.type = "hidden";
 				node.name = el.name+"_uri";
@@ -662,13 +663,13 @@ function showUserStatus() {
 }
 
 function showUserStatusDetailed() {
-	url = getBase()+'pages/user_status_detail.php';
-	window.open(url, 'popup2', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
+	url = getBase()+'?page=overviewdetailed';
+	window.open(url, 'overviewdetailed', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
 }
 
 function showAllMoviesDetailed() {
-	url = getBase()+'pages/all_movies_details.php';
-	window.open(url, 'popup3', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
+	url = getBase()+'?page=allmoviesdetails';
+	window.open(url, 'allmoviesdetails', 'scrollbars=yes,resizable=yes,height=800,width=830,top=50,left=25');
 }
 
 function checkupload(formvalue) {
