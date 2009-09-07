@@ -20,22 +20,18 @@ class VCDFetch_amazon extends VCDFetch {
 	
 	
 	protected $regexArray = array(
-		'title'		=> '/<b class="sans">([^<]*)<\/b><br/',
-		'year'		=> '/\(([0-9]{2,4})\)<\/b>/',
-		#'studio'	=> '/<li><b>Studio:<\/b>([^<]*)<\/li>/',
-		'director'	=> '/<li><b>Directors:<\/b>([^<]*)<a([^>]*)>([^<]*)</',
-		'genre'		=> null,
-		'cast'		=> '<a href="(http://www.amazon.com/|/)exec/obidos/search-handle-url([^>]*)>([^<]*)<',
-		'runtime'	=> '/<li><b>Run Time:<\/b>([^<]*) minutes<\/li>/',
-		'rating'	=> '/customer-reviews\/stars-([^_]*)\._/',
-		'plot'		=> '/<b class="h1">Editorial Reviews<\/b><br.*?<div class="content">(.*?)<\/div>/s',
+		'title'		=> '/<h1 class="parseasinTitle"><span id="btAsinTitle">([^<]*)<\/span><\/h1/',
+		'year'		=> '/\(([0-9]{2,4})\)<\/span>/',
+		'director'	=> '/<li> <b>Directors:<\/b>(.*)<\/li>/',
+		'cast'		=> '/<li> <b>Actors:<\/b>(.*)<\/li>/',
+		'runtime'	=> '/<li> <b>Run Time:<\/b> ([^<]*) minutes<\/li>/',
+		'rating'	=> '/<span>([0-9.]+) out of 5 stars<\/span>/',
+		'plot'		=> '/<b>Product Description<\/b><br \/>(.*?)<\/div>/s',
 		'image'		=> '/registerImage\("original_image", "([^"]*)",/'
-		);
+	);
 	
 			
-	protected $multiArray = array(
-		'cast', 'genre'
-	);
+	protected $multiArray = array();
 		
 		
 		
@@ -94,7 +90,8 @@ class VCDFetch_amazon extends VCDFetch {
 				#	break;
 
 				case 'director':
-					$director = $arrData[3];
+					preg_match_all("#>([^<]+)</a>#", $arrData[0], $arrDirectors);
+				        $director = implode(", ", $arrDirectors[1]);
 					$obj->setDirector($director);		
 					break;
 
@@ -117,13 +114,6 @@ class VCDFetch_amazon extends VCDFetch {
 
 				case 'plot':
 					$plot = $arrData[1];
-					$regex = "\n";
-					$plot = ereg_replace($regex, "", $plot);
-					$regex = "    ";
-					$plot = ereg_replace($regex, "", $plot);
-					$regex = "<b>Amazon.com essential video</b>";
-					$plot = ereg_replace($regex, "", $plot);
-					$regex = "<b>Amazon.com</b>";
 					$plot = ereg_replace($regex, "", $plot);
 					$regex = "<[^>]*>";
 					$plot = ereg_replace($regex, "", $plot);
@@ -132,18 +122,13 @@ class VCDFetch_amazon extends VCDFetch {
 
 				case 'rating':
 					$rating = $arrData[1];
-					$regex = "-";
-					$rating = ereg_replace($regex, ".", $rating);
 					$obj->setRating($rating);;
 					break;
 					
 				case 'cast':
-					#$arr = null;
-					$arr = array();
-					foreach ($arrData as $itemArr) {
-						array_push($arr,$itemArr[3]);
-					}
-					$obj->setCast($arr);
+					preg_match_all("#>([^<]+)</a>#", $arrData[0], $arrActors);
+				        $actor = implode("\n", $arrActors[1]);
+					$obj->setCast($arrActors[1]);
 					break;
 
 				case 'castold':
