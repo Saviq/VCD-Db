@@ -23,7 +23,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'title'		=> '<h1>([^\<]*)<span>',
 		'year'  	=> '(<a href="/Sections/Years/([0-9]{4})/">([0-9]{4})</a>)',
 		'poster' 	=> '<a name="poster"[^<]*><img[^<]*src="([^<]*)" /></a>',
-		'director' 	=> '#Director.*\n[^<]*<a href="/Name?[^"]*">([^<]*)</a>#i',
+		'director' 	=> '/<div id="director-info" class="info">(.*?)<\/div>/s',
 		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
 		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
 		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
@@ -96,8 +96,9 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'director':
-					$director = $arrData[1];
-					$obj->setDirector($director);
+                                        preg_match_all("#>([^<]+)</a>#", $arrData[0], $arrDirectors);
+                                        $director = implode(", ", $arrDirectors[1]);
+                                        $obj->setDirector($director);
 					break;
 
 				case 'genre':
@@ -172,7 +173,7 @@ class VCDFetch_imdb extends VCDFetch {
 		switch ($entry) {
 
 			case 'cast':
-				$regx = '/<a href="\/name\/nm([^"]+)\/">([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/';
+				$regx = '/<a href="\/name\/nm([^>]+)>([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/';
 				preg_match_all($regx, $this->getContents(), $matches);
 				if (is_array($matches) && sizeof($matches)>0) {
 					$actors = $matches[2];
