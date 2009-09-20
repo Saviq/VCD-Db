@@ -337,7 +337,7 @@ abstract class VCDPageBaseItem extends VCDBasePage {
 			$ownerObj = $ownersList[$i];
 			
 			$results[] = array(
-				'owner'		=> $ownerObj->getUserName(),
+				'owner'		=> $ownerObj->getFullName(),
 				'date'		=> $dates[$i],
 				'cdcount'	=> $cdcounts[$i],
 				'mediatype' => $mediaTypeObj->getDetailedName(),

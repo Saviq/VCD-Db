@@ -1004,7 +1004,7 @@ class settingsSQL extends VCDConnection  {
 		}
 			
 		$query = "SELECT c.comment_id, c.vcd_id, c.user_id, c.comment_date, $commentColumn,
-				  c.isPrivate, u.user_name FROM
+				  c.isPrivate, u.user_fullname FROM
 				  $this->TABLE_comments c
 				  LEFT OUTER JOIN $this->TABLE_users u ON c.user_id = u.user_id
 				  WHERE c.vcd_id = ".$vcd_id." ORDER BY c.comment_id DESC";

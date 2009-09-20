@@ -521,7 +521,7 @@ class userSQL extends VCDConnection  {
 	public function getUserTopList() {
 		try {
 			
-		$query = "SELECT u.user_name, COUNT(t.vcd_id) AS count FROM
+		$query = "SELECT u.user_fullname, COUNT(t.vcd_id) AS count FROM
 				  $this->TABLE_users u, $this->TABLE_vcdtousers t
 				  WHERE u.user_id = t.user_id
 				  GROUP BY u.user_name
