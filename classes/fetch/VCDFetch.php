@@ -57,6 +57,7 @@ abstract class VCDFetch {
 	protected $snoopy = null;
 	private $isAdult = false;		// Flag to tell if the fetched site is an adult site.
 	protected $cookies = array();		// Add cookies to be sent
+	protected $headers = array();		// Add raw headers to be sent
 
 	protected $workerArray = array();
 
@@ -402,6 +403,7 @@ abstract class VCDFetch {
 		if ($this->useSnoopy) {
 			$snoopyurl = "http://".$host.$url;
 			$this->snoopy->cookies = $this->cookies;
+			$this->snoopy->rawheaders = $this->headers;
 			$this->snoopy->fetch($snoopyurl);
 
 			// Clean hex garbage from results.

@@ -54,7 +54,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		$fetch = parent::fetchPage($host, $url, $referer, $useCache, $header);
 		foreach(array_merge(array($this->getContents()), $this->snoopy->headers) as $v) {
 			if(preg_match("#Set-Cookie: (welcomeScreen)=([^;]+);#", $v, $cookie)) {
-				$this->cookies[$cookie[1]] = $cookie[2];
+				$this->headers['Cookie'] = "{$cookie[1]}={$cookie[2]};";
 				$fetch = parent::fetchPage($host, $url, $referer, false, null);
 			}
 		}
