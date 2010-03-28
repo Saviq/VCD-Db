@@ -20,7 +20,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
 	'title'		=> '#<h1[^<]+<a[^>]+>([^<]+)</a></h1>#',
-	'org_title'	=> '#</h1[^<]+<span class="aka">([^</]+)</span>#',
+	'org_title'	=> '#</h1[^<]+<h2 class="aka">([^</]+)</h2>#',
 	'alt_title'	=> '#\(AKA ((?:[^(/]|\(?:I+\))+)\)#',
 	'year'		=> '#\(([0-9]{4})\)#',
 	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
