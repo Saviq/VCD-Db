@@ -273,7 +273,8 @@ class VCDLdapAuthentication {
 			throw new Exception('LDAP extension not available.<break>Cannot continue, use DB authentication instead or fix LDAP extension.');
 		}
 		
-		
+		global $LDAP_CONNECT_OPTIONS;
+
 		$LDAP_CONNECT_OPTIONS = Array(
 			Array ("OPTION_NAME"=>LDAP_OPT_DEREF, "OPTION_VALUE"=>2),
 			Array ("OPTION_NAME"=>LDAP_OPT_SIZELIMIT,"OPTION_VALUE"=>100),
