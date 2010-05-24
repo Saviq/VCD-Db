@@ -19,26 +19,25 @@
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
-	'title'		=> '#<h1[^<]+<a[^>]+>([^<]+)</a></h1>#',
-	'org_title'	=> '#</h1[^<]+<h2 class="aka">([^</]+)</h2>#',
-	'alt_title'	=> '#\(AKA ((?:[^(/]|\(?:I+\))+)\)#',
-	'year'		=> '#\(([0-9]{4})\)#',
+	'title'		=> '#<h1 class="pageTitle"><a[^>]+><span[^>]+></span>\s*([^<]+)\s*</a>#',
+	'org_title'	=> '#<h2 class="original-title">\s*[^<]+?\s*<#',
+	'alt_title'	=> '#<dt>inne tytuły:</dt>\s*<dd>(.*?)</dd>#',
+	'year'		=> '#filmYear">(\d{4})</span>#',
 	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
-	'director' 	=> '#yseria(?:[^>]*>[^<]+</a>)+\s*scenariusz#',
-	'genre' 	=> 'genreIds[^>]*>([^<]*)</a>',
-	'rating' 	=> '#([0-9]{1,2})(?:,([0-9]{1,2}))?</strong>/10#',
-	'cast'		=> '<td class="film-actor">[^>]+>[^>]+>([^<]+)</a>[^>]+>[^<]+<td class="film-protagonist">([^<]+)<span>',
-	'runtime' 	=> '#trwania: ([0-9]+)#i',
-	'country'	=> 'countryIds[^>]*>([^<]*)</a>',
-	'plot'		=> '#justify">((?:.|\n)*?)</li>#m'
+	'director' 	=> '#reżyseria:</th>\s*<td>\s*<a[^>]+>([^<]+)</a>#',
+	'genre' 	=> '#genreIds[^>]*>([^<]*)</a>#',
+	'rating' 	=> '#<strong>\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</strong>#',
+	'cast'		=> '#<span>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)</div>#',
+	'runtime' 	=> '#class="time">\s*(\d+)\s*<span>#',
+	'country'	=> '#countryIds[^>]*>([^<]*)</a>#',
+	'plot'		=> '#span class="filmDescrBg">\s*(.*?)\s*</span#s'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
 
 	private $servername = 'www.filmweb.pl';
-	private $itempath = '/f[$]/x,0';
-	private $plotpath = '/f[$]/x,0/opisy';
-	private $searchpath = '/szukaj?q=[$]&alias=film';
+	private $itempath = '/film/a-0-[$]';
+	private $searchpath = '/search?q=[$]&alias=film';
 
 	public function __construct() {
 		$this->setSiteName("filmweb");
@@ -51,23 +50,24 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	protected function fetchPage($host, $url, $referer, $useCache=true, $header=null) {
-		$fetch = parent::fetchPage($host, $url, $referer, $useCache, $header);
+		$this->cookies['welcomeScreen'] = 'welcomeScreen';
+		$fetch = parent::fetchPage($host, $url, $referer, $useCache, null);
 		foreach(array_merge(array($this->getContents()), $this->snoopy->headers) as $v) {
 			if(preg_match("#Set-Cookie: (welcomeScreen)=([^;]+);#", $v, $cookie)) {
-				$this->headers['Cookie'] = "{$cookie[1]}={$cookie[2]};";
+				$this->cookie['welcomeScreen'] = $cookie[2];
 				$fetch = parent::fetchPage($host, $url, $referer, false, null);
+				break;
 			}
 		}
 		return $fetch;	
 	}
 
 	public function showSearchResults() {
-		$regx = '#(?: none;">\((?P<info>[^\)]*)\)</span>[^<]*)?' // additional info
-		.'<a class="searchResultTitle"\s*href=\"http://(www.filmweb.pl/f(?P<id>[0-9]+)/[^"]+|' // numeric id 
-		.'(?P<lid>[a-z0-9.]+).filmweb.pl/)"[^>]*>' // alphanumeric id
-		.'\s*(?P<title>.*?)\s+(?:/\s+(?P<org_title>.*?))?\s*' // title / original title
-		.'</a>[^\(]*\((?P<year>[0-9]{4}(?:-[0-9]{4})?)\)' // year
-		.'(?:[^<]*<span[^<]*<br/>aka:\s*(?P<aka>.*)[^<]*</span>)?#'; // AKA
+		$regx = '#(?:<span class="searchResultTypeAlias">\[(?P<info>[^\]]+)\]</span><br>\s*)?' // additional info
+		.'<h3><a class="searchResultTitle" href="(?:/[^/]+/[\w%+-]+-\d{4}-(?P<id>\d+)|/(?P<lid>[\w%+\.-]+))">\s*' // numeric / textual id 
+		.'(?P<title>.+?)(?: / (?P<org_title>.+?))?\s*</a></h3>\s*' // title / original title
+		.'(<span class="searchResultOtherTitle">\s*aka: (?P<aka>.*?)\s*</span>\s*<br>\s*)?' // AKA
+		.'<span class="searchResultDetails">\s*(?P<year>\d{4})\s*\|(\s*<a href="/search/film\?countryIds=\d+">([^<]+)</a>(?:,\s|))+\s*\|#'; // year
 		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
 		$results = array();
 		foreach($searchArr as $searchItem) {
@@ -91,12 +91,11 @@ class VCDFetch_filmweb extends VCDFetch {
 			}
 			$result .= "<h3>".$partName."</h3>\n";
 
-			$extUrl = "http://".$this->servername.$this->itempath;
 			$result .= "<ul>";
 			foreach ($arrSearchResults as $item) {
 				$link = "?page=add&amp;source=webfetch&site={$this->getSiteName()}&amp;fid={$item['id']}";
-				if (is_numeric($item['id'])) $info = "http://filmweb.pl"."/Film?id=".$item['id'];
-				else $info = "http://".$item['id'].".filmweb.pl";
+				if (is_numeric($item['id'])) $info = str_replace('[$]', $item['id'], sprintf('http://%s%s', $this->servername, $this->itempath));
+				else $info = sprintf('http://%s/%s', $this->servername, $item['id']);
 				$result .= "<li><a href=\"{$link}\">{$item['title']}</a> ".(empty($item['info'])?"":"[".strtolower($item['info'])."] ")."({$item['year']})&nbsp;&nbsp;<a href=\"{$info}\" target=\"_new\">[info]</a>".(empty($item['org_title'])?"":"<br/>&nbsp;{$item['org_title']}").($item['aka']==""?"":"<i><br/>&nbsp;AKA ".str_replace(" / ", "<br/>&nbsp;&nbsp;&nbsp;", $item['aka'])."</i>")."</li>";
 				
 			}
@@ -108,7 +107,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	protected function processResults() {
 		if (!is_array($this->workerArray) || sizeof($this->workerArray) == 0) {
 			$this->setErrorMsg("No results to process.");
-			return;
+			return false;
 		}
 
 		$obj = new imdbObj();
@@ -126,17 +125,16 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'org_title':
-					if(!ereg("^\([0-9]{4}\)$", trim($arrData[1])) && !ereg("^\(AKA", trim($arrData[1]))) {
-						$org_title = VCDUtils::titleFormat($arrData[1]);
-						$obj->setAltTitle($org_title);
-					}
+					$org_title = VCDUtils::titleFormat($arrData[1]);
+					$obj->setAltTitle($org_title);
 					break;
 
 				case 'alt_title':
-					if($obj->getAltTitle() == "") {
-						$alt_title = VCDUtils::titleFormat($arrData[1]);
-						$obj->setAltTitle($alt_title);
+					$alt_title = preg_split('#\<br\>#', $arrData[1], null, PREG_SPLIT_NO_EMPTY);
+					if(($org_title = $obj->getAltTitle()) != "") {
+						array_unshift($alt_title, $org_title);
 					}
+					$obj->setAltTitle(implode(' / ', $alt_title));
 					break;
 
 				case 'year':
@@ -191,7 +189,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					break;
 
 				case 'plot':
-					$plot = trim(strip_tags(str_replace("<br/>", "\n", $arrData)));
+					$plot = strip_tags(str_replace("<br/>", "\n", $arrData[1]));
 					$obj->setPlot($plot);
 					break;
 
@@ -214,45 +212,13 @@ class VCDFetch_filmweb extends VCDFetch {
 	}
 
 	protected function fetchDeeper($entry) {
-
-		switch ($entry) {
-			case 'plot':
-
-				// Save the old buffer
-				$itemBuffer = $this->getContents();
-
-				// Generate urls
-				$plotUrl = str_replace('[$]', $this->getItemID(), $this->plotpath);
-				$referer = "http://".$this->servername.str_replace('[$]', $this->getItemID(), $this->plotpath);
-				$isPlot = $this->fetchPage($this->servername, $plotUrl, $referer);
-				if ($isPlot) {
-					if ($this->getItem($this->regexArray['plot']) == self::ITEM_OK) {
-						$plotArr = $this->getFetchedItem();
-						$plotText = $plotArr[1];
-						array_push($this->workerArray, array($entry, $plotText));
-					}
-				}
-				break;
-						
-			default:
-				break;
-		}
 	}
 
 	protected function getItemID() {
-		if (is_null($this->getSearchRedirectUrl())) {
-			if(is_numeric($this->getID())) return $this->getID();
-			else {
-				$isPage = $this->fetchPage($this->getID().".filmweb.pl", "/", "www.filmweb.pl", false);
-				if (ereg("filmId = ([0-9]+);", $this->getContents(), $id)) return $id[1];
-				else return null;
-			}
-		} elseif(ereg("/f([0-9]+)/", $this->getSearchRedirectUrl(), $id)) {
-			return $id[1];
-		} else {
-			ereg("http://([^/]+)(/.*)?", $this->getSearchRedirectUrl(), $redirect);
-			$isPage = $this->fetchPage($redirect[1], ($redirect[2]!=""?$redirect[2]:"/"), "www.filmweb.pl", false);
-			if (ereg("filmId = ([0-9]+);", $this->getContents(), $id)) return $id[1];
+		if(is_numeric($this->getID())) return $this->getID();
+		else {
+			$isPage = $this->fetchPage($this->servername, "/".$this->getID(), $this->servername);
+			if (preg_match('#<div id="filmId" style="display:none;">(?P<id>\d+)</div>#', $this->getContents(), $id)) return $id['id'];
 			else return null;
 		}
 	}

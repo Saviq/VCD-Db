@@ -1,0 +1,8 @@
+.cache
+.project
+.settings
+upload/*
+upload/covers/*
+upload/nfo/*
+upload/thumbnails/*
+upload/cache/*

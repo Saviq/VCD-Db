@@ -587,6 +587,10 @@ abstract class VCDFetch {
 		      array_push($retval, $arrRoller);
 		    }
 
+		    if (sizeof($retval) == 0) {
+		    	preg_match_all($expression, $contents, $retval, PREG_SET_ORDER);
+		    }
+		    
 			if (sizeof($retval) == 0) {
 				return self::ITEM_NOTFOUND;
 			}
