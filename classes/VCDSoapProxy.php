@@ -102,7 +102,7 @@ abstract class VCDProxy {
 	 * @param string $func
 	 * @param array $params
 	 */
-	protected function __call($func, $params) {
+	public function __call($func, $params) {
 		throw new VCDProgramException('Function ' . $func . ' is not implemented');
 	}
 	
