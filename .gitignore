@@ -1,6 +1,8 @@
 .cache
 .project
 .settings
+.buildpath
+config.php
 upload/*
 upload/covers/*
 upload/nfo/*
