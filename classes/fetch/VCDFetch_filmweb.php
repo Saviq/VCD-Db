@@ -27,7 +27,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'director' 	=> '#reżyseria:</th>\s*<td>\s*<a[^>]+>([^<]+)</a>#',
 	'genre' 	=> '#genreIds[^>]*>([^<]*)</a>#',
 	'rating' 	=> '#<strong>\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</strong>#',
-	'cast'		=> '#<span>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)</div>#',
+	'cast'		=> '#<span>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)(?:\s*<span[^>]+>\(([^\)]+)\)</span>\s*)?</div>#',
 	'runtime' 	=> '#class="time">\s*(\d+)\s*<span>#',
 	'country'	=> '#countryIds[^>]*>([^<]*)</a>#',
 	'plot'		=> '#span class="filmDescrBg">\s*(.*?)\s*</span#s'
@@ -177,6 +177,7 @@ class VCDFetch_filmweb extends VCDFetch {
 					foreach ($arrData as $itemArr) {
 						$actor = trim($itemArr[1]);
 						$role = trim(str_replace("&nbsp;", " ", $itemArr[2]));
+						if(!empty($itemArr[3])) $role .= sprintf(" (%s)", $itemArr[3]);
 						$result = $actor.($role==""?"":" .... ".$role);
 						array_push($arr, $result);
 					}
