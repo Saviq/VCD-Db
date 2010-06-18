@@ -19,15 +19,15 @@
 class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
-	'title'		=> '#<h1 class="pageTitle"><a[^>]+><span[^>]+></span>\s*([^<]+)\s*</a>#',
-	'org_title'	=> '#<h2 class="original-title">\s*[^<]+?\s*<#',
+	'title'		=> '#<h1 class="pageTitle item"><a[^>]+><span[^>]+></span>\s*([^<]+)\s*</a>#',
+	'org_title'	=> '#<h2 class="original-title">\s*([^<]+?)\s*<#',
 	'alt_title'	=> '#<dt>inne tytuły:</dt>\s*<dd>(.*?)</dd>#',
 	'year'		=> '#filmYear">(\d{4})</span>#',
 	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
 	'director' 	=> '#reżyseria:</th>\s*<td>\s*<a[^>]+>([^<]+)</a>#',
 	'genre' 	=> '#genreIds[^>]*>([^<]*)</a>#',
-	'rating' 	=> '#<strong>\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</strong>#',
-	'cast'		=> '#<span>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)(?:\s*<span[^>]+>\(([^\)]+)\)</span>\s*)?</div>#',
+	'rating' 	=> '#<span class="average">\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</span>#',
+	'cast'		=> '#<span (?:property="v:starring")?>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)(?:\s*<span[^>]+>\(([^\)]+)\)</span>\s*)?</div>#',
 	'runtime' 	=> '#class="time">\s*(\d+)\s*<span>#',
 	'country'	=> '#countryIds[^>]*>([^<]*)</a>#',
 	'plot'		=> '#span class="filmDescrBg">\s*(.*?)\s*</span#s'
