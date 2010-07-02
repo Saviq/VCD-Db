@@ -23,7 +23,7 @@ class VCDFetch_filmweb extends VCDFetch {
 	'org_title'	=> '#<h2 class="original-title">\s*([^<]+?)\s*<#',
 	'alt_title'	=> '#<dt>inne tytuły:</dt>\s*<dd>(.*?)</dd>#',
 	'year'		=> '#filmYear">(\d{4})</span>#',
-	'poster'	=> '#<img src="([^\?]+\.2\.jpg)\?#',
+	'poster'	=> '#class="film_mini"><img src="([^?]+)\?l=[0-9]+"#',
 	'director' 	=> '#reżyseria:</th>\s*<td>\s*<a[^>]+>([^<]+)</a>#',
 	'genre' 	=> '#genreIds[^>]*>([^<]*)</a>#',
 	'rating' 	=> '#<span class="average">\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</span>#',
