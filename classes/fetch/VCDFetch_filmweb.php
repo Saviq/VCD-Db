@@ -20,7 +20,7 @@ class VCDFetch_filmweb extends VCDFetch {
 
 	protected $regexArray = array(
 	'title'		=> '#<h1 class="pageTitle item"><a[^>]+><span[^>]+></span>\s*([^<]+)\s*</a>#',
-	'org_title'	=> '#<h2 class="original-title">\s*([^<]+?)\s*<#',
+	'org_title'	=> '#class="filmYear">[0-9]{4}</span>\s*([^<]+?)\s*<#',
 	'alt_title'	=> '#<dt>inne tytuły:</dt>\s*<dd>(.*?)</dd>#',
 	'year'		=> '#filmYear">(\d{4})</span>#',
 	'poster'	=> '#class="film_mini"><img src="([^?]+)\?l=[0-9]+"#',
@@ -67,7 +67,7 @@ class VCDFetch_filmweb extends VCDFetch {
 		$regx = '#(?:<span class="searchResultTypeAlias">\[(?P<info>[^\]]+)\]</span><br>\s*)?' // additional info
 		.'<h3><a class="searchResultTitle" href="(?:/[^/]+/[\w%+-]+-\d{4}-(?P<id>\d+)|/(?P<lid>[\w%+\.-]+))">\s*' // numeric / textual id 
 		.'(?P<title>.+?)(?: / (?P<org_title>.+?))?\s*</a></h3>\s*' // title / original title
-		.'(<span class="searchResultOtherTitle">\s*aka: (?P<aka>.*?)\s*</span>\s*<br>\s*)?' // AKA
+		.'(<span class="searchResultOtherTitle">\s*aka: (?P<aka>.*?)\s*</span>\s*)?' // AKA
 		.'<span class="searchResultDetails">\s*(?P<year>\d{4})\s*\|(\s*<a href="/search/film\?countryIds=\d+">([^<]+)</a>(?:,\s|))+\s*\|#'; // year
 		preg_match_all($regx, $this->getContents(), $searchArr, PREG_SET_ORDER);
 		$results = array();
