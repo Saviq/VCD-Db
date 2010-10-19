@@ -20,21 +20,21 @@ class VCDFetch_imdb extends VCDFetch {
 
 
 	protected $regexArray = array(
-		'title'		=> '<h1>([^\<]*)<span>',
+		'title' 	=> '<h1 class=\"header\">([^\<]*)<span>',
 		'year'  	=> '(<a href="/year/([0-9]{4})/">([0-9]{4})</a>)',
-		'poster' 	=> '<a name="poster"[^<]*><img[^<]*src="([^<]*)" /></a>',
-		'director' 	=> '/<div id="director-info" class="info">(.*?)<\/div>/s',
-		'genre' 	=> '<A HREF=\"/Sections/Genres/[a-zA-Z\\-]*/\">([a-zA-Z\\-]*)</A>',
-		'rating' 	=> '<b>([0-9]).([0-9])/10</b>',
+		'poster'	=> '<a href="/media/[^<]*><img[^<]*src="([^"]*)"[^>]* /></a>',
+		'director' 	=> '/<h4 class="inline">(.*?)<\/div>/s',
+		'genre' 	=> '<a href=\"/genre/[a-zA-Z\\-]*\">([a-zA-Z\\-]*)</a>',
+		'rating' 	=> '<span class=\"rating-rating\">([0-9]).([0-9])<span>/10</span></span>',
 		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
 		'runtime' 	=> '([0-9]+) min',
-		'akas' 		=> 'Also Known As</b>:</b><br>(.*)<b class="ch"><a href="/mpaa">MPAA</a>',
-		'country' 	=> '<a href=\"/Sections/Countries/([^>]*)/">([^<]*)</a>',
-		'plot'		=> '<h5>Plot Outline:</h5>([^\<]*)<'
+		'akas' 		=> '#<h4[^>]+>Also Known As:</h4>\s*(.*)#',
+		'country'	=> '<a href=\"/country/([^>]*)">([^<]*)</a>',
+		'plot'		=> '#<h2>Storyline</h2>\s*<p>(.*)\s*</p>#'
 		);
 
 	protected $multiArray = array(
-		'genre', 'cast', 'akas', 'country'
+		'genre', 'cast', 'country'
 	);
 
 
@@ -129,7 +129,7 @@ class VCDFetch_imdb extends VCDFetch {
 					break;
 
 				case 'akas':
-					$akaTitles = implode(',', $arrData);
+					$akaTitles = $arrData[1];
 					$obj->setAltTitle($akaTitles);
 					break;
 
@@ -173,7 +173,7 @@ class VCDFetch_imdb extends VCDFetch {
 		switch ($entry) {
 
 			case 'cast':
-				$regx = '/<a href="\/name\/nm([^>]+)>([^<]*)<\/a><\/td><td class="ddd"> ... <\/td><td class="char">(.*?)<\/td>/';
+				$regx = '#<td class="name">\s*<a\s+href="/name/nm([0-9]+)/">([^<]+)</a>.*?<a href="/character/ch[0-9]+/">([^<]+)</a>#s';
 				preg_match_all($regx, $this->getContents(), $matches);
 				if (is_array($matches) && sizeof($matches)>0) {
 					$actors = $matches[2];
