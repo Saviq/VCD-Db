@@ -22,7 +22,7 @@ class VCDFetch_imdb extends VCDFetch {
 	protected $regexArray = array(
 		'title' 	=> '<h1 class=\"header\">([^\<]*)<span>',
 		'year'  	=> '(<a href="/year/([0-9]{4})/">([0-9]{4})</a>)',
-		'poster'	=> '<a href="/media/[^<]*><img[^<]*src="([^"]*)"[^>]* /></a>',
+		'poster'	=> '<a [^<]*href="/media/[^<]*><img [^<]*src="([^"]*)"[^>]* /></a>',
 		'director' 	=> '/<h4 class="inline">(.*?)<\/div>/s',
 		'genre' 	=> '<a href=\"/genre/[a-zA-Z\\-]*\">([a-zA-Z\\-]*)</a>',
 		'rating' 	=> '<span class=\"rating-rating\">([0-9]).([0-9])<span>/10</span></span>',
@@ -173,15 +173,19 @@ class VCDFetch_imdb extends VCDFetch {
 		switch ($entry) {
 
 			case 'cast':
-				$regx = '#<td class="name">\s*<a\s+href="/name/nm([0-9]+)/">([^<]+)</a>.*?<a href="/character/ch[0-9]+/">([^<]+)</a>#s';
+				$regx = '#<td class="name">\s*<a[^>]+>([^<]+)</a>\s*</td>\s*<td[^>]+>[\s\.]+</td>\s*<td[^>]+>\s*(?:<div>\s*(.+)\s*</div>)?\s*</td>#';
 				preg_match_all($regx, $this->getContents(), $matches);
 				if (is_array($matches) && sizeof($matches)>0) {
-					$actors = $matches[2];
-					$roles = $matches[3];
+					$actors = $matches[1];
+					$roles = $matches[2];
 					
 					$castList = array();
 					for($i=0;$i<sizeof($actors);$i++) {
-						$pair = $actors[$i].' .... ' . strip_tags($roles[$i]);
+						$pair = $actors[$i];
+						if(!empty($roles[$i])) {
+							$pair .= ' .... ';
+							$pair .= preg_replace('#\s+#', ' ', strip_tags($roles[$i]));
+						}
 						$castList[] = $pair;
 					}
 					array_push($this->workerArray, array($entry, $castList));
