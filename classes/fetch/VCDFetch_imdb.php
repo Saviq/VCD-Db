@@ -173,7 +173,7 @@ class VCDFetch_imdb extends VCDFetch {
 		switch ($entry) {
 
 			case 'cast':
-				$regx = '#<td class="name">\s*<a[^>]+>([^<]+)</a>\s*</td>\s*<td[^>]+>[\s\.]+</td>\s*<td[^>]+>\s*(?:<div>\s*(.+)\s*</div>)?\s*</td>#';
+				$regx = '#<td class="name">\s*<a[^>]+>([^<]+)</a>\s*</td>\s*<td[^>]+>[\s\.]+</td>\s*<td[^>]+>\s*(?:<div>\s*(.+?)\s*</div>)?\s*</td>#s';
 				preg_match_all($regx, $this->getContents(), $matches);
 				if (is_array($matches) && sizeof($matches)>0) {
 					$actors = $matches[1];
