@@ -440,6 +440,7 @@
 		<string id="misc.toggle_on">on</string>
 		<string id="misc.toggle_off">off</string>
 		<string id="misc.order">Sort order</string>
+		<string id="misc.unseen">Only unseen movies</string>
 
 
 

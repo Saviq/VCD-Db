@@ -1108,16 +1108,17 @@ class vcd_movie implements IVcd  {
 	 * @param int $mediatype
 	 * @param int $owner
 	 * @param float $imdbgrade
+	 * @param bool $unseen
 	 * @return array
 	 */
 	public function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
-	$owner = null, $imdbgrade = null, $meta = null) {
+	$owner = null, $imdbgrade = null, $meta = null, $unseen = null) {
 		try {
 			
 			// are adult categories in use ? and if so does user want to see them ?
 			$showadult = VCDUtils::showAdultContent();
 
-			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $showadult);	
+			$results = $this->SQL->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $unseen, $showadult);	
 			
 			foreach ($results as &$item) {
 				$catObj = $this->Settings()->getMovieCategoryByID($item['cat_id']);

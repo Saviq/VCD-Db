@@ -52,6 +52,7 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			$owner = isset($keyset['owner']) ? $keyset['owner'] : null;
 			$grade = isset($keyset['grade']) ? $keyset['grade'] : null;
 			$meta  = isset($keyset['metadata']) ? $keyset['metadata'] : null;
+			$unseen = isset($keyset['unseen']) ? $keyset['unseen'] : null;
 			
 			// We do not perform the search if no input is specified
 			if (is_null($title) && is_null($cat) && is_null($year) 
@@ -61,13 +62,13 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 			}
 				
 			// Get the search results
-			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade,$meta);		
+			$results = MovieServices::advancedSearch($title,$cat,$year,$media,$owner,$grade,$meta,$unseen);
 			$this->assign('searchResults',$results);
-			
+
 			// Set the current search parameters visible
 			$this->doSearchSelection($keyset);
-			
-			
+
+
 		} else {
 			redirect('?page=detailed_search');
 			exit();
@@ -105,6 +106,10 @@ class VCDPageSearchAdvanced extends VCDBasePage {
 		
 		if (isset($arrSelected['metadata'])) {
 			$this->assign('searchMetadata', $arrSelected['metadata']);
+		}
+		
+		if (isset($arrSelected['unseen'])) {
+			$this->assign('unseenCheck', "checked");
 		}
 		
 	}

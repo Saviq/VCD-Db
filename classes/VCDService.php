@@ -2703,13 +2703,14 @@ class MovieServices extends VCDServices {
 	 * @param int $mediatype | The ID of the mediaType object to filter by
 	 * @param int $owner | The Owner ID to filter by
 	 * @param float $imdbgrade | The minimum IMDB grade to use a filter
+	 * @param bool $unseen | only serach my unseen movies
 	 * @return array
 	 */
 	public static function advancedSearch($title = null, $category = null, $year = null, $mediatype = null,
-								   $owner = null, $imdbgrade = null, $meta = null) {
+								   $owner = null, $imdbgrade = null, $meta = null, $unseen = null) {
 		try {
 			
-			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta);
+			return self::Movie()->advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $unseen);
 			
 		} catch (Exception $ex) {
 			parent::handleError($ex);

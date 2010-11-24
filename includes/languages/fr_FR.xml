@@ -430,6 +430,7 @@
 		<string id="misc.toggle">Voir résumé</string>
 		<string id="misc.toggle_on">on</string>
 		<string id="misc.toggle_off">off</string>
+		<string id="misc.unseen">Seulement les films que je n'ai pas vus</string>
 
 
 		<!-- javascript strings around VCD-db -->

@@ -1388,9 +1388,16 @@ class vcdSQL extends VCDConnection {
 		}
 	}
 
-	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $showadult = false) {
+	public function advancedSearch($title, $category, $year, $mediatype, $owner, $imdbgrade, $meta, $unseen = false, $showadult = false) {
 		try {
 
+		//If the user is not logged in, the unseen search is disabled!
+		if (VCDUtils::isLoggedIn()){
+			$userID =  VCDUtils::getCurrentUser()->getUserID();
+		} else {
+			$unseen = false;
+		}
+		
 		$query = "SELECT DISTINCT v.vcd_id, v.title, v.category_id, v.year, u.media_type_id, i.rating
 				  FROM $this->TABLE_vcd v ";
 
@@ -1415,6 +1422,17 @@ class vcdSQL extends VCDConnection {
 			$title = "%".$title."%";
 			$query .= "WHERE v.title LIKE ".$this->db->qstr($title);
 			$bCon = true;
+		}
+		
+		if ($unseen) {
+			if ($bCon) {
+				$query .= " AND (v.vcd_id NOT IN (SELECT DISTINCT m.record_id FROM $this->TABLE_metadata m WHERE m.user_id =".$userID." AND m.type_id = 12)";
+				$query .= " OR v.vcd_id IN (SELECT DISTINCT m.record_id FROM $this->TABLE_metadata m WHERE m.user_id =".$userID." AND m.type_id = 12 AND m.metadata_value = 0))";
+			} else {
+				$query .= " WHERE (v.vcd_id NOT IN (SELECT DISTINCT m.record_id FROM $this->TABLE_metadata m WHERE m.user_id =".$userID." AND m.type_id = 12)";
+				$query .= " OR v.vcd_id IN (SELECT DISTINCT m.record_id FROM $this->TABLE_metadata m WHERE m.user_id =".$userID." AND m.type_id = 12 AND m.metadata_value = 0))";
+				$bCon = true;
+			}
 		}
 
 		if (is_numeric($owner)) {

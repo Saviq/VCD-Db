@@ -26,6 +26,12 @@
 	<td>{$translate.misc.grade}:</td>
 	<td>{html_options name=grade options=$searchGradeList selected=$selectedGrade}</td>
 </tr>
+{if $isAuthenticated}
+<tr>
+        <td>{$translate.misc.unseen}:</td>
+        <td><input type="checkbox" name="unseen" value="true" {$unseenCheck}/></td>
+</tr>
+{/if}
 {foreach from=$searchMetadataList item=m}
 <tr>
 	<td>{$m.name} [{$m.owner}]</td>
