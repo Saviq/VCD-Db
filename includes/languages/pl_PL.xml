@@ -440,6 +440,7 @@
 		<string id="misc.toggle_on">włącz</string>
 		<string id="misc.toggle_off">wyłącz</string>
 		<string id="misc.order">Sortowanie</string>
+		<string id="misc.unseen">Tylko nieobejrzane</string>
 
 
 		<!-- javascript strings around VCD-db -->
