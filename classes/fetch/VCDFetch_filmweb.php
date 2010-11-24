@@ -27,10 +27,10 @@ class VCDFetch_filmweb extends VCDFetch {
 	'director' 	=> '#reżyseria:</th>\s*<td>\s*<a[^>]+>([^<]+)</a>#',
 	'genre' 	=> '#genreIds[^>]*>([^<]*)</a>#',
 	'rating' 	=> '#<span class="average">\s*([0-9]{1,2})(?:,([0-9]{1,2}))?\s*</span>#',
-	'cast'		=> '#<span (?:property="v:starring")?>\s*([^<]*)\s*</span>\s*</a>\s*</h3>\s*<div>\s*([^<]*)(?:\s*<span[^>]+>\(([^\)]+)\)</span>\s*)?</div>#',
+	'cast'		=> '#</span>\s*([^<]+)\s*</a>\s*</h3>\s*<div>\s*([^<]+)(?:<span class="attributes">\s*\(([^<]+)\)\s*</span>)?#',
 	'runtime' 	=> '#class="time">\s*(\d+)\s*<span>#',
 	'country'	=> '#countryIds[^>]*>([^<]*)</a>#',
-	'plot'		=> '#span class="filmDescrBg">\s*(.*?)\s*</span#s'
+	'plot'		=> '#span class="filmDescrBg"[^>]*>\s*(.*?)\s*</span#s'
 	);
 
 	protected $multiArray = array('genre', 'cast', 'country');
