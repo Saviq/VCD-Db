@@ -166,7 +166,7 @@ class VCDPageUserAddItem extends VCDBasePage {
 					if ($fetchedObj instanceof adultObj ) {
 						$im->newOutputSize(135,0);
 					} else {
-						$im->newOutputSize(0,140);
+						$im->newOutputSize(0,300);
 					}
 					$newFilename ="x".$filename;
 					$im->save(TEMP_FOLDER.$newFilename, 'jpg');

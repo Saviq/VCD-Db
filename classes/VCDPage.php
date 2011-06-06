@@ -134,7 +134,7 @@ abstract class VCDPage extends Smarty  {
 			"'index.php\?page=cd&amp;vcd_id=([0-9]*)'",
 			"'\?page=cd&amp;vcd_id=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)&amp;viewmode=(img|text)'",
-            "'\?page=category&category_id=([0-9])&batch=([0-9])&sort=([a-zA-Z\-]*)'",
+            "'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)&amp;sort=([a-zA-Z\\-]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)&amp;batch=([0-9]*)'",
 			"'\?page=category&amp;category_id=([0-9]*)'",
 			

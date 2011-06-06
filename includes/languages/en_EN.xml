@@ -128,7 +128,7 @@
 		<string id="movie.movie">The Movie</string>
 		<string id="movie.actors">Cast</string>
 		<string id="movie.category">Category</string>
-		<string id="movie.year">Production year</string>
+		<string id="movie.year">Year</string>
 		<string id="movie.copies">Copies</string>
 		<string id="movie.from">From</string>
 		<string id="movie.title">Title</string>

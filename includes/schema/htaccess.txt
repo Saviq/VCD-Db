@@ -6,8 +6,7 @@ RewriteBase %s
 RewriteRule ^movie/([0-9]+)$ index.php?page=cd&vcd_id=$1	[QSA]
 RewriteRule ^category/([0-9]+)$ index.php?page=category&category_id=$1	[QSA]
 RewriteRule ^category/([0-9]+)/([0-9]+)$ index.php?page=category&category_id=$1&batch=$2 [QSA]
-RewriteRule ^category/([0-9]+)/([0-9]+)/(img|text)$ index.php?page=category&category_id=$1&batch=$2&viewmode=$3 [QSA]
-RewriteRule ^category/([0-9]+)/([0-9]+)/([\?/]*)$ index.php?page=category&category_id=$1&batch=$2&sort=$3 [QSA]
+RewriteRule ^category/([0-9]+)/([0-9]+)/([a-zA-Z\\+]*)$ index.php?page=category&category_id=$1&batch=$2&viewmode=$3 [QSA]
 
 RewriteRule ^xxx/(category|studio)/([0-9]+)$ index.php?page=adultcategory&$1_id=$2	[QSA]
 RewriteRule ^xxx/(category|studio)/([0-9]+)/([0-9]+)$ index.php?page=adultcategory&$1_id=$2&batch=$3	[QSA]

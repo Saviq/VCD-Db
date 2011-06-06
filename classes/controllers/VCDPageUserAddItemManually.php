@@ -129,7 +129,7 @@ class VCDPageUserAddItemManually extends VCDBasePage {
 					$fileExtension = $fileObj->getFileExtenstion();
 					
 		  	   		$im = new Image_Toolbox($fileLocation);
-					$im->newOutputSize(0,140);
+					$im->newOutputSize(0,300);
 					$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
 	
 					

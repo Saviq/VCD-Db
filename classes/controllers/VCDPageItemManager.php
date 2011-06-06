@@ -910,7 +910,7 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				  	   		if ($this->itemObj->getCategoryID() == SettingsServices::getCategoryIDByName('adult')) {
 				  	   			$im->newOutputSize(0,190);	
 				  	   		} else {
-				  	   			$im->newOutputSize(0,140);	
+				  	   			$im->newOutputSize(0,300);	
 				  	   		}
 							$im->save(TEMP_FOLDER.$fileObj->getFileName(), $fileExtension);
 		      			}
@@ -1142,17 +1142,26 @@ class VCDPageItemManager extends VCDPageBaseItem  {
 				
 				$thumbnailType = CoverServices::getCoverTypeByName('thumbnail');
 				$savedFile = VCDUtils::grabImage($strImageFile,true,VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER);
+
+                $im = new Image_Toolbox(TEMP_FOLDER.$savedFile);
+				if ($fetchedObj instanceof adultObj ) {
+					$im->newOutputSize(135,0);
+				} else {
+					$im->newOutputSize(0,300);
+				}
+                $im->save(TEMP_FOLDER.$savedFile, 'jpg');
+                //unlink(TEMP_FOLDER.$savedFile);
+                
 				
 				$cover = new cdcoverObj(null);
 				$cover->setOwnerId(VCDUtils::getUserID());
 				$cover->setVcdId($this->itemObj->getID());
 				$cover->setCoverTypeID($thumbnailType->getCoverTypeID());
 				$cover->setCoverTypeName($thumbnailType->getCoverTypeName());
-				
-				
+
 				// Create temporary unique ID for the image
                 $imageName = VCDUtils::generateUniqueId();
-                $newName = $imageName.'.'.VCDUtils::getFileExtension($savedFile);
+                $newName = $imageName.'.'.VCDUtils::getFileExtension($savedFile);                
                 $cover->setFilename($newName);
                 $cover->setFilesize(filesize(VCDDB_BASE.DIRECTORY_SEPARATOR.TEMP_FOLDER.$savedFile));
 				
