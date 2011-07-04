@@ -18,7 +18,6 @@
 <?php
 class VCDFetch_imdb extends VCDFetch {
 
-
 	protected $regexArray = array(
 		'title' 	=> '<h1 class=\"header\" itemprop=\"name\">([^\<]*)<span>',
 		'year'  	=> '(<a href="/year/([0-9]{4})/">([0-9]{4})</a>)',
