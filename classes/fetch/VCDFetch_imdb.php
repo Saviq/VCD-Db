@@ -23,7 +23,7 @@ class VCDFetch_imdb extends VCDFetch {
 		'year'  	=> '(<a href="/year/([0-9]{4})/">([0-9]{4})</a>)',
 		'poster'	=> '<a [^<]*href="/media/[^<]*><img [^<]*src="([^"]*)"[^>]* /></a>',
 		'director' 	=> '/<h4 class="inline">(.*?)<\/div>/s',
-		'genre' 	=> '<a href=\"/genre/[a-zA-Z\\-]*\">([a-zA-Z\\-]*)</a>',
+        'genre' 	=> '<a href=\"/genre/[a-zA-Z\\-]*\" itemprop=\"genre\">([a-zA-Z\\-]*)</a>',
 		'rating' 	=> '<span class=\"rating-rating\"><span class=\"value\" itemprop=\"ratingValue\">([0-9]).([0-9])</span><span class=\"grey\">/</span><span class=\"grey\" itemprop=\"bestRating\">10</span></span>',
 		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
 		'runtime' 	=> '([0-9]+) min',
