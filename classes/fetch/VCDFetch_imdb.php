@@ -24,11 +24,11 @@ class VCDFetch_imdb extends VCDFetch {
 		'poster'	=> '<a [^<]*href="/media/[^<]*><img [^<]*src="([^"]*)"[^>]* /></a>',
 		'director' 	=> '/<h4 class="inline">(.*?)<\/div>/s',
         'genre' 	=> '<a href=\"/genre/[a-zA-Z\\-]*\" itemprop=\"genre\">([a-zA-Z\\-]*)</a>',
-		'rating' 	=> '<span class=\"value\" itemprop=\"ratingValue\">([0-9]).([0-9])</span>',
+        'rating' 	=> '<span class=\"rating-rating\"><span class=\"value\">([0-9]).([0-9])</span>',
 		'cast' 		=> NULL,	// The cast is populated in the fetchDeeper() function
 		'runtime' 	=> '([0-9]+) min',
 		'akas' 		=> '#<h4[^>]+>Also Known As:</h4>\s*(.*)#',
-		'country'	=> '<a href=\"/country/([^>]*)">([^<]*)</a>',
+        'country'	=> '<a href=\"/country/([^>]*)" >([^<]*)</a>',
 		'plot'		=> '#<h2>Storyline</h2>\s*<p>(.*)\s*</p>#'
 		);
 
